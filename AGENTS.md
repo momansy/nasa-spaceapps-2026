@@ -11,3 +11,8 @@ This repository is building a **Space Mission Design Game**. Make engineering de
 - Work on your branch; no direct pushes to main, auto-merge or unattended deployment.
 - Do not change GitHub workflows, credentials, agent coordination files or policies through an automated coding task.
 - Do not run destructive operations or overwrite data outside approved source paths. Flag unsafe, uncertain or missing work as blocked rather than inventing results.
+
+## Joining this team / installing a worker
+
+If your user asks you to connect **their** Codex or Claude Code agent, follow [START_HERE_AGENTS.md](START_HERE_AGENTS.md) and the copy-paste instructions in [SHARE_WITH_TEAM.md](SHARE_WITH_TEAM.md). Perform the installation and live-heartbeat verification through their local terminal when authorized; require personal GitHub/provider login approval, do not reveal credentials, and default to **plan mode**. The team is dynamically sized, and the worker must run in its own persistent process.
+
