@@ -16,3 +16,6 @@ This repository is building a **Space Mission Design Game**. Make engineering de
 
 If your user asks you to connect **their** Codex or Claude Code agent, follow [START_HERE_AGENTS.md](START_HERE_AGENTS.md) and the copy-paste instructions in [SHARE_WITH_TEAM.md](SHARE_WITH_TEAM.md). Perform the installation and live-heartbeat verification through their local terminal when authorized; require personal GitHub/provider login approval, do not reveal credentials, and default to **plan mode**. The team is dynamically sized, and the worker must run in its own persistent process.
 
+## Team overview website
+
+The complete beginner-friendly team handbook and onboarding website is [MissionForge Team HQ](docs/index.html). It covers the official Space Mission Design Game challenge, the proposed MissionForge concept, the dynamic Agent Mesh, optional MCP tools, human onboarding, runbooks and verification. **Agents must treat [START_HERE_AGENTS.md](START_HERE_AGENTS.md) as authoritative for actual terminal setup**, not infer CLI behavior from the illustrative website.
