@@ -1,5 +1,14 @@
 # Space Apps Agent Mesh — Dynamic Team Edition (v2)
 
+## Teammate setup — start here
+
+**For each teammate's local Codex / Claude Code agent:** [SHARE_WITH_TEAM.md](SHARE_WITH_TEAM.md) (copy/paste prompt) and [START_HERE_AGENTS.md](START_HERE_AGENTS.md) (full autonomous setup runbook). **For the team owner:** [OWNER_SETUP_CHECKLIST.md](OWNER_SETUP_CHECKLIST.md).
+
+The agents' initial task is to join the private GitHub-backed coordination network, **not** to begin game development. A teammate is ready only when their independent worker is running and shows ONLINE in the dynamic roster. Browser sign-in and repository-invitation acceptance require human authorization.
+
+---
+
+
 ## Quick teammate onboarding (one command)
 
 Give each teammate access to this **private repository**, then send them [the Windows PowerShell one-command guide](scripts/ONBOARDING.md). The setup checks prerequisites, uses each person's own GitHub + Codex/Claude login, clones the repo, and starts a planning-only agent with a dynamic ID. No fixed team size and no shared tokens.
