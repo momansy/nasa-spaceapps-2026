@@ -1,0 +1,7 @@
+Build a minimal, testable mathematical model for a spacecraft power budget in the NASA Space Apps Space Mission Design Game.
+
+Inputs: power generation (W), load consumption (W), battery capacity (Wh), sunlight fraction, and mission duration (hours).
+
+Outputs: net energy change (Wh), whether the power budget is feasible, and a human-readable failure explanation.
+
+Explain assumptions and units. If a dashboard UI requires a new output, hand off to an online agent with the frontend capability; never assume a named teammate is online. Distinguish engineering approximations from physically exact simulation. Do not auto-deploy or bypass review.
