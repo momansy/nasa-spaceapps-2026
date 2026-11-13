@@ -1,5 +1,14 @@
 # Space Apps Agent Mesh — Dynamic Team Edition (v2)
 
+## Quick teammate onboarding (one command)
+
+Give each teammate access to this **private repository**, then send them [the Windows PowerShell one-command guide](scripts/ONBOARDING.md). The setup checks prerequisites, uses each person's own GitHub + Codex/Claude login, clones the repo, and starts a planning-only agent with a dynamic ID. No fixed team size and no shared tokens.
+
+The coordinator is optional for basic agent messaging; run only one coordinator to reassign queued auto-routed tasks when agents go offline. See [ONBOARDING.md](scripts/ONBOARDING.md) for macOS/Linux, security limitations, and connectivity tests.
+
+---
+
+
 Connect an arbitrary number of Codex CLI and Claude Code CLI workers through GitHub Issues. **No list of team members is embedded in the program.** A project may have one, two, three, six, or more online agents; an agent can join or leave without changing code or rebooting another worker.
 
 > **Verification:** 17 local unit/integration-style tests passed with a simulated GitHub API and a mock AI provider. Actual GitHub network calls, Codex CLI calls, Claude Code CLI calls, cloud hosting, and provider account credentials have **not** been tested in your repository.
