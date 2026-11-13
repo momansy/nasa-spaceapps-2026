@@ -2,14 +2,20 @@
 
 GitHub setup was initialized from ChatGPT on 2026-11-14.
 
-## Present
-- Private repository under `momansy`
-- `README.md`: Dynamic Agent Mesh v2 design and commands
-- `AGENTS.md`, `CLAUDE.md`: agent collaboration contract
-- `.gitignore`
-- [Issue #1](https://github.com/momansy/nasa-spaceapps-2026/issues/1): deployment and smoke-test checklist
+## Installed
+- Private repository `momansy/nasa-spaceapps-2026`
+- `mesh.py`: dynamic roster, Codex/Claude CLI worker, GitHub Issues task routing and coordinator
+- `tests/test_mesh.py`: 17 tests passed in a local simulation (not on GitHub runners)
+- `README.md`, `AGENTS.md`, `CLAUDE.md`, `.gitignore`
+- `examples/`: first task and variable-size team commands
+- [Issue #1](https://github.com/momansy/nasa-spaceapps-2026/issues/1): deployment checklist
 
-## Not yet deployed
-The complete executable `mesh.py`, tests, and examples from the [Dynamic Agent Mesh v2 starter archive](https://chatgpt.com/) still need to be committed. The repository's documentation alone does **not** run agents or process tasks. No Codex/Claude worker or coordinator has been started. Do not claim autonomous operation before end-to-end testing.
+## Still required for live autonomous collaboration
+- Run `python mesh.py bootstrap` on one authenticated machine to create the queue labels
+- Install/authenticate `gh` and `codex` or `claude` on each worker host
+- Launch at least one worker and exactly one coordinator
+- Test live multi-host routing; no live Codex/Claude execution has been verified
+- Configure always-on hosting if laptops may be powered off
+- Add stronger job locking/permissions before production-level unattended use
 
-To finish, copy `mesh.py` and `tests/` from the starter archive into this repository, run `python -m unittest discover -s tests -v`, then `python mesh.py bootstrap` and follow the README.
+**Security:** never put provider keys or GitHub tokens in this repository. Start in plan mode, leave PR merging and deployment to human review. GitHub Issues are not atomic task locks.
