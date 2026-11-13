@@ -1,0 +1,12 @@
+# Optional Netlify deploy of the static onboarding website.
+# This does not turn on hosting by itself.
+[build]
+  publish = "docs"
+  command = ""
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-Frame-Options = "SAMEORIGIN"
