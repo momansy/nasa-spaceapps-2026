@@ -1,5 +1,14 @@
 # Space Apps Agent Mesh — Dynamic Team Edition (v2)
 
+## 🌌 MissionForge Team HQ — interactive website
+
+**New teammates: start here.** The full, beginner-friendly [Team HQ website](docs/index.html) explains the NASA challenge, our proposed game, team workflow, optional MCPs, setup, troubleshooting, and an executable-agent prompt. To open it as a real website, download **docs/index.html** and open the HTML file in a browser. The page is self-contained; public hosting is not enabled yet.
+
+For shareable web hosting and privacy notes, read [docs/README.md](docs/README.md). To send an agent a direct Markdown prompt instead of a website, use [SHARE_WITH_TEAM.md](SHARE_WITH_TEAM.md).
+
+---
+
+
 ## Teammate setup — start here
 
 **For each teammate's local Codex / Claude Code agent:** [SHARE_WITH_TEAM.md](SHARE_WITH_TEAM.md) (copy/paste prompt) and [START_HERE_AGENTS.md](START_HERE_AGENTS.md) (full autonomous setup runbook). **For the team owner:** [OWNER_SETUP_CHECKLIST.md](OWNER_SETUP_CHECKLIST.md).
