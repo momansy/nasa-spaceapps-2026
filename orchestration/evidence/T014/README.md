@@ -17,7 +17,9 @@
 
 ## Verification
 - Code and xUnit tests committed on separate feature branch.
+- Static catalog review found invalid Daily/Heritage pool part IDs; these were corrected and a new catalog-integrity regression test was added.
 - `dotnet test core/dotnet~`: **NOT RUN** — no .NET SDK installed in this isolated environment, and network access is unavailable for installing the .NET 8 SDK or NuGet packages.
+- Attempted an isolated GitHub Actions validation on `ci/t014-validation-20261114` at https://github.com/momansy/nasa-spaceapps-2026/actions/runs/43602277544 ; GitHub reported `startup_failure` and **zero jobs**. This was a workflow startup failure, **not** a C# test result.
 - No result has been fabricated. Review and execute the test command before merge; save actual stdout/stderr to `orchestration/evidence/T014/dotnet-test.txt`.
 - Spot-check API compatibility against `core/Runtime/Build/BuildState.cs`, `core/Runtime/Random/SeededRandom.cs`, `core/Runtime/Data/GameCatalog.cs`, and `data/achievements.json`.
 - Campaign Core has no file I/O, system clock, Unity dependency or `System.Random` usage. The tests can read fixture JSON from disk.
