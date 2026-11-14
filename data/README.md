@@ -112,7 +112,10 @@ rewards. Boosts use the same `target` and `op` with one value per tier.
 `engine_count` and `tank_size` are voted once per stage, so those votes carry `stage`. A vote
 has `options` only where the design enumerates them; otherwise the options are the parts of
 the category whose `contracts` includes the contract or is absent. The validator checks the
-two against each other. `requirements` is the machine-readable form of the special rules;
+two against each other. Exception: where more than five parts would be offered, Core shows only
+the first five (6.2), so the vote lists five explicitly and the contract's `design_notes` say
+which part was dropped and why (communications everywhere, first-stage engine in C0 and C1;
+T012 balance fix). `requirements` is the machine-readable form of the special rules;
 `objectives` use `criteria` of the form `{ "metric", "op", "value", "tolerance" }`, where each
 metric name must be implemented by Core.
 

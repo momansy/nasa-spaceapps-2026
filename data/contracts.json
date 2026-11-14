@@ -2,7 +2,7 @@
   "$schema": "./schema/contract.schema.json",
   "design_notes": [
     "Vote lists follow the annotations of section 6.2: step 2 uses the Payload Bay sub-votes that section 7.2 defines for the contract, step 3 applies to capsule contracts, step 4 to crewed contracts, step 5 to non-capsule contracts, steps 6 to 21 to every contract. Step 18 is two votes (aerodynamic control, RCS).",
-    "A vote lists options only where the design enumerates them for the contract: tank sizes (7.9, \"Shown for contracts\"), the Payload Bay tables of 7.2 (satellite, capsule, life support, Mars lander), the launch escape systems of 7.4 and the booster landing options of C8. Every other vote takes its options from the contracts list of the parts.",
+    "A vote lists options only where the design enumerates them for the contract: tank sizes (7.9, \"Shown for contracts\"), the Payload Bay tables of 7.2 (satellite, capsule, life support, Mars lander), the launch escape systems of 7.4 and the booster landing options of C8. Every other vote takes its options from the contracts list of the parts. Exception (T012 balance fix, game_value): the communications vote of every contract and the first-stage engine vote of C0 and C1 list five options explicitly, because six parts are offered there and the 5-option limit of 6.2 (Core VoteOptions.MaxOptions) cut the sixth (comm_laser, eng_electric_pump_mini) from every vote. Each contract names the dropped option and the reason in its own design_notes.",
     "Payload Bay sub-votes by contract: C1 instrument, satellite power, attitude control; C2 and C5 satellite power and attitude control (7.2.1 is headed \"Satellite contracts (C1, C2, C5)\" and only the instrument table is marked C1); C3 capsule; C4 and C6 capsule and life support; C7 Mars lander; C0 and C8 none. payload.designed_by_team and requirements.payload_bay_design are true wherever step 2 has votes.",
     "Decision: C6 Lunar Loop is treated as crewed. Table 5.1 does not say so (no crew count, no escape-system rule; it cites Apollo 8, crewed, and Artemis I, uncrewed), but the parts catalog only makes sense with a second, longer crewed contract: the Deep-space capsule (10 t, the C6 payload mass; 4 crew, 21 days, lunar-rated life support), life support that is \"heavy for long trips\", and 5.2 speaks of \"crewed contracts\". To be confirmed by the design owner; if C6 is uncrewed, drop its life_support and escape_system votes and its safety objective.",
     "Objectives: C1, C3 and C7 are those of section 5.3. For C0, C2, C4, C5, C6 and C8 the design gives none; they are composed from table 5.1 and the examples of 5.2 and need confirmation. Orbit tolerances reuse the C1 values of 5.3 (altitude ±25 km, inclination ±0.2°). Every other threshold is taken from a number the design uses elsewhere and is named in the note of its contract.",
@@ -137,7 +137,14 @@
           "step": 10,
           "id": "first_stage_engine",
           "category": "first_stage_engine",
-          "name_key": "vote.first_stage_engine.name"
+          "name_key": "vote.first_stage_engine.name",
+          "options": [
+            "eng_kerolox_workhorse",
+            "eng_kerolox_giant",
+            "eng_kerolox_staged_combustion",
+            "eng_methalox_full_flow",
+            "eng_electric_pump_mini"
+          ]
         },
         {
           "step": 11,
@@ -209,7 +216,14 @@
           "step": 20,
           "id": "communications",
           "category": "communications",
-          "name_key": "vote.communications.name"
+          "name_key": "vote.communications.name",
+          "options": [
+            "comm_uhf",
+            "comm_s_band",
+            "comm_x_band",
+            "comm_ka_band",
+            "comm_laser"
+          ]
         },
         {
           "step": 21,
@@ -233,7 +247,9 @@
         "Decision (design silent): a suborbital return needs no heat shield. requirements.heat_shield_required is false, so rule 6.11 \"Returning payload without heat shield\" (returning_payload_without_heat_shield) must not fire for C0 although payload_returns is true. The shields of 7.3 are sized and priced for a 9 t capsule ($8 M to $16 M) and would not fit a 100 kg package or a $25 M budget.",
         "Playability, rough check with the part tables (to be confirmed by Core): with XS tanks the stack is about 17 t; nine Electric-Pump Minis (216 kN) give a lift-off TWR of about 1.3 and one Kerolox Workhorse (850 kN) also lifts it, and the first stage alone gives well over the 2.0 km/s needed. Valid builds differ by first-stage engine (9 Electric-Pump Minis or 1 Kerolox Workhorse), launch site (four options), upper-stage engine and structural material, so there are more than three.",
         "By the 6.2 annotations C0 has 19 votes, which is long for a tutorial; the design does not shorten it.",
-        "Decision (T010, game_value): payload.diameter_m = 1.0 m. Analogue: the instrument section of a large sounding-rocket payload (NASA Black Brant payload sections are about 0.4 to 0.56 m; 1.0 m is a deliberate larger science package with its parachute). Fits every fairing (smallest 1.5 m)."
+        "Decision (T010, game_value): payload.diameter_m = 1.0 m. Analogue: the instrument section of a large sounding-rocket payload (NASA Black Brant payload sections are about 0.4 to 0.56 m; 1.0 m is a deliberate larger science package with its parachute). Fits every fairing (smallest 1.5 m).",
+        "Decision (T012 balance fix, game_value): the communications vote lists five options explicitly so comm_laser is offered (it was sixth and cut by the 5-option limit of 6.2); the list drops comm_relay_network: a 100 km suborbital hop of a few minutes stays in view of the launch range ground station, so the $3 M continuous-coverage subscription buys nothing on a $25 M tutorial and is strictly dominated.",
+        "Decision (T012 balance fix, game_value): the first-stage engine vote lists five options explicitly so eng_electric_pump_mini is offered (it was sixth and cut by the 5-option limit of 6.2); the list drops eng_hydrolox_high_efficiency: its $40 M price alone exceeds the $25 M budget, so it can never be part of a valid build, while eng_electric_pump_mini is one of the two engines this contract was designed around (note above: 9 Electric-Pump Minis or 1 Kerolox Workhorse)."
       ]
     },
     {
@@ -423,7 +439,14 @@
           "step": 10,
           "id": "first_stage_engine",
           "category": "first_stage_engine",
-          "name_key": "vote.first_stage_engine.name"
+          "name_key": "vote.first_stage_engine.name",
+          "options": [
+            "eng_kerolox_workhorse",
+            "eng_kerolox_staged_combustion",
+            "eng_hydrolox_high_efficiency",
+            "eng_methalox_full_flow",
+            "eng_electric_pump_mini"
+          ]
         },
         {
           "step": 11,
@@ -496,7 +519,14 @@
           "step": 20,
           "id": "communications",
           "category": "communications",
-          "name_key": "vote.communications.name"
+          "name_key": "vote.communications.name",
+          "options": [
+            "comm_s_band",
+            "comm_x_band",
+            "comm_ka_band",
+            "comm_relay_network",
+            "comm_laser"
+          ]
         },
         {
           "step": 21,
@@ -520,7 +550,9 @@
         "The satellite communications and power-storage choices reuse sections 7.16 and 7.17 (note under 7.2.1), so they are the power_system and communications votes of steps 19 and 20, not extra Payload Bay sub-votes. Appendix A shows three Payload Bay votes.",
         "The 150 kg payload is the game value of table 5.1; the masses of the voted satellite components (7.2.1) add up to far less, and the design does not say how the two relate.",
         "Appendix A shows these options offered in C1: West Coast Polar Range; Kerolox Vacuum and Hydrolox Vacuum; Electric-Pump Mini and Kerolox Workhorse; 3 and 9 first-stage engines; S and M tanks.",
-        "Decision (T010, game_value): payload.diameter_m = 1.2 m. Analogue: a 150 kg sun-synchronous Earth-observation smallsat with its solar arrays stowed (approximate: Planet SkySat-class buses are about 0.6 x 0.6 x 0.95 m at about 110 kg; 1.2 m adds margin for the dispenser ring and stowed panels). Fits every fairing."
+        "Decision (T010, game_value): payload.diameter_m = 1.2 m. Analogue: a 150 kg sun-synchronous Earth-observation smallsat with its solar arrays stowed (approximate: Planet SkySat-class buses are about 0.6 x 0.6 x 0.95 m at about 110 kg; 1.2 m adds margin for the dispenser ring and stowed panels). Fits every fairing.",
+        "Decision (T012 balance fix, game_value): the communications vote lists five options explicitly so comm_laser is offered (it was sixth and cut by the 5-option limit of 6.2); the list drops comm_uhf: at 0.01 GB/pass it could never meet the downlink >= 8 GB secondary objective (about 800 passes), and in Core comm_uhf is free, has no reliability roll and downlinks 0.01 GB/pass against 0.2 GB/pass for the equally free comm_s_band, so it is strictly dominated and the vote loses no real trade-off.",
+        "Decision (T012 balance fix, game_value): the first-stage engine vote lists five options explicitly so eng_electric_pump_mini is offered (it was sixth and cut by the 5-option limit of 6.2); the list drops eng_kerolox_giant: one 6,770 kN F-1-class engine is grossly oversized for a 150 kg smallsat, while Appendix A shows eng_electric_pump_mini offered in C1 (step 6: Electric-Pump Mini x9 vs Kerolox Workhorse x3)."
       ]
     },
     {
@@ -755,7 +787,14 @@
           "step": 20,
           "id": "communications",
           "category": "communications",
-          "name_key": "vote.communications.name"
+          "name_key": "vote.communications.name",
+          "options": [
+            "comm_s_band",
+            "comm_x_band",
+            "comm_ka_band",
+            "comm_relay_network",
+            "comm_laser"
+          ]
         },
         {
           "step": 21,
@@ -777,7 +816,8 @@
         "The design gives C2 only its row in table 5.1. \"Upper stage must restart 3×; deploy each\" is stored as upper_stage_restarts_min 3 and payload_deployments 3.",
         "Objectives are composed (design silent). Primary: the three deployments at the table orbit with the C1 tolerances. Secondary: \"under budget\" and \"booster landed\", both examples of 5.2. Stretch: every deployment within 3 km of the target altitude; 3 km is the insertion error of IMU + GNSS in 7.14, so the stretch rewards good navigation sensors. To be confirmed.",
         "The comm sats have no instrument vote: the instrument table of 7.2.1 is marked \"(C1 Earth Watch)\". The power and pointing figures of 7.2.1 are smallsat-sized (3 to 20 kg) against a 400 kg satellite; the design does not scale them.",
-        "Decision (T010, game_value): payload.diameter_m = 2.4 m. Analogue: three 400 kg communications satellites stacked on a ring dispenser, as for Iridium NEXT or OneWeb launches (approximate, not sourced to a datasheet). Too wide for the 1.5 m fairing, fits the 4.0 m and 5.4 m fairings."
+        "Decision (T010, game_value): payload.diameter_m = 2.4 m. Analogue: three 400 kg communications satellites stacked on a ring dispenser, as for Iridium NEXT or OneWeb launches (approximate, not sourced to a datasheet). Too wide for the 1.5 m fairing, fits the 4.0 m and 5.4 m fairings.",
+        "Decision (T012 balance fix, game_value): the communications vote lists five options explicitly so comm_laser is offered (it was sixth and cut by the 5-option limit of 6.2); the list drops comm_uhf: in Core comm_uhf is free, has no reliability roll and downlinks 0.01 GB/pass against 0.2 GB/pass for the equally free comm_s_band, so it is strictly dominated and the vote loses no real trade-off."
       ]
     },
     {
@@ -1002,7 +1042,14 @@
           "step": 20,
           "id": "communications",
           "category": "communications",
-          "name_key": "vote.communications.name"
+          "name_key": "vote.communications.name",
+          "options": [
+            "comm_s_band",
+            "comm_x_band",
+            "comm_ka_band",
+            "comm_relay_network",
+            "comm_laser"
+          ]
         },
         {
           "step": 21,
@@ -1025,7 +1072,8 @@
         "\"~9.6 km/s + 0.3 km/s capsule\" is stored as delta_v_required_km_s 9.6 and delta_v_payload_km_s 0.3.",
         "\"6 t cargo capsule\": 6 t is the mass of the Compact capsule (3 t cargo) and the cargo capacity of the Standard capsule (9 t). All three capsules of 7.2.2 are offered because the section is headed \"Capsule contracts (C3, C4, C6)\"; the Deep-space capsule has no cargo figure, so Core must decide whether it can carry cargo.",
         "The design gives no length for the \"short launch window\" and no cargo mass to deliver; the 1 t of the secondary objective is the only cargo number.",
-        "Propulsive capsule landing is not offered: it needs the pusher escape engines (7.19), and an uncrewed contract has no escape-system vote."
+        "Propulsive capsule landing is not offered: it needs the pusher escape engines (7.19), and an uncrewed contract has no escape-system vote.",
+        "Decision (T012 balance fix, game_value): the communications vote lists five options explicitly so comm_laser is offered (it was sixth and cut by the 5-option limit of 6.2); the list drops comm_uhf: in Core comm_uhf is free, has no reliability roll and downlinks 0.01 GB/pass against 0.2 GB/pass for the equally free comm_s_band, so it is strictly dominated and the vote loses no real trade-off; rendezvous and docking video favour the higher-rate links."
       ]
     },
     {
@@ -1283,7 +1331,14 @@
           "step": 20,
           "id": "communications",
           "category": "communications",
-          "name_key": "vote.communications.name"
+          "name_key": "vote.communications.name",
+          "options": [
+            "comm_s_band",
+            "comm_x_band",
+            "comm_ka_band",
+            "comm_relay_network",
+            "comm_laser"
+          ]
         },
         {
           "step": 21,
@@ -1305,7 +1360,8 @@
         "The design gives C4 only its row in table 5.1; it states no inclination. \"Crew safety outweighs all other scores\" is the safety objective of 5.2: if the crew is lost the grade is capped at D (data/scoring.json, crew_lost_grade).",
         "Objectives are composed (design silent). Primary: the table orbit with the C1 altitude tolerance, held for the 3 days of the table. Secondary: \"under budget\" (5.2) and \"launch on the first attempt\" (the C3 wording of 5.3). Stretch: \"Land within 1 km of target\", the example of 5.2. To be confirmed.",
         "All three capsules of 7.2.2 are offered. The Compact capsule seats 2 and the contract carries 4 crew, so Core must show it as invalid; no rule of 6.11 checks crew capacity yet.",
-        "With the capsule, life support, heat shield, capsule recovery and escape-system votes C4 has 23 votes."
+        "With the capsule, life support, heat shield, capsule recovery and escape-system votes C4 has 23 votes.",
+        "Decision (T012 balance fix, game_value): the communications vote lists five options explicitly so comm_laser is offered (it was sixth and cut by the 5-option limit of 6.2); the list drops comm_uhf: in Core comm_uhf is free, has no reliability roll and downlinks 0.01 GB/pass against 0.2 GB/pass for the equally free comm_s_band, so it is strictly dominated and the vote loses no real trade-off; crew voice and video favour the higher-rate links."
       ]
     },
     {
@@ -1532,7 +1588,14 @@
           "step": 20,
           "id": "communications",
           "category": "communications",
-          "name_key": "vote.communications.name"
+          "name_key": "vote.communications.name",
+          "options": [
+            "comm_s_band",
+            "comm_x_band",
+            "comm_ka_band",
+            "comm_relay_network",
+            "comm_laser"
+          ]
         },
         {
           "step": 21,
@@ -1555,7 +1618,8 @@
         "Number chosen by the data author (game value): upper_stage_restarts_min 1. \"Long coast: boil-off and restarts matter\" names no count; one restart is the second burn after the coast. It makes the Solid Kick Motor (0 restarts) invalid as the only upper-stage engine. To be confirmed.",
         "Objectives are composed (design silent). Secondary: \"under budget\" and \"booster landed\" (5.2). Stretch: 30% of the budget left, the threshold of the Penny Pincher achievement (13.5). To be confirmed.",
         "No instrument vote (see C2). long_coast triggers rule 6.11 \"Hydrolox upper + long coast without boil-off mitigation\"; the design names no part that mitigates boil-off.",
-        "Decision (T010, game_value): payload.diameter_m = 3.7 m. Analogue: a 4 t geostationary communications satellite with stowed reflectors in the 4 m fairing class, whose usable payload envelope is about 3.7 to 3.8 m (approximate, Atlas V 4 m class). Fits the 4.0 m and 5.4 m fairings, not the 1.5 m one."
+        "Decision (T010, game_value): payload.diameter_m = 3.7 m. Analogue: a 4 t geostationary communications satellite with stowed reflectors in the 4 m fairing class, whose usable payload envelope is about 3.7 to 3.8 m (approximate, Atlas V 4 m class). Fits the 4.0 m and 5.4 m fairings, not the 1.5 m one.",
+        "Decision (T012 balance fix, game_value): the communications vote lists five options explicitly so comm_laser is offered (it was sixth and cut by the 5-option limit of 6.2); the list drops comm_uhf: in Core comm_uhf is free, has no reliability roll and downlinks 0.01 GB/pass against 0.2 GB/pass for the equally free comm_s_band, so it is strictly dominated and the vote loses no real trade-off."
       ]
     },
     {
@@ -1809,7 +1873,14 @@
           "step": 20,
           "id": "communications",
           "category": "communications",
-          "name_key": "vote.communications.name"
+          "name_key": "vote.communications.name",
+          "options": [
+            "comm_s_band",
+            "comm_x_band",
+            "comm_ka_band",
+            "comm_relay_network",
+            "comm_laser"
+          ]
         },
         {
           "step": 21,
@@ -1832,7 +1903,8 @@
         "The design gives C6 only its row in table 5.1 and no flyby distance or mission length, so the destination has no numbers and the Deep-space capsule endurance (21 days) has nothing to be compared with. Whether C6 requires the lunar-rated capsule is open; without such a rule the lightest capsule wins.",
         "entry_speed_km_s 11 is \"Reentry at ~11 km/s\" (section 19: lunar return entry ≈ 11 km/s). Shields rated 8 km/s stay on offer; rule 6.11 makes them a Major issue. params.tli_delta_v_km_s 3.1 is \"TLI from LEO ≈ 3.1 km/s\" of section 19.",
         "Objectives are composed (design silent). Secondary: \"under budget\" (5.2) and \"land inside the target ellipse\" (the C7 wording of 5.3). Stretch: \"Gold on every minigame\" (5.2). To be confirmed.",
-        "\"Optional skip entry\" is a flight vote (4.3: \"skip entry or direct entry (lunar contract)\"); the design does not say what either choice changes."
+        "\"Optional skip entry\" is a flight vote (4.3: \"skip entry or direct entry (lunar contract)\"); the design does not say what either choice changes.",
+        "Decision (T012 balance fix, game_value): the communications vote lists five options explicitly so comm_laser is offered (it was sixth and cut by the 5-option limit of 6.2); the list drops comm_uhf: an omni UHF link cannot reach Earth from lunar distance (Apollo used the Unified S-Band system, which stays offered), and in Core comm_uhf is free, has no reliability roll and downlinks 0.01 GB/pass against 0.2 GB/pass for the equally free comm_s_band, so it is strictly dominated and the vote loses no real trade-off."
       ]
     },
     {
@@ -2047,7 +2119,14 @@
           "step": 20,
           "id": "communications",
           "category": "communications",
-          "name_key": "vote.communications.name"
+          "name_key": "vote.communications.name",
+          "options": [
+            "comm_uhf",
+            "comm_x_band",
+            "comm_ka_band",
+            "comm_relay_network",
+            "comm_laser"
+          ]
         },
         {
           "step": 21,
@@ -2070,7 +2149,8 @@
         "\"~13 km/s (to Mars transfer)\" is stored as 13. params: tmi_delta_v_km_s 3.6 is \"TMI from LEO ≈ 3.6 km/s\" (section 19, real-world approximate); the signal delay of 4 to 24 minutes is the Mars light-time of section 19 and MG-26, which section 19 calls physical (approximate). The 26-month window is physical (approximate) by section 19.",
         "missed_window_ends_quick_mission: section 6.4 says a missed C7 window is a 26-month wait, \"mission-ending in Quick Mission and a big campaign setback\".",
         "No heat-shield vote: step 3 of 6.2 is for capsule contracts and the payload is a \"lander in aeroshell\". The entry, descent and landing are the pre-programmed sequence of MG-26, not a piloted reentry.",
-        "Decision (T010, game_value): payload.diameter_m = 4.5 m. Analogue: the 4.5 m aeroshell of the Mars Science Laboratory (Curiosity) and Mars 2020 (Perseverance) landers. Needs the 5.4 m fairings."
+        "Decision (T010, game_value): payload.diameter_m = 4.5 m. Analogue: the 4.5 m aeroshell of the Mars Science Laboratory (Curiosity) and Mars 2020 (Perseverance) landers. Needs the 5.4 m fairings.",
+        "Decision (T012 balance fix, game_value): the communications vote lists five options explicitly so comm_laser is offered (it was sixth and cut by the 5-option limit of 6.2); the list drops comm_s_band: from Mars a wide-beam S-band antenna cannot close a direct-to-Earth link; real landers send data by UHF to orbiting relays and by X-band direct to Earth, so comm_uhf stays as the relay-band option."
       ]
     },
     {
@@ -2282,7 +2362,14 @@
           "step": 20,
           "id": "communications",
           "category": "communications",
-          "name_key": "vote.communications.name"
+          "name_key": "vote.communications.name",
+          "options": [
+            "comm_s_band",
+            "comm_x_band",
+            "comm_ka_band",
+            "comm_relay_network",
+            "comm_laser"
+          ]
         },
         {
           "step": 21,
@@ -2306,7 +2393,8 @@
         "\"Booster recovery heavily scored\" has no number: section 11.3 gives a recovered booster 500 points in every contract and no C8 weight.",
         "Objectives are composed (design silent). Primary: the table orbit with the C1 altitude tolerance, plus the landing. Secondary: \"under budget\" (5.2) and a touchdown under 2 m/s, the success threshold of MG-24. Stretch: \"Land within 1 km of target\", the example of 5.2. To be confirmed.",
         "Only the Kerolox Workhorse (3 restarts) and the Methalox Full-Flow (5 restarts) can relight for a landing burn; the design does not state how many restarts a landing needs.",
-        "Decision (T010, game_value): payload.diameter_m = 4.6 m. Analogue: a 10 t class payload the size of the Hubble Space Telescope (about 4.2 m diameter, 11 t) plus a 0.4 m adapter allowance (approximate). Needs the 5.4 m fairings."
+        "Decision (T010, game_value): payload.diameter_m = 4.6 m. Analogue: a 10 t class payload the size of the Hubble Space Telescope (about 4.2 m diameter, 11 t) plus a 0.4 m adapter allowance (approximate). Needs the 5.4 m fairings.",
+        "Decision (T012 balance fix, game_value): the communications vote lists five options explicitly so comm_laser is offered (it was sixth and cut by the 5-option limit of 6.2); the list drops comm_uhf: in Core comm_uhf is free, has no reliability roll and downlinks 0.01 GB/pass against 0.2 GB/pass for the equally free comm_s_band, so it is strictly dominated and the vote loses no real trade-off."
       ]
     }
   ]

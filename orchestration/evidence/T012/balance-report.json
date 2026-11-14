@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "commit": "fd0fae4",
+  "commit": "d2fedd9",
   "seed": 1,
   "max_evals_per_contract": 300000,
   "rules": {
@@ -13,44 +13,31 @@
     {
       "id": "C0",
       "name": "First Light",
-      "evaluated": 110724,
-      "valid": 34766,
+      "evaluated": 112074,
+      "valid": 32446,
       "capped": true,
       "budget_M": 25,
       "deadline_days": 60,
-      "coupled_combinations": 55362,
-      "strata": 134,
-      "exhaustive_strata": 122,
-      "sampled_strata": 12,
-      "partial_blocker_prunes": 1700,
-      "cost_lower_bound_prunes": 24523,
+      "coupled_combinations": 56037,
+      "strata": 206,
+      "exhaustive_strata": 183,
+      "sampled_strata": 23,
+      "partial_blocker_prunes": 17265,
+      "cost_lower_bound_prunes": 30658,
       "schedule_lower_bound_prunes": 236,
       "prune_reasons": {
-        "blocker:liftoff_twr_too_low": 1700,
-        "cost_lower_bound": 24523,
+        "blocker:liftoff_twr_too_low": 17265,
+        "cost_lower_bound": 30658,
         "schedule_lower_bound": 236
       },
       "invalid_reasons": {
-        "over_budget": 75958
+        "over_budget": 79628
       },
-      "architectures": 74,
+      "architectures": 112,
       "architecture_pass": true,
       "dominant": false,
       "dominance_pass": true,
-      "near_dominant": [
-        {
-          "first_stage_engine": "eng_kerolox_workhorse",
-          "upper_stage_engine": "eng_solid_kick_motor",
-          "recovery_family": "expendable",
-          "strap_on": "strap_none"
-        },
-        {
-          "first_stage_engine": "eng_kerolox_workhorse",
-          "upper_stage_engine": "eng_solid_kick_motor",
-          "recovery_family": "parachute",
-          "strap_on": "strap_none"
-        }
-      ],
+      "near_dominant": [],
       "pass": true,
       "archetypes": {
         "cheapest": {
@@ -148,11 +135,11 @@
           "architecture": {
             "first_stage_engine": "eng_kerolox_workhorse",
             "upper_stage_engine": "eng_solid_kick_motor",
-            "recovery_family": "parachute",
+            "recovery_family": "expendable",
             "strap_on": "strap_none"
           },
-          "cost_M": 15.6315,
-          "schedule_days": 31.5,
+          "cost_M": 15.7301,
+          "schedule_days": 35.1,
           "displayed_success": 0.961513428,
           "majors": 0,
           "variant": "cheapest",
@@ -167,7 +154,7 @@
             },
             {
               "slot": "booster_recovery",
-              "id": "brec_parachute_splashdown"
+              "id": "brec_expendable"
             },
             {
               "slot": "communications",
@@ -219,7 +206,7 @@
             },
             {
               "slot": "structural_material",
-              "id": "mat_aluminum_2219"
+              "id": "mat_aluminum_lithium_2195"
             },
             {
               "slot": "upper_stage_engine",
@@ -242,8 +229,8 @@
             "recovery_family": "parachute",
             "strap_on": "strap_none"
           },
-          "cost_M": 15.6315,
-          "schedule_days": 31.5,
+          "cost_M": 16.2656,
+          "schedule_days": 35.1,
           "displayed_success": 0.961513428,
           "majors": 0,
           "variant": "cheapest",
@@ -310,7 +297,7 @@
             },
             {
               "slot": "structural_material",
-              "id": "mat_aluminum_2219"
+              "id": "mat_aluminum_lithium_2195"
             },
             {
               "slot": "upper_stage_engine",
@@ -322,7 +309,7 @@
             },
             {
               "slot": "upper_stage_tank_size",
-              "id": "tank_xs"
+              "id": "tank_s"
             }
           ]
         }
@@ -421,6 +408,188 @@
         },
         {
           "architecture": {
+            "first_stage_engine": "eng_electric_pump_mini",
+            "upper_stage_engine": "eng_solid_kick_motor",
+            "recovery_family": "expendable",
+            "strap_on": "strap_none"
+          },
+          "cost_M": 13.0679,
+          "schedule_days": 21.6,
+          "displayed_success": 0.935297935,
+          "majors": 0,
+          "variant": "cheapest",
+          "parts": [
+            {
+              "slot": "aero_control",
+              "id": "aero_fins"
+            },
+            {
+              "slot": "avionics",
+              "id": "avi_commercial_single"
+            },
+            {
+              "slot": "booster_recovery",
+              "id": "brec_expendable"
+            },
+            {
+              "slot": "communications",
+              "id": "comm_ka_band"
+            },
+            {
+              "slot": "fairing",
+              "id": "fairing_small"
+            },
+            {
+              "slot": "first_stage_engine",
+              "id": "eng_electric_pump_mini"
+            },
+            {
+              "slot": "first_stage_engine_count",
+              "id": "engcount_first_9"
+            },
+            {
+              "slot": "first_stage_tank_size",
+              "id": "tank_xs"
+            },
+            {
+              "slot": "launch_site",
+              "id": "site_inland_steppe_cosmodrome"
+            },
+            {
+              "slot": "mission_assurance",
+              "id": "assur_faster_cheaper"
+            },
+            {
+              "slot": "navigation_sensor",
+              "id": "nav_imu_only"
+            },
+            {
+              "slot": "power_system",
+              "id": "pwr_deployable_solar_liion"
+            },
+            {
+              "slot": "rcs",
+              "id": "rcs_bipropellant"
+            },
+            {
+              "slot": "separation_system",
+              "id": "sep_pyro_bolts_springs"
+            },
+            {
+              "slot": "strap_on_booster",
+              "id": "strap_none"
+            },
+            {
+              "slot": "structural_material",
+              "id": "mat_stainless_steel"
+            },
+            {
+              "slot": "upper_stage_engine",
+              "id": "eng_solid_kick_motor"
+            },
+            {
+              "slot": "upper_stage_engine_count",
+              "id": "engcount_upper_1"
+            },
+            {
+              "slot": "upper_stage_tank_size",
+              "id": "tank_xs"
+            }
+          ]
+        },
+        {
+          "architecture": {
+            "first_stage_engine": "eng_electric_pump_mini",
+            "upper_stage_engine": "eng_solid_kick_motor",
+            "recovery_family": "parachute",
+            "strap_on": "strap_none"
+          },
+          "cost_M": 13.0679,
+          "schedule_days": 21.6,
+          "displayed_success": 0.935297935,
+          "majors": 0,
+          "variant": "cheapest",
+          "parts": [
+            {
+              "slot": "aero_control",
+              "id": "aero_fins"
+            },
+            {
+              "slot": "avionics",
+              "id": "avi_commercial_single"
+            },
+            {
+              "slot": "booster_recovery",
+              "id": "brec_parachute_splashdown"
+            },
+            {
+              "slot": "communications",
+              "id": "comm_ka_band"
+            },
+            {
+              "slot": "fairing",
+              "id": "fairing_small"
+            },
+            {
+              "slot": "first_stage_engine",
+              "id": "eng_electric_pump_mini"
+            },
+            {
+              "slot": "first_stage_engine_count",
+              "id": "engcount_first_9"
+            },
+            {
+              "slot": "first_stage_tank_size",
+              "id": "tank_xs"
+            },
+            {
+              "slot": "launch_site",
+              "id": "site_inland_steppe_cosmodrome"
+            },
+            {
+              "slot": "mission_assurance",
+              "id": "assur_faster_cheaper"
+            },
+            {
+              "slot": "navigation_sensor",
+              "id": "nav_imu_only"
+            },
+            {
+              "slot": "power_system",
+              "id": "pwr_deployable_solar_liion"
+            },
+            {
+              "slot": "rcs",
+              "id": "rcs_bipropellant"
+            },
+            {
+              "slot": "separation_system",
+              "id": "sep_pyro_bolts_springs"
+            },
+            {
+              "slot": "strap_on_booster",
+              "id": "strap_none"
+            },
+            {
+              "slot": "structural_material",
+              "id": "mat_stainless_steel"
+            },
+            {
+              "slot": "upper_stage_engine",
+              "id": "eng_solid_kick_motor"
+            },
+            {
+              "slot": "upper_stage_engine_count",
+              "id": "engcount_upper_1"
+            },
+            {
+              "slot": "upper_stage_tank_size",
+              "id": "tank_xs"
+            }
+          ]
+        },
+        {
+          "architecture": {
             "first_stage_engine": "eng_kerolox_workhorse",
             "upper_stage_engine": "eng_hypergolic_storable",
             "recovery_family": "expendable",
@@ -772,6 +941,370 @@
             {
               "slot": "upper_stage_engine",
               "id": "eng_hydrolox_vacuum"
+            },
+            {
+              "slot": "upper_stage_engine_count",
+              "id": "engcount_upper_1"
+            },
+            {
+              "slot": "upper_stage_tank_size",
+              "id": "tank_xs"
+            }
+          ]
+        },
+        {
+          "architecture": {
+            "first_stage_engine": "eng_electric_pump_mini",
+            "upper_stage_engine": "eng_hydrolox_vacuum",
+            "recovery_family": "expendable",
+            "strap_on": "strap_none"
+          },
+          "cost_M": 19.8679,
+          "schedule_days": 21.6,
+          "displayed_success": 0.936240776,
+          "majors": 0,
+          "variant": "cheapest",
+          "parts": [
+            {
+              "slot": "aero_control",
+              "id": "aero_fins"
+            },
+            {
+              "slot": "avionics",
+              "id": "avi_commercial_single"
+            },
+            {
+              "slot": "booster_recovery",
+              "id": "brec_expendable"
+            },
+            {
+              "slot": "communications",
+              "id": "comm_ka_band"
+            },
+            {
+              "slot": "fairing",
+              "id": "fairing_small"
+            },
+            {
+              "slot": "first_stage_engine",
+              "id": "eng_electric_pump_mini"
+            },
+            {
+              "slot": "first_stage_engine_count",
+              "id": "engcount_first_9"
+            },
+            {
+              "slot": "first_stage_tank_size",
+              "id": "tank_xs"
+            },
+            {
+              "slot": "launch_site",
+              "id": "site_inland_steppe_cosmodrome"
+            },
+            {
+              "slot": "mission_assurance",
+              "id": "assur_faster_cheaper"
+            },
+            {
+              "slot": "navigation_sensor",
+              "id": "nav_imu_only"
+            },
+            {
+              "slot": "power_system",
+              "id": "pwr_deployable_solar_liion"
+            },
+            {
+              "slot": "rcs",
+              "id": "rcs_bipropellant"
+            },
+            {
+              "slot": "separation_system",
+              "id": "sep_pyro_bolts_springs"
+            },
+            {
+              "slot": "strap_on_booster",
+              "id": "strap_none"
+            },
+            {
+              "slot": "structural_material",
+              "id": "mat_stainless_steel"
+            },
+            {
+              "slot": "upper_stage_engine",
+              "id": "eng_hydrolox_vacuum"
+            },
+            {
+              "slot": "upper_stage_engine_count",
+              "id": "engcount_upper_1"
+            },
+            {
+              "slot": "upper_stage_tank_size",
+              "id": "tank_xs"
+            }
+          ]
+        },
+        {
+          "architecture": {
+            "first_stage_engine": "eng_electric_pump_mini",
+            "upper_stage_engine": "eng_hydrolox_vacuum",
+            "recovery_family": "parachute",
+            "strap_on": "strap_none"
+          },
+          "cost_M": 19.8679,
+          "schedule_days": 21.6,
+          "displayed_success": 0.936240776,
+          "majors": 0,
+          "variant": "cheapest",
+          "parts": [
+            {
+              "slot": "aero_control",
+              "id": "aero_fins"
+            },
+            {
+              "slot": "avionics",
+              "id": "avi_commercial_single"
+            },
+            {
+              "slot": "booster_recovery",
+              "id": "brec_parachute_splashdown"
+            },
+            {
+              "slot": "communications",
+              "id": "comm_ka_band"
+            },
+            {
+              "slot": "fairing",
+              "id": "fairing_small"
+            },
+            {
+              "slot": "first_stage_engine",
+              "id": "eng_electric_pump_mini"
+            },
+            {
+              "slot": "first_stage_engine_count",
+              "id": "engcount_first_9"
+            },
+            {
+              "slot": "first_stage_tank_size",
+              "id": "tank_xs"
+            },
+            {
+              "slot": "launch_site",
+              "id": "site_inland_steppe_cosmodrome"
+            },
+            {
+              "slot": "mission_assurance",
+              "id": "assur_faster_cheaper"
+            },
+            {
+              "slot": "navigation_sensor",
+              "id": "nav_imu_only"
+            },
+            {
+              "slot": "power_system",
+              "id": "pwr_deployable_solar_liion"
+            },
+            {
+              "slot": "rcs",
+              "id": "rcs_bipropellant"
+            },
+            {
+              "slot": "separation_system",
+              "id": "sep_pyro_bolts_springs"
+            },
+            {
+              "slot": "strap_on_booster",
+              "id": "strap_none"
+            },
+            {
+              "slot": "structural_material",
+              "id": "mat_stainless_steel"
+            },
+            {
+              "slot": "upper_stage_engine",
+              "id": "eng_hydrolox_vacuum"
+            },
+            {
+              "slot": "upper_stage_engine_count",
+              "id": "engcount_upper_1"
+            },
+            {
+              "slot": "upper_stage_tank_size",
+              "id": "tank_xs"
+            }
+          ]
+        },
+        {
+          "architecture": {
+            "first_stage_engine": "eng_electric_pump_mini",
+            "upper_stage_engine": "eng_solid_kick_motor",
+            "recovery_family": "expendable",
+            "strap_on": "strap_2_small_solid"
+          },
+          "cost_M": 21.2279,
+          "schedule_days": 14.4,
+          "displayed_success": 0.938186396,
+          "majors": 0,
+          "variant": "cheapest",
+          "parts": [
+            {
+              "slot": "aero_control",
+              "id": "aero_fins"
+            },
+            {
+              "slot": "avionics",
+              "id": "avi_commercial_single"
+            },
+            {
+              "slot": "booster_recovery",
+              "id": "brec_expendable"
+            },
+            {
+              "slot": "communications",
+              "id": "comm_ka_band"
+            },
+            {
+              "slot": "fairing",
+              "id": "fairing_small"
+            },
+            {
+              "slot": "first_stage_engine",
+              "id": "eng_electric_pump_mini"
+            },
+            {
+              "slot": "first_stage_engine_count",
+              "id": "engcount_first_1"
+            },
+            {
+              "slot": "first_stage_tank_size",
+              "id": "tank_xs"
+            },
+            {
+              "slot": "launch_site",
+              "id": "site_inland_steppe_cosmodrome"
+            },
+            {
+              "slot": "mission_assurance",
+              "id": "assur_faster_cheaper"
+            },
+            {
+              "slot": "navigation_sensor",
+              "id": "nav_imu_only"
+            },
+            {
+              "slot": "power_system",
+              "id": "pwr_deployable_solar_liion"
+            },
+            {
+              "slot": "rcs",
+              "id": "rcs_bipropellant"
+            },
+            {
+              "slot": "separation_system",
+              "id": "sep_pyro_bolts_springs"
+            },
+            {
+              "slot": "strap_on_booster",
+              "id": "strap_2_small_solid"
+            },
+            {
+              "slot": "structural_material",
+              "id": "mat_stainless_steel"
+            },
+            {
+              "slot": "upper_stage_engine",
+              "id": "eng_solid_kick_motor"
+            },
+            {
+              "slot": "upper_stage_engine_count",
+              "id": "engcount_upper_1"
+            },
+            {
+              "slot": "upper_stage_tank_size",
+              "id": "tank_xs"
+            }
+          ]
+        },
+        {
+          "architecture": {
+            "first_stage_engine": "eng_electric_pump_mini",
+            "upper_stage_engine": "eng_solid_kick_motor",
+            "recovery_family": "parachute",
+            "strap_on": "strap_2_small_solid"
+          },
+          "cost_M": 21.2279,
+          "schedule_days": 14.4,
+          "displayed_success": 0.938186396,
+          "majors": 0,
+          "variant": "cheapest",
+          "parts": [
+            {
+              "slot": "aero_control",
+              "id": "aero_fins"
+            },
+            {
+              "slot": "avionics",
+              "id": "avi_commercial_single"
+            },
+            {
+              "slot": "booster_recovery",
+              "id": "brec_parachute_splashdown"
+            },
+            {
+              "slot": "communications",
+              "id": "comm_ka_band"
+            },
+            {
+              "slot": "fairing",
+              "id": "fairing_small"
+            },
+            {
+              "slot": "first_stage_engine",
+              "id": "eng_electric_pump_mini"
+            },
+            {
+              "slot": "first_stage_engine_count",
+              "id": "engcount_first_1"
+            },
+            {
+              "slot": "first_stage_tank_size",
+              "id": "tank_xs"
+            },
+            {
+              "slot": "launch_site",
+              "id": "site_inland_steppe_cosmodrome"
+            },
+            {
+              "slot": "mission_assurance",
+              "id": "assur_faster_cheaper"
+            },
+            {
+              "slot": "navigation_sensor",
+              "id": "nav_imu_only"
+            },
+            {
+              "slot": "power_system",
+              "id": "pwr_deployable_solar_liion"
+            },
+            {
+              "slot": "rcs",
+              "id": "rcs_bipropellant"
+            },
+            {
+              "slot": "separation_system",
+              "id": "sep_pyro_bolts_springs"
+            },
+            {
+              "slot": "strap_on_booster",
+              "id": "strap_2_small_solid"
+            },
+            {
+              "slot": "structural_material",
+              "id": "mat_stainless_steel"
+            },
+            {
+              "slot": "upper_stage_engine",
+              "id": "eng_solid_kick_motor"
             },
             {
               "slot": "upper_stage_engine_count",
@@ -784,8 +1317,32 @@
           ]
         }
       ],
-      "all_build_front_size": 9,
+      "all_build_front_size": 25,
       "all_build_front_architectures": [
+        {
+          "first_stage_engine": "eng_electric_pump_mini",
+          "upper_stage_engine": "eng_solid_kick_motor",
+          "recovery_family": "expendable",
+          "strap_on": "strap_2_small_solid"
+        },
+        {
+          "first_stage_engine": "eng_electric_pump_mini",
+          "upper_stage_engine": "eng_solid_kick_motor",
+          "recovery_family": "expendable",
+          "strap_on": "strap_none"
+        },
+        {
+          "first_stage_engine": "eng_electric_pump_mini",
+          "upper_stage_engine": "eng_solid_kick_motor",
+          "recovery_family": "parachute",
+          "strap_on": "strap_2_small_solid"
+        },
+        {
+          "first_stage_engine": "eng_electric_pump_mini",
+          "upper_stage_engine": "eng_solid_kick_motor",
+          "recovery_family": "parachute",
+          "strap_on": "strap_none"
+        },
         {
           "first_stage_engine": "eng_kerolox_workhorse",
           "upper_stage_engine": "eng_solid_kick_motor",
@@ -804,28 +1361,28 @@
       "id": "C1",
       "name": "Earth Watch",
       "evaluated": 300000,
-      "valid": 160781,
+      "valid": 170320,
       "capped": true,
       "budget_M": 90,
       "deadline_days": 180,
       "coupled_combinations": 150000,
-      "strata": 459,
-      "exhaustive_strata": 51,
-      "sampled_strata": 408,
-      "partial_blocker_prunes": 130391,
-      "cost_lower_bound_prunes": 57167,
+      "strata": 460,
+      "exhaustive_strata": 61,
+      "sampled_strata": 399,
+      "partial_blocker_prunes": 157912,
+      "cost_lower_bound_prunes": 53370,
       "schedule_lower_bound_prunes": 0,
       "prune_reasons": {
-        "blocker:delta_v_below_requirement": 120710,
-        "blocker:liftoff_twr_too_low": 9681,
-        "cost_lower_bound": 57167
+        "blocker:delta_v_below_requirement": 93588,
+        "blocker:liftoff_twr_too_low": 64324,
+        "cost_lower_bound": 53370
       },
       "invalid_reasons": {
-        "blocker:delta_v_below_requirement": 4686,
-        "over_budget": 134524,
+        "blocker:delta_v_below_requirement": 6036,
+        "over_budget": 123635,
         "over_schedule": 9
       },
-      "architectures": 312,
+      "architectures": 314,
       "architecture_pass": true,
       "dominant": false,
       "dominance_pass": true,
@@ -937,14 +1494,14 @@
         },
         "highest_success": {
           "architecture": {
-            "first_stage_engine": "eng_hydrolox_high_efficiency",
-            "upper_stage_engine": "eng_solid_kick_motor",
+            "first_stage_engine": "eng_kerolox_staged_combustion",
+            "upper_stage_engine": "eng_kerolox_vacuum",
             "recovery_family": "expendable",
             "strap_on": "strap_none"
           },
-          "cost_M": 88.488,
-          "schedule_days": 173.65,
-          "displayed_success": 0.99960006,
+          "cost_M": 81.288,
+          "schedule_days": 141.45,
+          "displayed_success": 0.99655466,
           "majors": 1,
           "variant": "most_reliable",
           "parts": [
@@ -974,11 +1531,11 @@
             },
             {
               "slot": "first_stage_engine",
-              "id": "eng_hydrolox_high_efficiency"
+              "id": "eng_kerolox_staged_combustion"
             },
             {
               "slot": "first_stage_engine_count",
-              "id": "engcount_first_1"
+              "id": "engcount_first_3"
             },
             {
               "slot": "first_stage_tank_size",
@@ -1026,11 +1583,11 @@
             },
             {
               "slot": "upper_stage_engine",
-              "id": "eng_solid_kick_motor"
+              "id": "eng_kerolox_vacuum"
             },
             {
               "slot": "upper_stage_engine_count",
-              "id": "engcount_upper_1"
+              "id": "engcount_upper_2"
             },
             {
               "slot": "upper_stage_tank_size",
@@ -1040,15 +1597,15 @@
         },
         "best_reusable": {
           "architecture": {
-            "first_stage_engine": "eng_hydrolox_high_efficiency",
+            "first_stage_engine": "eng_kerolox_staged_combustion",
             "upper_stage_engine": "eng_solid_kick_motor",
             "recovery_family": "parachute",
             "strap_on": "strap_none"
           },
-          "cost_M": 89.3328,
-          "schedule_days": 173.65,
-          "displayed_success": 0.99960006,
-          "majors": 2,
+          "cost_M": 83.592,
+          "schedule_days": 141.45,
+          "displayed_success": 0.99655466,
+          "majors": 1,
           "variant": "most_reliable",
           "parts": [
             {
@@ -1077,15 +1634,15 @@
             },
             {
               "slot": "first_stage_engine",
-              "id": "eng_hydrolox_high_efficiency"
+              "id": "eng_kerolox_staged_combustion"
             },
             {
               "slot": "first_stage_engine_count",
-              "id": "engcount_first_1"
+              "id": "engcount_first_3"
             },
             {
               "slot": "first_stage_tank_size",
-              "id": "tank_xs"
+              "id": "tank_m"
             },
             {
               "slot": "instrument",
@@ -1093,7 +1650,7 @@
             },
             {
               "slot": "launch_site",
-              "id": "site_inland_steppe_cosmodrome"
+              "id": "site_west_coast_polar_range"
             },
             {
               "slot": "mission_assurance",
@@ -1145,14 +1702,14 @@
       "pareto_front": [
         {
           "architecture": {
-            "first_stage_engine": "eng_methalox_full_flow",
+            "first_stage_engine": "eng_electric_pump_mini",
             "upper_stage_engine": "eng_solid_kick_motor",
             "recovery_family": "expendable",
             "strap_on": "strap_none"
           },
-          "cost_M": 15.6774,
-          "schedule_days": 38.7,
-          "displayed_success": 0.914344504,
+          "cost_M": 15.6179,
+          "schedule_days": 21.6,
+          "displayed_success": 0.935297935,
           "majors": 0,
           "variant": "cheapest",
           "parts": [
@@ -1182,11 +1739,11 @@
             },
             {
               "slot": "first_stage_engine",
-              "id": "eng_methalox_full_flow"
+              "id": "eng_electric_pump_mini"
             },
             {
               "slot": "first_stage_engine_count",
-              "id": "engcount_first_1"
+              "id": "engcount_first_9"
             },
             {
               "slot": "first_stage_tank_size",
@@ -1242,7 +1799,110 @@
             },
             {
               "slot": "upper_stage_tank_size",
-              "id": "tank_s"
+              "id": "tank_xs"
+            }
+          ]
+        },
+        {
+          "architecture": {
+            "first_stage_engine": "eng_electric_pump_mini",
+            "upper_stage_engine": "eng_solid_kick_motor",
+            "recovery_family": "parachute",
+            "strap_on": "strap_none"
+          },
+          "cost_M": 15.6179,
+          "schedule_days": 21.6,
+          "displayed_success": 0.935297935,
+          "majors": 0,
+          "variant": "cheapest",
+          "parts": [
+            {
+              "slot": "aero_control",
+              "id": "aero_fins"
+            },
+            {
+              "slot": "attitude_control",
+              "id": "adcs_magnetorquers_only"
+            },
+            {
+              "slot": "avionics",
+              "id": "avi_commercial_single"
+            },
+            {
+              "slot": "booster_recovery",
+              "id": "brec_parachute_splashdown"
+            },
+            {
+              "slot": "communications",
+              "id": "comm_ka_band"
+            },
+            {
+              "slot": "fairing",
+              "id": "fairing_small"
+            },
+            {
+              "slot": "first_stage_engine",
+              "id": "eng_electric_pump_mini"
+            },
+            {
+              "slot": "first_stage_engine_count",
+              "id": "engcount_first_9"
+            },
+            {
+              "slot": "first_stage_tank_size",
+              "id": "tank_xs"
+            },
+            {
+              "slot": "instrument",
+              "id": "inst_wide_field_optical_camera"
+            },
+            {
+              "slot": "launch_site",
+              "id": "site_inland_steppe_cosmodrome"
+            },
+            {
+              "slot": "mission_assurance",
+              "id": "assur_faster_cheaper"
+            },
+            {
+              "slot": "navigation_sensor",
+              "id": "nav_imu_only"
+            },
+            {
+              "slot": "power_system",
+              "id": "pwr_deployable_solar_liion"
+            },
+            {
+              "slot": "rcs",
+              "id": "rcs_bipropellant"
+            },
+            {
+              "slot": "satellite_power",
+              "id": "satpwr_body_mounted_solar_cells"
+            },
+            {
+              "slot": "separation_system",
+              "id": "sep_pyro_bolts_springs"
+            },
+            {
+              "slot": "strap_on_booster",
+              "id": "strap_none"
+            },
+            {
+              "slot": "structural_material",
+              "id": "mat_stainless_steel"
+            },
+            {
+              "slot": "upper_stage_engine",
+              "id": "eng_solid_kick_motor"
+            },
+            {
+              "slot": "upper_stage_engine_count",
+              "id": "engcount_upper_1"
+            },
+            {
+              "slot": "upper_stage_tank_size",
+              "id": "tank_xs"
             }
           ]
         },
@@ -1342,6 +2002,212 @@
             {
               "slot": "upper_stage_engine_count",
               "id": "engcount_upper_2"
+            },
+            {
+              "slot": "upper_stage_tank_size",
+              "id": "tank_xs"
+            }
+          ]
+        },
+        {
+          "architecture": {
+            "first_stage_engine": "eng_electric_pump_mini",
+            "upper_stage_engine": "eng_hydrolox_vacuum",
+            "recovery_family": "expendable",
+            "strap_on": "strap_none"
+          },
+          "cost_M": 22.4179,
+          "schedule_days": 21.6,
+          "displayed_success": 0.936240776,
+          "majors": 0,
+          "variant": "cheapest",
+          "parts": [
+            {
+              "slot": "aero_control",
+              "id": "aero_fins"
+            },
+            {
+              "slot": "attitude_control",
+              "id": "adcs_magnetorquers_only"
+            },
+            {
+              "slot": "avionics",
+              "id": "avi_commercial_single"
+            },
+            {
+              "slot": "booster_recovery",
+              "id": "brec_expendable"
+            },
+            {
+              "slot": "communications",
+              "id": "comm_ka_band"
+            },
+            {
+              "slot": "fairing",
+              "id": "fairing_small"
+            },
+            {
+              "slot": "first_stage_engine",
+              "id": "eng_electric_pump_mini"
+            },
+            {
+              "slot": "first_stage_engine_count",
+              "id": "engcount_first_9"
+            },
+            {
+              "slot": "first_stage_tank_size",
+              "id": "tank_xs"
+            },
+            {
+              "slot": "instrument",
+              "id": "inst_wide_field_optical_camera"
+            },
+            {
+              "slot": "launch_site",
+              "id": "site_inland_steppe_cosmodrome"
+            },
+            {
+              "slot": "mission_assurance",
+              "id": "assur_faster_cheaper"
+            },
+            {
+              "slot": "navigation_sensor",
+              "id": "nav_imu_only"
+            },
+            {
+              "slot": "power_system",
+              "id": "pwr_deployable_solar_liion"
+            },
+            {
+              "slot": "rcs",
+              "id": "rcs_bipropellant"
+            },
+            {
+              "slot": "satellite_power",
+              "id": "satpwr_body_mounted_solar_cells"
+            },
+            {
+              "slot": "separation_system",
+              "id": "sep_pyro_bolts_springs"
+            },
+            {
+              "slot": "strap_on_booster",
+              "id": "strap_none"
+            },
+            {
+              "slot": "structural_material",
+              "id": "mat_stainless_steel"
+            },
+            {
+              "slot": "upper_stage_engine",
+              "id": "eng_hydrolox_vacuum"
+            },
+            {
+              "slot": "upper_stage_engine_count",
+              "id": "engcount_upper_1"
+            },
+            {
+              "slot": "upper_stage_tank_size",
+              "id": "tank_xs"
+            }
+          ]
+        },
+        {
+          "architecture": {
+            "first_stage_engine": "eng_electric_pump_mini",
+            "upper_stage_engine": "eng_hydrolox_vacuum",
+            "recovery_family": "parachute",
+            "strap_on": "strap_none"
+          },
+          "cost_M": 22.4179,
+          "schedule_days": 21.6,
+          "displayed_success": 0.936240776,
+          "majors": 0,
+          "variant": "cheapest",
+          "parts": [
+            {
+              "slot": "aero_control",
+              "id": "aero_fins"
+            },
+            {
+              "slot": "attitude_control",
+              "id": "adcs_magnetorquers_only"
+            },
+            {
+              "slot": "avionics",
+              "id": "avi_commercial_single"
+            },
+            {
+              "slot": "booster_recovery",
+              "id": "brec_parachute_splashdown"
+            },
+            {
+              "slot": "communications",
+              "id": "comm_ka_band"
+            },
+            {
+              "slot": "fairing",
+              "id": "fairing_small"
+            },
+            {
+              "slot": "first_stage_engine",
+              "id": "eng_electric_pump_mini"
+            },
+            {
+              "slot": "first_stage_engine_count",
+              "id": "engcount_first_9"
+            },
+            {
+              "slot": "first_stage_tank_size",
+              "id": "tank_xs"
+            },
+            {
+              "slot": "instrument",
+              "id": "inst_wide_field_optical_camera"
+            },
+            {
+              "slot": "launch_site",
+              "id": "site_inland_steppe_cosmodrome"
+            },
+            {
+              "slot": "mission_assurance",
+              "id": "assur_faster_cheaper"
+            },
+            {
+              "slot": "navigation_sensor",
+              "id": "nav_imu_only"
+            },
+            {
+              "slot": "power_system",
+              "id": "pwr_deployable_solar_liion"
+            },
+            {
+              "slot": "rcs",
+              "id": "rcs_bipropellant"
+            },
+            {
+              "slot": "satellite_power",
+              "id": "satpwr_body_mounted_solar_cells"
+            },
+            {
+              "slot": "separation_system",
+              "id": "sep_pyro_bolts_springs"
+            },
+            {
+              "slot": "strap_on_booster",
+              "id": "strap_none"
+            },
+            {
+              "slot": "structural_material",
+              "id": "mat_stainless_steel"
+            },
+            {
+              "slot": "upper_stage_engine",
+              "id": "eng_hydrolox_vacuum"
+            },
+            {
+              "slot": "upper_stage_engine_count",
+              "id": "engcount_upper_1"
             },
             {
               "slot": "upper_stage_tank_size",
@@ -1454,6 +2320,315 @@
         },
         {
           "architecture": {
+            "first_stage_engine": "eng_electric_pump_mini",
+            "upper_stage_engine": "eng_solid_kick_motor",
+            "recovery_family": "expendable",
+            "strap_on": "strap_2_small_solid"
+          },
+          "cost_M": 24.2879,
+          "schedule_days": 17.1,
+          "displayed_success": 0.953327576,
+          "majors": 0,
+          "variant": "cheapest",
+          "parts": [
+            {
+              "slot": "aero_control",
+              "id": "aero_fins"
+            },
+            {
+              "slot": "attitude_control",
+              "id": "adcs_magnetorquers_only"
+            },
+            {
+              "slot": "avionics",
+              "id": "avi_commercial_single"
+            },
+            {
+              "slot": "booster_recovery",
+              "id": "brec_expendable"
+            },
+            {
+              "slot": "communications",
+              "id": "comm_ka_band"
+            },
+            {
+              "slot": "fairing",
+              "id": "fairing_small"
+            },
+            {
+              "slot": "first_stage_engine",
+              "id": "eng_electric_pump_mini"
+            },
+            {
+              "slot": "first_stage_engine_count",
+              "id": "engcount_first_3"
+            },
+            {
+              "slot": "first_stage_tank_size",
+              "id": "tank_xs"
+            },
+            {
+              "slot": "instrument",
+              "id": "inst_wide_field_optical_camera"
+            },
+            {
+              "slot": "launch_site",
+              "id": "site_inland_steppe_cosmodrome"
+            },
+            {
+              "slot": "mission_assurance",
+              "id": "assur_faster_cheaper"
+            },
+            {
+              "slot": "navigation_sensor",
+              "id": "nav_imu_only"
+            },
+            {
+              "slot": "power_system",
+              "id": "pwr_deployable_solar_liion"
+            },
+            {
+              "slot": "rcs",
+              "id": "rcs_bipropellant"
+            },
+            {
+              "slot": "satellite_power",
+              "id": "satpwr_body_mounted_solar_cells"
+            },
+            {
+              "slot": "separation_system",
+              "id": "sep_pyro_bolts_springs"
+            },
+            {
+              "slot": "strap_on_booster",
+              "id": "strap_2_small_solid"
+            },
+            {
+              "slot": "structural_material",
+              "id": "mat_stainless_steel"
+            },
+            {
+              "slot": "upper_stage_engine",
+              "id": "eng_solid_kick_motor"
+            },
+            {
+              "slot": "upper_stage_engine_count",
+              "id": "engcount_upper_1"
+            },
+            {
+              "slot": "upper_stage_tank_size",
+              "id": "tank_xs"
+            }
+          ]
+        },
+        {
+          "architecture": {
+            "first_stage_engine": "eng_electric_pump_mini",
+            "upper_stage_engine": "eng_kerolox_vacuum",
+            "recovery_family": "expendable",
+            "strap_on": "strap_2_small_solid"
+          },
+          "cost_M": 24.6279,
+          "schedule_days": 14.4,
+          "displayed_success": 0.922203655,
+          "majors": 0,
+          "variant": "cheapest",
+          "parts": [
+            {
+              "slot": "aero_control",
+              "id": "aero_fins"
+            },
+            {
+              "slot": "attitude_control",
+              "id": "adcs_magnetorquers_only"
+            },
+            {
+              "slot": "avionics",
+              "id": "avi_commercial_single"
+            },
+            {
+              "slot": "booster_recovery",
+              "id": "brec_expendable"
+            },
+            {
+              "slot": "communications",
+              "id": "comm_ka_band"
+            },
+            {
+              "slot": "fairing",
+              "id": "fairing_small"
+            },
+            {
+              "slot": "first_stage_engine",
+              "id": "eng_electric_pump_mini"
+            },
+            {
+              "slot": "first_stage_engine_count",
+              "id": "engcount_first_1"
+            },
+            {
+              "slot": "first_stage_tank_size",
+              "id": "tank_xs"
+            },
+            {
+              "slot": "instrument",
+              "id": "inst_wide_field_optical_camera"
+            },
+            {
+              "slot": "launch_site",
+              "id": "site_inland_steppe_cosmodrome"
+            },
+            {
+              "slot": "mission_assurance",
+              "id": "assur_faster_cheaper"
+            },
+            {
+              "slot": "navigation_sensor",
+              "id": "nav_imu_only"
+            },
+            {
+              "slot": "power_system",
+              "id": "pwr_deployable_solar_liion"
+            },
+            {
+              "slot": "rcs",
+              "id": "rcs_bipropellant"
+            },
+            {
+              "slot": "satellite_power",
+              "id": "satpwr_body_mounted_solar_cells"
+            },
+            {
+              "slot": "separation_system",
+              "id": "sep_hot_staging"
+            },
+            {
+              "slot": "strap_on_booster",
+              "id": "strap_2_small_solid"
+            },
+            {
+              "slot": "structural_material",
+              "id": "mat_stainless_steel"
+            },
+            {
+              "slot": "upper_stage_engine",
+              "id": "eng_kerolox_vacuum"
+            },
+            {
+              "slot": "upper_stage_engine_count",
+              "id": "engcount_upper_1"
+            },
+            {
+              "slot": "upper_stage_tank_size",
+              "id": "tank_xs"
+            }
+          ]
+        },
+        {
+          "architecture": {
+            "first_stage_engine": "eng_electric_pump_mini",
+            "upper_stage_engine": "eng_solid_kick_motor",
+            "recovery_family": "parachute",
+            "strap_on": "strap_2_small_solid"
+          },
+          "cost_M": 25.4779,
+          "schedule_days": 14.4,
+          "displayed_success": 0.94565784,
+          "majors": 0,
+          "variant": "cheapest",
+          "parts": [
+            {
+              "slot": "aero_control",
+              "id": "aero_fins"
+            },
+            {
+              "slot": "attitude_control",
+              "id": "adcs_magnetorquers_only"
+            },
+            {
+              "slot": "avionics",
+              "id": "avi_commercial_single"
+            },
+            {
+              "slot": "booster_recovery",
+              "id": "brec_parachute_splashdown"
+            },
+            {
+              "slot": "communications",
+              "id": "comm_ka_band"
+            },
+            {
+              "slot": "fairing",
+              "id": "fairing_small"
+            },
+            {
+              "slot": "first_stage_engine",
+              "id": "eng_electric_pump_mini"
+            },
+            {
+              "slot": "first_stage_engine_count",
+              "id": "engcount_first_1"
+            },
+            {
+              "slot": "first_stage_tank_size",
+              "id": "tank_xs"
+            },
+            {
+              "slot": "instrument",
+              "id": "inst_wide_field_optical_camera"
+            },
+            {
+              "slot": "launch_site",
+              "id": "site_inland_steppe_cosmodrome"
+            },
+            {
+              "slot": "mission_assurance",
+              "id": "assur_faster_cheaper"
+            },
+            {
+              "slot": "navigation_sensor",
+              "id": "nav_imu_only"
+            },
+            {
+              "slot": "power_system",
+              "id": "pwr_deployable_solar_liion"
+            },
+            {
+              "slot": "rcs",
+              "id": "rcs_bipropellant"
+            },
+            {
+              "slot": "satellite_power",
+              "id": "satpwr_body_mounted_solar_cells"
+            },
+            {
+              "slot": "separation_system",
+              "id": "sep_pyro_bolts_springs"
+            },
+            {
+              "slot": "strap_on_booster",
+              "id": "strap_2_small_solid"
+            },
+            {
+              "slot": "structural_material",
+              "id": "mat_stainless_steel"
+            },
+            {
+              "slot": "upper_stage_engine",
+              "id": "eng_solid_kick_motor"
+            },
+            {
+              "slot": "upper_stage_engine_count",
+              "id": "engcount_upper_2"
+            },
+            {
+              "slot": "upper_stage_tank_size",
+              "id": "tank_xs"
+            }
+          ]
+        },
+        {
+          "architecture": {
             "first_stage_engine": "eng_kerolox_workhorse",
             "upper_stage_engine": "eng_hypergolic_storable",
             "recovery_family": "propulsive",
@@ -1557,20 +2732,20 @@
         },
         {
           "architecture": {
-            "first_stage_engine": "eng_kerolox_workhorse",
-            "upper_stage_engine": "eng_hydrolox_vacuum",
-            "recovery_family": "propulsive",
+            "first_stage_engine": "eng_electric_pump_mini",
+            "upper_stage_engine": "eng_methalox_vacuum",
+            "recovery_family": "parachute",
             "strap_on": "strap_2_small_solid"
           },
-          "cost_M": 36.771,
-          "schedule_days": 27,
-          "displayed_success": 0.954782834,
+          "cost_M": 29.9744,
+          "schedule_days": 17.1,
+          "displayed_success": 0.959069644,
           "majors": 0,
           "variant": "cheapest",
           "parts": [
             {
               "slot": "aero_control",
-              "id": "aero_grid_fins"
+              "id": "aero_fins"
             },
             {
               "slot": "attitude_control",
@@ -1582,7 +2757,7 @@
             },
             {
               "slot": "booster_recovery",
-              "id": "brec_propulsive_rtls"
+              "id": "brec_parachute_splashdown"
             },
             {
               "slot": "communications",
@@ -1594,7 +2769,7 @@
             },
             {
               "slot": "first_stage_engine",
-              "id": "eng_kerolox_workhorse"
+              "id": "eng_electric_pump_mini"
             },
             {
               "slot": "first_stage_engine_count",
@@ -1602,7 +2777,7 @@
             },
             {
               "slot": "first_stage_tank_size",
-              "id": "tank_s"
+              "id": "tank_xs"
             },
             {
               "slot": "instrument",
@@ -1646,30 +2821,151 @@
             },
             {
               "slot": "upper_stage_engine",
-              "id": "eng_hydrolox_vacuum"
+              "id": "eng_methalox_vacuum"
             },
             {
               "slot": "upper_stage_engine_count",
-              "id": "engcount_upper_1"
+              "id": "engcount_upper_2"
             },
             {
               "slot": "upper_stage_tank_size",
               "id": "tank_m"
             }
           ]
+        },
+        {
+          "architecture": {
+            "first_stage_engine": "eng_electric_pump_mini",
+            "upper_stage_engine": "eng_solid_kick_motor",
+            "recovery_family": "expendable",
+            "strap_on": "strap_2_heavy_solid"
+          },
+          "cost_M": 84.0174,
+          "schedule_days": 17.1,
+          "displayed_success": 0.9609196,
+          "majors": 0,
+          "variant": "cheapest",
+          "parts": [
+            {
+              "slot": "aero_control",
+              "id": "aero_fins"
+            },
+            {
+              "slot": "attitude_control",
+              "id": "adcs_magnetorquers_only"
+            },
+            {
+              "slot": "avionics",
+              "id": "avi_commercial_single"
+            },
+            {
+              "slot": "booster_recovery",
+              "id": "brec_expendable"
+            },
+            {
+              "slot": "communications",
+              "id": "comm_ka_band"
+            },
+            {
+              "slot": "fairing",
+              "id": "fairing_small"
+            },
+            {
+              "slot": "first_stage_engine",
+              "id": "eng_electric_pump_mini"
+            },
+            {
+              "slot": "first_stage_engine_count",
+              "id": "engcount_first_3"
+            },
+            {
+              "slot": "first_stage_tank_size",
+              "id": "tank_xs"
+            },
+            {
+              "slot": "instrument",
+              "id": "inst_wide_field_optical_camera"
+            },
+            {
+              "slot": "launch_site",
+              "id": "site_inland_steppe_cosmodrome"
+            },
+            {
+              "slot": "mission_assurance",
+              "id": "assur_faster_cheaper"
+            },
+            {
+              "slot": "navigation_sensor",
+              "id": "nav_imu_only"
+            },
+            {
+              "slot": "power_system",
+              "id": "pwr_deployable_solar_liion"
+            },
+            {
+              "slot": "rcs",
+              "id": "rcs_bipropellant"
+            },
+            {
+              "slot": "satellite_power",
+              "id": "satpwr_body_mounted_solar_cells"
+            },
+            {
+              "slot": "separation_system",
+              "id": "sep_pyro_bolts_springs"
+            },
+            {
+              "slot": "strap_on_booster",
+              "id": "strap_2_heavy_solid"
+            },
+            {
+              "slot": "structural_material",
+              "id": "mat_stainless_steel"
+            },
+            {
+              "slot": "upper_stage_engine",
+              "id": "eng_solid_kick_motor"
+            },
+            {
+              "slot": "upper_stage_engine_count",
+              "id": "engcount_upper_2"
+            },
+            {
+              "slot": "upper_stage_tank_size",
+              "id": "tank_s"
+            }
+          ]
         }
       ],
-      "all_build_front_size": 13,
+      "all_build_front_size": 30,
       "all_build_front_architectures": [
         {
-          "first_stage_engine": "eng_hydrolox_high_efficiency",
+          "first_stage_engine": "eng_electric_pump_mini",
+          "upper_stage_engine": "eng_solid_kick_motor",
+          "recovery_family": "expendable",
+          "strap_on": "strap_2_small_solid"
+        },
+        {
+          "first_stage_engine": "eng_electric_pump_mini",
           "upper_stage_engine": "eng_solid_kick_motor",
           "recovery_family": "expendable",
           "strap_on": "strap_none"
         },
         {
-          "first_stage_engine": "eng_kerolox_staged_combustion",
+          "first_stage_engine": "eng_electric_pump_mini",
           "upper_stage_engine": "eng_solid_kick_motor",
+          "recovery_family": "parachute",
+          "strap_on": "strap_2_small_solid"
+        },
+        {
+          "first_stage_engine": "eng_electric_pump_mini",
+          "upper_stage_engine": "eng_solid_kick_motor",
+          "recovery_family": "parachute",
+          "strap_on": "strap_none"
+        },
+        {
+          "first_stage_engine": "eng_kerolox_staged_combustion",
+          "upper_stage_engine": "eng_kerolox_vacuum",
           "recovery_family": "expendable",
           "strap_on": "strap_none"
         },
@@ -1821,14 +3117,14 @@
         },
         "highest_success": {
           "architecture": {
-            "first_stage_engine": "eng_hydrolox_high_efficiency",
+            "first_stage_engine": "eng_kerolox_staged_combustion",
             "upper_stage_engine": "eng_kerolox_vacuum",
             "recovery_family": "expendable",
             "strap_on": "strap_none"
           },
-          "cost_M": 87.288,
-          "schedule_days": 173.65,
-          "displayed_success": 0.99960006,
+          "cost_M": 75.288,
+          "schedule_days": 141.45,
+          "displayed_success": 0.99655466,
           "majors": 0,
           "variant": "most_reliable",
           "parts": [
@@ -1858,11 +3154,11 @@
             },
             {
               "slot": "first_stage_engine",
-              "id": "eng_hydrolox_high_efficiency"
+              "id": "eng_kerolox_staged_combustion"
             },
             {
               "slot": "first_stage_engine_count",
-              "id": "engcount_first_1"
+              "id": "engcount_first_3"
             },
             {
               "slot": "first_stage_tank_size",
@@ -1920,14 +3216,14 @@
         },
         "best_reusable": {
           "architecture": {
-            "first_stage_engine": "eng_hydrolox_high_efficiency",
+            "first_stage_engine": "eng_kerolox_staged_combustion",
             "upper_stage_engine": "eng_kerolox_vacuum",
             "recovery_family": "parachute",
             "strap_on": "strap_none"
           },
-          "cost_M": 87.288,
-          "schedule_days": 173.65,
-          "displayed_success": 0.99960006,
+          "cost_M": 78.096,
+          "schedule_days": 141.45,
+          "displayed_success": 0.99655466,
           "majors": 0,
           "variant": "most_reliable",
           "parts": [
@@ -1957,15 +3253,15 @@
             },
             {
               "slot": "first_stage_engine",
-              "id": "eng_hydrolox_high_efficiency"
+              "id": "eng_kerolox_staged_combustion"
             },
             {
               "slot": "first_stage_engine_count",
-              "id": "engcount_first_1"
+              "id": "engcount_first_3"
             },
             {
               "slot": "first_stage_tank_size",
-              "id": "tank_s"
+              "id": "tank_m"
             },
             {
               "slot": "launch_site",
@@ -2013,7 +3309,7 @@
             },
             {
               "slot": "upper_stage_tank_size",
-              "id": "tank_s"
+              "id": "tank_m"
             }
           ]
         }
@@ -3208,30 +4504,12 @@
           ]
         }
       ],
-      "all_build_front_size": 20,
+      "all_build_front_size": 17,
       "all_build_front_architectures": [
         {
-          "first_stage_engine": "eng_hydrolox_high_efficiency",
-          "upper_stage_engine": "eng_kerolox_vacuum",
-          "recovery_family": "expendable",
-          "strap_on": "strap_none"
-        },
-        {
-          "first_stage_engine": "eng_hydrolox_high_efficiency",
-          "upper_stage_engine": "eng_kerolox_vacuum",
-          "recovery_family": "parachute",
-          "strap_on": "strap_none"
-        },
-        {
           "first_stage_engine": "eng_kerolox_staged_combustion",
           "upper_stage_engine": "eng_kerolox_vacuum",
           "recovery_family": "expendable",
-          "strap_on": "strap_none"
-        },
-        {
-          "first_stage_engine": "eng_kerolox_staged_combustion",
-          "upper_stage_engine": "eng_kerolox_vacuum",
-          "recovery_family": "parachute",
           "strap_on": "strap_none"
         },
         {
@@ -3429,15 +4707,15 @@
         },
         "highest_success": {
           "architecture": {
-            "first_stage_engine": "eng_hydrolox_high_efficiency",
+            "first_stage_engine": "eng_kerolox_staged_combustion",
             "upper_stage_engine": "eng_kerolox_vacuum",
-            "recovery_family": "parachute",
-            "strap_on": "strap_2_small_solid"
+            "recovery_family": "expendable",
+            "strap_on": "strap_none"
           },
-          "cost_M": 110.496,
-          "schedule_days": 173.65,
-          "displayed_success": 0.9995001,
-          "majors": 0,
+          "cost_M": 84.096,
+          "schedule_days": 141.45,
+          "displayed_success": 0.99655466,
+          "majors": 1,
           "variant": "most_reliable",
           "parts": [
             {
@@ -3450,7 +4728,7 @@
             },
             {
               "slot": "booster_recovery",
-              "id": "brec_parachute_splashdown"
+              "id": "brec_expendable"
             },
             {
               "slot": "capsule",
@@ -3466,11 +4744,11 @@
             },
             {
               "slot": "first_stage_engine",
-              "id": "eng_hydrolox_high_efficiency"
+              "id": "eng_kerolox_staged_combustion"
             },
             {
               "slot": "first_stage_engine_count",
-              "id": "engcount_first_1"
+              "id": "engcount_first_3"
             },
             {
               "slot": "first_stage_tank_size",
@@ -3506,7 +4784,7 @@
             },
             {
               "slot": "strap_on_booster",
-              "id": "strap_2_small_solid"
+              "id": "strap_none"
             },
             {
               "slot": "structural_material",
@@ -3528,20 +4806,20 @@
         },
         "best_reusable": {
           "architecture": {
-            "first_stage_engine": "eng_hydrolox_high_efficiency",
+            "first_stage_engine": "eng_kerolox_staged_combustion",
             "upper_stage_engine": "eng_kerolox_vacuum",
-            "recovery_family": "parachute",
-            "strap_on": "strap_2_small_solid"
+            "recovery_family": "propulsive",
+            "strap_on": "strap_none"
           },
-          "cost_M": 110.496,
-          "schedule_days": 173.65,
-          "displayed_success": 0.9995001,
-          "majors": 0,
+          "cost_M": 84.816,
+          "schedule_days": 141.45,
+          "displayed_success": 0.99655466,
+          "majors": 1,
           "variant": "most_reliable",
           "parts": [
             {
               "slot": "aero_control",
-              "id": "aero_fins"
+              "id": "aero_grid_fins"
             },
             {
               "slot": "avionics",
@@ -3549,7 +4827,7 @@
             },
             {
               "slot": "booster_recovery",
-              "id": "brec_parachute_splashdown"
+              "id": "brec_propulsive_rtls"
             },
             {
               "slot": "capsule",
@@ -3565,11 +4843,11 @@
             },
             {
               "slot": "first_stage_engine",
-              "id": "eng_hydrolox_high_efficiency"
+              "id": "eng_kerolox_staged_combustion"
             },
             {
               "slot": "first_stage_engine_count",
-              "id": "engcount_first_1"
+              "id": "engcount_first_3"
             },
             {
               "slot": "first_stage_tank_size",
@@ -3577,7 +4855,7 @@
             },
             {
               "slot": "heat_shield",
-              "id": "tps_pica_ablator"
+              "id": "tps_inflatable_decelerator"
             },
             {
               "slot": "launch_site",
@@ -3605,7 +4883,7 @@
             },
             {
               "slot": "strap_on_booster",
-              "id": "strap_2_small_solid"
+              "id": "strap_none"
             },
             {
               "slot": "structural_material",
@@ -3621,7 +4899,7 @@
             },
             {
               "slot": "upper_stage_tank_size",
-              "id": "tank_m"
+              "id": "tank_l"
             }
           ]
         }
@@ -4519,14 +5797,8 @@
           ]
         }
       ],
-      "all_build_front_size": 41,
+      "all_build_front_size": 40,
       "all_build_front_architectures": [
-        {
-          "first_stage_engine": "eng_hydrolox_high_efficiency",
-          "upper_stage_engine": "eng_kerolox_vacuum",
-          "recovery_family": "parachute",
-          "strap_on": "strap_2_small_solid"
-        },
         {
           "first_stage_engine": "eng_kerolox_staged_combustion",
           "upper_stage_engine": "eng_kerolox_vacuum",
@@ -4766,15 +6038,15 @@
         },
         "highest_success": {
           "architecture": {
-            "first_stage_engine": "eng_hydrolox_high_efficiency",
+            "first_stage_engine": "eng_kerolox_staged_combustion",
             "upper_stage_engine": "eng_kerolox_vacuum",
             "recovery_family": "parachute",
-            "strap_on": "strap_2_small_solid"
+            "strap_on": "strap_none"
           },
-          "cost_M": 108.096,
-          "schedule_days": 173.65,
-          "displayed_success": 0.9995001,
-          "majors": 0,
+          "cost_M": 86.112,
+          "schedule_days": 141.45,
+          "displayed_success": 0.99655466,
+          "majors": 1,
           "variant": "most_reliable",
           "parts": [
             {
@@ -4803,19 +6075,19 @@
             },
             {
               "slot": "escape_system",
-              "id": "les_escape_tower"
+              "id": "les_ejection_seats"
             },
             {
               "slot": "first_stage_engine",
-              "id": "eng_hydrolox_high_efficiency"
+              "id": "eng_kerolox_staged_combustion"
             },
             {
               "slot": "first_stage_engine_count",
-              "id": "engcount_first_1"
+              "id": "engcount_first_3"
             },
             {
               "slot": "first_stage_tank_size",
-              "id": "tank_m"
+              "id": "tank_l"
             },
             {
               "slot": "heat_shield",
@@ -4823,7 +6095,7 @@
             },
             {
               "slot": "launch_site",
-              "id": "site_inland_steppe_cosmodrome"
+              "id": "site_west_coast_polar_range"
             },
             {
               "slot": "life_support",
@@ -4851,7 +6123,7 @@
             },
             {
               "slot": "strap_on_booster",
-              "id": "strap_2_small_solid"
+              "id": "strap_none"
             },
             {
               "slot": "structural_material",
@@ -4873,15 +6145,15 @@
         },
         "best_reusable": {
           "architecture": {
-            "first_stage_engine": "eng_hydrolox_high_efficiency",
+            "first_stage_engine": "eng_kerolox_staged_combustion",
             "upper_stage_engine": "eng_kerolox_vacuum",
             "recovery_family": "parachute",
-            "strap_on": "strap_2_small_solid"
+            "strap_on": "strap_none"
           },
-          "cost_M": 108.096,
-          "schedule_days": 173.65,
-          "displayed_success": 0.9995001,
-          "majors": 0,
+          "cost_M": 86.112,
+          "schedule_days": 141.45,
+          "displayed_success": 0.99655466,
+          "majors": 1,
           "variant": "most_reliable",
           "parts": [
             {
@@ -4910,19 +6182,19 @@
             },
             {
               "slot": "escape_system",
-              "id": "les_escape_tower"
+              "id": "les_ejection_seats"
             },
             {
               "slot": "first_stage_engine",
-              "id": "eng_hydrolox_high_efficiency"
+              "id": "eng_kerolox_staged_combustion"
             },
             {
               "slot": "first_stage_engine_count",
-              "id": "engcount_first_1"
+              "id": "engcount_first_3"
             },
             {
               "slot": "first_stage_tank_size",
-              "id": "tank_m"
+              "id": "tank_l"
             },
             {
               "slot": "heat_shield",
@@ -4930,7 +6202,7 @@
             },
             {
               "slot": "launch_site",
-              "id": "site_inland_steppe_cosmodrome"
+              "id": "site_west_coast_polar_range"
             },
             {
               "slot": "life_support",
@@ -4958,7 +6230,7 @@
             },
             {
               "slot": "strap_on_booster",
-              "id": "strap_2_small_solid"
+              "id": "strap_none"
             },
             {
               "slot": "structural_material",
@@ -5623,14 +6895,8 @@
           ]
         }
       ],
-      "all_build_front_size": 30,
+      "all_build_front_size": 27,
       "all_build_front_architectures": [
-        {
-          "first_stage_engine": "eng_hydrolox_high_efficiency",
-          "upper_stage_engine": "eng_kerolox_vacuum",
-          "recovery_family": "parachute",
-          "strap_on": "strap_2_small_solid"
-        },
         {
           "first_stage_engine": "eng_kerolox_staged_combustion",
           "upper_stage_engine": "eng_kerolox_vacuum",
@@ -5845,113 +7111,14 @@
         },
         "highest_success": {
           "architecture": {
-            "first_stage_engine": "eng_hydrolox_high_efficiency",
-            "upper_stage_engine": "eng_kerolox_vacuum",
-            "recovery_family": "expendable",
-            "strap_on": "strap_2_small_solid"
-          },
-          "cost_M": 106.296,
-          "schedule_days": 173.65,
-          "displayed_success": 0.9995001,
-          "majors": 0,
-          "variant": "most_reliable",
-          "parts": [
-            {
-              "slot": "aero_control",
-              "id": "aero_fins"
-            },
-            {
-              "slot": "attitude_control",
-              "id": "adcs_magnetorquers_only"
-            },
-            {
-              "slot": "avionics",
-              "id": "avi_rad_hard_backup"
-            },
-            {
-              "slot": "booster_recovery",
-              "id": "brec_expendable"
-            },
-            {
-              "slot": "communications",
-              "id": "comm_ka_band"
-            },
-            {
-              "slot": "fairing",
-              "id": "fairing_standard"
-            },
-            {
-              "slot": "first_stage_engine",
-              "id": "eng_hydrolox_high_efficiency"
-            },
-            {
-              "slot": "first_stage_engine_count",
-              "id": "engcount_first_1"
-            },
-            {
-              "slot": "first_stage_tank_size",
-              "id": "tank_m"
-            },
-            {
-              "slot": "launch_site",
-              "id": "site_inland_steppe_cosmodrome"
-            },
-            {
-              "slot": "mission_assurance",
-              "id": "assur_class_a"
-            },
-            {
-              "slot": "navigation_sensor",
-              "id": "nav_imu_gnss"
-            },
-            {
-              "slot": "power_system",
-              "id": "pwr_deployable_solar_liion"
-            },
-            {
-              "slot": "rcs",
-              "id": "rcs_bipropellant"
-            },
-            {
-              "slot": "satellite_power",
-              "id": "satpwr_body_mounted_solar_cells"
-            },
-            {
-              "slot": "separation_system",
-              "id": "sep_pneumatic_pushers"
-            },
-            {
-              "slot": "strap_on_booster",
-              "id": "strap_2_small_solid"
-            },
-            {
-              "slot": "structural_material",
-              "id": "mat_stainless_steel"
-            },
-            {
-              "slot": "upper_stage_engine",
-              "id": "eng_kerolox_vacuum"
-            },
-            {
-              "slot": "upper_stage_engine_count",
-              "id": "engcount_upper_2"
-            },
-            {
-              "slot": "upper_stage_tank_size",
-              "id": "tank_m"
-            }
-          ]
-        },
-        "best_reusable": {
-          "architecture": {
-            "first_stage_engine": "eng_hydrolox_high_efficiency",
+            "first_stage_engine": "eng_kerolox_staged_combustion",
             "upper_stage_engine": "eng_kerolox_vacuum",
             "recovery_family": "parachute",
-            "strap_on": "strap_2_small_solid"
+            "strap_on": "strap_none"
           },
-          "cost_M": 106.296,
-          "schedule_days": 173.65,
-          "displayed_success": 0.9995001,
+          "cost_M": 86.304,
+          "schedule_days": 151.8,
+          "displayed_success": 0.99655466,
           "majors": 0,
           "variant": "most_reliable",
           "parts": [
@@ -5981,11 +7148,11 @@
             },
             {
               "slot": "first_stage_engine",
-              "id": "eng_hydrolox_high_efficiency"
+              "id": "eng_kerolox_staged_combustion"
             },
             {
               "slot": "first_stage_engine_count",
-              "id": "engcount_first_1"
+              "id": "engcount_first_3"
             },
             {
               "slot": "first_stage_tank_size",
@@ -6017,15 +7184,15 @@
             },
             {
               "slot": "separation_system",
-              "id": "sep_pneumatic_pushers"
+              "id": "sep_pyro_bolts_springs"
             },
             {
               "slot": "strap_on_booster",
-              "id": "strap_2_small_solid"
+              "id": "strap_none"
             },
             {
               "slot": "structural_material",
-              "id": "mat_stainless_steel"
+              "id": "mat_aluminum_lithium_2195"
             },
             {
               "slot": "upper_stage_engine",
@@ -6037,7 +7204,106 @@
             },
             {
               "slot": "upper_stage_tank_size",
+              "id": "tank_l"
+            }
+          ]
+        },
+        "best_reusable": {
+          "architecture": {
+            "first_stage_engine": "eng_kerolox_staged_combustion",
+            "upper_stage_engine": "eng_kerolox_vacuum",
+            "recovery_family": "parachute",
+            "strap_on": "strap_none"
+          },
+          "cost_M": 86.304,
+          "schedule_days": 151.8,
+          "displayed_success": 0.99655466,
+          "majors": 0,
+          "variant": "most_reliable",
+          "parts": [
+            {
+              "slot": "aero_control",
+              "id": "aero_fins"
+            },
+            {
+              "slot": "attitude_control",
+              "id": "adcs_magnetorquers_only"
+            },
+            {
+              "slot": "avionics",
+              "id": "avi_rad_hard_backup"
+            },
+            {
+              "slot": "booster_recovery",
+              "id": "brec_parachute_splashdown"
+            },
+            {
+              "slot": "communications",
+              "id": "comm_ka_band"
+            },
+            {
+              "slot": "fairing",
+              "id": "fairing_standard"
+            },
+            {
+              "slot": "first_stage_engine",
+              "id": "eng_kerolox_staged_combustion"
+            },
+            {
+              "slot": "first_stage_engine_count",
+              "id": "engcount_first_3"
+            },
+            {
+              "slot": "first_stage_tank_size",
               "id": "tank_m"
+            },
+            {
+              "slot": "launch_site",
+              "id": "site_inland_steppe_cosmodrome"
+            },
+            {
+              "slot": "mission_assurance",
+              "id": "assur_class_a"
+            },
+            {
+              "slot": "navigation_sensor",
+              "id": "nav_imu_gnss"
+            },
+            {
+              "slot": "power_system",
+              "id": "pwr_deployable_solar_liion"
+            },
+            {
+              "slot": "rcs",
+              "id": "rcs_bipropellant"
+            },
+            {
+              "slot": "satellite_power",
+              "id": "satpwr_body_mounted_solar_cells"
+            },
+            {
+              "slot": "separation_system",
+              "id": "sep_pyro_bolts_springs"
+            },
+            {
+              "slot": "strap_on_booster",
+              "id": "strap_none"
+            },
+            {
+              "slot": "structural_material",
+              "id": "mat_aluminum_lithium_2195"
+            },
+            {
+              "slot": "upper_stage_engine",
+              "id": "eng_kerolox_vacuum"
+            },
+            {
+              "slot": "upper_stage_engine_count",
+              "id": "engcount_upper_2"
+            },
+            {
+              "slot": "upper_stage_tank_size",
+              "id": "tank_l"
             }
           ]
         }
@@ -6539,27 +7805,9 @@
           ]
         }
       ],
-      "all_build_front_size": 19,
+      "all_build_front_size": 22,
       "all_build_front_architectures": [
         {
-          "first_stage_engine": "eng_hydrolox_high_efficiency",
-          "upper_stage_engine": "eng_kerolox_vacuum",
-          "recovery_family": "expendable",
-          "strap_on": "strap_2_small_solid"
-        },
-        {
-          "first_stage_engine": "eng_hydrolox_high_efficiency",
-          "upper_stage_engine": "eng_kerolox_vacuum",
-          "recovery_family": "parachute",
-          "strap_on": "strap_2_small_solid"
-        },
-        {
-          "first_stage_engine": "eng_kerolox_giant",
-          "upper_stage_engine": "eng_hydrolox_vacuum",
-          "recovery_family": "parachute",
-          "strap_on": "strap_none"
-        },
-        {
           "first_stage_engine": "eng_kerolox_giant",
           "upper_stage_engine": "eng_kerolox_vacuum",
           "recovery_family": "expendable",
@@ -6574,6 +7822,18 @@
         {
           "first_stage_engine": "eng_kerolox_staged_combustion",
           "upper_stage_engine": "eng_kerolox_vacuum",
+          "recovery_family": "parachute",
+          "strap_on": "strap_none"
+        },
+        {
+          "first_stage_engine": "eng_kerolox_staged_combustion",
+          "upper_stage_engine": "eng_methalox_vacuum",
+          "recovery_family": "expendable",
+          "strap_on": "strap_none"
+        },
+        {
+          "first_stage_engine": "eng_kerolox_staged_combustion",
+          "upper_stage_engine": "eng_methalox_vacuum",
           "recovery_family": "parachute",
           "strap_on": "strap_none"
         },
@@ -6757,120 +8017,13 @@
         "highest_success": {
           "architecture": {
             "first_stage_engine": "eng_hydrolox_high_efficiency",
-            "upper_stage_engine": "eng_hydrolox_vacuum",
-            "recovery_family": "expendable",
-            "strap_on": "strap_4_small_solid"
-          },
-          "cost_M": 130.032,
-          "schedule_days": 173.65,
-          "displayed_success": 0.9995001,
-          "majors": 2,
-          "variant": "most_reliable",
-          "parts": [
-            {
-              "slot": "aero_control",
-              "id": "aero_fins"
-            },
-            {
-              "slot": "avionics",
-              "id": "avi_rad_hard_backup"
-            },
-            {
-              "slot": "booster_recovery",
-              "id": "brec_expendable"
-            },
-            {
-              "slot": "capsule",
-              "id": "cap_compact"
-            },
-            {
-              "slot": "capsule_recovery",
-              "id": "crec_parachutes_soft_landing_rockets"
-            },
-            {
-              "slot": "communications",
-              "id": "comm_ka_band"
-            },
-            {
-              "slot": "escape_system",
-              "id": "les_ejection_seats"
-            },
-            {
-              "slot": "first_stage_engine",
-              "id": "eng_hydrolox_high_efficiency"
-            },
-            {
-              "slot": "first_stage_engine_count",
-              "id": "engcount_first_1"
-            },
-            {
-              "slot": "first_stage_tank_size",
-              "id": "tank_l"
-            },
-            {
-              "slot": "heat_shield",
-              "id": "tps_inflatable_decelerator"
-            },
-            {
-              "slot": "launch_site",
-              "id": "site_inland_steppe_cosmodrome"
-            },
-            {
-              "slot": "life_support",
-              "id": "ls_open_loop"
-            },
-            {
-              "slot": "mission_assurance",
-              "id": "assur_class_a"
-            },
-            {
-              "slot": "navigation_sensor",
-              "id": "nav_imu_gnss"
-            },
-            {
-              "slot": "power_system",
-              "id": "pwr_deployable_solar_liion"
-            },
-            {
-              "slot": "rcs",
-              "id": "rcs_bipropellant"
-            },
-            {
-              "slot": "separation_system",
-              "id": "sep_pyro_bolts_springs"
-            },
-            {
-              "slot": "strap_on_booster",
-              "id": "strap_4_small_solid"
-            },
-            {
-              "slot": "structural_material",
-              "id": "mat_stainless_steel"
-            },
-            {
-              "slot": "upper_stage_engine",
-              "id": "eng_hydrolox_vacuum"
-            },
-            {
-              "slot": "upper_stage_engine_count",
-              "id": "engcount_upper_1"
-            },
-            {
-              "slot": "upper_stage_tank_size",
-              "id": "tank_l"
-            }
-          ]
-        },
-        "best_reusable": {
-          "architecture": {
-            "first_stage_engine": "eng_hydrolox_high_efficiency",
-            "upper_stage_engine": "eng_hydrolox_vacuum",
+            "upper_stage_engine": "eng_kerolox_vacuum",
             "recovery_family": "parachute",
-            "strap_on": "strap_4_small_solid"
+            "strap_on": "strap_2_heavy_solid"
           },
-          "cost_M": 133.632,
-          "schedule_days": 173.65,
-          "displayed_success": 0.9995001,
+          "cost_M": 292.032,
+          "schedule_days": 177.1,
+          "displayed_success": 0.99652654,
           "majors": 2,
           "variant": "most_reliable",
           "parts": [
@@ -6900,7 +8053,7 @@
             },
             {
               "slot": "escape_system",
-              "id": "les_ejection_seats"
+              "id": "les_escape_tower"
             },
             {
               "slot": "first_stage_engine",
@@ -6908,7 +8061,7 @@
             },
             {
               "slot": "first_stage_engine_count",
-              "id": "engcount_first_1"
+              "id": "engcount_first_3"
             },
             {
               "slot": "first_stage_tank_size",
@@ -6948,7 +8101,7 @@
             },
             {
               "slot": "strap_on_booster",
-              "id": "strap_4_small_solid"
+              "id": "strap_2_heavy_solid"
             },
             {
               "slot": "structural_material",
@@ -6956,11 +8109,118 @@
             },
             {
               "slot": "upper_stage_engine",
-              "id": "eng_hydrolox_vacuum"
+              "id": "eng_kerolox_vacuum"
             },
             {
               "slot": "upper_stage_engine_count",
-              "id": "engcount_upper_1"
+              "id": "engcount_upper_2"
+            },
+            {
+              "slot": "upper_stage_tank_size",
+              "id": "tank_l"
+            }
+          ]
+        },
+        "best_reusable": {
+          "architecture": {
+            "first_stage_engine": "eng_hydrolox_high_efficiency",
+            "upper_stage_engine": "eng_kerolox_vacuum",
+            "recovery_family": "parachute",
+            "strap_on": "strap_2_heavy_solid"
+          },
+          "cost_M": 292.032,
+          "schedule_days": 177.1,
+          "displayed_success": 0.99652654,
+          "majors": 2,
+          "variant": "most_reliable",
+          "parts": [
+            {
+              "slot": "aero_control",
+              "id": "aero_fins"
+            },
+            {
+              "slot": "avionics",
+              "id": "avi_rad_hard_backup"
+            },
+            {
+              "slot": "booster_recovery",
+              "id": "brec_parachute_splashdown"
+            },
+            {
+              "slot": "capsule",
+              "id": "cap_compact"
+            },
+            {
+              "slot": "capsule_recovery",
+              "id": "crec_parachutes_soft_landing_rockets"
+            },
+            {
+              "slot": "communications",
+              "id": "comm_ka_band"
+            },
+            {
+              "slot": "escape_system",
+              "id": "les_escape_tower"
+            },
+            {
+              "slot": "first_stage_engine",
+              "id": "eng_hydrolox_high_efficiency"
+            },
+            {
+              "slot": "first_stage_engine_count",
+              "id": "engcount_first_3"
+            },
+            {
+              "slot": "first_stage_tank_size",
+              "id": "tank_l"
+            },
+            {
+              "slot": "heat_shield",
+              "id": "tps_inflatable_decelerator"
+            },
+            {
+              "slot": "launch_site",
+              "id": "site_subtropical_coast"
+            },
+            {
+              "slot": "life_support",
+              "id": "ls_open_loop"
+            },
+            {
+              "slot": "mission_assurance",
+              "id": "assur_class_a"
+            },
+            {
+              "slot": "navigation_sensor",
+              "id": "nav_imu_gnss"
+            },
+            {
+              "slot": "power_system",
+              "id": "pwr_deployable_solar_liion"
+            },
+            {
+              "slot": "rcs",
+              "id": "rcs_bipropellant"
+            },
+            {
+              "slot": "separation_system",
+              "id": "sep_pyro_bolts_springs"
+            },
+            {
+              "slot": "strap_on_booster",
+              "id": "strap_2_heavy_solid"
+            },
+            {
+              "slot": "structural_material",
+              "id": "mat_stainless_steel"
+            },
+            {
+              "slot": "upper_stage_engine",
+              "id": "eng_kerolox_vacuum"
+            },
+            {
+              "slot": "upper_stage_engine_count",
+              "id": "engcount_upper_2"
             },
             {
               "slot": "upper_stage_tank_size",
@@ -8897,13 +10157,13 @@
           ]
         }
       ],
-      "all_build_front_size": 69,
+      "all_build_front_size": 77,
       "all_build_front_architectures": [
         {
           "first_stage_engine": "eng_hydrolox_high_efficiency",
-          "upper_stage_engine": "eng_hydrolox_vacuum",
-          "recovery_family": "expendable",
-          "strap_on": "strap_4_small_solid"
+          "upper_stage_engine": "eng_kerolox_vacuum",
+          "recovery_family": "parachute",
+          "strap_on": "strap_2_heavy_solid"
         },
         {
           "first_stage_engine": "eng_kerolox_giant",
@@ -8918,9 +10178,33 @@
           "strap_on": "strap_none"
         },
         {
-          "first_stage_engine": "eng_kerolox_staged_combustion",
-          "upper_stage_engine": "eng_hydrolox_vacuum",
+          "first_stage_engine": "eng_kerolox_giant",
+          "upper_stage_engine": "eng_kerolox_vacuum",
           "recovery_family": "expendable",
+          "strap_on": "strap_2_small_solid"
+        },
+        {
+          "first_stage_engine": "eng_kerolox_giant",
+          "upper_stage_engine": "eng_kerolox_vacuum",
+          "recovery_family": "parachute",
+          "strap_on": "strap_2_heavy_solid"
+        },
+        {
+          "first_stage_engine": "eng_kerolox_giant",
+          "upper_stage_engine": "eng_methalox_vacuum",
+          "recovery_family": "expendable",
+          "strap_on": "strap_4_small_solid"
+        },
+        {
+          "first_stage_engine": "eng_kerolox_giant",
+          "upper_stage_engine": "eng_methalox_vacuum",
+          "recovery_family": "expendable",
+          "strap_on": "strap_none"
+        },
+        {
+          "first_stage_engine": "eng_kerolox_giant",
+          "upper_stage_engine": "eng_methalox_vacuum",
+          "recovery_family": "parachute",
           "strap_on": "strap_2_heavy_solid"
         },
         {
@@ -8958,6 +10242,18 @@
           "upper_stage_engine": "eng_hydrolox_vacuum",
           "recovery_family": "parachute",
           "strap_on": "strap_none"
+        },
+        {
+          "first_stage_engine": "eng_kerolox_staged_combustion",
+          "upper_stage_engine": "eng_kerolox_vacuum",
+          "recovery_family": "expendable",
+          "strap_on": "strap_4_small_solid"
+        },
+        {
+          "first_stage_engine": "eng_kerolox_staged_combustion",
+          "upper_stage_engine": "eng_kerolox_vacuum",
+          "recovery_family": "parachute",
+          "strap_on": "strap_2_heavy_solid"
         },
         {
           "first_stage_engine": "eng_methalox_full_flow",
@@ -9181,15 +10477,15 @@
         },
         "highest_success": {
           "architecture": {
-            "first_stage_engine": "eng_hydrolox_high_efficiency",
+            "first_stage_engine": "eng_kerolox_staged_combustion",
             "upper_stage_engine": "eng_kerolox_vacuum",
             "recovery_family": "expendable",
-            "strap_on": "strap_4_small_solid"
+            "strap_on": "strap_none"
           },
-          "cost_M": 126.432,
-          "schedule_days": 173.65,
-          "displayed_success": 0.9995001,
-          "majors": 0,
+          "cost_M": 85.632,
+          "schedule_days": 141.45,
+          "displayed_success": 0.99655466,
+          "majors": 1,
           "variant": "most_reliable",
           "parts": [
             {
@@ -9214,11 +10510,11 @@
             },
             {
               "slot": "first_stage_engine",
-              "id": "eng_hydrolox_high_efficiency"
+              "id": "eng_kerolox_staged_combustion"
             },
             {
               "slot": "first_stage_engine_count",
-              "id": "engcount_first_1"
+              "id": "engcount_first_3"
             },
             {
               "slot": "first_stage_tank_size",
@@ -9230,7 +10526,7 @@
             },
             {
               "slot": "mars_lander",
-              "id": "lander_airbag"
+              "id": "lander_legged"
             },
             {
               "slot": "mission_assurance",
@@ -9254,7 +10550,7 @@
             },
             {
               "slot": "strap_on_booster",
-              "id": "strap_4_small_solid"
+              "id": "strap_none"
             },
             {
               "slot": "structural_material",
@@ -9276,20 +10572,20 @@
         },
         "best_reusable": {
           "architecture": {
-            "first_stage_engine": "eng_hydrolox_high_efficiency",
+            "first_stage_engine": "eng_kerolox_staged_combustion",
             "upper_stage_engine": "eng_kerolox_vacuum",
-            "recovery_family": "parachute",
-            "strap_on": "strap_4_small_solid"
+            "recovery_family": "propulsive",
+            "strap_on": "strap_none"
           },
-          "cost_M": 126.432,
-          "schedule_days": 173.65,
-          "displayed_success": 0.9995001,
-          "majors": 0,
+          "cost_M": 92.832,
+          "schedule_days": 141.45,
+          "displayed_success": 0.99655466,
+          "majors": 1,
           "variant": "most_reliable",
           "parts": [
             {
               "slot": "aero_control",
-              "id": "aero_fins"
+              "id": "aero_grid_fins"
             },
             {
               "slot": "avionics",
@@ -9297,7 +10593,7 @@
             },
             {
               "slot": "booster_recovery",
-              "id": "brec_parachute_splashdown"
+              "id": "brec_propulsive_drone_ship"
             },
             {
               "slot": "communications",
@@ -9309,11 +10605,11 @@
             },
             {
               "slot": "first_stage_engine",
-              "id": "eng_hydrolox_high_efficiency"
+              "id": "eng_kerolox_staged_combustion"
             },
             {
               "slot": "first_stage_engine_count",
-              "id": "engcount_first_1"
+              "id": "engcount_first_3"
             },
             {
               "slot": "first_stage_tank_size",
@@ -9321,11 +10617,11 @@
             },
             {
               "slot": "launch_site",
-              "id": "site_inland_steppe_cosmodrome"
+              "id": "site_subtropical_coast"
             },
             {
               "slot": "mars_lander",
-              "id": "lander_sky_crane"
+              "id": "lander_legged"
             },
             {
               "slot": "mission_assurance",
@@ -9349,7 +10645,7 @@
             },
             {
               "slot": "strap_on_booster",
-              "id": "strap_4_small_solid"
+              "id": "strap_none"
             },
             {
               "slot": "structural_material",
@@ -10132,20 +11428,8 @@
           ]
         }
       ],
-      "all_build_front_size": 38,
+      "all_build_front_size": 37,
       "all_build_front_architectures": [
-        {
-          "first_stage_engine": "eng_hydrolox_high_efficiency",
-          "upper_stage_engine": "eng_kerolox_vacuum",
-          "recovery_family": "expendable",
-          "strap_on": "strap_4_small_solid"
-        },
-        {
-          "first_stage_engine": "eng_hydrolox_high_efficiency",
-          "upper_stage_engine": "eng_kerolox_vacuum",
-          "recovery_family": "parachute",
-          "strap_on": "strap_4_small_solid"
-        },
         {
           "first_stage_engine": "eng_kerolox_giant",
           "upper_stage_engine": "eng_kerolox_vacuum",
@@ -10376,15 +11660,15 @@
         },
         "highest_success": {
           "architecture": {
-            "first_stage_engine": "eng_hydrolox_high_efficiency",
-            "upper_stage_engine": "eng_hydrolox_vacuum",
+            "first_stage_engine": "eng_kerolox_staged_combustion",
+            "upper_stage_engine": "eng_kerolox_vacuum",
             "recovery_family": "propulsive",
             "strap_on": "strap_none"
           },
-          "cost_M": 100.488,
-          "schedule_days": 173.65,
-          "displayed_success": 0.99960006,
-          "majors": 1,
+          "cost_M": 86.496,
+          "schedule_days": 141.45,
+          "displayed_success": 0.99655466,
+          "majors": 0,
           "variant": "most_reliable",
           "parts": [
             {
@@ -10409,15 +11693,15 @@
             },
             {
               "slot": "first_stage_engine",
-              "id": "eng_hydrolox_high_efficiency"
+              "id": "eng_kerolox_staged_combustion"
             },
             {
               "slot": "first_stage_engine_count",
-              "id": "engcount_first_1"
+              "id": "engcount_first_3"
             },
             {
               "slot": "first_stage_tank_size",
-              "id": "tank_s"
+              "id": "tank_m"
             },
             {
               "slot": "launch_site",
@@ -10453,29 +11737,29 @@
             },
             {
               "slot": "upper_stage_engine",
-              "id": "eng_hydrolox_vacuum"
+              "id": "eng_kerolox_vacuum"
             },
             {
               "slot": "upper_stage_engine_count",
-              "id": "engcount_upper_1"
+              "id": "engcount_upper_2"
             },
             {
               "slot": "upper_stage_tank_size",
-              "id": "tank_s"
+              "id": "tank_m"
             }
           ]
         },
         "best_reusable": {
           "architecture": {
-            "first_stage_engine": "eng_hydrolox_high_efficiency",
-            "upper_stage_engine": "eng_hydrolox_vacuum",
+            "first_stage_engine": "eng_kerolox_staged_combustion",
+            "upper_stage_engine": "eng_kerolox_vacuum",
             "recovery_family": "propulsive",
             "strap_on": "strap_none"
           },
-          "cost_M": 100.488,
-          "schedule_days": 173.65,
-          "displayed_success": 0.99960006,
-          "majors": 1,
+          "cost_M": 86.496,
+          "schedule_days": 141.45,
+          "displayed_success": 0.99655466,
+          "majors": 0,
           "variant": "most_reliable",
           "parts": [
             {
@@ -10500,15 +11784,15 @@
             },
             {
               "slot": "first_stage_engine",
-              "id": "eng_hydrolox_high_efficiency"
+              "id": "eng_kerolox_staged_combustion"
             },
             {
               "slot": "first_stage_engine_count",
-              "id": "engcount_first_1"
+              "id": "engcount_first_3"
             },
             {
               "slot": "first_stage_tank_size",
-              "id": "tank_s"
+              "id": "tank_m"
             },
             {
               "slot": "launch_site",
@@ -10544,15 +11828,15 @@
             },
             {
               "slot": "upper_stage_engine",
-              "id": "eng_hydrolox_vacuum"
+              "id": "eng_kerolox_vacuum"
             },
             {
               "slot": "upper_stage_engine_count",
-              "id": "engcount_upper_1"
+              "id": "engcount_upper_2"
             },
             {
               "slot": "upper_stage_tank_size",
-              "id": "tank_s"
+              "id": "tank_m"
             }
           ]
         }
@@ -11378,14 +12662,8 @@
           ]
         }
       ],
-      "all_build_front_size": 47,
+      "all_build_front_size": 44,
       "all_build_front_architectures": [
-        {
-          "first_stage_engine": "eng_hydrolox_high_efficiency",
-          "upper_stage_engine": "eng_hydrolox_vacuum",
-          "recovery_family": "propulsive",
-          "strap_on": "strap_none"
-        },
         {
           "first_stage_engine": "eng_kerolox_staged_combustion",
           "upper_stage_engine": "eng_kerolox_vacuum",
@@ -11475,7 +12753,7 @@
     {
       "id": "comm_laser",
       "category": "communications",
-      "reason": "never offered by an evaluated vote"
+      "reason": "offered, but neither the cheapest nor the most reliable option of its vote in any valid build (fill vote: middle options are not searched)"
     },
     {
       "id": "comm_relay_network",
@@ -11501,11 +12779,6 @@
       "id": "fairing_reusable_large",
       "category": "fairing",
       "reason": "in valid builds, but on no all-build Pareto front"
-    },
-    {
-      "id": "eng_electric_pump_mini",
-      "category": "first_stage_engine",
-      "reason": "never offered by an evaluated vote"
     },
     {
       "id": "tps_reusable_ceramic_tiles",
@@ -11591,107 +12864,99 @@
   "recommended_data_changes": [
     {
       "file": "data/contracts.json",
-      "id": "C0, C1, C2, C3, C4, C5, C6, C7, C8",
-      "field": "votes[communications].options",
-      "current": "none (all category parts, first 5 shown)",
-      "proposed": "explicit list that includes \u0060comm_laser\u0060",
-      "reason": "\u0060comm_laser\u0060 is offered for these contracts but is cut by the 5-option limit of design 6.2 (C0 (position 6 of 6); C1 (position 6 of 6); C2 (position 6 of 6); C3 (position 6 of 6); C4 (position 6 of 6); C5 (position 6 of 6); C6 (position 6 of 6); C7 (position 6 of 6); C8 (position 6 of 6)), so players never see it. Give the vote an explicit options list (or move the part earlier in data/parts/communications.json)."
-    },
-    {
-      "file": "data/contracts.json",
-      "id": "C0, C1",
-      "field": "votes[first_stage_engine].options",
-      "current": "none (all category parts, first 5 shown)",
-      "proposed": "explicit list that includes \u0060eng_electric_pump_mini\u0060",
-      "reason": "\u0060eng_electric_pump_mini\u0060 is offered for these contracts but is cut by the 5-option limit of design 6.2 (C0 (position 6 of 6); C1 (position 6 of 6)), so players never see it. Give the vote an explicit options list (or move the part earlier in data/parts/first_stage_engine.json)."
-    },
-    {
-      "file": "data/parts/mission_assurance.json",
-      "id": "assur_class_a",
-      "field": "modifiers[reliability add].value",
-      "current": "0.01",
-      "proposed": "0.005",
-      "reason": "The safest build of 8 contracts reaches \u2265 99.9% displayed success only through this \u002B0.01 per-part bonus, which lifts most parts to the 99.99% cap, so the expensive-and-safe archetype looks the same everywhere (displayed success without \u2192 with it: C1 97.52% \u2192 99.96%; C2 98.29% \u2192 99.96%; C3 98.28% \u2192 99.95%; C4 98.28% \u2192 99.95%; C5 98.08% \u2192 99.95%; C6 97.61% \u2192 99.95%; C7 98.28% \u2192 99.95%; C8 97.62% \u2192 99.96%). Halving the bonus keeps the trade-off visible."
-    },
-    {
-      "file": "data/contracts.json",
       "id": "C0",
       "field": "budget_M",
       "current": "25",
       "proposed": "15",
-      "reason": "The budget never binds: the safest valid build costs 15.63 $M (62.53% of the budget) and the cheapest 11.79 $M. At 15 $M the safest configuration no longer fits while 19 architectures still do. Keep headroom for tests, anomalies and reviews during the build (not modeled here) before applying."
+      "reason": "The budget never binds: the safest valid build costs 15.73 $M (62.92% of the budget) and the cheapest 11.79 $M. At 15 $M the safest configuration no longer fits while 26 architectures still do. Keep headroom for tests, anomalies and reviews during the build (not modeled here) before applying."
     },
     {
       "file": "data/contracts.json",
       "id": "C0",
       "field": "schedule_days",
       "current": "60",
-      "proposed": "30",
-      "reason": "The deadline never binds: the safest valid build launches on day 31.5 (52.5% of the deadline). At 30 days it would slip while 23 architectures still make it. Keep headroom for test days (not modeled here)."
+      "proposed": "35",
+      "reason": "The deadline never binds: the safest valid build launches on day 35.1 (58.5% of the deadline). At 35 days it would slip while 47 architectures still make it. Keep headroom for test days (not modeled here)."
+    },
+    {
+      "file": "data/contracts.json",
+      "id": "C1",
+      "field": "schedule_days",
+      "current": "180",
+      "proposed": "130",
+      "reason": "The deadline never binds: the safest valid build launches on day 141.45 (78.58% of the deadline). At 130 days it would slip while 269 architectures still make it. Keep headroom for test days (not modeled here)."
     },
     {
       "file": "data/contracts.json",
       "id": "C2",
       "field": "budget_M",
       "current": "120",
-      "proposed": "80",
-      "reason": "The budget never binds: the safest valid build costs 87.29 $M (72.74% of the budget) and the cheapest 17.63 $M. At 80 $M the safest configuration no longer fits while 228 architectures still do. Keep headroom for tests, anomalies and reviews during the build (not modeled here) before applying."
+      "proposed": "70",
+      "reason": "The budget never binds: the safest valid build costs 75.29 $M (62.74% of the budget) and the cheapest 17.63 $M. At 70 $M the safest configuration no longer fits while 217 architectures still do. Keep headroom for tests, anomalies and reviews during the build (not modeled here) before applying."
+    },
+    {
+      "file": "data/contracts.json",
+      "id": "C2",
+      "field": "schedule_days",
+      "current": "200",
+      "proposed": "130",
+      "reason": "The deadline never binds: the safest valid build launches on day 141.45 (70.73% of the deadline). At 130 days it would slip while 240 architectures still make it. Keep headroom for test days (not modeled here)."
     },
     {
       "file": "data/contracts.json",
       "id": "C3",
       "field": "budget_M",
       "current": "250",
-      "proposed": "100",
-      "reason": "The budget never binds: the safest valid build costs 110.5 $M (44.2% of the budget) and the cheapest 25.14 $M. At 100 $M the safest configuration no longer fits while 279 architectures still do. Keep headroom for tests, anomalies and reviews during the build (not modeled here) before applying."
+      "proposed": "80",
+      "reason": "The budget never binds: the safest valid build costs 84.1 $M (33.64% of the budget) and the cheapest 25.14 $M. At 80 $M the safest configuration no longer fits while 234 architectures still do. Keep headroom for tests, anomalies and reviews during the build (not modeled here) before applying."
     },
     {
       "file": "data/contracts.json",
       "id": "C3",
       "field": "schedule_days",
       "current": "240",
-      "proposed": "160",
-      "reason": "The deadline never binds: the safest valid build launches on day 173.65 (72.35% of the deadline). At 160 days it would slip while 329 architectures still make it. Keep headroom for test days (not modeled here)."
+      "proposed": "130",
+      "reason": "The deadline never binds: the safest valid build launches on day 141.45 (58.94% of the deadline). At 130 days it would slip while 270 architectures still make it. Keep headroom for test days (not modeled here)."
     },
     {
       "file": "data/contracts.json",
       "id": "C4",
       "field": "budget_M",
       "current": "400",
-      "proposed": "100",
-      "reason": "The budget never binds: the safest valid build costs 108.1 $M (27.02% of the budget) and the cheapest 25.65 $M. At 100 $M the safest configuration no longer fits while 274 architectures still do. Keep headroom for tests, anomalies and reviews during the build (not modeled here) before applying."
+      "proposed": "80",
+      "reason": "The budget never binds: the safest valid build costs 86.11 $M (21.53% of the budget) and the cheapest 25.65 $M. At 80 $M the safest configuration no longer fits while 229 architectures still do. Keep headroom for tests, anomalies and reviews during the build (not modeled here) before applying."
     },
     {
       "file": "data/contracts.json",
       "id": "C4",
       "field": "schedule_days",
       "current": "300",
-      "proposed": "160",
-      "reason": "The deadline never binds: the safest valid build launches on day 173.65 (57.88% of the deadline). At 160 days it would slip while 338 architectures still make it. Keep headroom for test days (not modeled here)."
+      "proposed": "130",
+      "reason": "The deadline never binds: the safest valid build launches on day 141.45 (47.15% of the deadline). At 130 days it would slip while 265 architectures still make it. Keep headroom for test days (not modeled here)."
     },
     {
       "file": "data/contracts.json",
       "id": "C5",
       "field": "budget_M",
       "current": "220",
-      "proposed": "100",
-      "reason": "The budget never binds: the safest valid build costs 106.3 $M (48.32% of the budget) and the cheapest 25.14 $M. At 100 $M the safest configuration no longer fits while 187 architectures still do. Keep headroom for tests, anomalies and reviews during the build (not modeled here) before applying."
+      "proposed": "80",
+      "reason": "The budget never binds: the safest valid build costs 86.3 $M (39.23% of the budget) and the cheapest 25.14 $M. At 80 $M the safest configuration no longer fits while 166 architectures still do. Keep headroom for tests, anomalies and reviews during the build (not modeled here) before applying."
     },
     {
       "file": "data/contracts.json",
       "id": "C5",
       "field": "schedule_days",
       "current": "260",
-      "proposed": "160",
-      "reason": "The deadline never binds: the safest valid build launches on day 173.65 (66.79% of the deadline). At 160 days it would slip while 228 architectures still make it. Keep headroom for test days (not modeled here)."
+      "proposed": "140",
+      "reason": "The deadline never binds: the safest valid build launches on day 151.8 (58.38% of the deadline). At 140 days it would slip while 225 architectures still make it. Keep headroom for test days (not modeled here)."
     },
     {
       "file": "data/contracts.json",
       "id": "C6",
       "field": "budget_M",
       "current": "700",
-      "proposed": "120",
-      "reason": "The budget never binds: the safest valid build costs 130.03 $M (18.58% of the budget) and the cheapest 48.72 $M. At 120 $M the safest configuration no longer fits while 154 architectures still do. Keep headroom for tests, anomalies and reviews during the build (not modeled here) before applying."
+      "proposed": "265",
+      "reason": "The budget never binds: the safest valid build costs 292.03 $M (41.72% of the budget) and the cheapest 48.72 $M. At 265 $M the safest configuration no longer fits while 193 architectures still do. Keep headroom for tests, anomalies and reviews during the build (not modeled here) before applying."
     },
     {
       "file": "data/contracts.json",
@@ -11699,31 +12964,39 @@
       "field": "schedule_days",
       "current": "360",
       "proposed": "160",
-      "reason": "The deadline never binds: the safest valid build launches on day 173.65 (48.24% of the deadline). At 160 days it would slip while 220 architectures still make it. Keep headroom for test days (not modeled here)."
+      "reason": "The deadline never binds: the safest valid build launches on day 177.1 (49.19% of the deadline). At 160 days it would slip while 220 architectures still make it. Keep headroom for test days (not modeled here)."
     },
     {
       "file": "data/contracts.json",
       "id": "C7",
       "field": "budget_M",
       "current": "600",
-      "proposed": "115",
-      "reason": "The budget never binds: the safest valid build costs 126.43 $M (21.07% of the budget) and the cheapest 29.21 $M. At 115 $M the safest configuration no longer fits while 215 architectures still do. Keep headroom for tests, anomalies and reviews during the build (not modeled here) before applying."
+      "proposed": "80",
+      "reason": "The budget never binds: the safest valid build costs 85.63 $M (14.27% of the budget) and the cheapest 29.21 $M. At 80 $M the safest configuration no longer fits while 152 architectures still do. Keep headroom for tests, anomalies and reviews during the build (not modeled here) before applying."
     },
     {
       "file": "data/contracts.json",
       "id": "C7",
       "field": "schedule_days",
       "current": "400",
-      "proposed": "160",
-      "reason": "The deadline never binds: the safest valid build launches on day 173.65 (43.41% of the deadline). At 160 days it would slip while 280 architectures still make it. Keep headroom for test days (not modeled here)."
+      "proposed": "130",
+      "reason": "The deadline never binds: the safest valid build launches on day 141.45 (35.36% of the deadline). At 130 days it would slip while 208 architectures still make it. Keep headroom for test days (not modeled here)."
     },
     {
       "file": "data/contracts.json",
       "id": "C8",
       "field": "budget_M",
       "current": "150",
-      "proposed": "95",
-      "reason": "The budget never binds: the safest valid build costs 100.49 $M (66.99% of the budget) and the cheapest 26.95 $M. At 95 $M the safest configuration no longer fits while 88 architectures still do. Keep headroom for tests, anomalies and reviews during the build (not modeled here) before applying."
+      "proposed": "80",
+      "reason": "The budget never binds: the safest valid build costs 86.5 $M (57.66% of the budget) and the cheapest 26.95 $M. At 80 $M the safest configuration no longer fits while 79 architectures still do. Keep headroom for tests, anomalies and reviews during the build (not modeled here) before applying."
+    },
+    {
+      "file": "data/contracts.json",
+      "id": "C8",
+      "field": "schedule_days",
+      "current": "200",
+      "proposed": "130",
+      "reason": "The deadline never binds: the safest valid build launches on day 141.45 (70.73% of the deadline). At 130 days it would slip while 90 architectures still make it. Keep headroom for test days (not modeled here)."
     },
     {
       "file": "data/parts/fairing.json",
