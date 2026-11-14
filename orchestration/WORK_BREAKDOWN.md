@@ -57,6 +57,7 @@ Updated: 2026-11-14 (build start).
 | `momansy` | Codex | Higgsfield MCP (whole balance approved) | H1 (T005) |
 | `mohammed-alainieh` | Claude Opus 5.5, high | Higgsfield connector | C (T004) |
 | `ahmed-saeed-amek` | Claude Opus 5.5, high | — | B1 (T002) |
+| `yahia-aglan` | Codex, high effort | general coding and QA | T012 balance validator, then T014 if `momansy` stays parked |
 | `kingrma` | orchestrator, local subagents | browser | protocol and data schemas, A (T003), review, merge, verification |
 
 **Usage allowance (team owner, 2026-11-14):** `yousuf-amek` is on a $125 plan; every other
