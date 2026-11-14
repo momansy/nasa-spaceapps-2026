@@ -1,0 +1,153 @@
+.lobby__me {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  overflow: hidden;
+}
+
+.lobby__eye {
+  display: grid;
+  place-items: center;
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
+  border: var(--border-w) solid var(--line-strong);
+  color: var(--accent);
+  flex: none;
+}
+
+.lobby__wait {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-dim);
+  font-size: 0.92rem;
+}
+
+.crew {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.crew__row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: var(--tap);
+  padding: 6px 12px 6px 8px;
+  border-radius: 14px;
+  border: var(--border-w) solid var(--line);
+  background: rgba(17, 43, 64, 0.7);
+  animation: crew-in var(--dur) var(--ease-out-back) both;
+}
+
+[dir='rtl'] .crew__row {
+  padding: 6px 8px 6px 12px;
+}
+
+.crew__row--me {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+@keyframes crew-in {
+  from {
+    opacity: 0;
+    transform: translateX(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.crew__name {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+}
+
+.crew__nick {
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.crew__you {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-strong);
+  border: var(--border-w) solid var(--accent);
+  border-radius: 6px;
+  padding: 0 0.35rem;
+}
+
+.crew__away {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.78rem;
+  color: var(--warn);
+}
+
+.crew__slot {
+  color: var(--text-faint);
+  font-size: 0.85rem;
+}
+
+.crew__roles {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 4px;
+  max-width: 55%;
+}
+
+.lobby__groups {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.lobby__group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  min-height: var(--tap);
+  padding: 8px 12px;
+  border-radius: 14px;
+  border: var(--border-w) solid var(--line-strong);
+  background: var(--bg-2);
+}
+
+.lobby__group:disabled {
+  opacity: 0.55;
+}
+
+.lobby__group.is-mine {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.lobby__grouproles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.lobby__groupwho {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.86rem;
+  color: var(--text-dim);
+  white-space: nowrap;
+}

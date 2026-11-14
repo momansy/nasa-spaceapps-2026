@@ -1,0 +1,127 @@
+/* GO / NO-GO poll. */
+
+.pollcall {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px;
+  border-radius: var(--radius);
+  border: var(--border-w) solid var(--line-strong);
+  background: linear-gradient(180deg, var(--bg-2), var(--bg-1));
+}
+
+.pollcall--me {
+  border-color: var(--accent);
+  box-shadow: var(--glow-accent);
+  animation: call-in var(--dur-slow) var(--ease-out-back) both;
+}
+
+@keyframes call-in {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.pollcall__roles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.pollcall__who {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.pollboard {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pollrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: var(--tap);
+  padding: 6px 10px;
+  border-radius: 12px;
+  border: var(--border-w) solid var(--line);
+  background: var(--bg-1);
+  animation: pop var(--dur) var(--ease) both;
+}
+
+.pollrow--now {
+  border-color: var(--accent);
+  border-style: dashed;
+}
+
+.pollrow__who {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.pollrow__name {
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.pollrow__roles {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--text-faint);
+}
+
+.pollresult {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 20px 16px;
+  border-radius: 20px;
+  text-align: center;
+}
+
+.pollresult--go {
+  border: var(--border-w) solid var(--good);
+  background: var(--good-soft);
+  color: var(--good);
+}
+
+.pollresult--nogo {
+  border: max(3px, var(--border-w)) double var(--bad);
+  background: var(--bad-soft);
+  color: var(--bad);
+}
+
+.pollresult .lede {
+  color: var(--text);
+}
+
+.pollbar .btn {
+  font-size: 1.25rem;
+  letter-spacing: 0.08em;
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.pop {
+  animation: pop var(--dur-slow) var(--ease-out-back) both;
+}

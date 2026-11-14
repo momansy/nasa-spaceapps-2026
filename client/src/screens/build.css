@@ -1,0 +1,139 @@
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.standby {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 14px;
+  border-radius: var(--radius);
+  border: var(--border-w) dashed var(--line-strong);
+  background: rgba(11, 29, 46, 0.6);
+}
+
+.standby__title {
+  font-weight: 700;
+}
+
+.standby__radar {
+  position: relative;
+  flex: none;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 50%;
+  border: var(--border-w) solid var(--accent);
+  background:
+    radial-gradient(circle, transparent 38%, rgba(85, 197, 205, 0.25) 39%, transparent 41%),
+    conic-gradient(from 0deg, rgba(85, 197, 205, 0.55), transparent 28%);
+  animation: radar 2.4s linear infinite;
+}
+
+@keyframes radar {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.dash {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.dash__cell {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: var(--border-w) solid var(--line);
+  border-inline-start-width: 4px;
+  background: rgba(17, 43, 64, 0.7);
+  min-width: 0;
+}
+
+.dash__cell--good {
+  border-inline-start-color: var(--good);
+}
+
+.dash__cell--warn {
+  border-inline-start-color: var(--warn);
+  border-inline-start-style: dotted;
+}
+
+.dash__cell--bad {
+  border-inline-start-color: var(--bad);
+  border-inline-start-style: double;
+}
+
+.dash__k {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+}
+
+.dash__v {
+  font-size: 1.3rem;
+  font-weight: 750;
+  white-space: normal;
+}
+
+.dash__r {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.76rem;
+  font-weight: 650;
+}
+
+.partlist {
+  display: flex;
+  flex-direction: column;
+  border-radius: 14px;
+  border: var(--border-w) solid var(--line);
+  background: rgba(17, 43, 64, 0.7);
+  overflow: hidden;
+}
+
+.partlist__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2px 12px;
+  padding: 10px 12px;
+}
+
+.partlist__row + .partlist__row {
+  border-top: var(--border-w) solid var(--line);
+}
+
+.partlist__cat {
+  font-size: 0.82rem;
+  color: var(--text-dim);
+}
+
+.partlist__name {
+  font-weight: 700;
+  text-align: end;
+}
+
+.feed {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.feed__row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.92rem;
+  color: var(--text-dim);
+}
+
+.feed__row svg {
+  margin-top: 3px;
+}

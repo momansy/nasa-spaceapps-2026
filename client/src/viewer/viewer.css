@@ -1,0 +1,157 @@
+/* 3D part viewer: hologram stage shared by the WebGL model and the wireframe fallback. */
+
+.viewer {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  isolation: isolate;
+  border: var(--border-w) solid var(--line);
+  border-radius: var(--radius-sm);
+  background:
+    radial-gradient(70% 90% at 50% 62%, rgba(85, 197, 205, 0.2), transparent 70%),
+    linear-gradient(180deg, #091327, #050a16);
+}
+
+:root[data-contrast='high'] .viewer {
+  background: #000;
+  border-color: var(--line-strong);
+}
+
+/* Compact header of a Part Card: grows with the text scale but never eats the card. */
+.viewer--card {
+  height: clamp(132px, 9.5rem, 24vh);
+}
+
+.viewer--full {
+  flex: 1 1 auto;
+  height: 100%;
+  min-height: 16rem;
+}
+
+.viewer__stage {
+  position: absolute;
+  inset: 0;
+  cursor: grab;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.viewer--full .viewer__stage {
+  touch-action: none;
+}
+
+.viewer__stage[data-grabbing] {
+  cursor: grabbing;
+}
+
+.viewer__stage:focus-visible {
+  outline-offset: -3px;
+  border-radius: var(--radius-sm);
+}
+
+.viewer__wire,
+.viewer__gl {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.viewer--gl .viewer__wire {
+  visibility: hidden;
+}
+
+/* Scan lines and corner brackets: drawn with gradients, above the canvas, below the tools. */
+.viewer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: repeating-linear-gradient(180deg, rgba(85, 197, 205, 0.05) 0 1px, transparent 1px 4px);
+}
+
+.viewer::after {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  z-index: 1;
+  pointer-events: none;
+  --c: rgba(85, 197, 205, 0.6);
+  background:
+    linear-gradient(var(--c), var(--c)) top left / 14px 1.5px,
+    linear-gradient(var(--c), var(--c)) top left / 1.5px 14px,
+    linear-gradient(var(--c), var(--c)) top right / 14px 1.5px,
+    linear-gradient(var(--c), var(--c)) top right / 1.5px 14px,
+    linear-gradient(var(--c), var(--c)) bottom left / 14px 1.5px,
+    linear-gradient(var(--c), var(--c)) bottom left / 1.5px 14px,
+    linear-gradient(var(--c), var(--c)) bottom right / 14px 1.5px,
+    linear-gradient(var(--c), var(--c)) bottom right / 1.5px 14px;
+  background-repeat: no-repeat;
+}
+
+:root[data-contrast='high'] .viewer::before {
+  display: none;
+}
+
+.viewer__tag {
+  position: absolute;
+  z-index: 2;
+  top: 12px;
+  inset-inline-start: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  pointer-events: none;
+}
+
+.viewer__hint {
+  position: absolute;
+  z-index: 2;
+  bottom: 14px;
+  inset-inline-start: 14px;
+  max-width: 55%;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  pointer-events: none;
+}
+
+.viewer__tools {
+  position: absolute;
+  z-index: 2;
+  bottom: 8px;
+  inset-inline-end: 8px;
+  display: flex;
+  gap: 6px;
+}
+
+/* Icon-only controls: a fixed 48 px target, so large text does not cover the model. */
+.viewer__btn {
+  display: inline-grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  font-size: 16px;
+  border-radius: 12px;
+  border: var(--border-w) solid var(--line-strong);
+  background: rgba(8, 24, 38, 0.82);
+  color: var(--text);
+  transition:
+    background-color var(--dur-fast) var(--ease),
+    transform var(--dur-fast) var(--ease);
+}
+
+.viewer__btn:active {
+  transform: scale(0.94);
+  background: var(--accent-soft);
+}
+
+:root[data-contrast='high'] .viewer__btn {
+  background: #000;
+}

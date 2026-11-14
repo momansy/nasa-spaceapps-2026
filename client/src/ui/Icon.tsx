@@ -1,0 +1,114 @@
+// Inline SVG icons (24 px grid, stroke style). Bundled: no icon font, no network.
+import type { CSSProperties } from 'react';
+
+const P = {
+  check: 'M5 12.5l4.5 4.5L19 7.5',
+  cross: 'M6 6l12 12M18 6L6 18',
+  warn: 'M12 4l9 16H3L12 4zM12 10v4.5M12 17.4v.2',
+  info: 'M12 3a9 9 0 100 18 9 9 0 000-18zM12 11v6M12 7.4v.2',
+  bulb: 'M9 18h6M10 21h4M12 3a6 6 0 00-3.6 10.8c.6.5 1 1.3 1.1 2.2h5c.1-.9.5-1.700 1.1-2.2A6 6 0 0012 3z',
+  search: 'M10.5 4a6.5 6.5 0 104.1 11.6L20 21M10.5 4a6.5 6.5 0 016.5 6.5',
+  ban: 'M12 3a9 9 0 100 18 9 9 0 000-18zM5.7 5.7l12.6 12.6',
+  star: 'M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L12 17l-5.2 2.700 1-5.9L3.500 9.700l5.900-.8L12 3.500z',
+  rocket: 'M12 2.5c3.500 2.500 5 6.500 4.500 11.500h-9C7 9 8.500 5 12 2.500zM7.500 14L5 18l3.500-1M16.500 14l2.500 4-3.500-1M12 17v4.500M12 8.200v.1',
+  gear: 'M12 8.500a3.500 3.500 0 100 7 3.500 3.500 0 000-7zM12 2.500v3M12 18.500v3M2.500 12h3M18.500 12h3M5.300 5.300l2.100 2.100M16.600 16.600l2.100 2.100M5.300 18.700l2.100-2.100M16.600 7.400l2.100-2.100',
+  book: 'M5 4.500h10a3 3 0 013 3V20H8a3 3 0 01-3-3V4.500zM5 17a3 3 0 013-3h10M9 8.500h5',
+  user: 'M12 12a4 4 0 100-8 4 4 0 000 8zM4.500 20.500c.8-3.500 3.700-5.500 7.500-5.500s6.700 2 7.500 5.500',
+  users: 'M9 11.500a3.500 3.500 0 100-7 3.500 3.500 0 000 7zM2.500 20c.6-3 3-4.800 6.500-4.800s5.900 1.800 6.500 4.800M16 4.700a3.500 3.500 0 010 6.600M18 15.500c2 .6 3.200 2.100 3.500 4.500',
+  chevronLeft: 'M14.500 5.500L8 12l6.500 6.500',
+  chevronRight: 'M9.500 5.500L16 12l-6.500 6.500',
+  chevronDown: 'M5.500 9.500L12 16l6.500-6.500',
+  chevronUp: 'M5.500 14.500L12 8l6.500 6.500',
+  arrowUp: 'M12 19V5M6 11l6-6 6 6',
+  arrowDown: 'M12 5v14M6 13l6 6 6-6',
+  clock: 'M12 3a9 9 0 100 18 9 9 0 000-18zM12 7.500V12l3 2',
+  signal: 'M4 18.500v-3M9 18.500v-6.500M14 18.500V8.500M19 18.500V4.500',
+  signalOff: 'M4 18.500v-3M9 18.500v-6.500M14 18.500v-4M19 18.500v-2M4 4l16 16',
+  bolt: 'M13 2.500L5 13.500h6l-1 8 8-11h-6l1-8z',
+  target: 'M12 3a9 9 0 100 18 9 9 0 000-18zM12 7.500a4.500 4.500 0 100 9 4.500 4.500 0 000-9zM12 11.800v.4',
+  shield: 'M12 3l7.500 2.800v5.700c0 4.600-3 7.900-7.500 9.500-4.500-1.600-7.500-4.900-7.500-9.500V5.800L12 3z',
+  flag: 'M5.500 21V4M5.500 4.500h11l-2 4 2 4h-11',
+  thumbsUp: 'M7 10.500v9.500H4v-9.500h3zM7 11l4-7.500c1.600 0 2.500 1.300 2.200 2.800L12.500 10H18a2 2 0 012 2.400l-1.300 6A2 2 0 0116.700 20H7',
+  megaphone: 'M4 10v4h3l7 4.500v-13L7 10H4zM17 9.500a4 4 0 010 5M19.500 7a8 8 0 010 10',
+  lock: 'M6.500 11h11v9.500h-11V11zM8.500 11V8a3.500 3.500 0 017 0v3',
+  eyeOff: 'M3 3l18 18M10.600 6.200A9.700 9.700 0 0112 6c5 0 8.500 4.500 9.500 6-.500.800-1.500 2.100-2.900 3.300M14.100 14.200A3 3 0 019.800 9.900M6.300 7.700C4.400 9 3.100 10.800 2.500 12c1 1.500 4.500 6 9.500 6 1.400 0 2.700-.300 3.800-.800',
+  radio: 'M12 14.500a2.500 2.500 0 100-5 2.500 2.500 0 000 5zM7 17a7 7 0 010-10M17 7a7 7 0 010 10M4 20a11 11 0 010-16M20 4a11 11 0 010 16',
+  trophy: 'M8 4.500h8v5a4 4 0 01-8 0v-5zM8 6H4.500c0 3 1.500 4.500 3.700 4.700M16 6h3.500c0 3-1.500 4.500-3.700 4.700M12 13.500V17M8.500 20h7M9.500 17h5v3h-5v-3z',
+  flame: 'M12 3c.5 3-3.500 5-3.500 9.500a3.500 3.500 0 007 .500c0-1.500-1-2.500-1-4 2 1 3.500 3.500 3.500 6a6 6 0 01-12 0C6 9.500 10.500 7.500 12 3z',
+  gauge: 'M4.500 17.500a8.500 8.500 0 1115 0M12 14l4-5M12 14.800v.4',
+  plus: 'M12 5v14M5 12h14',
+  minus: 'M5 12h14',
+  cube: 'M12 3l8 4.500v9L12 21l-8-4.500v-9L12 3zM4 7.500l8 4.500 8-4.500M12 12v9',
+  rotate: 'M4.500 12a7.500 7.500 0 0113-5l2 2M19.500 4.500V9H15M19.500 12a7.500 7.500 0 01-13 5l-2-2M4.500 19.500V15H9',
+  hand: 'M8 11V5.500a1.500 1.500 0 013 0V10M11 10V4.500a1.500 1.500 0 013 0V10M14 10V6a1.500 1.500 0 013 0v7.500c0 4-2.500 7-6 7s-5-2-6.500-5L3 12.500a1.500 1.500 0 012.500-1.500L8 13.500',
+  sparkle: 'M12 3l1.800 5.200L19 10l-5.200 1.800L12 17l-1.800-5.200L5 10l5.200-1.800L12 3zM19 16l.700 2.300L22 19l-2.300.700L19 22l-.700-2.300L16 19l2.300-.700L19 16z',
+  medal: 'M8 3l4 7 4-7M12 10a5.500 5.500 0 100 11 5.500 5.500 0 000-11zM12 13.500v4',
+  wallet: 'M4 7.500A2.500 2.500 0 016.500 5H18v3M4 7.500V17a2.500 2.500 0 002.500 2.500H20V8H6.500A2.500 2.500 0 014 7.500zM16.500 13.700v.1',
+  calendar: 'M5 6.500h14V20H5V6.500zM5 10.500h14M8.500 4v4M15.500 4v4',
+  globe: 'M12 3a9 9 0 100 18 9 9 0 000-18zM3 12h18M12 3c2.500 2.500 3.800 5.500 3.800 9s-1.300 6.500-3.800 9c-2.500-2.500-3.800-5.500-3.800-9S9.500 5.500 12 3z',
+  exit: 'M10 4.500H5.500v15H10M14.500 8l4 4-4 4M18.500 12H9',
+  refresh: 'M19.500 12a7.500 7.500 0 11-2.200-5.300L19.500 9M19.500 4.500V9H15',
+  dot: 'M12 9a3 3 0 100 6 3 3 0 000-6z',
+  pause: 'M8 5v14M16 5v14',
+  play: 'M7 4.500l12 7.500-12 7.500v-15z',
+  expand: 'M4.500 9.500v-5h5M19.500 9.500v-5h-5M4.500 14.500v5h5M19.500 14.500v5h-5',
+  eye: 'M2.500 12c1-1.500 4.500-6 9.500-6s8.500 4.500 9.500 6c-1 1.500-4.500 6-9.500 6s-8.500-4.500-9.500-6zM12 9a3 3 0 100 6 3 3 0 000-6z',
+  scale: 'M12 4v16M6 20h12M5 8h14M5 8l-2.500 6a2.700 2.700 0 005 0L5 8zM19 8l-2.500 6a2.700 2.700 0 005 0L19 8z',
+  statusGood: 'M12 3a9 9 0 100 18 9 9 0 000-18zM8 12.3l2.8 2.8L16.2 9.6',
+  statusWarn: 'M12 3.5l9.5 16.500H2.500L12 3.500zM12 9.500v4.500M12 16.900v.2',
+  statusBad: 'M8.300 3h7.400L21 8.300v7.400L15.700 21H8.300L3 15.700V8.300L8.300 3zM9.200 9.200l5.600 5.600M14.800 9.200l-5.600 5.600',
+  ping: 'M12 21s-6.500-5.600-6.500-11a6.500 6.500 0 0113 0C18.500 15.400 12 21 12 21zM12 7v3.600M12 13.200v.2',
+  coin: 'M12 3.500a8.500 8.500 0 100 17 8.500 8.500 0 000-17zM12 7.500v9M14.500 9.500c-.500-.800-1.400-1.200-2.500-1.200-1.500 0-2.500.800-2.500 1.900 0 2.600 5.200 1.200 5.200 3.800 0 1.100-1.100 1.900-2.700 1.900-1.200 0-2.200-.500-2.700-1.300',
+} as const;
+
+export type IconName = keyof typeof P;
+
+export interface IconProps {
+  name: IconName;
+  /** Size in rem-friendly CSS units. Default 1.25em. */
+  size?: number | string;
+  /** Accessible name. Icons without one are decorative. */
+  label?: string;
+  filled?: boolean;
+  strokeWidth?: number;
+  className?: string;
+  style?: CSSProperties;
+}
+
+export function Icon({ name, size = '1.25em', label, filled, strokeWidth = 2, className, style }: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width={size}
+      height={size}
+      fill={filled ? 'currentColor' : 'none'}
+      stroke="currentColor"
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      role={label ? 'img' : undefined}
+      aria-label={label}
+      aria-hidden={label ? undefined : true}
+      focusable="false"
+      className={className}
+      style={style}
+    >
+      <path d={P[name]} />
+    </svg>
+  );
+}
+
+export type Tone = 'good' | 'warn' | 'bad' | 'neutral' | 'accent';
+
+/** The icon that always accompanies a status colour (design 14.4: never colour alone). */
+export const TONE_ICON: Record<Tone, IconName> = {
+  good: 'statusGood',
+  warn: 'statusWarn',
+  bad: 'statusBad',
+  neutral: 'dot',
+  accent: 'info',
+};
+
+export function toneOfRating(rating: 'GOOD' | 'MARGINAL' | 'BAD' | 'NEUTRAL'): Tone {
+  return rating === 'GOOD' ? 'good' : rating === 'MARGINAL' ? 'warn' : rating === 'BAD' ? 'bad' : 'neutral';
+}
