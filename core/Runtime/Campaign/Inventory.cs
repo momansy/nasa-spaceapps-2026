@@ -41,6 +41,9 @@ namespace MissionForge.Core.Campaign
             if (slotId != null && !matches.Contains(slotId))
                 throw new ArgumentException("Reusable item does not match build slot: " + slotId, nameof(slotId));
             var slots = slotId == null ? matches : new[] { slotId };
+            foreach (string slot in slots)
+                if (build.HasFlag("campaign_reused_slot:" + slot))
+                    throw new InvalidOperationException("Build slot already uses recovered hardware: " + slot);
             double costM = catalog.Part(item.PartId).CostM;
             var result = build.WithLedger(new LedgerEntry(LedgerKind.Budget,
                 "campaign_reuse:" + item.ItemId,
@@ -54,6 +57,8 @@ namespace MissionForge.Core.Campaign
                 result = result.WithCondition(slot, old.With(
                     reliabilityDelta: old.ReliabilityDelta - penalty));
             }
+            foreach (string slot in slots)
+                result = result.WithFlag("campaign_reused_slot:" + slot);
             return result.WithFlag(flag);
         }
 
