@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>MissionForge minigame lab</title>
+    <style>
+      html, body { margin: 0; background: #02080f; min-height: 100%; }
+      body { display: flex; justify-content: center; }
+      #frame { position: relative; width: 390px; height: 844px; overflow: hidden; background: var(--bg-0, #071522); display: flex; flex-direction: column; }
+      #head { padding: 12px 16px 8px; }
+      #head h1 { margin: 0; font-size: 1.05rem; color: var(--text, #e8eef0); }
+      #head p { margin: 4px 0 0; font-size: 0.85rem; color: var(--text-dim, #b6c7d3); }
+      #bar { height: 6px; margin: 0 16px 8px; background: var(--bg-3, #173a55); border-radius: 3px; overflow: hidden; }
+      #bar i { display: block; height: 100%; width: 0; background: var(--accent, #55c5cd); }
+      #play { position: relative; flex: 1; min-height: 0; }
+      #out { padding: 8px 16px 12px; min-height: 22px; font: 600 0.85rem var(--font-mono, monospace); color: var(--text-dim, #b6c7d3); }
+    </style>
+  </head>
+  <body>
+    <div id="frame">
+      <div id="head"><h1 id="name"></h1><p id="how"></p></div>
+      <div id="bar"><i id="fill"></i></div>
+      <div id="play"></div>
+      <div id="out" data-testid="lab-out"></div>
+    </div>
+    <script type="module" src="./lab.ts"></script>
+  </body>
+</html>
