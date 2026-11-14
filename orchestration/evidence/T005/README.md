@@ -1,14 +1,18 @@
-# T005 evidence — blocked media generation
+# T005 evidence — complete media set
 
-Date: 2026-11-14. This directory is evidence of completed preproduction and an actual tool-access blocker. It is not visual proof of finished assets.
+Date: 2026-11-14. The original unattended-worker blocker is preserved below as historical evidence. T018 supplied the six approved style frames and two key-art files; the project owner supplied the final C1 briefing video, which was validated and remuxed without audio to complete T005.
 
 ## Done
 
 - `assets/media/style/STYLE_GUIDE.md`: palette, accessible status design, type/layout guidance, Blender/Unity material recipes, lighting/camera direction, scene descriptions, physical/game boundaries, C1 shot plan and acceptance gates.
 - `assets/media/style/PROMPT_PACK.json`: complete prompts and proposed parameters for six style frames, landscape/square key art and a silent 12 s C1 cinematic, in brief order.
 - `assets/media/CREDITS.md`: authored-file provenance and explicitly ungenerated media register.
+- `assets/media/style/frames/01-title.png` through `06-mission-control.png`: approved 2048×1152 style frames merged by T018.
+- `assets/media/key-art/missionforge-16x9.png` and `missionforge-1x1.png`: approved 2048×1152 and 2048×2048 key art merged by T018.
+- `assets/media/cinematics/c1-earth-watch-briefing.mp4`: approved 10 s, 1280×720, 24 fps H.264/yuv420p briefing with no audio stream; SHA-256 `8D70D08D5413ACDE132F1A3F8FEA450ACA15CB2006AD0028238C0B58B46B8F66`.
+- `orchestration/evidence/T005/contact-sheet.jpg`: 1920×810 contact sheet containing all eight stills and three representative cinematic frames.
 
-## Tool evidence and blockers
+## Historical tool evidence and blocker
 
 Read-only Higgsfield balance succeeded: 10 credits, Ultra plan, unlimited available through 2026-11-16T22:23:50Z. Read-only model discovery confirmed GPT Image 2.6 supports 2K/medium under the allowance, and Seedance 2.5 supports 720p under it. User preferences said no automatic project creation. No project was created. `open_home` was called once as the provider requested.
 
@@ -20,23 +24,23 @@ Initial inherited-context subagent startup failed with a thread-store error. A f
 
 ## Verification
 
-Run from checkout root: `node orchestration/evidence/T005/verify-preproduction.mjs`. Exit 1 means failed source checks or missing assets; exit 2 would mean files exist but still require separate decoded-media and visual acceptance. This script never awards full media acceptance. `node --check orchestration/evidence/T005/verify-preproduction.mjs` passed syntax validation.
+Run from checkout root: `node orchestration/evidence/T005/verify-preproduction.mjs`. Exit 0 means all source, decoded-media and recorded visual-acceptance checks pass; exit 1 means at least one check failed. `node --check orchestration/evidence/T005/verify-preproduction.mjs` passed syntax validation.
 
-Observed result: **10/10 preproduction checks passed; all 9 required media files and the contact sheet are missing.** The script checks the JSON request count/order-related formats, complete prompts, credits mapping, file-size limits, required direction topics and foreground/background contrast arithmetic. It writes `verification.json` and deliberately exits nonzero while requested media/contact sheet are absent. Arithmetic is not a colour-vision simulation or end-to-end accessibility test. Final Higgsfield balance check remained **10 credits**, with unlimited still available; no credits were spent by this task. `git diff --check` reported no issues in tracked changes; the newly authored files are untracked and were checked by the local verifier.
+Final result: **14/14 checks passed; 0 missing media; media acceptance PASS.** The verifier checks manifest completion, prompt/source coverage, palette contrast, all still dimensions/codecs, both key-art sizes, silent H.264 duration/resolution, contact-sheet decoding, recorded visual acceptance and file-size limits. `ffmpeg` also decoded the final cinematic end to end without errors. Arithmetic remains a design-token check rather than a colour-vision simulation.
 
-There is no Unity project, client build, server build or media build pipeline in this checkout to run for T005. No game code changed. Image opening, native dimensions, codec, duration, video decode, visual consistency, hardware correctness, and actual UI-overlay readability remain **unverified** because no media was generated. No contact sheet is created from blanks or placeholder art. No rendered screenshot is claimed.
+There is no Unity, client or server build required for T005 and no game code changed. All stills and the contact sheet decode at their recorded dimensions. The cinematic decodes as 1280×720 H.264/yuv420p at 24 fps for 10.000000 s with no audio stream. Five representative frames were visually inspected for satellite continuity, camera motion, negative space, text/logos and morphing; the contact sheet was also inspected.
 
 ## Decisions
 
 - Preserve credits with already-available covered unlimited settings; do not start a trial or make a purchase.
-- Still targets: 2048 × 1152 px landscape and 2048 × 2048 px square. Cinematic target: 1280 × 720 px, 12 s, silent; final H.264 must be inspected and transcoded if needed after download.
+- Still targets: 2048 × 1152 px landscape and 2048 × 2048 px square. Cinematic target: 1280 × 720 px, 8–15 s, silent H.264. The delivered source was 10.026667 s and contained quiet but audible AAC; FFmpeg removed the audio by stream copy, leaving a 10.000000 s video without re-encoding.
 - One coherent warm-sun/cool-Earth style; Earth Watch's observation satellite is the shared hardware anchor. General capsule reentry frame does not imply C1 returns a capsule.
 - Produce no substitute media when the requested Higgsfield tools are blocked. Retain complete prompts for a permitted execution environment.
 
 ## Interface changes
 
-None. Only T005-owned media/evidence paths are authored. Proposed asset paths are reserved in the prompt pack; no consumer should load them until real files exist.
+The reserved C1 cinematic path now contains the accepted asset. No game-code interface changed.
 
 ## Next
 
-Run the prepared requests in a worker with Higgsfield tool calls permitted, rechecking balance/allowance first. Generate in brief order and reuse approved references. Download every actual result into its planned path, inspect it, record provenance, and keep each file below 50 MB. Validate still sizes and H.264 video duration/decoding. Assemble `contact-sheet.jpg` from all eight finished images and representative cinematic frames, inspect it and rerun acceptance. Do not treat the current preproduction checks as full T005 acceptance.
+T005 is complete. Integration requires review of this branch and merge through the normal pull-request process; no direct push to `main` or unattended deployment was performed.
