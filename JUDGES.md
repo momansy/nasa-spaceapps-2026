@@ -4,7 +4,7 @@ MissionForge is a cooperative party game for 1 to 10 players who act as a space 
 
 ## Try it
 
-- **Hosted:** `<URL to be added by the team owner>` (open `/play/`). Not deployed at the time of writing.
+- **Hosted:** <https://nasasc.netlify.app/play/> (static pages only: entry, credits and judges). The game itself needs a room server, so use the one-command local run below for play. The `/play/` pages appear once the Netlify site is redeployed from `main`.
 - **Locally, one command** (Node 20+, Windows or macOS): `npm --prefix tools/demo install`, then `npm --prefix tools/demo run demo`. It prints the big-screen URL, the phone URL and a QR code. Phones on the same Wi-Fi join with the code shown on the big screen; no app, account or chat.
 - **No network:** `/play/client/?mock=1` runs a scripted phone session without a server.
 
