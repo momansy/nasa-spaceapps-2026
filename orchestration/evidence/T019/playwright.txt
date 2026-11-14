@@ -1,0 +1,34 @@
+
+Running 19 tests using 1 worker
+
+  ok  1 e2e\minigames\build\build.spec.ts:153:1 › lab smoke with MG-08 (1.7s)
+  ok  2 e2e\minigames\build\build.spec.ts:164:5 › MG-02 › MG-02 demo, play and one-button screenshots (7.3s)
+  ok  3 e2e\minigames\build\build.spec.ts:188:5 › MG-02 › MG-02 full runs: scripted player succeeds, idle fails, one result, never past durationMs (30.6s)
+  ok  4 e2e\minigames\build\build.spec.ts:164:5 › MG-01 › MG-01 demo, play and one-button screenshots (2.2s)
+  ok  5 e2e\minigames\build\build.spec.ts:188:5 › MG-01 › MG-01 full runs: scripted player succeeds, idle fails, one result, never past durationMs (22.5s)
+  ok  6 e2e\minigames\build\build.spec.ts:164:5 › MG-29 › MG-29 demo, play and one-button screenshots (9.2s)
+  ok  7 e2e\minigames\build\build.spec.ts:188:5 › MG-29 › MG-29 full runs: scripted player succeeds, idle fails, one result, never past durationMs (13.0s)
+  ok  8 e2e\minigames\build\build.spec.ts:164:5 › MG-06 › MG-06 demo, play and one-button screenshots (8.0s)
+  ok  9 e2e\minigames\build\build.spec.ts:188:5 › MG-06 › MG-06 full runs: scripted player succeeds, idle fails, one result, never past durationMs (42.6s)
+  ok 10 e2e\minigames\build\build.spec.ts:164:5 › MG-03 › MG-03 demo, play and one-button screenshots (3.1s)
+  ok 11 e2e\minigames\build\build.spec.ts:188:5 › MG-03 › MG-03 full runs: scripted player succeeds, idle fails, one result, never past durationMs (16.3s)
+  ok 12 e2e\minigames\build\build.spec.ts:164:5 › MG-04 › MG-04 demo, play and one-button screenshots (4.8s)
+  ok 13 e2e\minigames\build\build.spec.ts:188:5 › MG-04 › MG-04 full runs: scripted player succeeds, idle fails, one result, never past durationMs (12.5s)
+  ok 14 e2e\minigames\build\build.spec.ts:164:5 › MG-05 › MG-05 demo, play and one-button screenshots (3.4s)
+  ok 15 e2e\minigames\build\build.spec.ts:188:5 › MG-05 › MG-05 full runs: scripted player succeeds, idle fails, one result, never past durationMs (18.0s)
+  ok 16 e2e\minigames\build\build.spec.ts:164:5 › MG-30 › MG-30 demo, play and one-button screenshots (7.6s)
+  ok 17 e2e\minigames\build\build.spec.ts:188:5 › MG-30 › MG-30 full runs: scripted player succeeds, idle fails, one result, never past durationMs (15.3s)
+  ok 18 e2e\minigames\build\build.spec.ts:222:1 › right-to-left at 200 % text with reduced motion (14.1s)
+  ok 19 e2e\minigames\build\build.spec.ts:232:1 › frame rate at a ×4 CPU throttle (45.7s)
+
+  19 passed (4.7m)
+exit 0
+
+## Existing session spec (main config: builds and serves dist/)
+npx playwright test e2e/session.spec.ts
+missing strings: []
+console errors: []
+  ok 1 e2e\session.spec.ts:24:1 › full mock session on a phone (2.5m)
+  ok 2 e2e\session.spec.ts:243:1 › join screen right-to-left at 200 % text (870ms)
+
+  2 passed (2.7m)
