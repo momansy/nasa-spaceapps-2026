@@ -1,0 +1,149 @@
+{
+  "checked_at": "2026-11-14T10:59:03.870Z",
+  "node": "v24.16.0",
+  "scope": "Preproduction checks only; no image decoding or video inspection possible without media.",
+  "checks": [
+    {
+      "name": "Nine explicit generation requests, no outputs claimed",
+      "pass": true
+    },
+    {
+      "name": "Unique planned paths",
+      "pass": true
+    },
+    {
+      "name": "Six planned landscape style-frame sizes at least 1920 x 1080 px",
+      "pass": true
+    },
+    {
+      "name": "Both key-art ratios specified",
+      "pass": true
+    },
+    {
+      "name": "Planned cinematic duration within 8-15 s",
+      "pass": true
+    },
+    {
+      "name": "All planned paths confined to assets/media",
+      "pass": true
+    },
+    {
+      "name": "Every request has a complete prompt and a credits row",
+      "pass": true
+    },
+    {
+      "name": "Guide covers accessibility, materials, lighting and model boundaries",
+      "pass": true
+    },
+    {
+      "name": "Specified text/status foregrounds exceed 4.5:1 on opaque Console",
+      "pass": true
+    },
+    {
+      "name": "Authored source files each below 50 MB (decimal)",
+      "pass": true
+    }
+  ],
+  "contrastResults": [
+    {
+      "token": "ceramic",
+      "hex": "#E8EEF0",
+      "background": "#112B40",
+      "ratio": 12.414
+    },
+    {
+      "token": "muted",
+      "hex": "#B6C7D3",
+      "background": "#112B40",
+      "ratio": 8.382
+    },
+    {
+      "token": "signal",
+      "hex": "#55C5CD",
+      "background": "#112B40",
+      "ratio": 7.104
+    },
+    {
+      "token": "meets",
+      "hex": "#77D6A1",
+      "background": "#112B40",
+      "ratio": 8.257
+    },
+    {
+      "token": "marginal",
+      "hex": "#FFD166",
+      "background": "#112B40",
+      "ratio": 10.09
+    },
+    {
+      "token": "fails",
+      "hex": "#FF8F8F",
+      "background": "#112B40",
+      "ratio": 6.635
+    }
+  ],
+  "authoredFileSizes": [
+    {
+      "path": "assets/media/style/STYLE_GUIDE.md",
+      "bytes": 13527
+    },
+    {
+      "path": "assets/media/style/PROMPT_PACK.json",
+      "bytes": 15972
+    },
+    {
+      "path": "assets/media/CREDITS.md",
+      "bytes": 5249
+    },
+    {
+      "path": "orchestration/evidence/T005/README.md",
+      "bytes": 5717
+    },
+    {
+      "path": "orchestration/evidence/T005/verify-preproduction.mjs",
+      "bytes": 4239
+    }
+  ],
+  "media": [
+    {
+      "path": "assets/media/style/frames/01-title.png",
+      "exists": false
+    },
+    {
+      "path": "assets/media/style/frames/02-build-bay.png",
+      "exists": false
+    },
+    {
+      "path": "assets/media/style/frames/03-ascent.png",
+      "exists": false
+    },
+    {
+      "path": "assets/media/style/frames/04-orbit-operations.png",
+      "exists": false
+    },
+    {
+      "path": "assets/media/style/frames/05-reentry.png",
+      "exists": false
+    },
+    {
+      "path": "assets/media/style/frames/06-mission-control.png",
+      "exists": false
+    },
+    {
+      "path": "assets/media/key-art/missionforge-16x9.png",
+      "exists": false
+    },
+    {
+      "path": "assets/media/key-art/missionforge-1x1.png",
+      "exists": false
+    },
+    {
+      "path": "assets/media/cinematics/c1-earth-watch-briefing.mp4",
+      "exists": false
+    }
+  ],
+  "contactSheetExists": false,
+  "preproduction_pass": true,
+  "media_acceptance_pass": false,
+  "blocker": "Higgsfield estimate_image_cost and generate_image rejected before submission: MCP tool call requires approval, but approval policy is never"
+}

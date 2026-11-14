@@ -1,0 +1,197 @@
+{
+  "task": "T005",
+  "date": "2026-11-14",
+  "status": "blocked",
+  "generated_files": [],
+  "authorization": "Whole available Higgsfield balance approved in task. Covered unlimited configurations selected to preserve credits; no trial activation or purchase.",
+  "initial_balance_credits": 10,
+  "initial_unlimited_available": true,
+  "unlimited_expires_at": "2026-11-16T22:23:50Z",
+  "blocker": "Higgsfield estimate_image_cost and generate_image rejected before submission: MCP tool call requires approval, but approval policy is never",
+  "numeric_semantics": {
+    "requested_image_dimensions": {
+      "unit": "px",
+      "value_type": "game_value",
+      "meaning": "Editorial output targets, not verified output dimensions"
+    },
+    "aspect_ratio": {
+      "unit": "dimensionless width:height",
+      "value_type": "game_value"
+    },
+    "duration": {
+      "unit": "s",
+      "value_type": "game_value",
+      "meaning": "Requested cinematic editorial duration"
+    },
+    "resolution": {
+      "unit": "px-based provider tier",
+      "value_type": "game_value",
+      "meaning": "2k and 720p are provider configuration labels, not inspected media dimensions"
+    },
+    "order": {
+      "unit": "dimensionless ordinal",
+      "value_type": "game_value"
+    },
+    "initial_balance_credits": {
+      "unit": "Higgsfield credits",
+      "value_type": "real_world_approximate",
+      "meaning": "Exact provider-reported account snapshot; not a physics quantity"
+    }
+  },
+  "requests": [
+    {
+      "order": 1,
+      "id": "title",
+      "path": "assets/media/style/frames/01-title.png",
+      "status": "blocked_before_submission",
+      "reference_policy": "none",
+      "params": {
+        "model": "gpt_image_2_6",
+        "prompt": "Use case: stylized-concept. MissionForge title-screen style frame, premium stylised-realism 3D game concept art, 16:9 landscape. Earth from low orbit at the day-night terminator, curved blue horizon and layered white clouds across the lower half, a slender plausible generic two-stage ceramic-white rocket silhouette on the right third, separate fairing and interstage, restrained teal structural trim. The upper-left half is quiet deep navy empty space for a later live logo, no lettering now. Clean accurate proportions, restrained bevels, brushed aluminium and matte ceramic, one warm directional sun rim and cool Earth fill, navy #071522, ocean blue #176887, ceramic white #E8EEF0, teal #55C5CD, sunlight #FFCE83. Legible silhouette at thumbnail scale. No text, no numbers, no logos, no insignia, no real company livery, no watermark, no dense stars, no science-fiction greebles.",
+        "aspect_ratio": "16:9",
+        "resolution": "2k",
+        "size": "2048x1152",
+        "quality": "medium",
+        "output_format": "png",
+        "use_unlim": true
+      }
+    },
+    {
+      "order": 2,
+      "id": "build_bay",
+      "path": "assets/media/style/frames/02-build-bay.png",
+      "status": "not_submitted",
+      "reference_policy": "Use approved title frame as style-only reference; preserve this scene.",
+      "params": {
+        "model": "gpt_image_2_6",
+        "prompt": "Use case: stylized-concept. MissionForge premium stylised-realism 3D game art. Clean silhouettes and credible engineering proportions, broad readable surfaces, restrained bevels, ceramic-white painted hardware, brushed aluminium, muted gold insulation, navy #071522, ocean #176887, ceramic #E8EEF0, teal #55C5CD and warm sunlight #FFCE83. One clear directional sun or practical key with restrained cool fill, filmic highlights, subtle bloom, no dense greebles. No text, numbers, logos, insignia, real mission patches, company liveries or watermarks. Hardware is generic and unbranded. Central slender two-stage rocket standing on a launch-pad gantry at dusk. Serial lower and upper stage with a clear interstage and tapered fairing, credible atmospheric engine bells. Cranes behind the central structure. Entire silhouette readable. Reserve the outer 24 percent on each side as quiet low-contrast navy scenery for live dashboard and vote panels; focal gantry and vehicle occupy middle 52 percent. Warm sun at horizon, soft blue sky, no ignition.",
+        "aspect_ratio": "16:9",
+        "resolution": "2k",
+        "size": "2048x1152",
+        "quality": "medium",
+        "output_format": "png",
+        "use_unlim": true
+      }
+    },
+    {
+      "order": 3,
+      "id": "ascent",
+      "path": "assets/media/style/frames/03-ascent.png",
+      "status": "not_submitted",
+      "reference_policy": "Use approved title frame as style-only reference; preserve this scene.",
+      "params": {
+        "model": "gpt_image_2_6",
+        "prompt": "Use case: stylized-concept. MissionForge premium stylised-realism 3D game art. Clean silhouettes and credible engineering proportions, broad readable surfaces, restrained bevels, ceramic-white painted hardware, brushed aluminium, muted gold insulation, navy #071522, ocean #176887, ceramic #E8EEF0, teal #55C5CD and warm sunlight #FFCE83. One clear directional sun or practical key with restrained cool fill, filmic highlights, subtle bloom, no dense greebles. No text, numbers, logos, insignia, real mission patches, company liveries or watermarks. Hardware is generic and unbranded. Lift-off and ascent through blue dusk from a distant telephoto tracking camera. Intact slender ceramic-white serial two-stage rocket with one narrow teal band, lower propulsion stage, clear interstage and tapered fairing. Bright compact atmospheric plume attached to the actual engine bells and trailing downward, distant launch pad below. No side-mounted mismatched boosters, no extra engines, no destruction. Show plausible stage joints and keep entire vehicle sharp and legible.",
+        "aspect_ratio": "16:9",
+        "resolution": "2k",
+        "size": "2048x1152",
+        "quality": "medium",
+        "output_format": "png",
+        "use_unlim": true
+      }
+    },
+    {
+      "order": 4,
+      "id": "orbit",
+      "path": "assets/media/style/frames/04-orbit-operations.png",
+      "status": "not_submitted",
+      "reference_policy": "Use approved title frame as style-only reference; preserve this scene.",
+      "params": {
+        "model": "gpt_image_2_6",
+        "prompt": "Use case: stylized-concept. MissionForge premium stylised-realism 3D game art. Clean silhouettes and credible engineering proportions, broad readable surfaces, restrained bevels, ceramic-white painted hardware, brushed aluminium, muted gold insulation, navy #071522, ocean #176887, ceramic #E8EEF0, teal #55C5CD and warm sunlight #FFCE83. One clear directional sun or practical key with restrained cool fill, filmic highlights, subtle bloom, no dense greebles. No text, numbers, logos, insignia, real mission patches, company liveries or watermarks. Hardware is generic and unbranded. Three-quarter view of a compact Earth-observation small satellite above the curved Earth limb and coastal clouds. One rectangular insulated bus with ceramic panels and muted gold blanket, two symmetrical dark blue solar wings on rigid credible hinges, one nadir-facing dark optical aperture and a separate small communications antenna. Solar wings face the sunlight while the instrument points toward Earth. Warm directional sun rim, restrained cool Earth fill. No rocket attached, no visible scanning or radio beams. Show all wing tips within frame. This satellite is the design anchor for key art and the C1 briefing.",
+        "aspect_ratio": "16:9",
+        "resolution": "2k",
+        "size": "2048x1152",
+        "quality": "medium",
+        "output_format": "png",
+        "use_unlim": true
+      }
+    },
+    {
+      "order": 5,
+      "id": "reentry",
+      "path": "assets/media/style/frames/05-reentry.png",
+      "status": "not_submitted",
+      "reference_policy": "Use approved title frame as style-only reference.",
+      "params": {
+        "model": "gpt_image_2_6",
+        "prompt": "Use case: stylized-concept. MissionForge premium stylised-realism 3D game art. Clean silhouettes and credible engineering proportions, broad readable surfaces, restrained bevels, ceramic-white painted hardware, brushed aluminium, muted gold insulation, navy #071522, ocean #176887, ceramic #E8EEF0, teal #55C5CD and warm sunlight #FFCE83. One clear directional sun or practical key with restrained cool fill, filmic highlights, subtle bloom, no dense greebles. No text, numbers, logos, insignia, real mission patches, company liveries or watermarks. Hardware is generic and unbranded. Oblique view of a generic squat blunt capsule on atmospheric reentry. Broad dark heat shield leads into the airflow, narrow ceramic back shell behind it. Amber plasma concentrated around leading shield and shoulders, diffuse wake trailing behind capsule, Earth atmosphere below. Capsule geometry remains visible inside restrained glow. No engine exhaust, no deployed parachute during plasma, no damaged crew, no fireball obscuring shape. General mission style frame, not an Earth Watch satellite return.",
+        "aspect_ratio": "16:9",
+        "resolution": "2k",
+        "size": "2048x1152",
+        "quality": "medium",
+        "output_format": "png",
+        "use_unlim": true
+      }
+    },
+    {
+      "order": 6,
+      "id": "mission_control",
+      "path": "assets/media/style/frames/06-mission-control.png",
+      "status": "not_submitted",
+      "reference_policy": "Use approved title frame as style-only reference.",
+      "params": {
+        "model": "gpt_image_2_6",
+        "prompt": "Use case: stylized-concept. MissionForge premium stylised-realism 3D game art. Clean silhouettes and credible engineering proportions, broad readable surfaces, restrained bevels, ceramic-white painted hardware, brushed aluminium, muted gold insulation, navy #071522, ocean #176887, ceramic #E8EEF0, teal #55C5CD and warm sunlight #FFCE83. One clear directional sun or practical key with restrained cool fill, filmic highlights, subtle bloom, no dense greebles. No text, numbers, logos, insignia, real mission patches, company liveries or watermarks. Hardware is generic and unbranded. Human-scale Mission Control room, orderly rows of navy consoles, diverse stylised adult team silhouettes collaborating calmly. Large forward screen shows only a clean Earth-and-observation-satellite image, small console screens show sparse abstract graphical shapes with absolutely no letters or digits. Broad ceiling practical lighting, controlled teal screen bounce and small warm desk lights. Spacious readable room with a clear focal big screen, no military symbols, no celebrity likenesses.",
+        "aspect_ratio": "16:9",
+        "resolution": "2k",
+        "size": "2048x1152",
+        "quality": "medium",
+        "output_format": "png",
+        "use_unlim": true
+      }
+    },
+    {
+      "order": 7,
+      "id": "key_art_landscape",
+      "path": "assets/media/key-art/missionforge-16x9.png",
+      "status": "not_submitted",
+      "reference_policy": "Use approved orbit frame as hardware and style reference.",
+      "params": {
+        "model": "gpt_image_2_6",
+        "prompt": "Use case: stylized-concept. MissionForge premium stylised-realism 3D game art. Clean silhouettes and credible engineering proportions, broad readable surfaces, restrained bevels, ceramic-white painted hardware, brushed aluminium, muted gold insulation, navy #071522, ocean #176887, ceramic #E8EEF0, teal #55C5CD and warm sunlight #FFCE83. One clear directional sun or practical key with restrained cool fill, filmic highlights, subtle bloom, no dense greebles. No text, numbers, logos, insignia, real mission patches, company liveries or watermarks. Hardware is generic and unbranded. Project-page hero key art, using the approved orbit frame as satellite design and material reference. Compact Earth-observation bus and two rigid blue solar wings in the foreground, nadir instrument and separate antenna, majestic blue Earth horizon behind, subtle distant rocket-ascent motif in the atmospheric background. Optimistic discovery, warm sun rim against navy space. Clear central silhouette, no impossible physical connections between foreground satellite and background rocket. Quiet upper-left area for a separate live title. All main hardware inside safe margins.",
+        "aspect_ratio": "16:9",
+        "resolution": "2k",
+        "size": "2048x1152",
+        "quality": "medium",
+        "output_format": "png",
+        "use_unlim": true
+      }
+    },
+    {
+      "order": 8,
+      "id": "key_art_square",
+      "path": "assets/media/key-art/missionforge-1x1.png",
+      "status": "not_submitted",
+      "reference_policy": "Use approved landscape key art as hardware and style reference.",
+      "params": {
+        "model": "gpt_image_2_6",
+        "prompt": "Use case: stylized-concept. MissionForge premium stylised-realism 3D game art. Clean silhouettes and credible engineering proportions, broad readable surfaces, restrained bevels, ceramic-white painted hardware, brushed aluminium, muted gold insulation, navy #071522, ocean #176887, ceramic #E8EEF0, teal #55C5CD and warm sunlight #FFCE83. One clear directional sun or practical key with restrained cool fill, filmic highlights, subtle bloom, no dense greebles. No text, numbers, logos, insignia, real mission patches, company liveries or watermarks. Hardware is generic and unbranded. Square trailer-thumbnail key art, separately composed using approved landscape key art as style and hardware reference. Same compact Earth-observation satellite with two symmetric blue solar wings, both wing tips fully visible, above curved blue Earth and white clouds. Warm sun rim, navy negative space above, calm optimistic discovery. Main satellite fills the central square without clipped antenna or wings. No title or marks.",
+        "aspect_ratio": "1:1",
+        "resolution": "2k",
+        "size": "2048x2048",
+        "quality": "medium",
+        "output_format": "png",
+        "use_unlim": true
+      }
+    },
+    {
+      "order": 9,
+      "id": "c1_briefing",
+      "path": "assets/media/cinematics/c1-earth-watch-briefing.mp4",
+      "status": "not_submitted",
+      "reference_policy": "After approval, pass orbit-operations job UUID as start_image. Do not invent a media UUID.",
+      "params": {
+        "model": "seedance_2_5",
+        "mode": "omni_reference",
+        "duration": 12,
+        "resolution": "720p",
+        "aspect_ratio": "16:9",
+        "generate_audio": false,
+        "bitrate_mode": "standard",
+        "use_unlim": true,
+        "prompt": "Use case: stylized-concept. MissionForge premium stylised-realism 3D game art. Clean silhouettes and credible engineering proportions, broad readable surfaces, restrained bevels, ceramic-white painted hardware, brushed aluminium, muted gold insulation, navy #071522, ocean #176887, ceramic #E8EEF0, teal #55C5CD and warm sunlight #FFCE83. One clear directional sun or practical key with restrained cool fill, filmic highlights, subtle bloom, no dense greebles. No text, numbers, logos, insignia, real mission patches, company liveries or watermarks. Hardware is generic and unbranded. C1 Earth Watch mission briefing cinematic, 12 seconds, silent exterior-space scene, no baked-in text. Use reference satellite exactly: rigid compact insulated bus, same two solar wings, optical aperture pointing toward Earth, separate communications antenna. One continuous gentle camera move. First 4 seconds establish coastal Earth and illuminated atmospheric limb with satellite present; seconds 4 through 8 gently reveal its body and deployed solar wings; last 4 seconds ease back into a calm wide composition with negative space for runtime briefing overlays. Slow coherent cloud movement, no complete orbit, no new wing deployment, no morphing or floating hardware, no visible radio or imaging beams, no reentry, no fast shake, flashes or cuts. Preserve restrained navy-teal-ceramic palette and warm sunlight."
+      }
+    }
+  ]
+}
