@@ -26,7 +26,7 @@ def build_assembly_scene(scene=None, spec=None):
 
 def joint_report(built_list) -> tuple[str, bool]:
     """Markdown table of every joint of every vehicle, and whether all are within tolerance."""
-    lines = ["# T006 assembly test: mating joints", "",
+    lines = ["# T009 assembly test: mating joints", "",
              "Measured on the LOD0 meshes in `assets/blender/_assembly_test.blend`. A stack joint passes "
              "when the vertical gap is under 2 mm and the two mating rings differ by under 4 mm in radius. "
              "A hang joint (engine or upper-stage mount) passes when its top face is within 2 mm of the "
@@ -52,9 +52,13 @@ def joint_report(built_list) -> tuple[str, bool]:
 
 
 def setup_dusk(scene):
-    """Style-guide dusk: warm low key, cool sky fill, navy backdrop, dark pad."""
-    cam = studio.setup_studio(scene, ground=True, sky=(0.03, 0.07, 0.15), horizon=(0.20, 0.22, 0.30),
-                              sun_strength=5.2, sun_dir=(-0.62, -0.60, 0.40))
+    """Style-guide dusk: warm low key, cool sky fill, navy backdrop, dark pad.
+
+    Linear RGB, game_value art choices: sky towards Space #071522, horizon a muted Console
+    #112B40 navy, launch pad a dark weathered concrete so the Ceramic shells read cleanly."""
+    cam = studio.setup_studio(scene, ground=True, sky=(0.006, 0.020, 0.045), horizon=(0.030, 0.062, 0.110),
+                              sun_strength=5.2, sun_dir=(-0.62, -0.60, 0.40),
+                              ground_color=(0.022, 0.025, 0.030), ground_roughness=0.70)
     return cam
 
 

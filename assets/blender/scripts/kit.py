@@ -9,7 +9,7 @@
 preview: builds the parts (no export), prints triangle counts and validation problems
          and writes assets/blender/_build/preview/<id>.png (git-ignored).
 sheets:  labelled contact sheet per family (arguments are family names) into
-         orchestration/evidence/T006/ (or --out DIR).
+         orchestration/evidence/T009/ (or --out DIR).
 build:   validates and writes <id>.blend, <id>.fbx, <id>.glb and kit_manifest.json.
 """
 from __future__ import annotations
@@ -22,13 +22,13 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import bpy  # noqa: E402
 
-from mfkit import evidence, pipeline, studio  # noqa: E402
+from mfkit import assemble, beauty, evidence, pipeline, studio  # noqa: E402
 
 
 def main() -> int:
     argv = sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else []
     ap = argparse.ArgumentParser(prog="kit.py")
-    ap.add_argument("cmd", choices=["list", "preview", "build", "sheets"])
+    ap.add_argument("cmd", choices=["list", "preview", "build", "sheets", "assembly", "evidence"])
     ap.add_argument("patterns", nargs="*")
     ap.add_argument("--views", default="3q,side,low")
     ap.add_argument("--size", type=int, default=640)
@@ -38,7 +38,9 @@ def main() -> int:
     args = ap.parse_args(argv)
     args.out_given = "--out" in argv
 
-    ids = pipeline.part_ids(args.patterns) if args.cmd != "sheets" else []
+    if args.cmd == "evidence":
+        return write_evidence(args)
+    ids = pipeline.part_ids(args.patterns) if args.cmd not in ("sheets", "assembly") else []
     if args.cmd == "list":
         for pid in ids:
             print(pid, pipeline.PARTS[pid].family)
@@ -54,6 +56,8 @@ def main() -> int:
         for p in out:
             print("SHEET", p)
         return 0
+    if args.cmd == "assembly":
+        return run_assembly(scene, args)
     failed = 0
     entries = []
     for pid in ids:
@@ -87,6 +91,51 @@ def main() -> int:
     if entries:
         pipeline.update_manifest(entries)
     print(f"DONE {len(ids)} parts, {failed} with issues")
+    return 0
+
+
+def write_evidence(args) -> int:
+    import json
+    out_dir = args.out if args.out_given else evidence.EVIDENCE_DIR
+    os.makedirs(out_dir, exist_ok=True)
+    with open(pipeline.MANIFEST_PATH) as fh:
+        manifest = json.load(fh)
+    path = os.path.join(out_dir, "triangle_counts.md")
+    with open(path, "w") as fh:
+        fh.write(evidence.triangle_table(manifest))
+    print("TABLE", path)
+    return 0
+
+
+def run_assembly(scene, args) -> int:
+    """Build the assembly test scene, check every joint, save it and render it."""
+    out_dir = args.out if args.out_given else evidence.EVIDENCE_DIR
+    os.makedirs(out_dir, exist_ok=True)
+    pipeline.clear_scene(scene, keep_collection="")
+    beauty.setup_dusk(scene)
+    built = beauty.build_assembly_scene(scene)
+    report, all_ok = beauty.joint_report(built)
+    with open(os.path.join(out_dir, "assembly_joints.md"), "w") as fh:
+        fh.write(report)
+    for b in built:
+        bad = [r for r in assemble.check_joints(b) if not r["ok"]]
+        print(f"VEHICLE {b['name']}: {len(b['placed'])} parts, {len(bad)} failing joints")
+        for r in bad:
+            print(f"  ISSUE {b['name']}: {r}")
+    blend = os.path.join(pipeline.BLENDER_DIR, "_assembly_test.blend")
+    bpy.ops.wm.save_as_mainfile(filepath=blend, compress=True, copy=True)
+    print("SAVED", blend)
+    if not args.no_render:
+        for b in built:
+            others = [o for x in built if x is not b for o in x["collection"].all_objects]
+            for o in others:
+                o.hide_render = True
+            for p in beauty.render_vehicle(scene, b, out_dir):
+                print("RENDER", p)
+            for o in others:
+                o.hide_render = False
+        print("RENDER", beauty.render_lineup(scene, built, out_dir))
+    print(f"DONE assembly, joints {'ok' if all_ok else 'FAIL'}")
     return 0
 
 

@@ -1,0 +1,314 @@
+{
+ "about": "Maps every data/parts part ID of design sections 7.5-7.9, 7.11 and 7.12 to the kit meshes (assets/blender/kit_manifest.json) that represent it. count = instances on the vehicle.",
+ "parts": {
+  "fairing_small": {
+   "section": "7.5",
+   "kit_parts": [
+    "fairing_small"
+   ],
+   "count": 1
+  },
+  "fairing_standard": {
+   "section": "7.5",
+   "kit_parts": [
+    "fairing_standard"
+   ],
+   "count": 1
+  },
+  "fairing_large": {
+   "section": "7.5",
+   "kit_parts": [
+    "fairing_large"
+   ],
+   "count": 1
+  },
+  "fairing_reusable_large": {
+   "section": "7.5",
+   "kit_parts": [
+    "fairing_reusable_large"
+   ],
+   "count": 1
+  },
+  "engcount_first_1": {
+   "section": "7.6",
+   "kit_parts": [
+    "mount_s1_1_d15",
+    "mount_s1_1_d37",
+    "mount_s1_1_d54",
+    "mount_s1_1_d84"
+   ],
+   "count": 1,
+   "pick": "by stack diameter"
+  },
+  "engcount_first_3": {
+   "section": "7.6",
+   "kit_parts": [
+    "mount_s1_3_d15",
+    "mount_s1_3_d37",
+    "mount_s1_3_d54",
+    "mount_s1_3_d84"
+   ],
+   "count": 1,
+   "pick": "by stack diameter"
+  },
+  "engcount_first_5": {
+   "section": "7.6",
+   "kit_parts": [
+    "mount_s1_5_d15",
+    "mount_s1_5_d37",
+    "mount_s1_5_d54",
+    "mount_s1_5_d84"
+   ],
+   "count": 1,
+   "pick": "by stack diameter"
+  },
+  "engcount_first_9": {
+   "section": "7.6",
+   "kit_parts": [
+    "mount_s1_9_d15",
+    "mount_s1_9_d37",
+    "mount_s1_9_d54",
+    "mount_s1_9_d84"
+   ],
+   "count": 1,
+   "pick": "by stack diameter"
+  },
+  "engcount_upper_1": {
+   "section": "7.6",
+   "kit_parts": [
+    "mount_s2_1_d15",
+    "mount_s2_1_d37",
+    "mount_s2_1_d54",
+    "mount_s2_1_d84"
+   ],
+   "count": 1,
+   "pick": "by stack diameter"
+  },
+  "engcount_upper_2": {
+   "section": "7.6",
+   "kit_parts": [
+    "mount_s2_2_d15",
+    "mount_s2_2_d37",
+    "mount_s2_2_d54",
+    "mount_s2_2_d84"
+   ],
+   "count": 1,
+   "pick": "by stack diameter"
+  },
+  "eng_electric_pump_mini": {
+   "section": "7.7",
+   "kit_parts": [
+    "eng_electric_pump_mini"
+   ],
+   "count": 1
+  },
+  "eng_hydrolox_high_efficiency": {
+   "section": "7.7",
+   "kit_parts": [
+    "eng_hydrolox_high_efficiency"
+   ],
+   "count": 1
+  },
+  "eng_kerolox_giant": {
+   "section": "7.7",
+   "kit_parts": [
+    "eng_kerolox_giant"
+   ],
+   "count": 1
+  },
+  "eng_kerolox_staged_combustion": {
+   "section": "7.7",
+   "kit_parts": [
+    "eng_kerolox_staged_combustion"
+   ],
+   "count": 1
+  },
+  "eng_kerolox_workhorse": {
+   "section": "7.7",
+   "kit_parts": [
+    "eng_kerolox_workhorse"
+   ],
+   "count": 1
+  },
+  "eng_methalox_full_flow": {
+   "section": "7.7",
+   "kit_parts": [
+    "eng_methalox_full_flow"
+   ],
+   "count": 1
+  },
+  "eng_hydrolox_vacuum": {
+   "section": "7.8",
+   "kit_parts": [
+    "eng_hydrolox_vacuum"
+   ],
+   "count": 1
+  },
+  "eng_hypergolic_storable": {
+   "section": "7.8",
+   "kit_parts": [
+    "eng_hypergolic_storable"
+   ],
+   "count": 1
+  },
+  "eng_kerolox_vacuum": {
+   "section": "7.8",
+   "kit_parts": [
+    "eng_kerolox_vacuum"
+   ],
+   "count": 1
+  },
+  "eng_methalox_vacuum": {
+   "section": "7.8",
+   "kit_parts": [
+    "eng_methalox_vacuum"
+   ],
+   "count": 1
+  },
+  "eng_solid_kick_motor": {
+   "section": "7.8",
+   "kit_parts": [
+    "eng_solid_kick_motor"
+   ],
+   "count": 1
+  },
+  "tank_xs": {
+   "section": "7.9",
+   "kit_parts": [
+    "tank_s1_xs",
+    "tank_s1_xs_hydrolox",
+    "tank_s2_xs",
+    "tank_s2_xs_hydrolox"
+   ],
+   "count": 1,
+   "pick": "by stage (s1/s2) and propellant (hydrolox variant is bulkier)"
+  },
+  "tank_s": {
+   "section": "7.9",
+   "kit_parts": [
+    "tank_s1_s",
+    "tank_s1_s_hydrolox",
+    "tank_s2_s",
+    "tank_s2_s_hydrolox"
+   ],
+   "count": 1,
+   "pick": "by stage (s1/s2) and propellant (hydrolox variant is bulkier)"
+  },
+  "tank_m": {
+   "section": "7.9",
+   "kit_parts": [
+    "tank_s1_m",
+    "tank_s1_m_hydrolox",
+    "tank_s2_m",
+    "tank_s2_m_hydrolox"
+   ],
+   "count": 1,
+   "pick": "by stage (s1/s2) and propellant (hydrolox variant is bulkier)"
+  },
+  "tank_l": {
+   "section": "7.9",
+   "kit_parts": [
+    "tank_s1_l",
+    "tank_s1_l_hydrolox",
+    "tank_s2_l",
+    "tank_s2_l_hydrolox"
+   ],
+   "count": 1,
+   "pick": "by stage (s1/s2) and propellant (hydrolox variant is bulkier)"
+  },
+  "tank_xl": {
+   "section": "7.9",
+   "kit_parts": [
+    "tank_s1_xl",
+    "tank_s1_xl_hydrolox",
+    "tank_s2_xl",
+    "tank_s2_xl_hydrolox"
+   ],
+   "count": 1,
+   "pick": "by stage (s1/s2) and propellant (hydrolox variant is bulkier)"
+  },
+  "strap_none": {
+   "section": "7.11",
+   "kit_parts": [],
+   "count": 0
+  },
+  "strap_2_small_solid": {
+   "section": "7.11",
+   "kit_parts": [
+    "booster_small_solid"
+   ],
+   "count": 2
+  },
+  "strap_4_small_solid": {
+   "section": "7.11",
+   "kit_parts": [
+    "booster_small_solid"
+   ],
+   "count": 4
+  },
+  "strap_2_heavy_solid": {
+   "section": "7.11",
+   "kit_parts": [
+    "booster_heavy_solid"
+   ],
+   "count": 2
+  },
+  "strap_2_liquid_side": {
+   "section": "7.11",
+   "kit_parts": [],
+   "count": 2,
+   "note": "No dedicated mesh (T006/T009 scope is the two solid boosters). Not modelled yet; follow-up."
+  },
+  "sep_pyro_bolts_springs": {
+   "section": "7.12",
+   "kit_parts": [
+    "interstage_pyro_d15",
+    "interstage_pyro_d15_to_d37",
+    "interstage_pyro_d37",
+    "interstage_pyro_d37_to_d15",
+    "interstage_pyro_d37_to_d54",
+    "interstage_pyro_d54",
+    "interstage_pyro_d54_to_d37",
+    "interstage_pyro_d54_to_d84",
+    "interstage_pyro_d84",
+    "interstage_pyro_d84_to_d54"
+   ],
+   "count": 1,
+   "pick": "by lower / upper stack diameter (interstage_<system>_<bottom>[_to_<top>])"
+  },
+  "sep_pneumatic_pushers": {
+   "section": "7.12",
+   "kit_parts": [
+    "interstage_pneumatic_d15",
+    "interstage_pneumatic_d15_to_d37",
+    "interstage_pneumatic_d37",
+    "interstage_pneumatic_d37_to_d15",
+    "interstage_pneumatic_d37_to_d54",
+    "interstage_pneumatic_d54",
+    "interstage_pneumatic_d54_to_d37",
+    "interstage_pneumatic_d54_to_d84",
+    "interstage_pneumatic_d84",
+    "interstage_pneumatic_d84_to_d54"
+   ],
+   "count": 1,
+   "pick": "by lower / upper stack diameter (interstage_<system>_<bottom>[_to_<top>])"
+  },
+  "sep_hot_staging": {
+   "section": "7.12",
+   "kit_parts": [
+    "interstage_hot_staging_d15",
+    "interstage_hot_staging_d15_to_d37",
+    "interstage_hot_staging_d37",
+    "interstage_hot_staging_d37_to_d15",
+    "interstage_hot_staging_d37_to_d54",
+    "interstage_hot_staging_d54",
+    "interstage_hot_staging_d54_to_d37",
+    "interstage_hot_staging_d54_to_d84",
+    "interstage_hot_staging_d84",
+    "interstage_hot_staging_d84_to_d54"
+   ],
+   "count": 1,
+   "pick": "by lower / upper stack diameter (interstage_<system>_<bottom>[_to_<top>])"
+  }
+ }
+}

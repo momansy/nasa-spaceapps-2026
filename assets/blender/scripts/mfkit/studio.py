@@ -33,7 +33,8 @@ def _studio_collection(scene):
 
 
 def setup_studio(scene=None, *, ground=False, sky=(0.035, 0.075, 0.13), horizon=(0.11, 0.18, 0.26),
-                 sun_strength=4.6, sun_dir=(-0.45, -0.55, 0.70)):
+                 sun_strength=4.6, sun_dir=(-0.45, -0.55, 0.70), ground_color=(0.42, 0.43, 0.45),
+                 ground_roughness=0.9):
     """Sun + two fill lights + gradient world + camera in the 'studio' collection."""
     scene = scene or bpy.context.scene
     col = _studio_collection(scene)
@@ -96,8 +97,8 @@ def setup_studio(scene=None, *, ground=False, sky=(0.035, 0.075, 0.13), horizon=
         mat = bpy.data.materials.get("mf_ground") or bpy.data.materials.new("mf_ground")
         mat.use_nodes = True
         bsdf = next(n for n in mat.node_tree.nodes if n.type == "BSDF_PRINCIPLED")
-        bsdf.inputs["Base Color"].default_value = (0.42, 0.43, 0.45, 1)
-        bsdf.inputs["Roughness"].default_value = 0.9
+        bsdf.inputs["Base Color"].default_value = (*ground_color, 1)
+        bsdf.inputs["Roughness"].default_value = ground_roughness
         me.materials.append(mat)
 
     try:

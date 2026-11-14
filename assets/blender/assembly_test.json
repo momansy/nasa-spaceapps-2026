@@ -1,0 +1,71 @@
+{
+ "about": "Three complete vehicles stacked from kit parts by attach empties only (rules in scripts/mfkit/assemble.py). Covers all three separation systems, both solid strap-on boosters, first-stage engine counts 3/9 and three stack diameters. Vehicle choices are game_value test cases, not real vehicles.",
+ "vehicles": [
+  {
+   "name": "small_pyro_d15",
+   "label": "Small launcher: 9 x Electric-Pump Mini, pyro bolts + springs, solid kick motor, small fairing",
+   "parts": [
+    {"key": "mount1", "part": "mount_s1_9_d15"},
+    {"key": "e1", "part": "eng_electric_pump_mini", "hang_from": "mount1.attach_engine_1"},
+    {"key": "e2", "part": "eng_electric_pump_mini", "hang_from": "mount1.attach_engine_2"},
+    {"key": "e3", "part": "eng_electric_pump_mini", "hang_from": "mount1.attach_engine_3"},
+    {"key": "e4", "part": "eng_electric_pump_mini", "hang_from": "mount1.attach_engine_4"},
+    {"key": "e5", "part": "eng_electric_pump_mini", "hang_from": "mount1.attach_engine_5"},
+    {"key": "e6", "part": "eng_electric_pump_mini", "hang_from": "mount1.attach_engine_6"},
+    {"key": "e7", "part": "eng_electric_pump_mini", "hang_from": "mount1.attach_engine_7"},
+    {"key": "e8", "part": "eng_electric_pump_mini", "hang_from": "mount1.attach_engine_8"},
+    {"key": "e9", "part": "eng_electric_pump_mini", "hang_from": "mount1.attach_engine_9"},
+    {"key": "tank1", "part": "tank_s1_xs", "stack_on": "mount1.attach_top"},
+    {"key": "inter", "part": "interstage_pyro_d15", "stack_on": "tank1.attach_top"},
+    {"key": "tank2", "part": "tank_s2_xs", "stack_on": "inter.attach_top"},
+    {"key": "mount2", "part": "mount_s2_1_d15", "hang_from": "tank2.origin"},
+    {"key": "ue1", "part": "eng_solid_kick_motor", "hang_from": "mount2.attach_engine_1"},
+    {"key": "fairing", "part": "fairing_small", "stack_on": "tank2.attach_top"}
+   ]
+  },
+  {
+   "name": "medium_hot_staging_d37",
+   "label": "Medium launcher: 9 x Kerolox Workhorse, 4 small solid strap-ons, hot staging, Methalox Vacuum, standard fairing",
+   "parts": [
+    {"key": "mount1", "part": "mount_s1_9_d37"},
+    {"key": "e1", "part": "eng_kerolox_workhorse", "hang_from": "mount1.attach_engine_1"},
+    {"key": "e2", "part": "eng_kerolox_workhorse", "hang_from": "mount1.attach_engine_2"},
+    {"key": "e3", "part": "eng_kerolox_workhorse", "hang_from": "mount1.attach_engine_3"},
+    {"key": "e4", "part": "eng_kerolox_workhorse", "hang_from": "mount1.attach_engine_4"},
+    {"key": "e5", "part": "eng_kerolox_workhorse", "hang_from": "mount1.attach_engine_5"},
+    {"key": "e6", "part": "eng_kerolox_workhorse", "hang_from": "mount1.attach_engine_6"},
+    {"key": "e7", "part": "eng_kerolox_workhorse", "hang_from": "mount1.attach_engine_7"},
+    {"key": "e8", "part": "eng_kerolox_workhorse", "hang_from": "mount1.attach_engine_8"},
+    {"key": "e9", "part": "eng_kerolox_workhorse", "hang_from": "mount1.attach_engine_9"},
+    {"key": "tank1", "part": "tank_s1_m", "stack_on": "mount1.attach_top"},
+    {"key": "b1", "part": "booster_small_solid", "side": {"core": "tank1", "azimuth_deg": 45, "base": "mount1.origin", "dz": 0.0}},
+    {"key": "b2", "part": "booster_small_solid", "side": {"core": "tank1", "azimuth_deg": 135, "base": "mount1.origin", "dz": 0.0}},
+    {"key": "b3", "part": "booster_small_solid", "side": {"core": "tank1", "azimuth_deg": 225, "base": "mount1.origin", "dz": 0.0}},
+    {"key": "b4", "part": "booster_small_solid", "side": {"core": "tank1", "azimuth_deg": 315, "base": "mount1.origin", "dz": 0.0}},
+    {"key": "inter", "part": "interstage_hot_staging_d37", "stack_on": "tank1.attach_top"},
+    {"key": "tank2", "part": "tank_s2_m", "stack_on": "inter.attach_top"},
+    {"key": "mount2", "part": "mount_s2_1_d37", "hang_from": "tank2.origin"},
+    {"key": "ue1", "part": "eng_methalox_vacuum", "hang_from": "mount2.attach_engine_1"},
+    {"key": "fairing", "part": "fairing_standard", "stack_on": "tank2.attach_top"}
+   ]
+  },
+  {
+   "name": "heavy_pneumatic_d54",
+   "label": "Heavy launcher: 3 x Hydrolox High-Efficiency, 2 heavy solid strap-ons, pneumatic pushers, Hydrolox Vacuum, reusable large fairing",
+   "parts": [
+    {"key": "mount1", "part": "mount_s1_3_d54"},
+    {"key": "e1", "part": "eng_hydrolox_high_efficiency", "hang_from": "mount1.attach_engine_1"},
+    {"key": "e2", "part": "eng_hydrolox_high_efficiency", "hang_from": "mount1.attach_engine_2"},
+    {"key": "e3", "part": "eng_hydrolox_high_efficiency", "hang_from": "mount1.attach_engine_3"},
+    {"key": "tank1", "part": "tank_s1_m_hydrolox", "stack_on": "mount1.attach_top"},
+    {"key": "b1", "part": "booster_heavy_solid", "side": {"core": "tank1", "azimuth_deg": 0, "base": "mount1.origin", "dz": 0.0}},
+    {"key": "b2", "part": "booster_heavy_solid", "side": {"core": "tank1", "azimuth_deg": 180, "base": "mount1.origin", "dz": 0.0}},
+    {"key": "inter", "part": "interstage_pneumatic_d54", "stack_on": "tank1.attach_top"},
+    {"key": "tank2", "part": "tank_s2_xl", "stack_on": "inter.attach_top"},
+    {"key": "mount2", "part": "mount_s2_1_d54", "hang_from": "tank2.origin"},
+    {"key": "ue1", "part": "eng_hydrolox_vacuum", "hang_from": "mount2.attach_engine_1"},
+    {"key": "fairing", "part": "fairing_reusable_large", "stack_on": "tank2.attach_top"}
+   ]
+  }
+ ]
+}
