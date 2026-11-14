@@ -72,6 +72,9 @@ def render_tile(scene, part_id, path, *, tile=480, view="3q", lod=0, label=True)
     scene.render.resolution_x = tile
     scene.render.resolution_y = tile
     studio.frame_camera(scene, inst["lod"][lod], view, margin=1.30, lens=85.0)
+    if bpy.data.objects.get("mf_lookdev_floor") is not None:
+        from . import lookdev
+        lookdev.place_floor(scene, inst["lod"][lod], camera_view_dir=studio.VIEWS.get(view, view))
     labels = []
     if label:
         m = inst["meta"]
@@ -162,3 +165,46 @@ def write_unity_expect(manifest: dict) -> str:
     with open(path, "w") as fh:
         json.dump(dict(parts=parts), fh)
     return path
+
+
+def material_sheet(scene, out_path, *, tile=420, cols=5):
+    """One material ball per library entry under the active look-dev; labelled; written to out_path."""
+    import math
+    from . import materials
+    from .core import MeshBuilder
+    lib = materials.library()["materials"]
+    names = [n for n in lib if materials.has_entry(n)]
+    pipeline.clear_scene(scene)
+    col = scene.collection
+    objs = []
+    rows = math.ceil(len(names) / cols)
+    for i, name in enumerate(names):
+        mb = MeshBuilder(0)
+        prof = [(0.0 if abs(math.cos(a)) < 1e-6 else 0.5 * math.cos(a), 0.5 * math.sin(a))
+                for a in [math.radians(-90 + 180 * k / 24) for k in range(25)]]
+        mb.lathe(prof, 96, name, crease=80.0, uv_u_repeat=4 if lib[name].get("uv_mode") == "angle" else None,
+                 uv_scale=1.0)
+        me = pipeline.builder_to_mesh(mb, f"ball_{name}")
+        ob = bpy.data.objects.new(f"ball_{name}", me)
+        c, r = i % cols, i // cols
+        ob.location = ((c - (cols - 1) / 2.0) * 1.25, 0.0, ((rows - 1) / 2.0 - r) * 1.9 + 0.5)
+        col.objects.link(ob)
+        objs.append(ob)
+        cu = bpy.data.curves.new(f"lbl_{name}", "FONT")
+        cu.body = name
+        cu.align_x = "CENTER"
+        cu.size = 0.13
+        lbl = bpy.data.objects.new(f"lbl_{name}", cu)
+        lbl.location = (ob.location.x, -0.6, ob.location.z - 0.72)
+        lbl.rotation_euler = (math.radians(90), 0, 0)
+        lbl.data.materials.append(_label_material())
+        col.objects.link(lbl)
+        objs.append(lbl)
+    w, h = cols * tile, int(rows * tile * 1.5)
+    studio.frame_camera(scene, [o for o in objs if o.type == "MESH"], (0.0, -1.0, 0.0), lens=85.0, margin=1.0,
+                        ortho=True)
+    scene.render.resolution_x, scene.render.resolution_y = w, h
+    scene.camera.data.ortho_scale = max(cols * 1.25, rows * 1.9 * w / h) * 1.04
+    studio.render_to(scene, out_path, w, h)
+    pipeline.clear_scene(scene)
+    return out_path

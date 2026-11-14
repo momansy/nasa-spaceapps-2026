@@ -22,24 +22,36 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import bpy  # noqa: E402
 
-from mfkit import assemble, beauty, evidence, pipeline, studio  # noqa: E402
+from mfkit import assemble, bake, beauty, evidence, lookdev, pipeline, studio  # noqa: E402
 
 
 def main() -> int:
     argv = sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else []
     ap = argparse.ArgumentParser(prog="kit.py")
-    ap.add_argument("cmd", choices=["list", "preview", "build", "sheets", "assembly", "evidence"])
+    ap.add_argument("cmd", choices=["list", "preview", "build", "sheets", "assembly", "evidence", "matsheet", "bake"])
     ap.add_argument("patterns", nargs="*")
     ap.add_argument("--views", default="3q,side,low")
     ap.add_argument("--size", type=int, default=640)
     ap.add_argument("--lod", type=int, default=0)
     ap.add_argument("--out", default=os.path.join(pipeline.BUILD_DIR, "preview"))
     ap.add_argument("--no-render", action="store_true")
+    ap.add_argument("--split", action="store_true", help="write one <id>_<view>.png per view instead of a row")
+    ap.add_argument("--lookdev", choices=["legacy", *lookdev.LOOKDEVS], default="legacy",
+                    help="studio = HDRI studio, dusk = HDRI sunset on wet concrete (Cycles); legacy = T009 Eevee rig")
+    ap.add_argument("--samples", type=int, default=lookdev.DEFAULT_SAMPLES, help="Cycles samples for --lookdev")
     args = ap.parse_args(argv)
     args.out_given = "--out" in argv
 
     if args.cmd == "evidence":
         return write_evidence(args)
+    if args.cmd == "matsheet":
+        scene = bpy.context.scene
+        pipeline.clear_scene(scene, keep_collection="")
+        studio.setup_studio(scene)
+        lookdev.setup(scene, "studio" if args.lookdev == "legacy" else args.lookdev, samples=args.samples)
+        print("SHEET", evidence.material_sheet(scene, args.out if args.out_given else
+                                               os.path.join(os.path.dirname(evidence.EVIDENCE_DIR), "T032", "material_library_sheet.png")))
+        return 0
     ids = pipeline.part_ids(args.patterns) if args.cmd not in ("sheets", "assembly") else []
     if args.cmd == "list":
         for pid in ids:
@@ -49,6 +61,8 @@ def main() -> int:
     scene = bpy.context.scene
     pipeline.clear_scene(scene, keep_collection="")
     studio.setup_studio(scene)
+    if args.lookdev != "legacy":
+        lookdev.setup(scene, args.lookdev, samples=args.samples)
     if args.cmd == "sheets":
         # patterns are family names here (engine_s1, tank, ...); default all
         out = evidence.contact_sheets(scene, families=args.patterns or None, tile=args.size,
@@ -60,6 +74,11 @@ def main() -> int:
         return run_assembly(scene, args)
     failed = 0
     entries = []
+    if args.cmd == "bake":
+        done = {pid: bake.bake_part(pid, scene) for pid in ids}
+        bake.write_parts(done)
+        print(f"DONE baked {len(done)} parts")
+        return 0
     for pid in ids:
         if args.cmd == "preview":
             pipeline.clear_scene(scene)
@@ -77,7 +96,7 @@ def main() -> int:
                 for o in inst["lod"][1 - args.lod]:
                     o.hide_render = True
                 out = os.path.join(args.out, f"{pid}{'_lod1' if args.lod else ''}.png")
-                studio.preview(scene, show, out, views=args.views.split(","), size=args.size)
+                studio.preview(scene, show, out, views=args.views.split(","), size=args.size, split=args.split)
                 print(f"  preview {out}")
         else:
             entry = pipeline.build_part(pid, scene=scene)

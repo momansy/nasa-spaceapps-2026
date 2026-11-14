@@ -1,0 +1,872 @@
+{
+ "eng_electric_pump_mini": {
+  "id": "eng_electric_pump_mini",
+  "length_m": 0.65,
+  "diameter_bottom_m": 0.25,
+  "diameter_top_m": 0.2,
+  "exit_diameter_m": 0.25,
+  "envelope_diameter_m": 0.42,
+  "gimbal_pivot_z_m": 0.5757,
+  "ring_check": false,
+  "twin": "Rutherford",
+  "name": "Electric-Pump Mini",
+  "stage": 1,
+  "value_types": {
+   "length_m": "real_world_approximate",
+   "exit_diameter_m": "real_world_approximate",
+   "envelope_diameter_m": "real_world_approximate",
+   "diameter_bottom_m": "real_world_approximate",
+   "diameter_top_m": "game_value",
+   "gimbal_pivot_z_m": "game_value"
+  },
+  "family": "engine_s1",
+  "design_ref": "7.7",
+  "bbox_min_m": [
+   -0.19,
+   -0.156,
+   0.0
+  ],
+  "bbox_max_m": [
+   0.19,
+   0.207,
+   0.65
+  ],
+  "attach_points_m": {
+   "attach_top": {
+    "blender_xyz": [
+     0.0,
+     0.0,
+     0.65
+    ]
+   },
+   "nozzle_exit": {
+    "blender_xyz": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "gimbal_pivot": {
+    "blender_xyz": [
+     0.0,
+     0.0,
+     0.5757
+    ]
+   }
+  },
+  "materials": [
+   "detail_dark",
+   "engine_metal",
+   "livery",
+   "nozzle_hot"
+  ],
+  "triangles": {
+   "lod0": 7742,
+   "lod1": 2252,
+   "phone": 7742
+  },
+  "files": {
+   "fbx": "assets/blender/export/fbx/eng_electric_pump_mini.fbx",
+   "glb": "client/public/models/eng_electric_pump_mini.glb",
+   "fbx_bytes": 238716,
+   "glb_bytes": 311136,
+   "blend": "assets/blender/eng_electric_pump_mini.blend",
+   "blend_bytes": 268468
+  },
+  "issues": []
+ },
+ "eng_hydrolox_high_efficiency": {
+  "id": "eng_hydrolox_high_efficiency",
+  "length_m": 4.3,
+  "diameter_bottom_m": 2.4,
+  "diameter_top_m": 1.0,
+  "exit_diameter_m": 2.4,
+  "envelope_diameter_m": 2.4,
+  "gimbal_pivot_z_m": 4.047,
+  "ring_check": false,
+  "twin": "RS-25",
+  "name": "Hydrolox High-Efficiency",
+  "stage": 1,
+  "value_types": {
+   "length_m": "real_world_approximate",
+   "exit_diameter_m": "real_world_approximate",
+   "envelope_diameter_m": "real_world_approximate",
+   "diameter_bottom_m": "real_world_approximate",
+   "diameter_top_m": "game_value",
+   "gimbal_pivot_z_m": "game_value"
+  },
+  "family": "engine_s1",
+  "design_ref": "7.7",
+  "bbox_min_m": [
+   -1.182,
+   -1.195,
+   0.0
+  ],
+  "bbox_max_m": [
+   1.182,
+   1.182,
+   4.3
+  ],
+  "attach_points_m": {
+   "attach_top": {
+    "blender_xyz": [
+     0.0,
+     0.0,
+     4.3
+    ]
+   },
+   "nozzle_exit": {
+    "blender_xyz": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "gimbal_pivot": {
+    "blender_xyz": [
+     0.0,
+     0.0,
+     4.047
+    ]
+   }
+  },
+  "materials": [
+   "detail_dark",
+   "engine_metal",
+   "nozzle_hot",
+   "thermal"
+  ],
+  "triangles": {
+   "lod0": 26030,
+   "lod1": 7462,
+   "phone": 7462
+  },
+  "files": {
+   "fbx": "assets/blender/export/fbx/eng_hydrolox_high_efficiency.fbx",
+   "glb": "client/public/models/eng_hydrolox_high_efficiency.glb",
+   "fbx_bytes": 758332,
+   "glb_bytes": 237028,
+   "blend": "assets/blender/eng_hydrolox_high_efficiency.blend",
+   "blend_bytes": 719551
+  },
+  "issues": []
+ },
+ "eng_hydrolox_vacuum": {
+  "id": "eng_hydrolox_vacuum",
+  "name": "Hydrolox Vacuum",
+  "twin": "RL10",
+  "stage": 2,
+  "length_m": 2.2,
+  "diameter_bottom_m": 1.45,
+  "diameter_top_m": 0.5,
+  "exit_diameter_m": 1.45,
+  "envelope_diameter_m": 1.45,
+  "gimbal_pivot_z_m": 2.079,
+  "ring_check": false,
+  "value_types": {
+   "length_m": "real_world_approximate",
+   "diameter_bottom_m": "real_world_approximate",
+   "diameter_top_m": "game_value",
+   "exit_diameter_m": "real_world_approximate",
+   "envelope_diameter_m": "real_world_approximate",
+   "gimbal_pivot_z_m": "game_value"
+  },
+  "family": "engine_s2",
+  "design_ref": "7.8",
+  "bbox_min_m": [
+   -0.733,
+   -0.733,
+   0.0
+  ],
+  "bbox_max_m": [
+   0.733,
+   0.733,
+   2.2
+  ],
+  "attach_points_m": {
+   "attach_top": {
+    "blender_xyz": [
+     0.0,
+     0.0,
+     2.2
+    ]
+   },
+   "nozzle_exit": {
+    "blender_xyz": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "gimbal_pivot": {
+    "blender_xyz": [
+     0.0,
+     0.0,
+     2.079
+    ]
+   }
+  },
+  "materials": [
+   "detail_dark",
+   "engine_metal",
+   "nozzle_hot"
+  ],
+  "triangles": {
+   "lod0": 23442,
+   "lod1": 5812,
+   "phone": 5812
+  },
+  "files": {
+   "fbx": "assets/blender/export/fbx/eng_hydrolox_vacuum.fbx",
+   "glb": "client/public/models/eng_hydrolox_vacuum.glb",
+   "fbx_bytes": 640220,
+   "glb_bytes": 174404,
+   "blend": "assets/blender/eng_hydrolox_vacuum.blend",
+   "blend_bytes": 614345
+  },
+  "issues": []
+ },
+ "eng_hypergolic_storable": {
+  "id": "eng_hypergolic_storable",
+  "name": "Hypergolic Storable",
+  "twin": "AJ10-137 (Apollo Service Propulsion System)",
+  "stage": 2,
+  "length_m": 3.9,
+  "diameter_bottom_m": 2.5,
+  "diameter_top_m": 0.7,
+  "exit_diameter_m": 2.5,
+  "envelope_diameter_m": 2.5,
+  "gimbal_pivot_z_m": 3.22,
+  "ring_check": false,
+  "value_types": {
+   "length_m": "real_world_approximate",
+   "diameter_bottom_m": "real_world_approximate",
+   "diameter_top_m": "game_value",
+   "exit_diameter_m": "real_world_approximate",
+   "envelope_diameter_m": "real_world_approximate",
+   "gimbal_pivot_z_m": "game_value"
+  },
+  "family": "engine_s2",
+  "design_ref": "7.8",
+  "bbox_min_m": [
+   -1.262,
+   -1.262,
+   0.0
+  ],
+  "bbox_max_m": [
+   1.262,
+   1.262,
+   3.9
+  ],
+  "attach_points_m": {
+   "attach_top": {
+    "blender_xyz": [
+     0.0,
+     0.0,
+     3.9
+    ]
+   },
+   "nozzle_exit": {
+    "blender_xyz": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "gimbal_pivot": {
+    "blender_xyz": [
+     0.0,
+     0.0,
+     3.22
+    ]
+   }
+  },
+  "materials": [
+   "detail_dark",
+   "engine_metal",
+   "nozzle_hot"
+  ],
+  "triangles": {
+   "lod0": 17240,
+   "lod1": 5052,
+   "phone": 5052
+  },
+  "files": {
+   "fbx": "assets/blender/export/fbx/eng_hypergolic_storable.fbx",
+   "glb": "client/public/models/eng_hypergolic_storable.glb",
+   "fbx_bytes": 478956,
+   "glb_bytes": 174732,
+   "blend": "assets/blender/eng_hypergolic_storable.blend",
+   "blend_bytes": 486734
+  },
+  "issues": []
+ },
+ "eng_kerolox_giant": {
+  "id": "eng_kerolox_giant",
+  "name": "Kerolox Giant",
+  "twin": "F-1 (Saturn V)",
+  "stage": 1,
+  "length_m": 5.6,
+  "diameter_bottom_m": 3.7,
+  "diameter_top_m": 1.5,
+  "exit_diameter_m": 3.7,
+  "envelope_diameter_m": 3.7,
+  "mount_diameter_m": 1.5,
+  "gimbal_pivot_z_m": 5.039,
+  "ring_check": false,
+  "value_types": {
+   "length_m": "real_world_approximate",
+   "exit_diameter_m": "real_world_approximate",
+   "envelope_diameter_m": "real_world_approximate",
+   "diameter_bottom_m": "real_world_approximate",
+   "diameter_top_m": "game_value",
+   "mount_diameter_m": "game_value",
+   "gimbal_pivot_z_m": "game_value"
+  },
+  "cycle": "gas generator",
+  "exhaust_manifold_z_m": 1.3,
+  "family": "engine_s1",
+  "design_ref": "7.7",
+  "bbox_min_m": [
+   -1.878,
+   -1.878,
+   0.0
+  ],
+  "bbox_max_m": [
+   1.878,
+   1.878,
+   5.6
+  ],
+  "attach_points_m": {
+   "attach_top": {
+    "blender_xyz": [
+     0.0,
+     0.0,
+     5.6
+    ]
+   },
+   "nozzle_exit": {
+    "blender_xyz": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "gimbal_pivot": {
+    "blender_xyz": [
+     0.0,
+     0.0,
+     5.039
+    ]
+   }
+  },
+  "materials": [
+   "detail_dark",
+   "engine_metal",
+   "nozzle_hot",
+   "thermal"
+  ],
+  "triangles": {
+   "lod0": 25686,
+   "lod1": 6784,
+   "phone": 6784
+  },
+  "files": {
+   "fbx": "assets/blender/export/fbx/eng_kerolox_giant.fbx",
+   "glb": "client/public/models/eng_kerolox_giant.glb",
+   "fbx_bytes": 737292,
+   "glb_bytes": 223668,
+   "blend": "assets/blender/eng_kerolox_giant.blend",
+   "blend_bytes": 694622
+  },
+  "issues": []
+ },
+ "eng_kerolox_staged_combustion": {
+  "id": "eng_kerolox_staged_combustion",
+  "name": "Kerolox Staged-Combustion",
+  "twin": "RD-180 class (two chambers, one turbopump)",
+  "stage": 1,
+  "length_m": 3.6,
+  "diameter_bottom_m": 1.45,
+  "diameter_top_m": 1.6,
+  "exit_diameter_m": 1.45,
+  "envelope_diameter_m": 3.15,
+  "mount_diameter_m": 1.6,
+  "gimbal_pivot_z_m": 3.118,
+  "ring_check": false,
+  "value_types": {
+   "length_m": "real_world_approximate",
+   "exit_diameter_m": "real_world_approximate",
+   "envelope_diameter_m": "real_world_approximate",
+   "diameter_bottom_m": "real_world_approximate",
+   "diameter_top_m": "game_value",
+   "mount_diameter_m": "game_value",
+   "gimbal_pivot_z_m": "game_value"
+  },
+  "cycle": "oxidiser-rich staged combustion",
+  "nozzles": 2,
+  "nozzle_spacing_m": 1.62,
+  "family": "engine_s1",
+  "design_ref": "7.7",
+  "bbox_min_m": [
+   -1.549,
+   -1.17,
+   0.0
+  ],
+  "bbox_max_m": [
+   1.549,
+   1.204,
+   3.6
+  ],
+  "attach_points_m": {
+   "nozzle_exit_1": {
+    "blender_xyz": [
+     0.81,
+     0.0,
+     0.0
+    ]
+   },
+   "nozzle_exit_2": {
+    "blender_xyz": [
+     -0.81,
+     0.0,
+     0.0
+    ]
+   },
+   "gimbal_pivot_1": {
+    "blender_xyz": [
+     0.81,
+     0.0,
+     3.118
+    ]
+   },
+   "gimbal_pivot_2": {
+    "blender_xyz": [
+     -0.81,
+     0.0,
+     3.118
+    ]
+   },
+   "attach_top": {
+    "blender_xyz": [
+     0.0,
+     0.0,
+     3.6
+    ]
+   },
+   "nozzle_exit": {
+    "blender_xyz": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "gimbal_pivot": {
+    "blender_xyz": [
+     0.0,
+     0.0,
+     3.118
+    ]
+   }
+  },
+  "materials": [
+   "detail_dark",
+   "engine_metal",
+   "nozzle_hot",
+   "thermal"
+  ],
+  "triangles": {
+   "lod0": 25588,
+   "lod1": 7444,
+   "phone": 7444
+  },
+  "files": {
+   "fbx": "assets/blender/export/fbx/eng_kerolox_staged_combustion.fbx",
+   "glb": "client/public/models/eng_kerolox_staged_combustion.glb",
+   "fbx_bytes": 754060,
+   "glb_bytes": 247916,
+   "blend": "assets/blender/eng_kerolox_staged_combustion.blend",
+   "blend_bytes": 672961
+  },
+  "issues": []
+ },
+ "eng_kerolox_vacuum": {
+  "id": "eng_kerolox_vacuum",
+  "name": "Kerolox Vacuum",
+  "twin": "Merlin Vacuum",
+  "stage": 2,
+  "length_m": 3.9,
+  "diameter_bottom_m": 3.0,
+  "diameter_top_m": 0.55,
+  "exit_diameter_m": 3.0,
+  "envelope_diameter_m": 3.0,
+  "gimbal_pivot_z_m": 3.746,
+  "ring_check": false,
+  "value_types": {
+   "length_m": "real_world_approximate",
+   "diameter_bottom_m": "real_world_approximate",
+   "diameter_top_m": "game_value",
+   "exit_diameter_m": "real_world_approximate",
+   "envelope_diameter_m": "real_world_approximate",
+   "gimbal_pivot_z_m": "game_value"
+  },
+  "family": "engine_s2",
+  "design_ref": "7.8",
+  "bbox_min_m": [
+   -1.508,
+   -1.508,
+   0.0
+  ],
+  "bbox_max_m": [
+   1.508,
+   1.508,
+   3.9
+  ],
+  "attach_points_m": {
+   "attach_top": {
+    "blender_xyz": [
+     0.0,
+     0.0,
+     3.9
+    ]
+   },
+   "nozzle_exit": {
+    "blender_xyz": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "gimbal_pivot": {
+    "blender_xyz": [
+     0.0,
+     0.0,
+     3.746
+    ]
+   }
+  },
+  "materials": [
+   "detail_dark",
+   "engine_metal",
+   "nozzle_hot"
+  ],
+  "triangles": {
+   "lod0": 18098,
+   "lod1": 5390,
+   "phone": 5390
+  },
+  "files": {
+   "fbx": "assets/blender/export/fbx/eng_kerolox_vacuum.fbx",
+   "glb": "client/public/models/eng_kerolox_vacuum.glb",
+   "fbx_bytes": 514124,
+   "glb_bytes": 163140,
+   "blend": "assets/blender/eng_kerolox_vacuum.blend",
+   "blend_bytes": 522937
+  },
+  "issues": []
+ },
+ "eng_kerolox_workhorse": {
+  "id": "eng_kerolox_workhorse",
+  "name": "Kerolox Workhorse",
+  "twin": "Merlin 1D",
+  "stage": 1,
+  "length_m": 2.9,
+  "diameter_bottom_m": 0.92,
+  "diameter_top_m": 0.55,
+  "exit_diameter_m": 0.92,
+  "envelope_diameter_m": 1.25,
+  "mount_diameter_m": 0.55,
+  "gimbal_pivot_z_m": 2.691,
+  "ring_check": false,
+  "value_types": {
+   "length_m": "real_world_approximate",
+   "exit_diameter_m": "real_world_approximate",
+   "envelope_diameter_m": "real_world_approximate",
+   "diameter_bottom_m": "real_world_approximate",
+   "diameter_top_m": "game_value",
+   "mount_diameter_m": "game_value",
+   "gimbal_pivot_z_m": "game_value"
+  },
+  "cycle": "gas generator",
+  "family": "engine_s1",
+  "design_ref": "7.7",
+  "bbox_min_m": [
+   -0.483,
+   -0.483,
+   0.0
+  ],
+  "bbox_max_m": [
+   0.624,
+   0.483,
+   2.9
+  ],
+  "attach_points_m": {
+   "attach_top": {
+    "blender_xyz": [
+     0.0,
+     0.0,
+     2.9
+    ]
+   },
+   "nozzle_exit": {
+    "blender_xyz": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "gimbal_pivot": {
+    "blender_xyz": [
+     0.0,
+     0.0,
+     2.691
+    ]
+   }
+  },
+  "materials": [
+   "detail_dark",
+   "engine_metal",
+   "nozzle_hot"
+  ],
+  "triangles": {
+   "lod0": 16220,
+   "lod1": 4280,
+   "phone": 4280
+  },
+  "files": {
+   "fbx": "assets/blender/export/fbx/eng_kerolox_workhorse.fbx",
+   "glb": "client/public/models/eng_kerolox_workhorse.glb",
+   "fbx_bytes": 473500,
+   "glb_bytes": 145296,
+   "blend": "assets/blender/eng_kerolox_workhorse.blend",
+   "blend_bytes": 470241
+  },
+  "issues": []
+ },
+ "eng_methalox_full_flow": {
+  "id": "eng_methalox_full_flow",
+  "length_m": 3.1,
+  "diameter_bottom_m": 1.3,
+  "diameter_top_m": 0.8,
+  "exit_diameter_m": 1.3,
+  "envelope_diameter_m": 1.35,
+  "gimbal_pivot_z_m": 2.902,
+  "ring_check": false,
+  "twin": "Raptor class",
+  "name": "Methalox Full-Flow",
+  "stage": 1,
+  "value_types": {
+   "length_m": "real_world_approximate",
+   "exit_diameter_m": "real_world_approximate",
+   "envelope_diameter_m": "real_world_approximate",
+   "diameter_bottom_m": "real_world_approximate",
+   "diameter_top_m": "game_value",
+   "gimbal_pivot_z_m": "game_value"
+  },
+  "family": "engine_s1",
+  "design_ref": "7.7",
+  "bbox_min_m": [
+   -0.657,
+   -0.642,
+   0.0
+  ],
+  "bbox_max_m": [
+   0.642,
+   0.642,
+   3.1
+  ],
+  "attach_points_m": {
+   "attach_top": {
+    "blender_xyz": [
+     0.0,
+     0.0,
+     3.1
+    ]
+   },
+   "nozzle_exit": {
+    "blender_xyz": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "gimbal_pivot": {
+    "blender_xyz": [
+     0.0,
+     0.0,
+     2.902
+    ]
+   }
+  },
+  "materials": [
+   "detail_dark",
+   "engine_metal",
+   "nozzle_hot"
+  ],
+  "triangles": {
+   "lod0": 14408,
+   "lod1": 4192,
+   "phone": 4192
+  },
+  "files": {
+   "fbx": "assets/blender/export/fbx/eng_methalox_full_flow.fbx",
+   "glb": "client/public/models/eng_methalox_full_flow.glb",
+   "fbx_bytes": 423740,
+   "glb_bytes": 139968,
+   "blend": "assets/blender/eng_methalox_full_flow.blend",
+   "blend_bytes": 442330
+  },
+  "issues": []
+ },
+ "eng_methalox_vacuum": {
+  "id": "eng_methalox_vacuum",
+  "name": "Methalox Vacuum",
+  "twin": "Raptor Vacuum class",
+  "stage": 2,
+  "length_m": 4.7,
+  "diameter_bottom_m": 2.5,
+  "diameter_top_m": 0.8,
+  "exit_diameter_m": 2.5,
+  "envelope_diameter_m": 2.5,
+  "gimbal_pivot_z_m": 4.502,
+  "ring_check": false,
+  "value_types": {
+   "length_m": "real_world_approximate",
+   "diameter_bottom_m": "real_world_approximate",
+   "diameter_top_m": "game_value",
+   "exit_diameter_m": "real_world_approximate",
+   "envelope_diameter_m": "real_world_approximate",
+   "gimbal_pivot_z_m": "game_value"
+  },
+  "family": "engine_s2",
+  "design_ref": "7.8",
+  "bbox_min_m": [
+   -1.258,
+   -1.258,
+   0.0
+  ],
+  "bbox_max_m": [
+   1.258,
+   1.258,
+   4.7
+  ],
+  "attach_points_m": {
+   "attach_top": {
+    "blender_xyz": [
+     0.0,
+     0.0,
+     4.7
+    ]
+   },
+   "nozzle_exit": {
+    "blender_xyz": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "gimbal_pivot": {
+    "blender_xyz": [
+     0.0,
+     0.0,
+     4.502
+    ]
+   }
+  },
+  "materials": [
+   "detail_dark",
+   "engine_metal",
+   "nozzle_hot"
+  ],
+  "triangles": {
+   "lod0": 18882,
+   "lod1": 5494,
+   "phone": 5494
+  },
+  "files": {
+   "fbx": "assets/blender/export/fbx/eng_methalox_vacuum.fbx",
+   "glb": "client/public/models/eng_methalox_vacuum.glb",
+   "fbx_bytes": 537756,
+   "glb_bytes": 165352,
+   "blend": "assets/blender/eng_methalox_vacuum.blend",
+   "blend_bytes": 543890
+  },
+  "issues": []
+ },
+ "eng_solid_kick_motor": {
+  "id": "eng_solid_kick_motor",
+  "name": "Solid Kick Motor",
+  "twin": "Star 48 class",
+  "stage": 2,
+  "length_m": 2.03,
+  "diameter_bottom_m": 0.75,
+  "diameter_top_m": 0.9,
+  "exit_diameter_m": 0.75,
+  "envelope_diameter_m": 1.24,
+  "gimbal_pivot_z_m": 0.86,
+  "ring_check": false,
+  "value_types": {
+   "length_m": "real_world_approximate",
+   "diameter_bottom_m": "real_world_approximate",
+   "diameter_top_m": "game_value",
+   "exit_diameter_m": "real_world_approximate",
+   "envelope_diameter_m": "real_world_approximate",
+   "gimbal_pivot_z_m": "game_value"
+  },
+  "family": "engine_s2",
+  "design_ref": "7.8",
+  "bbox_min_m": [
+   -0.629,
+   -0.629,
+   0.0
+  ],
+  "bbox_max_m": [
+   0.629,
+   0.629,
+   2.03
+  ],
+  "attach_points_m": {
+   "attach_top": {
+    "blender_xyz": [
+     0.0,
+     0.0,
+     2.03
+    ]
+   },
+   "nozzle_exit": {
+    "blender_xyz": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "gimbal_pivot": {
+    "blender_xyz": [
+     0.0,
+     0.0,
+     0.86
+    ]
+   }
+  },
+  "materials": [
+   "detail_dark",
+   "engine_metal",
+   "nozzle_hot",
+   "thermal"
+  ],
+  "triangles": {
+   "lod0": 14628,
+   "lod1": 4168,
+   "phone": 4168
+  },
+  "files": {
+   "fbx": "assets/blender/export/fbx/eng_solid_kick_motor.fbx",
+   "glb": "client/public/models/eng_solid_kick_motor.glb",
+   "fbx_bytes": 404156,
+   "glb_bytes": 128696,
+   "blend": "assets/blender/eng_solid_kick_motor.blend",
+   "blend_bytes": 421246
+  },
+  "issues": []
+ }
+}
