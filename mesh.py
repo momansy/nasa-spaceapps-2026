@@ -684,9 +684,17 @@ def publish_branch(repo_path, branch, issue, agent, draft=False, lenient=False):
             raise RuntimeError(f"{len(files)} files changed (limit {MAX_PUBLISH_FILES}); "
                                "not publishing. Add build outputs to .gitignore.")
     if files:
-        for start in range(0, len(files), 50):
-            git(repo_path, "add", "--", *files[start:start + 50], timeout=600)
-        git(repo_path, "commit", "-m", f"Agent {agent}: address issue #{issue}", timeout=600)
+        # A path whose deletion is already staged is in neither the index nor the working
+        # tree; "git add" would fail on it with "pathspec did not match", so skip it.
+        indexed = set()
+        for start in range(0, len(files), 200):
+            indexed.update(git(repo_path, "ls-files", "--cached", "--",
+                               *files[start:start + 200], timeout=600).splitlines())
+        stageable = [p for p in files if p in indexed or (Path(repo_path) / p).exists()]
+        for start in range(0, len(stageable), 50):
+            git(repo_path, "add", "-A", "--", *stageable[start:start + 50], timeout=600)
+        if git(repo_path, "diff", "--cached", "--name-only"):
+            git(repo_path, "commit", "-m", f"Agent {agent}: address issue #{issue}", timeout=600)
     if lenient:
         committed = git(repo_path, "diff", "--name-only", "origin/HEAD...HEAD").splitlines()
         protected = [p for p in committed if forbidden_path(p)]
