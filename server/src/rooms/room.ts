@@ -419,8 +419,9 @@ export class Room {
 
   /** Unlocked lobby: the group table for the current player count; in PICK mode a claimed group shows its claimer. */
   private previewGroups(): PayloadMap['roles.state']['groups'] {
-    const n = this.players.size;
-    if (n === 0) return [];
+    // With nobody seated yet the one-player table applies, so `groups` always covers all ten roles
+    // (schema: minItems 1) even in the snapshot sent when the host creates the room.
+    const n = Math.max(1, this.players.size);
     return groupsForCount(n).map((roles) => {
       const lead = roles[0]!;
       const claimer = this.roleMode === 'PICK' ? ([...this.rolePicks].find(([, l]) => l === lead)?.[0] ?? null) : null;
