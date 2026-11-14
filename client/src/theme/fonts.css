@@ -1,0 +1,40 @@
+/*
+ * Bundled fonts (no CDN). Latin subsets in WOFF, made with fontTools from the same files the
+ * Unity host UI ships (unity/MissionForge/Assets/MissionForge/UI/Fonts). Licences: SIL Open
+ * Font License 1.1, copies in src/assets/fonts/*-OFL.txt and client/THIRD_PARTY_NOTICES.md.
+ * Budget (VISUAL_TARGET section 4): fonts <= 120 kB; these four files total about 78 kB. Plex
+ * Mono is cut down to ASCII because it is used for room codes only.
+ * Glyphs outside the subset (Arabic, Greek, CJK, maths) fall back to the system stack.
+ */
+@font-face {
+  font-family: 'MF Oxanium';
+  src: url('../assets/fonts/oxanium-700.woff') format('woff');
+  font-weight: 400 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans';
+  src: url('../assets/fonts/plex-sans-400.woff') format('woff');
+  font-weight: 300 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans';
+  src: url('../assets/fonts/plex-sans-600.woff') format('woff');
+  font-weight: 600 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url('../assets/fonts/plex-mono-600.woff') format('woff');
+  font-weight: 400 800;
+  unicode-range: U+0020-007E;
+  font-style: normal;
+  font-display: swap;
+}

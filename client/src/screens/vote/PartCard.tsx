@@ -3,7 +3,7 @@
 // block that never scrolls out of view, the hidden-risk badge, the host's "if chosen" deltas,
 // a fact, and tap-a-stat explanations. Every number shown comes from the bundled catalog (part
 // figures) or from the host (deltas, affordability); nothing is recomputed here.
-import { memo, useId, useState } from 'react';
+import { memo, useId, useState, type CSSProperties } from 'react';
 import type { RoleId, TagKind, VoteOption, VoteTagsPayload } from '@protocol';
 import { getFact, getPart, partsOfCategory, type Part } from '../../data/catalog';
 import { fmt, fmtMetricDelta, fmtMetricValue, fmtMoney, METRIC_SPECS } from '../../data/format';
@@ -61,7 +61,9 @@ function StatRow({ id, text, fraction, noteKey, open, onToggle }: { id: string; 
         <span className="stat__v num">{valueText}</span>
         {fraction != null ? (
           <span className="stat__bar" aria-hidden="true">
-            <span className="stat__fill" style={{ transform: `scaleX(${fraction})` }} />
+            {/* The gradient spans the whole track (Ocean → Signal → Ceramic), so a part near the top
+                of its category reaches the bright end; the fill only reveals it. */}
+            <span className="stat__fill" style={{ '--f': Math.max(0.03, Math.min(1, fraction)) } as CSSProperties} />
           </span>
         ) : (
           <span aria-hidden="true" />
@@ -158,6 +160,7 @@ export const PartCard = memo(function PartCard(props: PartCardProps) {
       className={`pcard ${mine ? 'pcard--mine' : ''} ${vetoed ? 'pcard--vetoed' : ''} ${leading ? 'pcard--leading' : ''}`}
       aria-label={t(part.name_key)}
       data-testid={`card-${option.id}`}
+      data-maturity={part.game?.maturity ?? undefined}
     >
       <div className="pcard__scroll">
         <div className="pcard__media">
@@ -185,10 +188,16 @@ export const PartCard = memo(function PartCard(props: PartCardProps) {
         </div>
 
         <header className="pcard__head">
-          <div className="row row--between pcard__titlerow">
-            <h2 className="pcard__name">{t(part.name_key)}</h2>
+          <div className="pcard__meta">
             <span className="pcard__cat">{categoryName}</span>
+            {rel?.maturityKey && (
+              <span className={`pcard__grade pcard__grade--${part.game?.maturity}`}>
+                <Icon name={part.game?.maturity === 'proven' ? 'shield' : part.game?.maturity === 'new' ? 'sparkle' : 'award'} size="0.95em" strokeWidth={2.2} />
+                {t(rel.maturityKey)}
+              </span>
+            )}
           </div>
+          <h2 className="pcard__name">{t(part.name_key)}</h2>
           {twinKey && t.has(twinKey) && <p className="pcard__twin">{t('ui.card.twin', { name: t(twinKey) })}</p>}
         </header>
 

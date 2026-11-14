@@ -82,11 +82,10 @@ export function JoinScreen() {
     <form className="screen join" onSubmit={submit} noValidate data-testid="screen-join">
       <div className="screen__scroll">
         <div className="join__hero">
-          <div className="join__orbit" aria-hidden="true">
-            <span className="join__planet" />
-            <span className="join__sat" />
-          </div>
-          <p className="eyebrow">{t('ui.join.eyebrow')}</p>
+          <p className="eyebrow join__eyebrow">
+            <span className="join__live" aria-hidden="true" />
+            {t('ui.join.eyebrow')}
+          </p>
           <h1 className="title title--lg">{t(watch ? 'ui.join.title_watch' : 'ui.join.title')}</h1>
           <p className="lede">{t(watch ? 'ui.join.lede_watch' : 'ui.join.lede')}</p>
         </div>
@@ -98,27 +97,30 @@ export function JoinScreen() {
           </div>
         )}
 
+        <section className="join__card panel">
         <div className="field">
           <label className="field__label" htmlFor="join-code">
             {t('ui.join.code_label')}
           </label>
           {!editCode && codeOk ? (
             <div className="join__codelocked">
-              <span className="join__codechars" aria-label={code.split('').join(' ')}>
+              <span className="join__tiles join__tiles--locked" aria-label={code.split('').join(' ')} role="img">
                 {code.split('').map((c, i) => (
-                  <span key={i} aria-hidden="true">
+                  <span key={i} className="join__tile is-set" aria-hidden="true" style={{ animationDelay: `${120 + i * 70}ms` }}>
                     {c}
                   </span>
                 ))}
               </span>
-              <span className="chip chip--good">
-                <Icon name="check" size="0.95em" strokeWidth={2.6} />
-                <span>{t('ui.join.code_from_link')}</span>
+              <span className="join__lockedrow">
+                <span className="chip chip--good chip--wrap">
+                  <Icon name="statusGood" size="1em" strokeWidth={2.4} />
+                  <span>{t('ui.join.code_from_link')}</span>
+                </span>
+                <span className="spacer" />
+                <button type="button" className="btn btn--ghost btn--sm" onClick={() => setEditCode(true)}>
+                  {t('ui.join.code_change')}
+                </button>
               </span>
-              <span className="spacer" />
-              <button type="button" className="btn btn--ghost btn--sm" onClick={() => setEditCode(true)}>
-                {t('ui.join.code_change')}
-              </button>
             </div>
           ) : (
             <div className="join__codewrap">
@@ -134,14 +136,16 @@ export function JoinScreen() {
                 autoCorrect="off"
                 spellCheck={false}
                 maxLength={8}
-                placeholder="••••"
+                placeholder=""
                 aria-describedby="join-code-hint"
                 aria-invalid={roomError || (touched && !codeOk)}
                 data-testid="join-code"
               />
-              <div className="join__codeslots" aria-hidden="true">
+              <div className="join__tiles" aria-hidden="true">
                 {Array.from({ length: CODE_LENGTH }, (_, i) => (
-                  <span key={i} className={i === code.length ? 'is-next' : i < code.length ? 'is-set' : ''} />
+                  <span key={i} className={`join__tile ${i === code.length ? 'is-next' : i < code.length ? 'is-set' : ''}`}>
+                    {code[i] ?? ''}
+                  </span>
                 ))}
               </div>
             </div>
@@ -199,12 +203,20 @@ export function JoinScreen() {
               </p>
             </div>
 
+          </>
+        )}
+        </section>
+
+        {!watch && (
+          <>
             <div className="field">
               <span className="field__label" id="join-avatar-label">
                 {t('ui.join.avatar_label')}
               </span>
               <div className="join__avatar panel">
-                <Avatar avatar={avatar} size="lg" label={t('ui.join.avatar_preview')} />
+                <span className="join__pedestal">
+                  <Avatar avatar={avatar} size="lg" label={t('ui.join.avatar_preview')} />
+                </span>
                 <div className="join__pickers">
                   <div className="join__swatches" role="radiogroup" aria-label={t('ui.join.suit_label')}>
                     {SUITS.map((s) => (

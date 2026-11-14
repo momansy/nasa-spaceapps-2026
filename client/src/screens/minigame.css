@@ -23,12 +23,12 @@
   gap: 5px;
   color: var(--text-dim);
   font-size: 0.9rem;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .mg-intro__how {
-  font-size: 1.15rem;
-  font-weight: 650;
+  font-size: var(--fs-lg);
+  font-weight: 600;
   line-height: 1.3;
   color: var(--text);
 }
@@ -49,12 +49,14 @@
 .mg-demo {
   position: relative;
   flex: none;
-  height: clamp(150px, 26vh, 230px);
-  border-radius: var(--radius);
-  border: var(--border-w) solid var(--line-strong);
-  background: var(--bg-1);
+  height: clamp(170px, 28vh, 250px);
+  border-radius: var(--radius-lg);
+  border: var(--border-w) solid var(--glass-edge-strong);
+  background:
+    radial-gradient(90% 70% at 50% 0%, rgba(85, 197, 205, 0.12), transparent 70%),
+    linear-gradient(180deg, rgba(8, 24, 38, 0.94), rgba(4, 13, 22, 0.96));
   overflow: hidden;
-  box-shadow: var(--shadow-1);
+  box-shadow: var(--shadow-2);
 }
 
 .mg-demo__stage {
@@ -66,16 +68,14 @@
   position: absolute;
   top: 8px;
   inset-inline-start: 8px;
-  padding: 0.1rem 0.5rem;
-  border-radius: 6px;
+  padding: 0.15rem 0.6rem;
+  border-radius: var(--radius-pill);
   background: rgba(5, 16, 26, 0.82);
-  border: var(--border-w) solid var(--line-strong);
+  border: var(--border-w) solid var(--glass-edge-strong);
   color: var(--text-dim);
-  font-family: var(--font-mono);
-  font-size: 0.66rem;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  font-size: var(--fs-meta);
+  font-weight: 600;
+  letter-spacing: 0.01em;
   pointer-events: none;
 }
 
@@ -97,16 +97,14 @@
   justify-content: center;
   gap: 16px;
   padding: 8px calc(var(--gutter) + var(--safe-right)) calc(8px + var(--safe-bottom)) calc(var(--gutter) + var(--safe-left));
-  border-top: var(--border-w) solid var(--line);
-  background: rgba(7, 21, 34, 0.9);
+  background: linear-gradient(180deg, var(--glass-chrome), rgba(5, 15, 25, 0.92));
+  box-shadow: inset 0 1px 0 var(--glass-edge-strong);
 }
 
 .mg-count__label {
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  font-size: var(--fs-label);
+  font-weight: 600;
+  letter-spacing: 0.01em;
   color: var(--text-dim);
 }
 
@@ -121,16 +119,17 @@
   min-height: 74px;
   border-radius: 50%;
   border: 3px solid var(--accent);
-  background: var(--accent-soft);
-  box-shadow: var(--glow-accent);
+  background: radial-gradient(closest-side, rgba(7, 21, 34, 0.95) 70%, rgba(85, 197, 205, 0.25));
+  box-shadow: var(--glow-accent), 0 0 40px -6px var(--accent-glow);
 }
 
 .mg-count__num {
   align-self: center;
   display: inline-grid;
   place-items: center;
+  font-family: var(--font-display);
   font-size: 2.5rem;
-  font-weight: 800;
+  font-weight: 600;
   line-height: 1;
   color: var(--text);
   animation: mg-count-pop 0.45s var(--ease-out-back) both;
@@ -140,9 +139,8 @@
   align-self: center;
   margin-inline-start: 2px;
   margin-top: 0.9rem;
-  font-family: var(--font-mono);
   font-size: 0.9rem;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--text-dim);
 }
 
@@ -174,7 +172,7 @@
 
 .mg-modes .switch + .switch,
 .mg-modes__locked + .switch {
-  border-top: var(--border-w) solid var(--line);
+  border-top: var(--border-w) solid var(--glass-edge);
 }
 
 .mg-modes__locked {
@@ -203,11 +201,9 @@
 }
 
 .mg-play__name {
-  font-family: var(--font-mono);
-  font-size: 0.74rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  font-size: var(--fs-label);
+  font-weight: 600;
+  letter-spacing: 0.01em;
   color: var(--accent);
   min-width: 0;
   overflow: hidden;
@@ -220,7 +216,7 @@
   align-items: center;
   gap: 6px;
   font-size: 1.15rem;
-  font-weight: 800;
+  font-weight: 600;
   color: var(--text);
 }
 
@@ -266,7 +262,7 @@
   width: 6.2rem;
   height: 6.2rem;
   border-radius: 50%;
-  border: 3px solid var(--line-strong);
+  border: 3px solid var(--glass-edge-strong);
   background: var(--neutral-soft);
   color: var(--text-dim);
   animation: pop-in var(--dur-slow) var(--ease-out-back) both;
@@ -308,7 +304,7 @@
 
 .mg-score__v {
   font-size: 1.7rem;
-  font-weight: 800;
+  font-weight: 600;
 }
 
 .mg-waitline {
@@ -407,11 +403,9 @@
 }
 
 .mg-tier__word {
-  font-family: var(--font-mono);
   font-size: 1.35rem;
-  font-weight: 800;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.01em;
   color: var(--tier);
   margin-inline-start: 0.22em;
 }
@@ -422,7 +416,7 @@
 }
 
 .mg-pip {
-  color: var(--line-strong);
+  color: var(--glass-edge-strong);
 }
 
 .mg-pip--on {
@@ -483,7 +477,7 @@
   width: 1.45rem;
   height: 1.45rem;
   border-radius: 50%;
-  border: 2px dashed var(--line-strong);
+  border: 2px dashed var(--glass-edge-strong);
   color: var(--good-ink);
 }
 
@@ -494,7 +488,7 @@
 
 .mg-crew__text {
   font-size: 1.15rem;
-  font-weight: 750;
+  font-weight: 600;
 }
 
 .mg-crew__you {
@@ -525,7 +519,7 @@
 }
 
 .mg-reward + .mg-reward {
-  border-top: var(--border-w) solid var(--line);
+  border-top: var(--border-w) solid var(--glass-edge);
 }
 
 .mg-reward__icon {
@@ -540,7 +534,7 @@
 }
 
 .mg-reward__name {
-  font-weight: 650;
+  font-weight: 600;
 }
 
 .mg-reward__note {
@@ -551,7 +545,7 @@
 
 .mg-reward__amount {
   font-size: 1.1rem;
-  font-weight: 800;
+  font-weight: 600;
   color: var(--good);
 }
 

@@ -29,6 +29,8 @@ export interface ThreeScene {
 }
 
 const FOV_DEG = 30;
+/** Share of the shorter stage side the part's largest dimension covers at zoom 1. */
+const FILL = 0.74;
 
 function disposeObject(root: Object3D) {
   root.traverse((obj) => {
@@ -55,8 +57,9 @@ export async function createThreeScene(glb: ArrayBuffer): Promise<ThreeScene> {
   });
 
   const renderer = new WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'low-power' });
+  // ACES tone mapping with sRGB output (three r152+ default), as VISUAL_TARGET 4 asks.
   renderer.toneMapping = ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 0.9;
+  renderer.toneMappingExposure = 1.05;
   renderer.setClearColor(0x000000, 0);
 
   const scene = new Scene();
@@ -67,19 +70,26 @@ export async function createThreeScene(glb: ArrayBuffer): Promise<ThreeScene> {
   pmrem.dispose();
   disposeObject(room);
 
-  scene.add(new HemisphereLight(0xcfe6ff, 0x0b1020, 0.45));
-  const key = new DirectionalLight(0xffe2b8, 1.1);
-  key.position.set(2.5, 3, 4);
+  // Style-guide rig (game_value): warm ~4500 K key, cool ~8000 K fill at about 1:4, and a
+  // restrained teal rim from behind so the silhouette separates from the navy stage.
+  scene.add(new HemisphereLight(0xc9dcff, 0x14202c, 0.35));
+  const key = new DirectionalLight(0xffd2a1, 1.6);
+  key.position.set(3, 3.5, 3.5);
   scene.add(key);
-  const rim = new DirectionalLight(0x55c5cd, 0.9);
-  rim.position.set(-3, 1.5, -3);
+  const fill = new DirectionalLight(0xc9dcff, 0.4);
+  fill.position.set(-3.5, 0.5, 2.5);
+  scene.add(fill);
+  const rim = new DirectionalLight(0x8fe0e6, 0.8);
+  rim.position.set(-2, 2.5, -4);
   scene.add(rim);
 
-  // Centre the model on the origin and scale it into a unit sphere, like the wireframes.
+  // Centre the model on the origin and scale its largest dimension to 2 units, so the part
+  // fills about 70 % of the stage (VISUAL_TARGET 4) instead of a small bounding-sphere fit.
   const pivot = new Group();
   const box = new Box3().setFromObject(gltf.scene);
   const centre = box.getCenter(new Vector3());
-  const radius = Math.max(1e-6, box.getSize(new Vector3()).length() / 2);
+  const dims = box.getSize(new Vector3());
+  const radius = Math.max(1e-6, Math.max(dims.x, dims.y, dims.z) / 2);
   gltf.scene.position.sub(centre);
   const fit = new Group();
   fit.scale.setScalar(1 / radius);
@@ -111,7 +121,7 @@ export async function createThreeScene(glb: ArrayBuffer): Promise<ThreeScene> {
       pivot.rotation.set(view.pitch, view.yaw, 0, 'XYZ');
       const halfV = (FOV_DEG / 2) * (Math.PI / 180);
       const half = aspect >= 1 ? halfV : Math.atan(Math.tan(halfV) * aspect);
-      camera.position.set(0, 0, 1.08 / Math.sin(half) / view.zoom);
+      camera.position.set(0, 0, 1 / (FILL * Math.tan(half)) / view.zoom);
       camera.lookAt(0, 0, 0);
       renderer.render(scene, camera);
     },

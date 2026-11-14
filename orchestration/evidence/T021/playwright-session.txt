@@ -1,0 +1,45 @@
+
+Running 2 tests using 1 worker
+
+  x  1 e2e\session.spec.ts:24:1 › full mock session on a phone (2.0m)
+  ok 2 e2e\session.spec.ts:243:1 › join screen right-to-left at 200 % text (1.6s)
+
+
+  1) e2e\session.spec.ts:24:1 › full mock session on a phone ───────────────────────────────────────
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByTestId('stage-quick')
+    Expected: visible
+    Timeout: 20000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByTestId('stage-quick') with timeout 20000ms
+      - waiting for getByTestId('stage-quick')
+
+
+      101 |
+      102 |   // 7. Quick vote: engine test.
+    > 103 |   await expect(page.getByTestId('stage-quick')).toBeVisible({ timeout: 20_000 });
+          |                                                 ^
+      104 |   await page.getByTestId('quick-TEST').click();
+      105 |   await page.waitForTimeout(500);
+      106 |   await shot(page, '17-quick-vote');
+        at C:\Projects\NASA GAME\client\e2e\session.spec.ts:103:49
+
+    Error: apiRequestContext._wrapApiCall: ENOENT: no such file or directory, copyfile 'C:\Projects\NASA GAME\client\test-results\.playwright-artifacts-0\traces\6fa1842ca325e3ffbb00-a52edb97845b076076f0-recording1.network' -> 'C:\Projects\NASA GAME\client\test-results\.playwright-artifacts-0\traces\6fa1842ca325e3ffbb00-a52edb97845b076076f0-recording1-pwnetcopy-1.network'
+
+    Error: browserContext._wrapApiCall: ENOENT: no such file or directory, open 'C:\Projects\NASA GAME\client\test-results\.playwright-artifacts-0\traces\6fa1842ca325e3ffbb00-a52edb97845b076076f0.trace'
+
+    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\session-full-mock-session-on-a-phone\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\session-full-mock-session-on-a-phone\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    e2e\session.spec.ts:24:1 › full mock session on a phone ────────────────────────────────────────
+  1 passed (2.4m)
