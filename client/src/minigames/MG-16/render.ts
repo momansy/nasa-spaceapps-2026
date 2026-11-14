@@ -3,6 +3,7 @@
 // with the limit and the stretch mark, and the thruster pad. Reads the simulation only.
 import { fmt } from '../../data/format';
 import { Canvas2D, clamp, KeyedLayer, pathRoundRect, withAlpha, type Rect, type Status } from '../MG-13/kit';
+import { paintBarTrack, paintGlass, paintSky, tealGradient } from '../MG-09/shared/art';
 import { T_BACK, T_DOWN, T_FWD, T_LEFT, T_RIGHT, T_UP, type Mg16Sim } from './model';
 
 type Translate = (key: string, args?: Record<string, string | number>) => string;
@@ -124,13 +125,30 @@ export class Mg16View {
       ctx.save();
       pathRoundRect(ctx, cam, 12);
       ctx.clip();
-      const eg = ctx.createLinearGradient(0, cam.y + cam.h * 0.75, 0, cam.y + cam.h);
-      eg.addColorStop(0, 'rgba(23, 104, 135, 0)');
-      eg.addColorStop(1, 'rgba(40, 140, 180, 0.35)');
-      ctx.fillStyle = eg;
+      // Space with the Earth limb low in the frame and the low sun off to one side (frame 04).
+      paintSky(ctx, cam, pal, 0.9, c.rtl ? 'right' : 'left');
+      // Camera viewfinder: thin corner brackets and a soft lens vignette.
+      const vg = ctx.createRadialGradient(cam.x + cam.w / 2, cam.y + cam.h / 2, Math.min(cam.w, cam.h) * 0.3, cam.x + cam.w / 2, cam.y + cam.h / 2, Math.max(cam.w, cam.h) * 0.75);
+      vg.addColorStop(0, 'rgba(2, 8, 16, 0)');
+      vg.addColorStop(1, 'rgba(2, 8, 16, 0.55)');
+      ctx.fillStyle = vg;
       ctx.fillRect(cam.x, cam.y, cam.w, cam.h);
-      ctx.fillStyle = withAlpha(pal.ceramic, 0.4);
-      for (let i = 0; i < 20; i++) ctx.fillRect(cam.x + (((i * 71 + 5) % 100) / 100) * cam.w, cam.y + (((i * 43 + 19) % 100) / 100) * cam.h * 0.7, 1.2, 1.2);
+      ctx.strokeStyle = 'rgba(232, 238, 240, 0.35)';
+      ctx.lineWidth = 1.5;
+      const m = 14;
+      const L = Math.min(22, cam.w * 0.08);
+      ctx.beginPath();
+      for (const [x, y, dx, dy] of [
+        [cam.x + m, cam.y + m + 14, 1, 1],
+        [cam.x + cam.w - m, cam.y + m + 14, -1, 1],
+        [cam.x + m, cam.y + cam.h - m, 1, -1],
+        [cam.x + cam.w - m, cam.y + cam.h - m, -1, -1],
+      ] as const) {
+        ctx.moveTo(x, y + dy * L);
+        ctx.lineTo(x, y);
+        ctx.lineTo(x + dx * L, y);
+      }
+      ctx.stroke();
       ctx.restore();
     });
     const ctx = c.ctx;
@@ -140,54 +158,8 @@ export class Mg16View {
     const k = this.scaleAt(sim.range);
     const cx = cam.x + cam.w / 2 + sim.y * k;
     const cy = cam.y + cam.h / 2 - sim.z * k;
-    // Station module face: ceramic, panelled, with gold blanket edges and a teal ring.
     const R = 30 * k; // port outer radius, 30 cm
-    ctx.fillStyle = '#c9a24e';
-    ctx.beginPath();
-    ctx.arc(cx, cy, R * 2.3, 0, Math.PI * 2);
-    ctx.fill();
-    const fg = ctx.createRadialGradient(cx - R, cy - R, R * 0.2, cx, cy, R * 2.2);
-    fg.addColorStop(0, '#f4f7f8');
-    fg.addColorStop(1, '#a9b4bc');
-    ctx.fillStyle = fg;
-    ctx.beginPath();
-    ctx.arc(cx, cy, R * 2.1, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.strokeStyle = 'rgba(60, 80, 95, 0.35)';
-    ctx.lineWidth = 1;
-    ctx.beginPath();
-    for (let i = 0; i < 8; i++) {
-      const a = (i * Math.PI) / 4;
-      ctx.moveTo(cx + Math.cos(a) * R * 1.25, cy + Math.sin(a) * R * 1.25);
-      ctx.lineTo(cx + Math.cos(a) * R * 2.1, cy + Math.sin(a) * R * 2.1);
-    }
-    ctx.stroke();
-    // Docking ring with petals and bolts.
-    ctx.fillStyle = '#7f8b95';
-    ctx.beginPath();
-    ctx.arc(cx, cy, R * 1.22, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.fillStyle = '#1a2530';
-    ctx.beginPath();
-    ctx.arc(cx, cy, R, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.fillStyle = pal.accent;
-    for (let i = 0; i < 3; i++) {
-      const a = -Math.PI / 2 + (i * Math.PI * 2) / 3;
-      ctx.beginPath();
-      ctx.moveTo(cx + Math.cos(a - 0.25) * R * 1.0, cy + Math.sin(a - 0.25) * R * 1.0);
-      ctx.lineTo(cx + Math.cos(a) * R * 0.72, cy + Math.sin(a) * R * 0.72);
-      ctx.lineTo(cx + Math.cos(a + 0.25) * R * 1.0, cy + Math.sin(a + 0.25) * R * 1.0);
-      ctx.closePath();
-      ctx.fill();
-    }
-    ctx.fillStyle = '#c3ccd3';
-    for (let i = 0; i < 12; i++) {
-      const a = (i * Math.PI) / 6;
-      ctx.beginPath();
-      ctx.arc(cx + Math.cos(a) * R * 1.11, cy + Math.sin(a) * R * 1.11, Math.max(1, R * 0.035), 0, Math.PI * 2);
-      ctx.fill();
-    }
+    this.drawFace(ctx, cx, cy, R);
     // Docking target: a cross on a standoff (its centre is the port centre).
     ctx.strokeStyle = pal.ceramic;
     ctx.lineWidth = Math.max(1.5, R * 0.05);
@@ -254,6 +226,125 @@ export class Mg16View {
     }
   }
 
+  private faceSprite: HTMLCanvasElement | null = null;
+  private faceKey = '';
+
+  /**
+   * The station's docking face, painted into a sprite once per size step (half a pixel of
+   * radius) and blitted, so its gradients cost nothing per frame while the range closes.
+   */
+  private drawFace(target: CanvasRenderingContext2D, x: number, y: number, Rin: number) {
+    const c = this.c;
+    const R = Math.max(1, Math.round(Rin * 2) / 2);
+    const half = Math.ceil(R * 2.35) + 2;
+    const key = `${R}|${c.dpr}|${c.rtl}`;
+    if (key !== this.faceKey || !this.faceSprite) {
+      const sp = this.faceSprite ?? document.createElement('canvas');
+      sp.width = Math.max(1, Math.ceil(half * 2 * c.dpr));
+      sp.height = sp.width;
+      const ctx = sp.getContext('2d');
+      if (!ctx) return;
+      ctx.setTransform(c.dpr, 0, 0, c.dpr, half * c.dpr, half * c.dpr);
+      const cx = 0;
+      const cy = 0;
+        // Station module face in the satellite finish: gold blanket edge with crinkle highlights,
+        // ceramic panels lit from the sun side with a warm rim, a brushed-silver docking ring with
+        // bolts, the dark tunnel with depth, and teal guide petals.
+        const sunX = c.rtl ? 1 : -1;
+        const gold = ctx.createLinearGradient(cx - R * 2.3, cy - R * 2.3, cx + R * 2.3, cy + R * 2.3);
+        gold.addColorStop(0, '#e9c36d');
+        gold.addColorStop(0.45, '#b98a35');
+        gold.addColorStop(0.7, '#d9b25c');
+        gold.addColorStop(1, '#6e5020');
+        ctx.fillStyle = gold;
+        ctx.beginPath();
+        ctx.arc(cx, cy, R * 2.3, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(255, 236, 170, 0.35)';
+        ctx.lineWidth = Math.max(1, R * 0.03);
+        ctx.beginPath();
+        for (let i = 0; i < 10; i++) {
+          const a = i * 0.63;
+          ctx.moveTo(cx + Math.cos(a) * R * 2.17, cy + Math.sin(a) * R * 2.17);
+          ctx.quadraticCurveTo(cx + Math.cos(a + 0.15) * R * 2.27, cy + Math.sin(a + 0.15) * R * 2.27, cx + Math.cos(a + 0.3) * R * 2.18, cy + Math.sin(a + 0.3) * R * 2.18);
+        }
+        ctx.stroke();
+        const fg = ctx.createRadialGradient(cx + sunX * R * 0.9, cy - R * 0.9, R * 0.2, cx, cy, R * 2.2);
+        fg.addColorStop(0, '#f6f9fa');
+        fg.addColorStop(0.55, '#d7e0e5');
+        fg.addColorStop(1, '#8798a6');
+        ctx.fillStyle = fg;
+        ctx.beginPath();
+        ctx.arc(cx, cy, R * 2.1, 0, Math.PI * 2);
+        ctx.fill();
+        // Warm rim light on the sun-facing edge.
+        ctx.strokeStyle = 'rgba(255, 214, 160, 0.75)';
+        ctx.lineWidth = Math.max(1, R * 0.05);
+        ctx.beginPath();
+        ctx.arc(cx, cy, R * 2.07, sunX < 0 ? Math.PI * 0.7 : -Math.PI * 0.3, sunX < 0 ? Math.PI * 1.3 : Math.PI * 0.3);
+        ctx.stroke();
+        // Panel seams (raking light): dark groove with a light lip.
+        ctx.lineWidth = 1;
+        for (const [col, off] of [
+          ['rgba(50, 70, 86, 0.32)', 0],
+          ['rgba(255, 255, 255, 0.35)', 1],
+        ] as const) {
+          ctx.strokeStyle = col;
+          ctx.beginPath();
+          for (let i = 0; i < 8; i++) {
+            const a = (i * Math.PI) / 4 + Math.PI / 8;
+            ctx.moveTo(cx + Math.cos(a) * R * 1.32 + off, cy + Math.sin(a) * R * 1.32 + off);
+            ctx.lineTo(cx + Math.cos(a) * R * 2.08 + off, cy + Math.sin(a) * R * 2.08 + off);
+          }
+          ctx.stroke();
+        }
+        // Docking ring: brushed silver.
+        const ring = ctx.createLinearGradient(cx - R * 1.22, cy - R * 1.22, cx + R * 1.22, cy + R * 1.22);
+        ring.addColorStop(0, '#e2e8ec');
+        ring.addColorStop(0.35, '#8e99a3');
+        ring.addColorStop(0.55, '#c9d1d8');
+        ring.addColorStop(1, '#55606a');
+        ctx.fillStyle = ring;
+        ctx.beginPath();
+        ctx.arc(cx, cy, R * 1.24, 0, Math.PI * 2);
+        ctx.fill();
+        const tun = ctx.createRadialGradient(cx, cy, R * 0.2, cx, cy, R);
+        tun.addColorStop(0, '#05090e');
+        tun.addColorStop(0.75, '#141e28');
+        tun.addColorStop(1, '#2b3946');
+        ctx.fillStyle = tun;
+        ctx.beginPath();
+        ctx.arc(cx, cy, R, 0, Math.PI * 2);
+        ctx.fill();
+        for (let i = 0; i < 3; i++) {
+          const a = -Math.PI / 2 + (i * Math.PI * 2) / 3;
+          ctx.beginPath();
+          ctx.moveTo(cx + Math.cos(a - 0.25) * R * 1.0, cy + Math.sin(a - 0.25) * R * 1.0);
+          ctx.lineTo(cx + Math.cos(a) * R * 0.72, cy + Math.sin(a) * R * 0.72);
+          ctx.lineTo(cx + Math.cos(a + 0.25) * R * 1.0, cy + Math.sin(a + 0.25) * R * 1.0);
+          ctx.closePath();
+          ctx.fillStyle = tealGradient(ctx, R * 0.6, 1, cx + Math.cos(a) * R * 0.86);
+          ctx.fill();
+        }
+        for (let i = 0; i < 12; i++) {
+          const a = (i * Math.PI) / 6;
+          const bx0 = cx + Math.cos(a) * R * 1.12;
+          const by0 = cy + Math.sin(a) * R * 1.12;
+          ctx.fillStyle = 'rgba(30, 40, 50, 0.55)';
+          ctx.beginPath();
+          ctx.arc(bx0 + 0.6, by0 + 0.6, Math.max(1, R * 0.035), 0, Math.PI * 2);
+          ctx.fill();
+          ctx.fillStyle = '#e6ebee';
+          ctx.beginPath();
+          ctx.arc(bx0, by0, Math.max(1, R * 0.035), 0, Math.PI * 2);
+          ctx.fill();
+        }
+      this.faceSprite = sp;
+      this.faceKey = key;
+    }
+    target.drawImage(this.faceSprite, x - half, y - half, half * 2, half * 2);
+  }
+
   private speedStatus(): Status {
     const v = this.sim.contact ? this.sim.contact.speedCmS : this.sim.closing;
     const lim = this.sim.config.speedBelowCmS;
@@ -271,10 +362,15 @@ export class Mg16View {
     const lp = c.px(10.5, 1.3);
     const bar: Rect = compact ? g : { x: g.x + 10, y: g.y + lp + 14, w: g.w - 20, h: Math.max(8, g.h - lp - 22) };
     const xOf = (v: number) => (c.rtl ? bar.x + bar.w * (1 - clamp(v / max, 0, 1)) : bar.x + bar.w * clamp(v / max, 0, 1));
-    ctx.fillStyle = withAlpha(pal.good, 0.2);
+    paintBarTrack(ctx, bar);
+    ctx.save();
+    pathRoundRect(ctx, bar, bar.h / 2);
+    ctx.clip();
+    ctx.fillStyle = withAlpha(pal.good, 0.28);
     ctx.fillRect(Math.min(xOf(0), xOf(lim)), bar.y, Math.abs(xOf(lim) - xOf(0)), bar.h);
-    ctx.fillStyle = withAlpha(pal.bad, 0.2);
+    ctx.fillStyle = withAlpha(pal.bad, 0.24);
     ctx.fillRect(Math.min(xOf(lim), xOf(max)), bar.y, Math.abs(xOf(max) - xOf(lim)), bar.h);
+    ctx.restore();
     ctx.fillStyle = pal.text;
     ctx.fillRect(xOf(lim) - 1, bar.y - 3, 2, bar.h + 6);
     ctx.fillStyle = pal.sun;
@@ -306,27 +402,17 @@ export class Mg16View {
       if (sim.config.oneButton) {
         const r = this.pad;
         const on = sim.brakeLeft > 0;
-        pathRoundRect(ctx, r, 14);
-        ctx.fillStyle = on ? pal.accent : pal.bg2;
-        ctx.fill();
-        ctx.lineWidth = 2;
-        ctx.strokeStyle = pal.accent;
-        ctx.stroke();
-        c.text(t('minigame.MG-16.pad.brake'), r.x + r.w / 2, r.y + r.h / 2 + 1, r.w - 24, c.px(18, 1.4), 900, on ? pal.ink : pal.text, 'center');
+        paintGlass(ctx, r, 16, pal, { deep: true, tint: pal.accent, tintAlpha: on ? 0.45 : 0.14, edge: withAlpha(pal.accent, on ? 1 : 0.75), edgeWidth: on ? 2 : 1.5 });
+        c.text(t('minigame.MG-16.pad.brake'), r.x + r.w / 2, r.y + r.h / 2 + 1, r.w - 24, c.px(18, 1.4), 600, pal.text, 'center');
         return;
       }
       for (const b of this.buttons) {
         const on = (sim.thrust & b.bit) !== 0;
-        pathRoundRect(ctx, b.r, 12);
-        ctx.fillStyle = on ? pal.accent : pal.bg2;
-        ctx.fill();
-        ctx.lineWidth = on ? 2.5 : 1;
-        ctx.strokeStyle = on ? pal.accentStrong : pal.lineStrong;
-        ctx.stroke();
-        const col = on ? pal.ink : pal.text;
+        paintGlass(ctx, b.r, 14, pal, { deep: true, tint: pal.accent, tintAlpha: on ? 0.5 : 0.08, edge: on ? pal.accentStrong : 'rgba(150, 205, 228, 0.32)', edgeWidth: on ? 2 : 1 });
+        const col = on ? '#ffffff' : pal.text;
         const cx = b.r.x + b.r.w / 2;
         const cy = b.r.y + b.r.h / 2;
-        if (b.bit === T_FWD || b.bit === T_BACK) c.text(b.label, cx, cy + 1, b.r.w - 14, c.px(14, 1.3), 800, col, 'center');
+        if (b.bit === T_FWD || b.bit === T_BACK) c.text(b.label, cx, cy + 1, b.r.w - 14, c.px(14.5, 1.3), 600, col, 'center');
         else {
           const a = b.bit === T_UP ? -Math.PI / 2 : b.bit === T_DOWN ? Math.PI / 2 : b.bit === T_LEFT ? Math.PI : 0;
           const s = Math.min(b.r.w, b.r.h) * 0.3;

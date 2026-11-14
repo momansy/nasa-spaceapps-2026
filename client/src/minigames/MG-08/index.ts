@@ -7,6 +7,7 @@
 // This file is the glue: canvas, input (drag, keyboard, one button), the frame loop and
 // haptics. The rules are in `model.ts` (pure, deterministic), the drawing in `render.ts`.
 import type { MgMap } from '@protocol';
+import { onArtChange, revealWhenFontsReady } from '../MG-09/shared/art';
 import type { MinigameDemo, MinigameEnv, MinigameInstance, MinigameModule, MinigameResult } from '../types';
 import { autopilotLever, createCurve, FixedStepper, Mg08Sim, resolveConfig, type Mg08Config, type Zone } from './model';
 import { Mg08View } from './render';
@@ -25,17 +26,27 @@ function makeCanvas(root: HTMLElement): HTMLCanvasElement {
   canvas.style.setProperty('-webkit-user-select', 'none');
   canvas.style.setProperty('-webkit-touch-callout', 'none');
   root.appendChild(canvas);
+  // Theme fonts first: the canvas fades in once they are loaded.
+  revealWhenFontsReady(canvas);
   return canvas;
 }
 
 function watchSize(el: HTMLElement, cb: () => void): () => void {
+  // Fonts and stage art arriving repaint the static layer like a resize.
+  const offArt = onArtChange(cb);
   if (typeof ResizeObserver === 'function') {
     const ro = new ResizeObserver(cb);
     ro.observe(el);
-    return () => ro.disconnect();
+    return () => {
+      ro.disconnect();
+      offArt();
+    };
   }
   window.addEventListener('resize', cb);
-  return () => window.removeEventListener('resize', cb);
+  return () => {
+    window.removeEventListener('resize', cb);
+    offArt();
+  };
 }
 
 function create(root: HTMLElement, env: MinigameEnv): MinigameInstance {

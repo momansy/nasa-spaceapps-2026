@@ -9,6 +9,7 @@
 // Pure helpers at the top have no DOM access and are covered by the minigames' Vitest tests.
 import type { MgMap } from '@protocol';
 import type { MinigameEnv, MinigameResult } from '../types';
+import { applyStageBackground, artEpoch, ceramicGradient, drawGlass, FONT_DISPLAY, onArtChange, paintBarFill, paintBarTrack, paintGlass, revealWhenFontsReady, uiFont } from '../MG-09/shared/art';
 
 // ───────────────────────── pure helpers ─────────────────────────
 
@@ -96,17 +97,27 @@ export function makeCanvas(root: HTMLElement): HTMLCanvasElement {
   canvas.style.setProperty('-webkit-user-select', 'none');
   canvas.style.setProperty('-webkit-touch-callout', 'none');
   root.appendChild(canvas);
+  // Theme fonts first: the canvas fades in once they are loaded (no fallback-face frame).
+  revealWhenFontsReady(canvas);
   return canvas;
 }
 
 export function watchSize(el: HTMLElement, cb: () => void): () => void {
+  // Fonts and stage art arriving count as a resize too: every cached layer is repainted.
+  const offArt = onArtChange(cb);
   if (typeof ResizeObserver === 'function') {
     const ro = new ResizeObserver(cb);
     ro.observe(el);
-    return () => ro.disconnect();
+    return () => {
+      ro.disconnect();
+      offArt();
+    };
   }
   window.addEventListener('resize', cb);
-  return () => window.removeEventListener('resize', cb);
+  return () => {
+    window.removeEventListener('resize', cb);
+    offArt();
+  };
 }
 
 /**
@@ -417,6 +428,8 @@ export class Canvas2D {
     const rs = getComputedStyle(document.documentElement);
     this.u = clamp((parseFloat(rs.fontSize) || 16) / 16, 1, 2);
     this.rtl = (document.documentElement.dir || getComputedStyle(this.canvas).direction) === 'rtl';
+    // The shared stage (key-art backdrop) is the canvas's CSS background.
+    applyStageBackground(this.canvas);
     this.pal = {
       bg0: cssVar(rs, '--bg-0', '#071522'),
       bg1: cssVar(rs, '--bg-1', '#0b1d2e'),
@@ -455,13 +468,25 @@ export class Canvas2D {
     return base * Math.min(this.u, cap);
   }
 
-  font(px: number, weight: number, mono = false): string {
-    return `${weight} ${Math.round(px * 10) / 10}px ${mono ? this.pal.fontMono : this.pal.fontUi}`;
+  /**
+   * Canvas font in the theme's UI face (IBM Plex Sans, tabular figures). `mono` is kept for
+   * older call sites; read-outs no longer use a monospace face (VISUAL_TARGET section 4).
+   */
+  font(px: number, weight: number, _mono = false): string {
+    return uiFont(px, weight);
+  }
+
+  /** Display face (Oxanium) for titles and hero numbers. */
+  fontDisplay(px: number): string {
+    return uiFont(px, 600, FONT_DISPLAY);
   }
 
   /** Sets the largest font up to `px` that fits `text` into `maxW`; returns the size used. */
   fit(text: string, maxW: number, px: number, weight: number, mono = false): number {
     const ctx = this.ctx;
+    // Small captions were sized for a monospace face; Plex Sans reads smaller at the same size,
+    // so captions under 12 px move part of the way up (label floor of the phone type scale).
+    if (px < 12) px += (12 - px) * 0.6;
     ctx.font = this.font(px, weight, mono);
     const w = ctx.measureText(text).width;
     if (w <= maxW || w === 0) return px;
@@ -483,12 +508,13 @@ export class Canvas2D {
   /** A number followed by its unit (smaller, dimmed); shrinks both to fit `maxW`. Returns the width drawn. */
   numberWithUnit(num: string, unit: string, x: number, baseY: number, maxW: number, px: number, color: string, align: 'left' | 'right' | 'center' = 'left'): number {
     const ctx = this.ctx;
+    // Units smaller, in Muted, after a thin space (VISUAL_TARGET 3.1).
     const measure = (size: number) => {
-      ctx.font = this.font(size, 800, true);
+      ctx.font = this.font(size, 600);
       const nw = ctx.measureText(num).width;
-      ctx.font = this.font(size * 0.55, 700, true);
+      ctx.font = this.font(size * 0.62, 500);
       const uw = unit ? ctx.measureText(unit).width : 0;
-      return { nw, total: nw + (unit ? size * 0.18 + uw : 0) };
+      return { nw, total: nw + (unit ? size * 0.14 + uw : 0) };
     };
     let size = px;
     let m = measure(size);
@@ -501,13 +527,13 @@ export class Canvas2D {
     ctx.textBaseline = 'alphabetic';
     const savedDir = ctx.direction;
     ctx.direction = 'ltr';
-    ctx.font = this.font(size, 800, true);
+    ctx.font = this.font(size, 600);
     ctx.fillStyle = color;
     ctx.fillText(num, x0, baseY);
     if (unit) {
-      ctx.font = this.font(size * 0.55, 700, true);
+      ctx.font = this.font(size * 0.62, 500);
       ctx.fillStyle = this.pal.dim;
-      ctx.fillText(unit, x0 + m.nw + size * 0.18, baseY);
+      ctx.fillText(unit, x0 + m.nw + size * 0.14, baseY);
     }
     ctx.direction = savedDir;
     return m.total;
@@ -517,15 +543,12 @@ export class Canvas2D {
     pathRoundRect(this.ctx, r, radius);
   }
 
-  /** Opaque console panel with a thin outline. */
-  panel(r: Rect, radius = 12, fill?: string) {
-    const ctx = this.ctx;
-    this.roundRect(r, radius);
-    ctx.fillStyle = fill ?? withAlpha(this.pal.bg2, 0.94);
-    ctx.fill();
-    ctx.lineWidth = 1;
-    ctx.strokeStyle = this.pal.lineStrong;
-    ctx.stroke();
+  /**
+   * Glass panel of the UI (theme --glass, --glass-edge, --glass-hi). A custom `fill` asks for the
+   * deeper glass used under dense read-outs and scenes.
+   */
+  panel(r: Rect, radius = 14, fill?: string) {
+    drawGlass(this.ctx, r, r.h > 40 && r.w > 40 ? Math.max(radius, 14) : radius, this.pal, { deep: fill !== undefined }, this.dpr);
   }
 
   statusColor(s: Status): string {
@@ -606,21 +629,16 @@ export class Canvas2D {
     ctx.restore();
   }
 
-  /** The status strip: icon + label inside a tinted box with the status border. */
+  /** The status strip: icon + label on glass tinted by the status, with the status border. */
   statusStrip(r: Rect, s: Status, label: string) {
     const ctx = this.ctx;
     const c = this.statusColor(s);
-    this.roundRect(r, 10);
-    ctx.fillStyle = this.pal.bg1;
-    ctx.fill();
-    this.roundRect(r, 10);
-    ctx.fillStyle = withAlpha(c, 0.14);
-    ctx.fill();
-    this.statusBorder(r, s, 10, 2);
-    const px = this.fit(label, r.w - r.h - 30, this.px(15, 1.5), 800);
+    drawGlass(ctx, r, 12, this.pal, { deep: true, tint: c, tintAlpha: 0.15, edge: 'rgba(0,0,0,0)' }, this.dpr);
+    this.statusBorder(r, s, 12, 1.5);
+    const px = this.fit(label, r.w - r.h - 30, this.px(15.5, 1.5), 600);
     const tw = ctx.measureText(label).width;
     const iconS = Math.min(r.h - 12, px * 1.25);
-    const total = iconS + 8 + tw;
+    const total = iconS + 9 + tw;
     const sx = r.x + (r.w - total) / 2;
     const cy = r.y + r.h / 2;
     if (this.rtl) {
@@ -628,26 +646,32 @@ export class Canvas2D {
       ctx.fillStyle = this.pal.text;
       ctx.textAlign = 'right';
       ctx.textBaseline = 'middle';
-      ctx.font = this.font(px, 800);
-      ctx.fillText(label, sx + total - iconS - 8, cy + 1);
+      ctx.font = this.font(px, 600);
+      ctx.fillText(label, sx + total - iconS - 9, cy + 1);
     } else {
       this.statusIcon(s, sx + iconS / 2, cy, iconS);
       ctx.fillStyle = this.pal.text;
       ctx.textAlign = 'left';
       ctx.textBaseline = 'middle';
-      ctx.font = this.font(px, 800);
-      ctx.fillText(label, sx + iconS + 8, cy + 1);
+      ctx.font = this.font(px, 600);
+      ctx.fillText(label, sx + iconS + 9, cy + 1);
     }
+  }
+
+  /** The neutral information strip: glass with a signal edge, words centred (no status). */
+  infoStrip(r: Rect, label: string) {
+    drawGlass(this.ctx, r, 12, this.pal, { deep: true, tint: this.pal.accent, tintAlpha: 0.08, edge: withAlpha(this.pal.accent, 0.7), edgeWidth: 1.5 }, this.dpr);
+    this.text(label, r.x + r.w / 2, r.y + r.h / 2 + 1, r.w - 24, this.px(15.5, 1.5), 600, this.pal.text, 'center');
   }
 
   /** A labelled readout tile: small caps label on top, number + unit below, optional status icon. */
   readout(r: Rect, label: string, num: string, unit: string, color: string, status?: Status) {
-    this.panel(r, 10);
-    const labelPx = this.px(10.5);
-    const pad = 9;
+    this.panel(r, 14);
+    const labelPx = this.px(12, 1.3);
+    const pad = 11;
     const iconS = status ? Math.min(r.h * 0.42, this.px(19)) : 0;
     const lx = this.rtl ? r.x + r.w - pad : r.x + pad;
-    this.text(label, lx, r.y + pad + labelPx * 0.55, r.w - pad * 2, labelPx, 700, this.pal.dim, this.rtl ? 'right' : 'left');
+    this.text(label, lx, r.y + pad + labelPx * 0.5, r.w - pad * 2, labelPx, 600, this.pal.dim, this.rtl ? 'right' : 'left');
     const valuePx = Math.min(this.px(24), r.h - labelPx - pad * 2 - 2);
     const baseY = r.y + r.h - pad + 1;
     const maxW = r.w - pad * 2 - (status ? iconS + 6 : 0);
@@ -663,16 +687,12 @@ export class Canvas2D {
   meter(r: Rect, frac: number, need: number | null, s: Status) {
     const ctx = this.ctx;
     const c = this.statusColor(s);
-    this.roundRect(r, r.h / 2);
-    ctx.fillStyle = withAlpha(this.pal.lineStrong, 0.45);
-    ctx.fill();
+    paintBarTrack(ctx, r);
     const f = clamp(frac, 0, 1);
     if (f > 0) {
       const w = Math.max(r.h, r.w * f);
       const fx = this.rtl ? r.x + r.w - w : r.x;
-      this.roundRect({ x: fx, y: r.y, w, h: r.h }, r.h / 2);
-      ctx.fillStyle = c;
-      ctx.fill();
+      paintBarFill(ctx, { x: fx, y: r.y, w, h: r.h }, c);
       if (s !== 'good') {
         // Diagonal stripes: "not there yet" without relying on colour.
         ctx.save();
@@ -716,14 +736,10 @@ export class Canvas2D {
     const { ctx, pal } = this;
     ctx.fillStyle = withAlpha(pal.bg0, 0.72);
     ctx.fillRect(0, 0, this.W, this.H);
-    const px = this.fit(text, this.W - 80, this.px(22, 1.5), 800);
+    const px = this.fit(text, this.W - 80, this.px(22, 1.5), 600);
     const w = ctx.measureText(text).width;
-    this.roundRect({ x: this.W / 2 - w / 2 - 22, y: this.H / 2 - px * 1.1, w: w + 44, h: px * 2.2 }, 14);
-    ctx.fillStyle = pal.bg0;
-    ctx.fill();
-    ctx.lineWidth = 2;
-    ctx.strokeStyle = pal.accent;
-    ctx.stroke();
+    paintGlass(ctx, { x: this.W / 2 - w / 2 - 24, y: this.H / 2 - px * 1.2, w: w + 48, h: px * 2.4 }, 18, pal, { deep: true, edge: withAlpha(pal.accent, 0.7) });
+    ctx.font = this.fontDisplay(px);
     ctx.fillStyle = pal.text;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
@@ -760,7 +776,8 @@ export class KeyedLayer {
     const c = this.c;
     const w = Math.max(1, Math.ceil(r.w * c.dpr));
     const h = Math.max(1, Math.ceil(r.h * c.dpr));
-    const size = `${w}x${h}@${r.x},${r.y}/${c.dpr}`;
+    // The asset epoch is part of the size key: fonts arriving repaint the layer.
+    const size = `${w}x${h}@${r.x},${r.y}/${c.dpr}#${artEpoch()}`;
     if (!this.canvas) {
       this.canvas = document.createElement('canvas');
       this.ctx = this.canvas.getContext('2d');
@@ -865,32 +882,44 @@ export function drawSatellite(ctx: CanvasRenderingContext2D, pal: Palette, s: nu
   gold.addColorStop(1, '#8a6626');
   ctx.fillStyle = gold;
   ctx.fillRect(-busW / 2, top, busW, busH);
-  // Blanket crinkle highlights (fixed pattern, no noise).
-  ctx.strokeStyle = 'rgba(255, 236, 170, 0.35)';
-  ctx.lineWidth = Math.max(1, s * 0.03);
-  ctx.beginPath();
-  for (const yy of [top + band * 0.35, top + band * 0.7, bot - band * 0.65, bot - band * 0.3]) {
-    ctx.moveTo(-busW / 2 + s * 0.1, yy);
-    ctx.quadraticCurveTo(-s * 0.2, yy - s * 0.06, s * 0.3, yy + s * 0.03);
-    ctx.quadraticCurveTo(s * 0.6, yy + s * 0.07, busW / 2 - s * 0.1, yy - s * 0.02);
+  // Blanket crinkle: dark folds and bright crests (fixed pattern, no noise).
+  for (const [col, off] of [
+    ['rgba(70, 45, 10, 0.35)', s * 0.035],
+    ['rgba(255, 236, 170, 0.45)', 0],
+  ] as const) {
+    ctx.strokeStyle = col;
+    ctx.lineWidth = Math.max(1, s * 0.03);
+    ctx.beginPath();
+    for (const yy of [top + band * 0.3, top + band * 0.62, top + band * 0.88, bot - band * 0.7, bot - band * 0.4, bot - band * 0.12]) {
+      ctx.moveTo(-busW / 2 + s * 0.06, yy + off);
+      ctx.quadraticCurveTo(-s * 0.25, yy - s * 0.07 + off, s * 0.25, yy + s * 0.03 + off);
+      ctx.quadraticCurveTo(s * 0.6, yy + s * 0.08 + off, busW / 2 - s * 0.06, yy - s * 0.02 + off);
+    }
+    ctx.stroke();
   }
-  ctx.stroke();
-  // Ceramic panel block, lit from the left (Sun side).
-  const cer = ctx.createLinearGradient(-busW / 2, 0, busW / 2, 0);
-  cer.addColorStop(0, '#f4f7f8');
-  cer.addColorStop(0.6, pal.ceramic);
-  cer.addColorStop(1, '#b9c3ca');
-  ctx.fillStyle = cer;
+  // Ceramic panel block in the key-art light: Sun from the left, cool fill on the right.
+  ctx.fillStyle = ceramicGradient(ctx, busW, -1);
   ctx.fillRect(-busW / 2, top + band, busW, busH - band * 2);
-  // Panel seams and rivets.
-  ctx.strokeStyle = 'rgba(70, 90, 105, 0.45)';
+  // Occlusion under the blanket bands.
+  const ao = ctx.createLinearGradient(0, top + band, 0, top + band + s * 0.25);
+  ao.addColorStop(0, 'rgba(30, 40, 50, 0.35)');
+  ao.addColorStop(1, 'rgba(30, 40, 50, 0)');
+  ctx.fillStyle = ao;
+  ctx.fillRect(-busW / 2, top + band, busW, s * 0.25);
+  // Panel seams in raking light (dark groove, light lip) and rivets.
   ctx.lineWidth = 1;
-  ctx.beginPath();
-  ctx.moveTo(-busW / 2, 0);
-  ctx.lineTo(busW / 2, 0);
-  ctx.moveTo(-s * 0.15, top + band);
-  ctx.lineTo(-s * 0.15, bot - band);
-  ctx.stroke();
+  for (const [col, off] of [
+    ['rgba(50, 70, 86, 0.4)', 0],
+    ['rgba(255, 255, 255, 0.45)', 1],
+  ] as const) {
+    ctx.strokeStyle = col;
+    ctx.beginPath();
+    ctx.moveTo(-busW / 2, off);
+    ctx.lineTo(busW / 2, off);
+    ctx.moveTo(-s * 0.15 + off, top + band);
+    ctx.lineTo(-s * 0.15 + off, bot - band);
+    ctx.stroke();
+  }
   if (s > 10) {
     ctx.fillStyle = 'rgba(70, 90, 105, 0.6)';
     for (const [rx, ry] of [
@@ -977,9 +1006,10 @@ export function drawSatellite(ctx: CanvasRenderingContext2D, pal: Palette, s: nu
       // Cells: deep blue-black; sunlight lifts them a little and adds a warm sheen (no emission).
       const l = 0.3 + 0.7 * lum * d;
       const cg = ctx.createLinearGradient(px, -panelH / 2, px + w, panelH / 2);
-      cg.addColorStop(0, `rgb(${Math.round(14 + 26 * l)}, ${Math.round(26 + 44 * l)}, ${Math.round(58 + 70 * l)})`);
-      cg.addColorStop(0.7, `rgb(${Math.round(10 + 18 * l)}, ${Math.round(20 + 30 * l)}, ${Math.round(44 + 52 * l)})`);
-      cg.addColorStop(1, `rgb(${Math.round(16 + 40 * l)}, ${Math.round(26 + 40 * l)}, ${Math.round(50 + 60 * l)})`);
+      cg.addColorStop(0, `rgb(${Math.round(18 + 30 * l)}, ${Math.round(34 + 50 * l)}, ${Math.round(70 + 80 * l)})`);
+      cg.addColorStop(0.45, `rgb(${Math.round(12 + 18 * l)}, ${Math.round(24 + 30 * l)}, ${Math.round(52 + 52 * l)})`);
+      cg.addColorStop(0.55, `rgb(${Math.round(20 + 34 * l)}, ${Math.round(38 + 52 * l)}, ${Math.round(78 + 78 * l)})`);
+      cg.addColorStop(1, `rgb(${Math.round(10 + 22 * l)}, ${Math.round(20 + 32 * l)}, ${Math.round(46 + 56 * l)})`);
       ctx.fillStyle = cg;
       ctx.fillRect(px, -panelH / 2, w, panelH);
       if (d > 0.5 && s > 8) {

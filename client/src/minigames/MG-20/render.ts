@@ -3,6 +3,7 @@
 // and the big burn button. Reads the simulation only.
 import { fmt } from '../../data/format';
 import { Canvas2D, clamp, KeyedLayer, pathRoundRect, withAlpha, type Rect, type Status } from '../MG-13/kit';
+import { drawGlass, paintBarTrack, paintGlass, paintGlobe, paintMiniSat } from '../MG-09/shared/art';
 import { MU_EARTH, R_EARTH_M, type Mg20Sim } from './model';
 
 type Translate = (key: string, args?: Record<string, string | number>) => string;
@@ -138,55 +139,10 @@ export class Mg20View {
     ctx.moveTo(ex + r1, ey);
     ctx.arc(ex, ey, r1, 0, Math.PI * 2);
     ctx.stroke();
-    // Atmosphere up to the Kármán line: thin translucent rim (exaggerated), no halo.
+    // Earth in the key-art finish: lit from the upper left, night side lower right, with the
+    // atmosphere up to the Kármán line drawn as its glow (exaggerated).
     const ra = this.vr(KARMAN_KM);
-    const ag = ctx.createRadialGradient(ex, ey, Rv, ex, ey, ra);
-    ag.addColorStop(0, 'rgba(110, 190, 240, 0.45)');
-    ag.addColorStop(1, 'rgba(110, 190, 240, 0.04)');
-    ctx.fillStyle = ag;
-    ctx.beginPath();
-    ctx.arc(ex, ey, ra, 0, Math.PI * 2);
-    ctx.fill();
-    // Earth: ocean navy, land, lit from the upper left, night side lower right.
-    const eg = ctx.createRadialGradient(ex - Rv * 0.4, ey - Rv * 0.4, Rv * 0.1, ex, ey, Rv);
-    eg.addColorStop(0, '#2b93b4');
-    eg.addColorStop(0.6, pal.ocean);
-    eg.addColorStop(1, '#0b3a52');
-    ctx.fillStyle = eg;
-    ctx.beginPath();
-    ctx.arc(ex, ey, Rv, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.save();
-    ctx.beginPath();
-    ctx.arc(ex, ey, Rv, 0, Math.PI * 2);
-    ctx.clip();
-    ctx.fillStyle = 'rgba(80, 125, 70, 0.75)';
-    for (const [dx, dy, rx, ry, rot] of [
-      [-0.35, -0.2, 0.35, 0.2, 0.6],
-      [0.2, 0.25, 0.28, 0.16, -0.4],
-      [0.4, -0.45, 0.18, 0.1, 0.2],
-    ] as const) {
-      ctx.beginPath();
-      ctx.ellipse(ex + dx * Rv, ey + dy * Rv, rx * Rv, ry * Rv, rot, 0, Math.PI * 2);
-      ctx.fill();
-    }
-    ctx.fillStyle = 'rgba(240, 245, 248, 0.2)';
-    for (let i = 0; i < 6; i++) {
-      ctx.beginPath();
-      ctx.ellipse(ex + Math.cos(i * 2.1) * Rv * 0.6, ey + Math.sin(i * 1.7) * Rv * 0.55, Rv * 0.18, Rv * 0.05, i, 0, Math.PI * 2);
-      ctx.fill();
-    }
-    const night = ctx.createLinearGradient(ex - Rv * 0.2, ey - Rv * 0.2, ex + Rv, ey + Rv);
-    night.addColorStop(0, 'rgba(4, 10, 20, 0)');
-    night.addColorStop(1, 'rgba(4, 10, 20, 0.75)');
-    ctx.fillStyle = night;
-    ctx.fillRect(ex - Rv, ey - Rv, Rv * 2, Rv * 2);
-    ctx.restore();
-    ctx.strokeStyle = 'rgba(130, 205, 250, 0.8)';
-    ctx.lineWidth = 1.5;
-    ctx.beginPath();
-    ctx.arc(ex, ey, Rv + 0.5, Math.PI * 0.9, Math.PI * 1.8);
-    ctx.stroke();
+    paintGlobe(ctx, ex, ey, Rv, pal, { sunAngle: -Math.PI * 0.75, atmosphere: Math.max(0.04, (ra - Rv) / Rv), cities: true, seed: 3 });
     // Start orbit, dashed.
     ctx.strokeStyle = withAlpha(pal.dim, 0.45);
     ctx.setLineDash([4, 5]);
@@ -207,16 +163,15 @@ export class Mg20View {
     const gx = g.x + g.w * (opts.compact ? 0.5 : 0.36);
     const gt = this.gaugeY(cfg.altitudeKm * 1.05);
     const gb = this.gaugeY(-cfg.altitudeKm * 0.05);
-    ctx.fillStyle = pal.bg0;
-    pathRoundRect(ctx, { x: gx - 5, y: gt, w: 10, h: gb - gt }, 5);
-    ctx.fill();
+    paintBarTrack(ctx, { x: gx - 5, y: gt, w: 10, h: gb - gt });
     const y1 = this.gaugeY(cfg.hiKm);
     const y0 = this.gaugeY(cfg.loKm);
+    pathRoundRect(ctx, { x: gx - 14, y: y1, w: 28, h: y0 - y1 }, 6);
     ctx.fillStyle = withAlpha(pal.good, 0.3);
-    ctx.fillRect(gx - 14, y1, 28, y0 - y1);
+    ctx.fill();
     ctx.strokeStyle = pal.good;
-    ctx.lineWidth = 2;
-    ctx.strokeRect(gx - 14, y1, 28, y0 - y1);
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
     const yk = this.gaugeY(KARMAN_KM);
     ctx.strokeStyle = 'rgba(110, 190, 240, 0.7)';
     ctx.setLineDash([3, 3]);
@@ -303,17 +258,12 @@ export class Mg20View {
       ctx.closePath();
       ctx.fill();
     }
-    ctx.fillStyle = pal.ceramic;
-    ctx.fillRect(sx - 5, sy - 5, 10, 10);
-    ctx.fillStyle = '#d0a752';
-    ctx.fillRect(sx - 5, sy + 2, 10, 3);
-    ctx.fillStyle = '#26406a';
-    ctx.fillRect(sx - 3, sy - 15, 6, 9);
-    ctx.fillRect(sx - 3, sy + 6, 6, 9);
-    ctx.strokeStyle = pal.accent;
-    ctx.lineWidth = 1;
-    ctx.strokeRect(sx - 3, sy - 15, 6, 9);
-    ctx.strokeRect(sx - 3, sy + 6, 6, 9);
+    // The spacecraft: shaded bus, gold blanket, wings across the orbit.
+    ctx.save();
+    ctx.translate(sx, sy);
+    ctx.rotate(Math.PI / 2);
+    paintMiniSat(ctx, opts.compact ? 3.6 : 5, -1);
+    ctx.restore();
     ctx.restore();
 
     // Gauge marker.
@@ -350,28 +300,39 @@ export class Mg20View {
       c.readout(first, t('minigame.MG-20.hud.dv'), fmt(sim.dvMs, 1, 1), 'm/s', pal.text);
       c.readout(second, `${t('minigame.MG-20.hud.periapsis')} · ${t('minigame.MG-20.hud.band', { lo: fmt(cfg.loKm, 0), hi: fmt(cfg.hiKm, 0) })}`, fmt(pKm, 0), 'km', col, st);
       if (ss === 'info') {
-        c.roundRect(this.strip, 10);
-        c.ctx.fillStyle = pal.bg1;
-        c.ctx.fill();
-        c.roundRect(this.strip, 10);
-        c.ctx.strokeStyle = pal.accent;
-        c.ctx.lineWidth = 1.5;
-        c.ctx.stroke();
-        c.text(t(key), this.strip.x + this.strip.w / 2, this.strip.y + this.strip.h / 2 + 1, this.strip.w - 24, c.px(15, 1.5), 800, pal.text, 'center');
+        paintGlass(c.ctx, this.strip, 12, pal, { deep: true, tint: pal.accent, tintAlpha: 0.08, edge: withAlpha(pal.accent, 0.7), edgeWidth: 1.5 });
+        c.text(t(key), this.strip.x + this.strip.w / 2, this.strip.y + this.strip.h / 2 + 1, this.strip.w - 24, c.px(15.5, 1.5), 600, pal.text, 'center');
       } else c.statusStrip(this.strip, ss, t(key));
     });
 
     // Burn button.
     const b = this.button;
     const on = sim.burning;
-    pathRoundRect(ctx, b, 16);
-    ctx.fillStyle = on ? pal.sun : pal.bg2;
-    ctx.fill();
-    ctx.lineWidth = on ? 3 : 2;
-    ctx.strokeStyle = on ? '#fff1c9' : pal.accent;
-    ctx.stroke();
+    // Glass button; while burning it lights up in Sunlight with a warm glow.
+    if (on) {
+      // Warm halo from two soft outlines (no shadow blur: too costly per frame on slow phones).
+      ctx.lineWidth = 10;
+      ctx.strokeStyle = withAlpha(pal.sun, 0.12);
+      pathRoundRect(ctx, { x: b.x - 3, y: b.y - 3, w: b.w + 6, h: b.h + 6 }, 19);
+      ctx.stroke();
+      ctx.lineWidth = 4;
+      ctx.strokeStyle = withAlpha(pal.sun, 0.25);
+      ctx.stroke();
+      pathRoundRect(ctx, b, 16);
+      const g = ctx.createLinearGradient(0, b.y, 0, b.y + b.h);
+      g.addColorStop(0, '#ffe2b0');
+      g.addColorStop(1, pal.sun);
+      ctx.fillStyle = g;
+      ctx.fill();
+      pathRoundRect(ctx, b, 16);
+      ctx.lineWidth = 1.5;
+      ctx.strokeStyle = '#fff1c9';
+      ctx.stroke();
+    } else {
+      drawGlass(ctx, b, 16, pal, { deep: true, tint: pal.accent, tintAlpha: 0.14, edge: withAlpha(pal.accent, 0.8), edgeWidth: 1.5 }, c.dpr);
+    }
     const label = t(cfg.holdToToggle ? (on ? 'minigame.MG-20.button.stop' : 'minigame.MG-20.button.start') : on ? 'minigame.MG-20.button.burning' : 'minigame.MG-20.button.hold');
-    c.text(label, b.x + b.w / 2, b.y + b.h / 2 + 1, b.w - 32, c.px(20, 1.4), 900, on ? pal.ink : pal.text, 'center');
+    c.text(label, b.x + b.w / 2, b.y + b.h / 2 + 1, b.w - 32, c.px(19, 1.4), 600, on ? pal.ink : pal.text, 'center');
     c.hint(this.hintR, t(cfg.holdToToggle ? 'minigame.MG-20.hint.toggle' : 'minigame.MG-20.hint.hold'), f.active);
     if (f.pausedText) c.overlay(f.pausedText);
   }

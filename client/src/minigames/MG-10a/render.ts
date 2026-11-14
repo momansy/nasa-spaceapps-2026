@@ -3,6 +3,7 @@
 // IGNITE buttons. Reads the model only.
 import { fmt, fmtSigned } from '../../data/format';
 import { rect, View2D, withAlpha, drawRocket, type GlyphKind, type Rect, type Tone, type Translate } from '../MG-09/shared/draw';
+import { paintBarTrack, paintPlotWell } from '../MG-09/shared/art';
 import type { Mg10aSim, StepResult } from './model';
 
 export interface Mate {
@@ -201,7 +202,7 @@ export class Mg10aView extends View2D {
     ctx.restore();
     this.roundRect(r, 12);
     ctx.lineWidth = 1;
-    ctx.strokeStyle = pal.lineStrong;
+    ctx.strokeStyle = 'rgba(150, 205, 228, 0.22)';
     ctx.stroke();
   }
 
@@ -270,18 +271,26 @@ export class Mg10aView extends View2D {
     }
     const numH = this.compact ? 0 : 26 * Math.min(this.u, 1.3);
     const bar = rect(r.x + r.w / 2 - Math.min(18, r.w * 0.2), r.y + labelH + 10, Math.min(36, r.w * 0.4), r.h - labelH - 20 - numH);
-    ctx.fillStyle = pal.bg0;
-    this.roundRect(bar, 6);
-    ctx.fill();
+    // Vertical bar in the UI style: ceramic-10 % track, lit fill, rounded ends.
+    paintBarTrack(ctx, bar);
     const fill = Math.max(0, Math.min(1, frac));
-    const fh = bar.h * fill;
+    const inner = rect(bar.x + 4, bar.y + 4, bar.w - 8, bar.h - 8);
+    const fh = Math.max(fill > 0 ? inner.w : 0, inner.h * fill);
     const c = kind === 'good' ? (fill >= 1 ? pal.good : pal.accent) : fill < 0.2 ? pal.warn : pal.accent;
-    ctx.fillStyle = c;
-    ctx.fillRect(bar.x + 3, bar.y + bar.h - fh, bar.w - 6, Math.max(0, fh - 3));
-    ctx.strokeStyle = pal.lineStrong;
-    ctx.lineWidth = 1;
-    this.roundRect(bar, 6);
-    ctx.stroke();
+    if (fill > 0) {
+      ctx.save();
+      this.roundRect(inner, inner.w / 2);
+      ctx.clip();
+      const g = ctx.createLinearGradient(inner.x, 0, inner.x + inner.w, 0);
+      g.addColorStop(0, withAlpha(c, 0.75));
+      g.addColorStop(0.45, c);
+      g.addColorStop(1, withAlpha(c, 0.8));
+      ctx.fillStyle = g;
+      ctx.fillRect(inner.x, inner.y + inner.h - fh, inner.w, fh);
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.35)';
+      ctx.fillRect(inner.x, inner.y + inner.h - fh, inner.w, 1.5);
+      ctx.restore();
+    }
     if (!this.compact) {
       const pct = kind === 'bad' ? fill * 100 : fill * 100;
       this.textCenter(`${fmt(pct, kind === 'bad' ? 1 : 0, kind === 'bad' ? 1 : 0)} %`, r.x + r.w / 2, r.y + r.h - 10, r.w - 10, 15 * Math.min(this.u, 1.3), 800, true, badge ? (kind === 'good' ? pal.good : pal.warn) : pal.text);
@@ -319,8 +328,7 @@ export class Mg10aView extends View2D {
     ctx.beginPath();
     ctx.rect(track.x, track.y - 4, track.w, track.h + 8);
     ctx.clip();
-    ctx.fillStyle = withAlpha(pal.bg0, 0.9);
-    ctx.fillRect(track.x, track.y, track.w, track.h);
+    paintPlotWell(ctx, track, 8);
     // Second ticks.
     ctx.strokeStyle = withAlpha(pal.lineStrong, 0.5);
     ctx.lineWidth = 1;
@@ -336,22 +344,26 @@ export class Mg10aView extends View2D {
     const windowBand = (m: number, label: string, open: boolean) => {
       const x0 = xOf(m - w);
       const x1 = xOf(m + w);
-      ctx.fillStyle = withAlpha(pal.good, open ? 0.32 : 0.16);
-      ctx.fillRect(x0, track.y, x1 - x0, track.h);
+      ctx.fillStyle = withAlpha(pal.good, open ? 0.3 : 0.14);
+      this.roundRect(rect(x0 + 1, track.y + 1, x1 - x0 - 2, track.h - 2), 6);
+      ctx.fill();
       ctx.strokeStyle = pal.good;
-      ctx.lineWidth = 2;
-      ctx.strokeRect(x0 + 1, track.y + 1, x1 - x0 - 2, track.h - 2);
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
       ctx.lineWidth = 2;
       ctx.beginPath();
       ctx.moveTo(xOf(m), track.y);
       ctx.lineTo(xOf(m), track.y + track.h);
       ctx.stroke();
       if (!this.compact) {
-        const px = 10 * Math.min(this.u, 1.25);
-        ctx.font = this.font(px, 800, true);
+        const px = 11 * Math.min(this.u, 1.25);
+        ctx.font = this.font(px, 600, false);
         ctx.fillStyle = pal.good;
         ctx.textAlign = 'center';
-        ctx.fillText(label, xOf(m), track.y + px + 3);
+        // Kept inside the track so the word is never cut at the edge.
+        const half = ctx.measureText(label).width / 2 + 4;
+        const lx = Math.min(track.x + track.w - half, Math.max(track.x + half, xOf(m)));
+        ctx.fillText(label, lx, track.y + px + 4);
       }
     };
     if (now >= p.cutoffS) windowBand(p.sepS, this.t('minigame.MG-10a.btn.sep'), now >= p.sepS - w && now <= p.sepS + w);
@@ -423,7 +435,7 @@ export class Mg10aView extends View2D {
     // Your results under the track, with units.
     const ry = r.y + r.h - 9;
     const res = (lab: string, s: StepResult, moment: number) => {
-      if (!s) return now > moment + w + 0.2 ? `${lab} ${this.t('minigame.MG-10a.result.missed')}` : `${lab} —`;
+      if (!s) return now > moment + w + 0.2 ? `${lab} ${this.t('minigame.MG-10a.result.missed')}` : `${lab} ${this.t('minigame.MG-10a.result.waiting')}`;
       const when = Math.abs(s.dtS) <= 0.02 ? this.t('minigame.MG-10a.result.on_time') : s.dtS < 0 ? this.t('minigame.MG-10a.result.early') : this.t('minigame.MG-10a.result.late');
       return `${lab} ${fmtSigned(s.dtS, 2)} s ${when}`;
     };

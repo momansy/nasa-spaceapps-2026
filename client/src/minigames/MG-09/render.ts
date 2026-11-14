@@ -198,19 +198,23 @@ export class Mg09View extends View2D {
     this.roundRect(lane, 12);
     ctx.clip();
 
-    // Grid every 10° with labels (every 30° in the compact demo).
+    // Faint guides every 10° (labels below), and scrolling one-second ticks along the bottom
+    // edge instead of a full lattice: a chart in the UI language, not a debug grid.
     ctx.lineWidth = 1;
-    ctx.strokeStyle = withAlpha(pal.lineStrong, 0.4);
+    ctx.strokeStyle = 'rgba(150, 205, 228, 0.09)';
     ctx.beginPath();
     for (let d = this.yMin; d <= 90; d += 10) {
       const y = Math.round(this.yOf(d)) + 0.5;
       ctx.moveTo(lane.x, y);
       ctx.lineTo(lane.x + lane.w, y);
     }
-    // Time grid: a line every second, scrolling.
+    ctx.stroke();
+    ctx.strokeStyle = 'rgba(150, 205, 228, 0.28)';
+    ctx.beginPath();
     for (let s = Math.ceil(pastS); s <= nowS + cfg.laneSpanS; s++) {
       const x = Math.round(xOf(s)) + 0.5;
-      ctx.moveTo(x, lane.y);
+      const big = s % 5 === 0;
+      ctx.moveTo(x, lane.y + lane.h - (big ? 10 : 5));
       ctx.lineTo(x, lane.y + lane.h);
     }
     ctx.stroke();
@@ -438,13 +442,6 @@ export class Mg09View extends View2D {
     ctx.save();
     this.roundRect(r, 12);
     ctx.clip();
-    ctx.strokeStyle = pal.lineStrong;
-    ctx.lineWidth = 1.5;
-    ctx.beginPath();
-    ctx.moveTo(r.x, oy + 0.5);
-    ctx.lineTo(r.x + r.w, oy + 0.5);
-    ctx.stroke();
-
     // Ideal path: dashed ahead, solid behind.
     const k = sim.step;
     const stride = 12;

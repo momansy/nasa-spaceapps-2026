@@ -3,6 +3,7 @@
 // and this player's part card. Reads the simulation only. Calm, respectful presentation.
 import { fmt } from '../../data/format';
 import { Canvas2D, clamp, KeyedLayer, pathRoundRect, withAlpha, type Rect, type Status } from '../MG-13/kit';
+import { drawGlass, paintGlass, silverGradient } from '../MG-09/shared/art';
 import { CO2_DEADLINE, CO2_START, CORRECT_SLOT, PARTS, SLOTS, type Mg19Sim } from './model';
 
 type Translate = (key: string, args?: Record<string, string | number>) => string;
@@ -219,31 +220,49 @@ export class Mg19View {
         const midY = d.y + c.px(42, 1.3);
         const fx = c.rtl ? d.x + d.w - 46 : d.x + 16;
         const sx = c.rtl ? d.x + 46 : d.x + d.w - 16;
-        ctx.fillStyle = '#c3ccd3';
-        ctx.fillRect(Math.min(fx, fx + (c.rtl ? 0 : 30)) - (c.rtl ? 0 : 0), midY - 15, 30, 30);
-        ctx.strokeStyle = '#7f8b95';
-        ctx.lineWidth = 1;
-        for (let i = 1; i < 4; i++) {
-          ctx.beginPath();
-          ctx.moveTo(fx + i * 7.5, midY - 15);
-          ctx.lineTo(fx + i * 7.5, midY + 15);
-          ctx.stroke();
-        }
-        ctx.fillStyle = '#7f8b95';
-        ctx.beginPath();
-        ctx.arc(sx - (c.rtl ? -15 : 15), midY, 15, 0, Math.PI * 2);
+        // Square filter: brushed-silver frame around a dark grille.
+        ctx.save();
+        ctx.translate(fx + 15, 0);
+        ctx.fillStyle = silverGradient(ctx, 30);
+        pathRoundRect(ctx, { x: -15, y: midY - 15, w: 30, h: 30 }, 4);
         ctx.fill();
-        ctx.fillStyle = '#1a2530';
+        ctx.fillStyle = '#1b2733';
+        ctx.fillRect(-11, midY - 11, 22, 22);
+        ctx.strokeStyle = 'rgba(200, 210, 218, 0.55)';
+        ctx.lineWidth = 1;
         ctx.beginPath();
-        ctx.arc(sx - (c.rtl ? -15 : 15), midY, 8, 0, Math.PI * 2);
+        for (let i = 1; i < 5; i++) {
+          ctx.moveTo(-11 + i * 4.4, midY - 11);
+          ctx.lineTo(-11 + i * 4.4, midY + 11);
+        }
+        ctx.stroke();
+        ctx.restore();
+        // Round socket: silver ring and a dark bore.
+        const scx = sx - (c.rtl ? -15 : 15);
+        const ring = ctx.createLinearGradient(scx - 15, midY - 15, scx + 15, midY + 15);
+        ring.addColorStop(0, '#e2e8ec');
+        ring.addColorStop(0.45, '#8e99a3');
+        ring.addColorStop(1, '#4a5662');
+        ctx.fillStyle = ring;
+        ctx.beginPath();
+        ctx.arc(scx, midY, 15, 0, Math.PI * 2);
+        ctx.fill();
+        const bore = ctx.createRadialGradient(scx, midY, 2, scx, midY, 9);
+        bore.addColorStop(0, '#05090e');
+        bore.addColorStop(1, '#25313d');
+        ctx.fillStyle = bore;
+        ctx.beginPath();
+        ctx.arc(scx, midY, 9, 0, Math.PI * 2);
         ctx.fill();
         // Adapter body (fills with the crew's colour as slots fill).
         const n = sim.filled.filter((p) => p >= 0).length;
         const ax0 = Math.min(fx + 36, sx - 36);
         const ax1 = Math.max(fx + 36, sx - 36);
-        const grad = ctx.createLinearGradient(ax0, 0, ax1, 0);
-        grad.addColorStop(0, withAlpha(pal.accent, 0.15 + 0.1 * n));
-        grad.addColorStop(1, withAlpha(pal.accent, 0.08 + 0.08 * n));
+        // The adapter duct: a shaded tube that fills with teal as parts go in.
+        const grad = ctx.createLinearGradient(0, midY - 14, 0, midY + 14);
+        grad.addColorStop(0, withAlpha(pal.accent, 0.12 + 0.1 * n));
+        grad.addColorStop(0.35, withAlpha(pal.accentStrong, 0.18 + 0.1 * n));
+        grad.addColorStop(1, withAlpha(pal.accent, 0.05 + 0.06 * n));
         ctx.fillStyle = grad;
         ctx.beginPath();
         ctx.moveTo(ax0, midY - 14);
@@ -252,11 +271,9 @@ export class Mg19View {
         ctx.lineTo(ax0, midY + 14);
         ctx.closePath();
         ctx.fill();
-        ctx.strokeStyle = sim.complete ? pal.good : pal.lineStrong;
+        ctx.strokeStyle = sim.complete ? pal.good : 'rgba(150, 205, 228, 0.4)';
         ctx.lineWidth = sim.complete ? 2 : 1;
-        ctx.setLineDash(sim.complete ? [] : [5, 4]);
         ctx.stroke();
-        ctx.setLineDash([]);
         c.text(t(sim.complete ? 'minigame.MG-19.diagram.complete' : 'minigame.MG-19.diagram.title', { n, total: SLOTS.length }), d.x + d.w / 2, midY + c.px(26, 1.3), d.w - 40, c.px(11.5, 1.25), 800, sim.complete ? pal.good : pal.dim, 'center');
         c.text(t('minigame.MG-19.diagram.square'), fx + (c.rtl ? 15 : 15), midY - 24, 80, c.px(9.5, 1.2), 700, pal.faint, 'center');
         c.text(t('minigame.MG-19.diagram.round'), sx - (c.rtl ? -15 : 15), midY - 24, 80, c.px(9.5, 1.2), 700, pal.faint, 'center');
@@ -267,26 +284,44 @@ export class Mg19View {
         const by = sim.filledBy[i];
         const hi = hover === i || (sim.config.oneButton && sim.highlight === i && !sim.placed);
         const wrongNow = sim.lockout > 0 && sim.lastWrongSlot === i;
-        pathRoundRect(ctx, r, 10);
-        ctx.fillStyle = p >= 0 ? withAlpha(by === 'you' ? pal.good : pal.accent, 0.16) : hi ? withAlpha(pal.accent, 0.24) : pal.bg1;
-        ctx.fill();
-        if (wrongNow) c.statusBorder(r, 'bad', 10, 2);
-        else if (p >= 0 && by === 'you') c.statusBorder(r, 'good', 10, 2);
-        else {
-          pathRoundRect(ctx, r, 10);
-          ctx.lineWidth = hi ? 3 : 1.5;
-          ctx.setLineDash(p >= 0 ? [] : [6, 4]);
-          ctx.strokeStyle = hi ? pal.accentStrong : p >= 0 ? pal.accent : pal.lineStrong;
-          ctx.stroke();
-          ctx.setLineDash([]);
-        }
+        // A slot is a recessed glass well; filled slots take the colour of who filled them.
+        paintGlass(ctx, r, 12, pal, {
+          deep: true,
+          tint: p >= 0 ? (by === 'you' ? pal.good : pal.accent) : hi ? pal.accent : undefined,
+          tintAlpha: p >= 0 ? 0.16 : 0.22,
+          edge: hi ? pal.accentStrong : p >= 0 ? withAlpha(pal.accent, 0.8) : 'rgba(150, 205, 228, 0.28)',
+          edgeWidth: hi ? 2.5 : 1,
+        });
+        if (wrongNow) c.statusBorder(r, 'bad', 12, 2);
+        else if (p >= 0 && by === 'you') c.statusBorder(r, 'good', 12, 2);
         const iconS = Math.min(r.h * 0.42, r.w * 0.4, 40);
         if (p >= 0) partIcon(ctx, p, r.x + r.w / 2, r.y + r.h * 0.4, iconS, pal.text);
         else {
-          ctx.strokeStyle = withAlpha(pal.dim, 0.5);
-          ctx.setLineDash([3, 3]);
-          ctx.strokeRect(r.x + r.w / 2 - iconS / 2, r.y + r.h * 0.4 - iconS / 2, iconS, iconS);
-          ctx.setLineDash([]);
+          // Empty socket: an inset ring with a soft inner shade and a small drop arrow.
+          const icx = r.x + r.w / 2;
+          const icy = r.y + r.h * 0.4;
+          const rr = iconS * 0.48;
+          const well = ctx.createRadialGradient(icx, icy - rr * 0.3, rr * 0.2, icx, icy, rr);
+          well.addColorStop(0, 'rgba(2, 8, 16, 0.2)');
+          well.addColorStop(1, 'rgba(2, 8, 16, 0.6)');
+          ctx.fillStyle = well;
+          ctx.beginPath();
+          ctx.arc(icx, icy, rr, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.strokeStyle = hi ? pal.accentStrong : 'rgba(150, 205, 228, 0.35)';
+          ctx.lineWidth = 1.5;
+          ctx.stroke();
+          ctx.strokeStyle = hi ? pal.accentStrong : withAlpha(pal.dim, 0.7);
+          ctx.lineWidth = 2;
+          ctx.lineCap = 'round';
+          ctx.beginPath();
+          ctx.moveTo(icx, icy - rr * 0.45);
+          ctx.lineTo(icx, icy + rr * 0.35);
+          ctx.moveTo(icx - rr * 0.32, icy + rr * 0.05);
+          ctx.lineTo(icx, icy + rr * 0.38);
+          ctx.lineTo(icx + rr * 0.32, icy + rr * 0.05);
+          ctx.stroke();
+          ctx.lineCap = 'butt';
         }
         if (!opts.compact) {
           c.text(t(`minigame.MG-19.slot.${SLOTS[i]}`), r.x + r.w / 2, r.y + r.h * 0.8, r.w - 8, c.px(11, 1.2), 800, pal.text, 'center');
@@ -313,11 +348,12 @@ export class Mg19View {
         ctx.shadowBlur = 14;
         ctx.shadowOffsetY = 4;
       }
-      pathRoundRect(ctx, r, 14);
-      ctx.fillStyle = pal.bg3;
+      pathRoundRect(ctx, r, 16);
+      ctx.fillStyle = 'rgba(17, 43, 64, 0.96)';
       ctx.fill();
       ctx.restore();
-      pathRoundRect(ctx, r, 14);
+      drawGlass(ctx, r, 16, pal, { tint: pal.accent, tintAlpha: 0.1, edge: 'rgba(0,0,0,0)' }, c.dpr);
+      pathRoundRect(ctx, r, 16);
       ctx.lineWidth = 2;
       ctx.strokeStyle = sim.lockout > 0 ? pal.warn : pal.accent;
       if (sim.lockout > 0) ctx.setLineDash([6, 4]);
@@ -330,7 +366,7 @@ export class Mg19View {
         const tx = c.rtl ? r.x + r.w - 28 - iconS : r.x + 28 + iconS;
         const tw = r.w - iconS - 40;
         c.text(t('minigame.MG-19.card.your'), tx, r.y + r.h * 0.3, tw, c.px(10.5, 1.2), 700, pal.dim, c.rtl ? 'right' : 'left');
-        c.text(t(`minigame.MG-19.part.${PARTS[part]}`), tx, r.y + r.h * 0.58, tw, c.px(19, 1.3), 900, pal.text, c.rtl ? 'right' : 'left');
+        c.text(t(`minigame.MG-19.part.${PARTS[part]}`), tx, r.y + r.h * 0.58, tw, c.px(19, 1.3), 600, pal.text, c.rtl ? 'right' : 'left');
         if (sim.lockout > 0) c.text(t('minigame.MG-19.card.locked', { s: fmt(sim.lockout / 120, 1, 1) }), tx, r.y + r.h * 0.82, tw, c.px(11, 1.2), 700, pal.warn, c.rtl ? 'right' : 'left');
       }
     }
@@ -364,14 +400,7 @@ export class Mg19View {
       c.readout(second, t('minigame.MG-19.hud.co2'), fmt(co2, 1, 1), '%', c.statusColor(cs), cs);
       c.meter({ x: second.x + 10, y: second.y + second.h - 7, w: second.w - 20, h: 4 }, f2, null, cs === 'good' ? 'good' : cs);
       if (st === 'info') {
-        c.roundRect(this.strip, 10);
-        c.ctx.fillStyle = pal.bg1;
-        c.ctx.fill();
-        c.roundRect(this.strip, 10);
-        c.ctx.strokeStyle = pal.accent;
-        c.ctx.lineWidth = 1.5;
-        c.ctx.stroke();
-        c.text(t(key), this.strip.x + this.strip.w / 2, this.strip.y + this.strip.h / 2 + 1, this.strip.w - 24, c.px(15, 1.5), 800, pal.text, 'center');
+        c.infoStrip(this.strip, t(key));
       } else c.statusStrip(this.strip, st, t(key));
     });
     c.hint(this.hintR, t(sim.config.oneButton ? 'minigame.MG-19.hint.press' : 'minigame.MG-19.hint.drag'), f.active);

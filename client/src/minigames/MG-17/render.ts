@@ -304,14 +304,7 @@ export class Mg17View {
       c.readout(first, `${t('minigame.MG-17.hud.correct')} · ${t('minigame.MG-17.hud.need', { n: need, total: sim.alarms.length })}`, fmt(sim.correct, 0), t('minigame.MG-17.hud.of', { n: sim.handled }), stillPossible ? pal.text : pal.bad, stillPossible ? (sim.correct >= need ? 'good' : undefined) : 'bad');
       c.readout(second, t('minigame.MG-17.hud.waiting'), fmt(waiting.length, 0), t('minigame.MG-17.hud.alarms'), waiting.length >= 3 ? pal.warn : pal.text, waiting.length >= 3 ? 'warn' : undefined);
       if (st === 'info') {
-        c.roundRect(this.strip, 10);
-        c.ctx.fillStyle = pal.bg1;
-        c.ctx.fill();
-        c.roundRect(this.strip, 10);
-        c.ctx.strokeStyle = pal.accent;
-        c.ctx.lineWidth = 1.5;
-        c.ctx.stroke();
-        c.text(t(key, args), this.strip.x + this.strip.w / 2, this.strip.y + this.strip.h / 2 + 1, this.strip.w - 24, c.px(15, 1.5), 800, pal.text, 'center');
+        c.infoStrip(this.strip, t(key, args));
       } else c.statusStrip(this.strip, st, t(key, args));
     });
     c.hint(this.hintR, t(sim.config.oneButton ? 'minigame.MG-17.hint.press' : 'minigame.MG-17.hint.drag'), f.active);

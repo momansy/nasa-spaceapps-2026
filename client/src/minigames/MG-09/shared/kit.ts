@@ -5,6 +5,7 @@
 import type { MgMap } from '@protocol';
 import type { MinigameDemo, MinigameEnv, MinigameInstance, MinigameResult } from '../../types';
 import { DPR_CAP, setDprCap } from './draw';
+import { onArtChange, revealWhenFontsReady } from './art';
 
 export type PointerKind = 'down' | 'move' | 'up';
 
@@ -70,17 +71,27 @@ export function makeCanvas(root: HTMLElement): HTMLCanvasElement {
   s.setProperty('-webkit-touch-callout', 'none');
   s.setProperty('-webkit-tap-highlight-color', 'transparent');
   root.appendChild(canvas);
+  // Theme fonts first: the canvas fades in once they are loaded (no fallback-face frame).
+  revealWhenFontsReady(canvas);
   return canvas;
 }
 
 export function watchSize(el: HTMLElement, cb: () => void): () => void {
+  // Fonts and stage art arriving count as a resize too: every cached layer is repainted.
+  const offArt = onArtChange(cb);
   if (typeof ResizeObserver === 'function') {
     const ro = new ResizeObserver(cb);
     ro.observe(el);
-    return () => ro.disconnect();
+    return () => {
+      ro.disconnect();
+      offArt();
+    };
   }
   window.addEventListener('resize', cb);
-  return () => window.removeEventListener('resize', cb);
+  return () => {
+    window.removeEventListener('resize', cb);
+    offArt();
+  };
 }
 
 /**

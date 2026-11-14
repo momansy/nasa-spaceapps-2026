@@ -2,6 +2,7 @@
 // readings with their launch-commit limits, the answer timer and the GO / NO-GO buttons.
 import { fmt } from '../../data/format';
 import { rect, View2D, withAlpha, type GlyphKind, type Rect, type Tone, type Translate } from '../MG-09/shared/draw';
+import { paintBarFill, paintBarTrack } from '../MG-09/shared/art';
 import { CHANNELS, inLimits, type Mg07Sim, type Reading } from './model';
 
 export interface Mg07Frame {
@@ -255,13 +256,12 @@ export class Mg07View extends View2D {
         const g = this.compact ? rect(card.x + 10, card.y + card.h - 7 - gaugeH, card.w - 20, gaugeH) : rect(card.x + 12, card.y + card.h - 12 - gaugeH, card.w - 24, gaugeH);
         // Time and value run left to right in every direction (it is a scale).
         const x = (v: number) => g.x + ((Math.min(ch.max, Math.max(ch.min, v)) - ch.min) / (ch.max - ch.min)) * g.w;
-        ctx.fillStyle = pal.bg0;
-        this.roundRect(g, 4);
-        ctx.fill();
+        paintBarTrack(ctx, g);
         const lo = Number.isFinite(rd.lo) ? rd.lo : ch.min;
         const hi = Number.isFinite(rd.hi) ? rd.hi : ch.max;
-        ctx.fillStyle = withAlpha(pal.good, 0.28);
-        ctx.fillRect(x(lo), g.y + 2, x(hi) - x(lo), g.h - 4);
+        ctx.fillStyle = withAlpha(pal.good, 0.3);
+        this.roundRect(rect(x(lo), g.y + 2, x(hi) - x(lo), g.h - 4), (g.h - 4) / 2);
+        ctx.fill();
         ctx.strokeStyle = pal.good;
         ctx.lineWidth = 2;
         ctx.beginPath();
@@ -273,10 +273,6 @@ export class Mg07View extends View2D {
           ctx.moveTo(x(rd.hi), g.y - 3);
           ctx.lineTo(x(rd.hi), g.y + g.h + 3);
         }
-        ctx.stroke();
-        ctx.strokeStyle = pal.lineStrong;
-        ctx.lineWidth = 1;
-        this.roundRect(g, 4);
         ctx.stroke();
         // The reading: a needle in text colour (the player judges; no status colour is given away).
         const vx = x(rd.value);
@@ -307,14 +303,10 @@ export class Mg07View extends View2D {
     const frac = sim.answer || sim.timedOut ? 0 : left / win;
     const barH = this.compact ? r.h : Math.max(6, r.h * 0.32);
     const bar = rect(r.x, r.y + r.h - barH, r.w, barH);
-    ctx.fillStyle = pal.line;
-    this.roundRect(bar, barH / 2);
-    ctx.fill();
+    paintBarTrack(ctx, bar);
     const c = !sim.myTurn ? pal.faint : left < 1500 ? pal.warn : pal.accent;
-    ctx.fillStyle = c;
     const fw = bar.w * frac;
-    this.roundRect(rect(this.rtl ? bar.x + bar.w - fw : bar.x, bar.y, Math.max(0, fw), bar.h), barH / 2);
-    ctx.fill();
+    if (fw > 0.5) paintBarFill(ctx, rect(this.rtl ? bar.x + bar.w - fw : bar.x, bar.y, Math.max(barH, fw), bar.h), c);
     if (this.compact) return;
     const px = 11 * Math.min(this.u, 1.3);
     ctx.textBaseline = 'alphabetic';

@@ -158,7 +158,7 @@ export class Mg11View extends View2D {
     ctx.restore();
     this.roundRect(r, 12);
     ctx.lineWidth = 1;
-    ctx.strokeStyle = pal.lineStrong;
+    ctx.strokeStyle = 'rgba(150, 205, 228, 0.22)';
     ctx.stroke();
     if (!this.compact) {
       ctx.textBaseline = 'alphabetic';
@@ -191,24 +191,35 @@ export class Mg11View extends View2D {
     ctx.strokeStyle = pal.good;
     ctx.lineWidth = 2;
     ctx.stroke();
-    // Target core.
-    ctx.fillStyle = inWindow && !this.reducedMotion ? pal.good : withAlpha(pal.good, 0.75);
+    // Target core: a lit, domed button (light from the top), brighter inside the window.
+    const lit = inWindow && !this.reducedMotion;
+    const cg = ctx.createRadialGradient(cx - core * 0.3, cy - core * 0.45, core * 0.1, cx, cy, core);
+    cg.addColorStop(0, lit ? '#d9f7e6' : '#b7e9cc');
+    cg.addColorStop(0.55, lit ? pal.good : withAlpha(pal.good, 0.85));
+    cg.addColorStop(1, lit ? '#3f9e6c' : 'rgba(63, 158, 108, 0.8)');
+    ctx.fillStyle = cg;
     ctx.beginPath();
     ctx.arc(cx, cy, core, 0, Math.PI * 2);
     ctx.fill();
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.45)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
     ctx.textBaseline = 'middle';
     this.textCenter(this.t('minigame.MG-11.metro.tap'), cx, cy + 1, core * 1.7, core * 0.62, 900, false, pal.ink);
     // Closing ring.
     if (until > -sim.config.windowS && until < T) {
-      const ringR = core + Math.max(0, until / T) * (R - core);
-      ctx.strokeStyle = pal.accentStrong;
-      ctx.lineWidth = 4;
+      const ringR = Math.max(core, core + Math.max(0, until / T) * (R - core));
+      ctx.strokeStyle = withAlpha(pal.accent, 0.25);
+      ctx.lineWidth = 10;
       ctx.beginPath();
-      ctx.arc(cx, cy, Math.max(core, ringR), 0, Math.PI * 2);
+      ctx.arc(cx, cy, ringR, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.strokeStyle = pal.accentStrong;
+      ctx.lineWidth = 3.5;
       ctx.stroke();
     }
-    // Outer bezel with beat ticks.
-    ctx.strokeStyle = pal.lineStrong;
+    // Outer bezel.
+    ctx.strokeStyle = 'rgba(150, 205, 228, 0.3)';
     ctx.lineWidth = 1.5;
     ctx.beginPath();
     ctx.arc(cx, cy, R + 6, 0, Math.PI * 2);
@@ -286,7 +297,7 @@ export class Mg11View extends View2D {
     ctx.beginPath();
     ctx.rect(plot.x, plot.y, plot.w, plot.h);
     ctx.clip();
-    ctx.strokeStyle = withAlpha(pal.lineStrong, 0.5);
+    ctx.strokeStyle = 'rgba(150, 205, 228, 0.16)';
     ctx.lineWidth = 1;
     ctx.beginPath();
     ctx.moveTo(plot.x, mid);
