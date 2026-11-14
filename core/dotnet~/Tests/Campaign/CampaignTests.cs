@@ -163,7 +163,14 @@ namespace MissionForge.Core.Tests.Campaign
             var refurbished = new Inventory(inventory.MarkRefurbished(item.ItemId));
             var repairedBuild = refurbished.ApplyReuse(build, catalog, item.ItemId);
             Assert.Equal(0, repairedBuild.Condition("first_stage_engine").ReliabilityDelta, 8);
-            Assert.Empty(inventory.Consume(item.ItemId).InventoryItems);
+            var inFlight = inventory.Consume(item.ItemId);
+            Assert.Empty(new Inventory(inFlight).Items);
+            Assert.False(inFlight.InventoryItems[0].Available);
+            var recovered = Campaign.Record(inFlight,
+                Report(recovered: new[] { item.PartId }));
+            Assert.Single(recovered.State.InventoryItems);
+            Assert.Equal(4, recovered.State.InventoryItems[0].Flights); // prior 3 + this flight
+            Assert.True(recovered.State.InventoryItems[0].Available);
         }
 
         [Fact]
@@ -242,7 +249,7 @@ namespace MissionForge.Core.Tests.Campaign
             Assert.Empty(initial.Records);
             Assert.Equal("Beta", board.Top(1, "C1", "QUICK")[0].TeamName);
             Assert.Equal(2, board.Rank(a));
-            Assert.Equal(0, board.Rank(c, "SCORE") == 0 ? 1 : 0); // third record belongs to its own partition
+            Assert.Equal(1, board.Rank(c)); // separate contract/mode partition
             Assert.Equal(board.ToJson(), Leaderboard.FromJson(board.ToJson()).ToJson());
             Assert.Equal("Beta", board.Top(2, "C1", "QUICK", "BUDGET_EFFICIENCY")[0].TeamName);
         }
