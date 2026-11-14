@@ -1,0 +1,38 @@
+PASS  terminal QR decodes to the printed phone URL  -- http://10.239.122.192:8080/play/client/
+PASS  host creates a room (room.created seen on the host WebSocket)  -- code FQKK
+PASS  phone Ada joined via the printed QR/phone URL + typed code  -- http://10.239.122.192:8080/play/client/
+PASS  phone Grace joined via the printed QR/phone URL + typed code  -- http://10.239.122.192:8080/play/client/
+PASS  phone Katherine joined via /play/?room=CODE (entry page forward)  -- http://10.239.122.192:8080/play/client/?room=FQKK
+PASS  /play/ at 390px makes no external request
+PASS  /play/ at 390px has no horizontal page scroll  -- overflow 0px
+PASS  /play/ at 1920px makes no external request
+PASS  /play/ at 1920px has no horizontal page scroll  -- overflow 0px
+PASS  /play/: no external src/stylesheet
+PASS  /play/ local link client/favicon.svg  -- 200
+PASS  /play/ local link host/  -- 200
+PASS  /play/ local link client/  -- 200
+PASS  /play/ local link client/?watch=1  -- 200
+PASS  /play/ local link credits.html  -- 200
+PASS  /play/ local link judges.html  -- 200
+PASS  /play/ local link client/?mock=1  -- 200
+PASS  /play/credits.html at 390px makes no external request
+PASS  /play/credits.html at 390px has no horizontal page scroll  -- overflow 0px
+PASS  /play/credits.html at 1920px makes no external request
+PASS  /play/credits.html at 1920px has no horizontal page scroll  -- overflow 0px
+PASS  /play/credits.html: no external src/stylesheet
+PASS  /play/credits.html local link client/favicon.svg  -- 200
+PASS  /play/credits.html local link ./  -- 200
+PASS  /play/credits.html local link credits.html  -- 200
+PASS  /play/credits.html local link judges.html  -- 200
+PASS  /play/judges.html at 390px makes no external request
+PASS  /play/judges.html at 390px has no horizontal page scroll  -- overflow 0px
+PASS  /play/judges.html at 1920px makes no external request
+PASS  /play/judges.html at 1920px has no horizontal page scroll  -- overflow 0px
+PASS  /play/judges.html: no external src/stylesheet
+PASS  /play/judges.html local link client/favicon.svg  -- 200
+PASS  /play/judges.html local link ./  -- 200
+PASS  /play/judges.html local link credits.html  -- 200
+PASS  /play/judges.html local link judges.html  -- 200
+PASS  host.wasm.unityweb served as gzip + application/wasm  -- gzip application/wasm
+PASS  / redirects to /play/
+PASS  path traversal returns 404  -- 404

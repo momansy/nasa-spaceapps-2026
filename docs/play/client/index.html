@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#071522" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="description" content="MissionForge: join Mission Control from your phone." />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <title>MissionForge</title>
+    <style>
+      html, body { margin: 0; background: #071522; color: #e8eef0; }
+      #root:empty::before {
+        content: '';
+        position: fixed; inset: 0; margin: auto; width: 44px; height: 44px;
+        border-radius: 50%; border: 3px solid #1c3a52; border-top-color: #55c5cd;
+        animation: boot-spin 0.9s linear infinite;
+      }
+      @keyframes boot-spin { to { transform: rotate(360deg); } }
+    </style>
+    <script type="module" crossorigin src="./assets/index-Cx8Wjnmb.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/react-Bv9AnACW.js">
+    <link rel="stylesheet" crossorigin href="./assets/index-Bw7Cefu1.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>

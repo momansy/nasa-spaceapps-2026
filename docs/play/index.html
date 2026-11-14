@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="MissionForge: a team mission-design game. Pick the parts, balance mass, power, budget and communications, then launch together.">
+<title>MissionForge | Play</title>
+<link rel="icon" href="client/favicon.svg" type="image/svg+xml">
+<style>
+  :root {
+    --space: #071522;
+    --console: #112B40;
+    --ocean: #176887;
+    --ceramic: #E8EEF0;
+    --signal: #55C5CD;
+    --sunlight: #FFCE83;
+    --muted: #B6C7D3;
+    --line: rgba(232, 238, 240, 0.18);
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--space); }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    color: var(--ceramic);
+    font-family: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", Arial, sans-serif;
+    line-height: 1.5;
+    background:
+      radial-gradient(ellipse 80% 55% at 50% 118%, rgba(23, 104, 135, 0.55), transparent 70%),
+      radial-gradient(ellipse 60% 40% at 85% -10%, rgba(255, 206, 131, 0.10), transparent 70%),
+      var(--space);
+  }
+  a { color: var(--signal); }
+  a:focus-visible { outline: 3px solid var(--sunlight); outline-offset: 3px; }
+  .wrap { width: min(1120px, 100% - 32px); margin: 0 auto; padding: 40px 0 32px; }
+  header { text-align: center; padding: 24px 0 8px; }
+  .wordmark { font-size: clamp(28px, 7vw, 64px); letter-spacing: 0.28em; font-weight: 300; margin: 0; padding-left: 0.28em; }
+  .wordmark b { color: var(--sunlight); font-weight: 800; }
+  .tag { color: var(--muted); letter-spacing: 0.18em; text-transform: uppercase; font-size: clamp(11px, 2.8vw, 14px); margin: 10px 0 0; }
+  .orbit { display: block; margin: 20px auto 0; width: min(280px, 70%); height: auto; }
+  .what { max-width: 62ch; margin: 28px auto 36px; text-align: center; color: var(--ceramic); font-size: clamp(16px, 4vw, 20px); }
+  .what small { display: block; margin-top: 8px; color: var(--muted); font-size: 0.8em; }
+  .grid { display: grid; gap: 20px; grid-template-columns: 1fr; }
+  @media (min-width: 820px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+  .card {
+    display: flex; flex-direction: column; gap: 10px;
+    padding: 24px; text-decoration: none; color: var(--ceramic);
+    background: var(--console); border: 1px solid var(--line); border-top: 4px solid var(--signal);
+    transition: transform 0.15s ease, border-color 0.15s ease;
+  }
+  .card:hover { transform: translateY(-3px); border-color: var(--signal); }
+  .card:focus-visible { outline: 3px solid var(--sunlight); outline-offset: 3px; }
+  .card.host { border-top-color: var(--sunlight); }
+  .card .kicker { font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+  .card h2 { margin: 0; font-size: clamp(22px, 5vw, 28px); font-weight: 600; }
+  .card p { margin: 0; color: var(--muted); flex: 1; }
+  .card .go { font-weight: 700; color: var(--space); background: var(--signal); padding: 12px 16px; text-align: center; margin-top: 8px; }
+  .card.host .go { background: var(--sunlight); }
+  .note { font-size: 14px; color: var(--sunlight); margin: 0; }
+  .card .alt { font-size: 14px; color: var(--muted); }
+  .how { margin: 40px 0 0; padding: 20px 24px; border: 1px solid var(--line); background: rgba(17, 43, 64, 0.55); }
+  .how h2 { margin: 0 0 8px; font-size: 18px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+  .how ol { margin: 0; padding-left: 1.3em; }
+  .how li { margin: 4px 0; }
+  footer { margin-top: 36px; padding-top: 20px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: center; color: var(--muted); font-size: 14px; text-align: center; }
+  footer p { flex-basis: 100%; margin: 12px 0 0; font-size: 13px; }
+  @media (prefers-reduced-motion: reduce) { .card { transition: none; } .card:hover { transform: none; } }
+  @media (min-width: 1600px) { .wrap { width: min(1360px, 100% - 96px); padding-top: 64px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1 class="wordmark">MISSION<b>FORGE</b></h1>
+    <p class="tag">A team mission-design game</p>
+    <svg class="orbit" viewBox="0 0 280 90" role="img" aria-label="A satellite on an orbit above a planet">
+      <defs><clipPath id="lim"><rect x="0" y="0" width="280" height="90"/></clipPath></defs>
+      <g clip-path="url(#lim)">
+        <circle cx="140" cy="190" r="125" fill="#176887"/>
+        <circle cx="140" cy="190" r="125" fill="none" stroke="#55C5CD" stroke-width="2" opacity="0.8"/>
+        <ellipse cx="140" cy="190" rx="135" ry="150" fill="none" stroke="#B6C7D3" stroke-width="1.5" stroke-dasharray="4 6" opacity="0.7"/>
+        <circle cx="206" cy="46" r="5" fill="#FFCE83"/>
+        <rect x="196" y="44" width="8" height="4" fill="#E8EEF0" transform="rotate(-35 200 46)"/>
+      </g>
+    </svg>
+  </header>
+
+  <p class="what">
+    Build a spacecraft with your team: choose the parts, balance mass, power, budget, instruments, orbit and communications,
+    then vote and launch together. One big screen shows the mission; everyone plays on their phone.
+    <small>Unofficial educational game. Not affiliated with or endorsed by NASA.</small>
+  </p>
+
+  <main class="grid">
+    <a class="card host" href="host/" id="host-link">
+      <span class="kicker">Big screen</span>
+      <h2>Host a mission</h2>
+      <p>Open this on the shared screen or projector. It creates a room and shows the room code and a QR code.</p>
+      <p class="note">Best on a laptop or desktop browser. Full screen, 1920&times;1080.</p>
+      <span class="go">Host a mission (big screen)</span>
+    </a>
+    <a class="card" href="client/" id="join-link">
+      <span class="kicker">Phone</span>
+      <h2>Join on your phone</h2>
+      <p>Enter the room code from the big screen, or scan its QR code. Vote on parts, run your console, play the minigames.</p>
+      <p class="alt">No account, no install, no chat.</p>
+      <span class="go">Join on your phone</span>
+    </a>
+    <a class="card" href="client/?watch=1" id="watch-link">
+      <span class="kicker">Audience</span>
+      <h2>Watch as audience</h2>
+      <p>Follow the mission and cast audience votes without a seat on the crew.</p>
+      <p class="alt">Add the room code on the next screen.</p>
+      <span class="go">Watch as audience</span>
+    </a>
+  </main>
+
+  <section class="how" aria-labelledby="how-h">
+    <h2 id="how-h">How a session runs</h2>
+    <ol>
+      <li>One screen hosts; up to ten players join with a room code.</li>
+      <li>The crew votes on each part: its mass, power, cost and risk are shown for every option.</li>
+      <li>Launch, fly and fix problems together; each role has its own console.</li>
+      <li>See the score and debrief what the physics and the budget taught you.</li>
+    </ol>
+  </section>
+
+  <footer>
+    <a href="credits.html">Credits, data sources and licences</a>
+    <a href="judges.html">For judges (JUDGES.md)</a>
+    <a href="client/?mock=1">Offline demo (no server)</a>
+    <p>MissionForge uses generic hardware names. Numbers are tagged physical, real-world approximate or game value.</p>
+  </footer>
+</div>
+<noscript><p style="text-align:center;color:#B6C7D3;padding:0 16px 24px">This page works without JavaScript; only the room-code forwarding needs it.</p></noscript>
+<script>
+  // The host's default join link is {origin}/play/?room=CODE. Send any query (room, watch, mock, speed...)
+  // straight to the phone client so players land on the join screen with the code filled in.
+  (function () {
+    var q = window.location.search;
+    if (q && q.length > 1) window.location.replace('client/' + q + window.location.hash);
+  })();
+</script>
+</body>
+</html>

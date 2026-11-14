@@ -1,0 +1,50 @@
+
+========================================================================
+ MissionForge demo (MOCK: static files only, no room server)
+========================================================================
+ Using LAN address 10.239.122.192. Also seen: 192.168.56.1 (Ethernet 3), 192.168.218.1 (VMware Network Adapter VMnet1), 192.168.139.1 (VMware Network Adapter VMnet8), 172.27.32.1 (vEthernet (WSL (Hyper-V firewall))).
+ Wrong one? Restart with --lan-ip <address>.
+
+
+ Host (big screen; laptop or desktop browser, full screen at 1920x1080):
+   http://localhost:8090/play/host/
+
+ Phone (players):
+   http://10.239.122.192:8090/play/client/
+
+ Audience (watch and vote from phones; add &room=CODE or type the code):
+   http://10.239.122.192:8090/play/client/?watch=1
+
+ Offline fallback (scripted mock session on the phone, no server needed):
+   http://10.239.122.192:8090/play/client/?mock=1
+
+ Entry page: http://10.239.122.192:8090/play/     Credits: http://10.239.122.192:8090/play/credits.html
+
+ Scan to open the phone client:
+
+   ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+   █ ▄▄▄▄▄ █▄▄▄ ▀█▄█▀█▀▀ █ ▄▄▄▄▄ █
+   █ █   █ ██▄▀ █ █▄▀▀ ▀██ █   █ █
+   █ █▄▄▄█ ██▀▄ ▄█▀█▄ ▀▄▄█ █▄▄▄█ █
+   █▄▄▄▄▄▄▄█ ▀▄█ ▀ █▄█ █ █▄▄▄▄▄▄▄█
+   █  █▄▄▀▄█▀▄▀█▄▀▀▀▄ ▄  ▀▄█▀█▀▀▄█
+   █▀ ▄ ▄ ▄█ ▄██▄▄▀▄█ ▄██  ▀▀█▄█▀█
+   ██▀█▄ ▀▄▀ ▄ █▀▄ ▀ █▄█▀▄ █▀▀█▀ █
+   █▀▄ █▀▄▄▄▄ ▄█▀▀  ▀█ ▄ ███▀▄ █ █
+   █ ▄▀ ▀▄▄█▀▀▀ ▄██ ██ ▀█ █▀▀▀▀▀██
+   █  ▄█ ▀▄█▄▀▀▀▄ ▄ ▀██▄▄ ▄ █▀▀█▄█
+   █▄▄█▄▄▄▄▄ ██▄▀ █▀ ▄██ ▄▄▄  ▄▄██
+   █ ▄▄▄▄▄ ██   ▀ █▄   ▄ █▄█ ▄█▀██
+   █ █   █ █ ▄▀▄▄ ▀▀▀▀▀ ▄▄▄▄▄▀▀█ █
+   █ █▄▄▄█ █▀▄▀ ▄▄█▄▀█▀ ██▀█ █▀▄ █
+   █▄▄▄▄▄▄▄█▄▄▄███▄▄████▄▄▄▄▄▄████
+   
+
+   http://10.239.122.192:8090/play/client/
+
+ If phones cannot connect: allow Node.js through the OS firewall for private networks,
+ check that the Wi-Fi or hotspot has no client isolation, and try the phone URL above first.
+
+ Press Ctrl+C to stop everything.
+========================================================================
+
