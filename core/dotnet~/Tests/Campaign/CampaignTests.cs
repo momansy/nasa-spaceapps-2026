@@ -219,6 +219,29 @@ namespace MissionForge.Core.Tests.Campaign
         }
 
         [Fact]
+        public void EveryModeRestrictedPartAndTechUnlockExistsInRealCatalog()
+        {
+            var real = DesignFixture.Catalog();
+            var restricted = new[]
+            {
+                ModeRules.For("DAILY", new ModeOptions(date: "2026-11-14")),
+                ModeRules.For("HERITAGE", new ModeOptions(heritagePreset: "1960s_lunar_flyby")),
+                ModeRules.For("HERITAGE", new ModeOptions(heritagePreset: "early_satellites"))
+            };
+            foreach (var rules in restricted)
+            {
+                Assert.NotEmpty(rules.PartAllowList);
+                Assert.Equal(rules.PartAllowList.Count, rules.PartAllowList.Distinct().Count());
+                foreach (string id in rules.PartAllowList)
+                    Assert.True(real.Parts.ContainsKey(id), rules.Mode + " references unknown part " + id);
+            }
+
+            foreach (var node in TechTree.Nodes)
+                foreach (string id in node.PartIds)
+                    Assert.True(real.Parts.ContainsKey(id), "Tech " + node.Id + " references unknown part " + id);
+        }
+
+        [Fact]
         public void HeritageClassroomSoloAndBudgetCrunchEnforced()
         {
             var heritage = ModeRules.For("HERITAGE", new ModeOptions(heritagePreset: "early_satellites"));
