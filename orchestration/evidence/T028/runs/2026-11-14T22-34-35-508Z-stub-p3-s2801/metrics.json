@@ -1,0 +1,84 @@
+{
+  "frames": {
+    "total": 1988,
+    "valid": 1988,
+    "invalid": 0,
+    "unknownTypes": 0
+  },
+  "latencyMs": {
+    "voteCastToAck": {
+      "n": 15,
+      "p50": 1.959,
+      "p95": 6.16,
+      "max": 6.16
+    },
+    "voteCastToTally": {
+      "n": 12,
+      "p50": 169.771,
+      "p95": 203.475,
+      "max": 203.475
+    },
+    "pollAnswerToAnswered": {
+      "n": 18,
+      "p50": 94.394,
+      "p95": 3198.98,
+      "max": 3198.98
+    },
+    "mgResultRelayed": {
+      "n": 28,
+      "p50": 1.035,
+      "p95": 1.923,
+      "max": 1.934
+    }
+  },
+  "messageRateHzMax": {
+    "c1:flight.hud": 0,
+    "c1:console.telemetry": 0,
+    "c1:vote.tally": 1,
+    "c1:pilot.hud": 0,
+    "c2:flight.hud": 0,
+    "c2:console.telemetry": 0,
+    "c2:vote.tally": 1,
+    "c2:pilot.hud": 0,
+    "c3:flight.hud": 0,
+    "c3:console.telemetry": 0,
+    "c3:vote.tally": 0,
+    "c3:pilot.hud": 0,
+    "c4:flight.hud": 5,
+    "c4:console.telemetry": 0,
+    "c4:vote.tally": 3,
+    "c4:pilot.hud": 0,
+    "c5:flight.hud": 5,
+    "c5:console.telemetry": 10,
+    "c5:vote.tally": 3,
+    "c5:pilot.hud": 0,
+    "c6:flight.hud": 0,
+    "c6:console.telemetry": 0,
+    "c6:vote.tally": 3,
+    "c6:pilot.hud": 0,
+    "c7:flight.hud": 5,
+    "c7:console.telemetry": 0,
+    "c7:vote.tally": 3,
+    "c7:pilot.hud": 0,
+    "c8:flight.hud": 5,
+    "c8:console.telemetry": 0,
+    "c8:vote.tally": 3,
+    "c8:pilot.hud": 0
+  },
+  "bytesPerSecond": {
+    "c1": 1424.04,
+    "c2": 550.3,
+    "c3": 4975,
+    "c4": 350.28,
+    "c5": 389.71,
+    "c6": 339.03,
+    "c7": 363.5,
+    "c8": 323.16
+  },
+  "errors": {
+    "protocolErrorFrames": {},
+    "schemaViolations": [],
+    "unknownTypes": [],
+    "seqGaps": []
+  }
+}

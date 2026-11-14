@@ -103,3 +103,10 @@ the remaining matrix as the brief directs.
 ## Independent re-run (step 9)
 
 Run `2026-11-14T21-20-56-541Z-stub-p3-s2801` (3 phones, stub host, seed 2801) was produced from a clean detached checkout of commit `a6cb951` by Claude (agent `momansy-claude`) using only the README one-command flow (`npm ci`, `npx playwright install chromium`, `npm run e2e -- --players 3`) on Windows 11. It completed through the debrief with `ok: true` and reproduces the 3-phone results above. Only the 3-phone case was re-run; macOS was not run.
+
+## Update after the minigames were merged
+
+Rerun `2026-11-14T22-34-35-508Z-stub-p3-s2801` (3 phones, stub host, seed 2801, current `main`): every flight minigame segment (MG-07, MG-08, MG-09, MG-10a, MG-13, MG-15, MG-21) is now
+`played` instead of `not_bundled`, with 0 harness failures. D-002 is resolved in the product; the harness was updated to read the bundled minigames from
+`client/dist/assets` instead of assuming only MG-08. The 1, 6 and 10-phone runs above were not repeated. Minigame results are still fixture values from the
+stub host.
