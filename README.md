@@ -1,5 +1,7 @@
 # Space Apps Agent Mesh — Dynamic Team Edition (v2)
 
+**Judges:** see [JUDGES.md](JUDGES.md) for a one-page overview of MissionForge, and [RELEASE.md](RELEASE.md) to run the demo.
+
 ## Automatic reconnection after network outages
 
 **New in the worker setup:** The onboarding scripts now launch [mesh_supervisor.py](mesh_supervisor.py), which restarts exited Codex/Claude workers after connection failures using 5–60 second backoff. After internet returns, workers register a fresh heartbeat and appear online again. Existing users must stop their old worker, update the checkout, and start the supervisor once; see [AUTO_RECONNECT.md](AUTO_RECONNECT.md). Shutdown/reboot still needs a user-level startup task or an always-on host. Partially running tasks are never silently replayed.

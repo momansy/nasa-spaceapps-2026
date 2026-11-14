@@ -210,3 +210,12 @@ describe('snapshot (messages.md §4.5)', () => {
     expect(room.snapshotMessages(host, 1)).toEqual([]);
   });
 });
+
+describe('roles.state before any player joins (T028 D-001)', () => {
+  it('lists all ten roles in at least one group so the frame validates against its schema', () => {
+    const { room } = setup(0);
+    const state = room.buildRolesState();
+    expect(state.groups.length).toBeGreaterThanOrEqual(1);
+    expect(state.groups.flatMap((g) => g.roles)).toHaveLength(10);
+  });
+});

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using MissionForge.Net;
 using MissionForge.UI;
@@ -16,23 +17,20 @@ namespace MissionForge.App.Screens
         /// <summary>Maximum voting players in a room (design 3.2, room.created.maxPlayers).</summary>
         public const int MaxCrew = ProtocolNames.Defaults.MaxPlayers;
 
-        private const string CardClass = "mf-crewcard";
-        private const string CardInClass = "mf-crewcard--in";
-        private const string CardAwayClass = "mf-crewcard--away";
-        private const string CardEmptyClass = "mf-crewcard--empty";
-        private const string SegmentItemClass = "mf-segment__item";
-        private const string SegmentOnClass = "mf-segment__item--on";
+        private const string SeatEnterClass = "mf-seat--enter";
+        private const string SegmentItemClass = MfSegmented.ItemClass;
+        private const string SegmentOnClass = MfSegmented.OnClass;
+        private const string CodeEmptyClass = "mf-roomcode-big--empty";
+        // Designed empty and away states (T031). Inline like the rest of this screen's T008 copy.
+        private const string WaitingForCrewText = "Waiting for crew";
+        private const string NoRoleText = "No role yet";
+        private const string AwayText = "Reconnecting";
         private static readonly Color32 QrDark = MfPalette.QrDark;
         private static readonly Color32 QrLight = MfPalette.QrLight;
 
         private sealed class Slot
         {
-            public VisualElement Card;
-            public AvatarBadge Avatar;
-            public Label Name;
-            public VisualElement RoleChip;
-            public Label RoleLabel;
-            public Label Empty;
+            public MfSeatCard Card;
             public string PlayerId;
         }
 
@@ -47,6 +45,8 @@ namespace MissionForge.App.Screens
         private Texture2D _qrTexture;
         private string _qrCodeShown;
         private RoomClient _client;
+        private int _crewShown;
+        private IVisualElementScheduledItem _crewCountUp;
 
         protected override void OnEnter()
         {
@@ -57,6 +57,7 @@ namespace MissionForge.App.Screens
             _joinUrl = Screen.Q<Label>("join-url");
             _start = Screen.Q<Button>("btn-start");
             _start.clicked += () => App.Flow.GoToPhase(GamePhase.Briefing);
+            MfButtons.WithIcon(_start, "rocket");
             _start.SetEnabled(false);
 
             BuildSlots(Screen.Q<VisualElement>("crew-grid"));
@@ -102,40 +103,11 @@ namespace MissionForge.App.Screens
             _slots.Clear();
             for (int i = 0; i < MaxCrew; i++)
             {
-                var slot = new Slot { Card = new VisualElement { name = "crew-slot-" + i } };
-                slot.Card.AddToClassList(CardClass);
-                slot.Card.AddToClassList(CardEmptyClass);
-
-                slot.Avatar = new AvatarBadge();
-                slot.Avatar.AddToClassList("mf-crewcard__avatar");
-                slot.Name = new Label();
-                slot.Name.AddToClassList("mf-crewcard__name");
-                slot.RoleChip = new VisualElement();
-                slot.RoleChip.AddToClassList("mf-chip");
-                slot.RoleLabel = new Label();
-                slot.RoleLabel.AddToClassList("mf-chip__label");
-                slot.RoleLabel.style.marginLeft = 0;
-                slot.RoleChip.Add(slot.RoleLabel);
-                slot.Empty = new Label("Seat " + (i + 1).ToString("00") + "\nopen");
-                slot.Empty.AddToClassList("mf-crewcard__slot");
-
-                slot.Card.Add(slot.Avatar);
-                slot.Card.Add(slot.Name);
-                slot.Card.Add(slot.RoleChip);
-                slot.Card.Add(slot.Empty);
-                SetOccupied(slot, false);
-                grid.Add(slot.Card);
-                _slots.Add(slot);
+                var card = new MfSeatCard { name = "crew-slot-" + i };
+                card.SetEmpty(WaitingForCrewText);
+                grid.Add(card);
+                _slots.Add(new Slot { Card = card });
             }
-        }
-
-        private static void SetOccupied(Slot slot, bool occupied)
-        {
-            DisplayStyle shown = occupied ? DisplayStyle.Flex : DisplayStyle.None;
-            slot.Avatar.style.display = shown;
-            slot.Name.style.display = shown;
-            slot.RoleChip.style.display = shown;
-            slot.Empty.style.display = occupied ? DisplayStyle.None : DisplayStyle.Flex;
         }
 
         private void BuildSegment(string elementName, string settingKey, params (string value, string label)[] options)
@@ -222,36 +194,23 @@ namespace MissionForge.App.Screens
                 if (seats[i] == null)
                 {
                     slot.PlayerId = null;
-                    slot.Card.AddToClassList(CardEmptyClass);
-                    slot.Card.RemoveFromClassList(CardInClass);
-                    slot.Card.RemoveFromClassList(CardAwayClass);
-                    SetOccupied(slot, false);
+                    slot.Card.RemoveFromClassList(SeatEnterClass);
+                    slot.Card.SetEmpty(WaitingForCrewText);
                     continue;
                 }
 
                 PlayerInfoDto player = seats[i];
                 bool isNew = slot.PlayerId != player.Id;
                 slot.PlayerId = player.Id;
-                slot.Avatar.SetIdentity(player.Avatar.SuitId, player.Nickname);
-                slot.Name.text = player.Nickname;
-                string role = RoleLabelFor(player.Id);
-                bool hasRole = !string.IsNullOrEmpty(role);
-                slot.RoleLabel.text = hasRole ? role : "No role yet";
-                slot.RoleChip.EnableInClassList("mf-chip--forge", hasRole);
-                slot.RoleChip.EnableInClassList("mf-chip--muted", !hasRole);
-                slot.Card.RemoveFromClassList(CardEmptyClass);
-                slot.Card.EnableInClassList(CardAwayClass, !player.Connected);
-                SetOccupied(slot, true);
+                slot.Card.SetPlayer(player.Avatar.SuitId, player.Nickname, RoleLabelFor(player.Id), NoRoleText, player.Connected, AwayText);
                 if (isNew)
                 {
-                    // Re-run the pop-in transition for a newly seated player.
-                    slot.Card.RemoveFromClassList(CardInClass);
-                    VisualElement card = slot.Card;
-                    card.schedule.Execute(() => card.AddToClassList(CardInClass)).StartingIn(40 + i * 30);
+                    // Enter motion for a newly seated player (staggered, honours reduced motion).
+                    MfMotion.Enter(slot.Card, i, SeatEnterClass);
                 }
             }
 
-            _crewCount.text = crewCount.ToString();
+            ShowCrewCount(crewCount);
             _start.SetEnabled(crewCount >= 1);
             _hint.text = crewCount == 0
                 ? "Waiting for the first crew member to join."
@@ -265,11 +224,25 @@ namespace MissionForge.App.Screens
             if (string.IsNullOrEmpty(code) || code == _qrCodeShown) return;
             _qrCodeShown = code;
             _code.text = code;
+            _code.RemoveFromClassList(CodeEmptyClass);
             string joinUrl = App.Room.BuildJoinUrl(code, _client != null && _client.RoomCode == code ? _client.JoinUrl : null);
-            _joinUrl.text = joinUrl;
+            // The QR keeps the full URL; the panel shows only a public host (a localhost dev URL is never shown).
+            string host = JoinUrlDisplay.PublicHost(joinUrl);
+            _joinUrl.text = host;
+            _joinUrl.style.display = host.Length == 0 ? DisplayStyle.None : DisplayStyle.Flex;
             if (_qrTexture != null) Destroy(_qrTexture);
             _qrTexture = QrCodeTexture.Create(joinUrl, QrDark, QrLight);
             _qrImage.style.backgroundImage = new StyleBackground(_qrTexture);
+        }
+
+        /// <summary>The seat KPI counts up to the new value (count token; reduced motion jumps straight to it).</summary>
+        private void ShowCrewCount(int crewCount)
+        {
+            if (crewCount == _crewShown) return;
+            _crewCountUp?.Pause();
+            int from = int.TryParse(_crewCount.text, out int shown) ? shown : 0;
+            _crewShown = crewCount;
+            _crewCountUp = MfMotion.CountUp(_crewCount, from, crewCount, v => Math.Round(v).ToString("0"));
         }
     }
 }

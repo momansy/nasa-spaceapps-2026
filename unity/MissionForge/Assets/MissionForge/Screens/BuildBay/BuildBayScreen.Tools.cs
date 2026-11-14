@@ -54,14 +54,26 @@ namespace MissionForge.Screens.BuildBay
                 key.AddToClassList("bb-tool__key");
                 var label = new Label(_text.Get(t.stringKey));
                 label.AddToClassList("bb-tool__label");
-                chip.Add(key);
+                var icon = new MissionForge.UI.MfIcon { kind = ToolIcon(t.tool) };
+                icon.AddToClassList("bb-tool__icon");
+                chip.Add(icon);
                 chip.Add(label);
+                chip.Add(key);
                 Tool tool = t.tool;
                 chip.RegisterCallback<ClickEvent>(_ => Toggle(tool));
                 container.Add(chip);
                 _chips[tool] = chip;
             }
         }
+
+        /// <summary>Lucide shape per tool (T031); the letter stays as the keyboard hint.</summary>
+        private static string ToolIcon(Tool tool) => tool switch
+        {
+            Tool.Compare => "git-compare",
+            Tool.Exploded => "expand",
+            Tool.Scale => "ruler",
+            _ => "crosshair",
+        };
 
         private void UpdateTools()
         {

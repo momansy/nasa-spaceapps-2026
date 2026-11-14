@@ -1,0 +1,20 @@
+{
+  "name": "missionforge-demo-tools",
+  "version": "0.1.0",
+  "private": true,
+  "description": "One-command local demo, phone-client packaging and credits generator for MissionForge (T029).",
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "demo": "node start.mjs",
+    "demo:mock": "node start.mjs --mock",
+    "build-client": "node build-client.mjs",
+    "build-credits": "node build-credits.mjs",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "qrcode-terminal": "^0.12.0",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {}
+}

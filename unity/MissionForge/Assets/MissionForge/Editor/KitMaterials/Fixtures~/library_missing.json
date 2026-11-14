@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "note": "Test fixture: hull names an albedo that does not exist; the importer must report an error, not throw.",
+  "materials": {
+    "hull": {
+      "albedo": "textures/hull/does_not_exist_albedo.png",
+      "normal": "textures/hull/hull_normal.png",
+      "orm": "textures/hull/hull_orm.png",
+      "tiling_m": 2.0,
+      "tint": "#E8EEF0",
+      "metallic": [0.0, 0.0],
+      "roughness": [0.40, 0.55],
+      "normal_strength": 1.0,
+      "hero": true,
+      "source": [{"name": "fixture (generated)", "url": "", "licence": "CC0"}],
+      "value_type": "game_value"
+    }
+  }
+}

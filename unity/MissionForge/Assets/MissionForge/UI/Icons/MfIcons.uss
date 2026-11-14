@@ -1,0 +1,34 @@
+/* MissionForge icons (MfIcon + Lucide outline set, ISC). See UI/Icons/README.md.
+   Load after the sheet that defines the --mf-* colour variables, e.g. add
+     @import url("../Icons/MfIcons.uss");
+   to UI/Theme/MissionForgeTheme.tss.
+
+   Colour: MfIcon strokes with its USS `color` unless C# sets MfIcon.Tint.
+   Size: 24, 32 or 48 (VISUAL_TARGET 3.1); 26 px is the legacy default. The `size` UXML attribute
+   writes an inline size and always wins over these rules. */
+
+/* --mf-icon-uss-sized tells MfIcon that this sheet is loaded, so it drops its inline 26 px
+   fallback and lets USS width/height (including rules like `.mf-chip > .mf-icon`) decide.
+   Declaring a custom property also makes UI Toolkit send CustomStyleResolvedEvent to every
+   MfIcon, which MfIcon uses to repaint when a colour class changes. */
+.mf-icon {
+    width: 26px;
+    height: 26px;
+    flex-shrink: 0;
+    color: var(--mf-ceramic);
+    --mf-icon-uss-sized: 1;
+}
+
+.mf-icon--24 { width: 24px; height: 24px; }
+.mf-icon--32 { width: 32px; height: 32px; }
+.mf-icon--48 { width: 48px; height: 48px; }
+
+/* Colour helpers. Status colours must always be paired with the status shape
+   (kind="meets" / "marginal" / "fails"), never used on their own. */
+.mf-icon--signal { color: var(--mf-signal); }
+.mf-icon--muted { color: var(--mf-muted); }
+.mf-icon--meets { color: var(--mf-meets); }
+.mf-icon--marginal { color: var(--mf-marginal); }
+.mf-icon--fails { color: var(--mf-fails); }
+.mf-icon--sunlight { color: var(--mf-sunlight); }
+.mf-icon--space { color: var(--mf-space); }
