@@ -35,7 +35,7 @@ Exact prompts and proposed model parameters: [style/PROMPT_PACK.json](style/PROM
 | `style/frames/06-mission-control.png` | Higgsfield / `gpt_image_2_6` | `mission_control` | Not submitted |
 | `key-art/missionforge-16x9.png` | Higgsfield / `gpt_image_2_6` | `key_art_landscape` | Not submitted |
 | `key-art/missionforge-1x1.png` | Higgsfield / `gpt_image_2_6` | `key_art_square` | Not submitted |
-| `cinematics/c1-earth-watch-briefing.mp4` | Higgsfield / `seedance_2_5` | `c1_briefing` | Not submitted |
+| `cinematics/c1-earth-watch-briefing.mp4` | Google Gemini user-supplied export; exact model not provided; local FFmpeg remux | `c1_briefing` visual intent; original generation prompt not provided | Delivered and approved 2026-11-14; source and derivative details below |
 | `../../orchestration/evidence/T005/contact-sheet.jpg` | Local contact-sheet assembly, tool to be recorded | Arrange all eight finished stills plus representative cinematic frames | Not produced; no finished media available |
 
 When resumed, replace each planned row with actual tool/model, exact prompt or immutable prompt reference, UTC generation date, job ID, source/result URL where safe to retain, downloaded path, dimensions, duration/codec when relevant, file hash, edits/encoding and inspection result. Record both source and derivative for any crop, resize or video transcode. Do not overwrite this blocked attempt's history or claim a new generation is the earlier rejected call.
@@ -118,9 +118,17 @@ Appended by T018; T005's history above is unchanged.
 | `style/frames/06-mission-control.png` | superseded by T018: generated and approved on retry (changed prompt and reference recorded above) |
 | `key-art/missionforge-16x9.png` | superseded by T018: generated and approved |
 | `key-art/missionforge-1x1.png` | superseded by T018: generated and approved with a noted banding flaw |
-| `cinematics/c1-earth-watch-briefing.mp4` | **NOT GENERATED.** No file exists. Seedance 2.5 cost preflight: 84 credits (12 s, 720p, as in the pack) and 24 credits (8 s, 480p); 8 credits were available at that point (0 now). Unlimited generation is not available from Claude Code (tool error: "unlimited generations are not available" there). |
+| `cinematics/c1-earth-watch-briefing.mp4` | completed after T018 from a user-supplied Gemini export; audio removed by lossless video remux; approved as T005's 10 s C1 briefing |
 
 Credits: start 10, spent 10 = 8 approved stills (1 each) + 1 rejected mission-control attempt + 1 timed-out key-art submission whose output could not be recovered. Exact sequence in `GENERATION_LOG.json`. All approved stills were paid with credits (`use_unlim` false); none used unlimited generation. No AI-generated media contains logos or text by inspection; generated-media licence terms are the provider's and have not been reviewed here.
+
+## T005 completion — C1 Earth Watch briefing (2026-11-14)
+
+- Delivered source: `gemini_generated_video_b4f75240.mp4`, supplied by the project owner. Generation tool is identified by the filename as Google Gemini; the exact Gemini model, original prompt and generation job ID were not provided and are not invented here.
+- Source inspection: 4,761,918 bytes; SHA-256 `C208723F403282307458FEA7AD286B8715872890A49318494B768E25730AC407`; MP4 with 1280×720 H.264/yuv420p video at 24 fps, 10.026667 s container duration, plus an audible AAC track (mean −44.2 dB, peak −29.7 dB).
+- Final file: `assets/media/cinematics/c1-earth-watch-briefing.mp4`; FFmpeg stream-copy remux (`-map 0:v:0 -c:v copy -an -movflags +faststart`) removed the audio without re-encoding video. Final: 3,574,783 bytes; SHA-256 `8D70D08D5413ACDE132F1A3F8FEA450ACA15CB2006AD0028238C0B58B46B8F66`; 1280×720 H.264/yuv420p, 24 fps, 10.000000 s, no audio stream.
+- Gate: APPROVED. Five representative frames and the full decode were inspected. The compact Earth-observation satellite keeps a coherent bus, two intact solar wings, nadir camera and separate antenna; the continuous camera eases back to useful overlay space; there is no baked-in text, logo, cut, deployment morph or visible beam. The 10 s duration is inside the brief's accepted 8–15 s range.
+- Contact sheet: `orchestration/evidence/T005/contact-sheet.jpg`, 1920×810 JPEG, assembled locally with FFmpeg from all eight approved stills plus frames at 0.5, 5.5 and 9.5 s of the cinematic.
 
 Lost attempt: key_art_landscape, first submission, client timeout, charged 1 credit at 2026-11-14T13:26:41Z, job id unknown, output not downloaded.
 Rejected attempt: mission_control job `d747694a-f33a-42ac-b4e7-721e3efca9ce` (big screen showed the title-frame rocket instead of the satellite); file not committed.

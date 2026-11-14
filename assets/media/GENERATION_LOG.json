@@ -219,6 +219,29 @@
    "sha256": "47e6c99f2c848286ed9c6917c2ac079c266cfdafc2c1a61d058095def831ab76",
    "gate": "APPROVED on retry. PROMPT CHANGED (pack entry unchanged): pack prompt plus final sentence 'The large forward screen shows the referenced compact observation satellite (bus with two solar wings) above Earth, not a rocket.' Reference changed from title frame to the approved orbit frame (job c87d4db0) as image_references so the screen shows the anchor satellite. Satellite on screen matches anchor; console screens abstract (charts, rings, arcs) with no letters or digits; no logos, insignia or watermark. Style is more cartoon-like than the other frames (people rendered stylised) but readable. Rejected attempt 1 (job d747694a-f33a-42ac-b4e7-721e3efca9ce, title frame as reference): big screen showed the title-frame rocket instead of the observation satellite; file not committed.",
    "cost_credits": 1
+  },
+  {
+   "pack_id": "c1_briefing",
+   "path": "assets/media/cinematics/c1-earth-watch-briefing.mp4",
+   "source_filename": "gemini_generated_video_b4f75240.mp4",
+   "tool": "Google Gemini user-supplied export; exact model not provided; FFmpeg stream-copy remux",
+   "model": "not provided",
+   "prompt": "Original generation prompt not provided; accepted against PROMPT_PACK.json id c1_briefing",
+   "date_utc": "2026-11-14",
+   "width": 1280,
+   "height": 720,
+   "duration_seconds": 10.0,
+   "video_codec": "h264",
+   "pixel_format": "yuv420p",
+   "frame_rate_fps": 24,
+   "audio_streams": 0,
+   "bytes": 3574783,
+   "sha256": "8d70d08d5413acde132f1a3f8fea450aca15cb2006ad0028238c0b58b46b8f66",
+   "source_bytes": 4761918,
+   "source_sha256": "c208723f403282307458fea7ad286b8715872890a49318494b768e25730ac407",
+   "transformation": "Removed audible AAC track with FFmpeg stream copy; H.264 video was not re-encoded; moved moov atom to the front for playback.",
+   "gate": "APPROVED. Five representative frames and the full decode were inspected. Coherent Earth-observation satellite, continuous gentle pullback, useful negative space, no baked-in text/logo, no visible morphing or beams. Duration is within the required 8-15 s range.",
+   "cost_credits": 0
   }
  ],
  "balance_notes": {
