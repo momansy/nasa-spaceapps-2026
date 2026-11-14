@@ -8,6 +8,9 @@ Uses T031's URP volume profiles, lighting rigs and `MF_KitLit` material importer
 change `ProjectSettings/` or `Packages/`. Does not touch the Build Bay UI panels (T031 owns
 the design system) or the kit models themselves (T032/T033 replace them in place by ID).
 
+
+> **Exception granted (orchestrator):** this task may edit the Build Bay controller and `Screens/BuildBay/` scripts where needed for camera and assembly motion (rubric item U7). Keep UI layout untouched; layout fixes are a separate task.
+
 ## Why
 
 The Build Bay (T015) works, but its 3D scene is far below the reference frame
