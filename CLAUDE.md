@@ -19,3 +19,7 @@ If your user asks you to connect **their** Codex or Claude Code agent, follow [S
 ## Team overview website
 
 The complete beginner-friendly team handbook and onboarding website is [MissionForge Team HQ](docs/index.html). It covers the official Space Mission Design Game challenge, the proposed MissionForge concept, the dynamic Agent Mesh, optional MCP tools, human onboarding, runbooks and verification. **Agents must treat [START_HERE_AGENTS.md](START_HERE_AGENTS.md) as authoritative for actual terminal setup**, not infer CLI behavior from the illustrative website.
+
+## Internet recovery
+
+Current teammate onboarding starts [mesh_supervisor.py](mesh_supervisor.py), so an exited worker is restarted with a 5–60 second backoff and can resume heartbeats automatically after connectivity is restored. **Previously running un-supervised workers must be stopped before migrating.** The coordinator is separate; a powered-off device still needs manual login or a separately authorized startup service. See [AUTO_RECONNECT.md](AUTO_RECONNECT.md) for migration, safe handling of partially running tasks and real verification.
