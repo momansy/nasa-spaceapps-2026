@@ -1,0 +1,179 @@
+{
+  "$schema": "../schema/part.schema.json",
+  "category": "fairing",
+  "name_key": "category.fairing.name",
+  "intro_key": "category.fairing.intro",
+  "design_section": "7.5",
+  "facts": [
+    "F23"
+  ],
+  "design_notes": [
+    "Vote step 5 of 6.2 is \"Payload fairing (non-capsule contracts)\"; the capsule contracts are C3, C4 and C6 (7.2.2), so every fairing lists C0, C1, C2, C5, C7 and C8. No option is restricted further: \"only small payloads\" has no number.",
+    "Rule 6.11 \"Payload doesn't fit fairing\" compares diameters, but the design gives no payload diameter for any contract.",
+    "The Large fairing drawback is \"Heaviest\" although the Reusable large fairing (2.6 t) is heavier than it (2.4 t). Both are stored as printed.",
+    "Reusable large fairing: \"60% refund if recovered\" is the modifier cost_refund_fraction 0.6 on this part, condition recovered; MG-10 Fairing Catch decides the recovery (\"fairing refund up to 60%\"). reusable is set only on this option.",
+    "fairing_stuck (8.4) is listed for every fairing. 8.4 speaks of \"fairing reliability\" and \"test\" as mitigation, but table 7.5 has no reliability and section 6.6 names no fairing test, so there is no reliability and no test rule.",
+    "F23 (OCO and Glory) is the line under the table and is kept at category level. The fact of MG-10 is not in the fact bank.",
+    "Diameter and mass are tagged game_value: the design states no provenance for them."
+  ],
+  "parts": [
+    {
+      "id": "fairing_small",
+      "category": "fairing",
+      "name_key": "part.fairing_small.name",
+      "twin": "part.fairing_small.twin",
+      "strengths": [
+        "part.fairing_small.strength.1",
+        "part.fairing_small.strength.2"
+      ],
+      "drawbacks": [
+        "part.fairing_small.drawback.1"
+      ],
+      "contracts": [
+        "C0",
+        "C1",
+        "C2",
+        "C5",
+        "C7",
+        "C8"
+      ],
+      "model": "models/fairing_small.glb",
+      "stats": {
+        "diameter_m": 1.5,
+        "mass_t": 0.4
+      },
+      "game": {
+        "cost_M": 2
+      },
+      "failure_modes": [
+        "fairing_stuck"
+      ],
+      "value_types": {
+        "stats": "game_value",
+        "game": "game_value"
+      }
+    },
+    {
+      "id": "fairing_standard",
+      "category": "fairing",
+      "name_key": "part.fairing_standard.name",
+      "twin": "part.fairing_standard.twin",
+      "strengths": [
+        "part.fairing_standard.strength.1"
+      ],
+      "drawbacks": [
+        "part.fairing_standard.drawback.1"
+      ],
+      "contracts": [
+        "C0",
+        "C1",
+        "C2",
+        "C5",
+        "C7",
+        "C8"
+      ],
+      "model": "models/fairing_standard.glb",
+      "stats": {
+        "diameter_m": 4,
+        "mass_t": 1.5
+      },
+      "game": {
+        "cost_M": 5
+      },
+      "failure_modes": [
+        "fairing_stuck"
+      ],
+      "value_types": {
+        "stats": "game_value",
+        "game": "game_value"
+      }
+    },
+    {
+      "id": "fairing_large",
+      "category": "fairing",
+      "name_key": "part.fairing_large.name",
+      "twin": "part.fairing_large.twin",
+      "strengths": [
+        "part.fairing_large.strength.1"
+      ],
+      "drawbacks": [
+        "part.fairing_large.drawback.1"
+      ],
+      "contracts": [
+        "C0",
+        "C1",
+        "C2",
+        "C5",
+        "C7",
+        "C8"
+      ],
+      "model": "models/fairing_large.glb",
+      "stats": {
+        "diameter_m": 5.4,
+        "mass_t": 2.4
+      },
+      "game": {
+        "cost_M": 9
+      },
+      "failure_modes": [
+        "fairing_stuck"
+      ],
+      "value_types": {
+        "stats": "game_value",
+        "game": "game_value"
+      }
+    },
+    {
+      "id": "fairing_reusable_large",
+      "category": "fairing",
+      "name_key": "part.fairing_reusable_large.name",
+      "twin": "part.fairing_reusable_large.twin",
+      "strengths": [
+        "part.fairing_reusable_large.strength.1"
+      ],
+      "drawbacks": [
+        "part.fairing_reusable_large.drawback.1"
+      ],
+      "contracts": [
+        "C0",
+        "C1",
+        "C2",
+        "C5",
+        "C7",
+        "C8"
+      ],
+      "model": "models/fairing_reusable_large.glb",
+      "stats": {
+        "diameter_m": 5.4,
+        "mass_t": 2.6,
+        "reusable": true
+      },
+      "game": {
+        "cost_M": 14
+      },
+      "modifiers": [
+        {
+          "target": "cost_refund_fraction",
+          "op": "add",
+          "value": 0.6,
+          "scope": "this_part",
+          "condition": "recovered"
+        }
+      ],
+      "rules": [
+        {
+          "kind": "enables_minigame",
+          "minigame": "MG-10"
+        }
+      ],
+      "failure_modes": [
+        "fairing_stuck"
+      ],
+      "value_types": {
+        "stats": "game_value",
+        "game": "game_value",
+        "modifiers": "game_value"
+      }
+    }
+  ]
+}

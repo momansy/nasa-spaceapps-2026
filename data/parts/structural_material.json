@@ -1,0 +1,199 @@
+{
+  "$schema": "../schema/part.schema.json",
+  "category": "structural_material",
+  "name_key": "category.structural_material.name",
+  "design_section": "7.10",
+  "design_notes": [
+    "The section is \"Structural material (whole vehicle)\": both multipliers are modifiers with scope vehicle and the Integ. days column is game.integ_days (stainless steel is −5). The baseline row is stored as printed (1.00×, 1.0×, +0).",
+    "The cost multiplier has no stated base: tanks have no cost in 7.9 (open question 11 in data/README.md). It is stored on the vehicle cost until the design names the base.",
+    "Carbon composite: \"cryogenic leak risk with LH₂ unless tested\" names no test. static_fire is chosen because section 6.6 says it \"reveals plumbing leaks\"; the rule is limited to LH2_LOX builds. Confirm the test with the design owner.",
+    "The failure model (8.4) gives \"light material\" as a cause of structural failure without saying which materials count as light, so no material lists structural_failure.",
+    "MG-03 Weld Inspector runs \"during structural material integration\", so every material enables it, including carbon composite, which the design does not exclude. Its fact is not in the fact bank.",
+    "Stainless steel \"+reuse life\" has no number: flag extended_reuse_life.",
+    "The facts in the Twin / fact column (Super Lightweight Tank 1998, X-33 1999, Atlas balloon tanks) have no ID in the fact bank of 12.4; they are kept in the twin text.",
+    "No contracts list: the design restricts no material. No model path: a material is a surface finish, not a model of its own."
+  ],
+  "parts": [
+    {
+      "id": "mat_aluminum_2219",
+      "category": "structural_material",
+      "name_key": "part.mat_aluminum_2219.name",
+      "twin": "part.mat_aluminum_2219.twin",
+      "strengths": [
+        "part.mat_aluminum_2219.strength.1",
+        "part.mat_aluminum_2219.strength.2",
+        "part.mat_aluminum_2219.strength.3"
+      ],
+      "drawbacks": [
+        "part.mat_aluminum_2219.drawback.1"
+      ],
+      "stats": {},
+      "game": {
+        "integ_days": 0
+      },
+      "modifiers": [
+        {
+          "target": "dry_mass_t",
+          "op": "mul",
+          "value": 1,
+          "scope": "vehicle"
+        },
+        {
+          "target": "cost_M",
+          "op": "mul",
+          "value": 1,
+          "scope": "vehicle"
+        }
+      ],
+      "rules": [
+        {
+          "kind": "enables_minigame",
+          "minigame": "MG-03"
+        }
+      ],
+      "value_types": {
+        "game": "game_value",
+        "modifiers": "game_value"
+      }
+    },
+    {
+      "id": "mat_aluminum_lithium_2195",
+      "category": "structural_material",
+      "name_key": "part.mat_aluminum_lithium_2195.name",
+      "twin": "part.mat_aluminum_lithium_2195.twin",
+      "strengths": [
+        "part.mat_aluminum_lithium_2195.strength.1",
+        "part.mat_aluminum_lithium_2195.strength.2"
+      ],
+      "drawbacks": [
+        "part.mat_aluminum_lithium_2195.drawback.1",
+        "part.mat_aluminum_lithium_2195.drawback.2"
+      ],
+      "stats": {},
+      "game": {
+        "integ_days": 4
+      },
+      "modifiers": [
+        {
+          "target": "dry_mass_t",
+          "op": "mul",
+          "value": 0.88,
+          "scope": "vehicle"
+        },
+        {
+          "target": "cost_M",
+          "op": "mul",
+          "value": 1.4,
+          "scope": "vehicle"
+        }
+      ],
+      "rules": [
+        {
+          "kind": "enables_minigame",
+          "minigame": "MG-03"
+        }
+      ],
+      "value_types": {
+        "game": "game_value",
+        "modifiers": "game_value"
+      }
+    },
+    {
+      "id": "mat_carbon_composite",
+      "category": "structural_material",
+      "name_key": "part.mat_carbon_composite.name",
+      "twin": "part.mat_carbon_composite.twin",
+      "strengths": [
+        "part.mat_carbon_composite.strength.1"
+      ],
+      "drawbacks": [
+        "part.mat_carbon_composite.drawback.1",
+        "part.mat_carbon_composite.drawback.2"
+      ],
+      "stats": {},
+      "game": {
+        "integ_days": 12
+      },
+      "modifiers": [
+        {
+          "target": "dry_mass_t",
+          "op": "mul",
+          "value": 0.75,
+          "scope": "vehicle"
+        },
+        {
+          "target": "cost_M",
+          "op": "mul",
+          "value": 2.2,
+          "scope": "vehicle"
+        }
+      ],
+      "rules": [
+        {
+          "kind": "enables_minigame",
+          "minigame": "MG-03"
+        },
+        {
+          "kind": "test_mitigates_failure_mode",
+          "failure_mode": "cryogenic_leak",
+          "test": "static_fire",
+          "with_propellant": "LH2_LOX"
+        }
+      ],
+      "failure_modes": [
+        "cryogenic_leak"
+      ],
+      "value_types": {
+        "game": "game_value",
+        "modifiers": "game_value"
+      }
+    },
+    {
+      "id": "mat_stainless_steel",
+      "category": "structural_material",
+      "name_key": "part.mat_stainless_steel.name",
+      "twin": "part.mat_stainless_steel.twin",
+      "strengths": [
+        "part.mat_stainless_steel.strength.1",
+        "part.mat_stainless_steel.strength.2",
+        "part.mat_stainless_steel.strength.3",
+        "part.mat_stainless_steel.strength.4"
+      ],
+      "drawbacks": [
+        "part.mat_stainless_steel.drawback.1"
+      ],
+      "stats": {},
+      "game": {
+        "integ_days": -5
+      },
+      "modifiers": [
+        {
+          "target": "dry_mass_t",
+          "op": "mul",
+          "value": 1.25,
+          "scope": "vehicle"
+        },
+        {
+          "target": "cost_M",
+          "op": "mul",
+          "value": 0.6,
+          "scope": "vehicle"
+        }
+      ],
+      "rules": [
+        {
+          "kind": "enables_minigame",
+          "minigame": "MG-03"
+        },
+        {
+          "kind": "flag",
+          "flag": "extended_reuse_life"
+        }
+      ],
+      "value_types": {
+        "game": "game_value",
+        "modifiers": "game_value"
+      }
+    }
+  ]
+}

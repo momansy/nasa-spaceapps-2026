@@ -1,0 +1,166 @@
+{
+  "$schema": "../schema/part.schema.json",
+  "category": "mars_lander",
+  "name_key": "category.mars_lander.name",
+  "design_section": "7.2.3",
+  "design_notes": [
+    "Section 7.2.3 is headed \"Mars lander (C7)\": every option lists C7 only.",
+    "Table 5.1 gives C7 a \"1 t lander in aeroshell\"; the landers here weigh 0.6 t, 0.8 t and 1.0 t and the design defines no aeroshell or heat-shield vote for C7.",
+    "Every landing method starts with a parachute, so every lander carries parachute_failure with the drop test of 6.6 as its mitigation (8.4: cause \"No drop test\"). This is inferred from the landing-method text; the table does not say it.",
+    "MG-26 Seven Minutes of Terror is the C7 entry, descent and landing minigame, so every lander enables it; F20 is its fact.",
+    "Qualitative cells are flags: bouncy_landing, engine_plume_dust, more_edl_steps, precise_landing, most_complex_edl_sequence. \"Precise\" has no landing-ellipse number.",
+    "The table has no cost, reliability or maturity. Mass is tagged game_value (table 5.1 labels the payload a game value)."
+  ],
+  "parts": [
+    {
+      "id": "lander_airbag",
+      "category": "mars_lander",
+      "name_key": "part.lander_airbag.name",
+      "twin": "part.lander_airbag.twin",
+      "strengths": [
+        "part.lander_airbag.strength.1",
+        "part.lander_airbag.strength.2"
+      ],
+      "drawbacks": [
+        "part.lander_airbag.drawback.1",
+        "part.lander_airbag.drawback.2"
+      ],
+      "facts": [
+        "F20"
+      ],
+      "contracts": [
+        "C7"
+      ],
+      "model": "models/lander_airbag.glb",
+      "stats": {
+        "landing_method_key": "part.lander_airbag.landing_method",
+        "mass_t": 0.6
+      },
+      "game": {},
+      "rules": [
+        {
+          "kind": "enables_minigame",
+          "minigame": "MG-26"
+        },
+        {
+          "kind": "test_mitigates_failure_mode",
+          "failure_mode": "parachute_failure",
+          "test": "drop_test"
+        },
+        {
+          "kind": "flag",
+          "flag": "bouncy_landing"
+        }
+      ],
+      "failure_modes": [
+        "parachute_failure"
+      ],
+      "value_types": {
+        "stats": "game_value"
+      }
+    },
+    {
+      "id": "lander_legged",
+      "category": "mars_lander",
+      "name_key": "part.lander_legged.name",
+      "twin": "part.lander_legged.twin",
+      "strengths": [
+        "part.lander_legged.strength.1"
+      ],
+      "drawbacks": [
+        "part.lander_legged.drawback.1",
+        "part.lander_legged.drawback.2"
+      ],
+      "facts": [
+        "F20"
+      ],
+      "contracts": [
+        "C7"
+      ],
+      "model": "models/lander_legged.glb",
+      "stats": {
+        "landing_method_key": "part.lander_legged.landing_method",
+        "mass_t": 0.8
+      },
+      "game": {},
+      "rules": [
+        {
+          "kind": "enables_minigame",
+          "minigame": "MG-26"
+        },
+        {
+          "kind": "test_mitigates_failure_mode",
+          "failure_mode": "parachute_failure",
+          "test": "drop_test"
+        },
+        {
+          "kind": "flag",
+          "flag": "precise_landing"
+        },
+        {
+          "kind": "flag",
+          "flag": "engine_plume_dust"
+        },
+        {
+          "kind": "flag",
+          "flag": "more_edl_steps"
+        }
+      ],
+      "failure_modes": [
+        "parachute_failure"
+      ],
+      "value_types": {
+        "stats": "game_value"
+      }
+    },
+    {
+      "id": "lander_sky_crane",
+      "category": "mars_lander",
+      "name_key": "part.lander_sky_crane.name",
+      "twin": "part.lander_sky_crane.twin",
+      "strengths": [
+        "part.lander_sky_crane.strength.1"
+      ],
+      "drawbacks": [
+        "part.lander_sky_crane.drawback.1"
+      ],
+      "facts": [
+        "F20"
+      ],
+      "contracts": [
+        "C7"
+      ],
+      "model": "models/lander_sky_crane.glb",
+      "stats": {
+        "landing_method_key": "part.lander_sky_crane.landing_method",
+        "mass_t": 1
+      },
+      "game": {},
+      "rules": [
+        {
+          "kind": "enables_minigame",
+          "minigame": "MG-26"
+        },
+        {
+          "kind": "test_mitigates_failure_mode",
+          "failure_mode": "parachute_failure",
+          "test": "drop_test"
+        },
+        {
+          "kind": "flag",
+          "flag": "precise_landing"
+        },
+        {
+          "kind": "flag",
+          "flag": "most_complex_edl_sequence"
+        }
+      ],
+      "failure_modes": [
+        "parachute_failure"
+      ],
+      "value_types": {
+        "stats": "game_value"
+      }
+    }
+  ]
+}
