@@ -143,8 +143,9 @@ try {
         Say 'SETUP COMPLETE — worker was not started because -NoStart was supplied.'
         return
     }
-    Say 'READY — starting persistent agent worker; keep this window open, Ctrl+C stops it.'
-    $params = @('mesh.py','worker','--agent',$AgentId,'--provider',$Provider,'--mode',$Mode,'--path',$LocalRepo)
+    Say 'READY — starting auto-reconnect supervisor; keep this window open, Ctrl+C stops it.'
+    Say 'If the internet goes down, the supervisor will retry reconnecting (5–60 second backoff).'
+    $params = @('mesh_supervisor.py','--repo',$Repo,'--agent',$AgentId,'--provider',$Provider,'--mode',$Mode,'--path',$LocalRepo)
     if ($Capabilities) { $params += @('--capabilities',$Capabilities) }
     Invoke-Python $Python $params
 } finally { Pop-Location }
