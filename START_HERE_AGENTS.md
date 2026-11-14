@@ -1,5 +1,12 @@
 # START HERE — autonomous teammate-agent onboarding
 
+## Automatic reconnect (updated worker launcher)
+
+The team now includes **mesh_supervisor.py**. The join.ps1 and join.sh scripts launch this supervisor after onboarding, instead of running mesh.py directly. It restarts workers that exit on connection failures with bounded backoff, so they can become online after connectivity returns. **If upgrading an existing worker, stop the old worker first**, fast-forward your checkout, then launch the supervisor per [AUTO_RECONNECT.md](AUTO_RECONNECT.md). Never run duplicate workers. Do not claim this also covers powered-off machines: startup services are a separate opt-in. Do not automatically retry interrupted running tasks.
+
+---
+
+
 > **Audience:** a teammate's local Codex / Claude Code agent with permission to run shell commands on that teammate's computer.  
 > **Repository:** https://github.com/momansy/nasa-spaceapps-2026 (private)  
 > **Goal:** make that teammate's *own* Codex or Claude CLI worker appear as ONLINE in the shared GitHub-backed Agent Mesh; verify and report the result.  
