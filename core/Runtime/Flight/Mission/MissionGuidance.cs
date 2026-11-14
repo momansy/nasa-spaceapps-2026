@@ -32,6 +32,14 @@ namespace MissionForge.Core.Flight.Mission
                 if (phase == "F4") copy.ThrottleFraction = 0.8; // game_value throttle bucket
                 copy.Stage = PropellantKg < 0.001;
                 copy.Deploy = phase == "F6" || phase == "F8";
+                if (setup.Contract.Id == "C0" && lifted)
+                {
+                    var ballisticApogeeM = AltitudeM + Math.Max(0, RadialMs) * Math.Max(0, RadialMs)
+                        / (2 * body.GravityMs2(state.RadiusM));
+                    if (ballisticApogeeM >= 105_000) // game_value margin above the 100 km contract gate
+                    { copy.ThrottleFraction = 0; copy.Cutoff = true; }
+                    copy.Stage = false; copy.Deploy = false;
+                }
             }
             if (phase == "F7" && (full || HasAid("auto_circularize_with_prompt")))
             {

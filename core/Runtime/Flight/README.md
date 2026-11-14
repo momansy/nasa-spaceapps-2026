@@ -122,3 +122,57 @@ Step 2 mission driver decisions (all thresholds below are game_value):
   blackout-end and investigation cues require separate triggers.
 - Flight outcome covers the measured flight objective only. Host/scoring must combine
   these metrics with power, docking, science and other host-owned contract objectives.
+
+### Mission steps 3–8: disclosed simplifications and thresholds
+
+Assist and guidance values are **game_value** controls, not launch-vehicle guidance
+certification. The gravity-turn controller targets vertical speed from altitude with an
+80 s altitude-error scale, a 20 s velocity-error scale, and clamps desired vertical
+speed to -50…500 m/s. Full-autopilot Max-Q throttle is 80%. Circularisation targets
+10,000 m below the requested orbit, limits target radial speed to ±200 m/s and
+tangential acceleration to ±20 m/s², with 12 s and 20 s feedback scales. These values
+exist to make a complete C1 mission stable and fast in the deterministic game loop.
+
+Reliability checkpoints use `R_true^(1/n)` and keyed draws. Engine units roll
+separately. A second keyed draw uses unit index +10,000 for a reroll shield; a negate
+shield simply accepts the checkpoint. Shields are consumed in queue order. The
+condition limits are **game_value**: structural q×max(1,g) 85,000 Pa, entry heat
+capacity 600,000,000 J/m², and range-corridor half-width 100,000 m, each with the
+applicable host modifier. Heat-shield speed remains the build catalog rating. Ignition,
+liftoff and Max-Q fatal failures automatically select an available pad/ascent escape
+abort when an escape system is fitted. Guidance drift, pogo, parachute-test and range
+conditions remain host/build flags around these deterministic flight checkpoints; this
+package does not invent probabilities for conditions that the design does not supply.
+
+Time warp is **game_value**: maximum 1,000×, forced to 1× while powered or below
+70,000 m, and forced to 0.1× during a minigame. Bound vacuum coasts use deterministic
+Kepler propagation. Bullet time linearly interpolates one 1/120 s RK4 result. C5–C7
+transfer legs first check the Dashboard Δv budget (including the host Δv modifier), then
+use the host-set F8 duration as a cinematic coast: C5 records 35,786 km GTO apogee, C6
+records the lunar flyby, and C7 evaluates a representative 5,500 m/s Mars entry with
+the kernel's Mars atmosphere before its scripted landing. Interplanetary targeting,
+multi-body gravity and finite transfer burns are intentionally outside this package.
+
+Entry is a fixed -6° ballistic path from 120,000 m with 0.05 s samples, a **game_value**
+350 kg/m² ballistic coefficient and host/catalog entry speed; the mission uses a 1.5 m
+nose radius. Blackout events use a **game_value** 500,000 W/m² peak-heat threshold.
+The phase-driver cinematic durations are 10 s deorbit, 40 s entry, 10 s drogue, 20 s
+main-chute descent and 5 s recovery. Nominal capsule landing error is 1.5 km. Drogue
+and main deployment are phase gates rather than fabric/canopy dynamics. The standalone
+entry profile stops at ground, 100 m/s, or 2,000 s. C0 full autopilot cuts off when the
+constant-gravity ballistic apogee estimate reaches 105,000 m, requires a measured apogee
+of at least 100,000 m, then uses the same ballistic-entry and parachute phase machinery.
+
+Abort requirements are **game_value** gates: lower-orbit abort needs altitude ≥70,000 m
+and remaining propellant; turn-back needs more than 10% of the current stage's
+propellant; early return needs any deorbit propellant; RTLS requires non-expendable
+recovery. Abort phases and escape-system requirements come from `abort_modes.json`.
+
+Booster recovery is a second 1/120 s point-mass state. The mission reserves the greater
+of 2,000 kg or 25% of the separated interval's final mass. Initial horizontal errors are
+50,000 m for RTLS and 5,000 m for a drone ship. **Game_value** horizontal correction is
+600 m/s in boostback and 100 m/s after the error falls below 1,000 m. Tail-first drag
+uses a representative 500 kg/m² ballistic coefficient. The suicide-burn target is 55%
+of the ideal stopping curve with a 2 m height margin and 0.5 s feedback scale. Landing
+succeeds only at ≤2 m/s and ≤100 m error. Splashdown uses zero horizontal target error;
+waves, winds, lift, rotation and landing-leg dynamics are omitted.

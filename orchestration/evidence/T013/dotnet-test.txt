@@ -1,0 +1,44 @@
+T013 test evidence — 2026-11-14 Asia/Kuwait
+
+SDK
+  .agentmesh/t007-sdk/sdk/dotnet.exe (.NET 8.0.34 test runtime)
+
+Mission package command
+  dotnet test core/dotnet~/MissionForge.Core.sln --no-restore --filter FullyQualifiedName~Flight.Mission
+
+Mission package result
+  Passed! - Failed: 0, Passed: 27, Skipped: 0, Total: 27, Duration: 14 s
+
+Determinism command
+  dotnet test core/dotnet~/MissionForge.Core.sln --no-restore --filter FullyQualifiedName~DeterminismTests --logger "console;verbosity=detailed"
+
+Determinism result
+  Passed MissionForge.Core.Tests.Flight.Mission.DeterminismTests.Complete_C1_flight_has_a_repeatable_snapshot_and_event_hash
+  C1 snapshot/event SHA-256: C55B910B89825D78343AD4EC0093E45FD093553223516D6FF891D8F8A9BB154F
+  Test Run Successful. Total tests: 1, Passed: 1.
+
+Repository-wide command
+  dotnet test core/dotnet~/MissionForge.Core.sln --no-restore --logger "console;verbosity=normal"
+
+Repository-wide result
+  Test Run Failed. Total tests: 325, Passed: 322, Failed: 3, Total time: 16.4045 s.
+
+  The three failures are outside T013's owned Flight/Mission paths and reproduce the
+  existing Build/Data baseline mismatches. T013 does not modify those source or test files:
+
+  1. MissionForge.Core.Tests.Build.PartRuleValidationTests.Rtls_without_grid_fins_is_a_blocker
+     Expected: "brec_propulsive_rtls needs aero_grid_fins"...
+     Actual:   "Propulsive landing on land (RTLS) needs +"...
+     at core/dotnet~/Tests/Build/PartRuleValidationTests.cs:25
+
+  2. MissionForge.Core.Tests.Data.CatalogLoaderTests.Modifiers_become_the_derived_stats_of_the_build_rules
+     Assert.True() Failure; Expected: True; Actual: False
+     at core/dotnet~/Tests/Data/CatalogLoaderTests.cs:112
+
+  3. MissionForge.Core.Tests.Data.CatalogLoaderTests.Real_data_loads_leniently_and_converts_units_to_SI
+     Assert.NotEmpty() Failure: Collection was empty
+     at core/dotnet~/Tests/Data/CatalogLoaderTests.cs:44
+
+T013-owned result: all 27 tests pass. Full-suite acceptance remains blocked only by
+the three pre-existing Build/Data failures above; they were not changed because the
+task explicitly forbids edits to Build and Data.

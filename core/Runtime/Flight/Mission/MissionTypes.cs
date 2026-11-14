@@ -48,6 +48,7 @@ namespace MissionForge.Core.Flight.Mission
         public FlightPhaseCatalog Phases { get; set; } = null!;
         public string AssistLevelId { get; set; } = "engineer";
         public AssistLevelCatalog? Assists { get; set; }
+        public AbortModeCatalog? Aborts { get; set; }
         /// <summary>Game_value test/demo controller; distinct from the player-facing assist levels.</summary>
         public bool FullAutopilot { get; set; }
         public FlightModifiers Modifiers { get; set; } = new FlightModifiers();

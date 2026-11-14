@@ -39,15 +39,20 @@ namespace MissionForge.Core.Flight.Mission
             channels["FIDO"] = Channel(("apoapsis_km", apo ?? 0), ("periapsis_km", peri ?? 0),
                 ("inclination_deg", InclinationDeg), ("window_remaining_s", Math.Max(0, setup.OrbitalOperationsDurationS - (elapsedS - phaseStartS))),
                 ("dv_remaining_ms", total));
+            var heatLoadPct = entryProfile == null ? 0 : 100 * entryProfile.HeatLoadJm2
+                / (MissionFailureModel.EntryHeatCapacityJm2 * (1 + setup.Modifiers.HeatMarginFraction));
             channels["RETRO"] = Channel(("entry_angle_deg", EntryPhysics.FlightPathAngleRad(state) * 180 / Math.PI),
-                ("heat_load_pct", 0), ("landing_ellipse_km", 0), ("descent_rate_ms", Math.Max(0, -RadialMs)), ("chutes_deployed", 0));
+                ("heat_load_pct", heatLoadPct), ("landing_ellipse_km", metrics.TryGetValue("capsule_landing_error_km", out var errorKm) ? errorKm : 0),
+                ("descent_rate_ms", Math.Max(0, -RadialMs)), ("chutes_deployed", phase == "F12" || phase == "F13" ? 1 : 0));
             return new HudSnapshot
             {
                 TickCount = tick, Phase = phase, MetS = MetS, AltitudeKm = AltitudeM / 1000,
                 VelocityMs = AltitudeM < 70000 ? AirSpeedMs : state.SpeedMs, VerticalSpeedMs = RadialMs,
                 QKpa = qKpa, GLoad = gLoad, ThrottlePct = throttleFraction * 100, PropellantPct = propPct,
+                WarpFactor = warpFactor,
                 DvRemainingMs = total, ApoapsisKm = apo, PeriapsisKm = peri, InclinationDeg = InclinationDeg,
                 TargetPitchDeg = setup.FullAutopilot || HasAid("guidance_cue_on_hud") ? GuidancePitchRad() * 180 / Math.PI : (double?)null,
+                HeatLoadPct = heatLoadPct,
                 StageDeltaVMs = new ReadOnlyDictionary<string, double>(deltaV),
                 Channels = new ReadOnlyDictionary<string, IReadOnlyDictionary<string, double>>(channels)
             };
