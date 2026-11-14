@@ -62,6 +62,9 @@ namespace MissionForge.Core.Build
         /// <summary>Flag prefix set when a test clears a risk, e.g. <c>risk_cleared:pogo</c>.</summary>
         public const string RiskClearedPrefix = "risk_cleared:";
 
+        /// <summary>Flag prefix set when the team answers Test Failure with "fly as-is", e.g. <c>flaw_accepted:first_stage_engine</c>.</summary>
+        public const string FlawAcceptedPrefix = "flaw_accepted:";
+
         /// <summary>Reveal-chance bonus per minigame tier (Bronze 1 … Platinum 4), fraction. game_value (decision).</summary>
         public const double MinigameRevealBonusPerTier = 0.05;
 
@@ -139,7 +142,7 @@ namespace MissionForge.Core.Build
             }
             var part = v.Part(cat);
             if (part == null) return null;
-            if (t.AppliesTo.Count == 1 && t.AppliesTo[0] == "any" && part.Reliability == null) return null;
+            if (t.AppliesTo.Count == 1 && (t.AppliesTo[0] == "any" || t.AppliesTo[0] == "any_part") && part.Reliability == null) return null; // data says any_part, older fixtures any
             if (v.Build.Condition(cat).HasTest(t.Id)) return null;
             return new TestOffer(t, cat, part.Id, Cost(v, t, part, cat), t.Days);
         }
@@ -241,12 +244,15 @@ namespace MissionForge.Core.Build
         /// <summary>True when a risk was cleared by a test (e.g. <c>pogo</c>, <c>software_fault</c>).</summary>
         public static bool RiskCleared(BuildState build, string risk) => build.HasFlag(RiskClearedPrefix + risk);
 
-        /// <summary>Categories with a revealed flaw that is not fixed.</summary>
+        /// <summary>True when the team accepted the revealed flaw of this category (Test Failure → fly as-is). The flaw still lowers the true reliability.</summary>
+        public static bool IsFlawAccepted(BuildState build, string category) => build.HasFlag(FlawAcceptedPrefix + category);
+
+        /// <summary>Categories with a revealed flaw that is neither fixed nor accepted (fly as-is).</summary>
         public static IReadOnlyList<string> OpenFlaws(BuildState build)
         {
             var list = new List<string>();
             foreach (var kv in build.Conditions)
-                if (kv.Value.FlawRevealed && !kv.Value.FlawFixed && build.Has(kv.Key)) list.Add(kv.Key);
+                if (kv.Value.FlawRevealed && !kv.Value.FlawFixed && build.Has(kv.Key) && !IsFlawAccepted(build, kv.Key)) list.Add(kv.Key);
             list.Sort(StringComparer.Ordinal);
             return list;
         }

@@ -434,9 +434,11 @@ namespace MissionForge.Core.Data
                 requiredUpperStageStarts: restartsMin.HasValue ? (int)restartsMin.Value + 1 : 1,
                 longCoast: Bool(req, "long_coast"),
                 science: Bool(req, "science_scoring"),
+                payloadDiameterM: Num(payload, "diameter_m"),
                 launchWindowIntervalDays: windowMonths.HasValue ? windowMonths.Value * DaysPerMonth : 30,
                 boosterLandingRequired: Bool(req, "booster_landing_required"),
-                destination: dest != null ? Str(dest, "type") : null);
+                destination: dest != null ? Str(dest, "type") : null,
+                heatShieldRequired: req["heat_shield_required"] is JToken hs && hs.Type == JTokenType.Boolean ? hs.Value<bool>() : (bool?)null);
         }
 
         // ------------------------------------------------------------------ tests

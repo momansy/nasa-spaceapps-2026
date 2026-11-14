@@ -102,6 +102,9 @@ namespace MissionForge.Core.Build
     /// <summary>Anomaly cards (design 6.8): when to draw, weighted seeded draw, and the effect of each response.</summary>
     public static class AnomalyDeck
     {
+        /// <summary>Response ID of Test Failure that accepts the flaw (data <c>test_failure</c> → <c>fly_as_is</c>).</summary>
+        public const string FlyAsIsResponse = "fly_as_is";
+
         /// <summary>
         /// Chance that a card is drawn after a vote, given votes since the last card: 0 before
         /// <see cref="BuildConstants.AnomalyMinVotesBetween"/>, then rising linearly to 1 at
@@ -267,7 +270,12 @@ namespace MissionForge.Core.Build
             var card = catalog.Anomaly(cardId);
             var response = card.Response(responseId) ?? throw new CatalogException($"Anomaly '{cardId}' has no response '{responseId}'.");
             var target = targetCategory ?? TargetOf(card, new Vehicle(build, catalog));
-            return Apply(build, catalog, response.Effect, card.Id + "/" + response.Id, target);
+            var next = Apply(build, catalog, response.Effect, card.Id + "/" + response.Id, target);
+            // Test Failure answered "fly as-is": the flaw is accepted, so it no longer counts as an open flaw
+            // (OpenFlaws, the flaw_revealed trigger, design reviews). The true reliability keeps its penalty.
+            if (responseId == FlyAsIsResponse && card.Target == "flawed_part" && target != null && build.Condition(target).FlawRevealed)
+                next = next.WithFlag(TestCampaign.FlawAcceptedPrefix + target);
+            return next;
         }
 
         /// <summary>Applies a generic effect to a build (shared by anomaly draws and responses).</summary>

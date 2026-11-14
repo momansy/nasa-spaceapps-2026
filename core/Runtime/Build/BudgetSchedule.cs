@@ -185,6 +185,12 @@ namespace MissionForge.Core.Build
                 parts += c;
                 lines.Add(new CostLine(p.Id, kv.Key, c));
             }
+            var siteForFee = v.Part(Slots.LaunchSite);
+            if (siteForFee != null && siteForFee.HasTag("stages_fall_on_land"))
+            {
+                parts += BuildConstants.RangeFeeM;
+                lines.Add(new CostLine("range_fee:" + siteForFee.Id, Slots.LaunchSite, BuildConstants.RangeFeeM));
+            }
             double ledgerCost = 0, budgetDelta = 0;
             foreach (var e in build.Ledger)
             {
