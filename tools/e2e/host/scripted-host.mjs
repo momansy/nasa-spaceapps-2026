@@ -1,7 +1,25 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import WebSocket from 'ws';
 import { e2eDir, schemaDir } from '../lib/paths.mjs';
+
+// Minigames the phone build actually ships: one chunk per module in client/dist/assets (MG-08-<hash>.js).
+// Read from the build so the harness never claims more (or less) than the client contains.
+let bundledCache = null;
+function bundledMinigames() {
+  if (bundledCache) return bundledCache;
+  const dir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..', '..', 'client', 'dist', 'assets');
+  const ids = new Set();
+  try {
+    for (const f of fs.readdirSync(dir)) {
+      const m = /^(MG-[0-9]+[a-z]?)-[A-Za-z0-9_-]+\.js$/.exec(f);
+      if (m) ids.add(m[1]);
+    }
+  } catch { /* no build: nothing is bundled */ }
+  bundledCache = ids;
+  return ids;
+}
 
 const fixture = JSON.parse(fs.readFileSync(path.join(e2eDir, 'fixtures', 'c1', 'script.json'), 'utf8'));
 const ROLES = ['FLIGHT', 'BOOSTER', 'STRUCT', 'GUIDO', 'FIDO', 'EECOM', 'INCO', 'PAYLOAD', 'RETRO', 'PM'];
@@ -154,7 +172,7 @@ export class ScriptedHost {
 
   async minigame(id, flightPhase, hook = null) {
     const runId = `m1.${id.replace('-', '').toLowerCase()}.${this.segments.length}`;
-    const implemented = id === 'MG-08';
+    const implemented = bundledMinigames().has(id);
     this.send('mg.start', {
       runId, minigameId: id, type: 'PARALLEL_SOLO', seed: (this.seed + this.segments.length) >>> 0,
       startAtMs: Date.now() + 3100, durationMs: implemented ? 5000 : 5000, assistLevel: 'CADET',

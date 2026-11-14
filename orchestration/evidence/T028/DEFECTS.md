@@ -30,6 +30,13 @@ module is bundled, so they cannot produce phone results.
 timestamps around each `mg.start`. **Harness workaround:** the stub records the sit-out, sends an
 honest zero-active `mg.summary`, and proceeds; results mark each segment fail.
 
+**Update (resolved in the product):** T019, T020, T021 and the polish pass were merged after these runs (PRs #111, #120 and the launch/orbit
+minigame PR #101), and the built phone client now ships every C1 minigame (MG-01 to MG-21, MG-29, MG-30 chunks in `client/dist/assets`). The harness
+had hardcoded `MG-08` as the only playable minigame; `tools/e2e/host/scripted-host.mjs` now reads the bundled minigames from the client build. Rerun
+`2026-11-14T22-34-35-508Z-stub-p3-s2801` (3 phones, seed 2801): MG-07, MG-08, MG-09, MG-10a, MG-13, MG-15 and MG-21 all mounted and were played with generic touch input, 0 harness
+failures. As before, the stub host writes the `mg.summary` (fixture values), so this shows the phone loads and plays each minigame, not that a
+generic tap wins it.
+
 ## D-003 — Minor — server — Vote-to-next-tally p95 narrowly misses the local target
 
 **Repro:** `cd tools/e2e && npm run e2e -- --players 3,6,10 --seed 2801`; inspect each canonical
