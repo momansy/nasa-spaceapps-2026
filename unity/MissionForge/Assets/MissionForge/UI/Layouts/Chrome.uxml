@@ -5,10 +5,10 @@
             <ui:Label name="screen-title" text="" class="mf-topbar__title" />
             <ui:VisualElement name="stepper" class="mf-stepper" picking-mode="Ignore" />
             <ui:VisualElement name="room" class="mf-roomcode">
-                <ui:Label text="ROOM" class="mf-roomcode__label" />
+                <ui:Label text="Room" class="mf-roomcode__label" />
                 <ui:Label name="room-code" text="----" class="mf-roomcode__value" />
             </ui:VisualElement>
-            <ui:VisualElement name="conn-chip" class="mf-chip mf-chip--muted" style="align-self: center;">
+            <ui:VisualElement name="conn-chip" class="mf-chip mf-chip--muted mf-topbar__conn">
                 <mf:MfIcon name="conn-icon" kind="signal" />
                 <ui:Label name="conn-label" text="OFFLINE" class="mf-chip__label" />
             </ui:VisualElement>

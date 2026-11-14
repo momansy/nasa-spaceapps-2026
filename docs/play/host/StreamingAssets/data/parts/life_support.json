@@ -1,0 +1,74 @@
+{
+  "$schema": "../schema/part.schema.json",
+  "category": "life_support",
+  "name_key": "category.life_support.name",
+  "design_section": "7.2.2",
+  "design_notes": [
+    "The design gives life support one sentence, not a table: no mass, cost, reliability or twin for either option.",
+    "\"Life support (crewed)\": the options list C4 (stated as crewed in 5.1) and C6. Table 5.1 does not say whether C6 Lunar Loop is crewed (it cites Apollo 8, crewed, and Artemis I, uncrewed); C6 is included so the options exist if the contract turns out crewed.",
+    "\"Heavy for long trips\" / \"lighter on long missions\" has no number: flag mass_grows_with_mission_duration on the open-loop option. \"More failure modes\" names none of the failure modes of 8.4: flag more_failure_modes.",
+    "F15 is the fact of MG-19, which the regenerative option enables.",
+    "No model path: the option is not a visible piece of the rocket."
+  ],
+  "parts": [
+    {
+      "id": "ls_open_loop",
+      "category": "life_support",
+      "name_key": "part.ls_open_loop.name",
+      "strengths": [
+        "part.ls_open_loop.strength.1"
+      ],
+      "drawbacks": [
+        "part.ls_open_loop.drawback.1"
+      ],
+      "contracts": [
+        "C4",
+        "C6"
+      ],
+      "stats": {
+        "loop_type": "open_loop"
+      },
+      "game": {},
+      "rules": [
+        {
+          "kind": "flag",
+          "flag": "mass_grows_with_mission_duration"
+        }
+      ],
+      "value_types": {}
+    },
+    {
+      "id": "ls_regenerative",
+      "category": "life_support",
+      "name_key": "part.ls_regenerative.name",
+      "strengths": [
+        "part.ls_regenerative.strength.1"
+      ],
+      "drawbacks": [
+        "part.ls_regenerative.drawback.1"
+      ],
+      "facts": [
+        "F15"
+      ],
+      "contracts": [
+        "C4",
+        "C6"
+      ],
+      "stats": {
+        "loop_type": "regenerative"
+      },
+      "game": {},
+      "rules": [
+        {
+          "kind": "enables_minigame",
+          "minigame": "MG-19"
+        },
+        {
+          "kind": "flag",
+          "flag": "more_failure_modes"
+        }
+      ],
+      "value_types": {}
+    }
+  ]
+}

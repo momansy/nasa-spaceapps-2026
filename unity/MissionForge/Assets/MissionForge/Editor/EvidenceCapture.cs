@@ -27,7 +27,7 @@ namespace MissionForge.Editor
         {
             string outputDir = Path.Combine(Application.dataPath, "..", "Logs", "captures");
             Directory.CreateDirectory(outputDir);
-            foreach (ScreenId id in new[] { ScreenId.Title, ScreenId.Lobby, ScreenId.Briefing, ScreenId.Flight })
+            foreach (ScreenId id in new[] { ScreenId.Title, ScreenId.Lobby, ScreenId.BuildBay, ScreenId.Briefing, ScreenId.Flight })
             {
                 Capture(ScreenCatalog.Get(id), Path.Combine(outputDir, "backdrop-" + id + ".png"));
             }
@@ -38,7 +38,7 @@ namespace MissionForge.Editor
             EditorSceneManager.OpenScene(ScenesDir + ScreenCatalog.ShellSceneName + ".unity", OpenSceneMode.Single);
             Scene screen = EditorSceneManager.OpenScene(ScenesDir + info.SceneName + ".unity", OpenSceneMode.Additive);
 
-            Camera camera = Object.FindFirstObjectByType<Camera>();
+            Camera camera = Object.FindAnyObjectByType<Camera>();
             CinemachineCamera vantage = null;
             foreach (GameObject root in screen.GetRootGameObjects())
             {

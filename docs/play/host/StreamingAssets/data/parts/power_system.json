@@ -1,0 +1,187 @@
+{
+  "$schema": "../schema/part.schema.json",
+  "category": "power_system",
+  "name_key": "category.power_system.name",
+  "design_section": "7.16",
+  "design_notes": [
+    "Section title: \"Power system (upper stage / spacecraft / capsule)\". Section 7.2.1 says the satellite reuses this table for power storage.",
+    "The table has no number for cost, mass, power or reliability. \"Cheap\", \"low power\", \"high power\" and \"very expensive\" therefore cannot affect cost or the power balance yet; Core has nothing to compute from. Open design question.",
+    "The \"Fact\" column is stored in twin. Li-ion + body solar shows none. F11 (solar constant) and F14 (a third of a LEO orbit in shadow) match the deployable arrays, F33 the RTG.",
+    "RTG \"+60 days approvals\" is a modifier that adds 60 days to the schedule. The design does not say whether approvals run in parallel with procurement (a lead time) or after it; schedule_days is the neutral reading.",
+    "RTG \"deep space only\" is read as the contracts that leave Earth orbit, C6 and C7; the Best for column names only C7. The other options carry no contracts list: Best for is advice, not a restriction.",
+    "Deployable arrays: \"Deployment risk\" is the solar_array_stuck failure mode of 8.4, which MG-15 mitigates. The design gives no reliability to roll against.",
+    "\"Eclipse drain (~35 of every ~90 min in LEO)\" stays in the drawback text and a flag. The two durations are orbit facts, not part figures, and have no data field."
+  ],
+  "parts": [
+    {
+      "id": "pwr_primary_batteries",
+      "category": "power_system",
+      "name_key": "part.pwr_primary_batteries.name",
+      "twin": "part.pwr_primary_batteries.twin",
+      "strengths": [
+        "part.pwr_primary_batteries.strength.1",
+        "part.pwr_primary_batteries.strength.2"
+      ],
+      "drawbacks": [
+        "part.pwr_primary_batteries.drawback.1"
+      ],
+      "model": "models/pwr_primary_batteries.glb",
+      "stats": {
+        "best_for_key": "part.pwr_primary_batteries.best_for"
+      },
+      "game": {},
+      "rules": [
+        {
+          "kind": "flag",
+          "flag": "hours_of_life_only"
+        }
+      ],
+      "value_types": {}
+    },
+    {
+      "id": "pwr_liion_body_solar",
+      "category": "power_system",
+      "name_key": "part.pwr_liion_body_solar.name",
+      "strengths": [
+        "part.pwr_liion_body_solar.strength.1",
+        "part.pwr_liion_body_solar.strength.2"
+      ],
+      "drawbacks": [
+        "part.pwr_liion_body_solar.drawback.1"
+      ],
+      "model": "models/pwr_liion_body_solar.glb",
+      "stats": {
+        "best_for_key": "part.pwr_liion_body_solar.best_for"
+      },
+      "game": {},
+      "rules": [
+        {
+          "kind": "flag",
+          "flag": "low_power"
+        }
+      ],
+      "value_types": {}
+    },
+    {
+      "id": "pwr_deployable_solar_liion",
+      "category": "power_system",
+      "name_key": "part.pwr_deployable_solar_liion.name",
+      "twin": "part.pwr_deployable_solar_liion.twin",
+      "strengths": [
+        "part.pwr_deployable_solar_liion.strength.1"
+      ],
+      "drawbacks": [
+        "part.pwr_deployable_solar_liion.drawback.1",
+        "part.pwr_deployable_solar_liion.drawback.2"
+      ],
+      "facts": [
+        "F11",
+        "F14"
+      ],
+      "model": "models/pwr_deployable_solar_liion.glb",
+      "stats": {
+        "best_for_key": "part.pwr_deployable_solar_liion.best_for"
+      },
+      "game": {},
+      "rules": [
+        {
+          "kind": "enables_minigame",
+          "minigame": "MG-15"
+        },
+        {
+          "kind": "flag",
+          "flag": "high_power"
+        },
+        {
+          "kind": "flag",
+          "flag": "eclipse_drain"
+        }
+      ],
+      "failure_modes": [
+        "solar_array_stuck"
+      ],
+      "value_types": {}
+    },
+    {
+      "id": "pwr_fuel_cells",
+      "category": "power_system",
+      "name_key": "part.pwr_fuel_cells.name",
+      "twin": "part.pwr_fuel_cells.twin",
+      "strengths": [
+        "part.pwr_fuel_cells.strength.1",
+        "part.pwr_fuel_cells.strength.2"
+      ],
+      "drawbacks": [
+        "part.pwr_fuel_cells.drawback.1",
+        "part.pwr_fuel_cells.drawback.2"
+      ],
+      "model": "models/pwr_fuel_cells.glb",
+      "stats": {
+        "best_for_key": "part.pwr_fuel_cells.best_for"
+      },
+      "game": {},
+      "rules": [
+        {
+          "kind": "flag",
+          "flag": "high_power"
+        },
+        {
+          "kind": "flag",
+          "flag": "produces_drinking_water"
+        },
+        {
+          "kind": "flag",
+          "flag": "limited_duration"
+        },
+        {
+          "kind": "flag",
+          "flag": "cryogenic_reactants"
+        }
+      ],
+      "value_types": {}
+    },
+    {
+      "id": "pwr_rtg",
+      "category": "power_system",
+      "name_key": "part.pwr_rtg.name",
+      "twin": "part.pwr_rtg.twin",
+      "strengths": [
+        "part.pwr_rtg.strength.1"
+      ],
+      "drawbacks": [
+        "part.pwr_rtg.drawback.1",
+        "part.pwr_rtg.drawback.2",
+        "part.pwr_rtg.drawback.3"
+      ],
+      "facts": [
+        "F33"
+      ],
+      "contracts": [
+        "C6",
+        "C7"
+      ],
+      "model": "models/pwr_rtg.glb",
+      "stats": {
+        "best_for_key": "part.pwr_rtg.best_for"
+      },
+      "game": {},
+      "modifiers": [
+        {
+          "target": "schedule_days",
+          "op": "add",
+          "value": 60,
+          "scope": "mission"
+        }
+      ],
+      "rules": [
+        {
+          "kind": "flag",
+          "flag": "works_without_sunlight"
+        }
+      ],
+      "value_types": {
+        "modifiers": "game_value"
+      }
+    }
+  ]
+}

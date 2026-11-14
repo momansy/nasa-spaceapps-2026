@@ -1,0 +1,93 @@
+{
+  "$schema": "./schema/award.schema.json",
+  "design_notes": [
+    "Individual recognition of design section 11.5, in list order. \"Each player receives at least one award. No shaming or last place.\"",
+    "selection and metric are a machine-readable reading of the parentheticals; the design does not say how ties are broken or which award a player without a win receives. Metric names are proposals for Core."
+  ],
+  "rules": {
+    "min_awards_per_player": 1,
+    "positive_only": true
+  },
+  "awards": [
+    {
+      "id": "best_callout",
+      "name_key": "award.best_callout.name",
+      "selection": "highest",
+      "metric": "good_calls",
+      "design_notes": [
+        "The design gives no parenthetical; \"best\" is read as the most Good Calls (9.5)."
+      ]
+    },
+    {
+      "id": "budget_hawk",
+      "name_key": "award.budget_hawk.name",
+      "description_key": "award.budget_hawk.description",
+      "selection": "highest",
+      "metric": "budget_saved_M",
+      "role": "PM",
+      "design_notes": [
+        "\"PM, most saved\": the award goes to the PM role-holder; the design does not say what \"most\" compares when a session has one PM."
+      ]
+    },
+    {
+      "id": "fact_finder",
+      "name_key": "award.fact_finder.name",
+      "description_key": "award.fact_finder.description",
+      "selection": "highest",
+      "metric": "predictions_correct"
+    },
+    {
+      "id": "steady_hands",
+      "name_key": "award.steady_hands.name",
+      "description_key": "award.steady_hands.description",
+      "selection": "highest",
+      "metric": "pilot_precision"
+    },
+    {
+      "id": "team_player",
+      "name_key": "award.team_player.name",
+      "description_key": "award.team_player.description",
+      "selection": "highest",
+      "metric": "minigame_successes"
+    },
+    {
+      "id": "veto_visionary",
+      "name_key": "award.veto_visionary.name",
+      "description_key": "award.veto_visionary.description",
+      "selection": "condition",
+      "metric": "vetoed_option_would_have_failed",
+      "design_notes": [
+        "An achievement of 13.5 has the same name (data/achievements.json); the two are separate kinds with separate IDs."
+      ]
+    },
+    {
+      "id": "rocket_scientist",
+      "name_key": "award.rocket_scientist.name",
+      "description_key": "award.rocket_scientist.description",
+      "selection": "highest",
+      "metric": "minigame_score",
+      "minigames": [
+        "MG-02"
+      ],
+      "design_notes": [
+        "\"Rocket equation result\" is read as the score in MG-02 Rocket Equation Balance."
+      ]
+    },
+    {
+      "id": "calm_under_pressure",
+      "name_key": "award.calm_under_pressure.name",
+      "description_key": "award.calm_under_pressure.description",
+      "selection": "condition",
+      "metric": "gold_during_blackout_or_abort",
+      "minigames": [
+        "MG-25"
+      ],
+      "design_notes": [
+        "\"Blackout\" is read as MG-25 Reacquire Signal (end of the F11 blackout). The design names no minigame that runs during an abort."
+      ]
+    }
+  ],
+  "value_types": {
+    "rules": "game_value"
+  }
+}

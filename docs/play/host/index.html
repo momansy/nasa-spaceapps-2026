@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MissionForge | Host screen</title>
+    <style>
+      html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #071522; color: #E8EEF0; font-family: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif; }
+      #unity-canvas { position: fixed; inset: 0; width: 100%; height: 100%; display: block; background: #071522; outline: none; }
+      #mf-loading { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 28px; background: #071522; transition: opacity 0.6s ease; }
+      #mf-loading.done { opacity: 0; pointer-events: none; }
+      #mf-wordmark { font-size: clamp(28px, 4vw, 56px); letter-spacing: 0.3em; font-weight: 300; }
+      #mf-wordmark b { color: #FFCE83; font-weight: 800; }
+      #mf-bar { width: min(420px, 60vw); height: 4px; background: rgba(85, 197, 205, 0.20); overflow: hidden; }
+      #mf-bar-fill { width: 100%; height: 100%; background: #FFCE83; transform: scaleX(0); transform-origin: left center; transition: transform 0.2s ease-out; }
+      #mf-status { font-size: 14px; letter-spacing: 0.2em; color: #B6C7D3; min-height: 1.4em; text-align: center; padding: 0 24px; }
+      #mf-perf { position: fixed; right: 12px; bottom: 12px; padding: 8px 12px; font: 13px ui-monospace, Menlo, monospace; background: rgba(17, 43, 64, 0.92); border: 1px solid rgba(232, 238, 240, 0.25); display: none; white-space: pre; }
+      @media (prefers-reduced-motion: reduce) { #mf-loading, #mf-bar-fill { transition: none; } }
+    </style>
+  </head>
+  <body>
+    <canvas id="unity-canvas" tabindex="-1" aria-label="MissionForge host screen"></canvas>
+    <div id="mf-loading" role="status" aria-live="polite">
+      <div id="mf-wordmark">MISSION<b>FORGE</b></div>
+      <div id="mf-bar"><div id="mf-bar-fill"></div></div>
+      <div id="mf-status">LOADING MISSION CONTROL</div>
+    </div>
+    <div id="mf-perf"></div>
+    <script src="Build/host.loader.js"></script>
+    <script>
+      (function () {
+        var params = new URLSearchParams(window.location.search);
+        var canvas = document.querySelector("#unity-canvas");
+        var loading = document.querySelector("#mf-loading");
+        var fill = document.querySelector("#mf-bar-fill");
+        var status = document.querySelector("#mf-status");
+
+        // Render at no more than 1080 lines unless ?dpr= overrides it: the host targets 60 fps at
+        // 1080p on a mid-range laptop, and HiDPI displays would otherwise render 4x the pixels.
+        var TARGET_LINES = 1080;
+        var dpr = Math.min(window.devicePixelRatio || 1, Math.max(1, TARGET_LINES / Math.max(window.innerHeight, 1)));
+        if (params.has("dpr")) {
+          var requested = parseFloat(params.get("dpr"));
+          if (requested > 0 && requested <= 4) dpr = requested;
+        }
+
+        createUnityInstance(canvas, {
+          arguments: [],
+          dataUrl: "Build/host.data.unityweb",
+          frameworkUrl: "Build/host.framework.js.unityweb",
+          codeUrl: "Build/host.wasm.unityweb",
+          streamingAssetsUrl: "StreamingAssets",
+          companyName: "MissionForge Team",
+          productName: "MissionForge",
+          productVersion: "0.1.0",
+          devicePixelRatio: dpr
+        }, function (progress) {
+          fill.style.transform = "scaleX(" + progress + ")";
+        }).then(function (instance) {
+          window.mfUnity = instance;
+          loading.classList.add("done");
+          canvas.focus();
+        }).catch(function (message) {
+          status.textContent = "COULD NOT START: " + message;
+          status.style.color = "#FF8F8F";
+        });
+
+        // ?perf=1 shows a frame-rate probe (requestAnimationFrame cadence, which is what the Unity
+        // player loop runs on). window.mfPerf holds the last 10 s window for automated checks.
+        if (params.get("perf") === "1") {
+          var box = document.querySelector("#mf-perf");
+          box.style.display = "block";
+          var frames = [];
+          var last = performance.now();
+          var windowStart = last;
+          function tick(now) {
+            frames.push(now - last);
+            last = now;
+            if (now - windowStart >= 10000) {
+              var sorted = frames.slice().sort(function (a, b) { return a - b; });
+              var total = frames.reduce(function (a, b) { return a + b; }, 0);
+              var avgFps = 1000 * frames.length / total;
+              var p99 = sorted[Math.min(sorted.length - 1, Math.floor(sorted.length * 0.99))];
+              window.mfPerf = { avgFps: avgFps, onePercentLowFps: 1000 / p99, frames: frames.length, seconds: total / 1000,
+                canvasWidth: canvas.width, canvasHeight: canvas.height, devicePixelRatio: dpr };
+              box.textContent = "avg " + avgFps.toFixed(1) + " fps\n1% low " + (1000 / p99).toFixed(1) + " fps\n" + canvas.width + "x" + canvas.height;
+              frames = [];
+              windowStart = now;
+            }
+            requestAnimationFrame(tick);
+          }
+          requestAnimationFrame(tick);
+        }
+      })();
+    </script>
+  </body>
+</html>

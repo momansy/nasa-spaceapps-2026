@@ -1,0 +1,200 @@
+{
+  "$schema": "../schema/part.schema.json",
+  "category": "strap_on_booster",
+  "name_key": "category.strap_on_booster.name",
+  "design_section": "7.11",
+  "design_notes": [
+    "Cost is printed per booster (\"$6 M each\"): stats.cost_each_M holds that figure and game.cost_M the total for the option (2 × 6 = 12, 4 × 6 = 24, 2 × 40 = 80). None is \"$0\".",
+    "Burn \"~90 s\", thrust \"~12,500\" and mass \"~590 t\" are stored without the tilde. Thrust, burn time and mass are tagged real_world_approximate (7.0: thrust is rounded from the hardware class named in Twin); costs are game values.",
+    "Liquid side boosters: \"= first stage\" in the three stat columns is mirrors_first_stage true, \"2× first-stage cost\" is cost_first_stage_mult 2 with no cost_M. \"Complex integration (+15 days)\" is game.integ_days 15 and \"reliability −1%\" is reliability add −0.01 on the vehicle (percentage points).",
+    "Flags for cells without a number: increased_vibration (\"rough ride (vibration +)\"), staging_minigame_harder (\"more separation events\"), side_boosters_recoverable (\"recoverable (dual landing!)\"), cannot_throttle and cannot_shut_down.",
+    "The 4 × small solid row lists only \"more separation events\" as its drawback. It is the same motor as the 2 × option, so it carries the cannot_throttle and cannot_shut_down flags too, while its drawback texts stay as printed. The heavy solid row says only \"can't shut down once lit\".",
+    "The table has no lead time, integration days (except the liquid boosters) or reliability.",
+    "No contracts list: \"massive thrust for lunar/Mars contracts\" is a strength, not a restriction. The None option has no twin and no model."
+  ],
+  "parts": [
+    {
+      "id": "strap_none",
+      "category": "strap_on_booster",
+      "name_key": "part.strap_none.name",
+      "strengths": [
+        "part.strap_none.strength.1"
+      ],
+      "drawbacks": [
+        "part.strap_none.drawback.1"
+      ],
+      "stats": {
+        "booster_count": 0
+      },
+      "game": {
+        "cost_M": 0
+      },
+      "value_types": {
+        "stats": "game_value",
+        "game": "game_value"
+      }
+    },
+    {
+      "id": "strap_2_small_solid",
+      "category": "strap_on_booster",
+      "name_key": "part.strap_2_small_solid.name",
+      "twin": "part.strap_2_small_solid.twin",
+      "strengths": [
+        "part.strap_2_small_solid.strength.1"
+      ],
+      "drawbacks": [
+        "part.strap_2_small_solid.drawback.1",
+        "part.strap_2_small_solid.drawback.2"
+      ],
+      "model": "models/strap_2_small_solid.glb",
+      "stats": {
+        "booster_count": 2,
+        "thrust_sl_each_kN": 1600,
+        "burn_time_s": 90,
+        "mass_each_t": 49,
+        "cost_each_M": 6
+      },
+      "game": {
+        "cost_M": 12
+      },
+      "rules": [
+        {
+          "kind": "flag",
+          "flag": "cannot_throttle"
+        },
+        {
+          "kind": "flag",
+          "flag": "cannot_shut_down"
+        },
+        {
+          "kind": "flag",
+          "flag": "increased_vibration"
+        }
+      ],
+      "value_types": {
+        "stats": "real_world_approximate",
+        "stats.cost_each_M": "game_value",
+        "game": "game_value"
+      }
+    },
+    {
+      "id": "strap_4_small_solid",
+      "category": "strap_on_booster",
+      "name_key": "part.strap_4_small_solid.name",
+      "twin": "part.strap_4_small_solid.twin",
+      "strengths": [
+        "part.strap_4_small_solid.strength.1"
+      ],
+      "drawbacks": [
+        "part.strap_4_small_solid.drawback.1"
+      ],
+      "model": "models/strap_4_small_solid.glb",
+      "stats": {
+        "booster_count": 4,
+        "thrust_sl_each_kN": 1600,
+        "burn_time_s": 90,
+        "mass_each_t": 49,
+        "cost_each_M": 6
+      },
+      "game": {
+        "cost_M": 24
+      },
+      "rules": [
+        {
+          "kind": "flag",
+          "flag": "cannot_throttle"
+        },
+        {
+          "kind": "flag",
+          "flag": "cannot_shut_down"
+        },
+        {
+          "kind": "flag",
+          "flag": "staging_minigame_harder"
+        }
+      ],
+      "value_types": {
+        "stats": "real_world_approximate",
+        "stats.cost_each_M": "game_value",
+        "game": "game_value"
+      }
+    },
+    {
+      "id": "strap_2_heavy_solid",
+      "category": "strap_on_booster",
+      "name_key": "part.strap_2_heavy_solid.name",
+      "twin": "part.strap_2_heavy_solid.twin",
+      "strengths": [
+        "part.strap_2_heavy_solid.strength.1"
+      ],
+      "drawbacks": [
+        "part.strap_2_heavy_solid.drawback.1",
+        "part.strap_2_heavy_solid.drawback.2"
+      ],
+      "model": "models/strap_2_heavy_solid.glb",
+      "stats": {
+        "booster_count": 2,
+        "thrust_sl_each_kN": 12500,
+        "burn_time_s": 124,
+        "mass_each_t": 590,
+        "cost_each_M": 40
+      },
+      "game": {
+        "cost_M": 80
+      },
+      "rules": [
+        {
+          "kind": "flag",
+          "flag": "cannot_shut_down"
+        }
+      ],
+      "value_types": {
+        "stats": "real_world_approximate",
+        "stats.cost_each_M": "game_value",
+        "game": "game_value"
+      }
+    },
+    {
+      "id": "strap_2_liquid_side",
+      "category": "strap_on_booster",
+      "name_key": "part.strap_2_liquid_side.name",
+      "twin": "part.strap_2_liquid_side.twin",
+      "strengths": [
+        "part.strap_2_liquid_side.strength.1",
+        "part.strap_2_liquid_side.strength.2"
+      ],
+      "drawbacks": [
+        "part.strap_2_liquid_side.drawback.1",
+        "part.strap_2_liquid_side.drawback.2"
+      ],
+      "model": "models/strap_2_liquid_side.glb",
+      "stats": {
+        "booster_count": 2,
+        "mirrors_first_stage": true,
+        "cost_first_stage_mult": 2
+      },
+      "game": {
+        "integ_days": 15
+      },
+      "modifiers": [
+        {
+          "target": "reliability",
+          "op": "add",
+          "value": -0.01,
+          "scope": "vehicle"
+        }
+      ],
+      "rules": [
+        {
+          "kind": "flag",
+          "flag": "side_boosters_recoverable"
+        }
+      ],
+      "value_types": {
+        "stats": "game_value",
+        "game": "game_value",
+        "modifiers": "game_value"
+      }
+    }
+  ]
+}

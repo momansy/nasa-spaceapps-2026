@@ -1,0 +1,127 @@
+{
+  "$schema": "../schema/part.schema.json",
+  "category": "separation_system",
+  "name_key": "category.separation_system.name",
+  "design_section": "7.12",
+  "design_notes": [
+    "The table has a Fact column instead of a Twin column, and none of its three lines has an ID in the fact bank of 12.4. They are kept as the twin text of each option so they are not lost; they should move to facts.json once they have IDs.",
+    "Cost appears only as \"Costlier ($1.5 M)\" on the pneumatic pushers, stored as cost_M 1.5. The other two options have no cost (\"cheap\" is a text only).",
+    "Reliability is given without a maturity level, so no uncertainty band can be derived; \"proven\" (pyrotechnic bolts) and \"risky\" (hot staging) stay texts.",
+    "Hot staging: \"+1.5% Δv\" is delta_v_m_s add_fraction 0.015 on the vehicle; the design does not say which stage it applies to. Mass \"0.6 t (vented interstage)\" is mass_t 0.6. \"No ullage\" is the flag no_ullage_needed.",
+    "Pyrotechnic bolts: flags shock_loads and needs_ullage_settling (no numbers in the design).",
+    "stage_recontact (8.4, cause \"weak separation\", mitigation \"separation system choice\") is listed for every option.",
+    "No contracts list: the design restricts no separation system. Mass is tagged game_value: the design states no provenance for it."
+  ],
+  "parts": [
+    {
+      "id": "sep_pyro_bolts_springs",
+      "category": "separation_system",
+      "name_key": "part.sep_pyro_bolts_springs.name",
+      "twin": "part.sep_pyro_bolts_springs.twin",
+      "strengths": [
+        "part.sep_pyro_bolts_springs.strength.1",
+        "part.sep_pyro_bolts_springs.strength.2"
+      ],
+      "drawbacks": [
+        "part.sep_pyro_bolts_springs.drawback.1",
+        "part.sep_pyro_bolts_springs.drawback.2"
+      ],
+      "model": "models/sep_pyro_bolts_springs.glb",
+      "stats": {
+        "mass_t": 0.2
+      },
+      "game": {
+        "reliability": 0.995
+      },
+      "rules": [
+        {
+          "kind": "flag",
+          "flag": "shock_loads"
+        },
+        {
+          "kind": "flag",
+          "flag": "needs_ullage_settling"
+        }
+      ],
+      "failure_modes": [
+        "stage_recontact"
+      ],
+      "value_types": {
+        "stats": "game_value",
+        "game": "game_value"
+      }
+    },
+    {
+      "id": "sep_pneumatic_pushers",
+      "category": "separation_system",
+      "name_key": "part.sep_pneumatic_pushers.name",
+      "twin": "part.sep_pneumatic_pushers.twin",
+      "strengths": [
+        "part.sep_pneumatic_pushers.strength.1",
+        "part.sep_pneumatic_pushers.strength.2"
+      ],
+      "drawbacks": [
+        "part.sep_pneumatic_pushers.drawback.1"
+      ],
+      "model": "models/sep_pneumatic_pushers.glb",
+      "stats": {
+        "mass_t": 0.3
+      },
+      "game": {
+        "cost_M": 1.5,
+        "reliability": 0.993
+      },
+      "failure_modes": [
+        "stage_recontact"
+      ],
+      "value_types": {
+        "stats": "game_value",
+        "game": "game_value"
+      }
+    },
+    {
+      "id": "sep_hot_staging",
+      "category": "separation_system",
+      "name_key": "part.sep_hot_staging.name",
+      "twin": "part.sep_hot_staging.twin",
+      "strengths": [
+        "part.sep_hot_staging.strength.1",
+        "part.sep_hot_staging.strength.2",
+        "part.sep_hot_staging.strength.3"
+      ],
+      "drawbacks": [
+        "part.sep_hot_staging.drawback.1",
+        "part.sep_hot_staging.drawback.2"
+      ],
+      "model": "models/sep_hot_staging.glb",
+      "stats": {
+        "mass_t": 0.6
+      },
+      "game": {
+        "reliability": 0.985
+      },
+      "modifiers": [
+        {
+          "target": "delta_v_m_s",
+          "op": "add_fraction",
+          "value": 0.015,
+          "scope": "vehicle"
+        }
+      ],
+      "rules": [
+        {
+          "kind": "flag",
+          "flag": "no_ullage_needed"
+        }
+      ],
+      "failure_modes": [
+        "stage_recontact"
+      ],
+      "value_types": {
+        "stats": "game_value",
+        "game": "game_value",
+        "modifiers": "game_value"
+      }
+    }
+  ]
+}

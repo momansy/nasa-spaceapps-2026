@@ -11,9 +11,9 @@ namespace MissionForge.App.Screens
     public sealed class TitleScreen : ScreenController
     {
         private const string RoomPanelShownClass = "mf-roompanel--shown";
-        private const int RoomCodeLength = 4;
-        private static readonly Color32 QrDark = new Color32(8, 13, 24, 255);
-        private static readonly Color32 QrLight = new Color32(255, 255, 255, 255);
+        private const int RoomCodeLength = ProtocolNames.RoomCodeLength;
+        private static readonly Color32 QrDark = MfPalette.QrDark;
+        private static readonly Color32 QrLight = MfPalette.QrLight;
 
         private VisualElement _roomPanel;
         private VisualElement _qrImage;
@@ -53,8 +53,10 @@ namespace MissionForge.App.Screens
                 _client.StateChanged += OnConnectionChanged;
                 _client.RoomCreated += OnRoomCreated;
                 _client.RoomStateChanged += OnRoomState;
+                _client.ServerError += OnServerError;
+                _client.ByeReceived += OnBye;
                 OnConnectionChanged(_client.State);
-                if (!string.IsNullOrEmpty(_client.RoomCode)) ShowRoom(_client.RoomCode, null);
+                if (!string.IsNullOrEmpty(_client.RoomCode)) ShowRoom(_client.RoomCode, _client.JoinUrl);
                 if (_client.LastRoomState != null) OnRoomState(_client.LastRoomState);
             }
             else
@@ -70,6 +72,8 @@ namespace MissionForge.App.Screens
                 _client.StateChanged -= OnConnectionChanged;
                 _client.RoomCreated -= OnRoomCreated;
                 _client.RoomStateChanged -= OnRoomState;
+                _client.ServerError -= OnServerError;
+                _client.ByeReceived -= OnBye;
             }
             if (_qrTexture != null) Destroy(_qrTexture);
         }
@@ -79,14 +83,14 @@ namespace MissionForge.App.Screens
             if (_client == null) return;
             if (!string.IsNullOrEmpty(_client.RoomCode))
             {
-                ShowRoom(_client.RoomCode, null);
+                ShowRoom(_client.RoomCode, _client.JoinUrl);
                 return;
             }
             if (_roomRequested) return;
             _roomRequested = true;
             App.Room.ConnectIfNeeded();
-            _client.CreateRoom(); // Queued by the client and sent as soon as the socket is open.
-            _newMission.text = _client.State == ConnectionState.Connected ? "OPENING ROOM" : "WAITING FOR SERVER";
+            _client.CreateRoom(); // Queued by the client and sent as soon as hello.ok arrives.
+            _newMission.text = _client.State == ConnectionState.Connected ? "Opening room…" : "Waiting for server…";
             _newMission.SetEnabled(false);
         }
 
@@ -98,26 +102,44 @@ namespace MissionForge.App.Screens
             ConnectionVisual.Apply(_serverChip, _serverIcon, _serverLabel, state,
                 "ROOM SERVER: CONNECTED", "ROOM SERVER: CONNECTING", "ROOM SERVER: RECONNECTING", "ROOM SERVER: OFFLINE");
             _serverChip.tooltip = url;
+            if (state == ConnectionState.Disconnected) ResetNewMission();
+        }
+
+        /// <summary>A refused room.create (or a dropped connection) must not leave New Mission disabled.</summary>
+        private void OnServerError(ErrorDto error)
+        {
+            if (_roomRequested && string.IsNullOrEmpty(_client.RoomCode)) ResetNewMission();
+        }
+
+        /// <summary>The server closed the room for good: take its code and QR off the screen.</summary>
+        private void OnBye(ByeDto bye)
+        {
+            if (bye.CanResume) return;
+            _roomPanel.RemoveFromClassList(RoomPanelShownClass);
+            _roomRequested = true; // Let ResetNewMission restore the button.
+            ResetNewMission();
+        }
+
+        private void ResetNewMission()
+        {
+            if (!_roomRequested) return;
+            _roomRequested = false;
+            _newMission.text = "New mission";
+            _newMission.SetEnabled(true);
         }
 
         private void OnRoomCreated(RoomCreatedDto created)
         {
             _roomRequested = false;
-            ShowRoom(created.Code, created.JoinUrl);
+            ShowRoom(created.Room, created.JoinUrl);
         }
 
         private void OnRoomState(RoomStateDto state)
         {
-            int joined = 0;
-            if (state.Players != null)
-            {
-                foreach (PlayerDto player in state.Players)
-                {
-                    if (!player.Spectator) joined++;
-                }
-            }
+            // room.state lists players only; spectators are counted separately.
+            int joined = state.Players.Count;
             _joinedCount.text = joined.ToString();
-            _roomStatus.text = joined == 0 ? "WAITING FOR CREW" : "CREW ARRIVING";
+            _roomStatus.text = joined == 0 ? "Waiting for crew" : "Crew arriving";
         }
 
         private void ShowRoom(string code, string serverJoinUrl)
@@ -132,7 +154,7 @@ namespace MissionForge.App.Screens
             _qrTexture = QrCodeTexture.Create(joinUrl, QrDark, QrLight);
             _qrImage.style.backgroundImage = new StyleBackground(_qrTexture);
             _roomPanel.AddToClassList(RoomPanelShownClass);
-            _newMission.text = "ROOM OPEN";
+            _newMission.text = "Room open";
             _newMission.SetEnabled(false);
         }
     }

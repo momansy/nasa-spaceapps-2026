@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{{ PRODUCT_NAME }}} | Host screen</title>
     <style>
-      html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #04070e; color: #ecf2fc; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
-      #unity-canvas { position: fixed; inset: 0; width: 100%; height: 100%; display: block; background: #04070e; outline: none; }
-      #mf-loading { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 28px; background: #04070e; transition: opacity 0.6s ease; }
+      html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #071522; color: #E8EEF0; font-family: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif; }
+      #unity-canvas { position: fixed; inset: 0; width: 100%; height: 100%; display: block; background: #071522; outline: none; }
+      #mf-loading { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 28px; background: #071522; transition: opacity 0.6s ease; }
       #mf-loading.done { opacity: 0; pointer-events: none; }
       #mf-wordmark { font-size: clamp(28px, 4vw, 56px); letter-spacing: 0.3em; font-weight: 300; }
-      #mf-wordmark b { color: #ff8a3d; font-weight: 800; }
-      #mf-bar { width: min(420px, 60vw); height: 4px; background: rgba(138, 180, 255, 0.18); overflow: hidden; }
-      #mf-bar-fill { width: 100%; height: 100%; background: #ff8a3d; transform: scaleX(0); transform-origin: left center; transition: transform 0.2s ease-out; }
-      #mf-status { font-size: 14px; letter-spacing: 0.2em; color: #a0b0ca; min-height: 1.4em; text-align: center; padding: 0 24px; }
-      #mf-perf { position: fixed; right: 12px; bottom: 12px; padding: 8px 12px; font: 13px ui-monospace, Menlo, monospace; background: rgba(4, 7, 14, 0.8); border: 1px solid rgba(138, 180, 255, 0.3); display: none; white-space: pre; }
+      #mf-wordmark b { color: #FFCE83; font-weight: 800; }
+      #mf-bar { width: min(420px, 60vw); height: 4px; background: rgba(85, 197, 205, 0.20); overflow: hidden; }
+      #mf-bar-fill { width: 100%; height: 100%; background: #FFCE83; transform: scaleX(0); transform-origin: left center; transition: transform 0.2s ease-out; }
+      #mf-status { font-size: 14px; letter-spacing: 0.2em; color: #B6C7D3; min-height: 1.4em; text-align: center; padding: 0 24px; }
+      #mf-perf { position: fixed; right: 12px; bottom: 12px; padding: 8px 12px; font: 13px ui-monospace, Menlo, monospace; background: rgba(17, 43, 64, 0.92); border: 1px solid rgba(232, 238, 240, 0.25); display: none; white-space: pre; }
       @media (prefers-reduced-motion: reduce) { #mf-loading, #mf-bar-fill { transition: none; } }
     </style>
   </head>
@@ -72,7 +72,7 @@
           canvas.focus();
         }).catch(function (message) {
           status.textContent = "COULD NOT START: " + message;
-          status.style.color = "#ff5d73";
+          status.style.color = "#FF8F8F";
         });
 
         // ?perf=1 shows a frame-rate probe (requestAnimationFrame cadence, which is what the Unity

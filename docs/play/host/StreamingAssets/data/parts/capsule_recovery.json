@@ -1,0 +1,150 @@
+{
+  "$schema": "../schema/part.schema.json",
+  "category": "capsule_recovery",
+  "name_key": "category.capsule_recovery.name",
+  "design_section": "7.19",
+  "design_notes": [
+    "Section title: \"Capsule/payload recovery (returning missions)\". The table has no number at all. The \"Fact\" column is stored in twin; propulsive landing shows none. F18 is the fact-bank entry for the Orion parachutes.",
+    "Propulsive landing \"new tech\" is stored as maturity new, as for the engines whose drawback reads \"new tech\". \"Proven\" (splashdown) stays a strength text, as in the other part files. The design gives no reliability for the band to apply to.",
+    "Vote step 3 of 6.2 is \"Payload return (capsule contracts: heat shield, recovery)\", so the options list the capsule contracts C3, C4 and C6, like the heat shields.",
+    "\"Needs pusher escape engines\" is requires_part les_integrated_pusher (7.4 says the pusher engines enable propulsive landing upgrades). The escape system is offered only in C4 and C6 (escape_system.json), so propulsive landing lists C4 and C6 and not the uncrewed C3.",
+    "The two parachute options carry parachute_failure with the drop test as mitigation (8.4) and enable MG-23 Parachute Sequence. MG-27 Recovery Team is \"F13 splashdown\", so only the splashdown option enables it.",
+    "\"Recovery ship needed\", \"salt water\", \"rockets must fire at the right height\", \"precise\" and \"reusable\" have no numbers; they are flags.",
+    "C0 requires parachute recovery of a non-capsule payload, but section 6.2 gives C0 no recovery vote (see contracts.json), so C0 is not listed. C8 lands a booster, not its payload."
+  ],
+  "parts": [
+    {
+      "id": "crec_parachutes_splashdown",
+      "category": "capsule_recovery",
+      "name_key": "part.crec_parachutes_splashdown.name",
+      "twin": "part.crec_parachutes_splashdown.twin",
+      "strengths": [
+        "part.crec_parachutes_splashdown.strength.1",
+        "part.crec_parachutes_splashdown.strength.2"
+      ],
+      "drawbacks": [
+        "part.crec_parachutes_splashdown.drawback.1",
+        "part.crec_parachutes_splashdown.drawback.2"
+      ],
+      "facts": [
+        "F18"
+      ],
+      "contracts": [
+        "C3",
+        "C4",
+        "C6"
+      ],
+      "model": "models/crec_parachutes_splashdown.glb",
+      "stats": {},
+      "game": {},
+      "rules": [
+        {
+          "kind": "test_mitigates_failure_mode",
+          "failure_mode": "parachute_failure",
+          "test": "drop_test"
+        },
+        {
+          "kind": "enables_minigame",
+          "minigame": "MG-23"
+        },
+        {
+          "kind": "enables_minigame",
+          "minigame": "MG-27"
+        },
+        {
+          "kind": "flag",
+          "flag": "recovery_ship_needed"
+        },
+        {
+          "kind": "flag",
+          "flag": "salt_water_exposure"
+        }
+      ],
+      "failure_modes": [
+        "parachute_failure"
+      ],
+      "value_types": {}
+    },
+    {
+      "id": "crec_parachutes_soft_landing_rockets",
+      "category": "capsule_recovery",
+      "name_key": "part.crec_parachutes_soft_landing_rockets.name",
+      "twin": "part.crec_parachutes_soft_landing_rockets.twin",
+      "strengths": [
+        "part.crec_parachutes_soft_landing_rockets.strength.1",
+        "part.crec_parachutes_soft_landing_rockets.strength.2"
+      ],
+      "drawbacks": [
+        "part.crec_parachutes_soft_landing_rockets.drawback.1"
+      ],
+      "contracts": [
+        "C3",
+        "C4",
+        "C6"
+      ],
+      "model": "models/crec_parachutes_soft_landing_rockets.glb",
+      "stats": {},
+      "game": {},
+      "rules": [
+        {
+          "kind": "test_mitigates_failure_mode",
+          "failure_mode": "parachute_failure",
+          "test": "drop_test"
+        },
+        {
+          "kind": "enables_minigame",
+          "minigame": "MG-23"
+        },
+        {
+          "kind": "flag",
+          "flag": "lands_on_land"
+        },
+        {
+          "kind": "flag",
+          "flag": "landing_rockets_must_fire_at_height"
+        }
+      ],
+      "failure_modes": [
+        "parachute_failure"
+      ],
+      "value_types": {}
+    },
+    {
+      "id": "crec_propulsive_landing",
+      "category": "capsule_recovery",
+      "name_key": "part.crec_propulsive_landing.name",
+      "strengths": [
+        "part.crec_propulsive_landing.strength.1",
+        "part.crec_propulsive_landing.strength.2"
+      ],
+      "drawbacks": [
+        "part.crec_propulsive_landing.drawback.1",
+        "part.crec_propulsive_landing.drawback.2"
+      ],
+      "contracts": [
+        "C4",
+        "C6"
+      ],
+      "model": "models/crec_propulsive_landing.glb",
+      "stats": {},
+      "game": {
+        "maturity": "new"
+      },
+      "rules": [
+        {
+          "kind": "requires_part",
+          "part": "les_integrated_pusher"
+        },
+        {
+          "kind": "flag",
+          "flag": "precise_landing"
+        },
+        {
+          "kind": "flag",
+          "flag": "reusable_capsule"
+        }
+      ],
+      "value_types": {}
+    }
+  ]
+}

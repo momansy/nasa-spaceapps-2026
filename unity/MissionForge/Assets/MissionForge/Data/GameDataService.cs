@@ -10,6 +10,9 @@ namespace MissionForge.Data
     public sealed class GameDataService : MonoBehaviour
     {
         public GameDataSet Data { get; private set; }
+
+        /// <summary>Merged English string table (every strings/en*.json), ready when <see cref="IsReady"/> is true.</summary>
+        public GameStrings Strings { get; private set; }
         public bool IsReady => Data != null;
         public string LastError { get; private set; }
 
@@ -24,6 +27,16 @@ namespace MissionForge.Data
 
         private void OnLoaded(GameDataSet data)
         {
+            try
+            {
+                Strings = GameStrings.Merge(data);
+            }
+            catch (FormatException e)
+            {
+                OnFailed(e.Message);
+                return;
+            }
+            foreach (string conflict in Strings.Conflicts) Debug.LogWarning("[MissionForge] Duplicate string key " + conflict);
             Data = data;
             LastError = null;
             Loaded?.Invoke(data);
