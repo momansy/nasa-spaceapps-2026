@@ -1,0 +1,276 @@
+  Passed MissionForge.Core.Tests.Build.RocketEquationTests.LiftoffTwr_rejects_invalid_arguments(thrustSlN: 1000, massKg: 0)
+  Passed MissionForge.Core.Tests.Build.RocketEquationTests.LiftoffTwr_rejects_invalid_arguments(thrustSlN: 1000, massKg: NaN)
+  Passed MissionForge.Core.Tests.Build.RocketEquationTests.LiftoffTwr_rejects_invalid_arguments(thrustSlN: ∞, massKg: 1000)
+  Passed MissionForge.Core.Tests.Build.RocketEquationTests.LiftoffTwr_rejects_invalid_arguments(thrustSlN: NaN, massKg: 1000)
+  Passed MissionForge.Core.Tests.Build.RocketEquationTests.LiftoffTwr_rejects_invalid_arguments(thrustSlN: 1000, massKg: -1)
+  Passed MissionForge.Core.Tests.Build.RocketEquationTests.LiftoffTwr_rejects_invalid_arguments(thrustSlN: -1, massKg: 1000)
+  Passed MissionForge.Core.Tests.Build.RocketEquationTests.DeltaV_rejects_invalid_arguments(ispS: -1, m0Kg: 100, mfKg: 50)
+  Passed MissionForge.Core.Tests.Build.RocketEquationTests.DeltaV_rejects_invalid_arguments(ispS: 300, m0Kg: ∞, mfKg: 50)
+  Passed MissionForge.Core.Tests.Build.RocketEquationTests.DeltaV_rejects_invalid_arguments(ispS: NaN, m0Kg: 100, mfKg: 50)
+  Passed MissionForge.Core.Tests.Build.RocketEquationTests.DeltaV_rejects_invalid_arguments(ispS: 300, m0Kg: 100, mfKg: -5)
+  Passed MissionForge.Core.Tests.Build.RocketEquationTests.DeltaV_rejects_invalid_arguments(ispS: 0, m0Kg: 100, mfKg: 50)
+  Passed MissionForge.Core.Tests.Build.RocketEquationTests.DeltaV_rejects_invalid_arguments(ispS: 300, m0Kg: NaN, mfKg: 50)
+  Passed MissionForge.Core.Tests.Build.RocketEquationTests.DeltaV_rejects_invalid_arguments(ispS: ∞, m0Kg: 100, mfKg: 50)
+  Passed MissionForge.Core.Tests.Build.RocketEquationTests.DeltaV_rejects_invalid_arguments(ispS: 300, m0Kg: 100, mfKg: 0)
+  Passed MissionForge.Core.Tests.Build.RocketEquationTests.DeltaV_rejects_invalid_arguments(ispS: 300, m0Kg: 40, mfKg: 50)
+  Passed MissionForge.Core.Tests.Build.RocketEquationTests.DeltaV_rejects_invalid_arguments(ispS: 300, m0Kg: 100, mfKg: NaN)
+  Passed MissionForge.Core.Tests.Build.RocketEquationTests.LiftoffTwr_is_exactly_one_when_thrust_equals_weight
+  Passed MissionForge.Core.Tests.Build.RocketEquationTests.DeltaV_with_mass_ratio_e_equals_exhaust_velocity
+  Passed MissionForge.Core.Tests.Build.RocketEquationTests.DeltaV_grows_with_diminishing_returns
+  Passed MissionForge.Core.Tests.Build.RocketEquationTests.LiftoffTwr_matches_hand_computed_value
+  Passed MissionForge.Core.Tests.Build.RocketEquationTests.DeltaV_matches_hand_computed_value
+  Passed MissionForge.Core.Tests.Build.RocketEquationTests.DeltaV_is_zero_when_no_propellant_is_burned
+  Passed MissionForge.Core.Tests.RandomTests.SeededRandomTests.Chance_rejects_invalid_probabilities(probability: 1.01)
+  Passed MissionForge.Core.Tests.RandomTests.SeededRandomTests.Chance_rejects_invalid_probabilities(probability: -0.01)
+  Passed MissionForge.Core.Tests.RandomTests.SeededRandomTests.Chance_rejects_invalid_probabilities(probability: NaN)
+  Passed MissionForge.Core.Tests.Build.BudgetScheduleTests.No_boosters_option_costs_nothing
+  Passed MissionForge.Core.Tests.RandomTests.SeededRandomTests.NextInt_golden_values
+  Passed MissionForge.Core.Tests.Build.BudgetScheduleTests.Booster_recovery_refund_is_reported_separately_and_not_deducted
+  Passed MissionForge.Core.Tests.Build.ReliabilityTests.True_reliability_stays_inside_the_maturity_band(partId: "nav_mature", halfWidth: 0.029999999999999999)
+  Passed MissionForge.Core.Tests.RandomTests.SeededRandomTests.Chance_matches_its_probability_roughly
+  Passed MissionForge.Core.Tests.Build.BudgetScheduleTests.Standard_assurance_changes_nothing
+  Passed MissionForge.Core.Tests.RandomTests.SeededRandomTests.Stream_names_are_case_sensitive
+  Passed MissionForge.Core.Tests.RandomTests.SeededRandomTests.A_stream_does_not_depend_on_draws_made_elsewhere
+  Passed MissionForge.Core.Tests.Build.DashboardTests.Engineering_breakthrough_bonus_adds_to_the_engine_stage
+  Passed MissionForge.Core.Tests.Build.VoteOptionsTests.FixSearch_reports_no_fix_when_no_remaining_vote_can_help
+  Passed MissionForge.Core.Tests.Build.ReviewTests.CompleteRework_replaces_the_part_resets_its_condition_and_closes_the_vote
+  Passed MissionForge.Core.Tests.Build.ReliabilityTests.True_reliability_stays_inside_the_maturity_band(partId: "nav_new", halfWidth: 0.059999999999999998)
+  Passed MissionForge.Core.Tests.RandomTests.SeededRandomTests.Golden_values_pin_the_algorithm_across_platforms
+  Passed MissionForge.Core.Tests.RandomTests.SeededRandomTests.NextInt_handles_the_full_int_range
+  Passed MissionForge.Core.Tests.Build.ReliabilityTests.True_reliability_stays_inside_the_maturity_band(partId: "nav_proven", halfWidth: 0.01)
+  Passed MissionForge.Core.Tests.RandomTests.SeededRandomTests.ForStream_validates_and_names_streams
+  Passed MissionForge.Core.Tests.Build.ReliabilityTests.Cluster_with_engine_out_survives_one_failure
+  Passed MissionForge.Core.Tests.RandomTests.SeededRandomTests.Chance_always_consumes_one_draw
+  Passed MissionForge.Core.Tests.Build.ReliabilityTests.Redundant_is_one_minus_all_units_failing(n: 1, expected: 0.96999999999999997)
+  Passed MissionForge.Core.Tests.Build.ReliabilityTests.Redundant_is_one_minus_all_units_failing(n: 3, expected: 0.999973)
+  Passed MissionForge.Core.Tests.Build.ReliabilityTests.Redundant_is_one_minus_all_units_failing(n: 2, expected: 0.99909999999999999)
+  Passed MissionForge.Core.Tests.Build.ReviewTests.Schedule_slip_is_major_with_monthly_windows_and_a_blocker_with_mars_windows
+  Passed MissionForge.Core.Tests.Build.ReliabilityTests.Upper_stage_engine_out_requires_twr_of_at_least_0_3
+  Passed MissionForge.Core.Tests.Build.ReliabilityTests.Hidden_truth_does_not_depend_on_choice_order
+  Passed MissionForge.Core.Tests.Build.DashboardTests.Entry_speed_rating_comes_from_the_heat_shield
+  Passed MissionForge.Core.Tests.Build.ReliabilityTests.ClusterSlope_is_the_derivative_of_Cluster
+  Passed MissionForge.Core.Tests.Build.DashboardTests.Liquid_side_boosters_mirror_the_first_stage
+  Passed MissionForge.Core.Tests.Build.ReliabilityTests.Displayed_estimate_is_the_base_value_until_tested(partId: "nav_proven", halfWidth: 0.01)
+  Passed MissionForge.Core.Tests.Build.DashboardTests.Data_budget_with_ground_passes_and_relay
+  Passed MissionForge.Core.Tests.Build.ReliabilityTests.Displayed_estimate_is_the_base_value_until_tested(partId: "nav_mature", halfWidth: 0.029999999999999999)
+  Passed MissionForge.Core.Tests.Build.ReliabilityTests.Displayed_estimate_is_the_base_value_until_tested(partId: "nav_new", halfWidth: 0.059999999999999998)
+  Passed MissionForge.Core.Tests.Build.DashboardTests.Delta_v_per_stage_with_effective_Isp
+  Passed MissionForge.Core.Tests.RandomTests.SeededRandomTests.NextInt_stays_in_range_and_reaches_both_ends
+  Passed MissionForge.Core.Tests.RandomTests.SeededRandomTests.NextDouble_golden_values
+  Passed MissionForge.Core.Tests.RandomTests.SeededRandomTests.Same_seed_and_stream_give_the_same_sequence
+  Passed MissionForge.Core.Tests.Build.ReliabilityTests.Per_unit_avionics_enter_the_estimate_as_redundant_units
+  Passed MissionForge.Core.Tests.Build.VoteOptionsTests.For_will_not_fly_without_fix_cannot_win
+  Passed MissionForge.Core.Tests.Build.ReviewTests.Reference_build_passes_every_review_with_no_issues
+  Passed MissionForge.Core.Tests.Build.ReviewTests.Rework_fee_is_thirty_percent_of_the_replaced_parts_cost(slot: "instrument", feeM: 3)
+  Passed MissionForge.Core.Tests.RandomTests.SeededRandomTests.NextInt_rejects_an_empty_range
+  Passed MissionForge.Core.Tests.Build.ReviewTests.Rework_fee_is_thirty_percent_of_the_replaced_parts_cost(slot: "first_stage_tank_size", feeM: 0.29999999999999999)
+  Passed MissionForge.Core.Tests.Build.ReviewTests.Rework_fee_is_thirty_percent_of_the_replaced_parts_cost(slot: "first_stage_engine", feeM: 3)
+  Passed MissionForge.Core.Tests.Build.ReviewTests.Rework_fee_is_thirty_percent_of_the_replaced_parts_cost(slot: "upper_stage_engine", feeM: 0.90000000000000002)
+  Passed MissionForge.Core.Tests.Build.ReviewTests.Rework_fee_is_thirty_percent_of_the_replaced_parts_cost(slot: "avionics", feeM: 0.59999999999999998)
+  Passed MissionForge.Core.Tests.Build.VoteOptionsTests.NextVote_follows_contract_order_and_returns_reopened_slot_first
+  Passed MissionForge.Core.Tests.Build.DashboardTests.Hot_staging_adds_one_and_a_half_percent
+  Passed MissionForge.Core.Tests.Build.DashboardTests.Launch_site_rotation_boost_and_plane_change
+  Passed MissionForge.Core.Tests.Build.ReliabilityTests.Hidden_truth_differs_between_seeds_and_between_parts
+  Passed MissionForge.Core.Tests.Build.DashboardTests.Power_balance_goes_negative_in_eclipse_with_SAR_on_body_cells
+  Passed MissionForge.Core.Tests.Build.ReliabilityTests.Displayed_throws_when_the_slot_is_empty
+  Passed MissionForge.Core.Tests.Build.ReliabilityTests.Engine_out_is_allowed_when_the_count_option_has_no_field
+  Passed MissionForge.Core.Tests.Build.VoteOptionsTests.Commit_throws_for_options_that_cannot_win_or_are_not_offered
+  Passed MissionForge.Core.Tests.Build.DashboardTests.Upper_stage_TWR_below_0_3_warns
+  Passed MissionForge.Core.Tests.Build.VoteOptionsTests.FixSearch_is_optimistic_and_inconclusive_when_capped
+  Passed MissionForge.Core.Tests.Build.ReviewTests.Frr_poll_go_proceeds_any_no_go_repolls_and_two_no_go_rounds_offer_rework
+  Passed MissionForge.Core.Tests.Build.BudgetScheduleTests.Zero_lead_and_zero_integration_parts_do_not_appear_on_the_timeline
+  Passed MissionForge.Core.Tests.Build.ReviewTests.CompleteRework_rejects_a_part_of_the_wrong_category_and_needs_an_open_vote
+  Passed MissionForge.Core.Tests.Build.BudgetScheduleTests.Empty_build_costs_nothing_and_keeps_the_whole_budget
+  Passed MissionForge.Core.Tests.Build.ReviewTests.Pdr_blocker_that_a_later_vote_can_fix_still_allows_pass
+  Passed MissionForge.Core.Tests.Build.BudgetScheduleTests.Faster_cheaper_cuts_total_cost_15_percent_and_days_10_percent
+  Passed MissionForge.Core.Tests.Build.ReviewTests.Frr_adds_a_blocker_for_every_undecided_vote_but_cdr_does_not
+  Passed MissionForge.Core.Tests.Build.VoteOptionsTests.Commit_over_budget_option_uses_Emergency_Funding
+  Passed MissionForge.Core.Tests.Build.ReliabilityTests.Class_a_halves_the_band_and_adds_one_percent_to_every_part
+  Passed MissionForge.Core.Tests.Build.ReviewTests.Low_estimated_success_is_major_at_cdr_and_frr_but_not_pdr
+  Passed MissionForge.Core.Tests.Build.ReliabilityTests.Engine_out_needs_at_least_two_engines
+  Passed MissionForge.Core.Tests.RandomTests.SeededRandomTests.NextDouble_stays_in_unit_interval
+  Passed MissionForge.Core.Tests.Build.VoteOptionsTests.Commit_affordable_option_records_the_vote_without_Emergency_Funding
+  Passed MissionForge.Core.Tests.Build.ReviewTests.Pdr_ignores_non_propulsion_rules_that_cdr_reports
+  Passed MissionForge.Core.Tests.RandomTests.SeededRandomTests.Chance_handles_certain_and_impossible_events
+  Passed MissionForge.Core.Tests.Build.BudgetScheduleTests.Dashboard_budget_matches_the_budget_model
+  Passed MissionForge.Core.Tests.RandomTests.SeededRandomTests.Different_streams_give_different_sequences
+  Passed MissionForge.Core.Tests.Build.ReviewTests.RulesFor_pdr_is_propulsion_only_and_cdr_frr_check_everything
+  Passed MissionForge.Core.Tests.RandomTests.SeededRandomTests.Different_seeds_give_different_sequences
+  Passed MissionForge.Core.Tests.Build.ReviewTests.A_mission_ending_slip_cannot_be_passed_at_pdr_or_cdr_because_no_later_vote_fixes_it
+  Passed MissionForge.Core.Tests.Build.BudgetScheduleTests.Missing_the_deadline_slips_to_the_next_launch_window(extraDays: 71, slips: 1, slipDays: 30)
+  Passed MissionForge.Core.Tests.Build.ReliabilityTests.Estimate_is_the_product_of_items_with_a_quadrature_band
+  Passed MissionForge.Core.Tests.Build.ReliabilityTests.Cluster_without_engine_out_needs_every_engine
+  Passed MissionForge.Core.Tests.Build.VoteOptionsTests.VotesFor_skips_escape_vote_when_uncrewed_and_votes_without_options
+  Passed MissionForge.Core.Tests.Build.BudgetScheduleTests.Missing_the_deadline_slips_to_the_next_launch_window(extraDays: 100, slips: 1, slipDays: 30)
+  Passed MissionForge.Core.Tests.Build.BudgetScheduleTests.Missing_the_deadline_slips_to_the_next_launch_window(extraDays: 101, slips: 2, slipDays: 60)
+  Passed MissionForge.Core.Tests.Build.ReliabilityTests.Faster_cheaper_widens_the_band_by_half
+  Passed MissionForge.Core.Tests.Build.ReviewTests.Rework_charges_the_fee_and_two_days_and_reopens_the_slot
+  Passed MissionForge.Core.Tests.Build.BudgetScheduleTests.Missing_the_deadline_slips_to_the_next_launch_window(extraDays: 131, slips: 3, slipDays: 90)
+  Passed MissionForge.Core.Tests.Build.DashboardTests.Stability_compares_centre_of_pressure_with_centre_of_mass
+  Passed MissionForge.Core.Tests.Build.BudgetScheduleTests.Missing_the_deadline_slips_to_the_next_launch_window(extraDays: 70, slips: 0, slipDays: 0)
+  Passed MissionForge.Core.Tests.Build.BudgetScheduleTests.Tank_cost_falls_back_to_two_hundredths_of_a_million_per_tonne_of_stage_capacity
+  Passed MissionForge.Core.Tests.Build.ReviewTests.Over_budget_is_major_at_pdr_and_cdr_and_a_blocker_at_frr
+  Passed MissionForge.Core.Tests.Build.BudgetScheduleTests.Solid_boosters_are_not_part_of_the_recovery_refund
+  Passed MissionForge.Core.Tests.Build.VoteOptionsTests.For_reports_budget_and_schedule_overruns
+  Passed MissionForge.Core.Tests.Build.VoteOptionsTests.Applicable_rejects_liquid_side_boosters_without_first_stage_and_escape_when_uncrewed
+  Passed MissionForge.Core.Tests.Build.DashboardTests.Strap_on_solids_burn_as_a_parallel_stage
+  Passed MissionForge.Core.Tests.Build.ReviewTests.An_unfixed_revealed_flaw_is_major_in_every_review_until_fixed
+  Passed MissionForge.Core.Tests.Build.VoteOptionsTests.FixSearch_tries_more_engines_first
+  Passed MissionForge.Core.Tests.Build.BudgetScheduleTests.Equal_longest_leads_are_broken_by_vote_order_not_choice_order
+  Passed MissionForge.Core.Tests.Build.ReliabilityTests.Hidden_truth_is_drawn_from_seed_and_part_id
+  Passed MissionForge.Core.Tests.Build.BudgetScheduleTests.Booster_recovery_refund_covers_liquid_side_boosters_and_drawback_cost_is_charged
+  Passed MissionForge.Core.Tests.Build.ReliabilityTests.First_stage_engine_out_counts_strap_on_booster_thrust
+  Passed MissionForge.Core.Tests.Build.BudgetScheduleTests.Class_A_extra_days_can_cause_a_slip
+  Passed MissionForge.Core.Tests.Build.ReliabilityTests.TrueSuccess_multiplies_the_hidden_truths_and_has_no_band
+  Passed MissionForge.Core.Tests.Build.AnomalyTests.Weighted_draw_picks_a_weight_3_card_about_three_times_as_often_as_a_weight_1_card
+  Passed MissionForge.Core.Tests.Build.ReliabilityTests.Empty_build_has_success_one
+  Passed MissionForge.Core.Tests.Build.BudgetScheduleTests.A_missed_Mars_window_is_mission_ending
+  Passed MissionForge.Core.Tests.Build.VoteOptionsTests.Offered_filters_by_contract_and_applicability_and_caps_at_five
+  Passed MissionForge.Core.Tests.Build.BudgetScheduleTests.Cheaper_material_lowers_tank_cost_only
+  Passed MissionForge.Core.Tests.Build.VoteOptionsTests.For_over_budget_option_cannot_win_once_Emergency_Funding_is_used
+  Passed MissionForge.Core.Tests.Build.DashboardTests.Liftoff_and_upper_stage_TWR
+  Passed MissionForge.Core.Tests.Build.VoteOptionsTests.For_marks_will_not_fly_and_allows_win_only_if_a_later_vote_fixes_it
+  Passed MissionForge.Core.Tests.Build.DashboardTests.Dashboard_never_mutates_the_build_and_undecided_parts_are_absent
+  Passed MissionForge.Core.Tests.Build.VoteOptionsTests.FixSearch_finds_engine_count_that_fixes_low_twr
+  Passed MissionForge.Core.Tests.Build.DashboardTests.Cost_schedule_and_success_are_on_the_dashboard
+  Passed MissionForge.Core.Tests.Build.BudgetScheduleTests.Extra_lead_days_only_matter_when_the_part_becomes_the_longest_lead
+  Passed MissionForge.Core.Tests.Build.DashboardTests.Total_mass_includes_dry_tank_mass_from_structural_ratios
+  Passed MissionForge.Core.Tests.Build.DashboardTests.Booster_recovery_costs_a_fraction_of_first_stage_delta_v
+  Passed MissionForge.Core.Tests.Build.DashboardTests.Material_multiplier_scales_dry_tank_mass
+  Passed MissionForge.Core.Tests.Build.ReviewTests.Issues_are_sorted_blockers_then_majors_then_minors
+  Passed MissionForge.Core.Tests.Build.BudgetScheduleTests.Timeline_lists_procurement_with_slack_then_the_serial_chain_in_order
+  Passed MissionForge.Core.Tests.Build.ReliabilityTests.Flaw_rate_follows_maturity
+  Passed MissionForge.Core.Tests.Build.AnomalyTests.Site_campaign_and_pressure_fed_triggers_only_apply_when_their_condition_holds
+  Passed MissionForge.Core.Tests.Build.ReliabilityTests.First_stage_engine_out_requires_liftoff_twr_above_one_on_remaining_engines
+  Passed MissionForge.Core.Tests.Build.ReliabilityTests.System_value_avionics_are_not_compounded_again
+  Passed MissionForge.Core.Tests.Build.ValidationTests.Partial_mode_judges_rules_whose_category_the_contract_never_votes_on
+  Passed MissionForge.Core.Tests.Build.ReliabilityTests.Cluster_item_adds_the_count_option_reliability_modifier
+  Passed MissionForge.Core.Tests.Build.ReliabilityTests.Engine_out_is_off_when_the_count_option_says_no
+  Passed MissionForge.Core.Tests.Build.ValidationTests.EclipsePower_fires_Major_when_battery_cannot_cover_the_eclipse
+  Passed MissionForge.Core.Tests.Constants.PhysicalConstantsTests.Values_match_design_section_8_1
+  Passed MissionForge.Core.Tests.Constants.PhysicalConstantsTests.Mars_surface_gravity_is_about_3_7_metres_per_second_squared
+  Passed MissionForge.Core.Tests.Constants.PhysicalConstantsTests.Low_earth_orbit_speed_is_about_7_8_km_per_second
+  Passed MissionForge.Core.Tests.Constants.PhysicalConstantsTests.Earth_surface_gravity_is_consistent_with_mu_and_radius
+  Passed MissionForge.Core.Tests.Build.ValidationTests.BoilOff_does_not_fire(upperEngine: "eng_kerolox_vacuum", upperTank: "tank_s", flag: False, longCoast: True)
+  Passed MissionForge.Core.Tests.Constants.PhysicalConstantsTests.Altitudes_and_scale_heights_are_ordered_sensibly
+  Passed MissionForge.Core.Tests.Constants.PhysicalConstantsTests.Launch_site_boosts_of_design_section_7_1_follow_from_the_equator_speed
+  Passed MissionForge.Core.Tests.Build.TestCampaignTests.Minigame_tier_raises_the_reveal_chance_up_to_one
+  Passed MissionForge.Core.Tests.Build.AnomalyTests.Test_skipped_condition_stops_holding_once_the_test_has_run
+  Passed MissionForge.Core.Tests.Build.TestCampaignTests.Static_fire_cost_scales_with_first_stage_propellant(tank: "tank_1000", expected: 8)
+  Passed MissionForge.Core.Tests.Build.TestCampaignTests.Static_fire_cost_scales_with_first_stage_propellant(tank: "tank_2000", expected: 8)
+  Passed MissionForge.Core.Tests.Build.TestCampaignTests.Static_fire_cost_scales_with_first_stage_propellant(tank: "tank_100", expected: 2.6000000000000001)
+  Passed MissionForge.Core.Tests.Build.ValidationTests.BoilOff_does_not_fire(upperEngine: "eng_hydrolox_vacuum", upperTank: "tank_s", flag: False, longCoast: False)
+  Passed MissionForge.Core.Tests.Build.ValidationTests.BoilOff_does_not_fire(upperEngine: "eng_hydrolox_vacuum", upperTank: "tank_s_mli", flag: False, longCoast: True)
+  Passed MissionForge.Core.Tests.Build.AnomalyTests.Budget_cut_on_draw_removes_ten_percent_of_the_contract_budget
+  Passed MissionForge.Core.Tests.Build.ValidationTests.BoilOff_does_not_fire(upperEngine: "eng_hydrolox_vacuum", upperTank: "tank_s", flag: True, longCoast: True)
+  Passed MissionForge.Core.Tests.Build.ValidationTests.LiftoffTwr_does_not_fire_for_nine_workhorses
+  Passed MissionForge.Core.Tests.Build.AnomalyTests.Helium_switch_pressurant_adds_mass_to_the_payload_stack
+  Passed MissionForge.Core.Tests.Build.ValidationTests.EclipsePower_does_not_fire_for_exactly_balanced_budget
+  Passed MissionForge.Core.Tests.Build.ValidationTests.ReturnHeatShield_does_not_fire_when_payload_does_not_return
+  Passed MissionForge.Core.Tests.Build.AnomalyTests.Emergency_funding_response_adds_ten_percent_once_and_throws_the_second_time
+  Passed MissionForge.Core.Tests.Build.ValidationTests.LiftoffTwr_exactly_one_is_a_Blocker(thrustKn: 9.8100000000000005, fires: False)
+  Passed MissionForge.Core.Tests.Build.ValidationTests.LiftoffTwr_exactly_one_is_a_Blocker(thrustKn: 9.8066499999999994, fires: True)
+  Passed MissionForge.Core.Tests.Build.AnomalyTests.Draw_returns_null_when_every_weight_is_zero
+  Passed MissionForge.Core.Tests.Build.ValidationTests.LiftoffTwr_fires_Blocker_for_one_workhorse_on_tank_M
+  Passed MissionForge.Core.Tests.Build.TestCampaignTests.Hot_fire_is_offered_on_every_chosen_engine_and_nothing_else
+  Passed MissionForge.Core.Tests.Build.TestCampaignTests.Static_fire_cost_on_the_upper_stage_uses_upper_propellant
+  Passed MissionForge.Core.Tests.Build.ValidationTests.CrewedEscape_fires_Blocker_without_escape_system_and_clears_with_one
+  Passed MissionForge.Core.Tests.Build.AnomalyTests.Responding_with_an_unknown_response_or_card_throws_a_catalog_exception
+  Passed MissionForge.Core.Tests.Build.TestCampaignTests.Replacing_a_part_drops_its_open_flaw
+  Passed MissionForge.Core.Tests.Build.ValidationTests.ReturnHeatShield_fires_Blocker_when_returning_payload_has_no_shield
+  Passed MissionForge.Core.Tests.Build.TestCampaignTests.Fix_cost_is_twenty_percent_with_a_one_million_floor(partId: "avi_cheap", expected: 1)
+  Passed MissionForge.Core.Tests.Build.AnomalyTests.MaybeDraw_waits_for_three_votes_and_a_draw_resets_the_vote_counter
+  Passed MissionForge.Core.Tests.Build.TestCampaignTests.Fix_cost_is_twenty_percent_with_a_one_million_floor(partId: "avi_single", expected: 1.6000000000000001)
+  Passed MissionForge.Core.Tests.Build.TestCampaignTests.Fix_cost_is_twenty_percent_with_a_one_million_floor(partId: "eng_main", expected: 4)
+  Passed MissionForge.Core.Tests.Build.ValidationTests.BoilOff_fires_Major_for_hydrolox_upper_on_long_coast
+  Passed MissionForge.Core.Tests.Build.TestCampaignTests.Unrevealed_flaw_lowers_the_truth_but_not_the_estimate
+  Passed MissionForge.Core.Tests.Build.TestCampaignTests.Component_qualification_is_not_offered_for_parts_without_reliability
+  Passed MissionForge.Core.Tests.Build.TestCampaignTests.Cost_multiplier_scales_the_price
+  Passed MissionForge.Core.Tests.Build.TestCampaignTests.Hot_fire_costs_ten_percent_of_one_engine_and_adds_one_percent
+  Passed MissionForge.Core.Tests.Build.TestCampaignTests.Pogo_test_clears_the_pogo_risk_only
+  Passed MissionForge.Core.Tests.Build.BudgetScheduleTests.Computing_the_dashboard_and_previews_never_changes_the_build
+  Passed MissionForge.Core.Tests.Build.ValidationTests.TotalDv_major_margin_comes_from_catalog_param(requiredMps: 7938, marginFraction: 0.01, expected: Blocker)
+  Passed MissionForge.Core.Tests.Build.ValidationTests.TotalDv_major_margin_comes_from_catalog_param(requiredMps: 8189, marginFraction: 0.059999999999999998, expected: Major)
+  Passed MissionForge.Core.Tests.Build.ValidationTests.HeatShieldRating_fires_Major_when_shield_rated_below_entry_speed
+  Passed MissionForge.Core.Tests.Build.ValidationTests.DataBudget_fires_Minor_when_instrument_outruns_downlink
+  Passed MissionForge.Core.Tests.Build.TestCampaignTests.Revealed_iff_flaw_present_and_roll_below_chance
+  Passed MissionForge.Core.Tests.Build.TestCampaignTests.Component_qualification_halves_the_band_and_moves_the_estimate_toward_the_truth
+  Passed MissionForge.Core.Tests.Build.TestCampaignTests.Wet_dress_runs_once_on_the_whole_vehicle
+  Passed MissionForge.Core.Tests.Build.TestCampaignTests.Two_band_narrowing_tests_multiply
+  Passed MissionForge.Core.Tests.Build.TestCampaignTests.Reveal_roll_is_deterministic_from_the_seed
+  Passed MissionForge.Core.Tests.Build.TestCampaignTests.A_part_without_a_flaw_never_reveals_one
+  Passed MissionForge.Core.Tests.Build.BudgetScheduleTests.Total_cost_sums_all_parts_including_the_launch_site_fee
+  Passed MissionForge.Core.Tests.Build.ValidationTests.Catalog_rule_overrides_severity_text_key_and_text_with_placeholders
+  Passed MissionForge.Core.Tests.Build.TestCampaignTests.A_test_cannot_run_twice_on_the_same_target
+  Passed MissionForge.Core.Tests.Build.TestCampaignTests.HasRun_reports_part_tests
+  Passed MissionForge.Core.Tests.Build.BudgetScheduleTests.Negative_integration_days_of_a_material_shorten_the_serial_chain
+  Passed MissionForge.Core.Tests.Build.ValidationTests.Partial_mode_skips_rules_with_undecided_inputs_Complete_does_not
+  Passed MissionForge.Core.Tests.Build.ValidationTests.CrewedEscape_does_not_fire_for_uncrewed_contract
+  Passed MissionForge.Core.Tests.Build.TestCampaignTests.Revealed_flaw_lowers_the_estimate_and_fixing_restores_it
+  Passed MissionForge.Core.Tests.Build.ValidationTests.HeatShieldRating_does_not_fire_when_shield_is_rated_for_entry
+  Passed MissionForge.Core.Tests.Build.TestCampaignTests.Hot_fire_reveals_a_proven_engine_flaw
+  Passed MissionForge.Core.Tests.Build.ValidationTests.UpperRestarts_does_not_fire_when_engine_has_enough_starts
+  Passed MissionForge.Core.Tests.Build.ValidationTests.EclipsePower_does_not_fire_with_big_battery
+  Passed MissionForge.Core.Tests.Build.ValidationTests.DataBudget_does_not_fire_when_downlink_suffices
+  Passed MissionForge.Core.Tests.Build.PreviewTests.Of_rejects_a_part_of_the_wrong_category(slot: "upper_stage_engine", partId: "eng_kerolox_workhorse")
+  Passed MissionForge.Core.Tests.Build.BudgetScheduleTests.Ledger_costs_and_budget_changes_are_added_to_the_budget
+  Passed MissionForge.Core.Tests.Build.ValidationTests.UpperRestarts_fires_Blocker_with_N_filled_in
+  Passed MissionForge.Core.Tests.Build.PreviewTests.Of_rejects_a_part_of_the_wrong_category(slot: "first_stage_tank_size", partId: "eng_kerolox_workhorse")
+  Passed MissionForge.Core.Tests.Build.PreviewTests.Of_rejects_a_part_of_the_wrong_category(slot: "first_stage_engine_count", partId: "tank_m")
+  Passed MissionForge.Core.Tests.Build.BudgetScheduleTests.Solid_strap_on_boosters_cost_per_booster_times_count
+  Passed MissionForge.Core.Tests.Build.PreviewTests.Of_first_stage_tank_gives_hand_computed_deltas
+  Passed MissionForge.Core.Tests.Build.BudgetScheduleTests.Schedule_is_longest_lead_plus_serial_integration_tests_and_other_days
+  Passed MissionForge.Core.Tests.Build.BudgetScheduleTests.Over_budget_build_has_negative_remaining_budget
+  Passed MissionForge.Core.Tests.Build.PreviewTests.Of_replaces_an_existing_choice_and_uses_the_slot_stage
+  Passed MissionForge.Core.Tests.Build.ValidationTests.FairingFit_does_not_fire_when_payload_fits
+  Passed MissionForge.Core.Tests.Build.BudgetScheduleTests.Class_A_adds_20_percent_cost_and_15_percent_days
+  Passed MissionForge.Core.Tests.Build.PreviewTests.Of_delta_equals_after_minus_before
+  Passed MissionForge.Core.Tests.Build.BudgetScheduleTests.Liquid_side_boosters_without_multiplier_cost_one_first_stage_each_plus_option_cost
+  Passed MissionForge.Core.Tests.Build.PreviewTests.Of_never_changes_the_build
+  Passed MissionForge.Core.Tests.Build.BudgetScheduleTests.Part_cost_multiplies_engines_by_count_and_tanks_by_material_cost_multiplier
+  Passed MissionForge.Core.Tests.Build.BudgetScheduleTests.Extra_lead_days_ledger_entry_for_an_undecided_slot_changes_nothing
+  Passed MissionForge.Core.Tests.Build.ValidationTests.PayloadDiameter_is_contract_value_or_widest_payload_part
+  Passed MissionForge.Core.Tests.Build.ValidationTests.FairingFit_fires_Blocker_when_payload_is_wider_than_fairing
+  Passed MissionForge.Core.Tests.Build.ValidationTests.TotalDv_does_not_fire_when_requirement_is_met
+  Passed MissionForge.Core.Tests.Build.ValidationTests.TotalDv_short_is_Major_within_three_percent_else_Blocker(requiredMps: 7938, expected: Major, margin: "-2.0")
+  Passed MissionForge.Core.Tests.Build.BudgetScheduleTests.Liquid_side_boosters_cost_first_stage_cost_times_multiplier
+  Passed MissionForge.Core.Tests.Build.ValidationTests.TotalDv_short_is_Major_within_three_percent_else_Blocker(requiredMps: 8189, expected: Blocker, margin: "-5.0")
+  Passed MissionForge.Core.Tests.Build.ValidationTests.Partial_mode_judges_a_rule_once_its_inputs_are_decided
+  Passed MissionForge.Core.Tests.Build.PartRuleValidationTests.Incompatible_parts_are_a_blocker
+  Passed MissionForge.Core.Tests.Build.AnomalyTests.Draws_do_not_depend_on_dictionary_or_catalog_order
+  Passed MissionForge.Core.Tests.Build.AnomalyTests.Same_seed_and_build_give_the_same_card_sequence_and_another_seed_differs
+  Passed MissionForge.Core.Tests.Build.AnomalyTests.Supplier_delay_expedite_charges_4M_to_the_ledger
+  Passed MissionForge.Core.Tests.Build.C1WalkthroughTests.Rework_charges_the_fee_and_the_build_validates_clean_after_the_PDR
+  Passed MissionForge.Core.Tests.Build.C1WalkthroughTests.Liftoff_TWR_is_about_1_35_after_the_tank_change
+  Passed MissionForge.Core.Tests.Build.C1WalkthroughTests.Delta_v_per_stage_uses_effective_Isp
+  Passed MissionForge.Core.Tests.Build.PartRuleValidationTests.Rtls_without_grid_fins_is_a_blocker
+  Passed MissionForge.Core.Tests.Build.C1WalkthroughTests.Vote_options_follow_the_contract_and_the_preview_shows_the_tank_change
+  Passed MissionForge.Core.Tests.Build.PartRuleValidationTests.Rtls_with_grid_fins_passes_and_undecided_aero_waits_in_partial_mode
+  Passed MissionForge.Core.Tests.Data.CatalogLoaderTests.Modifiers_become_the_derived_stats_of_the_build_rules
+  Passed MissionForge.Core.Tests.Build.C1WalkthroughTests.Electric_pump_mini_times_9_will_not_fly_and_shows_a_blocker
+  Passed MissionForge.Core.Tests.Build.C1WalkthroughTests.Supplier_delay_expedite_costs_4M_and_power_and_data_budgets_are_positive
+  Passed MissionForge.Core.Tests.Build.C1WalkthroughTests.Before_the_tank_change_the_lighter_stack_has_a_higher_TWR
+  Passed MissionForge.Core.Tests.Build.AnomalyTests.ShouldDraw_is_never_before_three_votes_always_at_five_and_seeded_in_between
+  Passed MissionForge.Core.Tests.Build.AnomalyTests.Flag_minigame_and_science_responses_set_build_flags
+  Passed MissionForge.Core.Tests.Build.AnomalyTests.Part_anomaly_weight_rules_multiply_the_card_weight
+  Passed MissionForge.Core.Tests.Build.AnomalyTests.Breakthrough_dv_bonus_adds_two_percent_of_the_engine_stage_dv
+  Passed MissionForge.Core.Tests.Build.AnomalyTests.Weights_are_base_weight_times_trigger_multipliers_sorted_by_card_id
+  Passed MissionForge.Core.Tests.Data.CatalogLoaderTests.Tests_anomalies_and_rules_files_load_with_their_effects
+  Passed MissionForge.Core.Tests.Build.AnomalyTests.Supplier_delay_accept_adds_lead_days_only_to_the_targeted_part
+  Passed MissionForge.Core.Tests.Build.AnomalyTests.Swap_response_reopens_the_targeted_slot_and_does_nothing_without_a_target
+  Passed MissionForge.Core.Tests.Build.AnomalyTests.DrawChance_with_custom_spacing_rises_linearly_from_min_to_max
+  Passed MissionForge.Core.Tests.Build.AnomalyTests.DrawChance_default_spacing_is_zero_before_three_votes_then_thirds_up_to_certain_at_five
+  Passed MissionForge.Core.Tests.Build.AnomalyTests.Day_responses_move_the_serial_schedule
+  Passed MissionForge.Core.Tests.Build.AnomalyTests.Test_failure_fly_as_is_lowers_reliability_and_fix_charges_twenty_percent_of_the_part
+  Passed MissionForge.Core.Tests.Build.AnomalyTests.Drawn_cards_weigh_zero_but_event_cards_with_a_required_condition_recur
+  Passed MissionForge.Core.Tests.Data.CatalogLoaderTests.Strict_load_of_incomplete_real_data_names_the_missing_part
+  Passed MissionForge.Core.Tests.Data.CatalogLoaderTests.Roles_and_boosts_load
+  Passed MissionForge.Core.Tests.Data.CatalogLoaderTests.Duplicate_string_key_across_fragments_fails
+  Passed MissionForge.Core.Tests.Data.CatalogLoaderTests.Duplicate_part_id_fails
+  Passed MissionForge.Core.Tests.Data.CatalogLoaderTests.Bad_reference_fails_with_a_message_naming_file_and_id
+  Passed MissionForge.Core.Tests.Data.CatalogLoaderTests.Part_rule_to_unknown_part_fails_strictly_and_warns_leniently
+  Passed MissionForge.Core.Tests.Data.CatalogLoaderTests.Malformed_json_and_mismatched_category_fail_clearly
+  Passed MissionForge.Core.Tests.Data.CatalogLoaderTests.Real_data_loads_leniently_and_converts_units_to_SI
+  Passed MissionForge.Core.Tests.Data.CatalogLoaderTests.Vote_without_options_offers_the_category_parts_for_the_contract_and_stage
+  Passed MissionForge.Core.Tests.Data.CatalogLoaderTests.Full_fixture_loads_strictly
+Total tests: 275
