@@ -1,0 +1,219 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:mg.start",
+  "title": "mg.start",
+  "description": "host → server → client (relayed unchanged). The host starts a minigame run on every player phone. Phones load the minigame, answer mg.ready, show the one-sentence instruction and demo until startAtMs, then run it locally from seed and params and report one mg.result. The host is in bullet-time meanwhile. When audience is true spectators receive it too and may play for fun; they report nothing.",
+  "type": "object",
+  "properties": {
+    "runId": {
+      "description": "New run id, never used before in this room.",
+      "$ref": "#/$defs/RunId"
+    },
+    "minigameId": {
+      "description": "Minigame id (e.g. \"MG-08\").",
+      "$ref": "#/$defs/DataId"
+    },
+    "type": {
+      "description": "Minigame type.",
+      "$ref": "#/$defs/MinigameType"
+    },
+    "seed": {
+      "description": "Seed for the local random generator; the same on every phone.",
+      "$ref": "#/$defs/Uint32"
+    },
+    "startAtMs": {
+      "description": "Server clock when play begins. Must be at least 3000 ms after sending, for the instruction and demo (§10.1 rule 4).",
+      "$ref": "#/$defs/TimeMs"
+    },
+    "durationMs": {
+      "description": "Length of play in milliseconds (15–45 s by design).",
+      "type": "integer",
+      "minimum": 5000,
+      "maximum": 60000
+    },
+    "assistLevel": {
+      "description": "Difficulty the minigame scales with (§10.1 rule 6).",
+      "$ref": "#/$defs/AssistLevel"
+    },
+    "flightPhase": {
+      "description": "Flight phase it belongs to; null for build-phase and debrief minigames.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/FlightPhase"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "audience": {
+      "description": "True to deliver the run to spectators as well.",
+      "type": "boolean"
+    },
+    "params": {
+      "description": "Parameters common to all players.",
+      "$ref": "#/$defs/MgMap"
+    },
+    "assignments": {
+      "description": "Per-player pieces for COOP_SPLIT, RELAY and TEAM_SYNC; empty for PARALLEL_SOLO. Players not listed play with `params` only.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "playerId": {
+            "description": "Player.",
+            "$ref": "#/$defs/PlayerId"
+          },
+          "index": {
+            "description": "Position of the player in the task split or relay order, 0-based. RELAY: the player's turn starts at `startAtMs + index × params.turnMs`.",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9
+          },
+          "params": {
+            "description": "Parameters for this player only (their piece of the task).",
+            "$ref": "#/$defs/MgMap"
+          }
+        },
+        "required": [
+          "playerId",
+          "index",
+          "params"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0,
+      "maxItems": 10
+    }
+  },
+  "required": [
+    "runId",
+    "minigameId",
+    "type",
+    "seed",
+    "startAtMs",
+    "durationMs",
+    "assistLevel",
+    "flightPhase",
+    "audience",
+    "params",
+    "assignments"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "AssistLevel": {
+      "description": "Difficulty / assist level (§9.3).",
+      "type": "string",
+      "enum": [
+        "CADET",
+        "ENGINEER",
+        "FLIGHT_DIRECTOR"
+      ]
+    },
+    "DataId": {
+      "description": "Identifier of an entry in the shared game data (`data/`): part, part category, contract, test, anomaly card, minigame, fact, codex entry, callout, console request, award, objective, validation rule, cosmetic. 1–48 characters.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,47}$"
+    },
+    "FlightPhase": {
+      "description": "Flight phase (§9.1). F0–F1 belong to COUNTDOWN, F2–F13 to FLIGHT. The parallel booster-return track F7b is signalled by `boosterTrack`, not by a value here; F14 is the DEBRIEF phase.",
+      "type": "string",
+      "enum": [
+        "F0",
+        "F1",
+        "F2",
+        "F3",
+        "F4",
+        "F5",
+        "F6",
+        "F7",
+        "F8",
+        "F9",
+        "F10",
+        "F11",
+        "F12",
+        "F13"
+      ]
+    },
+    "MgMap": {
+      "description": "Open key/value bag for minigame parameters and shared state. Keys and meanings are defined per minigame in `data/minigames.json`; the server relays it without interpretation. At most 32 keys.",
+      "type": "object",
+      "additionalProperties": {
+        "anyOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "string",
+            "maxLength": 64
+          },
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "minItems": 0,
+            "maxItems": 64
+          }
+        ]
+      },
+      "propertyNames": {
+        "pattern": "^[a-z][A-Za-z0-9_]{0,31}$"
+      },
+      "maxProperties": 32
+    },
+    "MinigameType": {
+      "description": "Minigame type (§10.2).",
+      "type": "string",
+      "enum": [
+        "PARALLEL_SOLO",
+        "COOP_SPLIT",
+        "RELAY",
+        "TEAM_SYNC"
+      ]
+    },
+    "PlayerId": {
+      "description": "Player identifier, unique within a room and never reused: \"p\" followed by a positive integer (p1, p2, …).",
+      "type": "string",
+      "pattern": "^p[1-9][0-9]{0,3}$"
+    },
+    "RunId": {
+      "description": "Minigame run identifier chosen by the host; unique within the room.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,39}$"
+    },
+    "TimeMs": {
+      "description": "Absolute time on the server clock: integer milliseconds since the Unix epoch. Every `…AtMs` field in the protocol uses the server clock (see Clock).",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    },
+    "Uint32": {
+      "description": "Unsigned 32-bit integer.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295
+    }
+  },
+  "examples": [
+    {
+      "runId": "m1.mg08",
+      "minigameId": "MG-08",
+      "type": "PARALLEL_SOLO",
+      "seed": 771203455,
+      "startAtMs": 1794650500000,
+      "durationMs": 20000,
+      "assistLevel": "ENGINEER",
+      "flightPhase": "F4",
+      "audience": false,
+      "params": {
+        "bandWidth": 0.18,
+        "peakQ": 34.5
+      },
+      "assignments": []
+    }
+  ]
+}

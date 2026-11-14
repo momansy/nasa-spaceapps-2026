@@ -1,0 +1,172 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:vote.tally",
+  "title": "vote.tally",
+  "description": "server → host and clients. Live tally during VOTE and RUNOFF. Sent at most every 200 ms when something changed, and once at the start of each of those stages. With hidden tallies the counts, the audience counts and the leader are null for everyone, including the host; only who has voted is shown.",
+  "type": "object",
+  "properties": {
+    "roundId": {
+      "description": "Round id.",
+      "$ref": "#/$defs/RoundId"
+    },
+    "stage": {
+      "description": "VOTE or RUNOFF.",
+      "$ref": "#/$defs/VoteStage"
+    },
+    "counts": {
+      "description": "Player ballots per candidate option in display order; null when tallies are hidden.",
+      "anyOf": [
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/OptionCount"
+          },
+          "minItems": 0,
+          "maxItems": 10
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "votedIds": {
+      "description": "Players who currently have a ballot.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/PlayerId"
+      },
+      "minItems": 0,
+      "maxItems": 10,
+      "uniqueItems": true
+    },
+    "audienceCounts": {
+      "description": "Spectator ballots per candidate option; null when tallies are hidden.",
+      "anyOf": [
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/OptionCount"
+          },
+          "minItems": 0,
+          "maxItems": 10
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "audienceTotal": {
+      "description": "Number of spectators who currently have a ballot.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1000000
+    },
+    "leadingOptionId": {
+      "description": "Option with the most player ballots (first in display order among equals) for the ghost preview; null when nobody has voted or tallies are hidden.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/OptionId"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "roundId",
+    "stage",
+    "counts",
+    "votedIds",
+    "audienceCounts",
+    "audienceTotal",
+    "leadingOptionId"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "OptionCount": {
+      "description": "Number of ballots for one option.",
+      "type": "object",
+      "properties": {
+        "optionId": {
+          "description": "Option id.",
+          "$ref": "#/$defs/OptionId"
+        },
+        "n": {
+          "description": "Ballot count.",
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100000
+        }
+      },
+      "required": [
+        "optionId",
+        "n"
+      ],
+      "additionalProperties": false
+    },
+    "OptionId": {
+      "description": "Identifier of one option inside a vote round. For PART votes it equals the part id; for CONTRACT votes the contract id; for PILOT votes a PlayerId; for quick votes an upper-case token defined in the vote-kind table (e.g. TEST, SKIP).",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,47}$"
+    },
+    "PlayerId": {
+      "description": "Player identifier, unique within a room and never reused: \"p\" followed by a positive integer (p1, p2, …).",
+      "type": "string",
+      "pattern": "^p[1-9][0-9]{0,3}$"
+    },
+    "RoundId": {
+      "description": "Vote round identifier chosen by the host; unique within the room for its whole lifetime.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,39}$"
+    },
+    "VoteStage": {
+      "description": "Stage of a vote round (§4.1).",
+      "type": "string",
+      "enum": [
+        "REVEAL",
+        "PREDICT",
+        "INSPECT",
+        "VOTE",
+        "RUNOFF",
+        "TIEBREAK_TRIVIA",
+        "TIEBREAK_PICK",
+        "RESULT",
+        "CLOSED"
+      ]
+    }
+  },
+  "examples": [
+    {
+      "roundId": "m1.r07",
+      "stage": "VOTE",
+      "counts": [
+        {
+          "optionId": "eng_kerolox_workhorse",
+          "n": 2
+        },
+        {
+          "optionId": "eng_methalox_reusable",
+          "n": 1
+        }
+      ],
+      "votedIds": [
+        "p1",
+        "p2",
+        "p4"
+      ],
+      "audienceCounts": [
+        {
+          "optionId": "eng_kerolox_workhorse",
+          "n": 3
+        },
+        {
+          "optionId": "eng_methalox_reusable",
+          "n": 6
+        }
+      ],
+      "audienceTotal": 9,
+      "leadingOptionId": "eng_kerolox_workhorse"
+    }
+  ]
+}

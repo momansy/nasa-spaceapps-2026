@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:vote.close",
+  "title": "vote.close",
+  "description": "host → server. The host ends the current stage now (skip button, teacher control). REVEAL, PREDICT and INSPECT move to the next stage; VOTE and RUNOFF close and resolve with the ballots present (closedBy = HOST); TIEBREAK stages fall through to the next tie-breaker; RESULT moves to CLOSED.",
+  "type": "object",
+  "properties": {
+    "roundId": {
+      "description": "Round id.",
+      "$ref": "#/$defs/RoundId"
+    }
+  },
+  "required": [
+    "roundId"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "RoundId": {
+      "description": "Vote round identifier chosen by the host; unique within the room for its whole lifetime.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,39}$"
+    }
+  },
+  "examples": [
+    {
+      "roundId": "m1.r07"
+    }
+  ]
+}

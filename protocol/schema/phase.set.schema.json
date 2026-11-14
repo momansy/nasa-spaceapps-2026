@@ -1,0 +1,226 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:phase.set",
+  "title": "phase.set",
+  "description": "host → server → client (relayed unchanged). The host announces the current position in the game state machine. The server checks the transition against the phase graph, stores the message, applies the server-side effects of the phase (join rules, role lock, new-mission reset) and relays it unchanged. Sent on every change of any field.",
+  "type": "object",
+  "properties": {
+    "missionSeq": {
+      "description": "Mission counter. 0 before the first mission. The host increases it by 1 when a new mission or a retry starts; the server then performs the new-mission reset.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100000
+    },
+    "mode": {
+      "description": "Game mode, for client UI.",
+      "$ref": "#/$defs/GameMode"
+    },
+    "phase": {
+      "description": "Top-level phase.",
+      "$ref": "#/$defs/Phase"
+    },
+    "sub": {
+      "description": "Sub-state; NONE when the phase has none.",
+      "$ref": "#/$defs/SubPhase"
+    },
+    "review": {
+      "description": "PDR or CDR when `sub` = REVIEW; FRR when `phase` = FRR; null otherwise.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ReviewId"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "flightPhase": {
+      "description": "F0 or F1 in COUNTDOWN, F2–F13 in FLIGHT, null otherwise.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/FlightPhase"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "segment": {
+      "description": "Flight segment in FLIGHT; null otherwise.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/FlightSegment"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "boosterTrack": {
+      "description": "True while the parallel booster-return track F7b is running.",
+      "type": "boolean"
+    },
+    "contractId": {
+      "description": "Chosen contract; null until one is chosen.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/DataId"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "step": {
+      "description": "Build progress for the phase tracker; null outside BUILD.",
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "index": {
+              "description": "Current build step, 1-based.",
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 99
+            },
+            "total": {
+              "description": "Planned number of build steps.",
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 99
+            }
+          },
+          "required": [
+            "index",
+            "total"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "missionSeq",
+    "mode",
+    "phase",
+    "sub",
+    "review",
+    "flightPhase",
+    "segment",
+    "boosterTrack",
+    "contractId",
+    "step"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "DataId": {
+      "description": "Identifier of an entry in the shared game data (`data/`): part, part category, contract, test, anomaly card, minigame, fact, codex entry, callout, console request, award, objective, validation rule, cosmetic. 1–48 characters.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,47}$"
+    },
+    "FlightPhase": {
+      "description": "Flight phase (§9.1). F0–F1 belong to COUNTDOWN, F2–F13 to FLIGHT. The parallel booster-return track F7b is signalled by `boosterTrack`, not by a value here; F14 is the DEBRIEF phase.",
+      "type": "string",
+      "enum": [
+        "F0",
+        "F1",
+        "F2",
+        "F3",
+        "F4",
+        "F5",
+        "F6",
+        "F7",
+        "F8",
+        "F9",
+        "F10",
+        "F11",
+        "F12",
+        "F13"
+      ]
+    },
+    "FlightSegment": {
+      "description": "Flight segment used for pilot rotation (§9.4).",
+      "type": "string",
+      "enum": [
+        "ASCENT",
+        "ORBIT",
+        "ENTRY",
+        "LANDING"
+      ]
+    },
+    "GameMode": {
+      "description": "Game mode (§13). Informational for clients; the server does not interpret it.",
+      "type": "string",
+      "enum": [
+        "QUICK",
+        "CAMPAIGN",
+        "SANDBOX",
+        "DAILY",
+        "HERITAGE",
+        "CLASSROOM",
+        "SOLO",
+        "SPEEDRUN",
+        "BUDGET_CRUNCH"
+      ]
+    },
+    "Phase": {
+      "description": "Top-level game phase (§17.3).",
+      "type": "string",
+      "enum": [
+        "LOBBY",
+        "BRIEFING",
+        "CONTRACT_VOTE",
+        "BUILD",
+        "FRR",
+        "COUNTDOWN",
+        "FLIGHT",
+        "DEBRIEF",
+        "CAMPAIGN_HUB"
+      ]
+    },
+    "ReviewId": {
+      "description": "Design review (§6.9).",
+      "type": "string",
+      "enum": [
+        "PDR",
+        "CDR",
+        "FRR"
+      ]
+    },
+    "SubPhase": {
+      "description": "Sub-state inside a phase (§17.3).",
+      "type": "string",
+      "enum": [
+        "NONE",
+        "VOTE_ROUND",
+        "TEST",
+        "ANOMALY",
+        "REVIEW",
+        "FLYING",
+        "ABORT",
+        "SUMMARY",
+        "INVESTIGATION"
+      ]
+    }
+  },
+  "examples": [
+    {
+      "missionSeq": 1,
+      "mode": "QUICK",
+      "phase": "BUILD",
+      "sub": "VOTE_ROUND",
+      "review": null,
+      "flightPhase": null,
+      "segment": null,
+      "boosterTrack": false,
+      "contractId": "C1",
+      "step": {
+        "index": 7,
+        "total": 18
+      }
+    }
+  ]
+}

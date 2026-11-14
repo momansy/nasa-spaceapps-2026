@@ -1,0 +1,339 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:vote.result",
+  "title": "vote.result",
+  "description": "server → host and clients. The resolved outcome of the round, sent with vote.stage RESULT. Resolved entirely by the server (see Vote resolution). An outcome-log message: the host applies the winner to the simulation and answers vote.commit. If emergencyFunding is true an ability.used (PM, OVER_BUDGET_WIN) follows.",
+  "type": "object",
+  "properties": {
+    "outcomeSeq": {
+      "description": "Position in the room outcome log.",
+      "$ref": "#/$defs/OutcomeSeq"
+    },
+    "roundId": {
+      "description": "Round id.",
+      "$ref": "#/$defs/RoundId"
+    },
+    "kind": {
+      "description": "Vote kind.",
+      "$ref": "#/$defs/VoteKind"
+    },
+    "subjectId": {
+      "description": "As in `vote.open`.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/DataId"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "winnerId": {
+      "description": "Winning option.",
+      "$ref": "#/$defs/OptionId"
+    },
+    "method": {
+      "description": "Rule that decided the winner.",
+      "$ref": "#/$defs/ResolveMethod"
+    },
+    "closedBy": {
+      "description": "Why the deciding voting stage ended.",
+      "$ref": "#/$defs/CloseCause"
+    },
+    "counts": {
+      "description": "Final ballots per candidate of the deciding stage (the runoff if one was held), in display order, including the audience ballot when it counted.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/OptionCount"
+      },
+      "minItems": 0,
+      "maxItems": 10
+    },
+    "ballots": {
+      "description": "One entry per voter.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "playerId": {
+            "description": "Voter.",
+            "$ref": "#/$defs/PlayerId"
+          },
+          "optionId": {
+            "description": "Their final ballot in the deciding stage; null = abstained (did not vote, or disconnected at close).",
+            "anyOf": [
+              {
+                "$ref": "#/$defs/OptionId"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "playerId",
+          "optionId"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0,
+      "maxItems": 10
+    },
+    "audienceCounts": {
+      "description": "Spectator ballots per candidate of the deciding stage (\"Audience says\").",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/OptionCount"
+      },
+      "minItems": 0,
+      "maxItems": 10
+    },
+    "audienceBallot": {
+      "description": "Option that received the audience's one extra ballot (weight 1 and a unique audience favourite); null otherwise.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/OptionId"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "firstRoundCounts": {
+      "description": "When a runoff was held: the first-round counts; null otherwise.",
+      "anyOf": [
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/OptionCount"
+          },
+          "minItems": 0,
+          "maxItems": 10
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "tiedOptionIds": {
+      "description": "Options that tied for first place before tie-breaking; empty when there was no tie.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/OptionId"
+      },
+      "minItems": 0,
+      "maxItems": 10,
+      "uniqueItems": true
+    },
+    "triviaWinnerId": {
+      "description": "Trivia sudden-death winner when `method` = TRIVIA; null otherwise.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/PlayerId"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "vetoes": {
+      "description": "Vetoes used in this round.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "optionId": {
+            "description": "Vetoed option.",
+            "$ref": "#/$defs/OptionId"
+          },
+          "playerId": {
+            "description": "Player who vetoed it.",
+            "$ref": "#/$defs/PlayerId"
+          }
+        },
+        "required": [
+          "optionId",
+          "playerId"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0,
+      "maxItems": 8
+    },
+    "emergencyFunding": {
+      "description": "True when the winner has `afford` = EMERGENCY_FUNDING: PM's Emergency Funding is now spent (§4.2 Affordability).",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "outcomeSeq",
+    "roundId",
+    "kind",
+    "subjectId",
+    "winnerId",
+    "method",
+    "closedBy",
+    "counts",
+    "ballots",
+    "audienceCounts",
+    "audienceBallot",
+    "firstRoundCounts",
+    "tiedOptionIds",
+    "triviaWinnerId",
+    "vetoes",
+    "emergencyFunding"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "CloseCause": {
+      "description": "Why the voting stage ended.",
+      "type": "string",
+      "enum": [
+        "TIMER",
+        "ALL_VOTED",
+        "SOLO",
+        "DECISION_TIME",
+        "HOST"
+      ]
+    },
+    "DataId": {
+      "description": "Identifier of an entry in the shared game data (`data/`): part, part category, contract, test, anomaly card, minigame, fact, codex entry, callout, console request, award, objective, validation rule, cosmetic. 1–48 characters.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,47}$"
+    },
+    "OptionCount": {
+      "description": "Number of ballots for one option.",
+      "type": "object",
+      "properties": {
+        "optionId": {
+          "description": "Option id.",
+          "$ref": "#/$defs/OptionId"
+        },
+        "n": {
+          "description": "Ballot count.",
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100000
+        }
+      },
+      "required": [
+        "optionId",
+        "n"
+      ],
+      "additionalProperties": false
+    },
+    "OptionId": {
+      "description": "Identifier of one option inside a vote round. For PART votes it equals the part id; for CONTRACT votes the contract id; for PILOT votes a PlayerId; for quick votes an upper-case token defined in the vote-kind table (e.g. TEST, SKIP).",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,47}$"
+    },
+    "OutcomeSeq": {
+      "description": "Position of a server-resolved outcome in the room outcome log; starts at 1 and increases by 1 per outcome for the lifetime of the room.",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 2147483647
+    },
+    "PlayerId": {
+      "description": "Player identifier, unique within a room and never reused: \"p\" followed by a positive integer (p1, p2, …).",
+      "type": "string",
+      "pattern": "^p[1-9][0-9]{0,3}$"
+    },
+    "ResolveMethod": {
+      "description": "How the winner of a vote round was decided (§4.2).",
+      "type": "string",
+      "enum": [
+        "PLURALITY",
+        "RUNOFF",
+        "DECISION_TIME",
+        "FLIGHT_TIEBREAK",
+        "TRIVIA",
+        "COIN_FLIP",
+        "ABSTAIN_RECOMMENDED",
+        "ABSTAIN_DEFAULT",
+        "ABSTAIN_CHEAPEST"
+      ]
+    },
+    "RoundId": {
+      "description": "Vote round identifier chosen by the host; unique within the room for its whole lifetime.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,39}$"
+    },
+    "VoteKind": {
+      "description": "Kind of vote round. The kind selects the stage profile (see Vote profiles).",
+      "type": "string",
+      "enum": [
+        "PART",
+        "CONTRACT",
+        "REWORK_CATEGORY",
+        "LIVERY",
+        "PATCH",
+        "PILOT",
+        "TEST",
+        "ANOMALY",
+        "REVIEW",
+        "ABORT",
+        "FLIGHT_DECISION",
+        "MCM"
+      ]
+    }
+  },
+  "examples": [
+    {
+      "outcomeSeq": 10,
+      "roundId": "m1.r07",
+      "kind": "PART",
+      "subjectId": "first_stage_engine",
+      "winnerId": "eng_kerolox_workhorse",
+      "method": "FLIGHT_TIEBREAK",
+      "closedBy": "TIMER",
+      "counts": [
+        {
+          "optionId": "eng_kerolox_workhorse",
+          "n": 2
+        },
+        {
+          "optionId": "eng_methalox_reusable",
+          "n": 2
+        }
+      ],
+      "ballots": [
+        {
+          "playerId": "p1",
+          "optionId": "eng_kerolox_workhorse"
+        },
+        {
+          "playerId": "p2",
+          "optionId": "eng_kerolox_workhorse"
+        },
+        {
+          "playerId": "p3",
+          "optionId": "eng_methalox_reusable"
+        },
+        {
+          "playerId": "p4",
+          "optionId": "eng_methalox_reusable"
+        }
+      ],
+      "audienceCounts": [
+        {
+          "optionId": "eng_kerolox_workhorse",
+          "n": 3
+        },
+        {
+          "optionId": "eng_methalox_reusable",
+          "n": 6
+        }
+      ],
+      "audienceBallot": null,
+      "firstRoundCounts": null,
+      "tiedOptionIds": [
+        "eng_kerolox_workhorse",
+        "eng_methalox_reusable"
+      ],
+      "triviaWinnerId": null,
+      "vetoes": [],
+      "emergencyFunding": false
+    }
+  ]
+}

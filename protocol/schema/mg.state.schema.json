@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:mg.state",
+  "title": "mg.state",
+  "description": "host → server → client (relayed unchanged). Shared state of a running minigame, kept by the host: for cooperative minigames the common board, for all minigames the team progress. At most 10 Hz. Delivered to spectators only when the run has audience = true.",
+  "type": "object",
+  "properties": {
+    "runId": {
+      "description": "Run id.",
+      "$ref": "#/$defs/RunId"
+    },
+    "n": {
+      "description": "State counter, increasing; phones ignore older states.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 2147483647
+    },
+    "shared": {
+      "description": "Shared state defined by the minigame.",
+      "$ref": "#/$defs/MgMap"
+    },
+    "progress": {
+      "description": "Progress per active player.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "playerId": {
+            "description": "Player.",
+            "$ref": "#/$defs/PlayerId"
+          },
+          "p": {
+            "description": "Progress 0–1.",
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          }
+        },
+        "required": [
+          "playerId",
+          "p"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0,
+      "maxItems": 10
+    }
+  },
+  "required": [
+    "runId",
+    "n",
+    "shared",
+    "progress"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "MgMap": {
+      "description": "Open key/value bag for minigame parameters and shared state. Keys and meanings are defined per minigame in `data/minigames.json`; the server relays it without interpretation. At most 32 keys.",
+      "type": "object",
+      "additionalProperties": {
+        "anyOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "string",
+            "maxLength": 64
+          },
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "minItems": 0,
+            "maxItems": 64
+          }
+        ]
+      },
+      "propertyNames": {
+        "pattern": "^[a-z][A-Za-z0-9_]{0,31}$"
+      },
+      "maxProperties": 32
+    },
+    "PlayerId": {
+      "description": "Player identifier, unique within a room and never reused: \"p\" followed by a positive integer (p1, p2, …).",
+      "type": "string",
+      "pattern": "^p[1-9][0-9]{0,3}$"
+    },
+    "RunId": {
+      "description": "Minigame run identifier chosen by the host; unique within the room.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,39}$"
+    }
+  },
+  "examples": [
+    {
+      "runId": "m1.mg19",
+      "n": 17,
+      "shared": {
+        "slots": [
+          1,
+          0,
+          1,
+          0,
+          0
+        ],
+        "co2Pct": 2.4
+      },
+      "progress": [
+        {
+          "playerId": "p1",
+          "p": 1
+        },
+        {
+          "playerId": "p2",
+          "p": 0.5
+        }
+      ]
+    }
+  ]
+}

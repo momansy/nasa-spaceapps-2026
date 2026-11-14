@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:game.resume",
+  "title": "game.resume",
+  "description": "host → server. The host resumes the game. Required after game.pause and also after a host reconnect: the room stays paused after room.resumed until the host, having restored its state, sends this.",
+  "type": "object",
+  "properties": {},
+  "required": [],
+  "additionalProperties": false,
+  "examples": [
+    {}
+  ]
+}

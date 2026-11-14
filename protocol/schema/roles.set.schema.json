@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:roles.set",
+  "title": "roles.set",
+  "description": "host → server. The host assigns roles explicitly (teacher override, manual fix after players leave). Allowed in any phase. Sets locked = true. Spent abilities stay spent because they are tracked per role.",
+  "type": "object",
+  "properties": {
+    "assignments": {
+      "description": "One entry per player who receives roles.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "playerId": {
+            "description": "Player.",
+            "$ref": "#/$defs/PlayerId"
+          },
+          "roles": {
+            "description": "Roles for that player; may be empty.",
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/RoleId"
+            },
+            "minItems": 0,
+            "maxItems": 10,
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "playerId",
+          "roles"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "maxItems": 10
+    }
+  },
+  "required": [
+    "assignments"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "PlayerId": {
+      "description": "Player identifier, unique within a room and never reused: \"p\" followed by a positive integer (p1, p2, …).",
+      "type": "string",
+      "pattern": "^p[1-9][0-9]{0,3}$"
+    },
+    "RoleId": {
+      "description": "Mission Control role (§3.3), in canonical order.",
+      "type": "string",
+      "enum": [
+        "FLIGHT",
+        "BOOSTER",
+        "STRUCT",
+        "GUIDO",
+        "FIDO",
+        "EECOM",
+        "INCO",
+        "PAYLOAD",
+        "RETRO",
+        "PM"
+      ]
+    }
+  },
+  "examples": [
+    {
+      "assignments": [
+        {
+          "playerId": "p1",
+          "roles": [
+            "FLIGHT",
+            "PM",
+            "BOOSTER",
+            "STRUCT",
+            "GUIDO"
+          ]
+        },
+        {
+          "playerId": "p2",
+          "roles": [
+            "FIDO",
+            "EECOM",
+            "INCO",
+            "PAYLOAD",
+            "RETRO"
+          ]
+        }
+      ]
+    }
+  ]
+}

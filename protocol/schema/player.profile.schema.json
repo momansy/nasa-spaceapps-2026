@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:player.profile",
+  "title": "player.profile",
+  "description": "client → server. Changes the sender's nickname and avatar. The server broadcasts room.state.",
+  "type": "object",
+  "properties": {
+    "nickname": {
+      "description": "Requested nickname, before server normalisation.",
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 32
+    },
+    "avatar": {
+      "description": "Requested avatar.",
+      "$ref": "#/$defs/Avatar"
+    }
+  },
+  "required": [
+    "nickname",
+    "avatar"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "Avatar": {
+      "description": "Player avatar (§3.1): astronaut suit colour and patch, both cosmetic ids.",
+      "type": "object",
+      "properties": {
+        "suitId": {
+          "description": "Suit colour cosmetic id, e.g. \"suit_orange\".",
+          "$ref": "#/$defs/DataId"
+        },
+        "patchId": {
+          "description": "Patch cosmetic id, e.g. \"patch_comet\".",
+          "$ref": "#/$defs/DataId"
+        }
+      },
+      "required": [
+        "suitId",
+        "patchId"
+      ],
+      "additionalProperties": false
+    },
+    "DataId": {
+      "description": "Identifier of an entry in the shared game data (`data/`): part, part category, contract, test, anomaly card, minigame, fact, codex entry, callout, console request, award, objective, validation rule, cosmetic. 1–48 characters.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,47}$"
+    }
+  },
+  "examples": [
+    {
+      "nickname": "Nova Prime",
+      "avatar": {
+        "suitId": "suit_teal",
+        "patchId": "patch_comet"
+      }
+    }
+  ]
+}

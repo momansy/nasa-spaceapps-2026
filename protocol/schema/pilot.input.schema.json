@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:pilot.input",
+  "title": "pilot.input",
+  "description": "client → server → host (relayed inside `relay`). Analogue state of a phone used as a virtual gamepad. Sent on change at up to 30 Hz, and at 5 Hz while unchanged as a keep-alive; if the host receives none for 500 ms it centres pitch, yaw and roll and holds throttle. The server may drop all but the newest queued input.",
+  "type": "object",
+  "properties": {
+    "craft": {
+      "description": "Seat: VEHICLE for the pilot, BOOSTER for the booster pilot.",
+      "$ref": "#/$defs/Craft"
+    },
+    "n": {
+      "description": "Input counter, increasing; the host ignores inputs older than the last applied.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 2147483647
+    },
+    "throttle": {
+      "description": "Throttle position, 0 = closed, 1 = full.",
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "pitch": {
+      "description": "Pitch axis.",
+      "type": "number",
+      "minimum": -1,
+      "maximum": 1
+    },
+    "yaw": {
+      "description": "Yaw axis.",
+      "type": "number",
+      "minimum": -1,
+      "maximum": 1
+    },
+    "roll": {
+      "description": "Roll axis.",
+      "type": "number",
+      "minimum": -1,
+      "maximum": 1
+    }
+  },
+  "required": [
+    "craft",
+    "n",
+    "throttle",
+    "pitch",
+    "yaw",
+    "roll"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "Craft": {
+      "description": "Which vehicle a pilot seat flies.",
+      "type": "string",
+      "enum": [
+        "VEHICLE",
+        "BOOSTER"
+      ]
+    }
+  },
+  "examples": [
+    {
+      "craft": "VEHICLE",
+      "n": 1841,
+      "throttle": 0.72,
+      "pitch": -0.15,
+      "yaw": 0,
+      "roll": 0
+    }
+  ]
+}

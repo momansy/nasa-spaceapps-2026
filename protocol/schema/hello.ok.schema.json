@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:hello.ok",
+  "title": "hello.ok",
+  "description": "server → host and clients. Accepts the handshake and states the limits of this connection. After it the client must send room.create (host), room.join (phone) or room.resume (either) within 30 s.",
+  "type": "object",
+  "properties": {
+    "protocolVersion": {
+      "description": "Server protocol version (equals the client version).",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 65535
+    },
+    "serverTimeMs": {
+      "description": "Server clock when the message was sent.",
+      "$ref": "#/$defs/TimeMs"
+    },
+    "heartbeatMs": {
+      "description": "Interval at which the client must send `clock.ping`. Always 5000.",
+      "type": "integer",
+      "minimum": 1000,
+      "maximum": 60000
+    },
+    "idleTimeoutMs": {
+      "description": "The server drops the connection after this long without any frame. Always 15000.",
+      "type": "integer",
+      "minimum": 1000,
+      "maximum": 120000
+    },
+    "maxFrameBytes": {
+      "description": "Largest frame the client may send, UTF-8 bytes. PHONE: 2048. HOST: 65536.",
+      "type": "integer",
+      "minimum": 1024,
+      "maximum": 1048576
+    },
+    "maxMsgsPerSec": {
+      "description": "Overall message budget of the connection. PHONE: 60. HOST: 400.",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 1000
+    },
+    "maxBytesPerSec": {
+      "description": "Overall inbound byte budget of the connection. PHONE: 8192. HOST: 262144.",
+      "type": "integer",
+      "minimum": 1024,
+      "maximum": 10485760
+    }
+  },
+  "required": [
+    "protocolVersion",
+    "serverTimeMs",
+    "heartbeatMs",
+    "idleTimeoutMs",
+    "maxFrameBytes",
+    "maxMsgsPerSec",
+    "maxBytesPerSec"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "TimeMs": {
+      "description": "Absolute time on the server clock: integer milliseconds since the Unix epoch. Every `…AtMs` field in the protocol uses the server clock (see Clock).",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    }
+  },
+  "examples": [
+    {
+      "protocolVersion": 1,
+      "serverTimeMs": 1794650000000,
+      "heartbeatMs": 5000,
+      "idleTimeoutMs": 15000,
+      "maxFrameBytes": 2048,
+      "maxMsgsPerSec": 60,
+      "maxBytesPerSec": 8192
+    }
+  ]
+}

@@ -1,0 +1,272 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:build.state",
+  "title": "build.state",
+  "description": "host → server → client (relayed unchanged). Current build as computed by the host: chosen parts, Readiness Dashboard, budget, schedule and open validation issues. Sent after every commit, test, anomaly resolution and rework. Phones show it on the \"our rocket\" and design-review screens; they never recompute it.",
+  "type": "object",
+  "properties": {
+    "contractId": {
+      "description": "Contract being built for.",
+      "$ref": "#/$defs/DataId"
+    },
+    "parts": {
+      "description": "Parts committed so far, in vote order.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "category": {
+            "description": "Part category id (e.g. \"first_stage_engine\").",
+            "$ref": "#/$defs/DataId"
+          },
+          "partId": {
+            "description": "Chosen part id.",
+            "$ref": "#/$defs/DataId"
+          },
+          "count": {
+            "description": "Quantity (engine count, redundancy level); 1 when not applicable.",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 99
+          }
+        },
+        "required": [
+          "category",
+          "partId",
+          "count"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0,
+      "maxItems": 40
+    },
+    "metrics": {
+      "description": "Readiness Dashboard values.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "metric": {
+            "description": "Metric (unit in the id).",
+            "$ref": "#/$defs/MetricId"
+          },
+          "value": {
+            "description": "Current value.",
+            "type": "number"
+          },
+          "required": {
+            "description": "Contract requirement or limit for this metric, same unit; null when none.",
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "rating": {
+            "description": "Colour class.",
+            "$ref": "#/$defs/Rating"
+          }
+        },
+        "required": [
+          "metric",
+          "value",
+          "required",
+          "rating"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0,
+      "maxItems": 14
+    },
+    "budgetTotalM": {
+      "description": "Contract budget in $M (game value), including Emergency Funding once triggered.",
+      "type": "number",
+      "minimum": 0
+    },
+    "budgetSpentM": {
+      "description": "Spent so far in $M (game value).",
+      "type": "number",
+      "minimum": 0
+    },
+    "scheduleLimitDays": {
+      "description": "Contract deadline in days (game value).",
+      "type": "number",
+      "minimum": 0
+    },
+    "scheduleUsedDays": {
+      "description": "Schedule used so far in days (game value).",
+      "type": "number",
+      "minimum": 0
+    },
+    "issues": {
+      "description": "Open validation issues, most severe first.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "ruleId": {
+            "description": "Validation rule id (§6.11).",
+            "$ref": "#/$defs/DataId"
+          },
+          "severity": {
+            "description": "Severity.",
+            "$ref": "#/$defs/Severity"
+          },
+          "text": {
+            "description": "Explanation shown to players.",
+            "$ref": "#/$defs/TextRef"
+          }
+        },
+        "required": [
+          "ruleId",
+          "severity",
+          "text"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0,
+      "maxItems": 20
+    }
+  },
+  "required": [
+    "contractId",
+    "parts",
+    "metrics",
+    "budgetTotalM",
+    "budgetSpentM",
+    "scheduleLimitDays",
+    "scheduleUsedDays",
+    "issues"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "DataId": {
+      "description": "Identifier of an entry in the shared game data (`data/`): part, part category, contract, test, anomaly card, minigame, fact, codex entry, callout, console request, award, objective, validation rule, cosmetic. 1–48 characters.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,47}$"
+    },
+    "MetricId": {
+      "description": "Readiness Dashboard metric (§6.3). The unit is part of the identifier.",
+      "type": "string",
+      "enum": [
+        "TOTAL_DV_MS",
+        "LIFTOFF_TWR",
+        "UPPER_TWR",
+        "TOTAL_MASS_T",
+        "COST_M",
+        "BUDGET_LEFT_M",
+        "SCHEDULE_DAYS",
+        "SCHEDULE_MARGIN_DAYS",
+        "SUCCESS_PCT",
+        "SUCCESS_BAND_PCT",
+        "POWER_BALANCE_W",
+        "DATA_BUDGET_GB_DAY",
+        "ENTRY_SPEED_RATING_KMS",
+        "STABILITY"
+      ]
+    },
+    "Rating": {
+      "description": "Colour class of a value or delta (§14.4).",
+      "type": "string",
+      "enum": [
+        "GOOD",
+        "MARGINAL",
+        "BAD",
+        "NEUTRAL"
+      ]
+    },
+    "Severity": {
+      "description": "Design-review issue severity (§6.9, §6.11).",
+      "type": "string",
+      "enum": [
+        "BLOCKER",
+        "MAJOR",
+        "MINOR"
+      ]
+    },
+    "TextRef": {
+      "description": "Reference to localised player-visible text. The protocol never carries free display text: `key` is a key of `data/strings/<lang>.json`, and `args` supplies substitution values. Receivers format numbers and units locally.",
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "String-table key.",
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,79}$"
+        },
+        "args": {
+          "description": "Substitution values by placeholder name. String values must themselves be data ids or string-table keys, never user text.",
+          "type": "object",
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "propertyNames": {
+            "pattern": "^[a-z][A-Za-z0-9_]{0,23}$"
+          },
+          "maxProperties": 8
+        }
+      },
+      "required": [
+        "key"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "examples": [
+    {
+      "contractId": "C1",
+      "parts": [
+        {
+          "category": "launch_site",
+          "partId": "site_west_polar",
+          "count": 1
+        },
+        {
+          "category": "upper_stage_engine",
+          "partId": "eng_kerolox_vacuum",
+          "count": 1
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "TOTAL_DV_MS",
+          "value": 9890,
+          "required": 9700,
+          "rating": "MARGINAL"
+        },
+        {
+          "metric": "LIFTOFF_TWR",
+          "value": 1.35,
+          "required": 1,
+          "rating": "GOOD"
+        }
+      ],
+      "budgetTotalM": 90,
+      "budgetSpentM": 41.6,
+      "scheduleLimitDays": 180,
+      "scheduleUsedDays": 96,
+      "issues": [
+        {
+          "ruleId": "dv_margin_low",
+          "severity": "MAJOR",
+          "text": {
+            "key": "rule.dv_margin_low",
+            "args": {
+              "marginPct": 2
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

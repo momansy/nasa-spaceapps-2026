@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:ability.consume",
+  "title": "ability.consume",
+  "description": "host → server. The host spends a role ability through a game event, without a player request. The server marks it spent and broadcasts ability.used (trigger HOST) and roles.state.",
+  "type": "object",
+  "properties": {
+    "role": {
+      "description": "Role whose ability is spent.",
+      "$ref": "#/$defs/RoleId"
+    },
+    "reason": {
+      "description": "What spent it.",
+      "$ref": "#/$defs/AbilityConsumeReason"
+    }
+  },
+  "required": [
+    "role",
+    "reason"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "AbilityConsumeReason": {
+      "description": "Why the host spent an ability without a player request.",
+      "type": "string",
+      "enum": [
+        "ANOMALY_RESPONSE",
+        "GAME_EVENT"
+      ]
+    },
+    "RoleId": {
+      "description": "Mission Control role (§3.3), in canonical order.",
+      "type": "string",
+      "enum": [
+        "FLIGHT",
+        "BOOSTER",
+        "STRUCT",
+        "GUIDO",
+        "FIDO",
+        "EECOM",
+        "INCO",
+        "PAYLOAD",
+        "RETRO",
+        "PM"
+      ]
+    }
+  },
+  "examples": [
+    {
+      "role": "PM",
+      "reason": "ANOMALY_RESPONSE"
+    }
+  ]
+}

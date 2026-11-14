@@ -1,0 +1,190 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:build.event",
+  "title": "build.event",
+  "description": "host → server → client (relayed unchanged). One build-phase event for the phone feed: a test result, a revealed flaw, a drawn anomaly card, a review opening or passing, a rework, a deadline slip, a Lessons Learned bonus. The decision itself, if any, is a separate vote.",
+  "type": "object",
+  "properties": {
+    "kind": {
+      "description": "What happened.",
+      "$ref": "#/$defs/BuildEventKind"
+    },
+    "subjectId": {
+      "description": "Test id, anomaly card id, review id, part category id or lesson id; null when none.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/DataId"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "text": {
+      "description": "One-line description.",
+      "$ref": "#/$defs/TextRef"
+    },
+    "deltas": {
+      "description": "Dashboard changes caused by the event; empty when none.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Delta"
+      },
+      "minItems": 0,
+      "maxItems": 16
+    },
+    "factId": {
+      "description": "Related fact to show; null when none.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/DataId"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "kind",
+    "subjectId",
+    "text",
+    "deltas",
+    "factId"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "BuildEventKind": {
+      "description": "Kind of build-phase event shown in the phone feed.",
+      "type": "string",
+      "enum": [
+        "TEST_RESULT",
+        "FLAW_FOUND",
+        "FLAW_FIXED",
+        "ANOMALY_DRAWN",
+        "ANOMALY_RESOLVED",
+        "REVIEW_OPENED",
+        "REVIEW_PASSED",
+        "REWORK_OPENED",
+        "DEADLINE_SLIP",
+        "LESSON_APPLIED"
+      ]
+    },
+    "DataId": {
+      "description": "Identifier of an entry in the shared game data (`data/`): part, part category, contract, test, anomaly card, minigame, fact, codex entry, callout, console request, award, objective, validation rule, cosmetic. 1–48 characters.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,47}$"
+    },
+    "Delta": {
+      "description": "One Readiness Dashboard metric after a hypothetical or applied change, computed by the host (§6.3, §14.3 \"IF CHOSEN\").",
+      "type": "object",
+      "properties": {
+        "metric": {
+          "description": "Metric (unit in the id).",
+          "$ref": "#/$defs/MetricId"
+        },
+        "value": {
+          "description": "Value of the metric after the change.",
+          "type": "number"
+        },
+        "delta": {
+          "description": "Change against the current build (value after − value before).",
+          "type": "number"
+        },
+        "rating": {
+          "description": "Colour class of the change.",
+          "$ref": "#/$defs/Rating"
+        }
+      },
+      "required": [
+        "metric",
+        "value",
+        "delta",
+        "rating"
+      ],
+      "additionalProperties": false
+    },
+    "MetricId": {
+      "description": "Readiness Dashboard metric (§6.3). The unit is part of the identifier.",
+      "type": "string",
+      "enum": [
+        "TOTAL_DV_MS",
+        "LIFTOFF_TWR",
+        "UPPER_TWR",
+        "TOTAL_MASS_T",
+        "COST_M",
+        "BUDGET_LEFT_M",
+        "SCHEDULE_DAYS",
+        "SCHEDULE_MARGIN_DAYS",
+        "SUCCESS_PCT",
+        "SUCCESS_BAND_PCT",
+        "POWER_BALANCE_W",
+        "DATA_BUDGET_GB_DAY",
+        "ENTRY_SPEED_RATING_KMS",
+        "STABILITY"
+      ]
+    },
+    "Rating": {
+      "description": "Colour class of a value or delta (§14.4).",
+      "type": "string",
+      "enum": [
+        "GOOD",
+        "MARGINAL",
+        "BAD",
+        "NEUTRAL"
+      ]
+    },
+    "TextRef": {
+      "description": "Reference to localised player-visible text. The protocol never carries free display text: `key` is a key of `data/strings/<lang>.json`, and `args` supplies substitution values. Receivers format numbers and units locally.",
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "String-table key.",
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,79}$"
+        },
+        "args": {
+          "description": "Substitution values by placeholder name. String values must themselves be data ids or string-table keys, never user text.",
+          "type": "object",
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "propertyNames": {
+            "pattern": "^[a-z][A-Za-z0-9_]{0,23}$"
+          },
+          "maxProperties": 8
+        }
+      },
+      "required": [
+        "key"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "examples": [
+    {
+      "kind": "FLAW_FOUND",
+      "subjectId": "test_thermal_vacuum",
+      "text": {
+        "key": "test.thermal_vacuum.flaw_heater"
+      },
+      "deltas": [
+        {
+          "metric": "COST_M",
+          "value": 42.6,
+          "delta": 1,
+          "rating": "BAD"
+        }
+      ],
+      "factId": null
+    }
+  ]
+}

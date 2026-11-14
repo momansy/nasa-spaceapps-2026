@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:roles.rotate",
+  "title": "roles.rotate",
+  "description": "host → server. Campaign rotation between missions. The server recomputes the role groups for the current player count and gives group *i* (table order) to the player who is next in slot order after the previous holder of group *i*; with unchanged membership every player moves on by one group. Sets locked = true and broadcasts roles.state.",
+  "type": "object",
+  "properties": {},
+  "required": [],
+  "additionalProperties": false,
+  "examples": [
+    {}
+  ]
+}

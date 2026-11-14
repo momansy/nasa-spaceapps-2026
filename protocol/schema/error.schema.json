@@ -1,0 +1,133 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:error",
+  "title": "error",
+  "description": "server → host and clients. Rejects one message from this connection. The rejected message had no effect. When fatal is true the server sends bye next and closes the socket.",
+  "type": "object",
+  "properties": {
+    "code": {
+      "description": "Error code (see the error table).",
+      "$ref": "#/$defs/ErrorCode"
+    },
+    "fatal": {
+      "description": "True when the connection is closed because of this error.",
+      "type": "boolean"
+    },
+    "re": {
+      "description": "`seq` of the rejected message; null when the frame could not be parsed.",
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2147483647
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "reT": {
+      "description": "`t` of the rejected message; null when unknown.",
+      "anyOf": [
+        {
+          "type": "string",
+          "maxLength": 64
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "retryAfterMs": {
+      "description": "RATE_LIMITED only: wait at least this long before sending this type again.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 600000
+    },
+    "field": {
+      "description": "BAD_PAYLOAD only: name of the first failing field (dotted path).",
+      "type": "string",
+      "maxLength": 64
+    },
+    "serverProtocolVersion": {
+      "description": "VERSION_MISMATCH only: version the server speaks.",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 65535
+    },
+    "suggestion": {
+      "description": "NICK_REJECTED / NICK_TAKEN only: a nickname the server would accept.",
+      "$ref": "#/$defs/Nickname"
+    }
+  },
+  "required": [
+    "code",
+    "fatal",
+    "re",
+    "reT"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "ErrorCode": {
+      "description": "Error codes carried by `error`.",
+      "type": "string",
+      "enum": [
+        "BAD_ENVELOPE",
+        "FRAME_TOO_LARGE",
+        "HANDSHAKE_REQUIRED",
+        "VERSION_MISMATCH",
+        "FLOOD",
+        "UNKNOWN_TYPE",
+        "BAD_PAYLOAD",
+        "FORBIDDEN",
+        "NOT_IN_ROOM",
+        "ALREADY_IN_ROOM",
+        "ROOM_NOT_FOUND",
+        "TOKEN_INVALID",
+        "NICK_REJECTED",
+        "NICK_TAKEN",
+        "RATE_LIMITED",
+        "PAUSED",
+        "WRONG_PHASE",
+        "WRONG_STAGE",
+        "INVALID_TRANSITION",
+        "SETTING_LOCKED",
+        "UNKNOWN_PLAYER",
+        "STALE_ID",
+        "DUPLICATE_ID",
+        "ROUND_ACTIVE",
+        "NO_WINNABLE_OPTION",
+        "UNKNOWN_OPTION",
+        "OPTION_VETOED",
+        "OPTION_NOT_WINNABLE",
+        "OPTION_UNAFFORDABLE",
+        "NOT_A_VOTER",
+        "VETO_NOT_ALLOWED",
+        "VETO_USED",
+        "VETO_MIN_OPTIONS",
+        "NOT_ROLE_HOLDER",
+        "ALREADY_ANSWERED",
+        "NOT_YOUR_TURN",
+        "ABILITY_USED",
+        "ABILITY_REJECTED",
+        "ROLE_TAKEN",
+        "INVALID_ASSIGNMENT",
+        "NOT_PILOT",
+        "INTERNAL"
+      ]
+    },
+    "Nickname": {
+      "description": "Display nickname after server normalisation (NFC, trimmed, inner whitespace collapsed): 2–16 characters; Unicode letters, digits, space, underscore and hyphen; first and last character must be a letter or digit.",
+      "type": "string",
+      "pattern": "^[\\p{L}\\p{N}][\\p{L}\\p{N} _-]{0,14}[\\p{L}\\p{N}]$"
+    }
+  },
+  "examples": [
+    {
+      "code": "VETO_USED",
+      "fatal": false,
+      "re": 41,
+      "reT": "vote.veto"
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:boost.state",
+  "title": "boost.state",
+  "description": "host → server → client (relayed unchanged). All boosts currently in force, for the active-boost icons. Sent after every change, including a Reliability Shield being consumed.",
+  "type": "object",
+  "properties": {
+    "boosts": {
+      "description": "One entry per boost type in force.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "boost": {
+            "description": "Boost type.",
+            "$ref": "#/$defs/BoostId"
+          },
+          "total": {
+            "description": "Mission total in `unit` (for RELIABILITY_SHIELD: shields currently held).",
+            "type": "number"
+          },
+          "unit": {
+            "description": "Unit of `total`.",
+            "$ref": "#/$defs/BoostUnit"
+          }
+        },
+        "required": [
+          "boost",
+          "total",
+          "unit"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0,
+      "maxItems": 11
+    }
+  },
+  "required": [
+    "boosts"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "BoostId": {
+      "description": "Boost type (§10.4).",
+      "type": "string",
+      "enum": [
+        "DV_BONUS",
+        "RELIABILITY_SHIELD",
+        "HEAT_MARGIN",
+        "PRECISION",
+        "LOAD_MARGIN",
+        "FUEL_SAVER",
+        "DATA_MULTIPLIER",
+        "BUDGET_REFUND",
+        "SCHEDULE_RECOVERY",
+        "CREW_MORALE",
+        "SCORE_MULTIPLIER"
+      ]
+    },
+    "BoostUnit": {
+      "description": "Unit of a boost amount.",
+      "type": "string",
+      "enum": [
+        "PCT",
+        "MULT",
+        "M_USD",
+        "DAYS",
+        "POINTS",
+        "SHIELDS"
+      ]
+    }
+  },
+  "examples": [
+    {
+      "boosts": [
+        {
+          "boost": "DV_BONUS",
+          "total": 3,
+          "unit": "PCT"
+        },
+        {
+          "boost": "RELIABILITY_SHIELD",
+          "total": 1,
+          "unit": "SHIELDS"
+        }
+      ]
+    }
+  ]
+}

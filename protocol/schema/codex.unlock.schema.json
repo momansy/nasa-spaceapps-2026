@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:codex.unlock",
+  "title": "codex.unlock",
+  "description": "host → server → client (relayed unchanged). Codex entries unlocked by an event other than a vote commit. Each phone adds them to its personal collection (kept on the device).",
+  "type": "object",
+  "properties": {
+    "codexIds": {
+      "description": "Codex entries unlocked.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/DataId"
+      },
+      "minItems": 1,
+      "maxItems": 20,
+      "uniqueItems": true
+    },
+    "source": {
+      "description": "What unlocked them.",
+      "$ref": "#/$defs/CodexSource"
+    },
+    "badge": {
+      "description": "True when the unlock comes with a Codex badge (Platinum, Gold investigation).",
+      "type": "boolean"
+    },
+    "to": {
+      "description": "Players who receive the unlock; null = every player and spectator.",
+      "anyOf": [
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/PlayerId"
+          },
+          "minItems": 1,
+          "maxItems": 10,
+          "uniqueItems": true
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "codexIds",
+    "source",
+    "badge",
+    "to"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "CodexSource": {
+      "description": "What unlocked a Codex entry (§12.2).",
+      "type": "string",
+      "enum": [
+        "PART",
+        "EVENT",
+        "MINIGAME",
+        "DEBRIEF",
+        "MILESTONE"
+      ]
+    },
+    "DataId": {
+      "description": "Identifier of an entry in the shared game data (`data/`): part, part category, contract, test, anomaly card, minigame, fact, codex entry, callout, console request, award, objective, validation rule, cosmetic. 1–48 characters.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,47}$"
+    },
+    "PlayerId": {
+      "description": "Player identifier, unique within a room and never reused: \"p\" followed by a positive integer (p1, p2, …).",
+      "type": "string",
+      "pattern": "^p[1-9][0-9]{0,3}$"
+    }
+  },
+  "examples": [
+    {
+      "codexIds": [
+        "codex_mars_climate_orbiter"
+      ],
+      "source": "MINIGAME",
+      "badge": false,
+      "to": null
+    }
+  ]
+}

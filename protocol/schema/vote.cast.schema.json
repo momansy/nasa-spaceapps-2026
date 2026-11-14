@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:vote.cast",
+  "title": "vote.cast",
+  "description": "client → server. Casts or changes the sender's ballot. The last accepted ballot counts; ballots can be changed until the stage ends. A spectator's ballot goes to the separate audience tally. The server answers vote.ack and updates vote.tally.",
+  "type": "object",
+  "properties": {
+    "roundId": {
+      "description": "Round id.",
+      "$ref": "#/$defs/RoundId"
+    },
+    "optionId": {
+      "description": "Option voted for.",
+      "$ref": "#/$defs/OptionId"
+    }
+  },
+  "required": [
+    "roundId",
+    "optionId"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "OptionId": {
+      "description": "Identifier of one option inside a vote round. For PART votes it equals the part id; for CONTRACT votes the contract id; for PILOT votes a PlayerId; for quick votes an upper-case token defined in the vote-kind table (e.g. TEST, SKIP).",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,47}$"
+    },
+    "RoundId": {
+      "description": "Vote round identifier chosen by the host; unique within the room for its whole lifetime.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,39}$"
+    }
+  },
+  "examples": [
+    {
+      "roundId": "m1.r07",
+      "optionId": "eng_kerolox_workhorse"
+    }
+  ]
+}

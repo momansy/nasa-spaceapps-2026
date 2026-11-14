@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:room.promoted",
+  "title": "room.promoted",
+  "description": "server → client. Tells a pending spectator that it is now a full player. Sent when a vote round opens (before the electorate is fixed) or a new mission starts, while a slot is free; pending players are promoted in join order. The token stays valid; the SpectatorId is retired. room.state and roles.state follow for everyone.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "The new PlayerId.",
+      "$ref": "#/$defs/PlayerId"
+    },
+    "slot": {
+      "description": "Seat number.",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 10
+    },
+    "roles": {
+      "description": "Roles received through rebalancing (see Role rules); may be empty before roles lock.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/RoleId"
+      },
+      "minItems": 0,
+      "maxItems": 10,
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "id",
+    "slot",
+    "roles"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "PlayerId": {
+      "description": "Player identifier, unique within a room and never reused: \"p\" followed by a positive integer (p1, p2, …).",
+      "type": "string",
+      "pattern": "^p[1-9][0-9]{0,3}$"
+    },
+    "RoleId": {
+      "description": "Mission Control role (§3.3), in canonical order.",
+      "type": "string",
+      "enum": [
+        "FLIGHT",
+        "BOOSTER",
+        "STRUCT",
+        "GUIDO",
+        "FIDO",
+        "EECOM",
+        "INCO",
+        "PAYLOAD",
+        "RETRO",
+        "PM"
+      ]
+    }
+  },
+  "examples": [
+    {
+      "id": "p6",
+      "slot": 5,
+      "roles": [
+        "PAYLOAD",
+        "RETRO"
+      ]
+    }
+  ]
+}

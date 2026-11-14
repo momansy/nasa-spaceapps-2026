@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:kp.awarded",
+  "title": "kp.awarded",
+  "description": "host → server → client (relayed unchanged). Knowledge Points awarded by the host (correct predictions, trivia tiebreak, bonus rounds).",
+  "type": "object",
+  "properties": {
+    "entries": {
+      "description": "Awards.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "playerId": {
+            "description": "Player who earned them.",
+            "$ref": "#/$defs/PlayerId"
+          },
+          "kp": {
+            "description": "Knowledge Points earned.",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100000
+          },
+          "reason": {
+            "description": "Why.",
+            "$ref": "#/$defs/KpReason"
+          }
+        },
+        "required": [
+          "playerId",
+          "kp",
+          "reason"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "maxItems": 10
+    },
+    "teamKp": {
+      "description": "Team Knowledge Points total after the awards.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 10000000
+    }
+  },
+  "required": [
+    "entries",
+    "teamKp"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "KpReason": {
+      "description": "Why Knowledge Points were awarded (§11.3, §12.2).",
+      "type": "string",
+      "enum": [
+        "PREDICTION",
+        "TRIVIA",
+        "MINIGAME",
+        "BONUS"
+      ]
+    },
+    "PlayerId": {
+      "description": "Player identifier, unique within a room and never reused: \"p\" followed by a positive integer (p1, p2, …).",
+      "type": "string",
+      "pattern": "^p[1-9][0-9]{0,3}$"
+    }
+  },
+  "examples": [
+    {
+      "entries": [
+        {
+          "playerId": "p1",
+          "kp": 50,
+          "reason": "PREDICTION"
+        },
+        {
+          "playerId": "p4",
+          "kp": 50,
+          "reason": "PREDICTION"
+        }
+      ],
+      "teamKp": 250
+    }
+  ]
+}

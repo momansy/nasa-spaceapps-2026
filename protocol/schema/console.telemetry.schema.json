@@ -1,0 +1,257 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:console.telemetry",
+  "title": "console.telemetry",
+  "description": "host → server → client (relayed unchanged). Live telemetry for one role console, computed by the host and delivered only to the holder(s) of role. At most 10 messages per second per role; the server drops the excess. Not sent during a blackout.",
+  "type": "object",
+  "properties": {
+    "role": {
+      "description": "Console (routing key).",
+      "$ref": "#/$defs/RoleId"
+    },
+    "metS": {
+      "description": "Mission elapsed time of the sample, s.",
+      "type": "number"
+    },
+    "v": {
+      "description": "Values of this role's channels.",
+      "$ref": "#/$defs/TelemetryValues"
+    }
+  },
+  "required": [
+    "role",
+    "metS",
+    "v"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "RoleId": {
+      "description": "Mission Control role (§3.3), in canonical order.",
+      "type": "string",
+      "enum": [
+        "FLIGHT",
+        "BOOSTER",
+        "STRUCT",
+        "GUIDO",
+        "FIDO",
+        "EECOM",
+        "INCO",
+        "PAYLOAD",
+        "RETRO",
+        "PM"
+      ]
+    },
+    "TelemetryValues": {
+      "description": "Telemetry values by channel id; only the channels of the addressed role are present.",
+      "type": "object",
+      "properties": {
+        "met_s": {
+          "description": "Channel met_s.",
+          "type": "number"
+        },
+        "altitude_km": {
+          "description": "Channel altitude_km.",
+          "type": "number"
+        },
+        "velocity_ms": {
+          "description": "Channel velocity_ms.",
+          "type": "number"
+        },
+        "countdown_s": {
+          "description": "Channel countdown_s.",
+          "type": "number"
+        },
+        "hold": {
+          "description": "Channel hold.",
+          "type": "number"
+        },
+        "consoles_red": {
+          "description": "Channel consoles_red.",
+          "type": "number"
+        },
+        "consoles_amber": {
+          "description": "Channel consoles_amber.",
+          "type": "number"
+        },
+        "chamber_pressure_pct": {
+          "description": "Channel chamber_pressure_pct.",
+          "type": "number"
+        },
+        "engines_running": {
+          "description": "Channel engines_running.",
+          "type": "number"
+        },
+        "engines_total": {
+          "description": "Channel engines_total.",
+          "type": "number"
+        },
+        "engine_health_pct": {
+          "description": "Channel engine_health_pct.",
+          "type": "number"
+        },
+        "prop_stage1_pct": {
+          "description": "Channel prop_stage1_pct.",
+          "type": "number"
+        },
+        "prop_stage2_pct": {
+          "description": "Channel prop_stage2_pct.",
+          "type": "number"
+        },
+        "throttle_pct": {
+          "description": "Channel throttle_pct.",
+          "type": "number"
+        },
+        "q_kpa": {
+          "description": "Channel q_kpa.",
+          "type": "number"
+        },
+        "load_pct": {
+          "description": "Channel load_pct.",
+          "type": "number"
+        },
+        "g_load": {
+          "description": "Channel g_load.",
+          "type": "number"
+        },
+        "vibration_pct": {
+          "description": "Channel vibration_pct.",
+          "type": "number"
+        },
+        "traj_error_km": {
+          "description": "Channel traj_error_km.",
+          "type": "number"
+        },
+        "pitch_error_deg": {
+          "description": "Channel pitch_error_deg.",
+          "type": "number"
+        },
+        "heading_error_deg": {
+          "description": "Channel heading_error_deg.",
+          "type": "number"
+        },
+        "apoapsis_km": {
+          "description": "Channel apoapsis_km.",
+          "type": "number"
+        },
+        "periapsis_km": {
+          "description": "Channel periapsis_km.",
+          "type": "number"
+        },
+        "inclination_deg": {
+          "description": "Channel inclination_deg.",
+          "type": "number"
+        },
+        "window_remaining_s": {
+          "description": "Channel window_remaining_s.",
+          "type": "number"
+        },
+        "dv_remaining_ms": {
+          "description": "Channel dv_remaining_ms.",
+          "type": "number"
+        },
+        "battery_pct": {
+          "description": "Channel battery_pct.",
+          "type": "number"
+        },
+        "power_balance_w": {
+          "description": "Channel power_balance_w.",
+          "type": "number"
+        },
+        "temp_c": {
+          "description": "Channel temp_c.",
+          "type": "number"
+        },
+        "cabin_pressure_kpa": {
+          "description": "Channel cabin_pressure_kpa.",
+          "type": "number"
+        },
+        "cabin_co2_pct": {
+          "description": "Channel cabin_co2_pct.",
+          "type": "number"
+        },
+        "signal_pct": {
+          "description": "Channel signal_pct.",
+          "type": "number"
+        },
+        "data_downlinked_gb": {
+          "description": "Channel data_downlinked_gb.",
+          "type": "number"
+        },
+        "next_pass_s": {
+          "description": "Channel next_pass_s.",
+          "type": "number"
+        },
+        "in_pass": {
+          "description": "Channel in_pass.",
+          "type": "number"
+        },
+        "targets_captured": {
+          "description": "Channel targets_captured.",
+          "type": "number"
+        },
+        "targets_total": {
+          "description": "Channel targets_total.",
+          "type": "number"
+        },
+        "payload_health_pct": {
+          "description": "Channel payload_health_pct.",
+          "type": "number"
+        },
+        "data_stored_gb": {
+          "description": "Channel data_stored_gb.",
+          "type": "number"
+        },
+        "entry_angle_deg": {
+          "description": "Channel entry_angle_deg.",
+          "type": "number"
+        },
+        "heat_load_pct": {
+          "description": "Channel heat_load_pct.",
+          "type": "number"
+        },
+        "landing_ellipse_km": {
+          "description": "Channel landing_ellipse_km.",
+          "type": "number"
+        },
+        "descent_rate_ms": {
+          "description": "Channel descent_rate_ms.",
+          "type": "number"
+        },
+        "chutes_deployed": {
+          "description": "Channel chutes_deployed.",
+          "type": "number"
+        },
+        "budget_left_m": {
+          "description": "Channel budget_left_m.",
+          "type": "number"
+        },
+        "schedule_margin_days": {
+          "description": "Channel schedule_margin_days.",
+          "type": "number"
+        },
+        "score_pts": {
+          "description": "Channel score_pts.",
+          "type": "number"
+        },
+        "sync_meter": {
+          "description": "Channel sync_meter.",
+          "type": "number"
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    }
+  },
+  "examples": [
+    {
+      "role": "STRUCT",
+      "metS": 62.4,
+      "v": {
+        "q_kpa": 31.2,
+        "load_pct": 88.5,
+        "g_load": 1.9,
+        "vibration_pct": 34
+      }
+    }
+  ]
+}

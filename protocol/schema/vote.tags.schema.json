@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:vote.tags",
+  "title": "vote.tags",
+  "description": "server → host and clients. All role tags of the round. Sent after every accepted vote.tag, after a veto that removed tags, and in snapshots.",
+  "type": "object",
+  "properties": {
+    "roundId": {
+      "description": "Round id.",
+      "$ref": "#/$defs/RoundId"
+    },
+    "tags": {
+      "description": "Current tags.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "optionId": {
+            "description": "Tagged option.",
+            "$ref": "#/$defs/OptionId"
+          },
+          "playerId": {
+            "description": "Role-holder who tagged it.",
+            "$ref": "#/$defs/PlayerId"
+          },
+          "role": {
+            "description": "The first role in `ownerRoles` that this player holds.",
+            "$ref": "#/$defs/RoleId"
+          },
+          "tag": {
+            "description": "Badge.",
+            "$ref": "#/$defs/TagKind"
+          }
+        },
+        "required": [
+          "optionId",
+          "playerId",
+          "role",
+          "tag"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0,
+      "maxItems": 30
+    }
+  },
+  "required": [
+    "roundId",
+    "tags"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "OptionId": {
+      "description": "Identifier of one option inside a vote round. For PART votes it equals the part id; for CONTRACT votes the contract id; for PILOT votes a PlayerId; for quick votes an upper-case token defined in the vote-kind table (e.g. TEST, SKIP).",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,47}$"
+    },
+    "PlayerId": {
+      "description": "Player identifier, unique within a room and never reused: \"p\" followed by a positive integer (p1, p2, …).",
+      "type": "string",
+      "pattern": "^p[1-9][0-9]{0,3}$"
+    },
+    "RoleId": {
+      "description": "Mission Control role (§3.3), in canonical order.",
+      "type": "string",
+      "enum": [
+        "FLIGHT",
+        "BOOSTER",
+        "STRUCT",
+        "GUIDO",
+        "FIDO",
+        "EECOM",
+        "INCO",
+        "PAYLOAD",
+        "RETRO",
+        "PM"
+      ]
+    },
+    "RoundId": {
+      "description": "Vote round identifier chosen by the host; unique within the room for its whole lifetime.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,39}$"
+    },
+    "TagKind": {
+      "description": "Role tag on an option (§3.4).",
+      "type": "string",
+      "enum": [
+        "RECOMMENDED",
+        "CONCERN"
+      ]
+    }
+  },
+  "examples": [
+    {
+      "roundId": "m1.r07",
+      "tags": [
+        {
+          "optionId": "eng_kerolox_workhorse",
+          "playerId": "p2",
+          "role": "BOOSTER",
+          "tag": "RECOMMENDED"
+        },
+        {
+          "optionId": "eng_methalox_reusable",
+          "playerId": "p2",
+          "role": "BOOSTER",
+          "tag": "CONCERN"
+        }
+      ]
+    }
+  ]
+}

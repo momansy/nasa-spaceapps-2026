@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:roles.pick",
+  "title": "roles.pick",
+  "description": "client → server. PICK mode: the sender claims a role group, or releases the current claim with null. A player holds at most one group; claiming another releases the previous one. The server broadcasts roles.state.",
+  "type": "object",
+  "properties": {
+    "lead": {
+      "description": "Lead role of the group to claim (see `roles.state.groups[].lead`), or null to release.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/RoleId"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "lead"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "RoleId": {
+      "description": "Mission Control role (§3.3), in canonical order.",
+      "type": "string",
+      "enum": [
+        "FLIGHT",
+        "BOOSTER",
+        "STRUCT",
+        "GUIDO",
+        "FIDO",
+        "EECOM",
+        "INCO",
+        "PAYLOAD",
+        "RETRO",
+        "PM"
+      ]
+    }
+  },
+  "examples": [
+    {
+      "lead": "GUIDO"
+    }
+  ]
+}

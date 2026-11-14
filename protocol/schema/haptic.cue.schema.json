@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:haptic.cue",
+  "title": "haptic.cue",
+  "description": "host → server → client (relayed unchanged). Asks phones to vibrate with a named pattern. Phones ignore it when the device preference haptics is false or the device has no vibration.",
+  "type": "object",
+  "properties": {
+    "cue": {
+      "description": "Which pattern.",
+      "$ref": "#/$defs/HapticCue"
+    },
+    "to": {
+      "description": "Players to cue; null = every player (spectators never).",
+      "anyOf": [
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/PlayerId"
+          },
+          "minItems": 1,
+          "maxItems": 10,
+          "uniqueItems": true
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "cue",
+    "to"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "HapticCue": {
+      "description": "Phone vibration cue (§15). The vibration pattern for each cue is defined in the client.",
+      "type": "string",
+      "enum": [
+        "IGNITION",
+        "MAX_Q_RUMBLE",
+        "STAGING",
+        "CHUTE_OPEN",
+        "TOUCHDOWN",
+        "ALERT",
+        "GOOD_CALL",
+        "VETO",
+        "TIER_NONE",
+        "TIER_BRONZE",
+        "TIER_SILVER",
+        "TIER_GOLD",
+        "TIER_PLATINUM"
+      ]
+    },
+    "PlayerId": {
+      "description": "Player identifier, unique within a room and never reused: \"p\" followed by a positive integer (p1, p2, …).",
+      "type": "string",
+      "pattern": "^p[1-9][0-9]{0,3}$"
+    }
+  },
+  "examples": [
+    {
+      "cue": "STAGING",
+      "to": null
+    }
+  ]
+}

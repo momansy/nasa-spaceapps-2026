@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:console.alert",
+  "title": "console.alert",
+  "description": "host → server → client (relayed unchanged). A parameter of one console went out of limits. Opens the window in which the matching callout earns a Good Call. Delivered only to the holder(s) of role.",
+  "type": "object",
+  "properties": {
+    "alertId": {
+      "description": "New alert id.",
+      "$ref": "#/$defs/AlertId"
+    },
+    "role": {
+      "description": "Console (routing key).",
+      "$ref": "#/$defs/RoleId"
+    },
+    "calloutId": {
+      "description": "Callout that matches this alert.",
+      "$ref": "#/$defs/DataId"
+    },
+    "arg": {
+      "description": "Number that is part of the callout (e.g. engine 3); null when none.",
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 99
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "severity": {
+      "description": "Severity.",
+      "$ref": "#/$defs/AlertSeverity"
+    },
+    "endsAtMs": {
+      "description": "Server clock when the Good Call window closes.",
+      "$ref": "#/$defs/TimeMs"
+    }
+  },
+  "required": [
+    "alertId",
+    "role",
+    "calloutId",
+    "arg",
+    "severity",
+    "endsAtMs"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "AlertId": {
+      "description": "Console alert identifier chosen by the host; unique within the room.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,39}$"
+    },
+    "AlertSeverity": {
+      "description": "Severity of a console alert.",
+      "type": "string",
+      "enum": [
+        "CAUTION",
+        "WARNING"
+      ]
+    },
+    "DataId": {
+      "description": "Identifier of an entry in the shared game data (`data/`): part, part category, contract, test, anomaly card, minigame, fact, codex entry, callout, console request, award, objective, validation rule, cosmetic. 1–48 characters.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,47}$"
+    },
+    "RoleId": {
+      "description": "Mission Control role (§3.3), in canonical order.",
+      "type": "string",
+      "enum": [
+        "FLIGHT",
+        "BOOSTER",
+        "STRUCT",
+        "GUIDO",
+        "FIDO",
+        "EECOM",
+        "INCO",
+        "PAYLOAD",
+        "RETRO",
+        "PM"
+      ]
+    },
+    "TimeMs": {
+      "description": "Absolute time on the server clock: integer milliseconds since the Unix epoch. Every `…AtMs` field in the protocol uses the server clock (see Clock).",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    }
+  },
+  "examples": [
+    {
+      "alertId": "m1.al.14",
+      "role": "STRUCT",
+      "calloutId": "throttle_down_max_q",
+      "arg": null,
+      "severity": "CAUTION",
+      "endsAtMs": 1794650525000
+    }
+  ]
+}

@@ -1,0 +1,185 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:roles.state",
+  "title": "roles.state",
+  "description": "server → host and clients. Complete role assignment. Sent in every snapshot and after every change (pick, vote, lock, set, rotate, rebalance after a leave or a promotion, ability spent, new mission). groups always covers all ten roles exactly once.",
+  "type": "object",
+  "properties": {
+    "mode": {
+      "description": "Active assignment mode.",
+      "$ref": "#/$defs/RoleAssignMode"
+    },
+    "locked": {
+      "description": "False in the lobby until roles are locked; true afterwards.",
+      "type": "boolean"
+    },
+    "groups": {
+      "description": "Role groups for the current player count, in table order.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/RoleGroup"
+      },
+      "minItems": 1,
+      "maxItems": 10
+    },
+    "flightVotes": {
+      "description": "VOTE mode before lock: current votes per candidate (candidates with at least one vote). Empty otherwise.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "playerId": {
+            "description": "Candidate.",
+            "$ref": "#/$defs/PlayerId"
+          },
+          "n": {
+            "description": "Votes received.",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10
+          }
+        },
+        "required": [
+          "playerId",
+          "n"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0,
+      "maxItems": 10
+    },
+    "abilitiesUsed": {
+      "description": "Roles whose once-per-mission ability is spent in the current mission.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/RoleId"
+      },
+      "minItems": 0,
+      "maxItems": 10,
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "mode",
+    "locked",
+    "groups",
+    "flightVotes",
+    "abilitiesUsed"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "PlayerId": {
+      "description": "Player identifier, unique within a room and never reused: \"p\" followed by a positive integer (p1, p2, …).",
+      "type": "string",
+      "pattern": "^p[1-9][0-9]{0,3}$"
+    },
+    "RoleAssignMode": {
+      "description": "How roles are assigned in the lobby (§3.3).",
+      "type": "string",
+      "enum": [
+        "RANDOM",
+        "PICK",
+        "VOTE"
+      ]
+    },
+    "RoleGroup": {
+      "description": "A set of roles held together by one player (§3.3 role merging).",
+      "type": "object",
+      "properties": {
+        "lead": {
+          "description": "First role of the group in canonical order; identifies the group in `roles.pick`.",
+          "$ref": "#/$defs/RoleId"
+        },
+        "roles": {
+          "description": "All roles of the group in canonical order.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/RoleId"
+          },
+          "minItems": 1,
+          "maxItems": 10,
+          "uniqueItems": true
+        },
+        "playerId": {
+          "description": "Holder, or null while the group is unassigned (lobby, PICK/VOTE modes).",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/PlayerId"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "lead",
+        "roles",
+        "playerId"
+      ],
+      "additionalProperties": false
+    },
+    "RoleId": {
+      "description": "Mission Control role (§3.3), in canonical order.",
+      "type": "string",
+      "enum": [
+        "FLIGHT",
+        "BOOSTER",
+        "STRUCT",
+        "GUIDO",
+        "FIDO",
+        "EECOM",
+        "INCO",
+        "PAYLOAD",
+        "RETRO",
+        "PM"
+      ]
+    }
+  },
+  "examples": [
+    {
+      "mode": "RANDOM",
+      "locked": true,
+      "groups": [
+        {
+          "lead": "FLIGHT",
+          "roles": [
+            "FLIGHT",
+            "PM"
+          ],
+          "playerId": "p1"
+        },
+        {
+          "lead": "BOOSTER",
+          "roles": [
+            "BOOSTER",
+            "STRUCT"
+          ],
+          "playerId": "p2"
+        },
+        {
+          "lead": "GUIDO",
+          "roles": [
+            "GUIDO",
+            "FIDO"
+          ],
+          "playerId": "p3"
+        },
+        {
+          "lead": "EECOM",
+          "roles": [
+            "EECOM",
+            "INCO",
+            "PAYLOAD",
+            "RETRO"
+          ],
+          "playerId": "p4"
+        }
+      ],
+      "flightVotes": [],
+      "abilitiesUsed": [
+        "BOOSTER"
+      ]
+    }
+  ]
+}

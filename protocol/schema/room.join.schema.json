@@ -1,0 +1,158 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:room.join",
+  "title": "room.join",
+  "description": "client → server. A phone joins a room as a player or as a spectator. No account and no personal data: only a nickname and an avatar. The server answers room.joined followed by the snapshot. A PLAYER request becomes a spectator with pendingPlayer = true when the Build phase has started (late join) or when all 10 slots are taken.",
+  "type": "object",
+  "properties": {
+    "room": {
+      "description": "Room code typed or taken from the `room` URL parameter, upper-cased.",
+      "$ref": "#/$defs/RoomCode"
+    },
+    "as": {
+      "description": "PLAYER, or SPECTATOR when the URL has `watch=1`.",
+      "$ref": "#/$defs/JoinAs"
+    },
+    "nickname": {
+      "description": "Requested nickname, before server normalisation. Required when `as` = PLAYER; ignored for SPECTATOR.",
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 32
+    },
+    "avatar": {
+      "description": "Requested avatar. Required when `as` = PLAYER; ignored for SPECTATOR.",
+      "$ref": "#/$defs/Avatar"
+    },
+    "prefs": {
+      "description": "Device preferences; defaults (all false, 100 %, haptics true, lang from `hello`) when missing.",
+      "$ref": "#/$defs/PlayerPrefs"
+    }
+  },
+  "required": [
+    "room",
+    "as"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "Avatar": {
+      "description": "Player avatar (§3.1): astronaut suit colour and patch, both cosmetic ids.",
+      "type": "object",
+      "properties": {
+        "suitId": {
+          "description": "Suit colour cosmetic id, e.g. \"suit_orange\".",
+          "$ref": "#/$defs/DataId"
+        },
+        "patchId": {
+          "description": "Patch cosmetic id, e.g. \"patch_comet\".",
+          "$ref": "#/$defs/DataId"
+        }
+      },
+      "required": [
+        "suitId",
+        "patchId"
+      ],
+      "additionalProperties": false
+    },
+    "DataId": {
+      "description": "Identifier of an entry in the shared game data (`data/`): part, part category, contract, test, anomaly card, minigame, fact, codex entry, callout, console request, award, objective, validation rule, cosmetic. 1–48 characters.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,47}$"
+    },
+    "JoinAs": {
+      "description": "Requested membership kind in `room.join`.",
+      "type": "string",
+      "enum": [
+        "PLAYER",
+        "SPECTATOR"
+      ]
+    },
+    "LangTag": {
+      "description": "BCP 47 language tag, lower-case primary subtag (e.g. \"en\", \"ar\", \"pt-BR\").",
+      "type": "string",
+      "pattern": "^[a-z]{2,3}(-[A-Za-z0-9]{2,8}){0,2}$"
+    },
+    "PlayerPrefs": {
+      "description": "Per-device accessibility and language preferences (§16). Set by each phone, relayed to the host and all clients inside `room.state`.",
+      "type": "object",
+      "properties": {
+        "lang": {
+          "description": "UI language of this device.",
+          "$ref": "#/$defs/LangTag"
+        },
+        "relaxed": {
+          "description": "Motor: Relaxed minigame mode (wider timing windows).",
+          "type": "boolean"
+        },
+        "oneButton": {
+          "description": "Motor: One-Button minigame alternative.",
+          "type": "boolean"
+        },
+        "holdToToggle": {
+          "description": "Motor: hold-to-press controls become toggles.",
+          "type": "boolean"
+        },
+        "reducedMotion": {
+          "description": "Motion: no shake, fewer particles, no flashing.",
+          "type": "boolean"
+        },
+        "highContrast": {
+          "description": "Visual: high-contrast mode.",
+          "type": "boolean"
+        },
+        "textScalePct": {
+          "description": "Visual: text scale in percent (100–200).",
+          "type": "integer",
+          "minimum": 100,
+          "maximum": 200
+        },
+        "screenReader": {
+          "description": "Visual: screen-reader labels requested.",
+          "type": "boolean"
+        },
+        "haptics": {
+          "description": "Whether the device wants `haptic.cue` vibrations.",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "lang",
+        "relaxed",
+        "oneButton",
+        "holdToToggle",
+        "reducedMotion",
+        "highContrast",
+        "textScalePct",
+        "screenReader",
+        "haptics"
+      ],
+      "additionalProperties": false
+    },
+    "RoomCode": {
+      "description": "Room code: exactly 4 upper-case letters from A–Z without I and O (24-letter alphabet). Clients upper-case user input before sending.",
+      "type": "string",
+      "pattern": "^[A-HJ-NP-Z]{4}$"
+    }
+  },
+  "examples": [
+    {
+      "room": "KQXM",
+      "as": "PLAYER",
+      "nickname": "Nova",
+      "avatar": {
+        "suitId": "suit_orange",
+        "patchId": "patch_comet"
+      },
+      "prefs": {
+        "lang": "en",
+        "relaxed": false,
+        "oneButton": false,
+        "holdToToggle": false,
+        "reducedMotion": false,
+        "highContrast": false,
+        "textScalePct": 100,
+        "screenReader": false,
+        "haptics": true
+      }
+    }
+  ]
+}

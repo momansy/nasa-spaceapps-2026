@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:console.callout",
+  "title": "console.callout",
+  "description": "client → server → host (relayed inside `relay`). A role-holder pressed a callout button. The host shows the voice/text callout, and awards a Good Call when it matches an open alert inside its window. False or late callouts have no penalty.",
+  "type": "object",
+  "properties": {
+    "role": {
+      "description": "Console the callout comes from.",
+      "$ref": "#/$defs/RoleId"
+    },
+    "calloutId": {
+      "description": "Which callout.",
+      "$ref": "#/$defs/DataId"
+    },
+    "arg": {
+      "description": "Number that is part of the callout (e.g. engine 3); null when none.",
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 99
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "alertId": {
+      "description": "Alert the player is answering, if the phone showed one; null otherwise.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/AlertId"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "atMs": {
+      "description": "Sender's estimate of the server clock at the press; the host uses it, bounded to at most 300 ms before arrival, to judge the window (§17.7).",
+      "$ref": "#/$defs/TimeMs"
+    }
+  },
+  "required": [
+    "role",
+    "calloutId",
+    "arg",
+    "alertId",
+    "atMs"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "AlertId": {
+      "description": "Console alert identifier chosen by the host; unique within the room.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,39}$"
+    },
+    "DataId": {
+      "description": "Identifier of an entry in the shared game data (`data/`): part, part category, contract, test, anomaly card, minigame, fact, codex entry, callout, console request, award, objective, validation rule, cosmetic. 1–48 characters.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,47}$"
+    },
+    "RoleId": {
+      "description": "Mission Control role (§3.3), in canonical order.",
+      "type": "string",
+      "enum": [
+        "FLIGHT",
+        "BOOSTER",
+        "STRUCT",
+        "GUIDO",
+        "FIDO",
+        "EECOM",
+        "INCO",
+        "PAYLOAD",
+        "RETRO",
+        "PM"
+      ]
+    },
+    "TimeMs": {
+      "description": "Absolute time on the server clock: integer milliseconds since the Unix epoch. Every `…AtMs` field in the protocol uses the server clock (see Clock).",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    }
+  },
+  "examples": [
+    {
+      "role": "STRUCT",
+      "calloutId": "throttle_down_max_q",
+      "arg": null,
+      "alertId": "m1.al.14",
+      "atMs": 1794650522100
+    }
+  ]
+}

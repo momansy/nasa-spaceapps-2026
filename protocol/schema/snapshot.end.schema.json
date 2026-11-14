@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:snapshot.end",
+  "title": "snapshot.end",
+  "description": "server → host and clients. Marks the end of the state snapshot sent after room.created, room.joined or room.resumed. Until it arrives the receiver should build state silently (no animations, no haptics).",
+  "type": "object",
+  "properties": {
+    "serverTimeMs": {
+      "description": "Server clock when the snapshot was completed.",
+      "$ref": "#/$defs/TimeMs"
+    },
+    "lastOutcomeSeq": {
+      "description": "Sequence number of the newest entry in the room outcome log; 0 when the log is empty.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 2147483647
+    }
+  },
+  "required": [
+    "serverTimeMs",
+    "lastOutcomeSeq"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "TimeMs": {
+      "description": "Absolute time on the server clock: integer milliseconds since the Unix epoch. Every `…AtMs` field in the protocol uses the server clock (see Clock).",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    }
+  },
+  "examples": [
+    {
+      "serverTimeMs": 1794650000300,
+      "lastOutcomeSeq": 12
+    }
+  ]
+}

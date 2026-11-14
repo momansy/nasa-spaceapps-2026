@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:flight.hud",
+  "title": "flight.hud",
+  "description": "host → server → client (relayed unchanged). Compact copy of the host HUD for every phone header and for spectators. At most 5 Hz. Not sent during a blackout.",
+  "type": "object",
+  "properties": {
+    "metS": {
+      "description": "Mission elapsed time, s (negative before lift-off).",
+      "type": "number"
+    },
+    "altitudeKm": {
+      "description": "Altitude above the surface, km.",
+      "type": "number"
+    },
+    "velocityMs": {
+      "description": "Speed, m/s (surface-relative below 70 km, orbital above).",
+      "type": "number",
+      "minimum": 0
+    },
+    "verticalSpeedMs": {
+      "description": "Vertical speed, m/s (positive up).",
+      "type": "number"
+    },
+    "qKpa": {
+      "description": "Dynamic pressure, kPa.",
+      "type": "number",
+      "minimum": 0
+    },
+    "gLoad": {
+      "description": "Acceleration felt, in g.",
+      "type": "number"
+    },
+    "throttlePct": {
+      "description": "Throttle, percent.",
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "propellantPct": {
+      "description": "Propellant left in the active stage, percent.",
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "dvRemainingMs": {
+      "description": "Δv remaining in the vehicle, m/s.",
+      "type": "number",
+      "minimum": 0
+    },
+    "apoapsisKm": {
+      "description": "Apoapsis altitude, km; null when not defined.",
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "periapsisKm": {
+      "description": "Periapsis altitude, km; null when not defined.",
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "heatLoadPct": {
+      "description": "Heat load as percent of heat-shield capacity.",
+      "type": "number",
+      "minimum": 0
+    },
+    "warp": {
+      "description": "Simulation time factor: 0.1 during minigame bullet-time, 1 normal, up to 1000 in coasts (§9.7, §10.1).",
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1000
+    }
+  },
+  "required": [
+    "metS",
+    "altitudeKm",
+    "velocityMs",
+    "verticalSpeedMs",
+    "qKpa",
+    "gLoad",
+    "throttlePct",
+    "propellantPct",
+    "dvRemainingMs",
+    "apoapsisKm",
+    "periapsisKm",
+    "heatLoadPct",
+    "warp"
+  ],
+  "additionalProperties": false,
+  "examples": [
+    {
+      "metS": 62.4,
+      "altitudeKm": 12.8,
+      "velocityMs": 468,
+      "verticalSpeedMs": 310,
+      "qKpa": 31.2,
+      "gLoad": 1.9,
+      "throttlePct": 72,
+      "propellantPct": 61.5,
+      "dvRemainingMs": 8120,
+      "apoapsisKm": 38.4,
+      "periapsisKm": null,
+      "heatLoadPct": 0,
+      "warp": 1
+    }
+  ]
+}

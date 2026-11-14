@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:ability.used",
+  "title": "ability.used",
+  "description": "server → host and clients. Announces that a role ability is now spent for this mission. An outcome-log message: the host applies its effect (for trigger OVER_BUDGET_WIN the host adds the +10 % budget).",
+  "type": "object",
+  "properties": {
+    "outcomeSeq": {
+      "description": "Position in the room outcome log.",
+      "$ref": "#/$defs/OutcomeSeq"
+    },
+    "role": {
+      "description": "Role whose ability was spent.",
+      "$ref": "#/$defs/RoleId"
+    },
+    "playerId": {
+      "description": "Current holder of the role; null if nobody holds it.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/PlayerId"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "trigger": {
+      "description": "What spent it.",
+      "$ref": "#/$defs/AbilityTrigger"
+    },
+    "roundId": {
+      "description": "Vote round concerned (FLIGHT Decision Time, PM over-budget win); null otherwise.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/RoundId"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "stageIndex": {
+      "description": "STRUCT Reinforce: stage; null otherwise.",
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "outcomeSeq",
+    "role",
+    "playerId",
+    "trigger",
+    "roundId",
+    "stageIndex"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "AbilityTrigger": {
+      "description": "What spent a role ability.",
+      "type": "string",
+      "enum": [
+        "PLAYER",
+        "OVER_BUDGET_WIN",
+        "HOST"
+      ]
+    },
+    "OutcomeSeq": {
+      "description": "Position of a server-resolved outcome in the room outcome log; starts at 1 and increases by 1 per outcome for the lifetime of the room.",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 2147483647
+    },
+    "PlayerId": {
+      "description": "Player identifier, unique within a room and never reused: \"p\" followed by a positive integer (p1, p2, …).",
+      "type": "string",
+      "pattern": "^p[1-9][0-9]{0,3}$"
+    },
+    "RoleId": {
+      "description": "Mission Control role (§3.3), in canonical order.",
+      "type": "string",
+      "enum": [
+        "FLIGHT",
+        "BOOSTER",
+        "STRUCT",
+        "GUIDO",
+        "FIDO",
+        "EECOM",
+        "INCO",
+        "PAYLOAD",
+        "RETRO",
+        "PM"
+      ]
+    },
+    "RoundId": {
+      "description": "Vote round identifier chosen by the host; unique within the room for its whole lifetime.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,39}$"
+    }
+  },
+  "examples": [
+    {
+      "outcomeSeq": 9,
+      "role": "PM",
+      "playerId": "p1",
+      "trigger": "OVER_BUDGET_WIN",
+      "roundId": "m1.r07",
+      "stageIndex": null
+    }
+  ]
+}

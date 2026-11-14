@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:vote.cancel",
+  "title": "vote.cancel",
+  "description": "host → server. The host abandons the round without a result. No veto is refunded. The server broadcasts vote.cancelled.",
+  "type": "object",
+  "properties": {
+    "roundId": {
+      "description": "Round id.",
+      "$ref": "#/$defs/RoundId"
+    }
+  },
+  "required": [
+    "roundId"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "RoundId": {
+      "description": "Vote round identifier chosen by the host; unique within the room for its whole lifetime.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,39}$"
+    }
+  },
+  "examples": [
+    {
+      "roundId": "m1.r07"
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:ping.send",
+  "title": "ping.send",
+  "description": "client → server. A player sends one of the eight enumerated quick pings, optionally pointing at an option of the active vote round. Allowed in every phase and while paused.",
+  "type": "object",
+  "properties": {
+    "pingId": {
+      "description": "Which ping.",
+      "$ref": "#/$defs/PingId"
+    },
+    "optionId": {
+      "description": "Option of the active round the ping points at; null for none.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/OptionId"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "pingId",
+    "optionId"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "OptionId": {
+      "description": "Identifier of one option inside a vote round. For PART votes it equals the part id; for CONTRACT votes the contract id; for PILOT votes a PlayerId; for quick votes an upper-case token defined in the vote-kind table (e.g. TEST, SKIP).",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,47}$"
+    },
+    "PingId": {
+      "description": "Quick ping (§3.4).",
+      "type": "string",
+      "enum": [
+        "TOO_EXPENSIVE",
+        "TOO_HEAVY",
+        "LIKE_THIS",
+        "CHECK_DRAWBACK",
+        "NEED_MORE_DV",
+        "TEST_IT_FIRST",
+        "TRUST_ME",
+        "AGREED"
+      ]
+    }
+  },
+  "examples": [
+    {
+      "pingId": "CHECK_DRAWBACK",
+      "optionId": "eng_methalox_reusable"
+    }
+  ]
+}

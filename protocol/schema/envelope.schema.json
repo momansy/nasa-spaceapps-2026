@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:envelope",
+  "title": "envelope",
+  "description": "The wire envelope of every MissionForge message: one JSON object per WebSocket text frame. The payload `d` is validated against `<t>.schema.json`.",
+  "type": "object",
+  "properties": {
+    "t": {
+      "description": "Message type: lower-case dotted name listed in messages.md.",
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(\\.[a-z][a-z0-9]*){0,3}$",
+      "maxLength": 64
+    },
+    "seq": {
+      "description": "Sender-assigned sequence number. Starts at 1 on each connection and in each direction and increases by 1 per message.",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9007199254740991
+    },
+    "d": {
+      "description": "Payload object, possibly empty. Its schema is selected by `t`.",
+      "type": "object"
+    }
+  },
+  "required": [
+    "t",
+    "seq",
+    "d"
+  ],
+  "additionalProperties": false,
+  "examples": [
+    {
+      "t": "vote.cast",
+      "seq": 17,
+      "d": {
+        "roundId": "m1.r07",
+        "optionId": "eng_kerolox_workhorse"
+      }
+    },
+    {
+      "t": "room.leave",
+      "seq": 3,
+      "d": {}
+    }
+  ]
+}

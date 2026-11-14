@@ -1,0 +1,651 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:vote.opened",
+  "title": "vote.opened",
+  "description": "server → host and clients. Public description of the round for every device, including the host as confirmation. Contains the options with their \"if chosen\" numbers, the electorate, the rules in force and the stage plan. vote.stage follows immediately.",
+  "type": "object",
+  "properties": {
+    "roundId": {
+      "description": "Round id.",
+      "$ref": "#/$defs/RoundId"
+    },
+    "kind": {
+      "description": "Vote kind.",
+      "$ref": "#/$defs/VoteKind"
+    },
+    "subjectId": {
+      "description": "As in `vote.open`.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/DataId"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "title": {
+      "description": "Title.",
+      "$ref": "#/$defs/TextRef"
+    },
+    "why": {
+      "description": "Why it matters; null when none.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/TextRef"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "ownerRoles": {
+      "description": "Roles whose holders may tag options.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/RoleId"
+      },
+      "minItems": 0,
+      "maxItems": 3,
+      "uniqueItems": true
+    },
+    "options": {
+      "description": "Options in display order.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/VoteOption"
+      },
+      "minItems": 2,
+      "maxItems": 10
+    },
+    "hint": {
+      "description": "Solo hint; null in multiplayer.",
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "optionId": {
+              "description": "Suggested option.",
+              "$ref": "#/$defs/OptionId"
+            },
+            "reason": {
+              "description": "Reason shown with the hint.",
+              "$ref": "#/$defs/TextRef"
+            }
+          },
+          "required": [
+            "optionId",
+            "reason"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "predict": {
+      "description": "Predict question without its answer; null for none.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/QuestionPublic"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "voters": {
+      "description": "Electorate: every player in the room when the round opened, connected or not. Fixed for the round, except that players who leave or are kicked are removed.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/PlayerId"
+      },
+      "minItems": 0,
+      "maxItems": 10,
+      "uniqueItems": true
+    },
+    "solo": {
+      "description": "True when the room has exactly one player: no INSPECT stage, untimed VOTE, first ballot decides (§4.2 Solo play).",
+      "type": "boolean"
+    },
+    "vetoAllowed": {
+      "description": "True when this kind allows vetoes (PART).",
+      "type": "boolean"
+    },
+    "tagsAllowed": {
+      "description": "True when this kind allows role tags (PART).",
+      "type": "boolean"
+    },
+    "strictMajority": {
+      "description": "True when a runoff is possible in this round (setting on and kind is PART or CHOICE profile).",
+      "type": "boolean"
+    },
+    "tallyVisibility": {
+      "description": "Tally visibility in force for this round.",
+      "$ref": "#/$defs/TallyVisibility"
+    },
+    "audienceVoteWeight": {
+      "description": "Audience weight in force for this round.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "plan": {
+      "description": "Stages that will run in order, with planned durations. Conditional stages (RUNOFF, TIEBREAK_TRIVIA, TIEBREAK_PICK) are not listed; they are announced by `vote.stage` if they happen.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/StagePlan"
+      },
+      "minItems": 1,
+      "maxItems": 9
+    }
+  },
+  "required": [
+    "roundId",
+    "kind",
+    "subjectId",
+    "title",
+    "why",
+    "ownerRoles",
+    "options",
+    "hint",
+    "predict",
+    "voters",
+    "solo",
+    "vetoAllowed",
+    "tagsAllowed",
+    "strictMajority",
+    "tallyVisibility",
+    "audienceVoteWeight",
+    "plan"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "Afford": {
+      "description": "Affordability of an option, computed by the host (§4.2 Affordability).",
+      "type": "string",
+      "enum": [
+        "OK",
+        "EMERGENCY_FUNDING",
+        "NEVER"
+      ]
+    },
+    "DataId": {
+      "description": "Identifier of an entry in the shared game data (`data/`): part, part category, contract, test, anomaly card, minigame, fact, codex entry, callout, console request, award, objective, validation rule, cosmetic. 1–48 characters.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,47}$"
+    },
+    "Delta": {
+      "description": "One Readiness Dashboard metric after a hypothetical or applied change, computed by the host (§6.3, §14.3 \"IF CHOSEN\").",
+      "type": "object",
+      "properties": {
+        "metric": {
+          "description": "Metric (unit in the id).",
+          "$ref": "#/$defs/MetricId"
+        },
+        "value": {
+          "description": "Value of the metric after the change.",
+          "type": "number"
+        },
+        "delta": {
+          "description": "Change against the current build (value after − value before).",
+          "type": "number"
+        },
+        "rating": {
+          "description": "Colour class of the change.",
+          "$ref": "#/$defs/Rating"
+        }
+      },
+      "required": [
+        "metric",
+        "value",
+        "delta",
+        "rating"
+      ],
+      "additionalProperties": false
+    },
+    "MetricId": {
+      "description": "Readiness Dashboard metric (§6.3). The unit is part of the identifier.",
+      "type": "string",
+      "enum": [
+        "TOTAL_DV_MS",
+        "LIFTOFF_TWR",
+        "UPPER_TWR",
+        "TOTAL_MASS_T",
+        "COST_M",
+        "BUDGET_LEFT_M",
+        "SCHEDULE_DAYS",
+        "SCHEDULE_MARGIN_DAYS",
+        "SUCCESS_PCT",
+        "SUCCESS_BAND_PCT",
+        "POWER_BALANCE_W",
+        "DATA_BUDGET_GB_DAY",
+        "ENTRY_SPEED_RATING_KMS",
+        "STABILITY"
+      ]
+    },
+    "OptionId": {
+      "description": "Identifier of one option inside a vote round. For PART votes it equals the part id; for CONTRACT votes the contract id; for PILOT votes a PlayerId; for quick votes an upper-case token defined in the vote-kind table (e.g. TEST, SKIP).",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,47}$"
+    },
+    "PlayerId": {
+      "description": "Player identifier, unique within a room and never reused: \"p\" followed by a positive integer (p1, p2, …).",
+      "type": "string",
+      "pattern": "^p[1-9][0-9]{0,3}$"
+    },
+    "QuestionPublic": {
+      "description": "A multiple-choice question without its answer (server → clients).",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Question or fact id in the game data.",
+          "$ref": "#/$defs/DataId"
+        },
+        "prompt": {
+          "description": "Question text.",
+          "$ref": "#/$defs/TextRef"
+        },
+        "choices": {
+          "description": "Answer choices, in display order.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/TextRef"
+          },
+          "minItems": 2,
+          "maxItems": 4
+        }
+      },
+      "required": [
+        "id",
+        "prompt",
+        "choices"
+      ],
+      "additionalProperties": false
+    },
+    "Rating": {
+      "description": "Colour class of a value or delta (§14.4).",
+      "type": "string",
+      "enum": [
+        "GOOD",
+        "MARGINAL",
+        "BAD",
+        "NEUTRAL"
+      ]
+    },
+    "RoleId": {
+      "description": "Mission Control role (§3.3), in canonical order.",
+      "type": "string",
+      "enum": [
+        "FLIGHT",
+        "BOOSTER",
+        "STRUCT",
+        "GUIDO",
+        "FIDO",
+        "EECOM",
+        "INCO",
+        "PAYLOAD",
+        "RETRO",
+        "PM"
+      ]
+    },
+    "RoundId": {
+      "description": "Vote round identifier chosen by the host; unique within the room for its whole lifetime.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,39}$"
+    },
+    "StagePlan": {
+      "description": "One planned stage of a vote round.",
+      "type": "object",
+      "properties": {
+        "stage": {
+          "description": "Stage.",
+          "$ref": "#/$defs/VoteStage"
+        },
+        "durationMs": {
+          "description": "Planned duration; null for an untimed stage (solo VOTE).",
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 120000
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "stage",
+        "durationMs"
+      ],
+      "additionalProperties": false
+    },
+    "TallyVisibility": {
+      "description": "Whether live vote tallies are shown before the result (§4.1 step 5).",
+      "type": "string",
+      "enum": [
+        "OPEN",
+        "HIDDEN"
+      ]
+    },
+    "TextRef": {
+      "description": "Reference to localised player-visible text. The protocol never carries free display text: `key` is a key of `data/strings/<lang>.json`, and `args` supplies substitution values. Receivers format numbers and units locally.",
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "String-table key.",
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,79}$"
+        },
+        "args": {
+          "description": "Substitution values by placeholder name. String values must themselves be data ids or string-table keys, never user text.",
+          "type": "object",
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "propertyNames": {
+            "pattern": "^[a-z][A-Za-z0-9_]{0,23}$"
+          },
+          "maxProperties": 8
+        }
+      },
+      "required": [
+        "key"
+      ],
+      "additionalProperties": false
+    },
+    "VoteKind": {
+      "description": "Kind of vote round. The kind selects the stage profile (see Vote profiles).",
+      "type": "string",
+      "enum": [
+        "PART",
+        "CONTRACT",
+        "REWORK_CATEGORY",
+        "LIVERY",
+        "PATCH",
+        "PILOT",
+        "TEST",
+        "ANOMALY",
+        "REVIEW",
+        "ABORT",
+        "FLIGHT_DECISION",
+        "MCM"
+      ]
+    },
+    "VoteOption": {
+      "description": "One option of a vote round with host-computed preview numbers.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Option id, unique within the round.",
+          "$ref": "#/$defs/OptionId"
+        },
+        "partId": {
+          "description": "Catalog part id for PART votes (the phone renders the Part Card from its bundled catalog); null otherwise.",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/DataId"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "label": {
+          "description": "Display text for options that are not catalog parts or contracts; null when the client derives the text from `kind` + `id`.",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TextRef"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "costM": {
+          "description": "Cost in $M (game value) used by the all-abstain \"cheapest option\" rule. 0 for options without a cost.",
+          "type": "number",
+          "minimum": 0
+        },
+        "afford": {
+          "description": "Affordability (§4.2).",
+          "$ref": "#/$defs/Afford"
+        },
+        "overBudgetByM": {
+          "description": "Amount over the remaining budget in $M for the red banner; 0 when within budget.",
+          "type": "number",
+          "minimum": 0
+        },
+        "overScheduleByDays": {
+          "description": "Days over the remaining schedule; 0 when within schedule.",
+          "type": "number",
+          "minimum": 0
+        },
+        "willNotFly": {
+          "description": "True when choosing it makes the rocket unflyable now (\"Will not fly\" warning, §4.2).",
+          "type": "boolean"
+        },
+        "fixExists": {
+          "description": "Only meaningful when `willNotFly`: true when a later vote can still fix it. `willNotFly && !fixExists` makes the option unwinnable.",
+          "type": "boolean"
+        },
+        "warnings": {
+          "description": "Explanations for the warnings (e.g. the §6.11 rule text).",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/TextRef"
+          },
+          "minItems": 0,
+          "maxItems": 4
+        },
+        "deltas": {
+          "description": "\"If chosen\" dashboard preview against the current build.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Delta"
+          },
+          "minItems": 0,
+          "maxItems": 16
+        }
+      },
+      "required": [
+        "id",
+        "partId",
+        "label",
+        "costM",
+        "afford",
+        "overBudgetByM",
+        "overScheduleByDays",
+        "willNotFly",
+        "fixExists",
+        "warnings",
+        "deltas"
+      ],
+      "additionalProperties": false
+    },
+    "VoteStage": {
+      "description": "Stage of a vote round (§4.1).",
+      "type": "string",
+      "enum": [
+        "REVEAL",
+        "PREDICT",
+        "INSPECT",
+        "VOTE",
+        "RUNOFF",
+        "TIEBREAK_TRIVIA",
+        "TIEBREAK_PICK",
+        "RESULT",
+        "CLOSED"
+      ]
+    }
+  },
+  "examples": [
+    {
+      "roundId": "m1.r07",
+      "kind": "PART",
+      "subjectId": "first_stage_engine",
+      "title": {
+        "key": "category.first_stage_engine.name"
+      },
+      "why": {
+        "key": "category.first_stage_engine.why"
+      },
+      "ownerRoles": [
+        "BOOSTER"
+      ],
+      "options": [
+        {
+          "id": "eng_kerolox_workhorse",
+          "partId": "eng_kerolox_workhorse",
+          "label": null,
+          "costM": 10.8,
+          "afford": "OK",
+          "overBudgetByM": 0,
+          "overScheduleByDays": 0,
+          "willNotFly": false,
+          "fixExists": false,
+          "warnings": [],
+          "deltas": [
+            {
+              "metric": "TOTAL_DV_MS",
+              "value": 9890,
+              "delta": 420,
+              "rating": "GOOD"
+            },
+            {
+              "metric": "LIFTOFF_TWR",
+              "value": 1.31,
+              "delta": 1.31,
+              "rating": "GOOD"
+            },
+            {
+              "metric": "COST_M",
+              "value": 52.4,
+              "delta": 10.8,
+              "rating": "NEUTRAL"
+            },
+            {
+              "metric": "SCHEDULE_DAYS",
+              "value": 98,
+              "delta": 2,
+              "rating": "NEUTRAL"
+            }
+          ]
+        },
+        {
+          "id": "eng_electric_mini",
+          "partId": "eng_electric_mini",
+          "label": null,
+          "costM": 6.3,
+          "afford": "OK",
+          "overBudgetByM": 0,
+          "overScheduleByDays": 0,
+          "willNotFly": true,
+          "fixExists": false,
+          "warnings": [
+            {
+              "key": "rule.twr_below_one"
+            }
+          ],
+          "deltas": [
+            {
+              "metric": "LIFTOFF_TWR",
+              "value": 0.74,
+              "delta": 0.74,
+              "rating": "BAD"
+            }
+          ]
+        },
+        {
+          "id": "eng_methalox_reusable",
+          "partId": "eng_methalox_reusable",
+          "label": null,
+          "costM": 44.1,
+          "afford": "EMERGENCY_FUNDING",
+          "overBudgetByM": 3.5,
+          "overScheduleByDays": 0,
+          "willNotFly": false,
+          "fixExists": false,
+          "warnings": [],
+          "deltas": [
+            {
+              "metric": "TOTAL_DV_MS",
+              "value": 10140,
+              "delta": 670,
+              "rating": "GOOD"
+            },
+            {
+              "metric": "BUDGET_LEFT_M",
+              "value": -3.5,
+              "delta": -44.1,
+              "rating": "BAD"
+            }
+          ]
+        }
+      ],
+      "hint": null,
+      "predict": {
+        "id": "pq_vacuum_isp",
+        "prompt": {
+          "key": "predict.most_efficient_vacuum"
+        },
+        "choices": [
+          {
+            "key": "part.eng_kerolox_workhorse.name"
+          },
+          {
+            "key": "part.eng_electric_mini.name"
+          },
+          {
+            "key": "part.eng_methalox_reusable.name"
+          }
+        ]
+      },
+      "voters": [
+        "p1",
+        "p2",
+        "p3",
+        "p4"
+      ],
+      "solo": false,
+      "vetoAllowed": true,
+      "tagsAllowed": true,
+      "strictMajority": false,
+      "tallyVisibility": "OPEN",
+      "audienceVoteWeight": 0,
+      "plan": [
+        {
+          "stage": "REVEAL",
+          "durationMs": 3000
+        },
+        {
+          "stage": "PREDICT",
+          "durationMs": 8000
+        },
+        {
+          "stage": "INSPECT",
+          "durationMs": 20000
+        },
+        {
+          "stage": "VOTE",
+          "durationMs": 20000
+        },
+        {
+          "stage": "RESULT",
+          "durationMs": 3000
+        }
+      ]
+    }
+  ]
+}

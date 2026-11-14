@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:mg.progress",
+  "title": "mg.progress",
+  "description": "client → server → host (relayed inside `relay`). Optional coarse progress of one player for the team progress meter on the host. At most 2 Hz. It never affects the result.",
+  "type": "object",
+  "properties": {
+    "runId": {
+      "description": "Run id.",
+      "$ref": "#/$defs/RunId"
+    },
+    "p": {
+      "description": "Progress 0–1 as defined by the minigame.",
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    }
+  },
+  "required": [
+    "runId",
+    "p"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "RunId": {
+      "description": "Minigame run identifier chosen by the host; unique within the room.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,39}$"
+    }
+  },
+  "examples": [
+    {
+      "runId": "m1.mg08",
+      "p": 0.45
+    }
+  ]
+}

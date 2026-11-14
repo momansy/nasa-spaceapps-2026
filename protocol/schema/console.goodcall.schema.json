@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:console.goodcall",
+  "title": "console.goodcall",
+  "description": "host → server → client (relayed unchanged). Good Call acknowledgement: a callout matched an alert inside its window. Only good calls are announced; missed or false callouts produce nothing.",
+  "type": "object",
+  "properties": {
+    "playerId": {
+      "description": "Player who made the call.",
+      "$ref": "#/$defs/PlayerId"
+    },
+    "role": {
+      "description": "Console.",
+      "$ref": "#/$defs/RoleId"
+    },
+    "calloutId": {
+      "description": "Which callout.",
+      "$ref": "#/$defs/DataId"
+    },
+    "arg": {
+      "description": "Number that is part of the callout; null when none.",
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 99
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "alertId": {
+      "description": "Alert that was answered.",
+      "$ref": "#/$defs/AlertId"
+    },
+    "syncDelta": {
+      "description": "Team Sync gained. 3 by design.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "points": {
+      "description": "Teamwork score gained. 20 by design.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100000
+    }
+  },
+  "required": [
+    "playerId",
+    "role",
+    "calloutId",
+    "arg",
+    "alertId",
+    "syncDelta",
+    "points"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "AlertId": {
+      "description": "Console alert identifier chosen by the host; unique within the room.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,39}$"
+    },
+    "DataId": {
+      "description": "Identifier of an entry in the shared game data (`data/`): part, part category, contract, test, anomaly card, minigame, fact, codex entry, callout, console request, award, objective, validation rule, cosmetic. 1–48 characters.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,47}$"
+    },
+    "PlayerId": {
+      "description": "Player identifier, unique within a room and never reused: \"p\" followed by a positive integer (p1, p2, …).",
+      "type": "string",
+      "pattern": "^p[1-9][0-9]{0,3}$"
+    },
+    "RoleId": {
+      "description": "Mission Control role (§3.3), in canonical order.",
+      "type": "string",
+      "enum": [
+        "FLIGHT",
+        "BOOSTER",
+        "STRUCT",
+        "GUIDO",
+        "FIDO",
+        "EECOM",
+        "INCO",
+        "PAYLOAD",
+        "RETRO",
+        "PM"
+      ]
+    }
+  },
+  "examples": [
+    {
+      "playerId": "p2",
+      "role": "STRUCT",
+      "calloutId": "throttle_down_max_q",
+      "arg": null,
+      "alertId": "m1.al.14",
+      "syncDelta": 3,
+      "points": 20
+    }
+  ]
+}

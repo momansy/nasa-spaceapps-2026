@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:vote.trivia.answer",
+  "title": "vote.trivia.answer",
+  "description": "client → server. The sender's single answer to the trivia question. The stage ends at the first correct answer, or when every connected voter has answered, or on the timer.",
+  "type": "object",
+  "properties": {
+    "roundId": {
+      "description": "Round id.",
+      "$ref": "#/$defs/RoundId"
+    },
+    "choiceIndex": {
+      "description": "Zero-based index into the question's choices.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 3
+    }
+  },
+  "required": [
+    "roundId",
+    "choiceIndex"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "RoundId": {
+      "description": "Vote round identifier chosen by the host; unique within the room for its whole lifetime.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,39}$"
+    }
+  },
+  "examples": [
+    {
+      "roundId": "m1.r07",
+      "choiceIndex": 1
+    }
+  ]
+}

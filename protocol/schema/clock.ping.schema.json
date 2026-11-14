@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:clock.ping",
+  "title": "clock.ping",
+  "description": "any → server. Heartbeat and clock probe. Sent every heartbeatMs (5 s) by every client, and three times 200 ms apart right after hello.ok. The client keeps the offset from the sample with the smallest round trip: offset = serverTimeMs − (clientTimeMs + rtt/2). A client that gets no clock.pong for 10 s must reconnect.",
+  "type": "object",
+  "properties": {
+    "clientTimeMs": {
+      "description": "Sender's local monotonic or wall clock in milliseconds; echoed back unchanged.",
+      "type": "number",
+      "minimum": 0
+    }
+  },
+  "required": [
+    "clientTimeMs"
+  ],
+  "additionalProperties": false,
+  "examples": [
+    {
+      "clientTimeMs": 81234.5
+    }
+  ]
+}

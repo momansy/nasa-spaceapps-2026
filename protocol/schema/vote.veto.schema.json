@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:vote.veto",
+  "title": "vote.veto",
+  "description": "client → server. Uses the sender's one veto of the mission to remove an option before voting closes. Ballots and tags on the option are cleared. The server broadcasts vote.vetoed, room.state (veto spent) and updated tags and tally.",
+  "type": "object",
+  "properties": {
+    "roundId": {
+      "description": "Round id.",
+      "$ref": "#/$defs/RoundId"
+    },
+    "optionId": {
+      "description": "Option to remove.",
+      "$ref": "#/$defs/OptionId"
+    }
+  },
+  "required": [
+    "roundId",
+    "optionId"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "OptionId": {
+      "description": "Identifier of one option inside a vote round. For PART votes it equals the part id; for CONTRACT votes the contract id; for PILOT votes a PlayerId; for quick votes an upper-case token defined in the vote-kind table (e.g. TEST, SKIP).",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,47}$"
+    },
+    "RoundId": {
+      "description": "Vote round identifier chosen by the host; unique within the room for its whole lifetime.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,39}$"
+    }
+  },
+  "examples": [
+    {
+      "roundId": "m1.r07",
+      "optionId": "eng_methalox_reusable"
+    }
+  ]
+}

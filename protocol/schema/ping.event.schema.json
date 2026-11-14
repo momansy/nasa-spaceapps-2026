@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:ping.event",
+  "title": "ping.event",
+  "description": "server → host and clients. A player pinged. The host shows it next to the player's avatar; phones show it in the vote screen.",
+  "type": "object",
+  "properties": {
+    "playerId": {
+      "description": "Player who pinged.",
+      "$ref": "#/$defs/PlayerId"
+    },
+    "pingId": {
+      "description": "Which ping.",
+      "$ref": "#/$defs/PingId"
+    },
+    "roundId": {
+      "description": "Active vote round when the ping was sent; null when none.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/RoundId"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "optionId": {
+      "description": "Option pointed at; null for none.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/OptionId"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "playerId",
+    "pingId",
+    "roundId",
+    "optionId"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "OptionId": {
+      "description": "Identifier of one option inside a vote round. For PART votes it equals the part id; for CONTRACT votes the contract id; for PILOT votes a PlayerId; for quick votes an upper-case token defined in the vote-kind table (e.g. TEST, SKIP).",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,47}$"
+    },
+    "PingId": {
+      "description": "Quick ping (§3.4).",
+      "type": "string",
+      "enum": [
+        "TOO_EXPENSIVE",
+        "TOO_HEAVY",
+        "LIKE_THIS",
+        "CHECK_DRAWBACK",
+        "NEED_MORE_DV",
+        "TEST_IT_FIRST",
+        "TRUST_ME",
+        "AGREED"
+      ]
+    },
+    "PlayerId": {
+      "description": "Player identifier, unique within a room and never reused: \"p\" followed by a positive integer (p1, p2, …).",
+      "type": "string",
+      "pattern": "^p[1-9][0-9]{0,3}$"
+    },
+    "RoundId": {
+      "description": "Vote round identifier chosen by the host; unique within the room for its whole lifetime.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,39}$"
+    }
+  },
+  "examples": [
+    {
+      "playerId": "p2",
+      "pingId": "CHECK_DRAWBACK",
+      "roundId": "m1.r07",
+      "optionId": "eng_methalox_reusable"
+    }
+  ]
+}

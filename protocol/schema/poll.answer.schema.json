@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:poll.answer",
+  "title": "poll.answer",
+  "description": "client → server. The called player answers GO or NO-GO.",
+  "type": "object",
+  "properties": {
+    "pollId": {
+      "description": "Poll id.",
+      "$ref": "#/$defs/PollId"
+    },
+    "answer": {
+      "description": "The answer.",
+      "$ref": "#/$defs/GoNoGo"
+    }
+  },
+  "required": [
+    "pollId",
+    "answer"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "GoNoGo": {
+      "description": "A player's GO/NO-GO answer.",
+      "type": "string",
+      "enum": [
+        "GO",
+        "NO_GO"
+      ]
+    },
+    "PollId": {
+      "description": "GO/NO-GO poll identifier chosen by the host; unique within the room.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,39}$"
+    }
+  },
+  "examples": [
+    {
+      "pollId": "m1.frr.1",
+      "answer": "GO"
+    }
+  ]
+}
