@@ -1,0 +1,218 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pilot_control.schema.json",
+  "title": "MissionForge pilot controls",
+  "description": "Pilot controls per input device (design section 9.2).",
+  "x-data-files": [
+    "pilot_controls.json"
+  ],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Optional relative path to the JSON Schema of this file, for editor support. Loaders ignore it."
+    },
+    "design_notes": {
+      "$ref": "common.schema.json#/$defs/design_notes",
+      "description": "Designer-facing notes about ambiguities or decisions. Never shown to players and never localised."
+    },
+    "controls": {
+      "type": "array",
+      "description": "Actions in design order.",
+      "items": {
+        "$ref": "#/$defs/control"
+      },
+      "minItems": 1
+    },
+    "value_types": {
+      "type": "object",
+      "description": "Provenance tags.",
+      "additionalProperties": false,
+      "properties": {
+        "controls": {
+          "$ref": "common.schema.json#/$defs/value_type",
+          "description": "Tag of the hold times."
+        }
+      },
+      "required": [
+        "controls"
+      ]
+    }
+  },
+  "required": [
+    "controls",
+    "value_types"
+  ],
+  "x-value-groups": [
+    "controls"
+  ],
+  "$defs": {
+    "control": {
+      "type": "object",
+      "description": "One pilot action and its bindings.",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/snake_id",
+          "description": "Unique action ID, for example stage_separate.",
+          "x-id": "pilot_action"
+        },
+        "name_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the Action column."
+        },
+        "keyboard": {
+          "type": "object",
+          "description": "Keyboard binding of the action.",
+          "additionalProperties": false,
+          "properties": {
+            "label_key": {
+              "$ref": "common.schema.json#/$defs/string_key",
+              "description": "String key of the Keyboard column as printed."
+            },
+            "inputs": {
+              "type": "array",
+              "description": "Keyboard inputs of the action, in the order printed. Names of keys, buttons and sticks; not translated.",
+              "items": {
+                "type": "string",
+                "description": "One input name.",
+                "minLength": 1
+              },
+              "minItems": 1,
+              "uniqueItems": true
+            },
+            "fine_modifiers": {
+              "type": "array",
+              "description": "Inputs that switch the action to fine control while held.",
+              "items": {
+                "type": "string",
+                "description": "One input name.",
+                "minLength": 1
+              },
+              "minItems": 1,
+              "uniqueItems": true
+            },
+            "combination": {
+              "type": "boolean",
+              "description": "True if all inputs must be pressed together; otherwise each input is a separate direction, function or alternative."
+            },
+            "hold": {
+              "type": "boolean",
+              "description": "True if the input must be held to trigger the action."
+            },
+            "hold_s": {
+              "type": "number",
+              "description": "How long the input must be held, in seconds, where the design gives a time.",
+              "exclusiveMinimum": 0
+            },
+            "cycles": {
+              "type": "boolean",
+              "description": "True if repeated presses cycle through the modes of the action."
+            }
+          },
+          "required": [
+            "label_key",
+            "inputs"
+          ]
+        },
+        "gamepad": {
+          "type": "object",
+          "description": "Gamepad binding of the action.",
+          "additionalProperties": false,
+          "properties": {
+            "label_key": {
+              "$ref": "common.schema.json#/$defs/string_key",
+              "description": "String key of the Gamepad column as printed."
+            },
+            "inputs": {
+              "type": "array",
+              "description": "Gamepad inputs of the action, in the order printed. Names of keys, buttons and sticks; not translated.",
+              "items": {
+                "type": "string",
+                "description": "One input name.",
+                "minLength": 1
+              },
+              "minItems": 1,
+              "uniqueItems": true
+            },
+            "fine_modifiers": {
+              "type": "array",
+              "description": "Inputs that switch the action to fine control while held.",
+              "items": {
+                "type": "string",
+                "description": "One input name.",
+                "minLength": 1
+              },
+              "minItems": 1,
+              "uniqueItems": true
+            },
+            "combination": {
+              "type": "boolean",
+              "description": "True if all inputs must be pressed together; otherwise each input is a separate direction, function or alternative."
+            },
+            "hold": {
+              "type": "boolean",
+              "description": "True if the input must be held to trigger the action."
+            },
+            "hold_s": {
+              "type": "number",
+              "description": "How long the input must be held, in seconds, where the design gives a time.",
+              "exclusiveMinimum": 0
+            },
+            "cycles": {
+              "type": "boolean",
+              "description": "True if repeated presses cycle through the modes of the action."
+            }
+          },
+          "required": [
+            "label_key",
+            "inputs"
+          ]
+        },
+        "touch": {
+          "type": "object",
+          "description": "Touch control on the host tablet.",
+          "additionalProperties": false,
+          "properties": {
+            "label_key": {
+              "$ref": "common.schema.json#/$defs/string_key",
+              "description": "String key of the Touch (host tablet) column as printed."
+            },
+            "guarded": {
+              "type": "boolean",
+              "description": "True if the touch control is guarded against accidental use."
+            }
+          },
+          "required": [
+            "label_key"
+          ]
+        },
+        "modes": {
+          "type": "array",
+          "description": "Modes or items the action covers, in the order printed (attitude-hold modes, deployable items).",
+          "items": {
+            "$ref": "common.schema.json#/$defs/flag",
+            "description": "One marker."
+          },
+          "uniqueItems": true
+        },
+        "host_only": {
+          "type": "boolean",
+          "description": "True if only the host can use the action."
+        },
+        "design_notes": {
+          "$ref": "common.schema.json#/$defs/design_notes",
+          "description": "Designer-facing notes about ambiguities or decisions. Never shown to players and never localised."
+        }
+      },
+      "required": [
+        "id",
+        "name_key",
+        "keyboard",
+        "gamepad",
+        "touch"
+      ]
+    }
+  }
+}

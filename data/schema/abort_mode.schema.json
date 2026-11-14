@@ -1,0 +1,155 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "abort_mode.schema.json",
+  "title": "MissionForge abort modes",
+  "description": "Abort modes of design section 9.8.",
+  "x-data-files": [
+    "abort_modes.json"
+  ],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Optional relative path to the JSON Schema of this file, for editor support. Loaders ignore it."
+    },
+    "design_notes": {
+      "$ref": "common.schema.json#/$defs/design_notes",
+      "description": "Designer-facing notes about ambiguities or decisions. Never shown to players and never localised."
+    },
+    "vote": {
+      "type": "object",
+      "description": "How an abort is called.",
+      "additionalProperties": false,
+      "properties": {
+        "duration_s": {
+          "type": "number",
+          "description": "Length in seconds of the quick group vote that calls an abort.",
+          "exclusiveMinimum": 0
+        },
+        "automatic_on_vehicle_breakup": {
+          "type": "boolean",
+          "description": "True if the escape system fires without a vote when the vehicle breaks up."
+        }
+      },
+      "required": [
+        "duration_s",
+        "automatic_on_vehicle_breakup"
+      ]
+    },
+    "abort_modes": {
+      "type": "array",
+      "description": "Abort modes in design order.",
+      "items": {
+        "$ref": "#/$defs/abort_mode"
+      },
+      "minItems": 1
+    },
+    "value_types": {
+      "type": "object",
+      "description": "Provenance tags.",
+      "additionalProperties": false,
+      "properties": {
+        "vote": {
+          "$ref": "common.schema.json#/$defs/value_type",
+          "description": "Tag of the vote duration."
+        }
+      },
+      "required": [
+        "vote"
+      ]
+    }
+  },
+  "required": [
+    "vote",
+    "abort_modes",
+    "value_types"
+  ],
+  "x-value-groups": [
+    "vote"
+  ],
+  "$defs": {
+    "abort_mode": {
+      "type": "object",
+      "description": "One abort mode.",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/snake_id",
+          "description": "Unique abort-mode ID, for example abort_to_orbit.",
+          "x-id": "abort_mode"
+        },
+        "name_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the abort name."
+        },
+        "when_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the When column."
+        },
+        "requirement_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the Requirement column."
+        },
+        "outcome_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the Outcome column."
+        },
+        "flight_phases": {
+          "type": "array",
+          "description": "Flight phases (F0 to F14, not facts) in which the abort can be called. A reading of the When column; the design names no phase IDs.",
+          "items": {
+            "$ref": "common.schema.json#/$defs/flight_phase",
+            "description": "One flight phase."
+          },
+          "uniqueItems": true
+        },
+        "requires_escape_system": {
+          "type": "boolean",
+          "description": "True if the abort needs a launch escape system."
+        },
+        "requirements": {
+          "type": "array",
+          "description": "Machine-readable form of the Requirement column.",
+          "items": {
+            "$ref": "common.schema.json#/$defs/flag",
+            "description": "One marker."
+          },
+          "uniqueItems": true
+        },
+        "outcomes": {
+          "type": "array",
+          "description": "Machine-readable form of the Outcome column.",
+          "items": {
+            "$ref": "common.schema.json#/$defs/flag",
+            "description": "One marker."
+          },
+          "uniqueItems": true
+        },
+        "facts": {
+          "type": "array",
+          "description": "Fact-bank IDs (not flight phases) the row cites.",
+          "items": {
+            "$ref": "common.schema.json#/$defs/fact_ref",
+            "description": "One fact ID."
+          },
+          "uniqueItems": true
+        },
+        "design_notes": {
+          "$ref": "common.schema.json#/$defs/design_notes",
+          "description": "Designer-facing notes about ambiguities or decisions. Never shown to players and never localised."
+        }
+      },
+      "required": [
+        "id",
+        "name_key",
+        "when_key",
+        "requirement_key",
+        "outcome_key",
+        "requires_escape_system",
+        "requirements",
+        "outcomes"
+      ]
+    }
+  }
+}

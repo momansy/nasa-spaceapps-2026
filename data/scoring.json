@@ -1,0 +1,214 @@
+{
+  "$schema": "./schema/scoring.schema.json",
+  "design_notes": [
+    "Team Sync meter of design section 11.2, score formula of 11.3 and grades of 11.4. All numbers are game values (section 19: \"Score weights & grades\").",
+    "Team Sync: the design lists gains for Gold, Silver, Bronze and a Good Call, none for Platinum; Platinum is a Gold with every player perfect, so it is read as the Gold gain. The design does not say whether the meter resets after a Mission Control Moment.",
+    "Formula: Mission Score = (sum of the components) × difficulty multiplier × score boosts. \"Remaining budget % × 1,000\" and \"schedule margin % × 500\" are read as the fraction (0 to 1) times the points, so 30% of the budget left gives 300 points; the grade thresholds only make sense with that reading. Kind per_fraction.",
+    "\"Secondary up to 1,500\" and \"Science / Data (contract-specific, up to 1,500)\" are upper limits (kind up_to); the design does not say how the points divide over two or three secondary objectives or how each contract earns science points.",
+    "Teamwork pays per minigame by tier and 20 points per Good Call. Knowledge pays 50 per correct prediction and 30 per trivia tiebreak; Appendix A shows a correct Predict answer as \"+50 KP\".",
+    "The difficulty multiplier is not repeated here: it is score_multiplier of the assist level flown (data/assist_levels.json: Cadet 0.8, Engineer 1.0, Flight Director 1.25). The score-boost multiplier is the Score Multiplier boost of data/boosts.json, which applies per segment and is capped at ×1.5.",
+    "Grades: D is \"< 4,000 or crew lost\", so it has no min_score and crew_lost_grade is D (5.2: the grade is capped at D if the crew is lost)."
+  ],
+  "team_sync": {
+    "meter_max": 100,
+    "gains": {
+      "gold": 25,
+      "silver": 15,
+      "bronze": 8,
+      "good_call": 3
+    },
+    "choice_vote_s": 5,
+    "moments": [
+      {
+        "id": "perfect_phase",
+        "name_key": "sync_moment.perfect_phase.name",
+        "description_key": "sync_moment.perfect_phase.description",
+        "flag": "auto_perfect_next_flight_phase"
+      },
+      {
+        "id": "save_the_mission",
+        "name_key": "sync_moment.save_the_mission.name",
+        "description_key": "sync_moment.save_the_mission.description",
+        "flag": "negate_one_catastrophic_failure"
+      },
+      {
+        "id": "golden_window",
+        "name_key": "sync_moment.golden_window.name",
+        "description_key": "sync_moment.golden_window.description",
+        "flag": "double_scores_next_phase",
+        "params": {
+          "score_multiplier_next_phase": 2
+        }
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "objective_points",
+      "name_key": "score.objective_points.name",
+      "terms": [
+        {
+          "id": "primary",
+          "kind": "fixed",
+          "points": 3000
+        },
+        {
+          "id": "secondary",
+          "kind": "up_to",
+          "points": 1500
+        },
+        {
+          "id": "stretch",
+          "kind": "fixed",
+          "points": 500
+        }
+      ]
+    },
+    {
+      "id": "efficiency",
+      "name_key": "score.efficiency.name",
+      "terms": [
+        {
+          "id": "budget_remaining",
+          "kind": "per_fraction",
+          "points": 1000
+        },
+        {
+          "id": "schedule_margin",
+          "kind": "per_fraction",
+          "points": 500
+        }
+      ]
+    },
+    {
+      "id": "safety_recovery",
+      "name_key": "score.safety_recovery.name",
+      "terms": [
+        {
+          "id": "crew_safe",
+          "kind": "fixed",
+          "points": 1000
+        },
+        {
+          "id": "booster_recovered",
+          "kind": "fixed",
+          "points": 500
+        },
+        {
+          "id": "capsule_recovered",
+          "kind": "fixed",
+          "points": 300
+        }
+      ]
+    },
+    {
+      "id": "science_data",
+      "name_key": "score.science_data.name",
+      "terms": [
+        {
+          "id": "science_data",
+          "kind": "up_to",
+          "points": 1500
+        }
+      ]
+    },
+    {
+      "id": "teamwork",
+      "name_key": "score.teamwork.name",
+      "terms": [
+        {
+          "id": "minigame_platinum",
+          "kind": "each",
+          "points": 250,
+          "tier": "platinum"
+        },
+        {
+          "id": "minigame_gold",
+          "kind": "each",
+          "points": 200,
+          "tier": "gold"
+        },
+        {
+          "id": "minigame_silver",
+          "kind": "each",
+          "points": 120,
+          "tier": "silver"
+        },
+        {
+          "id": "minigame_bronze",
+          "kind": "each",
+          "points": 60,
+          "tier": "bronze"
+        },
+        {
+          "id": "good_call",
+          "kind": "each",
+          "points": 20
+        }
+      ]
+    },
+    {
+      "id": "knowledge",
+      "name_key": "score.knowledge.name",
+      "terms": [
+        {
+          "id": "correct_prediction",
+          "kind": "each",
+          "points": 50
+        },
+        {
+          "id": "trivia_tiebreak",
+          "kind": "each",
+          "points": 30
+        }
+      ]
+    }
+  ],
+  "multipliers": [
+    {
+      "id": "difficulty",
+      "name_key": "score.difficulty.name",
+      "source": "assist_level"
+    },
+    {
+      "id": "score_boosts",
+      "name_key": "score.score_boosts.name",
+      "source": "boosts",
+      "boost": "score_multiplier",
+      "cap": 1.5
+    }
+  ],
+  "grades": [
+    {
+      "id": "S",
+      "min_score": 9000,
+      "title_key": "grade.S.title"
+    },
+    {
+      "id": "A",
+      "min_score": 7500,
+      "title_key": "grade.A.title"
+    },
+    {
+      "id": "B",
+      "min_score": 6000,
+      "title_key": "grade.B.title"
+    },
+    {
+      "id": "C",
+      "min_score": 4000,
+      "title_key": "grade.C.title"
+    },
+    {
+      "id": "D",
+      "title_key": "grade.D.title"
+    }
+  ],
+  "crew_lost_grade": "D",
+  "value_types": {
+    "team_sync": "game_value",
+    "components": "game_value",
+    "multipliers": "game_value",
+    "grades": "game_value"
+  }
+}

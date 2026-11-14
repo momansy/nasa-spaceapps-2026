@@ -1,0 +1,310 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "scoring.schema.json",
+  "title": "MissionForge scoring",
+  "description": "Team Sync meter (design section 11.2), mission score formula (11.3) and grades (11.4). Mission score = sum of the components, times every multiplier.",
+  "x-data-files": [
+    "scoring.json"
+  ],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Optional relative path to the JSON Schema of this file, for editor support. Loaders ignore it."
+    },
+    "design_notes": {
+      "$ref": "common.schema.json#/$defs/design_notes",
+      "description": "Designer-facing notes about ambiguities or decisions. Never shown to players and never localised."
+    },
+    "team_sync": {
+      "type": "object",
+      "description": "Team Sync meter and Mission Control Moment.",
+      "additionalProperties": false,
+      "properties": {
+        "meter_max": {
+          "type": "number",
+          "description": "Meter value at which the team unlocks a Mission Control Moment.",
+          "exclusiveMinimum": 0
+        },
+        "gains": {
+          "type": "object",
+          "description": "Meter points added per event.",
+          "additionalProperties": false,
+          "properties": {
+            "gold": {
+              "type": "number",
+              "description": "Points for a Gold minigame.",
+              "minimum": 0
+            },
+            "silver": {
+              "type": "number",
+              "description": "Points for a Silver minigame.",
+              "minimum": 0
+            },
+            "bronze": {
+              "type": "number",
+              "description": "Points for a Bronze minigame.",
+              "minimum": 0
+            },
+            "good_call": {
+              "type": "number",
+              "description": "Points for one Good Call.",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "gold",
+            "silver",
+            "bronze",
+            "good_call"
+          ]
+        },
+        "choice_vote_s": {
+          "type": "number",
+          "description": "Length in seconds of the vote that picks the Mission Control Moment.",
+          "exclusiveMinimum": 0
+        },
+        "moments": {
+          "type": "array",
+          "description": "Mission Control Moments the team chooses from.",
+          "items": {
+            "type": "object",
+            "description": "One Mission Control Moment.",
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "$ref": "common.schema.json#/$defs/snake_id",
+                "description": "Unique moment ID, for example golden_window.",
+                "x-id": "sync_moment"
+              },
+              "name_key": {
+                "$ref": "common.schema.json#/$defs/string_key",
+                "description": "String key of the moment name."
+              },
+              "description_key": {
+                "$ref": "common.schema.json#/$defs/string_key",
+                "description": "String key of what the moment does."
+              },
+              "flag": {
+                "$ref": "common.schema.json#/$defs/flag",
+                "description": "Marker Core acts on when the moment is chosen."
+              },
+              "params": {
+                "$ref": "common.schema.json#/$defs/params_map",
+                "description": "Numbers of the moment, for example score_multiplier_next_phase."
+              }
+            },
+            "required": [
+              "id",
+              "name_key",
+              "description_key",
+              "flag"
+            ]
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "meter_max",
+        "gains",
+        "choice_vote_s",
+        "moments"
+      ]
+    },
+    "components": {
+      "type": "array",
+      "description": "Additive parts of the mission score, in formula order.",
+      "items": {
+        "$ref": "#/$defs/component"
+      },
+      "minItems": 1
+    },
+    "multipliers": {
+      "type": "array",
+      "description": "Factors applied to the sum of the components, in formula order.",
+      "items": {
+        "type": "object",
+        "description": "One multiplier.",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "$ref": "common.schema.json#/$defs/snake_id",
+            "description": "Unique multiplier ID.",
+            "x-id": "score_multiplier"
+          },
+          "name_key": {
+            "$ref": "common.schema.json#/$defs/string_key",
+            "description": "String key of the multiplier name."
+          },
+          "source": {
+            "type": "string",
+            "description": "Where the factor comes from: assist_level = score_multiplier of the assist level flown (data/assist_levels.json); boosts = stacked Score Multiplier boosts.",
+            "enum": [
+              "assist_level",
+              "boosts"
+            ]
+          },
+          "boost": {
+            "$ref": "common.schema.json#/$defs/boost_ref",
+            "description": "Boost that feeds the multiplier, for source boosts."
+          },
+          "cap": {
+            "type": "number",
+            "description": "Highest value the multiplier may reach.",
+            "exclusiveMinimum": 0
+          }
+        },
+        "required": [
+          "id",
+          "name_key",
+          "source"
+        ]
+      },
+      "minItems": 1
+    },
+    "grades": {
+      "type": "array",
+      "description": "Grades from highest to lowest.",
+      "items": {
+        "type": "object",
+        "description": "One grade.",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Grade letter.",
+            "pattern": "^[A-Z]$",
+            "x-id": "grade"
+          },
+          "min_score": {
+            "type": "number",
+            "description": "Lowest mission score that earns the grade. Omit for the lowest grade, which has no floor.",
+            "minimum": 0
+          },
+          "title_key": {
+            "$ref": "common.schema.json#/$defs/string_key",
+            "description": "String key of the grade title."
+          }
+        },
+        "required": [
+          "id",
+          "title_key"
+        ]
+      },
+      "minItems": 1
+    },
+    "crew_lost_grade": {
+      "type": "string",
+      "description": "Grade the mission is capped at when the crew is lost, regardless of score (design sections 5.2 and 11.4).",
+      "pattern": "^[A-Z]$",
+      "x-ref": "grade"
+    },
+    "value_types": {
+      "type": "object",
+      "description": "Provenance tags.",
+      "additionalProperties": false,
+      "properties": {
+        "team_sync": {
+          "$ref": "common.schema.json#/$defs/value_type",
+          "description": "Tag of the meter values."
+        },
+        "components": {
+          "$ref": "common.schema.json#/$defs/value_type",
+          "description": "Tag of the score weights."
+        },
+        "multipliers": {
+          "$ref": "common.schema.json#/$defs/value_type",
+          "description": "Tag of the multiplier caps."
+        },
+        "grades": {
+          "$ref": "common.schema.json#/$defs/value_type",
+          "description": "Tag of the grade thresholds."
+        }
+      },
+      "required": [
+        "team_sync",
+        "components",
+        "multipliers",
+        "grades"
+      ]
+    }
+  },
+  "required": [
+    "team_sync",
+    "components",
+    "multipliers",
+    "grades",
+    "crew_lost_grade",
+    "value_types"
+  ],
+  "x-value-groups": [
+    "team_sync",
+    "components",
+    "multipliers",
+    "grades"
+  ],
+  "$defs": {
+    "component": {
+      "type": "object",
+      "description": "One additive component of the mission score.",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/snake_id",
+          "description": "Unique component ID, for example objective_points.",
+          "x-id": "score_component"
+        },
+        "name_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the component name."
+        },
+        "terms": {
+          "type": "array",
+          "description": "Terms summed to give the component.",
+          "items": {
+            "type": "object",
+            "description": "One term.",
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "$ref": "common.schema.json#/$defs/snake_id",
+                "description": "Term ID, unique within the component. Core maps it to the event or metric it counts."
+              },
+              "kind": {
+                "type": "string",
+                "description": "How points apply: fixed = awarded once when the condition holds; up_to = upper limit, the amount earned is contract-specific; per_fraction = points times a fraction between 0 and 1 (30% of the budget left gives 0.3 x points); each = awarded for every occurrence.",
+                "enum": [
+                  "fixed",
+                  "up_to",
+                  "per_fraction",
+                  "each"
+                ]
+              },
+              "points": {
+                "type": "number",
+                "description": "Points of the term.",
+                "minimum": 0
+              },
+              "tier": {
+                "$ref": "common.schema.json#/$defs/tier",
+                "description": "Minigame tier the term pays for, on per-minigame terms."
+              }
+            },
+            "required": [
+              "id",
+              "kind",
+              "points"
+            ]
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "id",
+        "name_key",
+        "terms"
+      ]
+    }
+  }
+}

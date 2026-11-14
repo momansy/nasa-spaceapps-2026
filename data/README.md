@@ -12,10 +12,21 @@ design is silent or ambiguous the data says so in a `design_notes` field next to
 | `schema/*.schema.json` | JSON Schemas (draft 2020-12), one per file type, plus `common.schema.json` | 17.5 | complete |
 | `parts/launch_site.json` | 4 launch sites | 7.1 | complete |
 | `parts/first_stage_engine.json` | 6 first-stage engines | 7.7 | complete |
-| `contracts.json` | C0 and C1 | 5, 6.2 | C2 to C8 to do |
+| `contracts.json` | C0 to C8 | 5, 6.2 | complete; objectives of C0, C2, C4, C5, C6 and C8 are composed and need confirmation |
 | `roles.json` | 10 roles, merge order | 3.3 | complete |
 | `boosts.json` | 4 tiers, 11 boosts | 10.3, 10.4 | complete |
+| `minigames.json` | 32 minigames (MG-01 to MG-30, MG-08b, MG-10a) | 10.5, 16 | complete; accessibility notes are proposals |
+| `facts.json` | 40 facts (F01 to F40) | 12.4 | complete; every status `unverified`, no URLs |
+| `achievements.json` | 12 achievements | 13.5 | complete |
+| `awards.json` | 8 individual awards | 11.5 | complete |
+| `scoring.json` | Team Sync meter, 6 score components, 2 multipliers, 5 grades | 11.2, 11.3, 11.4 | complete |
+| `flight_phases.json` | 16 flight phases (F0 to F14, F7b) | 9.1 | complete |
+| `pings.json` | 8 quick pings, 5 emoji reactions, 2 role tags | 3.4 | complete |
+| `assist_levels.json` | 3 assist levels | 9.3 | complete |
+| `abort_modes.json` | 5 abort modes | 9.8 | complete |
+| `pilot_controls.json` | 13 pilot actions with keyboard, gamepad and touch bindings | 9.2 | complete |
 | `strings/en.json` | English text for everything above | — | grows with every file |
+| `strings/en.content.json` | English text of contracts C2 to C8 and of the ten files from `minigames.json` to `pilot_controls.json` | — | complete |
 
 ## Conventions
 
@@ -29,10 +40,13 @@ design is silent or ambiguous the data says so in a `design_notes` field next to
 | Fact | as in design 12.4 | `F01` |
 | Role | console call sign | `FLIGHT` |
 | Test, anomaly, boost, achievement, Codex entry, validation rule | lowercase snake_case | `engine_hot_fire` |
+| Award, ping, emoji reaction, role tag, assist level, abort mode, pilot action, Mission Control Moment, score component | lowercase snake_case | `budget_hawk`, `abort_to_orbit` |
+| Grade | the letter | `S` |
 | Flight phase | as in design 9.1 | `F0` to `F14`, `F7b` |
 
 Facts and flight phases share the letter F (`F10` is both a fact and a phase in the design).
-They never share a field: facts live in `facts`, phases in `flight_phases`.
+They never share a field: facts live in `facts`, phases in `phase`, `parallel_with` and
+`flight_phases`. String keys keep them apart by prefix: `fact.F10.text`, `flight_phase.F10.name`.
 
 **Units** are in the field name, in the unit of the design table: `thrust_sl_kN`, `isp_vac_s`,
 `mass_t`, `mass_kg`, `cost_M` (game $M), `lead_days`, `data_GB_per_day`. Core converts to SI
@@ -102,6 +116,32 @@ two against each other. `requirements` is the machine-readable form of the speci
 `objectives` use `criteria` of the form `{ "metric", "op", "value", "tolerance" }`, where each
 metric name must be implemented by Core.
 
+`requirements.heat_shield_required` says whether a returning payload needs a heat shield; it is
+false for C0, so rule 6.11 "Returning payload without heat shield" must read it, not
+`payload_returns` alone. Objectives the design does not give (C0, C2, C4, C5, C6, C8) are
+composed from table 5.1 and the examples of 5.2; the `design_notes` of each contract name the
+source of every threshold.
+
+### Minigames (`minigames.json`)
+
+One entry per block of design 10.5. `when_key`, `detail_key`, `success_key` and
+`reward_summary_key` are the When, How to play, Success and Boost lines as printed;
+`how_to_play_key` is the one-sentence instruction of rule 4 in 10.1. `params` holds the numbers
+of the Success line: `_min` means at least, `_max` at most, `_below` strictly less than.
+`rewards` reference `boosts.json` by ID (the tier earned picks the amount; Platinum pays the
+Gold column); a reward without a number in the design is a `flag` with a text. `fact_key` is
+the one-line fact of the result screen and equals the `text_key` of the fact in `facts.json`
+where the bank holds it. `accessibility` carries the Relaxed and One-Button notes of section 16.
+
+### Flight, scoring and communication files
+
+`flight_phases.json` (9.1), `pilot_controls.json` (9.2), `assist_levels.json` (9.3),
+`abort_modes.json` (9.8), `scoring.json` (11.2 to 11.4), `awards.json` (11.5) and `pings.json`
+(3.4) each have their own schema. Table cells are stored as printed under string keys; where
+Core needs to act on a cell it is repeated as snake_case markers (`aids`, `requirements`,
+`outcomes`, `flag`) or IDs (`console_roles`, `minigames`, `failure_mode`). The difficulty
+multiplier of the score formula lives only in `assist_levels.json`; `scoring.json` points to it.
+
 ### Schema annotations
 
 The schemas carry four custom keywords that other tools ignore and the validator uses:
@@ -150,14 +190,10 @@ With the two files that exist, that is 26 categories and 102 options.
 
 | File | Section | Schema | IDs |
 |---|---|---|---|
-| `contracts.json` (add C2 to C8) | 5.1 to 5.3, 6.2 | `contract.schema.json` | `C2` … `C8` |
 | `tests.json` | 6.6 | `test.schema.json` | `component_qualification`, `engine_hot_fire`, `static_fire`, `wet_dress_rehearsal`, `vibration_test`, `thermal_vacuum_test`, `drop_test`, `arc_jet_test`, `software_in_the_loop`, `pogo_suppression_test` |
 | `anomalies.json` | 6.8 | `anomaly.schema.json` | `supplier_delay`, `budget_cut`, `test_failure`, `weather_front`, `engineering_breakthrough`, `range_conflict`, `payload_overweight`, `software_bug_found`, `contamination_in_clean_room`, `key_engineer_sick`, `helium_shortage`, `lightning_season` |
 | `validation_rules.json` | 6.11 | `validation_rule.schema.json` | one per table row, snake_case |
-| `minigames.json` | 10.5 | `minigame.schema.json` | `MG-01` … `MG-30`, including `MG-08b` and `MG-10a` |
-| `facts.json` | 12.4 | `fact.schema.json` | `F01` … `F40`; status `unverified` |
 | `codex.json` | 8.3, 12.1, 12.2 | `codex.schema.json` | snake_case |
-| `achievements.json` | 13.5 | `achievement.schema.json` | snake_case of the name (`penny_pincher`) |
 | `strings/en.json` | all | `strings.schema.json` | — |
 
 `engine_hot_fire`, `supplier_delay`, `weather_front`, `lightning_season` and `range_conflict`
@@ -171,9 +207,9 @@ pattern of the other files.
 
 These design tables have no file type here. Each needs a schema in `data/schema/` (with
 `x-data-files`) before its data can be added, because `--strict` rejects files no schema claims:
-individual awards (11.5), scoring constants and grades (11.3, 11.4), Team Sync meter (11.2),
-flight phases (9.1), pings and reactions (3.4), assist levels (9.3), abort modes (9.8),
-player-count scaling (3.2), vote timings (4.1).
+player-count scaling (3.2), vote timings and rules (4.1, 4.2), session timeline (2.2), time
+warp rules (9.7), balance targets (18.2). Awards, scoring, flight phases, pings, assist levels,
+abort modes and pilot controls now have schemas and data (see "What exists").
 
 Game-wide numbers that belong to no part and have no data file yet: maturity uncertainty
 bands (7.0: ±1%, ±3%, ±6%), propellant densities (19), rework fee of 30% (6.9).
@@ -184,9 +220,11 @@ Recorded here so nobody resolves them silently. Details are in the `design_notes
 
 1. **C0 has no detail in the design** beyond its row in 5.1: its secondary and stretch
    objectives are the generic examples of 5.2, and nothing says how the mandatory parachute
-   recovery is built or whether a suborbital return needs a heat shield.
-2. **Vote counts.** By the 6.2 annotations C1 has 22 votes and C0 has 19; section 2.2 expects
-   14 to 20.
+   recovery is built or whether a suborbital return needs a heat shield. Decided in
+   `contracts.json`: the parachute is fixed equipment (no vote) and no heat shield is needed
+   (`heat_shield_required: false`).
+2. **Vote counts.** By the 6.2 annotations the contracts have 19 (C0, C8), 20 (C7), 21 (C2, C3,
+   C5), 22 (C1) and 23 (C4, C6) votes; section 2.2 expects 14 to 20.
 3. **Strengths of first-stage engines.** Table 7.7 has no Strengths column; four engines have
    none.
 4. **Per-contract availability** is given only for Kerolox Workhorse (17.5), tank sizes (7.9)
@@ -205,6 +243,42 @@ Recorded here so nobody resolves them silently. Details are in the `design_notes
     part categories.
 14. **Minigame types**: MG-28 and MG-30 are "Cooperative", which is not one of the four types
     of 10.2; the schema accepts `cooperative`.
+
+From the contract, minigame, fact, flight and scoring data:
+
+- **Is C6 Lunar Loop crewed?** Table 5.1 gives no crew and no escape-system rule; the parts
+  catalog (Deep-space capsule, life support for long trips) implies a second crewed contract.
+  `contracts.json` treats C6 as crewed, without a crew count. If it is uncrewed, drop its
+  life-support and escape-system votes and its safety objective.
+- **Objectives of C2, C4, C5, C6 and C8** are not in the design; they are composed. C5 has no
+  orbit numbers at all (the geostationary altitude of 35,786 km was added) and no restart
+  count (1 was chosen); C6 has no flyby distance or mission length; "landing reserve" (C8)
+  and "short launch window" (C3) have no numbers.
+- **Capsule suitability**: no rule checks crew capacity (Compact seats 2, C4 carries 4) or
+  whether C6 needs the lunar-rated capsule, so the lightest capsule would always win.
+- **Satellite parts for C2 and C5**: 7.2.1 offers the smallsat power and pointing options to
+  400 kg and 4 t comm sats without scaling them.
+- **Minigame facts outside the fact bank**: the fact lines of MG-03, MG-05, MG-06, MG-08b,
+  MG-09, MG-10, MG-20, MG-24, MG-27 and MG-28 have no F-number or source in 12.4, and neither
+  do most flight-phase fact moments of 9.1. Four fact lines of 10.5 (MG-07, MG-13, MG-17,
+  MG-19) and the "Did you know?" of 7.8 exceed the 25 words of 12.1; the bank text is cut and
+  the full line kept as detail.
+- **Table 9.1 against 10.5**: "MG-13 to MG-21" for F8 includes MG-20, which is F9; MG-11
+  (F5), MG-12 (F5 as well as F7), MG-17 ("or descent" read as F12), MG-26 (no phase, put in
+  F10) and MG-28 ("debrief" read as F14) are placed by
+  their When lines. MG-04 is triggered by "avionics/sensor integration" in 10.5 and by
+  testing in 6.6.
+- **Minigame numbers the design leaves open**: the success bands of ten minigames, the size
+  of "small" boosts (MG-08, MG-29), the scope of the narrower uncertainty band of MG-01, how
+  the "fairing refund up to 60%" of MG-10 relates to the Budget Refund boost, and every
+  Relaxed and One-Button mode of section 16 (the notes in `minigames.json` are proposals).
+- **Abort vote length**: 5 s in 9.8, 10 s for quick votes ("abort or continue") in 4.2.
+- **Scoring**: "remaining budget % × 1,000" is read as fraction × 1,000; the split of the
+  1,500 secondary points and the contract-specific science points are undefined; "booster
+  recovery heavily scored" (C8) has no weight; Team Sync has no Platinum gain and no reset rule.
+- **Pilot controls**: Deploy lists four items and three keys; the D-pad, Select and Start are
+  each used by two actions; two gamepad holds have no duration.
+- **Name used twice**: "Veto Visionary" is an award (11.5) and an achievement (13.5).
 
 ## English strings may be split by area
 

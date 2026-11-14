@@ -82,6 +82,21 @@
           },
           "minItems": 1
         },
+        "contracts": {
+          "type": "array",
+          "description": "Contracts the criteria refer to; any one of them satisfies the achievement.",
+          "items": {
+            "$ref": "common.schema.json#/$defs/contract_ref",
+            "description": "One contract."
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "assist_level": {
+          "$ref": "common.schema.json#/$defs/snake_id",
+          "x-ref": "assist_level",
+          "description": "Assist level of data/assist_levels.json the mission must be flown at."
+        },
         "design_notes": {
           "$ref": "common.schema.json#/$defs/design_notes",
           "description": "Designer-facing notes about ambiguities or decisions. Never shown to players and never localised."

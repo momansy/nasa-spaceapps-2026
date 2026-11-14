@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ping.schema.json",
+  "title": "MissionForge player communication",
+  "description": "Quick pings, emoji reactions and role tags (design section 3.4). There is no free-text chat.",
+  "x-data-files": [
+    "pings.json"
+  ],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Optional relative path to the JSON Schema of this file, for editor support. Loaders ignore it."
+    },
+    "design_notes": {
+      "$ref": "common.schema.json#/$defs/design_notes",
+      "description": "Designer-facing notes about ambiguities or decisions. Never shown to players and never localised."
+    },
+    "free_text_chat": {
+      "type": "boolean",
+      "description": "False: players cannot type free text (child safety)."
+    },
+    "quick_pings": {
+      "type": "array",
+      "description": "Quick pings in design order, shown on the host screen next to the avatar of the sender.",
+      "items": {
+        "type": "object",
+        "description": "One quick ping.",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "$ref": "common.schema.json#/$defs/snake_id",
+            "description": "Unique ping ID, sent as pingId in ping.send.",
+            "x-id": "ping"
+          },
+          "text_key": {
+            "$ref": "common.schema.json#/$defs/string_key",
+            "description": "String key of the ping text."
+          }
+        },
+        "required": [
+          "id",
+          "text_key"
+        ]
+      },
+      "minItems": 1
+    },
+    "reactions": {
+      "type": "array",
+      "description": "Emoji reactions in design order.",
+      "items": {
+        "type": "object",
+        "description": "One emoji reaction.",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "$ref": "common.schema.json#/$defs/snake_id",
+            "description": "Unique reaction ID, sent as pingId in ping.send.",
+            "x-id": "ping"
+          },
+          "emoji": {
+            "type": "string",
+            "description": "The emoji character. Not translated.",
+            "minLength": 1,
+            "maxLength": 8
+          },
+          "label_key": {
+            "$ref": "common.schema.json#/$defs/string_key",
+            "description": "String key of the screen-reader label of the emoji (design section 16)."
+          }
+        },
+        "required": [
+          "id",
+          "emoji",
+          "label_key"
+        ]
+      },
+      "minItems": 1
+    },
+    "role_tags": {
+      "type": "array",
+      "description": "Badges a role-holder can put on an option.",
+      "items": {
+        "type": "object",
+        "description": "One role tag.",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "$ref": "common.schema.json#/$defs/snake_id",
+            "description": "Unique tag ID.",
+            "x-id": "role_tag"
+          },
+          "name_key": {
+            "$ref": "common.schema.json#/$defs/string_key",
+            "description": "String key of the badge text."
+          },
+          "own_area_only": {
+            "type": "boolean",
+            "description": "True if a role-holder can tag only options in the area of the role."
+          },
+          "visible_to_all": {
+            "type": "boolean",
+            "description": "True if every player sees the badge."
+          }
+        },
+        "required": [
+          "id",
+          "name_key",
+          "own_area_only",
+          "visible_to_all"
+        ]
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "free_text_chat",
+    "quick_pings",
+    "reactions",
+    "role_tags"
+  ]
+}

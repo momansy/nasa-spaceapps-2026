@@ -1,0 +1,401 @@
+{
+  "$schema": "./schema/flight_phase.schema.json",
+  "design_notes": [
+    "Table 9.1, one entry per row, in flight order. The field phase holds a flight-phase ID (F0 to F14, F7b); the field facts holds fact-bank IDs (F01 to F40). The two kinds share the letter F and never share a field.",
+    "pilot_actions_key, console_duties_key and fact_moment_key are the cells as printed. console_roles lists the roles a cell names; all_consoles marks \"All consoles monitor\" and \"Everyone\".",
+    "minigames is the Minigames column plus the minigames whose When line in 10.5 names the phase, so that this file and data/minigames.json agree; each difference from the column is noted on the phase. Conditions (\"if reusable fairing\", \"if engine-out\", \"at end\") are the triggers in data/minigames.json.",
+    "possible_events splits the Possible events column into one entry per event. failure_mode links an event to the failure model of 8.4 where a row matches by name; the link is a reading, the table does not state it.",
+    "facts links a fact moment to the fact bank only where the bank holds the same fact (F03 staging, F04 Max Q, F05 orbital speed, F17 entry corridor, F18 Orion parachutes, F19 blackout). The bank itself names a flight phase only for F05. The other fact moments (F0, F1, F2, F3, F6, F7b, F9, F13) have no bank entry and no source yet.",
+    "The design does not group the phases into the flight segments used for pilot rotation (9.4) and assist levels (9.3: ascent, orbit, entry), so no segment is stored."
+  ],
+  "flight_phases": [
+    {
+      "phase": "F0",
+      "name_key": "flight_phase.F0.name",
+      "pilot_actions_key": "flight_phase.F0.pilot_actions",
+      "console_duties_key": "flight_phase.F0.console_duties",
+      "console_roles": [
+        "FLIGHT"
+      ],
+      "minigames": [],
+      "possible_events": [
+        {
+          "id": "weather_scrub",
+          "name_key": "flight_phase.F0.event.weather_scrub"
+        }
+      ],
+      "fact_moment_key": "flight_phase.F0.fact_moment"
+    },
+    {
+      "phase": "F1",
+      "name_key": "flight_phase.F1.name",
+      "pilot_actions_key": "flight_phase.F1.pilot_actions",
+      "console_duties_key": "flight_phase.F1.console_duties",
+      "all_consoles": true,
+      "minigames": [
+        "MG-07",
+        "MG-08b"
+      ],
+      "possible_events": [
+        {
+          "id": "countdown_hold",
+          "name_key": "flight_phase.F1.event.countdown_hold"
+        },
+        {
+          "id": "sensor_glitch",
+          "name_key": "flight_phase.F1.event.sensor_glitch"
+        }
+      ],
+      "fact_moment_key": "flight_phase.F1.fact_moment"
+    },
+    {
+      "phase": "F2",
+      "name_key": "flight_phase.F2.name",
+      "pilot_actions_key": "flight_phase.F2.pilot_actions",
+      "console_duties_key": "flight_phase.F2.console_duties",
+      "console_roles": [
+        "BOOSTER"
+      ],
+      "minigames": [
+        "MG-07"
+      ],
+      "possible_events": [
+        {
+          "id": "engine_start_failure",
+          "name_key": "flight_phase.F2.event.engine_start_failure",
+          "abort_mode": "pad_abort"
+        }
+      ],
+      "fact_moment_key": "flight_phase.F2.fact_moment",
+      "design_notes": [
+        "The Minigames column reads \"Ignition timing (part of MG-07)\"."
+      ]
+    },
+    {
+      "phase": "F3",
+      "name_key": "flight_phase.F3.name",
+      "pilot_actions_key": "flight_phase.F3.pilot_actions",
+      "console_duties_key": "flight_phase.F3.console_duties",
+      "console_roles": [
+        "GUIDO",
+        "FIDO"
+      ],
+      "minigames": [
+        "MG-09"
+      ],
+      "possible_events": [
+        {
+          "id": "guidance_drift",
+          "name_key": "flight_phase.F3.event.guidance_drift",
+          "failure_mode": "guidance_drift"
+        }
+      ],
+      "fact_moment_key": "flight_phase.F3.fact_moment"
+    },
+    {
+      "phase": "F4",
+      "name_key": "flight_phase.F4.name",
+      "pilot_actions_key": "flight_phase.F4.pilot_actions",
+      "console_duties_key": "flight_phase.F4.console_duties",
+      "console_roles": [
+        "STRUCT"
+      ],
+      "minigames": [
+        "MG-08"
+      ],
+      "possible_events": [
+        {
+          "id": "structural_overload",
+          "name_key": "flight_phase.F4.event.structural_overload",
+          "failure_mode": "structural_failure"
+        }
+      ],
+      "fact_moment_key": "flight_phase.F4.fact_moment",
+      "facts": [
+        "F04"
+      ]
+    },
+    {
+      "phase": "F5",
+      "name_key": "flight_phase.F5.name",
+      "pilot_actions_key": "flight_phase.F5.pilot_actions",
+      "console_duties_key": "flight_phase.F5.console_duties",
+      "console_roles": [
+        "BOOSTER",
+        "STRUCT"
+      ],
+      "minigames": [
+        "MG-10a",
+        "MG-11",
+        "MG-12"
+      ],
+      "possible_events": [
+        {
+          "id": "recontact",
+          "name_key": "flight_phase.F5.event.recontact",
+          "failure_mode": "stage_recontact"
+        },
+        {
+          "id": "pogo",
+          "name_key": "flight_phase.F5.event.pogo",
+          "failure_mode": "pogo_oscillation"
+        },
+        {
+          "id": "engine_out",
+          "name_key": "flight_phase.F5.event.engine_out",
+          "failure_mode": "engine_shutdown"
+        }
+      ],
+      "fact_moment_key": "flight_phase.F5.fact_moment",
+      "facts": [
+        "F03"
+      ],
+      "design_notes": [
+        "The Minigames column lists MG-10a only. MG-11 Pogo Damper (\"F5, if pogo triggered\") and MG-12 Engine-Out Rebalance (\"F5/F7\") are added from their When lines in 10.5; the column lists pogo and engine-out as possible events."
+      ]
+    },
+    {
+      "phase": "F6",
+      "name_key": "flight_phase.F6.name",
+      "pilot_actions_key": "flight_phase.F6.pilot_actions",
+      "console_duties_key": "flight_phase.F6.console_duties",
+      "console_roles": [
+        "PAYLOAD",
+        "STRUCT"
+      ],
+      "minigames": [
+        "MG-10"
+      ],
+      "possible_events": [
+        {
+          "id": "fairing_stuck",
+          "name_key": "flight_phase.F6.event.fairing_stuck",
+          "failure_mode": "fairing_stuck"
+        }
+      ],
+      "fact_moment_key": "flight_phase.F6.fact_moment",
+      "design_notes": [
+        "The Minigames column reads \"MG-10 (if reusable fairing)\"."
+      ]
+    },
+    {
+      "phase": "F7",
+      "name_key": "flight_phase.F7.name",
+      "pilot_actions_key": "flight_phase.F7.pilot_actions",
+      "console_duties_key": "flight_phase.F7.console_duties",
+      "console_roles": [
+        "FIDO",
+        "GUIDO"
+      ],
+      "minigames": [
+        "MG-12"
+      ],
+      "possible_events": [
+        {
+          "id": "early_cutoff",
+          "name_key": "flight_phase.F7.event.early_cutoff"
+        }
+      ],
+      "fact_moment_key": "flight_phase.F7.fact_moment",
+      "facts": [
+        "F05"
+      ],
+      "design_notes": [
+        "The Minigames column reads \"MG-12 (if engine-out)\". The fact bank ties fact F05 to this phase."
+      ]
+    },
+    {
+      "phase": "F7b",
+      "name_key": "flight_phase.F7b.name",
+      "parallel_with": "F7",
+      "second_pilot": true,
+      "pilot_actions_key": "flight_phase.F7b.pilot_actions",
+      "console_duties_key": "flight_phase.F7b.console_duties",
+      "console_roles": [
+        "RETRO"
+      ],
+      "minigames": [
+        "MG-24"
+      ],
+      "possible_events": [
+        {
+          "id": "booster_landing_failure",
+          "name_key": "flight_phase.F7b.event.booster_landing_failure"
+        }
+      ],
+      "fact_moment_key": "flight_phase.F7b.fact_moment",
+      "design_notes": [
+        "The Phase column reads \"Booster return (parallel track)\". parallel_with F7 is a reading of the row order; the design does not say which phases the track runs alongside."
+      ]
+    },
+    {
+      "phase": "F8",
+      "name_key": "flight_phase.F8.name",
+      "pilot_actions_key": "flight_phase.F8.pilot_actions",
+      "console_duties_key": "flight_phase.F8.console_duties",
+      "console_roles": [
+        "INCO",
+        "EECOM",
+        "PAYLOAD"
+      ],
+      "minigames": [
+        "MG-13",
+        "MG-14",
+        "MG-15",
+        "MG-16",
+        "MG-17",
+        "MG-18",
+        "MG-19",
+        "MG-21"
+      ],
+      "possible_events": [
+        {
+          "id": "debris_conjunction",
+          "name_key": "flight_phase.F8.event.debris_conjunction"
+        },
+        {
+          "id": "alarms",
+          "name_key": "flight_phase.F8.event.alarms"
+        },
+        {
+          "id": "eclipse",
+          "name_key": "flight_phase.F8.event.eclipse"
+        }
+      ],
+      "fact_moment_key": "flight_phase.F8.fact_moment",
+      "design_notes": [
+        "The Minigames column reads \"MG-13 to MG-21\". That range includes MG-20 Deorbit Burn, which its own entry in 10.5 and the F9 row place in F9, so MG-20 is not listed here."
+      ]
+    },
+    {
+      "phase": "F9",
+      "name_key": "flight_phase.F9.name",
+      "pilot_actions_key": "flight_phase.F9.pilot_actions",
+      "console_duties_key": "flight_phase.F9.console_duties",
+      "console_roles": [
+        "RETRO",
+        "FIDO"
+      ],
+      "minigames": [
+        "MG-20"
+      ],
+      "possible_events": [
+        {
+          "id": "over_or_under_burn",
+          "name_key": "flight_phase.F9.event.over_or_under_burn"
+        }
+      ],
+      "fact_moment_key": "flight_phase.F9.fact_moment"
+    },
+    {
+      "phase": "F10",
+      "name_key": "flight_phase.F10.name",
+      "pilot_actions_key": "flight_phase.F10.pilot_actions",
+      "console_duties_key": "flight_phase.F10.console_duties",
+      "console_roles": [
+        "RETRO"
+      ],
+      "minigames": [
+        "MG-22",
+        "MG-26"
+      ],
+      "possible_events": [
+        {
+          "id": "skip_out",
+          "name_key": "flight_phase.F10.event.skip_out"
+        },
+        {
+          "id": "overheat",
+          "name_key": "flight_phase.F10.event.overheat",
+          "failure_mode": "heat_shield_burn_through"
+        }
+      ],
+      "fact_moment_key": "flight_phase.F10.fact_moment",
+      "facts": [
+        "F17"
+      ],
+      "design_notes": [
+        "The Minigames column lists MG-22 only. MG-26 Seven Minutes of Terror (C7) names no phase in 10.5; it is placed here because it is played \"before entry\"."
+      ]
+    },
+    {
+      "phase": "F11",
+      "name_key": "flight_phase.F11.name",
+      "pilot_actions_key": "flight_phase.F11.pilot_actions",
+      "console_duties_key": "flight_phase.F11.console_duties",
+      "phones_show_static": true,
+      "minigames": [
+        "MG-25"
+      ],
+      "possible_events": [
+        {
+          "id": "blackout_longer_than_expected",
+          "name_key": "flight_phase.F11.event.blackout_longer_than_expected"
+        }
+      ],
+      "fact_moment_key": "flight_phase.F11.fact_moment",
+      "facts": [
+        "F19"
+      ],
+      "design_notes": [
+        "The Minigames column reads \"MG-25 at end\"."
+      ]
+    },
+    {
+      "phase": "F12",
+      "name_key": "flight_phase.F12.name",
+      "pilot_actions_key": "flight_phase.F12.pilot_actions",
+      "console_duties_key": "flight_phase.F12.console_duties",
+      "console_roles": [
+        "RETRO"
+      ],
+      "minigames": [
+        "MG-23",
+        "MG-17"
+      ],
+      "possible_events": [
+        {
+          "id": "chute_failure",
+          "name_key": "flight_phase.F12.event.chute_failure",
+          "failure_mode": "parachute_failure"
+        }
+      ],
+      "fact_moment_key": "flight_phase.F12.fact_moment",
+      "facts": [
+        "F18"
+      ],
+      "design_notes": [
+        "The Minigames column lists MG-23 only. MG-17 Alarm Triage is \"F8 or descent\" in 10.5; descent is read as this phase."
+      ]
+    },
+    {
+      "phase": "F13",
+      "name_key": "flight_phase.F13.name",
+      "pilot_actions_key": "flight_phase.F13.pilot_actions",
+      "console_duties_key": "flight_phase.F13.console_duties",
+      "all_consoles": true,
+      "minigames": [
+        "MG-27"
+      ],
+      "possible_events": [
+        {
+          "id": "hard_landing",
+          "name_key": "flight_phase.F13.event.hard_landing"
+        }
+      ],
+      "fact_moment_key": "flight_phase.F13.fact_moment"
+    },
+    {
+      "phase": "F14",
+      "name_key": "flight_phase.F14.name",
+      "minigames": [
+        "MG-28"
+      ],
+      "possible_events": [],
+      "fact_moment_key": "flight_phase.F14.fact_moment",
+      "design_notes": [
+        "Pilot actions, console duties, minigames and possible events are dashes in the design. MG-28 Root Cause Investigation is added from its When line in 10.5: \"After a failure or major anomaly (debrief)\"."
+      ]
+    }
+  ]
+}

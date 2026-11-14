@@ -178,7 +178,7 @@
         },
         "how_to_play_key": {
           "$ref": "common.schema.json#/$defs/string_key",
-          "description": "String key of the one-sentence instruction."
+          "description": "String key of the one-sentence instruction (design section 10.1, rule 4)."
         },
         "success_key": {
           "$ref": "common.schema.json#/$defs/string_key",
@@ -204,7 +204,7 @@
         },
         "facts": {
           "type": "array",
-          "description": "Facts shown on the result screen.",
+          "description": "Fact-bank IDs (F01 to F40, not flight phases) of the fact the minigame teaches. Empty or omitted when the fact of the minigame is not in the fact bank.",
           "items": {
             "$ref": "common.schema.json#/$defs/fact_ref"
           },
@@ -232,7 +232,7 @@
               },
               "tiers": {
                 "type": "array",
-                "description": "Tiers at which the reward applies. Omit for every tier.",
+                "description": "Tiers at which the reward applies. Omit for every tier. Platinum pays what Gold pays, so a Gold reward lists gold and platinum.",
                 "items": {
                   "$ref": "common.schema.json#/$defs/tier"
                 },
@@ -253,6 +253,22 @@
               "text_key": {
                 "$ref": "common.schema.json#/$defs/string_key",
                 "description": "String key of the reward text for rewards outside the boost catalog."
+              },
+              "shield_scope": {
+                "type": "string",
+                "description": "Restriction the design puts on a Reliability Shield reward: descent = usable in the descent phase only, orbit = orbit phase only, crew_safety = protects crew safety only.",
+                "enum": [
+                  "descent",
+                  "orbit",
+                  "crew_safety"
+                ]
+              },
+              "precision_target": {
+                "type": "string",
+                "description": "Which error a Precision reward applies to, where the design names it in parentheses: landing_ellipse = \"Precision (landing ellipse)\". Omit when the design does not say.",
+                "enum": [
+                  "landing_ellipse"
+                ]
               }
             },
             "required": [],
@@ -262,6 +278,41 @@
         "design_notes": {
           "$ref": "common.schema.json#/$defs/design_notes",
           "description": "Designer-facing notes about ambiguities or decisions. Never shown to players and never localised."
+        },
+        "detail_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the full How to play text of design section 10.5, for the Codex and the looping demo script."
+        },
+        "crewed_only": {
+          "type": "boolean",
+          "description": "True if the minigame occurs only on crewed contracts."
+        },
+        "fact_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the one-line fact shown on the result screen, 25 words or fewer (design sections 10.1 and 12.1). Where the fact bank holds the fact, this is the text key of that fact."
+        },
+        "reward_summary_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the Boost line of design section 10.5 as printed."
+        },
+        "accessibility": {
+          "type": "object",
+          "description": "Motor-accessibility modes every minigame must offer (design sections 10.1 rule 8 and 16).",
+          "additionalProperties": false,
+          "properties": {
+            "relaxed_key": {
+              "$ref": "common.schema.json#/$defs/string_key",
+              "description": "String key of the note describing Relaxed mode (wider windows, slower pace)."
+            },
+            "one_button_key": {
+              "$ref": "common.schema.json#/$defs/string_key",
+              "description": "String key of the note describing the One-Button alternative. Hold-to-press can always switch to toggle."
+            }
+          },
+          "required": [
+            "relaxed_key",
+            "one_button_key"
+          ]
         }
       },
       "required": [
@@ -273,7 +324,10 @@
         "duration_s",
         "how_to_play_key",
         "success_key",
-        "rewards"
+        "rewards",
+        "fact_key",
+        "reward_summary_key",
+        "accessibility"
       ]
     }
   }

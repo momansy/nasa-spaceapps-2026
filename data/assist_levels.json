@@ -1,0 +1,75 @@
+{
+  "$schema": "./schema/assist_level.schema.json",
+  "design_notes": [
+    "Table 9.3. score_multiplier is the Score multiplier column and the difficulty multiplier of the score formula (11.3).",
+    "aids restates the three columns as markers for Core. The design names no default level; section 18.2 states its balance targets for Engineer.",
+    "The Flight Director level shares its name with the FLIGHT role; the IDs differ (flight_director here, FLIGHT in data/roles.json)."
+  ],
+  "assist_levels": [
+    {
+      "id": "cadet",
+      "name_key": "assist_level.cadet.name",
+      "ascent_key": "assist_level.cadet.ascent",
+      "orbit_key": "assist_level.cadet.orbit",
+      "entry_key": "assist_level.cadet.entry",
+      "aids": {
+        "ascent": [
+          "autopilot_gravity_turn",
+          "pilot_throttle_at_max_q",
+          "pilot_staging"
+        ],
+        "orbit": [
+          "auto_circularize_with_prompt"
+        ],
+        "entry": [
+          "auto_attitude",
+          "pilot_chutes"
+        ]
+      },
+      "score_multiplier": 0.8
+    },
+    {
+      "id": "engineer",
+      "name_key": "assist_level.engineer.name",
+      "ascent_key": "assist_level.engineer.ascent",
+      "orbit_key": "assist_level.engineer.orbit",
+      "entry_key": "assist_level.engineer.entry",
+      "aids": {
+        "ascent": [
+          "guidance_cue_on_hud",
+          "pilot_flies"
+        ],
+        "orbit": [
+          "maneuver_nodes_suggested"
+        ],
+        "entry": [
+          "corridor_shown"
+        ]
+      },
+      "score_multiplier": 1
+    },
+    {
+      "id": "flight_director",
+      "name_key": "assist_level.flight_director.name",
+      "ascent_key": "assist_level.flight_director.ascent",
+      "orbit_key": "assist_level.flight_director.orbit",
+      "entry_key": "assist_level.flight_director.entry",
+      "aids": {
+        "ascent": [
+          "raw_telemetry_only"
+        ],
+        "orbit": [
+          "manual"
+        ],
+        "entry": [
+          "manual",
+          "corridor_hidden"
+        ]
+      },
+      "score_multiplier": 1.25
+    }
+  ],
+  "value_types": {
+    "assist_levels": "game_value"
+  }
+}

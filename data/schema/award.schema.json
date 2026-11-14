@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "award.schema.json",
+  "title": "MissionForge individual awards",
+  "description": "Individual recognition at debrief (design section 11.5). Positive only: no shaming and no last place.",
+  "x-data-files": [
+    "awards.json"
+  ],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Optional relative path to the JSON Schema of this file, for editor support. Loaders ignore it."
+    },
+    "design_notes": {
+      "$ref": "common.schema.json#/$defs/design_notes",
+      "description": "Designer-facing notes about ambiguities or decisions. Never shown to players and never localised."
+    },
+    "rules": {
+      "type": "object",
+      "description": "Rules that apply to the whole award ceremony.",
+      "additionalProperties": false,
+      "properties": {
+        "min_awards_per_player": {
+          "type": "integer",
+          "description": "Lowest number of awards every player receives at debrief.",
+          "minimum": 0
+        },
+        "positive_only": {
+          "type": "boolean",
+          "description": "True if no award may shame a player or mark a last place."
+        }
+      },
+      "required": [
+        "min_awards_per_player",
+        "positive_only"
+      ]
+    },
+    "awards": {
+      "type": "array",
+      "description": "Awards in design order.",
+      "items": {
+        "$ref": "#/$defs/award"
+      },
+      "minItems": 1
+    },
+    "value_types": {
+      "type": "object",
+      "description": "Provenance tags.",
+      "additionalProperties": false,
+      "properties": {
+        "rules": {
+          "$ref": "common.schema.json#/$defs/value_type",
+          "description": "Tag of the numbers in rules."
+        }
+      },
+      "required": [
+        "rules"
+      ]
+    }
+  },
+  "required": [
+    "rules",
+    "awards",
+    "value_types"
+  ],
+  "x-value-groups": [
+    "rules"
+  ],
+  "$defs": {
+    "award": {
+      "type": "object",
+      "description": "One award.",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/snake_id",
+          "description": "Unique award ID, for example budget_hawk.",
+          "x-id": "award"
+        },
+        "name_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the award name."
+        },
+        "description_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the parenthetical after the name in the design. Omit when the design gives none."
+        },
+        "selection": {
+          "type": "string",
+          "description": "highest = the player with the highest value of metric wins; condition = every player for whom the boolean metric holds may win.",
+          "enum": [
+            "highest",
+            "condition"
+          ]
+        },
+        "metric": {
+          "type": "string",
+          "description": "Per-player metric the award is judged on, snake_case. Each metric used in data must be implemented by Core.",
+          "pattern": "^[a-z][A-Za-z0-9_]*$"
+        },
+        "role": {
+          "$ref": "common.schema.json#/$defs/role_ref",
+          "description": "Role the award is limited to (Budget Hawk: PM)."
+        },
+        "minigames": {
+          "type": "array",
+          "description": "Minigames whose result the metric reads.",
+          "items": {
+            "$ref": "common.schema.json#/$defs/minigame_ref",
+            "description": "One minigame."
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "design_notes": {
+          "$ref": "common.schema.json#/$defs/design_notes",
+          "description": "Designer-facing notes about ambiguities or decisions. Never shown to players and never localised."
+        }
+      },
+      "required": [
+        "id",
+        "name_key",
+        "selection",
+        "metric"
+      ]
+    }
+  }
+}
