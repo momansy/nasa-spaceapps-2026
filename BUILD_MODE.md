@@ -65,7 +65,9 @@ by putting `mesh-model: <model>` (and `mesh-effort: <level>`) on a line of the t
 - **Every tool, no allowlist:** add `--skip-permissions` if you want the agent to use every
   tool and MCP server on your machine without naming them. This is your choice to make.
 - **Codex:** use `--provider codex`. Build mode uses the `workspace-write` sandbox with
-  network access; `--skip-permissions` switches it to `danger-full-access`.
+  network access. In that mode Codex refuses every MCP tool call (it cannot ask for
+  approval when running unattended), so a Codex worker that must use an MCP server such as
+  Higgsfield needs `--skip-permissions`, which runs Codex with approvals and sandbox off.
 - Other flags: `--max-turns` (default 400), `--timeout` seconds per task (default 10800),
   `--progress-minutes` (default 10).
 

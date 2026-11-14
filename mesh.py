@@ -513,9 +513,14 @@ def make_prompt(issue, comments, agent, mode, hop, peers):
 def agent_command(provider, mode, output_schema, options, schema_path="", result_path=""):
     """Build the provider CLI argument list. The Claude prompt is passed on stdin."""
     if provider == "codex":
-        sandbox = {"plan": "read-only", "code": "workspace-write",
-                   "build": "danger-full-access" if options["skip_permissions"] else "workspace-write"}[mode]
-        command = ["codex", "exec", "--ephemeral", "--sandbox", sandbox]
+        if mode == "build" and options["skip_permissions"]:
+            # Headless Codex rejects every MCP tool call that would need approval, and no
+            # configuration key lifts that; the owner's --skip-permissions choice maps to
+            # the one flag that does.
+            command = ["codex", "exec", "--ephemeral", "--dangerously-bypass-approvals-and-sandbox"]
+        else:
+            sandbox = {"plan": "read-only", "code": "workspace-write", "build": "workspace-write"}[mode]
+            command = ["codex", "exec", "--ephemeral", "--sandbox", sandbox]
         if options["model"]:
             command += ["--model", options["model"]]
         if options["effort"]:

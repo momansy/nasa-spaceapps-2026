@@ -56,6 +56,12 @@ class TestCommands(unittest.TestCase):
         self.assertIn("model_reasoning_effort=high", cmd)
         self.assertEqual(cmd[cmd.index("--model") + 1], "gpt-x")
 
+    def test_codex_skip_permissions_allows_mcp_calls(self):
+        cmd = mesh.agent_command("codex", "build", mesh.SCHEMA,
+                                 mesh.run_options("build", skip_permissions=True), "s.json", "r.json")
+        self.assertIn("--dangerously-bypass-approvals-and-sandbox", cmd)
+        self.assertNotIn("--sandbox", cmd)
+
     def test_invalid_mcp_name_rejected(self):
         with self.assertRaises(ValueError):
             mesh.run_options("build", mcp="bad;name")
