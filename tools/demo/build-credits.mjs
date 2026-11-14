@@ -265,12 +265,14 @@ function disclaimers() {
 function teamSection() {
   const file = join(REPO, 'tools', 'demo', 'team.json');
   if (existsSync(file)) {
-    const members = (JSON.parse(readFileSync(file, 'utf8').replace(/^﻿/, '')).members || []).filter((m) => m && m.name);
-    if (members.length) {
+    const data = JSON.parse(readFileSync(file, 'utf8').replace(/^﻿/, ''));
+    const members = (data.members || []).filter((m) => m && m.name);
+    const teamName = typeof data.teamName === 'string' ? data.teamName.trim() : '';
+    if (teamName || members.length) {
       const rows = members.map((m) => [esc(m.name), esc(m.role || ''), m.link ? link(m.link) : '']);
       return `
-<h2 id="team">Team</h2>
-${table(['Name', 'Role', 'Link'], rows)}`;
+<h2 id="team">Team${teamName ? ` ${esc(teamName)}` : ''}</h2>
+${members.length ? table(['Name', 'Role', 'Link'], rows) : ''}`;
     }
   }
   return `
