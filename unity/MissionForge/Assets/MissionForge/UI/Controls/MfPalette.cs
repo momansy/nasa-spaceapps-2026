@@ -33,6 +33,16 @@ namespace MissionForge.UI
         /// <summary>#FF8F8F status Fails: cross inside octagon, heavy/double border, label "Fails".</summary>
         public static readonly Color Fails = new Color32(0xFF, 0x8F, 0x8F, 255);
 
+        /// <summary>#A5B4FC categorical series 3 (VISUAL_TARGET 3.1 proposal; contrast in evidence/T031/contrast.md).</summary>
+        public static readonly Color Periwinkle = new Color32(0xA5, 0xB4, 0xFC, 255);
+        /// <summary>#F4A6C6 categorical series 4 (VISUAL_TARGET 3.1 proposal; contrast in evidence/T031/contrast.md).</summary>
+        public static readonly Color Rose = new Color32(0xF4, 0xA6, 0xC6, 255);
+        /// <summary>Data-viz series in order (tokens.json dataviz.series). Each series is also told apart by letter or pattern.</summary>
+        public static readonly Color[] Series = { Signal, Sunlight, Periwinkle, Rose };
+
+        /// <summary>Same colour with another alpha.</summary>
+        public static Color WithAlpha(Color c, float a) => new Color(c.r, c.g, c.b, a);
+
         /// <summary>QR modules. Dark = Space; light stays pure white for scanner contrast (never used for text).</summary>
         public static readonly Color32 QrDark = new Color32(0x07, 0x15, 0x22, 255);
         public static readonly Color32 QrLight = new Color32(255, 255, 255, 255);

@@ -1,0 +1,35 @@
+/* Lobby layout: glass panels over the orbit scene (never glass on glass: seats inside are flat surfaces).
+   1920 x 1080 reference: crew panel 1144 px (five 192 px seats + 4 x 24 px gutters + 2 x 32 px padding = 1120 px, so ten seats are two rows),
+   side column 560 px, gutter 24 px, all inside the 96 px / 54 px safe margins (game_value layout). */
+
+.mf-lobby__row { flex-direction: row; flex-grow: 1; }
+.mf-lobby__crew { flex-grow: 1; margin-right: var(--mf-sp-gutter); padding: var(--mf-sp-panel-padding); }
+.mf-lobby__tally { flex-direction: row; align-items: flex-end; }
+.mf-lobby__tally-unit { margin: 0 0 8px var(--mf-sp-2); }
+.mf-lobby__grid { flex-grow: 1; flex-direction: row; flex-wrap: wrap; align-content: flex-start; justify-content: space-between; }
+.mf-lobby__grid > .mf-seat { margin-bottom: var(--mf-sp-gutter); }
+.mf-lobby__footer { flex-direction: row; align-items: center; justify-content: space-between; padding-top: var(--mf-sp-5); border-top-width: 1px; border-top-color: var(--mf-ceramic-10); }
+.mf-lobby__hintrow { flex-direction: row; align-items: center; flex-shrink: 1; margin-right: var(--mf-sp-5); }
+.mf-lobby__hint-icon { color: var(--mf-signal); margin-right: var(--mf-sp-3); flex-shrink: 0; }
+.mf-lobby__hint { flex-shrink: 1; }
+
+.mf-lobby__side { width: 560px; flex-shrink: 0; }
+.mf-lobby__join { padding: var(--mf-sp-5); margin-bottom: var(--mf-sp-gutter); }
+.mf-lobby__settings { flex-grow: 1; padding: var(--mf-sp-5) var(--mf-sp-panel-padding) var(--mf-sp-5) var(--mf-sp-panel-padding); }
+.mf-lobby__settings .mf-panel__header { margin-bottom: var(--mf-sp-2); }
+.mf-lobby__settings .mf-setting { margin-bottom: var(--mf-sp-3); }
+.mf-lobby__join .mf-join__text { margin-left: var(--mf-sp-5); }
+.mf-lobby__join .mf-roomcode-big { font-size: 88px; margin: -4px 0 -4px 0; }
+.mf-lobby__settings .mf-setting--last { margin-bottom: 0; }
+
+.mf-rtl .mf-lobby__row, .mf-rtl .mf-lobby__footer, .mf-rtl .mf-lobby__hintrow, .mf-rtl .mf-lobby__tally { flex-direction: row-reverse; }
+.mf-rtl .mf-lobby__crew { margin-right: 0; margin-left: var(--mf-sp-gutter); }
+.mf-text-200 .mf-lobby__side { width: 700px; }
+.mf-text-200 .mf-lobby__footer { flex-wrap: wrap; }
+.mf-text-200 .mf-lobby__hintrow { flex-basis: 100%; margin: 0 0 var(--mf-sp-4) 0; }
+.mf-text-200 .mf-lobby__tally { flex-basis: 100%; margin-top: var(--mf-sp-2); }
+.mf-text-200 .mf-lobby__join .mf-join { flex-direction: column; align-items: flex-start; }
+.mf-text-200 .mf-lobby__join .mf-join__text { margin: var(--mf-sp-4) 0 0 0; }
+.mf-text-200 .mf-lobby__side { width: 760px; }
+.mf-text-200 .mf-segmented { flex-wrap: wrap; }
+.mf-text-200 .mf-segmented__item { flex-basis: auto; height: 80px; }

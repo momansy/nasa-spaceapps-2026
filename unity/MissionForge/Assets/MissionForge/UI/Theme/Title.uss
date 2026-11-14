@@ -1,0 +1,57 @@
+/* Title screen layout (reference frame 01). Components and tokens only; this sheet places them.
+   Safe regions (STYLE_GUIDE, game_value): logo inside the upper-left 45 % x 35 % (864 x 378 px) within the
+   5 % margin (96 / 54 px); the right ~24 % stays clear for the lit vehicle; actions bottom-left. */
+
+.mf-title__brand { position: absolute; left: 96px; top: 54px; width: 768px; height: 324px; justify-content: flex-end; }
+.mf-title__lockup { flex-direction: row; align-items: center; }
+.mf-title__mark { width: 132px; height: 132px; flex-shrink: 0; }
+.mf-title__wordmark { margin-left: var(--mf-sp-5); }
+/* Display face, no glow. Two lines read as one mark; Forge carries the warm Sunlight accent. */
+.mf-title__word { -unity-font-definition: var(--mf-font-display); font-size: var(--mf-fs-display); color: var(--mf-ceramic); margin: 0; padding: 0; letter-spacing: 1px; }
+.mf-title__word--forge { color: var(--mf-sunlight); margin-top: -22px; }
+.mf-title__tagline { -unity-font-definition: var(--mf-font-body-medium); font-size: var(--mf-fs-body); color: var(--mf-muted); margin: var(--mf-sp-5) 0 0 4px; padding: 0; }
+
+.mf-title__left { position: absolute; left: 96px; bottom: 132px; width: 820px; }
+.mf-title__pitch { width: 700px; margin: 0 0 var(--mf-sp-6) 0; color: var(--mf-ceramic); padding: 0; }
+.mf-title__actions { flex-direction: row; align-items: center; }
+.mf-title__actions > .mf-btn { margin-right: var(--mf-sp-4); }
+
+.mf-title__footer { position: absolute; left: 96px; right: 96px; bottom: 40px; flex-direction: row; align-items: center; justify-content: space-between; }
+.mf-title__server { align-self: center; flex-shrink: 0; background-color: var(--mf-space-80); }
+.mf-title__credit { margin: 0 0 0 var(--mf-sp-6); flex-shrink: 1; -unity-text-align: middle-right; white-space: normal; }
+
+/* Room panel: glass over the orbit scene in the centre column (x 960-1460), leaving the right 24 % for the vehicle.
+   Hidden until TitleScreen adds .mf-roompanel--shown; enters with the enter motion token. */
+.mf-roompanel {
+    position: absolute; left: 940px; top: 120px; width: 520px;
+    padding: var(--mf-sp-panel-padding);
+    opacity: 0;
+    translate: 0 24px;
+    transition-property: opacity, translate;
+    transition-duration: var(--mf-dur-enter);
+    transition-timing-function: ease-out-cubic;
+}
+.mf-roompanel--shown { opacity: 1; translate: 0 0; }
+.mf-roompanel .mf-join { flex-direction: column; align-items: flex-start; }
+.mf-roompanel .mf-join__text { margin: var(--mf-sp-5) 0 0 0; }
+.mf-title__code { flex-direction: row; margin: var(--mf-sp-1) 0 var(--mf-sp-2) 0; }
+.mf-title__code > .mf-roomcode-big { margin-right: 6px; }
+.mf-roompanel__hint { margin-top: var(--mf-sp-2); }
+.mf-roompanel__footer { flex-direction: row; align-items: center; justify-content: space-between; margin-top: var(--mf-sp-6); padding-top: var(--mf-sp-5); border-top-width: 1px; border-top-color: var(--mf-ceramic-10); }
+.mf-roompanel__count { flex-direction: row; align-items: flex-end; }
+.mf-roompanel__count .mf-label { margin: 0 0 8px var(--mf-sp-2); }
+
+/* RTL: mirror the composition (logo and actions right, the vehicle side stays clear on the left). */
+.mf-rtl .mf-title__brand, .mf-rtl .mf-title__left { left: auto; right: 96px; align-items: flex-end; }
+.mf-rtl .mf-title__lockup, .mf-rtl .mf-title__actions, .mf-rtl .mf-title__footer { flex-direction: row-reverse; }
+.mf-rtl .mf-roompanel { left: auto; right: 940px; }
+.mf-text-200 .mf-title__left { width: 1100px; bottom: 200px; }
+/* The wordmark is the logo (a brand mark, like an image): it keeps its size so the lockup stays in its reserved
+   region; the tagline and every other text still double. */
+.mf-text-200 .mf-title__word { font-size: 96px; }
+.mf-text-200 .mf-title__word--forge { margin-top: -22px; }
+.mf-text-200 .mf-title__tagline { margin-top: var(--mf-sp-3); }
+.mf-text-200 .mf-title__credit { max-width: 1000px; }
+.mf-text-200 .mf-title__pitch { width: 1000px; }
+.mf-text-200 .mf-roompanel { width: 760px; left: 1020px; top: 54px; }
+.mf-text-200 .mf-title__actions { flex-wrap: wrap; }

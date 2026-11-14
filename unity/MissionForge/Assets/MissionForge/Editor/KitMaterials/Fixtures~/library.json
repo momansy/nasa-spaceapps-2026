@@ -1,0 +1,73 @@
+{
+  "version": 1,
+  "note": "Test fixture for KitMaterialLibraryImporter (T031 step 7). Tiny generated PNGs; not art.",
+  "uv": {
+    "uv0": "metric, 1 unit = 1 m; bells angle-normalised",
+    "uv1": "unique 0..1 bake layout"
+  },
+  "materials": {
+    "hull": {
+      "albedo": "textures/hull/hull_albedo.png",
+      "normal": "textures/hull/hull_normal.png",
+      "orm": "textures/hull/hull_orm.png",
+      "tiling_m": 2.0,
+      "tint": "#E8EEF0",
+      "metallic": [0.0, 0.0],
+      "roughness": [0.40, 0.55],
+      "normal_strength": 1.0,
+      "hero": true,
+      "source": [{"name": "fixture (generated)", "url": "", "licence": "CC0"}],
+      "value_type": "game_value"
+    },
+    "trim": {
+      "tiling_m": 1.0,
+      "tint": "#FFFFFF",
+      "metallic": [0.0, 1.0],
+      "roughness": [0.30, 0.70],
+      "normal_strength": 0.8,
+      "hero": false,
+      "source": [{"name": "fixture (generated)", "url": "", "licence": "CC0"}],
+      "value_type": "game_value"
+    },
+    "decal": {
+      "tiling_m": 1.0,
+      "tint": "#FFFFFF",
+      "metallic": [0.0, 0.0],
+      "roughness": [0.45, 0.60],
+      "normal_strength": 0.5,
+      "alpha_cutoff": 0.4,
+      "source": [{"name": "fixture (generated)", "url": "", "licence": "CC0"}],
+      "value_type": "game_value"
+    }
+  },
+  "trim": {
+    "textures": {
+      "albedo": "trim/mf_trim_01_albedo.png",
+      "normal": "trim/mf_trim_01_normal.png",
+      "orm": "trim/mf_trim_01_orm.png"
+    },
+    "rows": [
+      {"name": "weld_bead", "v0": 0.0, "v1": 0.0625},
+      {"name": "single_rivet_row", "v0": 0.0625, "v1": 0.125}
+    ]
+  },
+  "decals": {
+    "textures": {
+      "albedo": "decals/mf_decals_01_albedo.png",
+      "normal": "decals/mf_decals_01_normal.png",
+      "orm": "decals/mf_decals_01_orm.png"
+    },
+    "tiles": [
+      {"id": "fluid_lox", "rect": [0.0, 0.25, 1.0, 0.75], "size_m": [0.6, 0.15]}
+    ]
+  },
+  "parts": {
+    "eng_fixture": {
+      "lod0_mask": "bakes/eng_fixture/eng_fixture_lod0_mask.png",
+      "lod1_mask": "bakes/eng_fixture/eng_fixture_lod1_mask.png",
+      "mask_res": 16,
+      "mask_b": "heat",
+      "slots": ["hull", "trim"]
+    }
+  }
+}

@@ -1,0 +1,28 @@
+/* GENERATED from tokens.json (motion) by MissionForge > Design System > Generate Token USS. Do not edit by hand.
+   Add .mf-motion-<token> next to a transition-property list. Reduced motion (.mf-reduced-motion on the panel root)
+   turns every movement into an opacity fade of <= 150 ms: only opacity transitions, the rest jumps. */
+.mf-motion-micro { transition-duration: 120ms; transition-timing-function: ease-out-cubic; }
+.mf-motion-state { transition-duration: 200ms; transition-timing-function: ease-out-cubic; }
+.mf-motion-enter { transition-duration: 320ms; transition-timing-function: ease-out-cubic; }
+.mf-motion-exit { transition-duration: 220ms; transition-timing-function: ease-in-cubic; }
+.mf-motion-screen { transition-duration: 600ms; transition-timing-function: ease-in-out-cubic; }
+.mf-motion-count { transition-duration: 1000ms; transition-timing-function: ease-out-cubic; }
+.mf-motion-pulse { transition-duration: 1600ms; transition-timing-function: ease-in-out-sine; }
+.mf-motion-celebrate { transition-duration: 480ms; transition-timing-function: ease-out-back; }
+.mf-reduced-motion .mf-motion, .mf-reduced-motion .mf-btn, .mf-reduced-motion .mf-chip, .mf-reduced-motion .mf-card,
+.mf-reduced-motion .mf-screen, .mf-reduced-motion .mf-seat, .mf-reduced-motion .mf-toast, .mf-reduced-motion .mf-segmented__item,
+.mf-reduced-motion .mf-motion-micro,
+.mf-reduced-motion .mf-motion-state,
+.mf-reduced-motion .mf-motion-enter,
+.mf-reduced-motion .mf-motion-exit,
+.mf-reduced-motion .mf-motion-screen,
+.mf-reduced-motion .mf-motion-count,
+.mf-reduced-motion .mf-motion-pulse,
+.mf-reduced-motion .mf-motion-celebrate {
+    transition-property: opacity;
+    transition-duration: 150ms;
+    transition-timing-function: linear;
+}
+/* Reduced motion never moves or scales: hover lift, press scale and enter offsets are cancelled. */
+.mf-reduced-motion .mf-btn:hover, .mf-reduced-motion .mf-btn:active, .mf-reduced-motion .mf-card:hover,
+.mf-reduced-motion .mf-enter, .mf-reduced-motion .mf-seat { translate: 0 0; scale: 1 1; }

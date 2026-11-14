@@ -43,6 +43,13 @@ namespace MissionForge.App.Screens
             for (int i = 0; i < RoomCodeLength; i++) _codeCells[i] = Screen.Q<Label>("code-" + i);
 
             _newMission.clicked += OnNewMission;
+            MfButtons.WithIcon(_newMission, "rocket");
+            MfButtons.WithIcon(Screen.Q<Button>("btn-codex"), "book-open");
+            MfButtons.WithIcon(Screen.Q<Button>("btn-settings"), "settings");
+            MfButtons.WithIcon(Screen.Q<Button>("btn-open-lobby"), "users");
+            // Staggered entry: logo lockup, then pitch and actions (motion tokens; reduced motion fades only).
+            MfMotion.Enter(Screen.Q<VisualElement>("title-brand"), 0);
+            MfMotion.Enter(Screen.Q<VisualElement>("title-left"), 3);
             Screen.Q<Button>("btn-open-lobby").clicked += OnOpenLobby;
             Screen.Q<Button>("btn-codex").clicked += () => App.Flow.OpenOverlay(ScreenId.Codex);
             Screen.Q<Button>("btn-settings").clicked += () => App.Flow.OpenOverlay(ScreenId.Settings);
@@ -100,7 +107,7 @@ namespace MissionForge.App.Screens
         {
             string url = App != null && App.Room != null ? App.Room.ResolvedServerUrl : string.Empty;
             ConnectionVisual.Apply(_serverChip, _serverIcon, _serverLabel, state,
-                "ROOM SERVER: CONNECTED", "ROOM SERVER: CONNECTING", "ROOM SERVER: RECONNECTING", "ROOM SERVER: OFFLINE");
+                "Room server: connected", "Room server: connecting", "Room server: reconnecting", "Room server: offline");
             _serverChip.tooltip = url;
             if (state == ConnectionState.Disconnected) ResetNewMission();
         }

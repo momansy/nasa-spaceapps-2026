@@ -1,16 +1,17 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:mf="MissionForge.UI">
+    <!-- Persistent chrome: logo, screen title, phase stepper (done / current / locked shapes), room code, connection. -->
     <ui:VisualElement name="chrome" class="mf-chrome" picking-mode="Ignore">
         <ui:VisualElement name="topbar" class="mf-topbar" picking-mode="Ignore">
-            <mf:LogoMark name="topbar-logo" style="width: 68px; height: 68px;" />
+            <mf:LogoMark name="topbar-logo" style="width: 64px; height: 64px;" />
             <ui:Label name="screen-title" text="" class="mf-topbar__title" />
-            <ui:VisualElement name="stepper" class="mf-stepper" picking-mode="Ignore" />
+            <mf:MfPhaseStepper name="stepper" />
             <ui:VisualElement name="room" class="mf-roomcode">
                 <ui:Label text="Room" class="mf-roomcode__label" />
-                <ui:Label name="room-code" text="----" class="mf-roomcode__value" />
+                <ui:Label name="room-code" text="Not open" class="mf-roomcode__value mf-roomcode__value--empty" />
             </ui:VisualElement>
             <ui:VisualElement name="conn-chip" class="mf-chip mf-chip--muted mf-topbar__conn">
-                <mf:MfIcon name="conn-icon" kind="signal" />
-                <ui:Label name="conn-label" text="OFFLINE" class="mf-chip__label" />
+                <mf:MfIcon name="conn-icon" kind="signal" class="mf-icon--24" />
+                <ui:Label name="conn-label" text="Offline" class="mf-chip__label" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="veil" class="mf-veil" picking-mode="Ignore" />

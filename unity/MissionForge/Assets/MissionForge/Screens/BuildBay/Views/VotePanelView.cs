@@ -22,8 +22,14 @@ namespace MissionForge.Screens.BuildBay
 
         private readonly UiText _text;
         private readonly BuildBayScreen _screen;
-        private readonly Label _category, _roundLabel, _timerValue, _timerUnit, _note;
-        private readonly VisualElement _timer, _stages, _options, _feed;
+        private readonly Label _category, _roundLabel, _note;
+        private readonly MfRadialGauge _timer;
+        private readonly MfPhaseStepper _stages;
+        private readonly MfTallyBar _tally;
+        private readonly VisualElement _options, _feed;
+        private readonly MfEmptyState _idle;
+        private string _timerStage;
+        private int _timerTotal;
         private VoteRoundModel _model;
         private IBayVoteChannel _channel;
 
@@ -33,14 +39,13 @@ namespace MissionForge.Screens.BuildBay
             _screen = owner;
             _category = screen.Q<Label>("vote-category");
             _roundLabel = screen.Q<Label>("vote-round");
-            _timer = screen.Q<VisualElement>("vote-timer");
-            _timerValue = screen.Q<Label>("vote-timer-value");
-            _timerUnit = screen.Q<Label>("vote-timer-unit");
+            _timer = screen.Q<MfRadialGauge>("vote-timer");
             _note = screen.Q<Label>("vote-note");
-            _stages = screen.Q<VisualElement>("vote-stage-strip");
+            _stages = screen.Q<MfPhaseStepper>("vote-stage-strip");
+            _tally = screen.Q<MfTallyBar>("vote-tally");
             _options = screen.Q<VisualElement>("vote-options");
             _feed = screen.Q<VisualElement>("vote-feed");
-            _timerUnit.text = text.Get("ui.buildbay.unit.s");
+            _idle = screen.Q<MfEmptyState>("vote-idle");
         }
 
         public void ShowIdle(bool done)
@@ -49,10 +54,18 @@ namespace MissionForge.Screens.BuildBay
             _roundLabel.text = _text.Get("ui.buildbay.vote.title");
             _category.text = _text.Get(done ? "ui.buildbay.vote.done" : "ui.buildbay.vote.idle");
             _timer.EnableInClassList("bb-hidden", true);
+            MfMotion.Pulse(_timer, false);
             _note.text = "";
             _stages.Clear();
+            _tally.style.display = DisplayStyle.None;
             _options.Clear();
             _feed.Clear();
+            if (_idle != null)
+            {
+                _idle.text = _text.Get(done ? "ui.buildbay.vote.done" : "ui.buildbay.vote.idle");
+                _idle.icon = done ? "circle-check" : "hourglass";
+                _idle.style.display = DisplayStyle.Flex;
+            }
         }
 
         /// <summary>Updates the timer from the server clock (called every frame).</summary>
@@ -61,21 +74,31 @@ namespace MissionForge.Screens.BuildBay
             if (_model == null || !_model.IsOpen || _channel == null || !_channel.HasClock)
             {
                 _timer.EnableInClassList("bb-hidden", true);
+                MfMotion.Pulse(_timer, false);
                 return;
             }
             int? left = VoteClock.SecondsLeft(_model.EndsAtMs, serverNowMs);
             _timer.EnableInClassList("bb-hidden", !left.HasValue);
             if (!left.HasValue) return;
-            _timerValue.text = left.Value.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            _timer.EnableInClassList("bb-timer--urgent", left.Value <= UrgentSeconds && (_model.Stage == "VOTE" || _model.Stage == "RUNOFF"));
+            // The ring's full sweep is the longest time seen in this stage (the server sends only the end time).
+            if (_timerStage != _model.Stage) { _timerStage = _model.Stage; _timerTotal = 0; }
+            _timerTotal = Math.Max(_timerTotal, Math.Max(1, left.Value));
+            bool urgent = left.Value <= UrgentSeconds && (_model.Stage == "VOTE" || _model.Stage == "RUNOFF");
+            _timer.Set((float)left.Value / _timerTotal, urgent ? MfStatus.Fails : MfStatus.Info,
+                left.Value.ToString(System.Globalization.CultureInfo.InvariantCulture), _text.Get("ui.buildbay.unit.s"),
+                (float)UrgentSeconds / _timerTotal);
+            _timer.EnableInClassList("bb-timer--urgent", urgent);
+            MfMotion.Pulse(_timer, urgent);
         }
 
         public void Show(VoteRoundModel model, IBayVoteChannel channel)
         {
             _model = model;
             _channel = channel;
+            if (_idle != null) _idle.style.display = DisplayStyle.None;
             Header();
             Stages();
+            Tally();
             Options();
             Feed();
         }
@@ -110,20 +133,36 @@ namespace MissionForge.Screens.BuildBay
 
         private void Stages()
         {
-            _stages.Clear();
             var shown = new List<string>(_model.PlanStages);
             if (_model.Stage != null && !shown.Contains(_model.Stage) && _model.Stage != "CLOSED") shown.Add(_model.Stage);
             shown.Sort((a, b) => Array.IndexOf(StageOrder, a).CompareTo(Array.IndexOf(StageOrder, b)));
+            var labels = new List<string>(shown.Count);
+            foreach (string st in shown) labels.Add(_text.Get("ui.buildbay.stage." + st.ToLowerInvariant()));
+            _stages.SetSteps(labels);
             int current = Array.IndexOf(StageOrder, _model.Stage);
-            foreach (string st in shown)
+            for (int i = 0; i < shown.Count; i++)
             {
-                var chip = new Label(_text.Get("ui.buildbay.stage." + st.ToLowerInvariant()));
-                chip.AddToClassList("bb-stagechip");
-                int idx = Array.IndexOf(StageOrder, st);
-                chip.EnableInClassList("bb-stagechip--current", st == _model.Stage);
-                chip.EnableInClassList("bb-stagechip--done", current > idx || _model.Stage == "CLOSED");
-                _stages.Add(chip);
+                int idx = Array.IndexOf(StageOrder, shown[i]);
+                _stages.SetState(i, shown[i] == _model.Stage ? MfStepState.Current
+                    : current > idx || _model.Stage == "CLOSED" ? MfStepState.Done : MfStepState.Locked);
             }
+        }
+
+        /// <summary>One tally segment per option with its letter and voter dots; hidden while tallies are hidden.</summary>
+        private void Tally()
+        {
+            bool hidden = _model.TalliesHidden && _model.WinnerId == null;
+            _tally.style.display = hidden || _model.Options.Count == 0 ? DisplayStyle.None : DisplayStyle.Flex;
+            if (hidden) return;
+            var segments = new List<MfTallySegment>(_model.Options.Count);
+            for (int i = 0; i < _model.Options.Count; i++)
+            {
+                OptionState o = _model.Options[i];
+                segments.Add(new MfTallySegment(Letters[Math.Min(i, Letters.Length - 1)], o.Count ?? 0,
+                    _model.WinnerId == null && _model.LeadingOptionId == o.Id, _model.WinnerId == o.Id));
+            }
+            _tally.emptyText = _text.Format("ui.buildbay.vote.voted", 0, _model.VoterCount);
+            _tally.Set(segments);
         }
 
         private void Options()
@@ -147,11 +186,15 @@ namespace MissionForge.Screens.BuildBay
             card.EnableInClassList("bb-card--out", !o.Candidate && !o.Vetoed && _model.WinnerId == null);
 
             var head = Row("bb-card__head");
-            head.Add(Text(letter, "bb-card__key"));
+            Label key = Text(letter, "bb-card__key");
+            int seriesIndex = Array.IndexOf(Letters, letter);
+            key.style.backgroundColor = MfPalette.Series[Math.Max(0, seriesIndex) % MfPalette.Series.Length];
+            head.Add(key);
             string name = part != null ? part.Name : o.LabelKey != null ? _text.Get(o.LabelKey) : o.Id;
             head.Add(Text(name, "bb-card__name"));
-            string count = _model.TalliesHidden && _model.WinnerId == null ? "—" : o.Count.HasValue ? o.Count.Value.ToString() : "";
-            head.Add(Text(count, "bb-card__count"));
+            if (winner) head.Add(Icon("award", MfPalette.Sunlight, "bb-card__state"));
+            if (_model.TalliesHidden && _model.WinnerId == null) head.Add(Icon("eye-off", MfPalette.Muted, "bb-card__state"));
+            else if (o.Count.HasValue) head.Add(Text(o.Count.Value.ToString(), "bb-card__count"));
             card.Add(head);
 
             if (part != null)
@@ -164,16 +207,17 @@ namespace MissionForge.Screens.BuildBay
             }
 
             var badges = Row("bb-card__row");
-            if (part != null && part.Maturity != Maturity.Proven) badges.Add(Badge("! " + _text.Get("ui.buildbay.vote.hidden_risk"), "bb-badge--risk"));
-            if (o.OverBudgetByM > 0) badges.Add(Badge(_text.Format("ui.buildbay.vote.over_budget", DashboardViewModel.Money(o.OverBudgetByM)), "bb-badge--bad"));
-            if (o.WillNotFly) badges.Add(Badge("× " + _text.Get(o.FixExists ? "ui.buildbay.vote.fix_exists" : "ui.buildbay.vote.will_not_fly"), o.FixExists ? "bb-badge--warn" : "bb-badge--bad"));
-            if (o.OverScheduleByDays > 0) badges.Add(Badge(_text.Format("ui.buildbay.vote.late", UiText.Number(o.OverScheduleByDays, 0) + " " + _text.Get("ui.buildbay.unit.days")), "bb-badge--warn"));
+            if (part != null && part.Maturity != Maturity.Proven) badges.Add(Badge("marginal", _text.Get("ui.buildbay.vote.hidden_risk"), "bb-badge--risk"));
+            if (o.OverBudgetByM > 0) badges.Add(Badge("fails", _text.Format("ui.buildbay.vote.over_budget", DashboardViewModel.Money(o.OverBudgetByM)), "bb-badge--bad"));
+            if (o.WillNotFly) badges.Add(Badge(o.FixExists ? "marginal" : "fails", _text.Get(o.FixExists ? "ui.buildbay.vote.fix_exists" : "ui.buildbay.vote.will_not_fly"), o.FixExists ? "bb-badge--warn" : "bb-badge--bad"));
+            if (o.OverScheduleByDays > 0) badges.Add(Badge("marginal", _text.Format("ui.buildbay.vote.late", UiText.Number(o.OverScheduleByDays, 0) + "\u2009" + _text.Get("ui.buildbay.unit.days")), "bb-badge--warn"));
             foreach (TagItem t in o.Tags)
             {
                 string who = t.Role != null && _text.Has("role." + t.Role + ".name") ? _text.Get("role." + t.Role + ".name") : _channel?.PlayerName(t.PlayerId) ?? t.PlayerId;
-                badges.Add(Badge((t.Tag == "CONCERN" ? "! " : "• ") + who + " · " + _text.Get(VoteRoundModel.TagKey(t.Tag)), t.Tag == "CONCERN" ? "bb-badge--concern" : "bb-badge--tag"));
+                bool concern = t.Tag == "CONCERN";
+                badges.Add(Badge(concern ? "marginal" : "user", who + " \u00B7 " + _text.Get(VoteRoundModel.TagKey(t.Tag)), concern ? "bb-badge--concern" : "bb-badge--tag"));
             }
-            if (o.Vetoed) badges.Add(Badge(_text.Format("ui.buildbay.vote.vetoed", _channel?.PlayerName(o.VetoedBy) ?? o.VetoedBy), "bb-badge--bad"));
+            if (o.Vetoed) badges.Add(Badge("fails", _text.Format("ui.buildbay.vote.vetoed", _channel?.PlayerName(o.VetoedBy) ?? o.VetoedBy), "bb-badge--bad"));
             if (badges.childCount > 0) card.Add(badges);
 
             if (o.Deltas.Count > 0)
@@ -184,21 +228,12 @@ namespace MissionForge.Screens.BuildBay
                 {
                     string label = DeltaLabel(d);
                     if (label == null) continue;
-                    var chip = Text(label, "bb-delta");
+                    var chip = Text(MfText.TrueMinus(label), "bb-delta");
                     chip.AddToClassList(d.Rating == "GOOD" ? "bb-delta--good" : d.Rating == "BAD" ? "bb-delta--bad" : "bb-delta--neutral");
                     deltas.Add(chip);
                 }
                 card.Add(deltas);
             }
-
-            var tally = new VisualElement();
-            tally.AddToClassList("bb-card__tally");
-            var fill = new VisualElement();
-            fill.AddToClassList("bb-card__tally-fill");
-            float frac = maxCount > 0 && o.Count.HasValue ? (float)o.Count.Value / Math.Max(1, _model.VoterCount) : 0f;
-            fill.style.width = Length.Percent(Math.Min(1f, frac) * 100f);
-            tally.Add(fill);
-            card.Add(tally);
 
             if (o.Vetoed)
             {
@@ -253,12 +288,17 @@ namespace MissionForge.Screens.BuildBay
                 string who = _channel?.PlayerName(f.PlayerId) ?? f.PlayerId;
                 string target = f.OptionId != null && _screen.Session.Catalog.Parts.TryGetValue(f.OptionId, out PartDef p) ? " › " + p.Name : "";
                 string line;
-                if (f.Kind == "veto") line = "× " + _text.Format("ui.buildbay.vote.vetoed", who) + target;
-                else if (f.Kind == "tag") line = (f.Key == "role_tag.concern.name" ? "! " : "• ") + who + " (" + f.Role + "): " + _text.Get(f.Key) + target;
-                else line = _text.Format("ui.buildbay.ping.from", who, f.Key != null ? _text.Get(f.Key) : "") + target;
-                var label = Text(line, "bb-feed__item");
-                label.AddToClassList("bb-feed__item--" + f.Kind);
-                _feed.Add(label);
+                string icon;
+                if (f.Kind == "veto") { line = _text.Format("ui.buildbay.vote.vetoed", who) + target; icon = "fails"; }
+                else if (f.Kind == "tag") { line = who + " (" + f.Role + "): " + _text.Get(f.Key) + target; icon = f.Key == "role_tag.concern.name" ? "marginal" : "user"; }
+                else { line = _text.Format("ui.buildbay.ping.from", who, f.Key != null ? _text.Get(f.Key) : "") + target; icon = "radio"; }
+                var item = Row("bb-feed__item");
+                item.AddToClassList("bb-feed__item--" + f.Kind);
+                var mark = new MfIcon { kind = icon };
+                mark.AddToClassList("bb-feed__icon");
+                item.Add(mark);
+                item.Add(Text(line, "bb-feed__text"));
+                _feed.Add(item);
             }
         }
 
@@ -276,11 +316,23 @@ namespace MissionForge.Screens.BuildBay
             return l;
         }
 
-        private static Label Badge(string text, string cls)
+        /// <summary>Badge with a status/identity icon shape (no letter or punctuation glyphs standing in for icons).</summary>
+        private static VisualElement Badge(string icon, string text, string cls)
         {
-            Label l = Text(text, "bb-card__badge");
-            l.AddToClassList(cls);
-            return l;
+            VisualElement b = Row("bb-card__badge");
+            b.AddToClassList(cls);
+            var mark = new MfIcon { kind = icon };
+            mark.AddToClassList("bb-card__badge-icon");
+            b.Add(mark);
+            b.Add(Text(text, "bb-card__badge-text"));
+            return b;
+        }
+
+        private static MfIcon Icon(string kind, UnityEngine.Color tint, string cls)
+        {
+            var i = new MfIcon { kind = kind, Tint = tint };
+            i.AddToClassList(cls);
+            return i;
         }
     }
 }

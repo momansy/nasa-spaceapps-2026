@@ -1,0 +1,22 @@
+/* e2 glass panel (VISUAL_TARGET 3.1 elevation), drawn by MfGlassPanel (UI/Components/MfGlassPanel.cs).
+   Glass mode: the element's own background stays transparent; MfGlassPanel draws the blurred scene copy
+   (_MfBlurredSceneTex from the URP feature MfBlurredSceneFeature), then --mf-glass-tint, then a 1 px
+   --mf-glass-highlight line along the top edge, all clipped to the border radius. Children render on top.
+   Opaque fallback (.mf-glass--opaque, toggled by MfGlassPanel): high contrast (.mf-hc / .bb-hc ancestor or
+   MfGlassPanel.ForceOpaque), the Mobile quality tier, or no fresh blurred copy. Never put glass on glass.
+   The custom properties are literal values (Console 80 %, Ceramic 16 %) because MfGlassPanel reads them through
+   CustomStyleProperty<Color>; keep them equal to --mf-console-80 and --mf-ceramic-16 in Tokens.uss.
+   24px is --mf-radius-panel. */
+
+.mf-glass {
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 1px;
+    border-color: var(--mf-ceramic-16);
+    border-radius: 24px;
+    --mf-glass-tint: rgba(17, 43, 64, 0.80);
+    --mf-glass-highlight: rgba(232, 238, 240, 0.16);
+}
+
+.mf-glass--opaque {
+    background-color: var(--mf-console);
+}

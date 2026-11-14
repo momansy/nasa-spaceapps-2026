@@ -49,6 +49,10 @@ namespace MissionForge.Screens.BuildBay
         /// <summary>Uncertainty band on the bar (0..1), or −1 when the metric has none (only mission success has one).</summary>
         public float BandLow { get; set; } = -1f;
         public float BandHigh { get; set; } = -1f;
+        /// <summary>Requirement position on the bar (0..1, same scale as <see cref="Fill"/>), or −1 when none (T031 marker).</summary>
+        public float Requirement { get; set; } = -1f;
+        /// <summary>Bar position if the leading option is chosen (0..1), or −1 without a preview (T031 ghost delta).</summary>
+        public float Ghost { get; set; } = -1f;
     }
 
     /// <summary>
@@ -100,7 +104,11 @@ namespace MissionForge.Screens.BuildBay
             string detail = t.Format("ui.buildbay.metric.dv.detail",
                 t.WithUnit(UiText.Number(m.DvRequiredMps, 0), unit), UiText.Signed(margin * 100, 1) + " %");
             return new MetricRow("dv", Name(t, "dv"), UiText.Number(m.TotalDvMps, 0), t.Get(unit), s, detail,
-                Ratio(m.TotalDvMps, m.DvRequiredMps * 1.25), DeltaText(d?.TotalDvMps, 0, t, unit, true), Sign(d?.TotalDvMps, true));
+                Ratio(m.TotalDvMps, m.DvRequiredMps * 1.25), DeltaText(d?.TotalDvMps, 0, t, unit, true), Sign(d?.TotalDvMps, true))
+            {
+                Requirement = Ratio(m.DvRequiredMps, m.DvRequiredMps * 1.25),
+                Ghost = GhostAt(m.TotalDvMps, d?.TotalDvMps, m.DvRequiredMps * 1.25),
+            };
         }
 
         private static MetricRow LiftoffTwr(DashboardMetrics m, UiText t, DashboardDelta d)
@@ -116,7 +124,11 @@ namespace MissionForge.Screens.BuildBay
             };
             return new MetricRow("liftoff_twr", Name(t, "liftoff_twr"), UiText.Number(m.LiftoffTwr.Value, 2), t.Get(unit), s,
                 t.Get("ui.buildbay.metric.liftoff_twr.detail"), Ratio(m.LiftoffTwr.Value, 2.0),
-                DeltaText(d?.LiftoffTwr, 2, t, unit, true), Sign(d?.LiftoffTwr, true));
+                DeltaText(d?.LiftoffTwr, 2, t, unit, true), Sign(d?.LiftoffTwr, true))
+            {
+                Requirement = Ratio(LiftoffTwrFloor, 2.0),
+                Ghost = GhostAt(m.LiftoffTwr.Value, d?.LiftoffTwr, 2.0),
+            };
         }
 
         private static MetricRow UpperTwr(DashboardMetrics m, UiText t, DashboardDelta d)
@@ -126,7 +138,11 @@ namespace MissionForge.Screens.BuildBay
             MetricStatus s = m.UpperStageTwrWarning ? MetricStatus.Marginal : MetricStatus.Meets;
             return new MetricRow("upper_twr", Name(t, "upper_twr"), UiText.Number(m.UpperStageTwr.Value, 2), t.Get(unit), s,
                 t.Get("ui.buildbay.metric.upper_twr.detail"), Ratio(m.UpperStageTwr.Value, 1.5),
-                DeltaText(d?.UpperStageTwr, 2, t, unit, true), Sign(d?.UpperStageTwr, true));
+                DeltaText(d?.UpperStageTwr, 2, t, unit, true), Sign(d?.UpperStageTwr, true))
+            {
+                Requirement = Ratio(UpperTwrFloor, 1.5),
+                Ghost = GhostAt(m.UpperStageTwr.Value, d?.UpperStageTwr, 1.5),
+            };
         }
 
         private static MetricRow Mass(DashboardMetrics m, UiText t, DashboardDelta d)
@@ -135,7 +151,10 @@ namespace MissionForge.Screens.BuildBay
             double tonnes = m.TotalMassKg / 1000.0;
             return new MetricRow("mass", Name(t, "mass"), UiText.Number(tonnes, tonnes < 100 ? 1 : 0), t.Get(unit), MetricStatus.Info,
                 t.Get("ui.buildbay.metric.mass.detail"), Ratio(tonnes, 600),
-                DeltaText(d == null ? (double?)null : d.TotalMassKg / 1000.0, 1, t, unit, false), 0);
+                DeltaText(d == null ? (double?)null : d.TotalMassKg / 1000.0, 1, t, unit, false), 0)
+            {
+                Ghost = GhostAt(tonnes, d == null ? (double?)null : d.TotalMassKg / 1000.0, 600),
+            };
         }
 
         private static MetricRow Cost(DashboardMetrics m, UiText t, DashboardDelta d)
@@ -146,7 +165,11 @@ namespace MissionForge.Screens.BuildBay
                 : b.RemainingM < b.BudgetM * BudgetMarginalFraction ? MetricStatus.Marginal : MetricStatus.Meets;
             string detail = t.Format("ui.buildbay.metric.cost.detail", Money(b.BudgetM));
             return new MetricRow("cost", Name(t, "cost"), UiText.Number(b.TotalCostM, 1), t.Get(unit), s, detail,
-                Ratio(b.TotalCostM, b.BudgetM), DeltaText(d?.CostM, 1, t, unit, false), Sign(d?.CostM, false));
+                Ratio(b.TotalCostM, b.BudgetM * 1.25), DeltaText(d?.CostM, 1, t, unit, false), Sign(d?.CostM, false))
+            {
+                Requirement = Ratio(b.BudgetM, b.BudgetM * 1.25),
+                Ghost = GhostAt(b.TotalCostM, d?.CostM, b.BudgetM * 1.25),
+            };
         }
 
         private static MetricRow Schedule(DashboardMetrics m, UiText t, DashboardDelta d)
@@ -158,7 +181,11 @@ namespace MissionForge.Screens.BuildBay
             string detail = t.Format("ui.buildbay.metric.schedule.detail",
                 t.WithUnit(UiText.Number(b.DeadlineDays, 0), unit), t.WithUnit(UiText.Signed(b.SlackDays, 0), unit));
             return new MetricRow("schedule", Name(t, "schedule"), UiText.Number(b.TotalDays, 0), t.Get(unit), s, detail,
-                Ratio(b.TotalDays, b.DeadlineDays), DeltaText(d?.ScheduleDays, 0, t, unit, false), Sign(d?.ScheduleDays, false));
+                Ratio(b.TotalDays, b.DeadlineDays * 1.25), DeltaText(d?.ScheduleDays, 0, t, unit, false), Sign(d?.ScheduleDays, false))
+            {
+                Requirement = Ratio(b.DeadlineDays, b.DeadlineDays * 1.25),
+                Ghost = GhostAt(b.TotalDays, d?.ScheduleDays, b.DeadlineDays * 1.25),
+            };
         }
 
         private static MetricRow Success(DashboardMetrics m, UiText t, DashboardDelta d)
@@ -173,6 +200,7 @@ namespace MissionForge.Screens.BuildBay
             {
                 BandLow = (float)r.Low,
                 BandHigh = (float)r.High,
+                Ghost = GhostAt(r.Success, d?.Success, 1.0),
             };
         }
 
@@ -186,7 +214,11 @@ namespace MissionForge.Screens.BuildBay
                 t.WithUnit(UiText.Signed(m.PowerSunlitW.Value, 0), unit), t.WithUnit(UiText.Signed(m.PowerEclipseW.Value, 0), unit));
             double load = Math.Max(1, m.PowerLoadW);
             return new MetricRow("power", Name(t, "power"), UiText.Signed(worst, 0), t.Get(unit), s, detail,
-                Ratio(load + worst, 2 * load), DeltaText(d?.PowerEclipseW, 0, t, unit, true), Sign(d?.PowerEclipseW, true));
+                Ratio(load + worst, 2 * load), DeltaText(d?.PowerEclipseW, 0, t, unit, true), Sign(d?.PowerEclipseW, true))
+            {
+                Requirement = Ratio(load, 2 * load),
+                Ghost = GhostAt(load + worst, d?.PowerEclipseW, 2 * load),
+            };
         }
 
         private static MetricRow Data(DashboardMetrics m, UiText t, DashboardDelta d)
@@ -197,7 +229,11 @@ namespace MissionForge.Screens.BuildBay
             MetricStatus s = gen > down ? MetricStatus.Marginal : MetricStatus.Meets;
             string detail = t.Format("ui.buildbay.metric.data.detail", t.WithUnit(UiText.Number(gen, 1), unit), t.WithUnit(UiText.Number(down, 1), unit));
             return new MetricRow("data", Name(t, "data"), UiText.Signed(down - gen, 1), t.Get(unit), s, detail,
-                Ratio(down, Math.Max(gen, 0.1) * 2), DeltaText(d?.DownlinkGbPerDay, 1, t, unit, true), Sign(d?.DownlinkGbPerDay, true));
+                Ratio(down, Math.Max(gen, 0.1) * 2), DeltaText(d?.DownlinkGbPerDay, 1, t, unit, true), Sign(d?.DownlinkGbPerDay, true))
+            {
+                Requirement = Ratio(Math.Max(gen, 0.1), Math.Max(gen, 0.1) * 2),
+                Ghost = GhostAt(down, d?.DownlinkGbPerDay, Math.Max(gen, 0.1) * 2),
+            };
         }
 
         private static MetricRow Entry(DashboardMetrics m, UiText t, DashboardDelta d)
@@ -211,7 +247,11 @@ namespace MissionForge.Screens.BuildBay
             MetricStatus s = m.MaxEntrySpeedRatingMps.Value < m.ContractEntrySpeedMps.Value ? MetricStatus.Fails : MetricStatus.Meets;
             return new MetricRow("entry", Name(t, "entry"), UiText.Number(m.MaxEntrySpeedRatingMps.Value / 1000.0, 1), t.Get(unit), s, required,
                 Ratio(m.MaxEntrySpeedRatingMps.Value, m.ContractEntrySpeedMps.Value * 1.25),
-                DeltaText(d?.MaxEntrySpeedRatingMps / 1000.0, 1, t, unit, true), Sign(d?.MaxEntrySpeedRatingMps, true));
+                DeltaText(d?.MaxEntrySpeedRatingMps / 1000.0, 1, t, unit, true), Sign(d?.MaxEntrySpeedRatingMps, true))
+            {
+                Requirement = Ratio(m.ContractEntrySpeedMps.Value, m.ContractEntrySpeedMps.Value * 1.25),
+                Ghost = GhostAt(m.MaxEntrySpeedRatingMps.Value, d?.MaxEntrySpeedRatingMps, m.ContractEntrySpeedMps.Value * 1.25),
+            };
         }
 
         private static MetricRow Stability(DashboardMetrics m, UiText t, DashboardDelta d)
@@ -228,12 +268,25 @@ namespace MissionForge.Screens.BuildBay
             };
             string value = UiText.Signed(m.StabilityMarginCalibers.Value, 2);
             return new MetricRow("stability", Name(t, "stability"), value, t.Get(unit), s, word,
-                Ratio(m.StabilityMarginCalibers.Value + 1, 3), DeltaText(d?.StabilityMarginCalibers, 2, t, unit, true), Sign(d?.StabilityMarginCalibers, true));
+                Ratio(m.StabilityMarginCalibers.Value + 1, 3), DeltaText(d?.StabilityMarginCalibers, 2, t, unit, true), Sign(d?.StabilityMarginCalibers, true))
+            {
+                Requirement = Ratio(StableMarginCalibers + 1, 3),
+                Ghost = GhostAt(m.StabilityMarginCalibers.Value + 1, d?.StabilityMarginCalibers, 3),
+            };
         }
 
         // ---------------------------------------------------------------- helpers
 
+        // Requirement markers use Core's own thresholds (physical/game rules live in MissionForge.Core.Build.BuildConstants).
+        private const double LiftoffTwrFloor = BuildConstants.IdealLiftoffTwrMin;
+        private const double UpperTwrFloor = BuildConstants.UpperStageTwrWarning;
+        private const double StableMarginCalibers = BuildConstants.StableMarginCalibers;
+
         public static string Money(double m) => "$" + UiText.Number(m, m < 100 ? 1 : 0) + " M";
+
+        /// <summary>Bar position after an "if chosen" delta, or −1 when there is no delta.</summary>
+        private static float GhostAt(double value, double? delta, double scale) =>
+            delta.HasValue && Math.Abs(delta.Value) > 1e-9 ? Ratio(value + delta.Value, scale) : -1f;
 
         private static float Ratio(double value, double scale) =>
             scale <= 0 ? 0f : (float)Math.Max(0, Math.Min(1, value / scale));

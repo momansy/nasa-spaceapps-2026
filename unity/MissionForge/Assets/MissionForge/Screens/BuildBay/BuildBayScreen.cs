@@ -111,7 +111,7 @@ namespace MissionForge.Screens.BuildBay
         public void Refresh()
         {
             if (Session == null) return;
-            _dashboard.Show(Session.Metrics, LeadingDelta);
+            _dashboard.Show(Session.Metrics, LeadingDelta, _a11y.RightToLeft);
             _topBar.Show(Session);
             _timeline.Show(Session, LeadingDelta?.CostM ?? 0, _a11y.RightToLeft);
         }
