@@ -15,6 +15,8 @@ export const SCENE_OF: Record<Screen, Scene> = {
   console: 'ascent',
   minigame: 'limb',
   debrief: 'orbit',
+  pilot: 'ascent',
+  watch: 'limb',
 };
 
 /** `still`: the first scene after load is shown at once instead of fading in. */
