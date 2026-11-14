@@ -1,0 +1,275 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:debrief.score",
+  "title": "debrief.score",
+  "description": "host → server → client (relayed unchanged). Mission result for the debrief screens: outcome, score breakdown per the scoring formula, grade and objectives.",
+  "type": "object",
+  "properties": {
+    "missionSeq": {
+      "description": "Mission the score is for.",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 100000
+    },
+    "contractId": {
+      "description": "Contract flown.",
+      "$ref": "#/$defs/DataId"
+    },
+    "outcome": {
+      "description": "Mission outcome.",
+      "$ref": "#/$defs/MissionOutcome"
+    },
+    "crewSafe": {
+      "description": "Crewed contracts: whether the crew returned safely; null for uncrewed missions.",
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "total": {
+      "description": "Mission Score after multipliers.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1000000
+    },
+    "grade": {
+      "description": "Grade (S ≥ 9,000; A ≥ 7,500; B ≥ 6,000; C ≥ 4,000; D otherwise or crew lost).",
+      "$ref": "#/$defs/Grade"
+    },
+    "title": {
+      "description": "Grade title text.",
+      "$ref": "#/$defs/TextRef"
+    },
+    "breakdown": {
+      "description": "Terms of the scoring formula (§11.3).",
+      "type": "object",
+      "properties": {
+        "objectives": {
+          "description": "Objective points.",
+          "type": "number",
+          "minimum": 0
+        },
+        "efficiency": {
+          "description": "Efficiency points.",
+          "type": "number",
+          "minimum": 0
+        },
+        "safetyRecovery": {
+          "description": "Safety & recovery points.",
+          "type": "number",
+          "minimum": 0
+        },
+        "scienceData": {
+          "description": "Science / data points.",
+          "type": "number",
+          "minimum": 0
+        },
+        "teamwork": {
+          "description": "Teamwork points.",
+          "type": "number",
+          "minimum": 0
+        },
+        "knowledge": {
+          "description": "Knowledge points (score, not KP).",
+          "type": "number",
+          "minimum": 0
+        },
+        "difficultyMult": {
+          "description": "Difficulty multiplier (0.8, 1.0 or 1.25).",
+          "type": "number",
+          "minimum": 0,
+          "maximum": 10
+        },
+        "boostMult": {
+          "description": "Score boost multiplier (1.0–1.5).",
+          "type": "number",
+          "minimum": 0,
+          "maximum": 10
+        }
+      },
+      "required": [
+        "objectives",
+        "efficiency",
+        "safetyRecovery",
+        "scienceData",
+        "teamwork",
+        "knowledge",
+        "difficultyMult",
+        "boostMult"
+      ],
+      "additionalProperties": false
+    },
+    "objectives": {
+      "description": "Contract objectives.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "Objective id.",
+            "$ref": "#/$defs/DataId"
+          },
+          "kind": {
+            "description": "Objective kind.",
+            "$ref": "#/$defs/ObjectiveKind"
+          },
+          "met": {
+            "description": "Whether it was achieved.",
+            "type": "boolean"
+          },
+          "points": {
+            "description": "Points earned for it.",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100000
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "met",
+          "points"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0,
+      "maxItems": 8
+    },
+    "retryAvailable": {
+      "description": "True when the host offers the retry option (§9.9).",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "missionSeq",
+    "contractId",
+    "outcome",
+    "crewSafe",
+    "total",
+    "grade",
+    "title",
+    "breakdown",
+    "objectives",
+    "retryAvailable"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "DataId": {
+      "description": "Identifier of an entry in the shared game data (`data/`): part, part category, contract, test, anomaly card, minigame, fact, codex entry, callout, console request, award, objective, validation rule, cosmetic. 1–48 characters.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,47}$"
+    },
+    "Grade": {
+      "description": "Mission grade (§11.4).",
+      "type": "string",
+      "enum": [
+        "S",
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    },
+    "MissionOutcome": {
+      "description": "Mission outcome (§8.5).",
+      "type": "string",
+      "enum": [
+        "SUCCESS",
+        "PARTIAL",
+        "FAILURE"
+      ]
+    },
+    "ObjectiveKind": {
+      "description": "Objective kind (§5.2).",
+      "type": "string",
+      "enum": [
+        "PRIMARY",
+        "SECONDARY",
+        "STRETCH",
+        "SAFETY"
+      ]
+    },
+    "TextRef": {
+      "description": "Reference to localised player-visible text. The protocol never carries free display text: `key` is a key of `data/strings/<lang>.json`, and `args` supplies substitution values. Receivers format numbers and units locally.",
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "String-table key.",
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,79}$"
+        },
+        "args": {
+          "description": "Substitution values by placeholder name. String values must themselves be data ids or string-table keys, never user text.",
+          "type": "object",
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "propertyNames": {
+            "pattern": "^[a-z][A-Za-z0-9_]{0,23}$"
+          },
+          "maxProperties": 8
+        }
+      },
+      "required": [
+        "key"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "examples": [
+    {
+      "missionSeq": 1,
+      "contractId": "C1",
+      "outcome": "SUCCESS",
+      "crewSafe": null,
+      "total": 7840,
+      "grade": "A",
+      "title": {
+        "key": "grade.A.title"
+      },
+      "breakdown": {
+        "objectives": 4000,
+        "efficiency": 330,
+        "safetyRecovery": 0,
+        "scienceData": 1200,
+        "teamwork": 1260,
+        "knowledge": 250,
+        "difficultyMult": 1,
+        "boostMult": 1.1
+      },
+      "objectives": [
+        {
+          "id": "c1_primary",
+          "kind": "PRIMARY",
+          "met": true,
+          "points": 3000
+        },
+        {
+          "id": "c1_targets_10",
+          "kind": "SECONDARY",
+          "met": true,
+          "points": 500
+        },
+        {
+          "id": "c1_all_targets",
+          "kind": "STRETCH",
+          "met": false,
+          "points": 0
+        }
+      ],
+      "retryAvailable": false
+    }
+  ]
+}

@@ -1,0 +1,183 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:poll.result",
+  "title": "poll.result",
+  "description": "server → host and clients. All consoles have been polled. An outcome-log message: the host decides what follows (proceed, discussion and re-poll, or Rework vote).",
+  "type": "object",
+  "properties": {
+    "outcomeSeq": {
+      "description": "Position in the room outcome log.",
+      "$ref": "#/$defs/OutcomeSeq"
+    },
+    "pollId": {
+      "description": "Poll id.",
+      "$ref": "#/$defs/PollId"
+    },
+    "context": {
+      "description": "FRR or final launch poll.",
+      "$ref": "#/$defs/PollContext"
+    },
+    "round": {
+      "description": "Round number.",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9
+    },
+    "answers": {
+      "description": "All answers in call order, followed by disconnected players as NO_ANSWER.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/PollEntry"
+      },
+      "minItems": 0,
+      "maxItems": 10
+    },
+    "allGo": {
+      "description": "True when no answer is NO_GO.",
+      "type": "boolean"
+    },
+    "noGoCount": {
+      "description": "Number of NO_GO answers.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 10
+    }
+  },
+  "required": [
+    "outcomeSeq",
+    "pollId",
+    "context",
+    "round",
+    "answers",
+    "allGo",
+    "noGoCount"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "OutcomeSeq": {
+      "description": "Position of a server-resolved outcome in the room outcome log; starts at 1 and increases by 1 per outcome for the lifetime of the room.",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 2147483647
+    },
+    "PlayerId": {
+      "description": "Player identifier, unique within a room and never reused: \"p\" followed by a positive integer (p1, p2, …).",
+      "type": "string",
+      "pattern": "^p[1-9][0-9]{0,3}$"
+    },
+    "PollAnswer": {
+      "description": "Recorded GO/NO-GO answer.",
+      "type": "string",
+      "enum": [
+        "GO",
+        "NO_GO",
+        "NO_ANSWER"
+      ]
+    },
+    "PollContext": {
+      "description": "Where the GO/NO-GO poll happens (§4.3, §6.9).",
+      "type": "string",
+      "enum": [
+        "FRR",
+        "LAUNCH"
+      ]
+    },
+    "PollEntry": {
+      "description": "One GO/NO-GO answer.",
+      "type": "object",
+      "properties": {
+        "playerId": {
+          "description": "Player who was called.",
+          "$ref": "#/$defs/PlayerId"
+        },
+        "roles": {
+          "description": "Roles (consoles) that player answered for.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/RoleId"
+          },
+          "minItems": 1,
+          "maxItems": 10,
+          "uniqueItems": true
+        },
+        "answer": {
+          "description": "Recorded answer.",
+          "$ref": "#/$defs/PollAnswer"
+        }
+      },
+      "required": [
+        "playerId",
+        "roles",
+        "answer"
+      ],
+      "additionalProperties": false
+    },
+    "PollId": {
+      "description": "GO/NO-GO poll identifier chosen by the host; unique within the room.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,39}$"
+    },
+    "RoleId": {
+      "description": "Mission Control role (§3.3), in canonical order.",
+      "type": "string",
+      "enum": [
+        "FLIGHT",
+        "BOOSTER",
+        "STRUCT",
+        "GUIDO",
+        "FIDO",
+        "EECOM",
+        "INCO",
+        "PAYLOAD",
+        "RETRO",
+        "PM"
+      ]
+    }
+  },
+  "examples": [
+    {
+      "outcomeSeq": 21,
+      "pollId": "m1.frr.1",
+      "context": "FRR",
+      "round": 1,
+      "answers": [
+        {
+          "playerId": "p2",
+          "roles": [
+            "BOOSTER",
+            "STRUCT"
+          ],
+          "answer": "GO"
+        },
+        {
+          "playerId": "p3",
+          "roles": [
+            "GUIDO",
+            "FIDO"
+          ],
+          "answer": "GO"
+        },
+        {
+          "playerId": "p4",
+          "roles": [
+            "EECOM",
+            "INCO",
+            "PAYLOAD",
+            "RETRO"
+          ],
+          "answer": "NO_GO"
+        },
+        {
+          "playerId": "p1",
+          "roles": [
+            "PM",
+            "FLIGHT"
+          ],
+          "answer": "GO"
+        }
+      ],
+      "allGo": false,
+      "noGoCount": 1
+    }
+  ]
+}

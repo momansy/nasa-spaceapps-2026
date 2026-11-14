@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:vote.predict.result",
+  "title": "vote.predict.result",
+  "description": "server → host and clients. Sent when the PREDICT stage ends: the correct answer and who got it right. An outcome-log message: the host awards Knowledge Points (50 per correct prediction) and announces them with kp.awarded. The PREDICT stage ends early when every connected voter has answered.",
+  "type": "object",
+  "properties": {
+    "outcomeSeq": {
+      "description": "Position in the room outcome log.",
+      "$ref": "#/$defs/OutcomeSeq"
+    },
+    "roundId": {
+      "description": "Round id.",
+      "$ref": "#/$defs/RoundId"
+    },
+    "correctIndex": {
+      "description": "Index of the correct choice.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 3
+    },
+    "results": {
+      "description": "One entry per voter.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "playerId": {
+            "description": "Voter.",
+            "$ref": "#/$defs/PlayerId"
+          },
+          "choiceIndex": {
+            "description": "Their answer; null when they did not answer.",
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 3
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "correct": {
+            "description": "True when the answer is correct.",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "playerId",
+          "choiceIndex",
+          "correct"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0,
+      "maxItems": 10
+    },
+    "audienceCounts": {
+      "description": "Spectator answers per choice, in choice order.",
+      "type": "array",
+      "items": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 1000000
+      },
+      "minItems": 2,
+      "maxItems": 4
+    }
+  },
+  "required": [
+    "outcomeSeq",
+    "roundId",
+    "correctIndex",
+    "results",
+    "audienceCounts"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "OutcomeSeq": {
+      "description": "Position of a server-resolved outcome in the room outcome log; starts at 1 and increases by 1 per outcome for the lifetime of the room.",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 2147483647
+    },
+    "PlayerId": {
+      "description": "Player identifier, unique within a room and never reused: \"p\" followed by a positive integer (p1, p2, …).",
+      "type": "string",
+      "pattern": "^p[1-9][0-9]{0,3}$"
+    },
+    "RoundId": {
+      "description": "Vote round identifier chosen by the host; unique within the room for its whole lifetime.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,39}$"
+    }
+  },
+  "examples": [
+    {
+      "outcomeSeq": 7,
+      "roundId": "m1.r07",
+      "correctIndex": 2,
+      "results": [
+        {
+          "playerId": "p1",
+          "choiceIndex": 2,
+          "correct": true
+        },
+        {
+          "playerId": "p2",
+          "choiceIndex": 0,
+          "correct": false
+        },
+        {
+          "playerId": "p3",
+          "choiceIndex": null,
+          "correct": false
+        },
+        {
+          "playerId": "p4",
+          "choiceIndex": 2,
+          "correct": true
+        }
+      ],
+      "audienceCounts": [
+        3,
+        0,
+        5
+      ]
+    }
+  ]
+}

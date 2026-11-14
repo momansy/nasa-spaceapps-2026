@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:sync.meter",
+  "title": "sync.meter",
+  "description": "host → server → client (relayed unchanged). Current Team Sync meter. Sent on every change. At 100 the host opens an MCM vote (5 s) and afterwards resets the meter with reason MOMENT_SPENT.",
+  "type": "object",
+  "properties": {
+    "value": {
+      "description": "Meter value after the change.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "delta": {
+      "description": "Change that produced it.",
+      "type": "integer",
+      "minimum": -100,
+      "maximum": 100
+    },
+    "reason": {
+      "description": "Why it changed.",
+      "$ref": "#/$defs/SyncReason"
+    },
+    "momentReady": {
+      "description": "True when the meter is at 100 and a Mission Control Moment is waiting to be chosen.",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "value",
+    "delta",
+    "reason",
+    "momentReady"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "SyncReason": {
+      "description": "Why the Team Sync meter changed (§11.2).",
+      "type": "string",
+      "enum": [
+        "GOLD",
+        "SILVER",
+        "BRONZE",
+        "GOOD_CALL",
+        "MOMENT_SPENT",
+        "RESET"
+      ]
+    }
+  },
+  "examples": [
+    {
+      "value": 100,
+      "delta": 25,
+      "reason": "GOLD",
+      "momentReady": true
+    }
+  ]
+}

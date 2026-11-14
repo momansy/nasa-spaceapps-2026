@@ -1,0 +1,141 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:vote.commit",
+  "title": "vote.commit",
+  "description": "host → server → client (relayed unchanged). The host has applied the result to the simulation. Carries the dashboard changes actually applied and the Codex entries unlocked. It is also the host's acknowledgement of vote.result. Send it during the RESULT stage; a fresh build.state follows for build votes.",
+  "type": "object",
+  "properties": {
+    "roundId": {
+      "description": "Round id of the applied result.",
+      "$ref": "#/$defs/RoundId"
+    },
+    "winnerId": {
+      "description": "Option that was applied.",
+      "$ref": "#/$defs/OptionId"
+    },
+    "deltas": {
+      "description": "Dashboard changes applied (green/red); empty for votes that do not change the build.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Delta"
+      },
+      "minItems": 0,
+      "maxItems": 16
+    },
+    "codexIds": {
+      "description": "Codex entries unlocked for everyone by this commit.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/DataId"
+      },
+      "minItems": 0,
+      "maxItems": 8
+    }
+  },
+  "required": [
+    "roundId",
+    "winnerId",
+    "deltas",
+    "codexIds"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "DataId": {
+      "description": "Identifier of an entry in the shared game data (`data/`): part, part category, contract, test, anomaly card, minigame, fact, codex entry, callout, console request, award, objective, validation rule, cosmetic. 1–48 characters.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,47}$"
+    },
+    "Delta": {
+      "description": "One Readiness Dashboard metric after a hypothetical or applied change, computed by the host (§6.3, §14.3 \"IF CHOSEN\").",
+      "type": "object",
+      "properties": {
+        "metric": {
+          "description": "Metric (unit in the id).",
+          "$ref": "#/$defs/MetricId"
+        },
+        "value": {
+          "description": "Value of the metric after the change.",
+          "type": "number"
+        },
+        "delta": {
+          "description": "Change against the current build (value after − value before).",
+          "type": "number"
+        },
+        "rating": {
+          "description": "Colour class of the change.",
+          "$ref": "#/$defs/Rating"
+        }
+      },
+      "required": [
+        "metric",
+        "value",
+        "delta",
+        "rating"
+      ],
+      "additionalProperties": false
+    },
+    "MetricId": {
+      "description": "Readiness Dashboard metric (§6.3). The unit is part of the identifier.",
+      "type": "string",
+      "enum": [
+        "TOTAL_DV_MS",
+        "LIFTOFF_TWR",
+        "UPPER_TWR",
+        "TOTAL_MASS_T",
+        "COST_M",
+        "BUDGET_LEFT_M",
+        "SCHEDULE_DAYS",
+        "SCHEDULE_MARGIN_DAYS",
+        "SUCCESS_PCT",
+        "SUCCESS_BAND_PCT",
+        "POWER_BALANCE_W",
+        "DATA_BUDGET_GB_DAY",
+        "ENTRY_SPEED_RATING_KMS",
+        "STABILITY"
+      ]
+    },
+    "OptionId": {
+      "description": "Identifier of one option inside a vote round. For PART votes it equals the part id; for CONTRACT votes the contract id; for PILOT votes a PlayerId; for quick votes an upper-case token defined in the vote-kind table (e.g. TEST, SKIP).",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,47}$"
+    },
+    "Rating": {
+      "description": "Colour class of a value or delta (§14.4).",
+      "type": "string",
+      "enum": [
+        "GOOD",
+        "MARGINAL",
+        "BAD",
+        "NEUTRAL"
+      ]
+    },
+    "RoundId": {
+      "description": "Vote round identifier chosen by the host; unique within the room for its whole lifetime.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,39}$"
+    }
+  },
+  "examples": [
+    {
+      "roundId": "m1.r07",
+      "winnerId": "eng_kerolox_workhorse",
+      "deltas": [
+        {
+          "metric": "TOTAL_DV_MS",
+          "value": 9890,
+          "delta": 420,
+          "rating": "GOOD"
+        },
+        {
+          "metric": "COST_M",
+          "value": 52.4,
+          "delta": 10.8,
+          "rating": "NEUTRAL"
+        }
+      ],
+      "codexIds": [
+        "codex_gas_generator_cycle"
+      ]
+    }
+  ]
+}

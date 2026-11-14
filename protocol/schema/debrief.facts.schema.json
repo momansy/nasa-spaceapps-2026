@@ -1,0 +1,156 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:debrief.facts",
+  "title": "debrief.facts",
+  "description": "host → server → client (relayed unchanged). What the team learned: facts collected during the mission, Codex entries unlocked, the Lessons Learned card after a failure, and the \"your rocket vs. a real one\" comparison.",
+  "type": "object",
+  "properties": {
+    "factIds": {
+      "description": "Facts shown during the mission.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/DataId"
+      },
+      "minItems": 0,
+      "maxItems": 60,
+      "uniqueItems": true
+    },
+    "codexIds": {
+      "description": "Codex entries unlocked during the mission.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/DataId"
+      },
+      "minItems": 0,
+      "maxItems": 60,
+      "uniqueItems": true
+    },
+    "lessonId": {
+      "description": "Lessons Learned card earned; null when none.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/DataId"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "comparison": {
+      "description": "Comparison with a real rocket; null when not available.",
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "twin": {
+              "description": "Name of the real vehicle compared with.",
+              "$ref": "#/$defs/TextRef"
+            },
+            "yourMassT": {
+              "description": "Lift-off mass of the team's rocket, t.",
+              "type": "number",
+              "minimum": 0
+            },
+            "twinMassT": {
+              "description": "Lift-off mass of the real vehicle, t (real-world approximate).",
+              "type": "number",
+              "minimum": 0
+            },
+            "yourDvMs": {
+              "description": "Total Δv of the team's rocket, m/s.",
+              "type": "number",
+              "minimum": 0
+            },
+            "twinDvMs": {
+              "description": "Total Δv of the real vehicle, m/s (real-world approximate).",
+              "type": "number",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "twin",
+            "yourMassT",
+            "twinMassT",
+            "yourDvMs",
+            "twinDvMs"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "factIds",
+    "codexIds",
+    "lessonId",
+    "comparison"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "DataId": {
+      "description": "Identifier of an entry in the shared game data (`data/`): part, part category, contract, test, anomaly card, minigame, fact, codex entry, callout, console request, award, objective, validation rule, cosmetic. 1–48 characters.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,47}$"
+    },
+    "TextRef": {
+      "description": "Reference to localised player-visible text. The protocol never carries free display text: `key` is a key of `data/strings/<lang>.json`, and `args` supplies substitution values. Receivers format numbers and units locally.",
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "String-table key.",
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,79}$"
+        },
+        "args": {
+          "description": "Substitution values by placeholder name. String values must themselves be data ids or string-table keys, never user text.",
+          "type": "object",
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "propertyNames": {
+            "pattern": "^[a-z][A-Za-z0-9_]{0,23}$"
+          },
+          "maxProperties": 8
+        }
+      },
+      "required": [
+        "key"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "examples": [
+    {
+      "factIds": [
+        "F05",
+        "F09",
+        "F12"
+      ],
+      "codexIds": [
+        "codex_gas_generator_cycle",
+        "codex_mars_climate_orbiter"
+      ],
+      "lessonId": null,
+      "comparison": {
+        "twin": {
+          "key": "twin.electron.name"
+        },
+        "yourMassT": 14.2,
+        "twinMassT": 13,
+        "yourDvMs": 9890,
+        "twinDvMs": 9600
+      }
+    }
+  ]
+}

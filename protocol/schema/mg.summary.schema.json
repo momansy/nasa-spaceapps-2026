@@ -1,0 +1,270 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:mg.summary",
+  "title": "mg.summary",
+  "description": "host → server → client (relayed unchanged). The host closes the run: completion fraction, tier, boosts applied, Team Sync and score gained, and the fact for the result screen. Ends the run and clears the sticky mg.start. Individual failures are not listed (no shaming, §16).",
+  "type": "object",
+  "properties": {
+    "runId": {
+      "description": "Run id.",
+      "$ref": "#/$defs/RunId"
+    },
+    "minigameId": {
+      "description": "Minigame id.",
+      "$ref": "#/$defs/DataId"
+    },
+    "active": {
+      "description": "Active players (connected and loaded).",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 10
+    },
+    "succeeded": {
+      "description": "Active players who succeeded.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 10
+    },
+    "fraction": {
+      "description": "Completion fraction f = succeeded / active; in solo rooms the player's `score`; 0 when nobody was active.",
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "tier": {
+      "description": "Tier reached.",
+      "$ref": "#/$defs/Tier"
+    },
+    "succeededIds": {
+      "description": "Players who succeeded.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/PlayerId"
+      },
+      "minItems": 0,
+      "maxItems": 10,
+      "uniqueItems": true
+    },
+    "perfectIds": {
+      "description": "Players who were perfect.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/PlayerId"
+      },
+      "minItems": 0,
+      "maxItems": 10,
+      "uniqueItems": true
+    },
+    "sparkle": {
+      "description": "True when the tier is NONE but at least one player succeeded (cosmetic sparkle only).",
+      "type": "boolean"
+    },
+    "boosts": {
+      "description": "Boosts applied for this run; empty for tier NONE.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/BoostGrant"
+      },
+      "minItems": 0,
+      "maxItems": 4
+    },
+    "syncDelta": {
+      "description": "Team Sync gained: Gold/Platinum 25, Silver 15, Bronze 8, none 0.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "points": {
+      "description": "Teamwork score gained: Platinum 250, Gold 200, Silver 120, Bronze 60, none 0.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100000
+    },
+    "factId": {
+      "description": "Fact shown on the result screen; null for none.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/DataId"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "runId",
+    "minigameId",
+    "active",
+    "succeeded",
+    "fraction",
+    "tier",
+    "succeededIds",
+    "perfectIds",
+    "sparkle",
+    "boosts",
+    "syncDelta",
+    "points",
+    "factId"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "BoostGrant": {
+      "description": "One boost applied by the host (§10.4, §11.1).",
+      "type": "object",
+      "properties": {
+        "boost": {
+          "description": "Boost type.",
+          "$ref": "#/$defs/BoostId"
+        },
+        "tier": {
+          "description": "Tier that produced it (NONE when the source is not a minigame).",
+          "$ref": "#/$defs/Tier"
+        },
+        "amount": {
+          "description": "Amount granted by this event, in `unit`.",
+          "type": "number"
+        },
+        "total": {
+          "description": "Mission total for this boost type after the grant and after the cap, in `unit`.",
+          "type": "number"
+        },
+        "unit": {
+          "description": "Unit of `amount` and `total`.",
+          "$ref": "#/$defs/BoostUnit"
+        },
+        "capped": {
+          "description": "True when the per-mission cap reduced the grant.",
+          "type": "boolean"
+        },
+        "source": {
+          "description": "What produced the boost.",
+          "$ref": "#/$defs/BoostSource"
+        },
+        "sourceId": {
+          "description": "Id of the source (minigame id, role id, lesson id…) or null.",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/DataId"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "boost",
+        "tier",
+        "amount",
+        "total",
+        "unit",
+        "capped",
+        "source",
+        "sourceId"
+      ],
+      "additionalProperties": false
+    },
+    "BoostId": {
+      "description": "Boost type (§10.4).",
+      "type": "string",
+      "enum": [
+        "DV_BONUS",
+        "RELIABILITY_SHIELD",
+        "HEAT_MARGIN",
+        "PRECISION",
+        "LOAD_MARGIN",
+        "FUEL_SAVER",
+        "DATA_MULTIPLIER",
+        "BUDGET_REFUND",
+        "SCHEDULE_RECOVERY",
+        "CREW_MORALE",
+        "SCORE_MULTIPLIER"
+      ]
+    },
+    "BoostSource": {
+      "description": "What produced a boost.",
+      "type": "string",
+      "enum": [
+        "MINIGAME",
+        "ABILITY",
+        "MOMENT",
+        "LESSON",
+        "ANOMALY"
+      ]
+    },
+    "BoostUnit": {
+      "description": "Unit of a boost amount.",
+      "type": "string",
+      "enum": [
+        "PCT",
+        "MULT",
+        "M_USD",
+        "DAYS",
+        "POINTS",
+        "SHIELDS"
+      ]
+    },
+    "DataId": {
+      "description": "Identifier of an entry in the shared game data (`data/`): part, part category, contract, test, anomaly card, minigame, fact, codex entry, callout, console request, award, objective, validation rule, cosmetic. 1–48 characters.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,47}$"
+    },
+    "PlayerId": {
+      "description": "Player identifier, unique within a room and never reused: \"p\" followed by a positive integer (p1, p2, …).",
+      "type": "string",
+      "pattern": "^p[1-9][0-9]{0,3}$"
+    },
+    "RunId": {
+      "description": "Minigame run identifier chosen by the host; unique within the room.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,39}$"
+    },
+    "Tier": {
+      "description": "Minigame completion tier (§10.3).",
+      "type": "string",
+      "enum": [
+        "NONE",
+        "BRONZE",
+        "SILVER",
+        "GOLD",
+        "PLATINUM"
+      ]
+    }
+  },
+  "examples": [
+    {
+      "runId": "m1.mg08",
+      "minigameId": "MG-08",
+      "active": 4,
+      "succeeded": 4,
+      "fraction": 1,
+      "tier": "GOLD",
+      "succeededIds": [
+        "p1",
+        "p2",
+        "p3",
+        "p4"
+      ],
+      "perfectIds": [
+        "p2"
+      ],
+      "sparkle": false,
+      "boosts": [
+        {
+          "boost": "LOAD_MARGIN",
+          "tier": "GOLD",
+          "amount": 15,
+          "total": 15,
+          "unit": "PCT",
+          "capped": false,
+          "source": "MINIGAME",
+          "sourceId": "MG-08"
+        }
+      ],
+      "syncDelta": 25,
+      "points": 200,
+      "factId": "F09"
+    }
+  ]
+}

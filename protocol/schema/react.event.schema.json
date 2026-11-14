@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:react.event",
+  "title": "react.event",
+  "description": "server → host and clients. A player reacted. Shown next to the player's avatar.",
+  "type": "object",
+  "properties": {
+    "playerId": {
+      "description": "Player who reacted.",
+      "$ref": "#/$defs/PlayerId"
+    },
+    "emoji": {
+      "description": "Which emoji.",
+      "$ref": "#/$defs/ReactionId"
+    }
+  },
+  "required": [
+    "playerId",
+    "emoji"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "PlayerId": {
+      "description": "Player identifier, unique within a room and never reused: \"p\" followed by a positive integer (p1, p2, …).",
+      "type": "string",
+      "pattern": "^p[1-9][0-9]{0,3}$"
+    },
+    "ReactionId": {
+      "description": "Emoji reaction (§3.4).",
+      "type": "string",
+      "enum": [
+        "ROCKET",
+        "THUMBS_UP",
+        "GRIMACE",
+        "FIRE",
+        "THINKING"
+      ]
+    }
+  },
+  "examples": [
+    {
+      "playerId": "p4",
+      "emoji": "FIRE"
+    }
+  ]
+}

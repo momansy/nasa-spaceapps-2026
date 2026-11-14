@@ -1,0 +1,145 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:boost.applied",
+  "title": "boost.applied",
+  "description": "host → server → client (relayed unchanged). A boost was applied outside a minigame summary (ability, Mission Control Moment, Lessons Learned, anomaly). Minigame boosts are carried by mg.summary.",
+  "type": "object",
+  "properties": {
+    "grant": {
+      "description": "The boost that was applied.",
+      "$ref": "#/$defs/BoostGrant"
+    }
+  },
+  "required": [
+    "grant"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "BoostGrant": {
+      "description": "One boost applied by the host (§10.4, §11.1).",
+      "type": "object",
+      "properties": {
+        "boost": {
+          "description": "Boost type.",
+          "$ref": "#/$defs/BoostId"
+        },
+        "tier": {
+          "description": "Tier that produced it (NONE when the source is not a minigame).",
+          "$ref": "#/$defs/Tier"
+        },
+        "amount": {
+          "description": "Amount granted by this event, in `unit`.",
+          "type": "number"
+        },
+        "total": {
+          "description": "Mission total for this boost type after the grant and after the cap, in `unit`.",
+          "type": "number"
+        },
+        "unit": {
+          "description": "Unit of `amount` and `total`.",
+          "$ref": "#/$defs/BoostUnit"
+        },
+        "capped": {
+          "description": "True when the per-mission cap reduced the grant.",
+          "type": "boolean"
+        },
+        "source": {
+          "description": "What produced the boost.",
+          "$ref": "#/$defs/BoostSource"
+        },
+        "sourceId": {
+          "description": "Id of the source (minigame id, role id, lesson id…) or null.",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/DataId"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "boost",
+        "tier",
+        "amount",
+        "total",
+        "unit",
+        "capped",
+        "source",
+        "sourceId"
+      ],
+      "additionalProperties": false
+    },
+    "BoostId": {
+      "description": "Boost type (§10.4).",
+      "type": "string",
+      "enum": [
+        "DV_BONUS",
+        "RELIABILITY_SHIELD",
+        "HEAT_MARGIN",
+        "PRECISION",
+        "LOAD_MARGIN",
+        "FUEL_SAVER",
+        "DATA_MULTIPLIER",
+        "BUDGET_REFUND",
+        "SCHEDULE_RECOVERY",
+        "CREW_MORALE",
+        "SCORE_MULTIPLIER"
+      ]
+    },
+    "BoostSource": {
+      "description": "What produced a boost.",
+      "type": "string",
+      "enum": [
+        "MINIGAME",
+        "ABILITY",
+        "MOMENT",
+        "LESSON",
+        "ANOMALY"
+      ]
+    },
+    "BoostUnit": {
+      "description": "Unit of a boost amount.",
+      "type": "string",
+      "enum": [
+        "PCT",
+        "MULT",
+        "M_USD",
+        "DAYS",
+        "POINTS",
+        "SHIELDS"
+      ]
+    },
+    "DataId": {
+      "description": "Identifier of an entry in the shared game data (`data/`): part, part category, contract, test, anomaly card, minigame, fact, codex entry, callout, console request, award, objective, validation rule, cosmetic. 1–48 characters.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,47}$"
+    },
+    "Tier": {
+      "description": "Minigame completion tier (§10.3).",
+      "type": "string",
+      "enum": [
+        "NONE",
+        "BRONZE",
+        "SILVER",
+        "GOLD",
+        "PLATINUM"
+      ]
+    }
+  },
+  "examples": [
+    {
+      "grant": {
+        "boost": "LOAD_MARGIN",
+        "tier": "NONE",
+        "amount": 10,
+        "total": 15,
+        "unit": "PCT",
+        "capped": false,
+        "source": "ABILITY",
+        "sourceId": "STRUCT"
+      }
+    }
+  ]
+}

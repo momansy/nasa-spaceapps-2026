@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:vote.cancelled",
+  "title": "vote.cancelled",
+  "description": "server → host and clients. The round ended without a result. Devices leave the vote screen. No vote.stage CLOSED follows.",
+  "type": "object",
+  "properties": {
+    "roundId": {
+      "description": "Round id.",
+      "$ref": "#/$defs/RoundId"
+    },
+    "reason": {
+      "description": "Why it was cancelled.",
+      "$ref": "#/$defs/CancelReason"
+    }
+  },
+  "required": [
+    "roundId",
+    "reason"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "CancelReason": {
+      "description": "Why a vote round was cancelled without a result.",
+      "type": "string",
+      "enum": [
+        "HOST",
+        "PHASE_CHANGE"
+      ]
+    },
+    "RoundId": {
+      "description": "Vote round identifier chosen by the host; unique within the room for its whole lifetime.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,39}$"
+    }
+  },
+  "examples": [
+    {
+      "roundId": "m1.r07",
+      "reason": "HOST"
+    }
+  ]
+}

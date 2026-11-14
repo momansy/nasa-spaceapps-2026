@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:hello",
+  "title": "hello",
+  "description": "any → server. First message on every connection. Declares the protocol version and the kind of application. The server answers hello.ok, or error VERSION_MISMATCH followed by bye and close.",
+  "type": "object",
+  "properties": {
+    "protocolVersion": {
+      "description": "Protocol version the sender implements. This document defines version 1.",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 65535
+    },
+    "client": {
+      "description": "Kind of application. Selects the frame-size and rate budget of the connection.",
+      "$ref": "#/$defs/ClientKind"
+    },
+    "appVersion": {
+      "description": "Build version of the application, for logs only.",
+      "type": "string",
+      "pattern": "^[0-9A-Za-z][0-9A-Za-z.+_-]{0,31}$"
+    },
+    "lang": {
+      "description": "Preferred language of the device, used only for server-chosen nickname suggestions. Default \"en\".",
+      "$ref": "#/$defs/LangTag"
+    }
+  },
+  "required": [
+    "protocolVersion",
+    "client",
+    "appVersion"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "ClientKind": {
+      "description": "Kind of application opening the connection.",
+      "type": "string",
+      "enum": [
+        "HOST",
+        "PHONE"
+      ]
+    },
+    "LangTag": {
+      "description": "BCP 47 language tag, lower-case primary subtag (e.g. \"en\", \"ar\", \"pt-BR\").",
+      "type": "string",
+      "pattern": "^[a-z]{2,3}(-[A-Za-z0-9]{2,8}){0,2}$"
+    }
+  },
+  "examples": [
+    {
+      "protocolVersion": 1,
+      "client": "PHONE",
+      "appVersion": "0.3.1",
+      "lang": "en"
+    }
+  ]
+}

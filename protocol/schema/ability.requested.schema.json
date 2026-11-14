@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:ability.requested",
+  "title": "ability.requested",
+  "description": "server → host. Asks the host to apply a simulation ability (every role except FLIGHT). The host must answer ability.resolve within 5 s; no answer, or a host disconnect before the answer, counts as declined with reason NOT_APPLICABLE.",
+  "type": "object",
+  "properties": {
+    "requestId": {
+      "description": "Server-chosen id to quote in `ability.resolve`.",
+      "$ref": "#/$defs/RequestId"
+    },
+    "playerId": {
+      "description": "Player who used the ability.",
+      "$ref": "#/$defs/PlayerId"
+    },
+    "role": {
+      "description": "Role whose ability is requested (never FLIGHT).",
+      "$ref": "#/$defs/RoleId"
+    },
+    "stageIndex": {
+      "description": "STRUCT: stage to reinforce; null for other roles.",
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "requestId",
+    "playerId",
+    "role",
+    "stageIndex"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "PlayerId": {
+      "description": "Player identifier, unique within a room and never reused: \"p\" followed by a positive integer (p1, p2, …).",
+      "type": "string",
+      "pattern": "^p[1-9][0-9]{0,3}$"
+    },
+    "RequestId": {
+      "description": "Ability request identifier chosen by the server; unique within the room.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,39}$"
+    },
+    "RoleId": {
+      "description": "Mission Control role (§3.3), in canonical order.",
+      "type": "string",
+      "enum": [
+        "FLIGHT",
+        "BOOSTER",
+        "STRUCT",
+        "GUIDO",
+        "FIDO",
+        "EECOM",
+        "INCO",
+        "PAYLOAD",
+        "RETRO",
+        "PM"
+      ]
+    }
+  },
+  "examples": [
+    {
+      "requestId": "ab.4",
+      "playerId": "p2",
+      "role": "STRUCT",
+      "stageIndex": 1
+    }
+  ]
+}

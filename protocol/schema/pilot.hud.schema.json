@@ -1,0 +1,221 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:pilot.hud",
+  "title": "pilot.hud",
+  "description": "host → server → client (relayed unchanged). State the virtual gamepad needs to draw itself: throttle read-back, modes, what STAGE and DEPLOY would do now, pending console requests and the guidance cue. Sent to the phones in pilot seats at up to 10 Hz.",
+  "type": "object",
+  "properties": {
+    "to": {
+      "description": "Phones to deliver to (pilot, co-pilot, booster pilot).",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/PlayerId"
+      },
+      "minItems": 1,
+      "maxItems": 3,
+      "uniqueItems": true
+    },
+    "craft": {
+      "description": "Vehicle the state is about.",
+      "$ref": "#/$defs/Craft"
+    },
+    "throttlePct": {
+      "description": "Actual throttle, percent.",
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "attMode": {
+      "description": "Active attitude hold mode.",
+      "$ref": "#/$defs/AttMode"
+    },
+    "rcsOn": {
+      "description": "RCS enabled.",
+      "type": "boolean"
+    },
+    "canStage": {
+      "description": "True when STAGE would do something now.",
+      "type": "boolean"
+    },
+    "deployTarget": {
+      "description": "What the context deploy button would deploy now; null for nothing.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/DeployTarget"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "warp": {
+      "description": "Simulation time factor.",
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1000
+    },
+    "prompts": {
+      "description": "Open console requests, oldest first.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "requestId": {
+            "description": "Console request id.",
+            "$ref": "#/$defs/DataId"
+          },
+          "role": {
+            "description": "Console that asked.",
+            "$ref": "#/$defs/RoleId"
+          }
+        },
+        "required": [
+          "requestId",
+          "role"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0,
+      "maxItems": 4
+    },
+    "cue": {
+      "description": "Guidance cue for the current assist level; null for none.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/TextRef"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "to",
+    "craft",
+    "throttlePct",
+    "attMode",
+    "rcsOn",
+    "canStage",
+    "deployTarget",
+    "warp",
+    "prompts",
+    "cue"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "AttMode": {
+      "description": "Attitude hold mode (§9.2).",
+      "type": "string",
+      "enum": [
+        "OFF",
+        "PROGRADE",
+        "RETROGRADE",
+        "HEAT_SHIELD_FWD"
+      ]
+    },
+    "Craft": {
+      "description": "Which vehicle a pilot seat flies.",
+      "type": "string",
+      "enum": [
+        "VEHICLE",
+        "BOOSTER"
+      ]
+    },
+    "DataId": {
+      "description": "Identifier of an entry in the shared game data (`data/`): part, part category, contract, test, anomaly card, minigame, fact, codex entry, callout, console request, award, objective, validation rule, cosmetic. 1–48 characters.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,47}$"
+    },
+    "DeployTarget": {
+      "description": "What to deploy (§9.2).",
+      "type": "string",
+      "enum": [
+        "CONTEXT",
+        "FAIRING",
+        "CHUTES",
+        "LEGS",
+        "ARRAYS"
+      ]
+    },
+    "PlayerId": {
+      "description": "Player identifier, unique within a room and never reused: \"p\" followed by a positive integer (p1, p2, …).",
+      "type": "string",
+      "pattern": "^p[1-9][0-9]{0,3}$"
+    },
+    "RoleId": {
+      "description": "Mission Control role (§3.3), in canonical order.",
+      "type": "string",
+      "enum": [
+        "FLIGHT",
+        "BOOSTER",
+        "STRUCT",
+        "GUIDO",
+        "FIDO",
+        "EECOM",
+        "INCO",
+        "PAYLOAD",
+        "RETRO",
+        "PM"
+      ]
+    },
+    "TextRef": {
+      "description": "Reference to localised player-visible text. The protocol never carries free display text: `key` is a key of `data/strings/<lang>.json`, and `args` supplies substitution values. Receivers format numbers and units locally.",
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "String-table key.",
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,79}$"
+        },
+        "args": {
+          "description": "Substitution values by placeholder name. String values must themselves be data ids or string-table keys, never user text.",
+          "type": "object",
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "propertyNames": {
+            "pattern": "^[a-z][A-Za-z0-9_]{0,23}$"
+          },
+          "maxProperties": 8
+        }
+      },
+      "required": [
+        "key"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "examples": [
+    {
+      "to": [
+        "p3",
+        "p2"
+      ],
+      "craft": "VEHICLE",
+      "throttlePct": 72,
+      "attMode": "PROGRADE",
+      "rcsOn": false,
+      "canStage": false,
+      "deployTarget": null,
+      "warp": 1,
+      "prompts": [
+        {
+          "requestId": "point_antenna",
+          "role": "INCO"
+        }
+      ],
+      "cue": {
+        "key": "cue.throttle_down_max_q"
+      }
+    }
+  ]
+}

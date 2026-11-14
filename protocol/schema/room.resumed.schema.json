@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:room.resumed",
+  "title": "room.resumed",
+  "description": "server → host and clients. Confirms the resume. The snapshot follows. The token stays the same.",
+  "type": "object",
+  "properties": {
+    "room": {
+      "description": "Room code.",
+      "$ref": "#/$defs/RoomCode"
+    },
+    "kind": {
+      "description": "Membership that was resumed.",
+      "$ref": "#/$defs/ConnKind"
+    },
+    "id": {
+      "description": "The literal \"host\" for the host, else a PlayerId or a SpectatorId.",
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^host$"
+        },
+        {
+          "$ref": "#/$defs/PlayerId"
+        },
+        {
+          "$ref": "#/$defs/SpectatorId"
+        }
+      ]
+    },
+    "slot": {
+      "description": "Seat number for players; null otherwise.",
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "pendingPlayer": {
+      "description": "Spectators only: still waiting to be promoted. False otherwise.",
+      "type": "boolean"
+    },
+    "paused": {
+      "description": "True when the game is paused at the time of the resume.",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "room",
+    "kind",
+    "id",
+    "slot",
+    "pendingPlayer",
+    "paused"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "ConnKind": {
+      "description": "Kind of a resumed connection.",
+      "type": "string",
+      "enum": [
+        "HOST",
+        "PLAYER",
+        "SPECTATOR"
+      ]
+    },
+    "PlayerId": {
+      "description": "Player identifier, unique within a room and never reused: \"p\" followed by a positive integer (p1, p2, …).",
+      "type": "string",
+      "pattern": "^p[1-9][0-9]{0,3}$"
+    },
+    "RoomCode": {
+      "description": "Room code: exactly 4 upper-case letters from A–Z without I and O (24-letter alphabet). Clients upper-case user input before sending.",
+      "type": "string",
+      "pattern": "^[A-HJ-NP-Z]{4}$"
+    },
+    "SpectatorId": {
+      "description": "Spectator identifier, unique within a room and never reused: \"s\" followed by a positive integer.",
+      "type": "string",
+      "pattern": "^s[1-9][0-9]{0,6}$"
+    }
+  },
+  "examples": [
+    {
+      "room": "KQXM",
+      "kind": "PLAYER",
+      "id": "p3",
+      "slot": 3,
+      "pendingPlayer": false,
+      "paused": false
+    }
+  ]
+}

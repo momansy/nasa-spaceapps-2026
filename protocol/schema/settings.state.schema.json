@@ -1,0 +1,205 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:settings.state",
+  "title": "settings.state",
+  "description": "server → host and clients. Complete current settings. Sent in every snapshot and after every accepted settings.set. This is how accessibility flags reach every device.",
+  "type": "object",
+  "properties": {
+    "settings": {
+      "description": "All settings.",
+      "$ref": "#/$defs/RoomSettings"
+    }
+  },
+  "required": [
+    "settings"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "AssistLevel": {
+      "description": "Difficulty / assist level (§9.3).",
+      "type": "string",
+      "enum": [
+        "CADET",
+        "ENGINEER",
+        "FLIGHT_DIRECTOR"
+      ]
+    },
+    "LangTag": {
+      "description": "BCP 47 language tag, lower-case primary subtag (e.g. \"en\", \"ar\", \"pt-BR\").",
+      "type": "string",
+      "pattern": "^[a-z]{2,3}(-[A-Za-z0-9]{2,8}){0,2}$"
+    },
+    "PilotRotation": {
+      "description": "Pilot rotation rule (§9.4).",
+      "type": "string",
+      "enum": [
+        "PER_SEGMENT",
+        "SINGLE"
+      ]
+    },
+    "PilotSelect": {
+      "description": "How the next pilot is chosen (§9.4).",
+      "type": "string",
+      "enum": [
+        "ROTATION",
+        "VOTE"
+      ]
+    },
+    "RoleAssignMode": {
+      "description": "How roles are assigned in the lobby (§3.3).",
+      "type": "string",
+      "enum": [
+        "RANDOM",
+        "PICK",
+        "VOTE"
+      ]
+    },
+    "RoomA11y": {
+      "description": "Room-wide accessibility flags set by the host (§16). Phones apply each flag in addition to their own preferences.",
+      "type": "object",
+      "properties": {
+        "slowTimers": {
+          "description": "Cognitive: every server-run vote and poll timer is multiplied by 1.5 (rounded up to a whole second). Default false.",
+          "type": "boolean"
+        },
+        "relaxedMinigames": {
+          "description": "Motor: every phone runs minigames in Relaxed mode. Default false.",
+          "type": "boolean"
+        },
+        "reducedMotion": {
+          "description": "Motion: reduced-motion on every device. Default false.",
+          "type": "boolean"
+        },
+        "highContrast": {
+          "description": "Visual: high contrast on every device. Default false.",
+          "type": "boolean"
+        },
+        "subtitles": {
+          "description": "Hearing: phones show subtitles for voice lines and callouts. Default true.",
+          "type": "boolean"
+        },
+        "explainTooltips": {
+          "description": "Cognitive: \"Explain like I'm new\" tooltips on every device. Default false.",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "slowTimers",
+        "relaxedMinigames",
+        "reducedMotion",
+        "highContrast",
+        "subtitles",
+        "explainTooltips"
+      ],
+      "additionalProperties": false
+    },
+    "RoomSettings": {
+      "description": "Complete host settings of a room. Defaults apply at `room.create`.",
+      "type": "object",
+      "properties": {
+        "roleAssignMode": {
+          "description": "Role assignment mode (§3.3). Default RANDOM. Lobby-only.",
+          "$ref": "#/$defs/RoleAssignMode"
+        },
+        "voteTimerS": {
+          "description": "Duration of the VOTE stage of PART and CHOICE votes, seconds (§4.1 step 5). Default 20.",
+          "type": "integer",
+          "minimum": 10,
+          "maximum": 60
+        },
+        "inspectTimerS": {
+          "description": "Duration of the INSPECT stage, seconds (§4.1 step 2). Default 20.",
+          "type": "integer",
+          "minimum": 5,
+          "maximum": 60
+        },
+        "tallyVisibility": {
+          "description": "Live tallies open or hidden (§4.1 step 5). Default OPEN.",
+          "$ref": "#/$defs/TallyVisibility"
+        },
+        "strictMajority": {
+          "description": "Strict-majority runoff on or off (§4.2). Default false.",
+          "type": "boolean"
+        },
+        "assistLevel": {
+          "description": "Difficulty / assist level (§9.3). Default ENGINEER. Lobby-only.",
+          "$ref": "#/$defs/AssistLevel"
+        },
+        "audienceVoteWeight": {
+          "description": "Audience vote weight (§13.7): 0 = advisory only (default), 1 = the audience counts as one extra player ballot (judging-day mode).",
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "pilotRotation": {
+          "description": "Pilot rotation rule (§9.4). Default PER_SEGMENT.",
+          "$ref": "#/$defs/PilotRotation"
+        },
+        "pilotSelect": {
+          "description": "How the next pilot is chosen (§9.4). Default ROTATION.",
+          "$ref": "#/$defs/PilotSelect"
+        },
+        "passTheControls": {
+          "description": "Phones may act as virtual gamepads (§9.4). Default false.",
+          "type": "boolean"
+        },
+        "lang": {
+          "description": "Language of the host screen. Default \"en\".",
+          "$ref": "#/$defs/LangTag"
+        },
+        "a11y": {
+          "description": "Room-wide accessibility flags (§16).",
+          "$ref": "#/$defs/RoomA11y"
+        }
+      },
+      "required": [
+        "roleAssignMode",
+        "voteTimerS",
+        "inspectTimerS",
+        "tallyVisibility",
+        "strictMajority",
+        "assistLevel",
+        "audienceVoteWeight",
+        "pilotRotation",
+        "pilotSelect",
+        "passTheControls",
+        "lang",
+        "a11y"
+      ],
+      "additionalProperties": false
+    },
+    "TallyVisibility": {
+      "description": "Whether live vote tallies are shown before the result (§4.1 step 5).",
+      "type": "string",
+      "enum": [
+        "OPEN",
+        "HIDDEN"
+      ]
+    }
+  },
+  "examples": [
+    {
+      "settings": {
+        "roleAssignMode": "RANDOM",
+        "voteTimerS": 20,
+        "inspectTimerS": 20,
+        "tallyVisibility": "OPEN",
+        "strictMajority": false,
+        "assistLevel": "ENGINEER",
+        "audienceVoteWeight": 0,
+        "pilotRotation": "PER_SEGMENT",
+        "pilotSelect": "ROTATION",
+        "passTheControls": false,
+        "lang": "en",
+        "a11y": {
+          "slowTimers": false,
+          "relaxedMinigames": false,
+          "reducedMotion": false,
+          "highContrast": false,
+          "subtitles": true,
+          "explainTooltips": false
+        }
+      }
+    }
+  ]
+}

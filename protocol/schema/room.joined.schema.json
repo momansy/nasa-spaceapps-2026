@@ -1,0 +1,138 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:room.joined",
+  "title": "room.joined",
+  "description": "server → client. Confirms the join and hands out the reconnect token. The phone stores room and token in sessionStorage. The snapshot follows.",
+  "type": "object",
+  "properties": {
+    "room": {
+      "description": "Room code.",
+      "$ref": "#/$defs/RoomCode"
+    },
+    "kind": {
+      "description": "Membership actually granted.",
+      "$ref": "#/$defs/MemberKind"
+    },
+    "id": {
+      "description": "PlayerId when `kind` = PLAYER, SpectatorId when SPECTATOR.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/PlayerId"
+        },
+        {
+          "$ref": "#/$defs/SpectatorId"
+        }
+      ]
+    },
+    "slot": {
+      "description": "Seat number for players; null for spectators.",
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "nickname": {
+      "description": "Nickname after normalisation; null for spectators who gave none.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Nickname"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "token": {
+      "description": "Reconnect token for `room.resume`.",
+      "$ref": "#/$defs/Token"
+    },
+    "spectatorReason": {
+      "description": "Why the member is a spectator; null for players.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/SpectatorReason"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "pendingPlayer": {
+      "description": "True when the spectator will be promoted to player at the next vote round (see `room.promoted`).",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "room",
+    "kind",
+    "id",
+    "slot",
+    "nickname",
+    "token",
+    "spectatorReason",
+    "pendingPlayer"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "MemberKind": {
+      "description": "Membership kind of a phone connection.",
+      "type": "string",
+      "enum": [
+        "PLAYER",
+        "SPECTATOR"
+      ]
+    },
+    "Nickname": {
+      "description": "Display nickname after server normalisation (NFC, trimmed, inner whitespace collapsed): 2–16 characters; Unicode letters, digits, space, underscore and hyphen; first and last character must be a letter or digit.",
+      "type": "string",
+      "pattern": "^[\\p{L}\\p{N}][\\p{L}\\p{N} _-]{0,14}[\\p{L}\\p{N}]$"
+    },
+    "PlayerId": {
+      "description": "Player identifier, unique within a room and never reused: \"p\" followed by a positive integer (p1, p2, …).",
+      "type": "string",
+      "pattern": "^p[1-9][0-9]{0,3}$"
+    },
+    "RoomCode": {
+      "description": "Room code: exactly 4 upper-case letters from A–Z without I and O (24-letter alphabet). Clients upper-case user input before sending.",
+      "type": "string",
+      "pattern": "^[A-HJ-NP-Z]{4}$"
+    },
+    "SpectatorId": {
+      "description": "Spectator identifier, unique within a room and never reused: \"s\" followed by a positive integer.",
+      "type": "string",
+      "pattern": "^s[1-9][0-9]{0,6}$"
+    },
+    "SpectatorReason": {
+      "description": "Why a joiner was made a spectator.",
+      "type": "string",
+      "enum": [
+        "REQUESTED",
+        "LATE_JOIN",
+        "ROOM_FULL"
+      ]
+    },
+    "Token": {
+      "description": "Opaque reconnect token issued by the server (URL-safe, 16–64 characters). Stored in the browser sessionStorage (phones) or host persistent storage. Never shown on screen.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_-]{16,64}$"
+    }
+  },
+  "examples": [
+    {
+      "room": "KQXM",
+      "kind": "PLAYER",
+      "id": "p3",
+      "slot": 3,
+      "nickname": "Nova",
+      "token": "pT_8sK3n0Rf6MxYd2Wc9Oa1B",
+      "spectatorReason": null,
+      "pendingPlayer": false
+    }
+  ]
+}

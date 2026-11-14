@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:pilot.action",
+  "title": "pilot.action",
+  "description": "client → server → host (relayed inside `relay`). A discrete pilot action from a phone used as a virtual gamepad. Hold gestures are completed on the phone before sending. ABORT is a request: the host opens an ABORT vote unless the escape system fires on its own.",
+  "type": "object",
+  "properties": {
+    "craft": {
+      "description": "Seat: VEHICLE or BOOSTER.",
+      "$ref": "#/$defs/Craft"
+    },
+    "n": {
+      "description": "Action counter, increasing; the host ignores duplicates.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 2147483647
+    },
+    "action": {
+      "description": "Which action.",
+      "$ref": "#/$defs/PilotAction"
+    },
+    "attMode": {
+      "description": "Required when `action` = ATT_HOLD.",
+      "$ref": "#/$defs/AttMode"
+    },
+    "deploy": {
+      "description": "Required when `action` = DEPLOY.",
+      "$ref": "#/$defs/DeployTarget"
+    }
+  },
+  "required": [
+    "craft",
+    "n",
+    "action"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "AttMode": {
+      "description": "Attitude hold mode (§9.2).",
+      "type": "string",
+      "enum": [
+        "OFF",
+        "PROGRADE",
+        "RETROGRADE",
+        "HEAT_SHIELD_FWD"
+      ]
+    },
+    "Craft": {
+      "description": "Which vehicle a pilot seat flies.",
+      "type": "string",
+      "enum": [
+        "VEHICLE",
+        "BOOSTER"
+      ]
+    },
+    "DeployTarget": {
+      "description": "What to deploy (§9.2).",
+      "type": "string",
+      "enum": [
+        "CONTEXT",
+        "FAIRING",
+        "CHUTES",
+        "LEGS",
+        "ARRAYS"
+      ]
+    },
+    "PilotAction": {
+      "description": "Discrete pilot action (§9.2). Hold-to-confirm gestures (STAGE 0.3 s, ABORT 1.5 s) are evaluated on the phone; the action is sent once when the hold completes.",
+      "type": "string",
+      "enum": [
+        "STAGE",
+        "CUTOFF",
+        "RCS_TOGGLE",
+        "ATT_HOLD",
+        "DEPLOY",
+        "WARP_UP",
+        "WARP_DOWN",
+        "MAP_TOGGLE",
+        "CAMERA_CYCLE",
+        "ABORT",
+        "COUNTDOWN_HOLD",
+        "COUNTDOWN_RESUME"
+      ]
+    }
+  },
+  "examples": [
+    {
+      "craft": "VEHICLE",
+      "n": 12,
+      "action": "STAGE"
+    }
+  ]
+}

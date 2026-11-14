@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:pilot.assign",
+  "title": "pilot.assign",
+  "description": "host → server → client (relayed unchanged). The host names who sits in the pilot, co-pilot and booster-pilot seats and where each seat reads its input. The server stores it to authorise pilot.input, pilot.action and copilot.action. Sent at every seat change (each flight segment by default).",
+  "type": "object",
+  "properties": {
+    "segment": {
+      "description": "Segment the assignment is for; null before flight.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/FlightSegment"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "pilotId": {
+      "description": "Pilot of the main vehicle; null when nobody is named (host operator flies).",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/PlayerId"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "pilotInput": {
+      "description": "Input source of the pilot seat. PHONE requires `pilotId`.",
+      "$ref": "#/$defs/InputSource"
+    },
+    "copilotId": {
+      "description": "Co-pilot handling staging and deploys on their phone; null for none.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/PlayerId"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "boosterPilotId": {
+      "description": "Second pilot flying the returning booster; null for none.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/PlayerId"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "boosterInput": {
+      "description": "Input source of the booster seat; null when there is no booster pilot.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/InputSource"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "segment",
+    "pilotId",
+    "pilotInput",
+    "copilotId",
+    "boosterPilotId",
+    "boosterInput"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "FlightSegment": {
+      "description": "Flight segment used for pilot rotation (§9.4).",
+      "type": "string",
+      "enum": [
+        "ASCENT",
+        "ORBIT",
+        "ENTRY",
+        "LANDING"
+      ]
+    },
+    "InputSource": {
+      "description": "Where a pilot seat reads its input from (§9.4 Pass the controls).",
+      "type": "string",
+      "enum": [
+        "HOST_DEVICE",
+        "PHONE"
+      ]
+    },
+    "PlayerId": {
+      "description": "Player identifier, unique within a room and never reused: \"p\" followed by a positive integer (p1, p2, …).",
+      "type": "string",
+      "pattern": "^p[1-9][0-9]{0,3}$"
+    }
+  },
+  "examples": [
+    {
+      "segment": "ASCENT",
+      "pilotId": "p3",
+      "pilotInput": "PHONE",
+      "copilotId": "p2",
+      "boosterPilotId": null,
+      "boosterInput": null
+    }
+  ]
+}

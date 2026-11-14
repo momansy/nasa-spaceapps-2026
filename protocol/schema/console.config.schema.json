@@ -1,0 +1,198 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:console.config",
+  "title": "console.config",
+  "description": "host → server → client (relayed unchanged). Layout of one role console for the current flight phase: gauge ranges and limits, and which callout and request buttons to show. Sent when the flight starts and whenever the set changes. Delivered to the holder(s) of role.",
+  "type": "object",
+  "properties": {
+    "role": {
+      "description": "Console (routing key).",
+      "$ref": "#/$defs/RoleId"
+    },
+    "channels": {
+      "description": "Channels shown on this console.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "Channel.",
+            "$ref": "#/$defs/TelemetryChannel"
+          },
+          "min": {
+            "description": "Gauge minimum, channel unit.",
+            "type": "number"
+          },
+          "max": {
+            "description": "Gauge maximum, channel unit.",
+            "type": "number"
+          },
+          "warnLow": {
+            "description": "Lower limit; below it the value is out of limits. Null for none.",
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "warnHigh": {
+            "description": "Upper limit; above it the value is out of limits. Null for none.",
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "min",
+          "max",
+          "warnLow",
+          "warnHigh"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0,
+      "maxItems": 12
+    },
+    "calloutIds": {
+      "description": "Callout buttons available now.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/DataId"
+      },
+      "minItems": 0,
+      "maxItems": 12,
+      "uniqueItems": true
+    },
+    "requestIds": {
+      "description": "Request buttons available now.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/DataId"
+      },
+      "minItems": 0,
+      "maxItems": 8,
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "role",
+    "channels",
+    "calloutIds",
+    "requestIds"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "DataId": {
+      "description": "Identifier of an entry in the shared game data (`data/`): part, part category, contract, test, anomaly card, minigame, fact, codex entry, callout, console request, award, objective, validation rule, cosmetic. 1–48 characters.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,47}$"
+    },
+    "RoleId": {
+      "description": "Mission Control role (§3.3), in canonical order.",
+      "type": "string",
+      "enum": [
+        "FLIGHT",
+        "BOOSTER",
+        "STRUCT",
+        "GUIDO",
+        "FIDO",
+        "EECOM",
+        "INCO",
+        "PAYLOAD",
+        "RETRO",
+        "PM"
+      ]
+    },
+    "TelemetryChannel": {
+      "description": "Console telemetry channel. The unit is part of the identifier. Each role has a fixed channel set (see Console channels).",
+      "type": "string",
+      "enum": [
+        "met_s",
+        "altitude_km",
+        "velocity_ms",
+        "countdown_s",
+        "hold",
+        "consoles_red",
+        "consoles_amber",
+        "chamber_pressure_pct",
+        "engines_running",
+        "engines_total",
+        "engine_health_pct",
+        "prop_stage1_pct",
+        "prop_stage2_pct",
+        "throttle_pct",
+        "q_kpa",
+        "load_pct",
+        "g_load",
+        "vibration_pct",
+        "traj_error_km",
+        "pitch_error_deg",
+        "heading_error_deg",
+        "apoapsis_km",
+        "periapsis_km",
+        "inclination_deg",
+        "window_remaining_s",
+        "dv_remaining_ms",
+        "battery_pct",
+        "power_balance_w",
+        "temp_c",
+        "cabin_pressure_kpa",
+        "cabin_co2_pct",
+        "signal_pct",
+        "data_downlinked_gb",
+        "next_pass_s",
+        "in_pass",
+        "targets_captured",
+        "targets_total",
+        "payload_health_pct",
+        "data_stored_gb",
+        "entry_angle_deg",
+        "heat_load_pct",
+        "landing_ellipse_km",
+        "descent_rate_ms",
+        "chutes_deployed",
+        "budget_left_m",
+        "schedule_margin_days",
+        "score_pts",
+        "sync_meter"
+      ]
+    }
+  },
+  "examples": [
+    {
+      "role": "STRUCT",
+      "channels": [
+        {
+          "id": "q_kpa",
+          "min": 0,
+          "max": 50,
+          "warnLow": null,
+          "warnHigh": 35
+        },
+        {
+          "id": "load_pct",
+          "min": 0,
+          "max": 120,
+          "warnLow": null,
+          "warnHigh": 100
+        }
+      ],
+      "calloutIds": [
+        "throttle_down_max_q",
+        "structural_overload"
+      ],
+      "requestIds": [
+        "reduce_throttle"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:poll.answered",
+  "title": "poll.answered",
+  "description": "server → host and clients. One console answered (or its window ended). The host plays the callout (\"GUIDO: GO\").",
+  "type": "object",
+  "properties": {
+    "pollId": {
+      "description": "Poll id.",
+      "$ref": "#/$defs/PollId"
+    },
+    "entry": {
+      "description": "The recorded answer.",
+      "$ref": "#/$defs/PollEntry"
+    }
+  },
+  "required": [
+    "pollId",
+    "entry"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "PlayerId": {
+      "description": "Player identifier, unique within a room and never reused: \"p\" followed by a positive integer (p1, p2, …).",
+      "type": "string",
+      "pattern": "^p[1-9][0-9]{0,3}$"
+    },
+    "PollAnswer": {
+      "description": "Recorded GO/NO-GO answer.",
+      "type": "string",
+      "enum": [
+        "GO",
+        "NO_GO",
+        "NO_ANSWER"
+      ]
+    },
+    "PollEntry": {
+      "description": "One GO/NO-GO answer.",
+      "type": "object",
+      "properties": {
+        "playerId": {
+          "description": "Player who was called.",
+          "$ref": "#/$defs/PlayerId"
+        },
+        "roles": {
+          "description": "Roles (consoles) that player answered for.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/RoleId"
+          },
+          "minItems": 1,
+          "maxItems": 10,
+          "uniqueItems": true
+        },
+        "answer": {
+          "description": "Recorded answer.",
+          "$ref": "#/$defs/PollAnswer"
+        }
+      },
+      "required": [
+        "playerId",
+        "roles",
+        "answer"
+      ],
+      "additionalProperties": false
+    },
+    "PollId": {
+      "description": "GO/NO-GO poll identifier chosen by the host; unique within the room.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,39}$"
+    },
+    "RoleId": {
+      "description": "Mission Control role (§3.3), in canonical order.",
+      "type": "string",
+      "enum": [
+        "FLIGHT",
+        "BOOSTER",
+        "STRUCT",
+        "GUIDO",
+        "FIDO",
+        "EECOM",
+        "INCO",
+        "PAYLOAD",
+        "RETRO",
+        "PM"
+      ]
+    }
+  },
+  "examples": [
+    {
+      "pollId": "m1.frr.1",
+      "entry": {
+        "playerId": "p3",
+        "roles": [
+          "GUIDO",
+          "FIDO"
+        ],
+        "answer": "GO"
+      }
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:game.paused",
+  "title": "game.paused",
+  "description": "server → host and clients. The game is paused. While paused: all server timers and slot-hold countdowns are frozen, phones freeze local minigame clocks, and the server rejects pause-blocked messages with PAUSED. Sent on game.pause, when the host connection drops, and in snapshots taken while paused.",
+  "type": "object",
+  "properties": {
+    "reason": {
+      "description": "Why the game is paused. HOST_DISCONNECTED takes precedence when both apply.",
+      "$ref": "#/$defs/PauseReason"
+    },
+    "atMs": {
+      "description": "Server clock when the pause began.",
+      "$ref": "#/$defs/TimeMs"
+    },
+    "roomExpiresAtMs": {
+      "description": "HOST_DISCONNECTED: when the room is destroyed if the host does not return (pause start + 10 min); null for HOST_REQUEST.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/TimeMs"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "reason",
+    "atMs",
+    "roomExpiresAtMs"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "PauseReason": {
+      "description": "Why the game is paused (§17.7, §13.3 Classroom).",
+      "type": "string",
+      "enum": [
+        "HOST_REQUEST",
+        "HOST_DISCONNECTED"
+      ]
+    },
+    "TimeMs": {
+      "description": "Absolute time on the server clock: integer milliseconds since the Unix epoch. Every `…AtMs` field in the protocol uses the server clock (see Clock).",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    }
+  },
+  "examples": [
+    {
+      "reason": "HOST_DISCONNECTED",
+      "atMs": 1794650400000,
+      "roomExpiresAtMs": 1794651000000
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:room.leave",
+  "title": "room.leave",
+  "description": "client → server. The member leaves for good. The slot is freed at once (no 3-minute hold), the token is revoked, the player's roles are redistributed, and the server answers bye LEFT.",
+  "type": "object",
+  "properties": {},
+  "required": [],
+  "additionalProperties": false,
+  "examples": [
+    {}
+  ]
+}

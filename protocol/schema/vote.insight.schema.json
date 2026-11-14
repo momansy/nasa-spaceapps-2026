@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:vote.insight",
+  "title": "vote.insight",
+  "description": "host → server → client (relayed unchanged). Extra information for the holder of one role about the options of the current round (for example reliability ranges for BOOSTER). Computed by the host and delivered only to the player(s) holding role. Send it right after vote.opened.",
+  "type": "object",
+  "properties": {
+    "roundId": {
+      "description": "Round id.",
+      "$ref": "#/$defs/RoundId"
+    },
+    "role": {
+      "description": "Role whose holder receives the insight (routing key).",
+      "$ref": "#/$defs/RoleId"
+    },
+    "lines": {
+      "description": "Insight lines.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "optionId": {
+            "description": "Option the line is about.",
+            "$ref": "#/$defs/OptionId"
+          },
+          "text": {
+            "description": "Insight line with its numbers in `args`.",
+            "$ref": "#/$defs/TextRef"
+          }
+        },
+        "required": [
+          "optionId",
+          "text"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "maxItems": 20
+    }
+  },
+  "required": [
+    "roundId",
+    "role",
+    "lines"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "OptionId": {
+      "description": "Identifier of one option inside a vote round. For PART votes it equals the part id; for CONTRACT votes the contract id; for PILOT votes a PlayerId; for quick votes an upper-case token defined in the vote-kind table (e.g. TEST, SKIP).",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,47}$"
+    },
+    "RoleId": {
+      "description": "Mission Control role (§3.3), in canonical order.",
+      "type": "string",
+      "enum": [
+        "FLIGHT",
+        "BOOSTER",
+        "STRUCT",
+        "GUIDO",
+        "FIDO",
+        "EECOM",
+        "INCO",
+        "PAYLOAD",
+        "RETRO",
+        "PM"
+      ]
+    },
+    "RoundId": {
+      "description": "Vote round identifier chosen by the host; unique within the room for its whole lifetime.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,39}$"
+    },
+    "TextRef": {
+      "description": "Reference to localised player-visible text. The protocol never carries free display text: `key` is a key of `data/strings/<lang>.json`, and `args` supplies substitution values. Receivers format numbers and units locally.",
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "String-table key.",
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,79}$"
+        },
+        "args": {
+          "description": "Substitution values by placeholder name. String values must themselves be data ids or string-table keys, never user text.",
+          "type": "object",
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "propertyNames": {
+            "pattern": "^[a-z][A-Za-z0-9_]{0,23}$"
+          },
+          "maxProperties": 8
+        }
+      },
+      "required": [
+        "key"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "examples": [
+    {
+      "roundId": "m1.r07",
+      "role": "BOOSTER",
+      "lines": [
+        {
+          "optionId": "eng_kerolox_workhorse",
+          "text": {
+            "key": "insight.reliability_range",
+            "args": {
+              "lowPct": 97.5,
+              "highPct": 99.5
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:mg.ready",
+  "title": "mg.ready",
+  "description": "client → server → host (relayed inside `relay`). The phone has loaded the minigame and will play. A player counts as active in the completion fraction only if this arrived and the player is still connected when the host closes the run.",
+  "type": "object",
+  "properties": {
+    "runId": {
+      "description": "Run id.",
+      "$ref": "#/$defs/RunId"
+    }
+  },
+  "required": [
+    "runId"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "RunId": {
+      "description": "Minigame run identifier chosen by the host; unique within the room.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,39}$"
+    }
+  },
+  "examples": [
+    {
+      "runId": "m1.mg08"
+    }
+  ]
+}

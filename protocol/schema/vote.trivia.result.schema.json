@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:vote.trivia.result",
+  "title": "vote.trivia.result",
+  "description": "server → host and clients. Outcome of the trivia sudden-death. With a winner, vote.stage TIEBREAK_PICK follows; without one, the coin flip decides and vote.result follows. An outcome-log message: the host awards the 30 knowledge score points to the winner.",
+  "type": "object",
+  "properties": {
+    "outcomeSeq": {
+      "description": "Position in the room outcome log.",
+      "$ref": "#/$defs/OutcomeSeq"
+    },
+    "roundId": {
+      "description": "Round id.",
+      "$ref": "#/$defs/RoundId"
+    },
+    "factId": {
+      "description": "Fact the question was about.",
+      "$ref": "#/$defs/DataId"
+    },
+    "correctIndex": {
+      "description": "Index of the correct choice.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 3
+    },
+    "winnerId": {
+      "description": "First player to answer correctly; null when nobody did.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/PlayerId"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "answers": {
+      "description": "Answers in order of arrival.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "playerId": {
+            "description": "Player who answered.",
+            "$ref": "#/$defs/PlayerId"
+          },
+          "choiceIndex": {
+            "description": "Their answer.",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 3
+          },
+          "correct": {
+            "description": "True when correct.",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "playerId",
+          "choiceIndex",
+          "correct"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0,
+      "maxItems": 10
+    }
+  },
+  "required": [
+    "outcomeSeq",
+    "roundId",
+    "factId",
+    "correctIndex",
+    "winnerId",
+    "answers"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "DataId": {
+      "description": "Identifier of an entry in the shared game data (`data/`): part, part category, contract, test, anomaly card, minigame, fact, codex entry, callout, console request, award, objective, validation rule, cosmetic. 1–48 characters.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,47}$"
+    },
+    "OutcomeSeq": {
+      "description": "Position of a server-resolved outcome in the room outcome log; starts at 1 and increases by 1 per outcome for the lifetime of the room.",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 2147483647
+    },
+    "PlayerId": {
+      "description": "Player identifier, unique within a room and never reused: \"p\" followed by a positive integer (p1, p2, …).",
+      "type": "string",
+      "pattern": "^p[1-9][0-9]{0,3}$"
+    },
+    "RoundId": {
+      "description": "Vote round identifier chosen by the host; unique within the room for its whole lifetime.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,39}$"
+    }
+  },
+  "examples": [
+    {
+      "outcomeSeq": 8,
+      "roundId": "m1.r07",
+      "factId": "F05",
+      "correctIndex": 1,
+      "winnerId": "p4",
+      "answers": [
+        {
+          "playerId": "p2",
+          "choiceIndex": 0,
+          "correct": false
+        },
+        {
+          "playerId": "p4",
+          "choiceIndex": 1,
+          "correct": true
+        }
+      ]
+    }
+  ]
+}

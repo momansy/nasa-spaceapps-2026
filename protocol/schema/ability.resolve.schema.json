@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:ability.resolve",
+  "title": "ability.resolve",
+  "description": "host → server. The host accepts or declines an ability.requested. On accept the server marks the ability spent and broadcasts ability.used and roles.state; on decline it sends error ABILITY_REJECTED to the player and the ability stays available.",
+  "type": "object",
+  "properties": {
+    "requestId": {
+      "description": "Id from `ability.requested`.",
+      "$ref": "#/$defs/RequestId"
+    },
+    "accepted": {
+      "description": "True when the host applied the ability effect.",
+      "type": "boolean"
+    },
+    "reason": {
+      "description": "Why it was declined; null when accepted.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/AbilityRejectReason"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "requestId",
+    "accepted",
+    "reason"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "AbilityRejectReason": {
+      "description": "Why the host declined an ability.",
+      "type": "string",
+      "enum": [
+        "NOT_APPLICABLE",
+        "WRONG_PHASE",
+        "BAD_TARGET"
+      ]
+    },
+    "RequestId": {
+      "description": "Ability request identifier chosen by the server; unique within the room.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,39}$"
+    }
+  },
+  "examples": [
+    {
+      "requestId": "ab.4",
+      "accepted": true,
+      "reason": null
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:room.resume",
+  "title": "room.resume",
+  "description": "any → server. Reattaches a new connection to an existing membership (player, spectator or host) using the token. The server answers room.resumed followed by the snapshot. Any older connection using the same token receives bye REPLACED.",
+  "type": "object",
+  "properties": {
+    "room": {
+      "description": "Room code.",
+      "$ref": "#/$defs/RoomCode"
+    },
+    "token": {
+      "description": "Token from `room.joined` or `room.created`.",
+      "$ref": "#/$defs/Token"
+    },
+    "lastOutcomeSeq": {
+      "description": "Host only: sequence number of the last outcome the host has durably applied (0 = none). The server replays every later outcome during the snapshot. Ignored for phones.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 2147483647
+    }
+  },
+  "required": [
+    "room",
+    "token"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "RoomCode": {
+      "description": "Room code: exactly 4 upper-case letters from A–Z without I and O (24-letter alphabet). Clients upper-case user input before sending.",
+      "type": "string",
+      "pattern": "^[A-HJ-NP-Z]{4}$"
+    },
+    "Token": {
+      "description": "Opaque reconnect token issued by the server (URL-safe, 16–64 characters). Stored in the browser sessionStorage (phones) or host persistent storage. Never shown on screen.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_-]{16,64}$"
+    }
+  },
+  "examples": [
+    {
+      "room": "KQXM",
+      "token": "pT_8sK3n0Rf6MxYd2Wc9Oa1B"
+    }
+  ]
+}

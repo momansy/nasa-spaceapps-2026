@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:game.resumed",
+  "title": "game.resumed",
+  "description": "server → host and clients. The game continues. Every deadline issued before the pause (…AtMs fields of vote.stage, poll.call, mg.start, console.alert windows, blackout.set, room.state.players[].slotExpiresAtMs) moves later by pausedForMs; receivers shift their local copies and the server does not resend them.",
+  "type": "object",
+  "properties": {
+    "atMs": {
+      "description": "Server clock when the game resumed.",
+      "$ref": "#/$defs/TimeMs"
+    },
+    "pausedForMs": {
+      "description": "Length of the pause in milliseconds.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 2147483647
+    }
+  },
+  "required": [
+    "atMs",
+    "pausedForMs"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "TimeMs": {
+      "description": "Absolute time on the server clock: integer milliseconds since the Unix epoch. Every `…AtMs` field in the protocol uses the server clock (see Clock).",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    }
+  },
+  "examples": [
+    {
+      "atMs": 1794650460000,
+      "pausedForMs": 60000
+    }
+  ]
+}

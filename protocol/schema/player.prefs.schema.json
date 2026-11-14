@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:player.prefs",
+  "title": "player.prefs",
+  "description": "client → server. Sets the sender's accessibility and language preferences at any time, including while paused. For players the server broadcasts room.state so the host can adapt (for example subtitles or text scale on shared prompts). Spectator preferences are stored but not broadcast.",
+  "type": "object",
+  "properties": {
+    "prefs": {
+      "description": "Complete preference set (all fields).",
+      "$ref": "#/$defs/PlayerPrefs"
+    }
+  },
+  "required": [
+    "prefs"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "LangTag": {
+      "description": "BCP 47 language tag, lower-case primary subtag (e.g. \"en\", \"ar\", \"pt-BR\").",
+      "type": "string",
+      "pattern": "^[a-z]{2,3}(-[A-Za-z0-9]{2,8}){0,2}$"
+    },
+    "PlayerPrefs": {
+      "description": "Per-device accessibility and language preferences (§16). Set by each phone, relayed to the host and all clients inside `room.state`.",
+      "type": "object",
+      "properties": {
+        "lang": {
+          "description": "UI language of this device.",
+          "$ref": "#/$defs/LangTag"
+        },
+        "relaxed": {
+          "description": "Motor: Relaxed minigame mode (wider timing windows).",
+          "type": "boolean"
+        },
+        "oneButton": {
+          "description": "Motor: One-Button minigame alternative.",
+          "type": "boolean"
+        },
+        "holdToToggle": {
+          "description": "Motor: hold-to-press controls become toggles.",
+          "type": "boolean"
+        },
+        "reducedMotion": {
+          "description": "Motion: no shake, fewer particles, no flashing.",
+          "type": "boolean"
+        },
+        "highContrast": {
+          "description": "Visual: high-contrast mode.",
+          "type": "boolean"
+        },
+        "textScalePct": {
+          "description": "Visual: text scale in percent (100–200).",
+          "type": "integer",
+          "minimum": 100,
+          "maximum": 200
+        },
+        "screenReader": {
+          "description": "Visual: screen-reader labels requested.",
+          "type": "boolean"
+        },
+        "haptics": {
+          "description": "Whether the device wants `haptic.cue` vibrations.",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "lang",
+        "relaxed",
+        "oneButton",
+        "holdToToggle",
+        "reducedMotion",
+        "highContrast",
+        "textScalePct",
+        "screenReader",
+        "haptics"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "examples": [
+    {
+      "prefs": {
+        "lang": "en",
+        "relaxed": true,
+        "oneButton": false,
+        "holdToToggle": false,
+        "reducedMotion": false,
+        "highContrast": false,
+        "textScalePct": 150,
+        "screenReader": false,
+        "haptics": true
+      }
+    }
+  ]
+}

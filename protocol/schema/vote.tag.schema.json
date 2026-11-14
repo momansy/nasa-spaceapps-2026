@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:vote.tag",
+  "title": "vote.tag",
+  "description": "client → server. A role-holder puts a Recommended or Concern badge on an option in their area, or removes it with null. Each holder has at most one tag per option and at most one RECOMMENDED per round: recommending another option moves the badge. The server broadcasts vote.tags.",
+  "type": "object",
+  "properties": {
+    "roundId": {
+      "description": "Round id.",
+      "$ref": "#/$defs/RoundId"
+    },
+    "optionId": {
+      "description": "Option to tag.",
+      "$ref": "#/$defs/OptionId"
+    },
+    "tag": {
+      "description": "Badge to set, or null to remove the sender's badge from this option.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/TagKind"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "roundId",
+    "optionId",
+    "tag"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "OptionId": {
+      "description": "Identifier of one option inside a vote round. For PART votes it equals the part id; for CONTRACT votes the contract id; for PILOT votes a PlayerId; for quick votes an upper-case token defined in the vote-kind table (e.g. TEST, SKIP).",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,47}$"
+    },
+    "RoundId": {
+      "description": "Vote round identifier chosen by the host; unique within the room for its whole lifetime.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,39}$"
+    },
+    "TagKind": {
+      "description": "Role tag on an option (§3.4).",
+      "type": "string",
+      "enum": [
+        "RECOMMENDED",
+        "CONCERN"
+      ]
+    }
+  },
+  "examples": [
+    {
+      "roundId": "m1.r07",
+      "optionId": "eng_kerolox_workhorse",
+      "tag": "RECOMMENDED"
+    }
+  ]
+}

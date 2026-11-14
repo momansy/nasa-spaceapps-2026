@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:bye",
+  "title": "bye",
+  "description": "server → host and clients. Last message before the server closes the socket. Carries the reason because browsers do not reliably expose close reasons. The WebSocket close code equals closeCode.",
+  "type": "object",
+  "properties": {
+    "reason": {
+      "description": "Why the connection is being closed.",
+      "$ref": "#/$defs/ByeReason"
+    },
+    "closeCode": {
+      "description": "WebSocket close code the server uses (fixed per reason, see ByeReason).",
+      "type": "integer",
+      "minimum": 4000,
+      "maximum": 4999
+    },
+    "canResume": {
+      "description": "True when the token is still valid and the client should reconnect and send `room.resume` (SERVER_SHUTDOWN, IDLE_TIMEOUT, FLOOD, PROTOCOL_VIOLATION). False otherwise.",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "reason",
+    "closeCode",
+    "canResume"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "ByeReason": {
+      "description": "Reason the server is about to close the connection. Each value has a fixed WebSocket close code.",
+      "type": "string",
+      "enum": [
+        "ROOM_CLOSED",
+        "VERSION_MISMATCH",
+        "KICKED",
+        "REPLACED",
+        "ROOM_EXPIRED",
+        "HANDSHAKE_TIMEOUT",
+        "FLOOD",
+        "PROTOCOL_VIOLATION",
+        "SERVER_SHUTDOWN",
+        "LEFT",
+        "IDLE_TIMEOUT"
+      ]
+    }
+  },
+  "examples": [
+    {
+      "reason": "KICKED",
+      "closeCode": 4002,
+      "canResume": false
+    }
+  ]
+}

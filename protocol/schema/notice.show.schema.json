@@ -1,0 +1,128 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:notice.show",
+  "title": "notice.show",
+  "description": "host → server → client (relayed unchanged). The host shows a short text on phones: CAPCOM subtitle, hint, \"what just happened\" summary, classroom discussion prompt, fact moment or warning. Text is always a string-table reference.",
+  "type": "object",
+  "properties": {
+    "kind": {
+      "description": "What kind of notice.",
+      "$ref": "#/$defs/NoticeKind"
+    },
+    "text": {
+      "description": "Text to show (≤ 25 words on screen, §12.1).",
+      "$ref": "#/$defs/TextRef"
+    },
+    "factId": {
+      "description": "Fact shown (kind FACT), so the phone can link to the Codex; null otherwise.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/DataId"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "durationMs": {
+      "description": "How long to show it; 0 = until dismissed by the user.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 60000
+    },
+    "to": {
+      "description": "Players to show it to; null = every player and spectator.",
+      "anyOf": [
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/PlayerId"
+          },
+          "minItems": 1,
+          "maxItems": 10,
+          "uniqueItems": true
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "kind",
+    "text",
+    "factId",
+    "durationMs",
+    "to"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "DataId": {
+      "description": "Identifier of an entry in the shared game data (`data/`): part, part category, contract, test, anomaly card, minigame, fact, codex entry, callout, console request, award, objective, validation rule, cosmetic. 1–48 characters.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,47}$"
+    },
+    "NoticeKind": {
+      "description": "Kind of host notice shown on phones.",
+      "type": "string",
+      "enum": [
+        "CAPCOM",
+        "HINT",
+        "SUMMARY",
+        "DISCUSSION",
+        "FACT",
+        "WARNING"
+      ]
+    },
+    "PlayerId": {
+      "description": "Player identifier, unique within a room and never reused: \"p\" followed by a positive integer (p1, p2, …).",
+      "type": "string",
+      "pattern": "^p[1-9][0-9]{0,3}$"
+    },
+    "TextRef": {
+      "description": "Reference to localised player-visible text. The protocol never carries free display text: `key` is a key of `data/strings/<lang>.json`, and `args` supplies substitution values. Receivers format numbers and units locally.",
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "String-table key.",
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,79}$"
+        },
+        "args": {
+          "description": "Substitution values by placeholder name. String values must themselves be data ids or string-table keys, never user text.",
+          "type": "object",
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "propertyNames": {
+            "pattern": "^[a-z][A-Za-z0-9_]{0,23}$"
+          },
+          "maxProperties": 8
+        }
+      },
+      "required": [
+        "key"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "examples": [
+    {
+      "kind": "FACT",
+      "text": {
+        "key": "fact.F12.short"
+      },
+      "factId": "F12",
+      "durationMs": 6000,
+      "to": null
+    }
+  ]
+}

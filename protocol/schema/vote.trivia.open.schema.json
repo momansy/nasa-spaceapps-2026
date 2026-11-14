@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:vote.trivia.open",
+  "title": "vote.trivia.open",
+  "description": "server → host and clients. The vote is tied and FLIGHT's ballot did not decide it: a single fact question is asked. Sent together with vote.stage TIEBREAK_TRIVIA. The first correct answer, in order of arrival at the server, wins the right to pick among the tied options.",
+  "type": "object",
+  "properties": {
+    "roundId": {
+      "description": "Round id.",
+      "$ref": "#/$defs/RoundId"
+    },
+    "question": {
+      "description": "The question without its answer; `id` is the fact id.",
+      "$ref": "#/$defs/QuestionPublic"
+    },
+    "tiedOptionIds": {
+      "description": "The tied options, in display order.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/OptionId"
+      },
+      "minItems": 2,
+      "maxItems": 10,
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "roundId",
+    "question",
+    "tiedOptionIds"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "DataId": {
+      "description": "Identifier of an entry in the shared game data (`data/`): part, part category, contract, test, anomaly card, minigame, fact, codex entry, callout, console request, award, objective, validation rule, cosmetic. 1–48 characters.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,47}$"
+    },
+    "OptionId": {
+      "description": "Identifier of one option inside a vote round. For PART votes it equals the part id; for CONTRACT votes the contract id; for PILOT votes a PlayerId; for quick votes an upper-case token defined in the vote-kind table (e.g. TEST, SKIP).",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,47}$"
+    },
+    "QuestionPublic": {
+      "description": "A multiple-choice question without its answer (server → clients).",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Question or fact id in the game data.",
+          "$ref": "#/$defs/DataId"
+        },
+        "prompt": {
+          "description": "Question text.",
+          "$ref": "#/$defs/TextRef"
+        },
+        "choices": {
+          "description": "Answer choices, in display order.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/TextRef"
+          },
+          "minItems": 2,
+          "maxItems": 4
+        }
+      },
+      "required": [
+        "id",
+        "prompt",
+        "choices"
+      ],
+      "additionalProperties": false
+    },
+    "RoundId": {
+      "description": "Vote round identifier chosen by the host; unique within the room for its whole lifetime.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,39}$"
+    },
+    "TextRef": {
+      "description": "Reference to localised player-visible text. The protocol never carries free display text: `key` is a key of `data/strings/<lang>.json`, and `args` supplies substitution values. Receivers format numbers and units locally.",
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "String-table key.",
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,79}$"
+        },
+        "args": {
+          "description": "Substitution values by placeholder name. String values must themselves be data ids or string-table keys, never user text.",
+          "type": "object",
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "propertyNames": {
+            "pattern": "^[a-z][A-Za-z0-9_]{0,23}$"
+          },
+          "maxProperties": 8
+        }
+      },
+      "required": [
+        "key"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "examples": [
+    {
+      "roundId": "m1.r07",
+      "question": {
+        "id": "F05",
+        "prompt": {
+          "key": "trivia.F05.prompt"
+        },
+        "choices": [
+          {
+            "key": "trivia.F05.a"
+          },
+          {
+            "key": "trivia.F05.b"
+          },
+          {
+            "key": "trivia.F05.c"
+          }
+        ]
+      },
+      "tiedOptionIds": [
+        "eng_kerolox_workhorse",
+        "eng_methalox_reusable"
+      ]
+    }
+  ]
+}

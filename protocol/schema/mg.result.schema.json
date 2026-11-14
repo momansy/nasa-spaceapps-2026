@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:mg.result",
+  "title": "mg.result",
+  "description": "client → server → host (relayed inside `relay`). The compact result of one player's local minigame run. Exactly one per player and run, sent when play ends on the phone. The host accepts results until startAtMs + durationMs + 2000 ms on the server clock, then computes fraction, tier and boosts. Accepted while paused so that a result finished just before a pause is not lost.",
+  "type": "object",
+  "properties": {
+    "runId": {
+      "description": "Run id.",
+      "$ref": "#/$defs/RunId"
+    },
+    "minigameId": {
+      "description": "Minigame id, as in `mg.start`.",
+      "$ref": "#/$defs/DataId"
+    },
+    "success": {
+      "description": "True when the player met the minigame's success condition.",
+      "type": "boolean"
+    },
+    "perfect": {
+      "description": "True when the player met the minigame's \"perfect\" condition (needed by everyone for Platinum). Implies `success`.",
+      "type": "boolean"
+    },
+    "score": {
+      "description": "Performance quality 0–1. Solo rooms: this is the completion fraction (§10.3 Solo). Otherwise it only adds individual score points.",
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "value": {
+      "description": "Raw measurement for minigames whose team median or average steers the flight (MG-09, MG-16, MG-20, MG-22, MG-24), in the unit defined by the minigame; null otherwise.",
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "elapsedMs": {
+      "description": "Local play time in milliseconds.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 120000
+    },
+    "finishedAtMs": {
+      "description": "Sender's estimate of the server clock when play ended.",
+      "$ref": "#/$defs/TimeMs"
+    },
+    "mode": {
+      "description": "Input mode used.",
+      "$ref": "#/$defs/MinigameMode"
+    }
+  },
+  "required": [
+    "runId",
+    "minigameId",
+    "success",
+    "perfect",
+    "score",
+    "value",
+    "elapsedMs",
+    "finishedAtMs",
+    "mode"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "DataId": {
+      "description": "Identifier of an entry in the shared game data (`data/`): part, part category, contract, test, anomaly card, minigame, fact, codex entry, callout, console request, award, objective, validation rule, cosmetic. 1–48 characters.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,47}$"
+    },
+    "MinigameMode": {
+      "description": "Input mode the player used (§16 Motor).",
+      "type": "string",
+      "enum": [
+        "STANDARD",
+        "RELAXED",
+        "ONE_BUTTON"
+      ]
+    },
+    "RunId": {
+      "description": "Minigame run identifier chosen by the host; unique within the room.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,39}$"
+    },
+    "TimeMs": {
+      "description": "Absolute time on the server clock: integer milliseconds since the Unix epoch. Every `…AtMs` field in the protocol uses the server clock (see Clock).",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    }
+  },
+  "examples": [
+    {
+      "runId": "m1.mg08",
+      "minigameId": "MG-08",
+      "success": true,
+      "perfect": false,
+      "score": 0.91,
+      "value": null,
+      "elapsedMs": 19840,
+      "finishedAtMs": 1794650520000,
+      "mode": "STANDARD"
+    }
+  ]
+}

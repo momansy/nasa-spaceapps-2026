@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:roles.lock",
+  "title": "roles.lock",
+  "description": "host → server. The host finalises role assignment in the lobby. The server computes the role groups for the current player count, completes the assignment for the active mode (see Role rules), sets locked = true and broadcasts roles.state. If the host never sends it, the server does the same automatically when the phase leaves LOBBY.",
+  "type": "object",
+  "properties": {},
+  "required": [],
+  "additionalProperties": false,
+  "examples": [
+    {}
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:room.close",
+  "title": "room.close",
+  "description": "host → server. The host ends the session. Every connection receives bye ROOM_CLOSED and all tokens are revoked.",
+  "type": "object",
+  "properties": {},
+  "required": [],
+  "additionalProperties": false,
+  "examples": [
+    {}
+  ]
+}

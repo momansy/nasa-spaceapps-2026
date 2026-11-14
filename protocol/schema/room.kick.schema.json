@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:room.kick",
+  "title": "room.kick",
+  "description": "host → server. The host removes a player. The player receives bye KICKED, the token is revoked, the slot is freed and the roles are redistributed. The person can join again with the room code.",
+  "type": "object",
+  "properties": {
+    "playerId": {
+      "description": "Player to remove.",
+      "$ref": "#/$defs/PlayerId"
+    }
+  },
+  "required": [
+    "playerId"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "PlayerId": {
+      "description": "Player identifier, unique within a room and never reused: \"p\" followed by a positive integer (p1, p2, …).",
+      "type": "string",
+      "pattern": "^p[1-9][0-9]{0,3}$"
+    }
+  },
+  "examples": [
+    {
+      "playerId": "p7"
+    }
+  ]
+}

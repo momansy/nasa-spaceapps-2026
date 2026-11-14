@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:mg.cancel",
+  "title": "mg.cancel",
+  "description": "host → server → client (relayed unchanged). The host abandons the run without a summary (abort, phase jump). Phones leave the minigame screen; no boost, no penalty.",
+  "type": "object",
+  "properties": {
+    "runId": {
+      "description": "Run id.",
+      "$ref": "#/$defs/RunId"
+    },
+    "reason": {
+      "description": "Why it was cancelled.",
+      "$ref": "#/$defs/MgCancelReason"
+    }
+  },
+  "required": [
+    "runId",
+    "reason"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "MgCancelReason": {
+      "description": "Why a minigame run was cancelled.",
+      "type": "string",
+      "enum": [
+        "HOST",
+        "ABORT",
+        "PHASE_CHANGE"
+      ]
+    },
+    "RunId": {
+      "description": "Minigame run identifier chosen by the host; unique within the room.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,39}$"
+    }
+  },
+  "examples": [
+    {
+      "runId": "m1.mg08",
+      "reason": "ABORT"
+    }
+  ]
+}

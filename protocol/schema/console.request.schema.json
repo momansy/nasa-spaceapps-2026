@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:console.request",
+  "title": "console.request",
+  "description": "client → server → host (relayed inside `relay`). A role-holder asks the pilot for an action (for example INCO: \"point antenna\"). The host shows it as a HUD prompt and includes it in pilot.hud.prompts.",
+  "type": "object",
+  "properties": {
+    "role": {
+      "description": "Console the request comes from.",
+      "$ref": "#/$defs/RoleId"
+    },
+    "requestId": {
+      "description": "Which request.",
+      "$ref": "#/$defs/DataId"
+    }
+  },
+  "required": [
+    "role",
+    "requestId"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "DataId": {
+      "description": "Identifier of an entry in the shared game data (`data/`): part, part category, contract, test, anomaly card, minigame, fact, codex entry, callout, console request, award, objective, validation rule, cosmetic. 1–48 characters.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,47}$"
+    },
+    "RoleId": {
+      "description": "Mission Control role (§3.3), in canonical order.",
+      "type": "string",
+      "enum": [
+        "FLIGHT",
+        "BOOSTER",
+        "STRUCT",
+        "GUIDO",
+        "FIDO",
+        "EECOM",
+        "INCO",
+        "PAYLOAD",
+        "RETRO",
+        "PM"
+      ]
+    }
+  },
+  "examples": [
+    {
+      "role": "INCO",
+      "requestId": "point_antenna"
+    }
+  ]
+}

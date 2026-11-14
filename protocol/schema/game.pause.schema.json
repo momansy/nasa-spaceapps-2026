@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:game.pause",
+  "title": "game.pause",
+  "description": "host → server. The host pauses the game. The server freezes every server timer and slot-hold countdown and broadcasts game.paused.",
+  "type": "object",
+  "properties": {},
+  "required": [],
+  "additionalProperties": false,
+  "examples": [
+    {}
+  ]
+}

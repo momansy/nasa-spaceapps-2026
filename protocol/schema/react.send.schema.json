@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:react.send",
+  "title": "react.send",
+  "description": "client → server. An emoji reaction from a player or a spectator. Allowed in every phase and while paused.",
+  "type": "object",
+  "properties": {
+    "emoji": {
+      "description": "Which emoji.",
+      "$ref": "#/$defs/ReactionId"
+    }
+  },
+  "required": [
+    "emoji"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "ReactionId": {
+      "description": "Emoji reaction (§3.4).",
+      "type": "string",
+      "enum": [
+        "ROCKET",
+        "THUMBS_UP",
+        "GRIMACE",
+        "FIRE",
+        "THINKING"
+      ]
+    }
+  },
+  "examples": [
+    {
+      "emoji": "ROCKET"
+    }
+  ]
+}

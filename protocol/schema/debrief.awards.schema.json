@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:debrief.awards",
+  "title": "debrief.awards",
+  "description": "host → server → client (relayed unchanged). Individual recognition. Every player appears and has at least one award. Only positive statistics are carried; there is no ranking.",
+  "type": "object",
+  "properties": {
+    "players": {
+      "description": "One entry per player.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "playerId": {
+            "description": "Player.",
+            "$ref": "#/$defs/PlayerId"
+          },
+          "awardIds": {
+            "description": "Awards (e.g. \"best_callout\", \"budget_hawk\", \"fact_finder\", \"steady_hands\", \"team_player\", \"veto_visionary\", \"rocket_scientist\", \"calm_under_pressure\").",
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/DataId"
+            },
+            "minItems": 1,
+            "maxItems": 4,
+            "uniqueItems": true
+          },
+          "kp": {
+            "description": "Knowledge Points earned this mission.",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000000
+          },
+          "goodCalls": {
+            "description": "Good Calls made.",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10000
+          },
+          "minigameSuccesses": {
+            "description": "Minigames succeeded.",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10000
+          },
+          "predictionsCorrect": {
+            "description": "Correct predictions.",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10000
+          }
+        },
+        "required": [
+          "playerId",
+          "awardIds",
+          "kp",
+          "goodCalls",
+          "minigameSuccesses",
+          "predictionsCorrect"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "maxItems": 10
+    }
+  },
+  "required": [
+    "players"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "DataId": {
+      "description": "Identifier of an entry in the shared game data (`data/`): part, part category, contract, test, anomaly card, minigame, fact, codex entry, callout, console request, award, objective, validation rule, cosmetic. 1–48 characters.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,47}$"
+    },
+    "PlayerId": {
+      "description": "Player identifier, unique within a room and never reused: \"p\" followed by a positive integer (p1, p2, …).",
+      "type": "string",
+      "pattern": "^p[1-9][0-9]{0,3}$"
+    }
+  },
+  "examples": [
+    {
+      "players": [
+        {
+          "playerId": "p1",
+          "awardIds": [
+            "budget_hawk"
+          ],
+          "kp": 100,
+          "goodCalls": 1,
+          "minigameSuccesses": 7,
+          "predictionsCorrect": 2
+        },
+        {
+          "playerId": "p2",
+          "awardIds": [
+            "best_callout"
+          ],
+          "kp": 50,
+          "goodCalls": 3,
+          "minigameSuccesses": 8,
+          "predictionsCorrect": 1
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:ability.use",
+  "title": "ability.use",
+  "description": "client → server. The holder of a role uses its once-per-mission ability. FLIGHT (Decision Time) is resolved by the server: it ends the current VOTE or RUNOFF stage at once, or, during a tie-break, makes optionId win. Every other ability changes the simulation, so the server asks the host with ability.requested and spends the ability only when the host accepts. On success everyone receives ability.used.",
+  "type": "object",
+  "properties": {
+    "role": {
+      "description": "Role whose ability is used.",
+      "$ref": "#/$defs/RoleId"
+    },
+    "roundId": {
+      "description": "FLIGHT only, required: the active vote round.",
+      "$ref": "#/$defs/RoundId"
+    },
+    "optionId": {
+      "description": "FLIGHT only. Required during TIEBREAK_TRIVIA / TIEBREAK_PICK (must be a tied option; it wins). Optional during VOTE / RUNOFF: if the close produces a tie that includes it, it wins.",
+      "$ref": "#/$defs/OptionId"
+    },
+    "stageIndex": {
+      "description": "STRUCT only, required: stage to reinforce (1 = first stage, 2 = upper stage, …).",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 4
+    }
+  },
+  "required": [
+    "role"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "OptionId": {
+      "description": "Identifier of one option inside a vote round. For PART votes it equals the part id; for CONTRACT votes the contract id; for PILOT votes a PlayerId; for quick votes an upper-case token defined in the vote-kind table (e.g. TEST, SKIP).",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,47}$"
+    },
+    "RoleId": {
+      "description": "Mission Control role (§3.3), in canonical order.",
+      "type": "string",
+      "enum": [
+        "FLIGHT",
+        "BOOSTER",
+        "STRUCT",
+        "GUIDO",
+        "FIDO",
+        "EECOM",
+        "INCO",
+        "PAYLOAD",
+        "RETRO",
+        "PM"
+      ]
+    },
+    "RoundId": {
+      "description": "Vote round identifier chosen by the host; unique within the room for its whole lifetime.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,39}$"
+    }
+  },
+  "examples": [
+    {
+      "role": "FLIGHT",
+      "roundId": "m1.r07",
+      "optionId": "eng_kerolox_workhorse"
+    }
+  ]
+}

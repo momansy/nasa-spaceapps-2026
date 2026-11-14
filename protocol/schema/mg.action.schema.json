@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:mg.action",
+  "title": "mg.action",
+  "description": "client → server → host (relayed inside `relay`). A player's move in a minigame with shared state (placing a part in a slot, playing an evidence card, contributing a patch element, a synchronised tap). The host keeps the shared state and broadcasts it with mg.state. Not used by PARALLEL_SOLO minigames.",
+  "type": "object",
+  "properties": {
+    "runId": {
+      "description": "Run id.",
+      "$ref": "#/$defs/RunId"
+    },
+    "n": {
+      "description": "Action counter per player, increasing.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 2147483647
+    },
+    "a": {
+      "description": "Action name defined by the minigame (e.g. \"place\", \"tap\").",
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]{0,23}$"
+    },
+    "x": {
+      "description": "Numeric arguments defined by the minigame (slot index, local timestamp offset in ms, …).",
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "minItems": 0,
+      "maxItems": 8
+    }
+  },
+  "required": [
+    "runId",
+    "n",
+    "a",
+    "x"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "RunId": {
+      "description": "Minigame run identifier chosen by the host; unique within the room.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,39}$"
+    }
+  },
+  "examples": [
+    {
+      "runId": "m1.mg19",
+      "n": 4,
+      "a": "place",
+      "x": [
+        2,
+        5
+      ]
+    }
+  ]
+}

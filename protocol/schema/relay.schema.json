@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:relay",
+  "title": "relay",
+  "description": "server → host. Wrapper for every player message that the server forwards to the host. The server validates the inner message (sender, schema, rate, seat), then forwards it unchanged inside d, adding who sent it. The envelope seq is the server→host sequence; the player's own seq is not forwarded. If the host is disconnected the inner message is rejected with PAUSED and not queued.",
+  "type": "object",
+  "properties": {
+    "from": {
+      "description": "Player who sent the inner message.",
+      "$ref": "#/$defs/PlayerId"
+    },
+    "t": {
+      "description": "Type of the inner message.",
+      "$ref": "#/$defs/RelayedType"
+    },
+    "d": {
+      "description": "Payload of the inner message, exactly as sent by the player and valid against the schema of `t`.",
+      "type": "object"
+    }
+  },
+  "required": [
+    "from",
+    "t",
+    "d"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "PlayerId": {
+      "description": "Player identifier, unique within a room and never reused: \"p\" followed by a positive integer (p1, p2, …).",
+      "type": "string",
+      "pattern": "^p[1-9][0-9]{0,3}$"
+    },
+    "RelayedType": {
+      "description": "Message types a player may send that the server forwards to the host inside `relay`.",
+      "type": "string",
+      "enum": [
+        "pilot.input",
+        "pilot.action",
+        "copilot.action",
+        "console.callout",
+        "console.request",
+        "mg.ready",
+        "mg.progress",
+        "mg.action",
+        "mg.result"
+      ]
+    }
+  },
+  "examples": [
+    {
+      "from": "p3",
+      "t": "mg.result",
+      "d": {
+        "runId": "m1.mg08",
+        "minigameId": "MG-08",
+        "success": true,
+        "perfect": false,
+        "score": 0.91,
+        "value": null,
+        "elapsedMs": 19840,
+        "finishedAtMs": 1794650520000,
+        "mode": "STANDARD"
+      }
+    }
+  ]
+}

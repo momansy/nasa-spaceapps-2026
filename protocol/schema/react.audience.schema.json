@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:react.audience",
+  "title": "react.audience",
+  "description": "server → host and clients. Spectator reactions, aggregated: one message per second in which at least one spectator reacted. Spectators are anonymous.",
+  "type": "object",
+  "properties": {
+    "windowMs": {
+      "description": "Length of the aggregation window. Always 1000.",
+      "type": "integer",
+      "minimum": 100,
+      "maximum": 10000
+    },
+    "counts": {
+      "description": "Reactions received in the window, per emoji.",
+      "$ref": "#/$defs/ReactionCounts"
+    }
+  },
+  "required": [
+    "windowMs",
+    "counts"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "ReactionCounts": {
+      "description": "Number of reactions per emoji.",
+      "type": "object",
+      "properties": {
+        "ROCKET": {
+          "description": "🚀 count.",
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100000
+        },
+        "THUMBS_UP": {
+          "description": "👍 count.",
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100000
+        },
+        "GRIMACE": {
+          "description": "😬 count.",
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100000
+        },
+        "FIRE": {
+          "description": "🔥 count.",
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100000
+        },
+        "THINKING": {
+          "description": "🤔 count.",
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100000
+        }
+      },
+      "required": [
+        "ROCKET",
+        "THUMBS_UP",
+        "GRIMACE",
+        "FIRE",
+        "THINKING"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "examples": [
+    {
+      "windowMs": 1000,
+      "counts": {
+        "ROCKET": 7,
+        "THUMBS_UP": 2,
+        "GRIMACE": 0,
+        "FIRE": 4,
+        "THINKING": 1
+      }
+    }
+  ]
+}

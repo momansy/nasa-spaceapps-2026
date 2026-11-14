@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:flight.event",
+  "title": "flight.event",
+  "description": "host → server → client (relayed unchanged). One flight event for the phone feed: lift-off, Max Q, staging, engine-out, abort, touchdown and so on, with its fact moment.",
+  "type": "object",
+  "properties": {
+    "eventId": {
+      "description": "Event id from the game data (e.g. \"engine_out\", \"meco\").",
+      "$ref": "#/$defs/DataId"
+    },
+    "flightPhase": {
+      "description": "Flight phase in which it happened.",
+      "$ref": "#/$defs/FlightPhase"
+    },
+    "metS": {
+      "description": "Mission elapsed time in seconds (negative before lift-off).",
+      "type": "number"
+    },
+    "severity": {
+      "description": "Severity.",
+      "$ref": "#/$defs/EventSeverity"
+    },
+    "text": {
+      "description": "One-line description.",
+      "$ref": "#/$defs/TextRef"
+    },
+    "factId": {
+      "description": "Fact moment to show; null when none.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/DataId"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "eventId",
+    "flightPhase",
+    "metS",
+    "severity",
+    "text",
+    "factId"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "DataId": {
+      "description": "Identifier of an entry in the shared game data (`data/`): part, part category, contract, test, anomaly card, minigame, fact, codex entry, callout, console request, award, objective, validation rule, cosmetic. 1–48 characters.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,47}$"
+    },
+    "EventSeverity": {
+      "description": "Severity of a flight event.",
+      "type": "string",
+      "enum": [
+        "INFO",
+        "CAUTION",
+        "WARNING",
+        "CRITICAL"
+      ]
+    },
+    "FlightPhase": {
+      "description": "Flight phase (§9.1). F0–F1 belong to COUNTDOWN, F2–F13 to FLIGHT. The parallel booster-return track F7b is signalled by `boosterTrack`, not by a value here; F14 is the DEBRIEF phase.",
+      "type": "string",
+      "enum": [
+        "F0",
+        "F1",
+        "F2",
+        "F3",
+        "F4",
+        "F5",
+        "F6",
+        "F7",
+        "F8",
+        "F9",
+        "F10",
+        "F11",
+        "F12",
+        "F13"
+      ]
+    },
+    "TextRef": {
+      "description": "Reference to localised player-visible text. The protocol never carries free display text: `key` is a key of `data/strings/<lang>.json`, and `args` supplies substitution values. Receivers format numbers and units locally.",
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "String-table key.",
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,79}$"
+        },
+        "args": {
+          "description": "Substitution values by placeholder name. String values must themselves be data ids or string-table keys, never user text.",
+          "type": "object",
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "propertyNames": {
+            "pattern": "^[a-z][A-Za-z0-9_]{0,23}$"
+          },
+          "maxProperties": 8
+        }
+      },
+      "required": [
+        "key"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "examples": [
+    {
+      "eventId": "max_q",
+      "flightPhase": "F4",
+      "metS": 62.4,
+      "severity": "INFO",
+      "text": {
+        "key": "event.max_q"
+      },
+      "factId": "F09"
+    }
+  ]
+}

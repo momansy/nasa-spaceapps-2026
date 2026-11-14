@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:room.created",
+  "title": "room.created",
+  "description": "server → host. Confirms the new room and gives the host everything it shows on the title screen. The host renders joinUrl as the QR code.",
+  "type": "object",
+  "properties": {
+    "room": {
+      "description": "The 4-letter room code.",
+      "$ref": "#/$defs/RoomCode"
+    },
+    "hostToken": {
+      "description": "Host reconnect token. The host must persist it (PlayerPrefs / localStorage) so a refresh can `room.resume`.",
+      "$ref": "#/$defs/Token"
+    },
+    "joinUrl": {
+      "description": "Player join URL and QR content: `<clientBaseUrl>?room=<CODE>`.",
+      "type": "string",
+      "maxLength": 200,
+      "pattern": "^https?://[^\\s?#]+\\?room=[A-HJ-NP-Z]{4}$"
+    },
+    "spectateUrl": {
+      "description": "Audience join URL and QR content: `<clientBaseUrl>?room=<CODE>&watch=1`.",
+      "type": "string",
+      "maxLength": 200,
+      "pattern": "^https?://[^\\s?#]+\\?room=[A-HJ-NP-Z]{4}&watch=1$"
+    },
+    "maxPlayers": {
+      "description": "Player slots. Always 10.",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 10
+    },
+    "slotHoldMs": {
+      "description": "How long a disconnected player keeps slot and roles. Always 180000 (3 min).",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 3600000
+    },
+    "roomHoldMs": {
+      "description": "How long the room survives without its host. Always 600000 (10 min).",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 3600000
+    }
+  },
+  "required": [
+    "room",
+    "hostToken",
+    "joinUrl",
+    "spectateUrl",
+    "maxPlayers",
+    "slotHoldMs",
+    "roomHoldMs"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "RoomCode": {
+      "description": "Room code: exactly 4 upper-case letters from A–Z without I and O (24-letter alphabet). Clients upper-case user input before sending.",
+      "type": "string",
+      "pattern": "^[A-HJ-NP-Z]{4}$"
+    },
+    "Token": {
+      "description": "Opaque reconnect token issued by the server (URL-safe, 16–64 characters). Stored in the browser sessionStorage (phones) or host persistent storage. Never shown on screen.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_-]{16,64}$"
+    }
+  },
+  "examples": [
+    {
+      "room": "KQXM",
+      "hostToken": "hT_5uJ2m9Qe7LwXc1Vb8Nz0A",
+      "joinUrl": "https://play.example.org/?room=KQXM",
+      "spectateUrl": "https://play.example.org/?room=KQXM&watch=1",
+      "maxPlayers": 10,
+      "slotHoldMs": 180000,
+      "roomHoldMs": 600000
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:missionforge:protocol:v1:poll.open",
+  "title": "poll.open",
+  "description": "host → server. The host starts one round of the GO/NO-GO polling ritual. The server calls the consoles one at a time in the given order: each connected player is called once, at the position of the first of their roles in order, and answers for all their roles. The host owns the surrounding flow: after a round with any NO-GO it shows the 15 s discussion and opens round 2; after two NO-GO rounds it opens a REVIEW vote offering Rework (§6.9).",
+  "type": "object",
+  "properties": {
+    "pollId": {
+      "description": "New poll id, never used before in this room.",
+      "$ref": "#/$defs/PollId"
+    },
+    "context": {
+      "description": "FRR or final launch poll.",
+      "$ref": "#/$defs/PollContext"
+    },
+    "round": {
+      "description": "Round number of this poll within the review (1 = first poll, 2 = re-poll).",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9
+    },
+    "order": {
+      "description": "Consoles in call order. Roles not listed are not called.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/RoleId"
+      },
+      "minItems": 1,
+      "maxItems": 10,
+      "uniqueItems": true
+    },
+    "perCallMs": {
+      "description": "Answer window per call in milliseconds. Use 5000 (scaled by the server ×1.5 when `a11y.slowTimers`).",
+      "type": "integer",
+      "minimum": 3000,
+      "maximum": 15000
+    }
+  },
+  "required": [
+    "pollId",
+    "context",
+    "round",
+    "order",
+    "perCallMs"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "PollContext": {
+      "description": "Where the GO/NO-GO poll happens (§4.3, §6.9).",
+      "type": "string",
+      "enum": [
+        "FRR",
+        "LAUNCH"
+      ]
+    },
+    "PollId": {
+      "description": "GO/NO-GO poll identifier chosen by the host; unique within the room.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,39}$"
+    },
+    "RoleId": {
+      "description": "Mission Control role (§3.3), in canonical order.",
+      "type": "string",
+      "enum": [
+        "FLIGHT",
+        "BOOSTER",
+        "STRUCT",
+        "GUIDO",
+        "FIDO",
+        "EECOM",
+        "INCO",
+        "PAYLOAD",
+        "RETRO",
+        "PM"
+      ]
+    }
+  },
+  "examples": [
+    {
+      "pollId": "m1.frr.1",
+      "context": "FRR",
+      "round": 1,
+      "order": [
+        "BOOSTER",
+        "STRUCT",
+        "GUIDO",
+        "FIDO",
+        "EECOM",
+        "INCO",
+        "PAYLOAD",
+        "RETRO",
+        "PM",
+        "FLIGHT"
+      ],
+      "perCallMs": 5000
+    }
+  ]
+}
