@@ -1,0 +1,182 @@
+{
+  "$schema": "../schema/part.schema.json",
+  "category": "communications",
+  "name_key": "category.communications.name",
+  "design_section": "7.17",
+  "design_notes": [
+    "The column is headed \"Data rate (game)\", so stats are game values. The \"Fact\" column is stored in twin. Section 7.2.1 says the satellite reuses this table.",
+    "Relay network subscription has \"Continuous coverage\" in the data-rate column and \"—\" for pointing: it has no data rate and no pointing value, only continuous_coverage. The design lists it beside the radios and does not say whether it replaces a radio or is bought on top of one. Open design question.",
+    "\"$3 M per mission\" (relay) is the only cost in the table and is stored as cost_M 3.",
+    "Laser \"new tech\" is stored as maturity new, as for the engines whose drawback reads \"new tech\". There is no reliability for the band to apply to.",
+    "\"Needs attitude control\" (X-band) is a flag, not a requires_part rule: attitude control is voted only in the satellite Payload Bay, so a hard rule could not be met in other contracts. Ka-band and laser demand finer pointing but the table does not repeat the drawback for them.",
+    "\"Rain fade\" and \"Clouds block it\" have no numbers; they are flags.",
+    "Facts: F34 (TDRS) and F35 (laser comms) are the fact-bank entries of this section. F09 (Deep Space Network sites) is attached to X-band because its fact line is about the Deep Space Network; the bank ties F09 to MG-13.",
+    "No option is restricted to a contract. The relay subscription has no model path: it is a service, not hardware."
+  ],
+  "parts": [
+    {
+      "id": "comm_uhf",
+      "category": "communications",
+      "name_key": "part.comm_uhf.name",
+      "twin": "part.comm_uhf.twin",
+      "strengths": [
+        "part.comm_uhf.strength.1",
+        "part.comm_uhf.strength.2"
+      ],
+      "drawbacks": [
+        "part.comm_uhf.drawback.1"
+      ],
+      "model": "models/comm_uhf.glb",
+      "stats": {
+        "data_rate_GB_per_pass": 0.01,
+        "pointing": "omni"
+      },
+      "game": {},
+      "value_types": {
+        "stats": "game_value"
+      }
+    },
+    {
+      "id": "comm_s_band",
+      "category": "communications",
+      "name_key": "part.comm_s_band.name",
+      "twin": "part.comm_s_band.twin",
+      "strengths": [
+        "part.comm_s_band.strength.1"
+      ],
+      "drawbacks": [
+        "part.comm_s_band.drawback.1"
+      ],
+      "model": "models/comm_s_band.glb",
+      "stats": {
+        "data_rate_GB_per_pass": 0.2,
+        "pointing": "omni_wide"
+      },
+      "game": {},
+      "value_types": {
+        "stats": "game_value"
+      }
+    },
+    {
+      "id": "comm_x_band",
+      "category": "communications",
+      "name_key": "part.comm_x_band.name",
+      "twin": "part.comm_x_band.twin",
+      "strengths": [
+        "part.comm_x_band.strength.1"
+      ],
+      "drawbacks": [
+        "part.comm_x_band.drawback.1"
+      ],
+      "facts": [
+        "F09"
+      ],
+      "model": "models/comm_x_band.glb",
+      "stats": {
+        "data_rate_GB_per_pass": 2,
+        "pointing": "precise"
+      },
+      "game": {},
+      "rules": [
+        {
+          "kind": "flag",
+          "flag": "needs_attitude_control"
+        }
+      ],
+      "value_types": {
+        "stats": "game_value"
+      }
+    },
+    {
+      "id": "comm_ka_band",
+      "category": "communications",
+      "name_key": "part.comm_ka_band.name",
+      "twin": "part.comm_ka_band.twin",
+      "strengths": [
+        "part.comm_ka_band.strength.1"
+      ],
+      "drawbacks": [
+        "part.comm_ka_band.drawback.1"
+      ],
+      "model": "models/comm_ka_band.glb",
+      "stats": {
+        "data_rate_GB_per_pass": 8,
+        "pointing": "very_precise"
+      },
+      "game": {},
+      "rules": [
+        {
+          "kind": "flag",
+          "flag": "rain_fade"
+        }
+      ],
+      "value_types": {
+        "stats": "game_value"
+      }
+    },
+    {
+      "id": "comm_relay_network",
+      "category": "communications",
+      "name_key": "part.comm_relay_network.name",
+      "twin": "part.comm_relay_network.twin",
+      "strengths": [
+        "part.comm_relay_network.strength.1",
+        "part.comm_relay_network.strength.2"
+      ],
+      "drawbacks": [
+        "part.comm_relay_network.drawback.1"
+      ],
+      "facts": [
+        "F34"
+      ],
+      "stats": {
+        "continuous_coverage": true
+      },
+      "game": {
+        "cost_M": 3
+      },
+      "rules": [
+        {
+          "kind": "flag",
+          "flag": "shorter_blackout_gaps"
+        }
+      ],
+      "value_types": {
+        "game": "game_value"
+      }
+    },
+    {
+      "id": "comm_laser",
+      "category": "communications",
+      "name_key": "part.comm_laser.name",
+      "twin": "part.comm_laser.twin",
+      "strengths": [
+        "part.comm_laser.strength.1"
+      ],
+      "drawbacks": [
+        "part.comm_laser.drawback.1",
+        "part.comm_laser.drawback.2"
+      ],
+      "facts": [
+        "F35"
+      ],
+      "model": "models/comm_laser.glb",
+      "stats": {
+        "data_rate_GB_per_pass": 30,
+        "pointing": "extreme"
+      },
+      "game": {
+        "maturity": "new"
+      },
+      "rules": [
+        {
+          "kind": "flag",
+          "flag": "blocked_by_clouds"
+        }
+      ],
+      "value_types": {
+        "stats": "game_value"
+      }
+    }
+  ]
+}

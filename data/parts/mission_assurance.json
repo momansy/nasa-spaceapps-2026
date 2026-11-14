@@ -1,0 +1,111 @@
+{
+  "$schema": "../schema/part.schema.json",
+  "category": "mission_assurance",
+  "name_key": "category.mission_assurance.name",
+  "design_section": "7.20",
+  "design_notes": [
+    "The table has Cost, Days and Effect columns and no Strengths or Drawbacks. Each cell is shown as a strength when it helps the team and as a drawback when it hurts, with the column name in front (\"Cost −15% total\"). Standard has none.",
+    "The \"Fact\" column is stored in twin. F01 (Mars Climate Orbiter) is attached to \"Faster, Cheaper\" because its fact line names that loss; the bank ties F01 to MG-01.",
+    "Cost and Days are relative modifiers on cost_M and schedule_days for the whole mission (\"−15% total\"). The design does not say whether launch site fees, tests and anomaly costs are inside \"total\".",
+    "\"Uncertainty bands ×1.5\" and \"×0.5\" are multipliers on uncertainty_band of all parts. \"+1% reliability on all parts\" is stored as +0.01, read as percentage points (README, open question 9).",
+    "No option is restricted to a contract. No model path: an assurance level is a way of working, not a piece of the rocket."
+  ],
+  "parts": [
+    {
+      "id": "assur_faster_cheaper",
+      "category": "mission_assurance",
+      "name_key": "part.assur_faster_cheaper.name",
+      "twin": "part.assur_faster_cheaper.twin",
+      "strengths": [
+        "part.assur_faster_cheaper.strength.1",
+        "part.assur_faster_cheaper.strength.2"
+      ],
+      "drawbacks": [
+        "part.assur_faster_cheaper.drawback.1"
+      ],
+      "facts": [
+        "F01"
+      ],
+      "stats": {},
+      "game": {},
+      "modifiers": [
+        {
+          "target": "cost_M",
+          "op": "add_fraction",
+          "value": -0.15,
+          "scope": "mission"
+        },
+        {
+          "target": "schedule_days",
+          "op": "add_fraction",
+          "value": -0.1,
+          "scope": "mission"
+        },
+        {
+          "target": "uncertainty_band",
+          "op": "mul",
+          "value": 1.5,
+          "scope": "all_parts"
+        }
+      ],
+      "value_types": {
+        "modifiers": "game_value"
+      }
+    },
+    {
+      "id": "assur_standard",
+      "category": "mission_assurance",
+      "name_key": "part.assur_standard.name",
+      "strengths": [],
+      "drawbacks": [],
+      "stats": {},
+      "game": {},
+      "value_types": {}
+    },
+    {
+      "id": "assur_class_a",
+      "category": "mission_assurance",
+      "name_key": "part.assur_class_a.name",
+      "twin": "part.assur_class_a.twin",
+      "strengths": [
+        "part.assur_class_a.strength.1",
+        "part.assur_class_a.strength.2"
+      ],
+      "drawbacks": [
+        "part.assur_class_a.drawback.1",
+        "part.assur_class_a.drawback.2"
+      ],
+      "stats": {},
+      "game": {},
+      "modifiers": [
+        {
+          "target": "cost_M",
+          "op": "add_fraction",
+          "value": 0.2,
+          "scope": "mission"
+        },
+        {
+          "target": "schedule_days",
+          "op": "add_fraction",
+          "value": 0.15,
+          "scope": "mission"
+        },
+        {
+          "target": "uncertainty_band",
+          "op": "mul",
+          "value": 0.5,
+          "scope": "all_parts"
+        },
+        {
+          "target": "reliability",
+          "op": "add",
+          "value": 0.01,
+          "scope": "all_parts"
+        }
+      ],
+      "value_types": {
+        "modifiers": "game_value"
+      }
+    }
+  ]
+}

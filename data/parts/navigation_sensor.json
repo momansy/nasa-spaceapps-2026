@@ -1,0 +1,165 @@
+{
+  "$schema": "../schema/part.schema.json",
+  "category": "navigation_sensor",
+  "name_key": "category.navigation_sensor.name",
+  "design_section": "7.14",
+  "design_notes": [
+    "The \"Fact\" column is stored in twin. F38 is the fact-bank entry for terrain-relative navigation.",
+    "Insertion errors are stored without the ± sign (±25 km is insertion_error_km 25). They are game values.",
+    "\"+ Terrain-relative navigation\" is read as an add-on to the row above it (IMU + GNSS + star tracker), so add_on_to names that part. The design does not say whether it can extend the two cheaper options, or whether $6 M is the price of the add-on or of the whole set. It has no insertion error of its own; Core should take it from the part it extends.",
+    "\"Landing ellipse −60%\" is a modifier on landing_ellipse_km.",
+    "Terrain-relative navigation: \"Precision landing (C7, C8)\" with \"Mars/landing only\" is read as offered in C7 and C8 only. The other options carry no contracts list because the design does not restrict them.",
+    "guidance_drift (8.4: \"IMU-only\") is listed only for IMU only.",
+    "\"Drifts over time\", \"Less useful far beyond LEO\", \"Blinded near the Sun\", \"Needed for precise pointing & deep space\" and \"complex\" have no numbers; they are flags.",
+    "The design gives no reliability for navigation sensors, so these parts do not roll."
+  ],
+  "parts": [
+    {
+      "id": "nav_imu_only",
+      "category": "navigation_sensor",
+      "name_key": "part.nav_imu_only.name",
+      "twin": "part.nav_imu_only.twin",
+      "strengths": [
+        "part.nav_imu_only.strength.1"
+      ],
+      "drawbacks": [
+        "part.nav_imu_only.drawback.1"
+      ],
+      "model": "models/nav_imu_only.glb",
+      "stats": {
+        "insertion_error_km": 25
+      },
+      "game": {
+        "cost_M": 0.5
+      },
+      "rules": [
+        {
+          "kind": "flag",
+          "flag": "drifts_over_time"
+        }
+      ],
+      "failure_modes": [
+        "guidance_drift"
+      ],
+      "value_types": {
+        "stats": "game_value",
+        "game": "game_value"
+      }
+    },
+    {
+      "id": "nav_imu_gnss",
+      "category": "navigation_sensor",
+      "name_key": "part.nav_imu_gnss.name",
+      "twin": "part.nav_imu_gnss.twin",
+      "strengths": [
+        "part.nav_imu_gnss.strength.1"
+      ],
+      "drawbacks": [
+        "part.nav_imu_gnss.drawback.1"
+      ],
+      "model": "models/nav_imu_gnss.glb",
+      "stats": {
+        "insertion_error_km": 3
+      },
+      "game": {
+        "cost_M": 1
+      },
+      "rules": [
+        {
+          "kind": "flag",
+          "flag": "less_useful_beyond_leo"
+        }
+      ],
+      "value_types": {
+        "stats": "game_value",
+        "game": "game_value"
+      }
+    },
+    {
+      "id": "nav_imu_gnss_star_tracker",
+      "category": "navigation_sensor",
+      "name_key": "part.nav_imu_gnss_star_tracker.name",
+      "twin": "part.nav_imu_gnss_star_tracker.twin",
+      "strengths": [
+        "part.nav_imu_gnss_star_tracker.strength.1"
+      ],
+      "drawbacks": [
+        "part.nav_imu_gnss_star_tracker.drawback.1"
+      ],
+      "model": "models/nav_imu_gnss_star_tracker.glb",
+      "stats": {
+        "insertion_error_km": 1,
+        "precise_attitude": true
+      },
+      "game": {
+        "cost_M": 3
+      },
+      "rules": [
+        {
+          "kind": "flag",
+          "flag": "precise_pointing"
+        },
+        {
+          "kind": "flag",
+          "flag": "deep_space_navigation"
+        },
+        {
+          "kind": "flag",
+          "flag": "blinded_near_sun"
+        }
+      ],
+      "value_types": {
+        "stats": "game_value",
+        "game": "game_value"
+      }
+    },
+    {
+      "id": "nav_terrain_relative",
+      "category": "navigation_sensor",
+      "name_key": "part.nav_terrain_relative.name",
+      "twin": "part.nav_terrain_relative.twin",
+      "strengths": [
+        "part.nav_terrain_relative.strength.1"
+      ],
+      "drawbacks": [
+        "part.nav_terrain_relative.drawback.1",
+        "part.nav_terrain_relative.drawback.2"
+      ],
+      "facts": [
+        "F38"
+      ],
+      "contracts": [
+        "C7",
+        "C8"
+      ],
+      "model": "models/nav_terrain_relative.glb",
+      "stats": {
+        "add_on_to": "nav_imu_gnss_star_tracker"
+      },
+      "game": {
+        "cost_M": 6
+      },
+      "modifiers": [
+        {
+          "target": "landing_ellipse_km",
+          "op": "add_fraction",
+          "value": -0.6
+        }
+      ],
+      "rules": [
+        {
+          "kind": "flag",
+          "flag": "landing_only"
+        },
+        {
+          "kind": "flag",
+          "flag": "complex_system"
+        }
+      ],
+      "value_types": {
+        "game": "game_value",
+        "modifiers": "game_value"
+      }
+    }
+  ]
+}
