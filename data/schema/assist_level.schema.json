@@ -1,0 +1,137 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "assist_level.schema.json",
+  "title": "MissionForge assist levels",
+  "description": "Assist levels, the difficulty setting of design section 9.3.",
+  "x-data-files": [
+    "assist_levels.json"
+  ],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Optional relative path to the JSON Schema of this file, for editor support. Loaders ignore it."
+    },
+    "design_notes": {
+      "$ref": "common.schema.json#/$defs/design_notes",
+      "description": "Designer-facing notes about ambiguities or decisions. Never shown to players and never localised."
+    },
+    "assist_levels": {
+      "type": "array",
+      "description": "Levels from most to least assistance.",
+      "items": {
+        "$ref": "#/$defs/assist_level"
+      },
+      "minItems": 1
+    },
+    "value_types": {
+      "type": "object",
+      "description": "Provenance tags.",
+      "additionalProperties": false,
+      "properties": {
+        "assist_levels": {
+          "$ref": "common.schema.json#/$defs/value_type",
+          "description": "Tag of the score multipliers."
+        }
+      },
+      "required": [
+        "assist_levels"
+      ]
+    }
+  },
+  "required": [
+    "assist_levels",
+    "value_types"
+  ],
+  "x-value-groups": [
+    "assist_levels"
+  ],
+  "$defs": {
+    "assist_level": {
+      "type": "object",
+      "description": "One assist level.",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/snake_id",
+          "description": "Unique level ID, for example cadet.",
+          "x-id": "assist_level"
+        },
+        "name_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the level name."
+        },
+        "ascent_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the Ascent column."
+        },
+        "orbit_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the Orbit column."
+        },
+        "entry_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the Entry column."
+        },
+        "aids": {
+          "type": "object",
+          "description": "Machine-readable form of the three columns. Core must implement or deliberately ignore each marker.",
+          "additionalProperties": false,
+          "properties": {
+            "ascent": {
+              "type": "array",
+              "description": "Markers for ascent.",
+              "items": {
+                "$ref": "common.schema.json#/$defs/flag",
+                "description": "One marker."
+              },
+              "uniqueItems": true
+            },
+            "orbit": {
+              "type": "array",
+              "description": "Markers for orbit.",
+              "items": {
+                "$ref": "common.schema.json#/$defs/flag",
+                "description": "One marker."
+              },
+              "uniqueItems": true
+            },
+            "entry": {
+              "type": "array",
+              "description": "Markers for entry.",
+              "items": {
+                "$ref": "common.schema.json#/$defs/flag",
+                "description": "One marker."
+              },
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "ascent",
+            "orbit",
+            "entry"
+          ]
+        },
+        "score_multiplier": {
+          "type": "number",
+          "description": "Difficulty multiplier of the mission score (x0.8 is 0.8).",
+          "exclusiveMinimum": 0
+        },
+        "design_notes": {
+          "$ref": "common.schema.json#/$defs/design_notes",
+          "description": "Designer-facing notes about ambiguities or decisions. Never shown to players and never localised."
+        }
+      },
+      "required": [
+        "id",
+        "name_key",
+        "ascent_key",
+        "orbit_key",
+        "entry_key",
+        "aids",
+        "score_multiplier"
+      ]
+    }
+  }
+}

@@ -1,0 +1,148 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "flight_phase.schema.json",
+  "title": "MissionForge flight phases",
+  "description": "The flight phases of design section 9.1. Phase IDs (F0 to F14, F7b) share the letter F with fact IDs (F01 to F40): a phase ID only ever appears in a field named phase, parallel_with or flight_phases, a fact ID in a field named facts.",
+  "x-data-files": [
+    "flight_phases.json"
+  ],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Optional relative path to the JSON Schema of this file, for editor support. Loaders ignore it."
+    },
+    "design_notes": {
+      "$ref": "common.schema.json#/$defs/design_notes",
+      "description": "Designer-facing notes about ambiguities or decisions. Never shown to players and never localised."
+    },
+    "flight_phases": {
+      "type": "array",
+      "description": "Phases in flight order.",
+      "items": {
+        "$ref": "#/$defs/flight_phase"
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "flight_phases"
+  ],
+  "$defs": {
+    "flight_phase": {
+      "type": "object",
+      "description": "One flight phase.",
+      "additionalProperties": false,
+      "properties": {
+        "phase": {
+          "$ref": "common.schema.json#/$defs/flight_phase",
+          "description": "Unique flight-phase ID (not a fact ID).",
+          "x-id": "flight_phase"
+        },
+        "name_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the phase name."
+        },
+        "parallel_with": {
+          "$ref": "common.schema.json#/$defs/flight_phase",
+          "description": "Flight phase this one runs alongside as a parallel track (F7b runs alongside F7)."
+        },
+        "second_pilot": {
+          "type": "boolean",
+          "description": "True if a second pilot flies this phase in split screen."
+        },
+        "pilot_actions_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the Pilot actions column. Omit when the design shows a dash."
+        },
+        "console_duties_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the Console duties column. Omit when the design shows a dash."
+        },
+        "console_roles": {
+          "type": "array",
+          "description": "Roles the Console duties column names.",
+          "items": {
+            "$ref": "common.schema.json#/$defs/role_ref",
+            "description": "One role."
+          },
+          "uniqueItems": true
+        },
+        "all_consoles": {
+          "type": "boolean",
+          "description": "True if the Console duties column addresses every console."
+        },
+        "phones_show_static": {
+          "type": "boolean",
+          "description": "True if non-pilot phones show static during the phase (plasma blackout)."
+        },
+        "minigames": {
+          "type": "array",
+          "description": "Minigames that can occur in the phase: the Minigames column plus the minigames whose When line in design section 10.5 names the phase. Conditions are in the triggers of data/minigames.json.",
+          "items": {
+            "$ref": "common.schema.json#/$defs/minigame_ref",
+            "description": "One minigame."
+          },
+          "uniqueItems": true
+        },
+        "possible_events": {
+          "type": "array",
+          "description": "The Possible events column, one entry per event.",
+          "items": {
+            "type": "object",
+            "description": "One possible event.",
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "$ref": "common.schema.json#/$defs/flag",
+                "description": "Event ID, unique within the file. Minigame triggers of kind event use the same IDs."
+              },
+              "name_key": {
+                "$ref": "common.schema.json#/$defs/string_key",
+                "description": "String key of the event as printed."
+              },
+              "failure_mode": {
+                "$ref": "common.schema.json#/$defs/failure_mode",
+                "description": "Failure mode of design section 8.4 that produces the event, where one matches."
+              },
+              "abort_mode": {
+                "$ref": "common.schema.json#/$defs/snake_id",
+                "x-ref": "abort_mode",
+                "description": "Abort mode of data/abort_modes.json the event leads to, where the design names one."
+              }
+            },
+            "required": [
+              "id",
+              "name_key"
+            ]
+          }
+        },
+        "fact_moment_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the Fact moment column."
+        },
+        "facts": {
+          "type": "array",
+          "description": "Fact-bank IDs (F01 to F40, not flight phases) that state the same fact as the Fact moment column.",
+          "items": {
+            "$ref": "common.schema.json#/$defs/fact_ref",
+            "description": "One fact ID."
+          },
+          "uniqueItems": true
+        },
+        "design_notes": {
+          "$ref": "common.schema.json#/$defs/design_notes",
+          "description": "Designer-facing notes about ambiguities or decisions. Never shown to players and never localised."
+        }
+      },
+      "required": [
+        "phase",
+        "name_key",
+        "minigames",
+        "possible_events",
+        "fact_moment_key"
+      ]
+    }
+  }
+}

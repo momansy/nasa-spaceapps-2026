@@ -94,6 +94,11 @@
               "type": "number",
               "description": "Required time on orbit in days.",
               "minimum": 0
+            },
+            "apogee_km": {
+              "type": "number",
+              "description": "Target apogee altitude in km of an elliptical transfer orbit (C5: geostationary altitude).",
+              "minimum": 0
             }
           },
           "required": [
@@ -108,14 +113,15 @@
           "properties": {
             "kind": {
               "type": "string",
-              "description": "Kind of payload.",
+              "description": "Kind of payload. generic_payload is a payload the design describes only by its mass (C8).",
               "enum": [
                 "science_package",
                 "satellite",
                 "cargo_capsule",
                 "crew_capsule",
                 "capsule",
-                "lander"
+                "lander",
+                "generic_payload"
               ]
             },
             "description_key": {
@@ -257,6 +263,10 @@
             "skip_entry_optional": {
               "type": "boolean",
               "description": "True if a skip entry may be chosen."
+            },
+            "heat_shield_required": {
+              "type": "boolean",
+              "description": "True if the returning payload needs a heat shield, so the contract has a heat-shield vote. False for a return that is too slow to need one (C0, suborbital): rule 6.11 \"Returning payload without heat shield\" must then not fire even though payload_returns is true."
             }
           },
           "required": []

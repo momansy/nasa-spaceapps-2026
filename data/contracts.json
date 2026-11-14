@@ -2,7 +2,12 @@
   "$schema": "./schema/contract.schema.json",
   "design_notes": [
     "Vote lists follow the annotations of section 6.2: step 2 uses the Payload Bay sub-votes that section 7.2 defines for the contract, step 3 applies to capsule contracts, step 4 to crewed contracts, step 5 to non-capsule contracts, steps 6 to 21 to every contract. Step 18 is two votes (aerodynamic control, RCS).",
-    "A vote lists options only where the design enumerates them for the contract (tank sizes in 7.9, the C1 Payload Bay tables in 7.2.1). Every other vote takes its options from the contracts list of the parts."
+    "A vote lists options only where the design enumerates them for the contract: tank sizes (7.9, \"Shown for contracts\"), the Payload Bay tables of 7.2 (satellite, capsule, life support, Mars lander), the launch escape systems of 7.4 and the booster landing options of C8. Every other vote takes its options from the contracts list of the parts.",
+    "Payload Bay sub-votes by contract: C1 instrument, satellite power, attitude control; C2 and C5 satellite power and attitude control (7.2.1 is headed \"Satellite contracts (C1, C2, C5)\" and only the instrument table is marked C1); C3 capsule; C4 and C6 capsule and life support; C7 Mars lander; C0 and C8 none. payload.designed_by_team and requirements.payload_bay_design are true wherever step 2 has votes.",
+    "Decision: C6 Lunar Loop is treated as crewed. Table 5.1 does not say so (no crew count, no escape-system rule; it cites Apollo 8, crewed, and Artemis I, uncrewed), but the parts catalog only makes sense with a second, longer crewed contract: the Deep-space capsule (10 t, the C6 payload mass; 4 crew, 21 days, lunar-rated life support), life support that is \"heavy for long trips\", and 5.2 speaks of \"crewed contracts\". To be confirmed by the design owner; if C6 is uncrewed, drop its life_support and escape_system votes and its safety objective.",
+    "Objectives: C1, C3 and C7 are those of section 5.3. For C0, C2, C4, C5, C6 and C8 the design gives none; they are composed from table 5.1 and the examples of 5.2 and need confirmation. Orbit tolerances reuse the C1 values of 5.3 (altitude ±25 km, inclination ±0.2°). Every other threshold is taken from a number the design uses elsewhere and is named in the note of its contract.",
+    "Vote counts by the 6.2 annotations: C0 19, C1 22, C2 21, C3 21, C4 23, C5 21, C6 23, C7 20, C8 19. Section 2.2 expects 14 to 20 per build; the design does not say which votes a contract drops.",
+    "Payload masses are those of table 5.1. The masses of the voted payload parts (7.2) differ: satellite components add up to far less than 150 kg, 400 kg or 4 t; capsules weigh 6 t, 9 t and 10 t against 6 t (C3), 8 t (C4) and 10 t (C6); landers weigh 0.6 t to 1.0 t against 1 t. The design does not say how the two relate."
   ],
   "contracts": [
     {
@@ -30,7 +35,8 @@
       "requirements": {
         "crewed": false,
         "payload_returns": true,
-        "payload_recovery": "parachute"
+        "payload_recovery": "parachute",
+        "heat_shield_required": false
       },
       "objectives": {
         "primary": {
@@ -222,7 +228,9 @@
       "design_notes": [
         "The design gives C0 only its row in table 5.1. The primary objective is composed from the Destination and Special rules cells. The secondary and stretch objectives are the generic examples of section 5.2, chosen to satisfy its structure (2 to 3 secondary, 1 stretch); they need confirmation by the design owner.",
         "Payload mass 0.1 t is stored as 100 kg.",
-        "Section 6.2 gives no vote for the mandatory parachute recovery of a non-capsule payload (step 3 is for capsule contracts), and section 7.2 defines no Payload Bay sub-votes for C0. The requirement is recorded in requirements.payload_recovery; how it is satisfied in the build is an open design question. requirements.payload_returns is true, so the heat-shield rule of 6.11 would fire as written; the design does not say whether a suborbital return needs a shield.",
+        "Decision (design silent): the mandatory parachute is fixed equipment of the science package and is not voted. Section 6.2 gives a recovery vote only to capsule contracts (step 3) and section 7.2 defines no Payload Bay sub-votes for C0, so the capsule-recovery options list C3, C4 and C6 only. requirements.payload_recovery records the rule; the parachute still opens in flight phase F12 (minigame MG-23). If the team wants the recovery voted, the two parachute options of 7.19 would have to list C0.",
+        "Decision (design silent): a suborbital return needs no heat shield. requirements.heat_shield_required is false, so rule 6.11 \"Returning payload without heat shield\" (returning_payload_without_heat_shield) must not fire for C0 although payload_returns is true. The shields of 7.3 are sized and priced for a 9 t capsule ($8 M to $16 M) and would not fit a 100 kg package or a $25 M budget.",
+        "Playability, rough check with the part tables (to be confirmed by Core): with XS tanks the stack is about 17 t; nine Electric-Pump Minis (216 kN) give a lift-off TWR of about 1.3 and one Kerolox Workhorse (850 kN) also lifts it, and the first stage alone gives well over the 2.0 km/s needed. Valid builds differ by first-stage engine (9 Electric-Pump Minis or 1 Kerolox Workhorse), launch site (four options), upper-stage engine and structural material, so there are more than three.",
         "By the 6.2 annotations C0 has 19 votes, which is long for a tutorial; the design does not shorten it."
       ]
     },
@@ -509,6 +517,1784 @@
         "The satellite communications and power-storage choices reuse sections 7.16 and 7.17 (note under 7.2.1), so they are the power_system and communications votes of steps 19 and 20, not extra Payload Bay sub-votes. Appendix A shows three Payload Bay votes.",
         "The 150 kg payload is the game value of table 5.1; the masses of the voted satellite components (7.2.1) add up to far less, and the design does not say how the two relate.",
         "Appendix A shows these options offered in C1: West Coast Polar Range; Kerolox Vacuum and Hydrolox Vacuum; Electric-Pump Mini and Kerolox Workhorse; 3 and 9 first-stage engines; S and M tanks."
+      ]
+    },
+    {
+      "id": "C2",
+      "name_key": "contract.C2.name",
+      "tutorial": false,
+      "inspired_by_key": "contract.C2.inspired_by",
+      "destination": {
+        "type": "low_earth_orbit",
+        "description_key": "contract.C2.destination",
+        "altitude_km": 500,
+        "inclination_deg": 53
+      },
+      "payload": {
+        "kind": "satellite",
+        "description_key": "contract.C2.payload",
+        "mass_kg": 400,
+        "count": 3,
+        "designed_by_team": true
+      },
+      "delta_v_required_km_s": 9.5,
+      "budget_M": 120,
+      "schedule_days": 200,
+      "special_rule_keys": [
+        "contract.C2.special_rule.1",
+        "contract.C2.special_rule.2"
+      ],
+      "requirements": {
+        "crewed": false,
+        "upper_stage_restarts_min": 3,
+        "payload_deployments": 3,
+        "payload_bay_design": true
+      },
+      "objectives": {
+        "primary": {
+          "id": "deploy_all_satellites",
+          "text_key": "contract.C2.objective.primary",
+          "criteria": [
+            {
+              "metric": "satellites_deployed",
+              "op": "gte",
+              "value": 3
+            },
+            {
+              "metric": "orbit_altitude_km",
+              "op": "within",
+              "value": 500,
+              "tolerance": 25
+            },
+            {
+              "metric": "inclination_deg",
+              "op": "within",
+              "value": 53,
+              "tolerance": 0.2
+            }
+          ]
+        },
+        "secondary": [
+          {
+            "id": "under_budget",
+            "text_key": "contract.C2.objective.secondary.1",
+            "criteria": [
+              {
+                "metric": "budget_remaining_M",
+                "op": "gte",
+                "value": 0
+              }
+            ]
+          },
+          {
+            "id": "booster_recovered",
+            "text_key": "contract.C2.objective.secondary.2",
+            "criteria": [
+              {
+                "metric": "booster_recovered",
+                "op": "is_true"
+              }
+            ]
+          }
+        ],
+        "stretch": {
+          "id": "deploy_within_3_km",
+          "text_key": "contract.C2.objective.stretch",
+          "criteria": [
+            {
+              "metric": "deployment_altitude_error_max_km",
+              "op": "lte",
+              "value": 3
+            }
+          ]
+        }
+      },
+      "votes": [
+        {
+          "step": 1,
+          "id": "launch_site",
+          "category": "launch_site",
+          "name_key": "vote.launch_site.name"
+        },
+        {
+          "step": 2,
+          "id": "satellite_power",
+          "category": "satellite_power",
+          "name_key": "vote.satellite_power.name",
+          "options": [
+            "satpwr_body_mounted_solar_cells",
+            "satpwr_deployable_solar_wings",
+            "satpwr_large_deployable_array"
+          ]
+        },
+        {
+          "step": 2,
+          "id": "attitude_control",
+          "category": "attitude_control",
+          "name_key": "vote.attitude_control.name",
+          "options": [
+            "adcs_magnetorquers_only",
+            "adcs_reaction_wheels",
+            "adcs_reaction_wheels_star_tracker"
+          ]
+        },
+        {
+          "step": 5,
+          "id": "fairing",
+          "category": "fairing",
+          "name_key": "vote.fairing.name"
+        },
+        {
+          "step": 6,
+          "id": "upper_stage_engine",
+          "category": "upper_stage_engine",
+          "name_key": "vote.upper_stage_engine.name"
+        },
+        {
+          "step": 7,
+          "id": "upper_stage_engine_count",
+          "category": "engine_count",
+          "stage": "upper",
+          "name_key": "vote.upper_stage_engine_count.name"
+        },
+        {
+          "step": 8,
+          "id": "upper_stage_tank_size",
+          "category": "tank_size",
+          "stage": "upper",
+          "name_key": "vote.upper_stage_tank_size.name",
+          "options": [
+            "tank_s",
+            "tank_m"
+          ]
+        },
+        {
+          "step": 9,
+          "id": "separation_system",
+          "category": "separation_system",
+          "name_key": "vote.separation_system.name"
+        },
+        {
+          "step": 10,
+          "id": "first_stage_engine",
+          "category": "first_stage_engine",
+          "name_key": "vote.first_stage_engine.name"
+        },
+        {
+          "step": 11,
+          "id": "first_stage_engine_count",
+          "category": "engine_count",
+          "stage": "first",
+          "name_key": "vote.first_stage_engine_count.name"
+        },
+        {
+          "step": 12,
+          "id": "first_stage_tank_size",
+          "category": "tank_size",
+          "stage": "first",
+          "name_key": "vote.first_stage_tank_size.name",
+          "options": [
+            "tank_s",
+            "tank_m"
+          ]
+        },
+        {
+          "step": 13,
+          "id": "structural_material",
+          "category": "structural_material",
+          "name_key": "vote.structural_material.name"
+        },
+        {
+          "step": 14,
+          "id": "strap_on_booster",
+          "category": "strap_on_booster",
+          "name_key": "vote.strap_on_booster.name"
+        },
+        {
+          "step": 15,
+          "id": "booster_recovery",
+          "category": "booster_recovery",
+          "name_key": "vote.booster_recovery.name"
+        },
+        {
+          "step": 16,
+          "id": "avionics",
+          "category": "avionics",
+          "name_key": "vote.avionics.name"
+        },
+        {
+          "step": 17,
+          "id": "navigation_sensor",
+          "category": "navigation_sensor",
+          "name_key": "vote.navigation_sensor.name"
+        },
+        {
+          "step": 18,
+          "id": "aero_control",
+          "category": "aero_control",
+          "name_key": "vote.aero_control.name"
+        },
+        {
+          "step": 18,
+          "id": "rcs",
+          "category": "rcs",
+          "name_key": "vote.rcs.name"
+        },
+        {
+          "step": 19,
+          "id": "power_system",
+          "category": "power_system",
+          "name_key": "vote.power_system.name"
+        },
+        {
+          "step": 20,
+          "id": "communications",
+          "category": "communications",
+          "name_key": "vote.communications.name"
+        },
+        {
+          "step": 21,
+          "id": "mission_assurance",
+          "category": "mission_assurance",
+          "name_key": "vote.mission_assurance.name"
+        }
+      ],
+      "value_types": {
+        "destination": "real_world_approximate",
+        "payload": "game_value",
+        "delta_v_required_km_s": "real_world_approximate",
+        "budget_M": "game_value",
+        "schedule_days": "game_value",
+        "objectives": "game_value",
+        "requirements": "game_value"
+      },
+      "design_notes": [
+        "The design gives C2 only its row in table 5.1. \"Upper stage must restart 3×; deploy each\" is stored as upper_stage_restarts_min 3 and payload_deployments 3.",
+        "Objectives are composed (design silent). Primary: the three deployments at the table orbit with the C1 tolerances. Secondary: \"under budget\" and \"booster landed\", both examples of 5.2. Stretch: every deployment within 3 km of the target altitude; 3 km is the insertion error of IMU + GNSS in 7.14, so the stretch rewards good navigation sensors. To be confirmed.",
+        "The comm sats have no instrument vote: the instrument table of 7.2.1 is marked \"(C1 Earth Watch)\". The power and pointing figures of 7.2.1 are smallsat-sized (3 to 20 kg) against a 400 kg satellite; the design does not scale them."
+      ]
+    },
+    {
+      "id": "C3",
+      "name_key": "contract.C3.name",
+      "tutorial": false,
+      "inspired_by_key": "contract.C3.inspired_by",
+      "destination": {
+        "type": "space_station_orbit",
+        "description_key": "contract.C3.destination",
+        "altitude_km": 420,
+        "inclination_deg": 51.6
+      },
+      "payload": {
+        "kind": "cargo_capsule",
+        "description_key": "contract.C3.payload",
+        "mass_kg": 6000,
+        "count": 1,
+        "designed_by_team": true
+      },
+      "delta_v_required_km_s": 9.6,
+      "delta_v_payload_km_s": 0.3,
+      "budget_M": 250,
+      "schedule_days": 240,
+      "special_rule_keys": [
+        "contract.C3.special_rule.1",
+        "contract.C3.special_rule.2",
+        "contract.C3.special_rule.3"
+      ],
+      "requirements": {
+        "crewed": false,
+        "payload_returns": true,
+        "heat_shield_required": true,
+        "rendezvous_docking": true,
+        "short_launch_window": true,
+        "payload_bay_design": true
+      },
+      "objectives": {
+        "primary": {
+          "id": "dock_and_deliver_cargo",
+          "text_key": "contract.C3.objective.primary",
+          "criteria": [
+            {
+              "metric": "docked_with_station",
+              "op": "is_true"
+            },
+            {
+              "metric": "cargo_delivered",
+              "op": "is_true"
+            }
+          ]
+        },
+        "secondary": [
+          {
+            "id": "return_1_t_cargo",
+            "text_key": "contract.C3.objective.secondary.1",
+            "criteria": [
+              {
+                "metric": "cargo_returned_t",
+                "op": "gte",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "launch_on_first_attempt",
+            "text_key": "contract.C3.objective.secondary.2",
+            "criteria": [
+              {
+                "metric": "launch_scrubs",
+                "op": "eq",
+                "value": 0
+              }
+            ]
+          }
+        ],
+        "stretch": {
+          "id": "dock_under_0_05_m_s",
+          "text_key": "contract.C3.objective.stretch",
+          "criteria": [
+            {
+              "metric": "docking_contact_speed_m_s",
+              "op": "lt",
+              "value": 0.05
+            }
+          ]
+        }
+      },
+      "votes": [
+        {
+          "step": 1,
+          "id": "launch_site",
+          "category": "launch_site",
+          "name_key": "vote.launch_site.name"
+        },
+        {
+          "step": 2,
+          "id": "capsule",
+          "category": "capsule",
+          "name_key": "vote.capsule.name",
+          "options": [
+            "cap_compact",
+            "cap_standard",
+            "cap_deep_space"
+          ]
+        },
+        {
+          "step": 3,
+          "id": "heat_shield",
+          "category": "heat_shield",
+          "name_key": "vote.heat_shield.name"
+        },
+        {
+          "step": 3,
+          "id": "capsule_recovery",
+          "category": "capsule_recovery",
+          "name_key": "vote.capsule_recovery.name"
+        },
+        {
+          "step": 6,
+          "id": "upper_stage_engine",
+          "category": "upper_stage_engine",
+          "name_key": "vote.upper_stage_engine.name"
+        },
+        {
+          "step": 7,
+          "id": "upper_stage_engine_count",
+          "category": "engine_count",
+          "stage": "upper",
+          "name_key": "vote.upper_stage_engine_count.name"
+        },
+        {
+          "step": 8,
+          "id": "upper_stage_tank_size",
+          "category": "tank_size",
+          "stage": "upper",
+          "name_key": "vote.upper_stage_tank_size.name",
+          "options": [
+            "tank_m",
+            "tank_l"
+          ]
+        },
+        {
+          "step": 9,
+          "id": "separation_system",
+          "category": "separation_system",
+          "name_key": "vote.separation_system.name"
+        },
+        {
+          "step": 10,
+          "id": "first_stage_engine",
+          "category": "first_stage_engine",
+          "name_key": "vote.first_stage_engine.name"
+        },
+        {
+          "step": 11,
+          "id": "first_stage_engine_count",
+          "category": "engine_count",
+          "stage": "first",
+          "name_key": "vote.first_stage_engine_count.name"
+        },
+        {
+          "step": 12,
+          "id": "first_stage_tank_size",
+          "category": "tank_size",
+          "stage": "first",
+          "name_key": "vote.first_stage_tank_size.name",
+          "options": [
+            "tank_m",
+            "tank_l"
+          ]
+        },
+        {
+          "step": 13,
+          "id": "structural_material",
+          "category": "structural_material",
+          "name_key": "vote.structural_material.name"
+        },
+        {
+          "step": 14,
+          "id": "strap_on_booster",
+          "category": "strap_on_booster",
+          "name_key": "vote.strap_on_booster.name"
+        },
+        {
+          "step": 15,
+          "id": "booster_recovery",
+          "category": "booster_recovery",
+          "name_key": "vote.booster_recovery.name"
+        },
+        {
+          "step": 16,
+          "id": "avionics",
+          "category": "avionics",
+          "name_key": "vote.avionics.name"
+        },
+        {
+          "step": 17,
+          "id": "navigation_sensor",
+          "category": "navigation_sensor",
+          "name_key": "vote.navigation_sensor.name"
+        },
+        {
+          "step": 18,
+          "id": "aero_control",
+          "category": "aero_control",
+          "name_key": "vote.aero_control.name"
+        },
+        {
+          "step": 18,
+          "id": "rcs",
+          "category": "rcs",
+          "name_key": "vote.rcs.name"
+        },
+        {
+          "step": 19,
+          "id": "power_system",
+          "category": "power_system",
+          "name_key": "vote.power_system.name"
+        },
+        {
+          "step": 20,
+          "id": "communications",
+          "category": "communications",
+          "name_key": "vote.communications.name"
+        },
+        {
+          "step": 21,
+          "id": "mission_assurance",
+          "category": "mission_assurance",
+          "name_key": "vote.mission_assurance.name"
+        }
+      ],
+      "value_types": {
+        "destination": "real_world_approximate",
+        "payload": "game_value",
+        "delta_v_required_km_s": "real_world_approximate",
+        "budget_M": "game_value",
+        "schedule_days": "game_value",
+        "objectives": "game_value",
+        "delta_v_payload_km_s": "real_world_approximate"
+      },
+      "design_notes": [
+        "Objectives are those of section 5.3. MG-16 Station Docking counts contact below 10 cm/s as a success and its Gold tier \"enables the stretch objective\" (0.05 m/s = 5 cm/s).",
+        "\"~9.6 km/s + 0.3 km/s capsule\" is stored as delta_v_required_km_s 9.6 and delta_v_payload_km_s 0.3.",
+        "\"6 t cargo capsule\": 6 t is the mass of the Compact capsule (3 t cargo) and the cargo capacity of the Standard capsule (9 t). All three capsules of 7.2.2 are offered because the section is headed \"Capsule contracts (C3, C4, C6)\"; the Deep-space capsule has no cargo figure, so Core must decide whether it can carry cargo.",
+        "The design gives no length for the \"short launch window\" and no cargo mass to deliver; the 1 t of the secondary objective is the only cargo number.",
+        "Propulsive capsule landing is not offered: it needs the pusher escape engines (7.19), and an uncrewed contract has no escape-system vote."
+      ]
+    },
+    {
+      "id": "C4",
+      "name_key": "contract.C4.name",
+      "tutorial": false,
+      "inspired_by_key": "contract.C4.inspired_by",
+      "destination": {
+        "type": "low_earth_orbit",
+        "description_key": "contract.C4.destination",
+        "altitude_km": 400,
+        "duration_days": 3
+      },
+      "payload": {
+        "kind": "crew_capsule",
+        "description_key": "contract.C4.payload",
+        "mass_kg": 8000,
+        "count": 1,
+        "crew": 4,
+        "designed_by_team": true
+      },
+      "delta_v_required_km_s": 9.5,
+      "budget_M": 400,
+      "schedule_days": 300,
+      "special_rule_keys": [
+        "contract.C4.special_rule.1",
+        "contract.C4.special_rule.2"
+      ],
+      "requirements": {
+        "crewed": true,
+        "launch_escape_required": true,
+        "payload_returns": true,
+        "heat_shield_required": true,
+        "payload_bay_design": true,
+        "mission_duration_days": 3
+      },
+      "objectives": {
+        "primary": {
+          "id": "reach_leo_and_stay_3_days",
+          "text_key": "contract.C4.objective.primary",
+          "criteria": [
+            {
+              "metric": "orbit_altitude_km",
+              "op": "within",
+              "value": 400,
+              "tolerance": 25
+            },
+            {
+              "metric": "days_on_orbit",
+              "op": "gte",
+              "value": 3
+            }
+          ]
+        },
+        "secondary": [
+          {
+            "id": "under_budget",
+            "text_key": "contract.C4.objective.secondary.1",
+            "criteria": [
+              {
+                "metric": "budget_remaining_M",
+                "op": "gte",
+                "value": 0
+              }
+            ]
+          },
+          {
+            "id": "launch_on_first_attempt",
+            "text_key": "contract.C4.objective.secondary.2",
+            "criteria": [
+              {
+                "metric": "launch_scrubs",
+                "op": "eq",
+                "value": 0
+              }
+            ]
+          }
+        ],
+        "stretch": {
+          "id": "land_within_1_km",
+          "text_key": "contract.C4.objective.stretch",
+          "criteria": [
+            {
+              "metric": "capsule_landing_error_km",
+              "op": "lte",
+              "value": 1
+            }
+          ]
+        },
+        "safety": {
+          "id": "crew_returns_safely",
+          "text_key": "contract.C4.objective.safety",
+          "criteria": [
+            {
+              "metric": "crew_safe",
+              "op": "is_true"
+            }
+          ]
+        }
+      },
+      "votes": [
+        {
+          "step": 1,
+          "id": "launch_site",
+          "category": "launch_site",
+          "name_key": "vote.launch_site.name"
+        },
+        {
+          "step": 2,
+          "id": "capsule",
+          "category": "capsule",
+          "name_key": "vote.capsule.name",
+          "options": [
+            "cap_compact",
+            "cap_standard",
+            "cap_deep_space"
+          ]
+        },
+        {
+          "step": 2,
+          "id": "life_support",
+          "category": "life_support",
+          "name_key": "vote.life_support.name",
+          "options": [
+            "ls_open_loop",
+            "ls_regenerative"
+          ]
+        },
+        {
+          "step": 3,
+          "id": "heat_shield",
+          "category": "heat_shield",
+          "name_key": "vote.heat_shield.name"
+        },
+        {
+          "step": 3,
+          "id": "capsule_recovery",
+          "category": "capsule_recovery",
+          "name_key": "vote.capsule_recovery.name"
+        },
+        {
+          "step": 4,
+          "id": "escape_system",
+          "category": "escape_system",
+          "name_key": "vote.escape_system.name",
+          "options": [
+            "les_escape_tower",
+            "les_integrated_pusher",
+            "les_ejection_seats"
+          ]
+        },
+        {
+          "step": 6,
+          "id": "upper_stage_engine",
+          "category": "upper_stage_engine",
+          "name_key": "vote.upper_stage_engine.name"
+        },
+        {
+          "step": 7,
+          "id": "upper_stage_engine_count",
+          "category": "engine_count",
+          "stage": "upper",
+          "name_key": "vote.upper_stage_engine_count.name"
+        },
+        {
+          "step": 8,
+          "id": "upper_stage_tank_size",
+          "category": "tank_size",
+          "stage": "upper",
+          "name_key": "vote.upper_stage_tank_size.name",
+          "options": [
+            "tank_m",
+            "tank_l"
+          ]
+        },
+        {
+          "step": 9,
+          "id": "separation_system",
+          "category": "separation_system",
+          "name_key": "vote.separation_system.name"
+        },
+        {
+          "step": 10,
+          "id": "first_stage_engine",
+          "category": "first_stage_engine",
+          "name_key": "vote.first_stage_engine.name"
+        },
+        {
+          "step": 11,
+          "id": "first_stage_engine_count",
+          "category": "engine_count",
+          "stage": "first",
+          "name_key": "vote.first_stage_engine_count.name"
+        },
+        {
+          "step": 12,
+          "id": "first_stage_tank_size",
+          "category": "tank_size",
+          "stage": "first",
+          "name_key": "vote.first_stage_tank_size.name",
+          "options": [
+            "tank_m",
+            "tank_l"
+          ]
+        },
+        {
+          "step": 13,
+          "id": "structural_material",
+          "category": "structural_material",
+          "name_key": "vote.structural_material.name"
+        },
+        {
+          "step": 14,
+          "id": "strap_on_booster",
+          "category": "strap_on_booster",
+          "name_key": "vote.strap_on_booster.name"
+        },
+        {
+          "step": 15,
+          "id": "booster_recovery",
+          "category": "booster_recovery",
+          "name_key": "vote.booster_recovery.name"
+        },
+        {
+          "step": 16,
+          "id": "avionics",
+          "category": "avionics",
+          "name_key": "vote.avionics.name"
+        },
+        {
+          "step": 17,
+          "id": "navigation_sensor",
+          "category": "navigation_sensor",
+          "name_key": "vote.navigation_sensor.name"
+        },
+        {
+          "step": 18,
+          "id": "aero_control",
+          "category": "aero_control",
+          "name_key": "vote.aero_control.name"
+        },
+        {
+          "step": 18,
+          "id": "rcs",
+          "category": "rcs",
+          "name_key": "vote.rcs.name"
+        },
+        {
+          "step": 19,
+          "id": "power_system",
+          "category": "power_system",
+          "name_key": "vote.power_system.name"
+        },
+        {
+          "step": 20,
+          "id": "communications",
+          "category": "communications",
+          "name_key": "vote.communications.name"
+        },
+        {
+          "step": 21,
+          "id": "mission_assurance",
+          "category": "mission_assurance",
+          "name_key": "vote.mission_assurance.name"
+        }
+      ],
+      "value_types": {
+        "destination": "real_world_approximate",
+        "payload": "game_value",
+        "delta_v_required_km_s": "real_world_approximate",
+        "budget_M": "game_value",
+        "schedule_days": "game_value",
+        "objectives": "game_value",
+        "requirements": "game_value"
+      },
+      "design_notes": [
+        "The design gives C4 only its row in table 5.1; it states no inclination. \"Crew safety outweighs all other scores\" is the safety objective of 5.2: if the crew is lost the grade is capped at D (data/scoring.json, crew_lost_grade).",
+        "Objectives are composed (design silent). Primary: the table orbit with the C1 altitude tolerance, held for the 3 days of the table. Secondary: \"under budget\" (5.2) and \"launch on the first attempt\" (the C3 wording of 5.3). Stretch: \"Land within 1 km of target\", the example of 5.2. To be confirmed.",
+        "All three capsules of 7.2.2 are offered. The Compact capsule seats 2 and the contract carries 4 crew, so Core must show it as invalid; no rule of 6.11 checks crew capacity yet.",
+        "With the capsule, life support, heat shield, capsule recovery and escape-system votes C4 has 23 votes."
+      ]
+    },
+    {
+      "id": "C5",
+      "name_key": "contract.C5.name",
+      "tutorial": false,
+      "inspired_by_key": "contract.C5.inspired_by",
+      "destination": {
+        "type": "geostationary_transfer_orbit",
+        "description_key": "contract.C5.destination",
+        "apogee_km": 35786
+      },
+      "payload": {
+        "kind": "satellite",
+        "description_key": "contract.C5.payload",
+        "mass_kg": 4000,
+        "count": 1,
+        "designed_by_team": true
+      },
+      "delta_v_required_km_s": 11.9,
+      "budget_M": 220,
+      "schedule_days": 260,
+      "special_rule_keys": [
+        "contract.C5.special_rule.1"
+      ],
+      "requirements": {
+        "crewed": false,
+        "upper_stage_restarts_min": 1,
+        "long_coast": true,
+        "payload_bay_design": true
+      },
+      "objectives": {
+        "primary": {
+          "id": "reach_gto",
+          "text_key": "contract.C5.objective.primary",
+          "criteria": [
+            {
+              "metric": "apogee_km",
+              "op": "gte",
+              "value": 35786
+            },
+            {
+              "metric": "payload_deployed",
+              "op": "is_true"
+            }
+          ]
+        },
+        "secondary": [
+          {
+            "id": "under_budget",
+            "text_key": "contract.C5.objective.secondary.1",
+            "criteria": [
+              {
+                "metric": "budget_remaining_M",
+                "op": "gte",
+                "value": 0
+              }
+            ]
+          },
+          {
+            "id": "booster_recovered",
+            "text_key": "contract.C5.objective.secondary.2",
+            "criteria": [
+              {
+                "metric": "booster_recovered",
+                "op": "is_true"
+              }
+            ]
+          }
+        ],
+        "stretch": {
+          "id": "budget_30_percent_left",
+          "text_key": "contract.C5.objective.stretch",
+          "criteria": [
+            {
+              "metric": "budget_remaining_fraction",
+              "op": "gte",
+              "value": 0.3
+            }
+          ]
+        }
+      },
+      "votes": [
+        {
+          "step": 1,
+          "id": "launch_site",
+          "category": "launch_site",
+          "name_key": "vote.launch_site.name"
+        },
+        {
+          "step": 2,
+          "id": "satellite_power",
+          "category": "satellite_power",
+          "name_key": "vote.satellite_power.name",
+          "options": [
+            "satpwr_body_mounted_solar_cells",
+            "satpwr_deployable_solar_wings",
+            "satpwr_large_deployable_array"
+          ]
+        },
+        {
+          "step": 2,
+          "id": "attitude_control",
+          "category": "attitude_control",
+          "name_key": "vote.attitude_control.name",
+          "options": [
+            "adcs_magnetorquers_only",
+            "adcs_reaction_wheels",
+            "adcs_reaction_wheels_star_tracker"
+          ]
+        },
+        {
+          "step": 5,
+          "id": "fairing",
+          "category": "fairing",
+          "name_key": "vote.fairing.name"
+        },
+        {
+          "step": 6,
+          "id": "upper_stage_engine",
+          "category": "upper_stage_engine",
+          "name_key": "vote.upper_stage_engine.name"
+        },
+        {
+          "step": 7,
+          "id": "upper_stage_engine_count",
+          "category": "engine_count",
+          "stage": "upper",
+          "name_key": "vote.upper_stage_engine_count.name"
+        },
+        {
+          "step": 8,
+          "id": "upper_stage_tank_size",
+          "category": "tank_size",
+          "stage": "upper",
+          "name_key": "vote.upper_stage_tank_size.name",
+          "options": [
+            "tank_m",
+            "tank_l",
+            "tank_xl"
+          ]
+        },
+        {
+          "step": 9,
+          "id": "separation_system",
+          "category": "separation_system",
+          "name_key": "vote.separation_system.name"
+        },
+        {
+          "step": 10,
+          "id": "first_stage_engine",
+          "category": "first_stage_engine",
+          "name_key": "vote.first_stage_engine.name"
+        },
+        {
+          "step": 11,
+          "id": "first_stage_engine_count",
+          "category": "engine_count",
+          "stage": "first",
+          "name_key": "vote.first_stage_engine_count.name"
+        },
+        {
+          "step": 12,
+          "id": "first_stage_tank_size",
+          "category": "tank_size",
+          "stage": "first",
+          "name_key": "vote.first_stage_tank_size.name",
+          "options": [
+            "tank_m",
+            "tank_l",
+            "tank_xl"
+          ]
+        },
+        {
+          "step": 13,
+          "id": "structural_material",
+          "category": "structural_material",
+          "name_key": "vote.structural_material.name"
+        },
+        {
+          "step": 14,
+          "id": "strap_on_booster",
+          "category": "strap_on_booster",
+          "name_key": "vote.strap_on_booster.name"
+        },
+        {
+          "step": 15,
+          "id": "booster_recovery",
+          "category": "booster_recovery",
+          "name_key": "vote.booster_recovery.name"
+        },
+        {
+          "step": 16,
+          "id": "avionics",
+          "category": "avionics",
+          "name_key": "vote.avionics.name"
+        },
+        {
+          "step": 17,
+          "id": "navigation_sensor",
+          "category": "navigation_sensor",
+          "name_key": "vote.navigation_sensor.name"
+        },
+        {
+          "step": 18,
+          "id": "aero_control",
+          "category": "aero_control",
+          "name_key": "vote.aero_control.name"
+        },
+        {
+          "step": 18,
+          "id": "rcs",
+          "category": "rcs",
+          "name_key": "vote.rcs.name"
+        },
+        {
+          "step": 19,
+          "id": "power_system",
+          "category": "power_system",
+          "name_key": "vote.power_system.name"
+        },
+        {
+          "step": 20,
+          "id": "communications",
+          "category": "communications",
+          "name_key": "vote.communications.name"
+        },
+        {
+          "step": 21,
+          "id": "mission_assurance",
+          "category": "mission_assurance",
+          "name_key": "vote.mission_assurance.name"
+        }
+      ],
+      "value_types": {
+        "destination": "physical",
+        "payload": "game_value",
+        "delta_v_required_km_s": "real_world_approximate",
+        "budget_M": "game_value",
+        "schedule_days": "game_value",
+        "objectives": "game_value",
+        "requirements": "game_value"
+      },
+      "design_notes": [
+        "The design gives C5 only its row in table 5.1 and no orbit numbers. apogee_km 35786 is the geostationary altitude: a physical value that is NOT in the design, added so the primary objective can be measured. The design gives no perigee.",
+        "Number chosen by the data author (game value): upper_stage_restarts_min 1. \"Long coast: boil-off and restarts matter\" names no count; one restart is the second burn after the coast. It makes the Solid Kick Motor (0 restarts) invalid as the only upper-stage engine. To be confirmed.",
+        "Objectives are composed (design silent). Secondary: \"under budget\" and \"booster landed\" (5.2). Stretch: 30% of the budget left, the threshold of the Penny Pincher achievement (13.5). To be confirmed.",
+        "No instrument vote (see C2). long_coast triggers rule 6.11 \"Hydrolox upper + long coast without boil-off mitigation\"; the design names no part that mitigates boil-off."
+      ]
+    },
+    {
+      "id": "C6",
+      "name_key": "contract.C6.name",
+      "tutorial": false,
+      "inspired_by_key": "contract.C6.inspired_by",
+      "destination": {
+        "type": "lunar_flyby_return",
+        "description_key": "contract.C6.destination"
+      },
+      "payload": {
+        "kind": "crew_capsule",
+        "description_key": "contract.C6.payload",
+        "mass_kg": 10000,
+        "count": 1,
+        "designed_by_team": true
+      },
+      "delta_v_required_km_s": 12.6,
+      "budget_M": 700,
+      "schedule_days": 360,
+      "special_rule_keys": [
+        "contract.C6.special_rule.1",
+        "contract.C6.special_rule.2"
+      ],
+      "requirements": {
+        "crewed": true,
+        "launch_escape_required": true,
+        "payload_returns": true,
+        "heat_shield_required": true,
+        "entry_speed_km_s": 11,
+        "payload_bay_design": true,
+        "skip_entry_optional": true
+      },
+      "params": {
+        "tli_delta_v_km_s": 3.1
+      },
+      "objectives": {
+        "primary": {
+          "id": "lunar_flyby_and_return",
+          "text_key": "contract.C6.objective.primary",
+          "criteria": [
+            {
+              "metric": "lunar_flyby_completed",
+              "op": "is_true"
+            },
+            {
+              "metric": "capsule_recovered",
+              "op": "is_true"
+            }
+          ]
+        },
+        "secondary": [
+          {
+            "id": "under_budget",
+            "text_key": "contract.C6.objective.secondary.1",
+            "criteria": [
+              {
+                "metric": "budget_remaining_M",
+                "op": "gte",
+                "value": 0
+              }
+            ]
+          },
+          {
+            "id": "land_inside_target_ellipse",
+            "text_key": "contract.C6.objective.secondary.2",
+            "criteria": [
+              {
+                "metric": "landed_inside_target_ellipse",
+                "op": "is_true"
+              }
+            ]
+          }
+        ],
+        "stretch": {
+          "id": "all_minigames_gold",
+          "text_key": "contract.C6.objective.stretch",
+          "criteria": [
+            {
+              "metric": "all_minigames_gold",
+              "op": "is_true"
+            }
+          ]
+        },
+        "safety": {
+          "id": "crew_returns_safely",
+          "text_key": "contract.C6.objective.safety",
+          "criteria": [
+            {
+              "metric": "crew_safe",
+              "op": "is_true"
+            }
+          ]
+        }
+      },
+      "votes": [
+        {
+          "step": 1,
+          "id": "launch_site",
+          "category": "launch_site",
+          "name_key": "vote.launch_site.name"
+        },
+        {
+          "step": 2,
+          "id": "capsule",
+          "category": "capsule",
+          "name_key": "vote.capsule.name",
+          "options": [
+            "cap_compact",
+            "cap_standard",
+            "cap_deep_space"
+          ]
+        },
+        {
+          "step": 2,
+          "id": "life_support",
+          "category": "life_support",
+          "name_key": "vote.life_support.name",
+          "options": [
+            "ls_open_loop",
+            "ls_regenerative"
+          ]
+        },
+        {
+          "step": 3,
+          "id": "heat_shield",
+          "category": "heat_shield",
+          "name_key": "vote.heat_shield.name"
+        },
+        {
+          "step": 3,
+          "id": "capsule_recovery",
+          "category": "capsule_recovery",
+          "name_key": "vote.capsule_recovery.name"
+        },
+        {
+          "step": 4,
+          "id": "escape_system",
+          "category": "escape_system",
+          "name_key": "vote.escape_system.name",
+          "options": [
+            "les_escape_tower",
+            "les_integrated_pusher",
+            "les_ejection_seats"
+          ]
+        },
+        {
+          "step": 6,
+          "id": "upper_stage_engine",
+          "category": "upper_stage_engine",
+          "name_key": "vote.upper_stage_engine.name"
+        },
+        {
+          "step": 7,
+          "id": "upper_stage_engine_count",
+          "category": "engine_count",
+          "stage": "upper",
+          "name_key": "vote.upper_stage_engine_count.name"
+        },
+        {
+          "step": 8,
+          "id": "upper_stage_tank_size",
+          "category": "tank_size",
+          "stage": "upper",
+          "name_key": "vote.upper_stage_tank_size.name",
+          "options": [
+            "tank_l",
+            "tank_xl"
+          ]
+        },
+        {
+          "step": 9,
+          "id": "separation_system",
+          "category": "separation_system",
+          "name_key": "vote.separation_system.name"
+        },
+        {
+          "step": 10,
+          "id": "first_stage_engine",
+          "category": "first_stage_engine",
+          "name_key": "vote.first_stage_engine.name"
+        },
+        {
+          "step": 11,
+          "id": "first_stage_engine_count",
+          "category": "engine_count",
+          "stage": "first",
+          "name_key": "vote.first_stage_engine_count.name"
+        },
+        {
+          "step": 12,
+          "id": "first_stage_tank_size",
+          "category": "tank_size",
+          "stage": "first",
+          "name_key": "vote.first_stage_tank_size.name",
+          "options": [
+            "tank_l",
+            "tank_xl"
+          ]
+        },
+        {
+          "step": 13,
+          "id": "structural_material",
+          "category": "structural_material",
+          "name_key": "vote.structural_material.name"
+        },
+        {
+          "step": 14,
+          "id": "strap_on_booster",
+          "category": "strap_on_booster",
+          "name_key": "vote.strap_on_booster.name"
+        },
+        {
+          "step": 15,
+          "id": "booster_recovery",
+          "category": "booster_recovery",
+          "name_key": "vote.booster_recovery.name"
+        },
+        {
+          "step": 16,
+          "id": "avionics",
+          "category": "avionics",
+          "name_key": "vote.avionics.name"
+        },
+        {
+          "step": 17,
+          "id": "navigation_sensor",
+          "category": "navigation_sensor",
+          "name_key": "vote.navigation_sensor.name"
+        },
+        {
+          "step": 18,
+          "id": "aero_control",
+          "category": "aero_control",
+          "name_key": "vote.aero_control.name"
+        },
+        {
+          "step": 18,
+          "id": "rcs",
+          "category": "rcs",
+          "name_key": "vote.rcs.name"
+        },
+        {
+          "step": 19,
+          "id": "power_system",
+          "category": "power_system",
+          "name_key": "vote.power_system.name"
+        },
+        {
+          "step": 20,
+          "id": "communications",
+          "category": "communications",
+          "name_key": "vote.communications.name"
+        },
+        {
+          "step": 21,
+          "id": "mission_assurance",
+          "category": "mission_assurance",
+          "name_key": "vote.mission_assurance.name"
+        }
+      ],
+      "value_types": {
+        "payload": "game_value",
+        "delta_v_required_km_s": "real_world_approximate",
+        "budget_M": "game_value",
+        "schedule_days": "game_value",
+        "objectives": "game_value",
+        "requirements": "real_world_approximate",
+        "params": "real_world_approximate"
+      },
+      "design_notes": [
+        "Decision: C6 is treated as crewed (see the file notes). Table 5.1 gives no crew count, so payload.crew is left out; launch_escape_required follows from rule 6.11 \"Crewed contract without launch escape\". To be confirmed by the design owner.",
+        "The design gives C6 only its row in table 5.1 and no flyby distance or mission length, so the destination has no numbers and the Deep-space capsule endurance (21 days) has nothing to be compared with. Whether C6 requires the lunar-rated capsule is open; without such a rule the lightest capsule wins.",
+        "entry_speed_km_s 11 is \"Reentry at ~11 km/s\" (section 19: lunar return entry ≈ 11 km/s). Shields rated 8 km/s stay on offer; rule 6.11 makes them a Major issue. params.tli_delta_v_km_s 3.1 is \"TLI from LEO ≈ 3.1 km/s\" of section 19.",
+        "Objectives are composed (design silent). Secondary: \"under budget\" (5.2) and \"land inside the target ellipse\" (the C7 wording of 5.3). Stretch: \"Gold on every minigame\" (5.2). To be confirmed.",
+        "\"Optional skip entry\" is a flight vote (4.3: \"skip entry or direct entry (lunar contract)\"); the design does not say what either choice changes."
+      ]
+    },
+    {
+      "id": "C7",
+      "name_key": "contract.C7.name",
+      "tutorial": false,
+      "inspired_by_key": "contract.C7.inspired_by",
+      "destination": {
+        "type": "mars_surface",
+        "description_key": "contract.C7.destination"
+      },
+      "payload": {
+        "kind": "lander",
+        "description_key": "contract.C7.payload",
+        "mass_kg": 1000,
+        "count": 1,
+        "designed_by_team": true
+      },
+      "delta_v_required_km_s": 13,
+      "budget_M": 600,
+      "schedule_days": 400,
+      "special_rule_keys": [
+        "contract.C7.special_rule.1",
+        "contract.C7.special_rule.2"
+      ],
+      "requirements": {
+        "crewed": false,
+        "payload_bay_design": true,
+        "launch_window_interval_months": 26,
+        "signal_delay": true
+      },
+      "params": {
+        "tmi_delta_v_km_s": 3.6,
+        "signal_delay_min_minutes": 4,
+        "signal_delay_max_minutes": 24,
+        "missed_window_ends_quick_mission": true
+      },
+      "objectives": {
+        "primary": {
+          "id": "land_safely_on_mars",
+          "text_key": "contract.C7.objective.primary",
+          "criteria": [
+            {
+              "metric": "lander_landed_safely",
+              "op": "is_true"
+            }
+          ]
+        },
+        "secondary": [
+          {
+            "id": "land_inside_target_ellipse",
+            "text_key": "contract.C7.objective.secondary.1",
+            "criteria": [
+              {
+                "metric": "landed_inside_target_ellipse",
+                "op": "is_true"
+              }
+            ]
+          },
+          {
+            "id": "first_image_within_one_mars_day",
+            "text_key": "contract.C7.objective.secondary.2",
+            "criteria": [
+              {
+                "metric": "first_image_delay_mars_days",
+                "op": "lte",
+                "value": 1
+              }
+            ]
+          }
+        ],
+        "stretch": {
+          "id": "perfect_seven_minutes_of_terror",
+          "text_key": "contract.C7.objective.stretch",
+          "criteria": [
+            {
+              "metric": "minigame_all_perfect",
+              "op": "is_true",
+              "minigame": "MG-26"
+            }
+          ]
+        }
+      },
+      "votes": [
+        {
+          "step": 1,
+          "id": "launch_site",
+          "category": "launch_site",
+          "name_key": "vote.launch_site.name"
+        },
+        {
+          "step": 2,
+          "id": "mars_lander",
+          "category": "mars_lander",
+          "name_key": "vote.mars_lander.name",
+          "options": [
+            "lander_airbag",
+            "lander_legged",
+            "lander_sky_crane"
+          ]
+        },
+        {
+          "step": 5,
+          "id": "fairing",
+          "category": "fairing",
+          "name_key": "vote.fairing.name"
+        },
+        {
+          "step": 6,
+          "id": "upper_stage_engine",
+          "category": "upper_stage_engine",
+          "name_key": "vote.upper_stage_engine.name"
+        },
+        {
+          "step": 7,
+          "id": "upper_stage_engine_count",
+          "category": "engine_count",
+          "stage": "upper",
+          "name_key": "vote.upper_stage_engine_count.name"
+        },
+        {
+          "step": 8,
+          "id": "upper_stage_tank_size",
+          "category": "tank_size",
+          "stage": "upper",
+          "name_key": "vote.upper_stage_tank_size.name",
+          "options": [
+            "tank_l",
+            "tank_xl"
+          ]
+        },
+        {
+          "step": 9,
+          "id": "separation_system",
+          "category": "separation_system",
+          "name_key": "vote.separation_system.name"
+        },
+        {
+          "step": 10,
+          "id": "first_stage_engine",
+          "category": "first_stage_engine",
+          "name_key": "vote.first_stage_engine.name"
+        },
+        {
+          "step": 11,
+          "id": "first_stage_engine_count",
+          "category": "engine_count",
+          "stage": "first",
+          "name_key": "vote.first_stage_engine_count.name"
+        },
+        {
+          "step": 12,
+          "id": "first_stage_tank_size",
+          "category": "tank_size",
+          "stage": "first",
+          "name_key": "vote.first_stage_tank_size.name",
+          "options": [
+            "tank_l",
+            "tank_xl"
+          ]
+        },
+        {
+          "step": 13,
+          "id": "structural_material",
+          "category": "structural_material",
+          "name_key": "vote.structural_material.name"
+        },
+        {
+          "step": 14,
+          "id": "strap_on_booster",
+          "category": "strap_on_booster",
+          "name_key": "vote.strap_on_booster.name"
+        },
+        {
+          "step": 15,
+          "id": "booster_recovery",
+          "category": "booster_recovery",
+          "name_key": "vote.booster_recovery.name"
+        },
+        {
+          "step": 16,
+          "id": "avionics",
+          "category": "avionics",
+          "name_key": "vote.avionics.name"
+        },
+        {
+          "step": 17,
+          "id": "navigation_sensor",
+          "category": "navigation_sensor",
+          "name_key": "vote.navigation_sensor.name"
+        },
+        {
+          "step": 18,
+          "id": "aero_control",
+          "category": "aero_control",
+          "name_key": "vote.aero_control.name"
+        },
+        {
+          "step": 18,
+          "id": "rcs",
+          "category": "rcs",
+          "name_key": "vote.rcs.name"
+        },
+        {
+          "step": 19,
+          "id": "power_system",
+          "category": "power_system",
+          "name_key": "vote.power_system.name"
+        },
+        {
+          "step": 20,
+          "id": "communications",
+          "category": "communications",
+          "name_key": "vote.communications.name"
+        },
+        {
+          "step": 21,
+          "id": "mission_assurance",
+          "category": "mission_assurance",
+          "name_key": "vote.mission_assurance.name"
+        }
+      ],
+      "value_types": {
+        "payload": "game_value",
+        "delta_v_required_km_s": "real_world_approximate",
+        "budget_M": "game_value",
+        "schedule_days": "game_value",
+        "objectives": "game_value",
+        "requirements": "physical",
+        "params": "real_world_approximate"
+      },
+      "design_notes": [
+        "Objectives are those of section 5.3. \"Perfect\" is read as every player scoring perfect in MG-26 (the Platinum condition of 10.3).",
+        "\"~13 km/s (to Mars transfer)\" is stored as 13. params: tmi_delta_v_km_s 3.6 is \"TMI from LEO ≈ 3.6 km/s\" (section 19, real-world approximate); the signal delay of 4 to 24 minutes is the Mars light-time of section 19 and MG-26, which section 19 calls physical (approximate). The 26-month window is physical (approximate) by section 19.",
+        "missed_window_ends_quick_mission: section 6.4 says a missed C7 window is a 26-month wait, \"mission-ending in Quick Mission and a big campaign setback\".",
+        "No heat-shield vote: step 3 of 6.2 is for capsule contracts and the payload is a \"lander in aeroshell\". The entry, descent and landing are the pre-programmed sequence of MG-26, not a piloted reentry."
+      ]
+    },
+    {
+      "id": "C8",
+      "name_key": "contract.C8.name",
+      "tutorial": false,
+      "inspired_by_key": "contract.C8.inspired_by",
+      "destination": {
+        "type": "low_earth_orbit",
+        "description_key": "contract.C8.destination",
+        "altitude_km": 300
+      },
+      "payload": {
+        "kind": "generic_payload",
+        "description_key": "contract.C8.payload",
+        "mass_kg": 10000,
+        "count": 1
+      },
+      "delta_v_required_km_s": 9.4,
+      "budget_M": 150,
+      "schedule_days": 200,
+      "special_rule_keys": [
+        "contract.C8.special_rule.1"
+      ],
+      "requirements": {
+        "crewed": false,
+        "booster_landing_required": true
+      },
+      "objectives": {
+        "primary": {
+          "id": "reach_leo_and_land_booster",
+          "text_key": "contract.C8.objective.primary",
+          "criteria": [
+            {
+              "metric": "orbit_altitude_km",
+              "op": "within",
+              "value": 300,
+              "tolerance": 25
+            },
+            {
+              "metric": "payload_deployed",
+              "op": "is_true"
+            },
+            {
+              "metric": "booster_landed",
+              "op": "is_true"
+            }
+          ]
+        },
+        "secondary": [
+          {
+            "id": "under_budget",
+            "text_key": "contract.C8.objective.secondary.1",
+            "criteria": [
+              {
+                "metric": "budget_remaining_M",
+                "op": "gte",
+                "value": 0
+              }
+            ]
+          },
+          {
+            "id": "booster_touchdown_under_2_m_s",
+            "text_key": "contract.C8.objective.secondary.2",
+            "criteria": [
+              {
+                "metric": "booster_touchdown_speed_m_s",
+                "op": "lt",
+                "value": 2
+              }
+            ]
+          }
+        ],
+        "stretch": {
+          "id": "land_booster_within_1_km",
+          "text_key": "contract.C8.objective.stretch",
+          "criteria": [
+            {
+              "metric": "booster_landing_error_km",
+              "op": "lte",
+              "value": 1
+            }
+          ]
+        }
+      },
+      "votes": [
+        {
+          "step": 1,
+          "id": "launch_site",
+          "category": "launch_site",
+          "name_key": "vote.launch_site.name"
+        },
+        {
+          "step": 5,
+          "id": "fairing",
+          "category": "fairing",
+          "name_key": "vote.fairing.name"
+        },
+        {
+          "step": 6,
+          "id": "upper_stage_engine",
+          "category": "upper_stage_engine",
+          "name_key": "vote.upper_stage_engine.name"
+        },
+        {
+          "step": 7,
+          "id": "upper_stage_engine_count",
+          "category": "engine_count",
+          "stage": "upper",
+          "name_key": "vote.upper_stage_engine_count.name"
+        },
+        {
+          "step": 8,
+          "id": "upper_stage_tank_size",
+          "category": "tank_size",
+          "stage": "upper",
+          "name_key": "vote.upper_stage_tank_size.name",
+          "options": [
+            "tank_s",
+            "tank_m",
+            "tank_l"
+          ]
+        },
+        {
+          "step": 9,
+          "id": "separation_system",
+          "category": "separation_system",
+          "name_key": "vote.separation_system.name"
+        },
+        {
+          "step": 10,
+          "id": "first_stage_engine",
+          "category": "first_stage_engine",
+          "name_key": "vote.first_stage_engine.name"
+        },
+        {
+          "step": 11,
+          "id": "first_stage_engine_count",
+          "category": "engine_count",
+          "stage": "first",
+          "name_key": "vote.first_stage_engine_count.name"
+        },
+        {
+          "step": 12,
+          "id": "first_stage_tank_size",
+          "category": "tank_size",
+          "stage": "first",
+          "name_key": "vote.first_stage_tank_size.name",
+          "options": [
+            "tank_s",
+            "tank_m",
+            "tank_l"
+          ]
+        },
+        {
+          "step": 13,
+          "id": "structural_material",
+          "category": "structural_material",
+          "name_key": "vote.structural_material.name"
+        },
+        {
+          "step": 14,
+          "id": "strap_on_booster",
+          "category": "strap_on_booster",
+          "name_key": "vote.strap_on_booster.name"
+        },
+        {
+          "step": 15,
+          "id": "booster_recovery",
+          "category": "booster_recovery",
+          "name_key": "vote.booster_recovery.name",
+          "options": [
+            "brec_propulsive_rtls",
+            "brec_propulsive_drone_ship"
+          ]
+        },
+        {
+          "step": 16,
+          "id": "avionics",
+          "category": "avionics",
+          "name_key": "vote.avionics.name"
+        },
+        {
+          "step": 17,
+          "id": "navigation_sensor",
+          "category": "navigation_sensor",
+          "name_key": "vote.navigation_sensor.name"
+        },
+        {
+          "step": 18,
+          "id": "aero_control",
+          "category": "aero_control",
+          "name_key": "vote.aero_control.name"
+        },
+        {
+          "step": 18,
+          "id": "rcs",
+          "category": "rcs",
+          "name_key": "vote.rcs.name"
+        },
+        {
+          "step": 19,
+          "id": "power_system",
+          "category": "power_system",
+          "name_key": "vote.power_system.name"
+        },
+        {
+          "step": 20,
+          "id": "communications",
+          "category": "communications",
+          "name_key": "vote.communications.name"
+        },
+        {
+          "step": 21,
+          "id": "mission_assurance",
+          "category": "mission_assurance",
+          "name_key": "vote.mission_assurance.name"
+        }
+      ],
+      "value_types": {
+        "destination": "real_world_approximate",
+        "payload": "game_value",
+        "delta_v_required_km_s": "real_world_approximate",
+        "budget_M": "game_value",
+        "schedule_days": "game_value",
+        "objectives": "game_value"
+      },
+      "design_notes": [
+        "The design gives C8 only its row in table 5.1; it states no inclination and describes the payload only by its mass (kind generic_payload).",
+        "\"~9.4 km/s + landing reserve\": the reserve has no number in the table. It is the Δv cost of the booster recovery option (7.18: −15% for a landing on land, −8% for a drone ship).",
+        "\"Plus booster must land\" is part of the primary objective and of requirements.booster_landing_required. The booster-recovery vote therefore offers only the two propulsive landings; Expendable and Parachute + splashdown do not land the booster. MG-24 Hoverslam names \"C8 landing\".",
+        "\"Booster recovery heavily scored\" has no number: section 11.3 gives a recovered booster 500 points in every contract and no C8 weight.",
+        "Objectives are composed (design silent). Primary: the table orbit with the C1 altitude tolerance, plus the landing. Secondary: \"under budget\" (5.2) and a touchdown under 2 m/s, the success threshold of MG-24. Stretch: \"Land within 1 km of target\", the example of 5.2. To be confirmed.",
+        "Only the Kerolox Workhorse (3 restarts) and the Methalox Full-Flow (5 restarts) can relight for a landing burn; the design does not state how many restarts a landing needs."
       ]
     }
   ]

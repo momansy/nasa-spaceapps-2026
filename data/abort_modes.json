@@ -1,0 +1,122 @@
+{
+  "$schema": "./schema/abort_mode.schema.json",
+  "design_notes": [
+    "Table 9.8, in row order. \"Abort calls are quick group votes (5 s) unless the escape system fires automatically on vehicle breakup.\"",
+    "Section 4.2 gives quick votes, \"abort or continue\" among them, 10 s; 9.8 gives abort calls 5 s. The 5 s of 9.8 is stored here.",
+    "flight_phases (flight-phase IDs, not facts) is a reading of the When column by the data author: the design names no phase IDs. \"Before/at lift-off\" is F1 and F2, \"during first-stage flight\" and \"early engine-out\" F3 to F5, \"late in ascent\" F7, \"in orbit\" F8.",
+    "requirements and outcomes restate the two columns as markers for Core. Only the first two rows need the escape system, so only crewed contracts (the ones with an escape-system vote) can use them."
+  ],
+  "vote": {
+    "duration_s": 5,
+    "automatic_on_vehicle_breakup": true
+  },
+  "abort_modes": [
+    {
+      "id": "pad_abort",
+      "name_key": "abort_mode.pad_abort.name",
+      "when_key": "abort_mode.pad_abort.when",
+      "requirement_key": "abort_mode.pad_abort.requirement",
+      "outcome_key": "abort_mode.pad_abort.outcome",
+      "flight_phases": [
+        "F1",
+        "F2"
+      ],
+      "requires_escape_system": true,
+      "requirements": [
+        "escape_system"
+      ],
+      "outcomes": [
+        "crew_safe",
+        "vehicle_lost_or_saved"
+      ],
+      "design_notes": [
+        "Flight phase F2 lists \"Engine fails to start → abort on pad\" as a possible event."
+      ]
+    },
+    {
+      "id": "ascent_abort",
+      "name_key": "abort_mode.ascent_abort.name",
+      "when_key": "abort_mode.ascent_abort.when",
+      "requirement_key": "abort_mode.ascent_abort.requirement",
+      "outcome_key": "abort_mode.ascent_abort.outcome",
+      "flight_phases": [
+        "F3",
+        "F4",
+        "F5"
+      ],
+      "requires_escape_system": true,
+      "requirements": [
+        "escape_system_in_envelope"
+      ],
+      "outcomes": [
+        "capsule_splashdown"
+      ],
+      "design_notes": [
+        "The abort envelope is a property of the escape system chosen (7.4): tower to the upper atmosphere, pusher engines to orbit, ejection seats at low altitude only."
+      ]
+    },
+    {
+      "id": "abort_to_orbit",
+      "name_key": "abort_mode.abort_to_orbit.name",
+      "when_key": "abort_mode.abort_to_orbit.when",
+      "requirement_key": "abort_mode.abort_to_orbit.requirement",
+      "outcome_key": "abort_mode.abort_to_orbit.outcome",
+      "flight_phases": [
+        "F7"
+      ],
+      "requires_escape_system": false,
+      "requirements": [
+        "delta_v_for_lower_orbit"
+      ],
+      "outcomes": [
+        "lower_orbit",
+        "partial_success"
+      ],
+      "facts": [
+        "F37"
+      ]
+    },
+    {
+      "id": "return_to_launch_site",
+      "name_key": "abort_mode.return_to_launch_site.name",
+      "when_key": "abort_mode.return_to_launch_site.when",
+      "requirement_key": "abort_mode.return_to_launch_site.requirement",
+      "outcome_key": "abort_mode.return_to_launch_site.outcome",
+      "flight_phases": [
+        "F3",
+        "F4",
+        "F5"
+      ],
+      "requires_escape_system": false,
+      "requirements": [
+        "recoverable_vehicle",
+        "delta_v_to_turn_back"
+      ],
+      "outcomes": [],
+      "design_notes": [
+        "The Outcome cell (\"Rare and dramatic\") states no result, so outcomes is empty."
+      ]
+    },
+    {
+      "id": "early_return",
+      "name_key": "abort_mode.early_return.name",
+      "when_key": "abort_mode.early_return.when",
+      "requirement_key": "abort_mode.early_return.requirement",
+      "outcome_key": "abort_mode.early_return.outcome",
+      "flight_phases": [
+        "F8"
+      ],
+      "requires_escape_system": false,
+      "requirements": [
+        "deorbit_delta_v"
+      ],
+      "outcomes": [
+        "partial_success",
+        "crew_safe"
+      ]
+    }
+  ],
+  "value_types": {
+    "vote": "game_value"
+  }
+}
