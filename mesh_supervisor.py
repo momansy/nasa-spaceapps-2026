@@ -50,6 +50,19 @@ def worker_command(args):
         command += ["--name", args.name]
     if args.capabilities:
         command += ["--capabilities", args.capabilities]
+    # Optional per-worker run settings (see BUILD_MODE.md); omitted when unset.
+    for flag, attr in (("--model", "model"), ("--effort", "effort"), ("--orchestrator", "orchestrator"),
+                       ("--tools", "tools"), ("--mcp", "mcp")):
+        value = getattr(args, attr, "")
+        if value:
+            command += [flag, str(value)]
+    for flag, attr in (("--max-turns", "max_turns"), ("--timeout", "timeout"),
+                       ("--progress-minutes", "progress_minutes")):
+        value = getattr(args, attr, 0)
+        if value:
+            command += [flag, str(value)]
+    if getattr(args, "skip_permissions", False):
+        command.append("--skip-permissions")
     return command
 
 
@@ -101,7 +114,16 @@ def parser():
     p.add_argument("--repo", default=os.environ.get("MESH_REPO", "momansy/nasa-spaceapps-2026"))
     p.add_argument("--agent", required=True)
     p.add_argument("--provider", required=True, choices=("codex", "claude", "mock"))
-    p.add_argument("--mode", default="plan", choices=("plan", "code"))
+    p.add_argument("--mode", default="plan", choices=("plan", "code", "build"))
+    p.add_argument("--model", default="")
+    p.add_argument("--effort", default="")
+    p.add_argument("--max-turns", type=int, default=0)
+    p.add_argument("--timeout", type=int, default=0)
+    p.add_argument("--orchestrator", default="")
+    p.add_argument("--tools", default="")
+    p.add_argument("--mcp", default="")
+    p.add_argument("--skip-permissions", action="store_true")
+    p.add_argument("--progress-minutes", type=int, default=0)
     p.add_argument("--path", default=".")
     p.add_argument("--name", default="")
     p.add_argument("--capabilities", default="")
@@ -118,6 +140,8 @@ def main(argv=None):
         raise ValueError("--repo must be OWNER/REPOSITORY")
     from mesh import validate_agent
     validate_agent(args.agent)
+    if args.mode == "build" and not args.orchestrator.strip():
+        raise ValueError("Build mode needs --orchestrator GITHUB_LOGIN")
     if args.min_delay <= 0 or args.max_delay < args.min_delay or args.reset_after <= 0:
         raise ValueError("Retry intervals must be positive and max-delay >= min-delay")
     command = worker_command(args)
