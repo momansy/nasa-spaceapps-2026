@@ -22,7 +22,9 @@ TAU = math.tau
 
 # Material slots. The first five are recoloured by the game; detail_dark is a fixed
 # dark rubber/composite/shadow-gap material shared by every part.
-SLOTS = ("hull", "livery", "engine_metal", "nozzle_hot", "thermal", "detail_dark")
+SLOTS = ("hull", "livery", "engine_metal", "nozzle_hot", "thermal", "detail_dark",
+         # T017 world / spacecraft slots (appended; never reorder the ones above)
+         "gantry", "concrete", "ground", "foliage", "solar_cell", "heat_shield")
 
 
 def _even(n: int) -> int:

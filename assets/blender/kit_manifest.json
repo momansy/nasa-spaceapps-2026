@@ -1147,7 +1147,7 @@
     "fbx_bytes": 473500,
     "glb_bytes": 145296,
     "blend": "assets/blender/eng_kerolox_workhorse.blend",
-    "blend_bytes": 470241
+    "blend_bytes": 470530
    },
    "issues": []
   },
@@ -5706,7 +5706,7 @@
     "fbx_bytes": 359756,
     "glb_bytes": 173232,
     "blend": "assets/blender/tank_s1_m.blend",
-    "blend_bytes": 359568
+    "blend_bytes": 358916
    },
    "issues": []
   },
@@ -6829,6 +6829,620 @@
     "glb_bytes": 269852,
     "blend": "assets/blender/tank_s2_xs_hydrolox.blend",
     "blend_bytes": 228828
+   },
+   "issues": []
+  },
+  "world_crane_arm": {
+   "id": "world_crane_arm",
+   "length_m": 12.0,
+   "stack": false,
+   "ring_check": false,
+   "required_empties": [
+    "pivot",
+    "hook"
+   ],
+   "boom_length_m": 12.0,
+   "reach_axis": "-X",
+   "value_types": {
+    "boom_length_m": "game_value",
+    "length_m": "game_value"
+   },
+   "max_diameter_m": 12.0,
+   "family": "world_pad",
+   "design_ref": "6.1",
+   "bbox_min_m": [
+    -12.075,
+    -0.85,
+    0.0
+   ],
+   "bbox_max_m": [
+    1.7,
+    0.85,
+    4.161
+   ],
+   "attach_points_m": {
+    "pivot": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      3.0
+     ]
+    },
+    "hook": {
+     "blender_xyz": [
+      -11.9,
+      0.0,
+      0.55
+     ]
+    }
+   },
+   "materials": [
+    "concrete",
+    "detail_dark",
+    "engine_metal",
+    "gantry"
+   ],
+   "triangles": {
+    "lod0": 488,
+    "lod1": 194,
+    "phone": 488
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/world_crane_arm.fbx",
+    "glb": "client/public/models/world_crane_arm.glb",
+    "fbx_bytes": 38972,
+    "glb_bytes": 27976,
+    "blend": "assets/blender/world_crane_arm.blend",
+    "blend_bytes": 86956
+   },
+   "issues": []
+  },
+  "world_crew_access_arm": {
+   "id": "world_crew_access_arm",
+   "length_m": 8.4,
+   "stack": false,
+   "ring_check": false,
+   "required_empties": [
+    "pivot",
+    "tip"
+   ],
+   "arm_length_m": 8.4,
+   "reach_axis": "-X",
+   "value_types": {
+    "arm_length_m": "game_value",
+    "length_m": "game_value"
+   },
+   "max_diameter_m": 8.4,
+   "family": "world_pad",
+   "design_ref": "6.1, 7.4",
+   "bbox_min_m": [
+    -8.7,
+    -1.3,
+    0.0
+   ],
+   "bbox_max_m": [
+    0.38,
+    1.3,
+    3.2
+   ],
+   "attach_points_m": {
+    "pivot": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      1.3
+     ]
+    },
+    "tip": {
+     "blender_xyz": [
+      -8.7,
+      0.0,
+      1.65
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "gantry",
+    "hull",
+    "livery"
+   ],
+   "triangles": {
+    "lod0": 320,
+    "lod1": 104,
+    "phone": 320
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/world_crew_access_arm.fbx",
+    "glb": "client/public/models/world_crew_access_arm.glb",
+    "fbx_bytes": 32924,
+    "glb_bytes": 25616,
+    "blend": "assets/blender/world_crew_access_arm.blend",
+    "blend_bytes": 83744
+   },
+   "issues": []
+  },
+  "world_flame_trench": {
+   "id": "world_flame_trench",
+   "length_m": 55.0,
+   "stack": false,
+   "ring_check": false,
+   "required_empties": [
+    "deck_mate",
+    "trench_exit"
+   ],
+   "trench_clear_width_m": 11.0,
+   "deck_underside_z_m": 7.0,
+   "value_types": {
+    "trench_clear_width_m": "game_value",
+    "deck_underside_z_m": "game_value"
+   },
+   "max_diameter_m": 55.0,
+   "family": "world_pad",
+   "design_ref": "6.1, 7.1",
+   "bbox_min_m": [
+    -11.0,
+    -16.5,
+    0.0
+   ],
+   "bbox_max_m": [
+    11.0,
+    46.0,
+    7.0
+   ],
+   "attach_points_m": {
+    "deck_mate": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      7.0
+     ]
+    },
+    "deflector_tip": {
+     "blender_xyz": [
+      0.0,
+      9.0,
+      0.5
+     ]
+    },
+    "trench_exit": {
+     "blender_xyz": [
+      0.0,
+      40.0,
+      0.5
+     ]
+    }
+   },
+   "materials": [
+    "concrete",
+    "detail_dark",
+    "nozzle_hot"
+   ],
+   "triangles": {
+    "lod0": 120,
+    "lod1": 96,
+    "phone": 120
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/world_flame_trench.fbx",
+    "glb": "client/public/models/world_flame_trench.glb",
+    "fbx_bytes": 26732,
+    "glb_bytes": 11532,
+    "blend": "assets/blender/world_flame_trench.blend",
+    "blend_bytes": 76970
+   },
+   "issues": []
+  },
+  "world_gantry_base": {
+   "id": "world_gantry_base",
+   "length_m": 9.0,
+   "stack": false,
+   "ring_check": false,
+   "required_empties": [
+    "attach_top"
+   ],
+   "width_m": 6.6000000000000005,
+   "vehicle_axis_offset_m": [
+    -12.0,
+    0.0
+   ],
+   "value_types": {
+    "length_m": "game_value",
+    "width_m": "game_value",
+    "vehicle_axis_offset_m": "game_value"
+   },
+   "max_diameter_m": 6.6000000000000005,
+   "family": "world_pad",
+   "design_ref": "6.1",
+   "bbox_min_m": [
+    -3.3,
+    -3.3,
+    0.0
+   ],
+   "bbox_max_m": [
+    3.3,
+    3.3,
+    9.08
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      9.0
+     ]
+    }
+   },
+   "materials": [
+    "concrete",
+    "detail_dark",
+    "engine_metal",
+    "gantry"
+   ],
+   "triangles": {
+    "lod0": 168,
+    "lod1": 72,
+    "phone": 168
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/world_gantry_base.fbx",
+    "glb": "client/public/models/world_gantry_base.glb",
+    "fbx_bytes": 26620,
+    "glb_bytes": 13976,
+    "blend": "assets/blender/world_gantry_base.blend",
+    "blend_bytes": 78491
+   },
+   "issues": []
+  },
+  "world_gantry_crown": {
+   "id": "world_gantry_crown",
+   "length_m": 7.72,
+   "stack": false,
+   "ring_check": false,
+   "required_empties": [
+    "lightning_tip",
+    "hook"
+   ],
+   "width_m": 5.4,
+   "jib_length_m": 7.0,
+   "vehicle_axis_offset_m": [
+    -12.0,
+    0.0
+   ],
+   "value_types": {
+    "length_m": "game_value",
+    "jib_length_m": "game_value"
+   },
+   "max_diameter_m": 5.4,
+   "family": "world_pad",
+   "design_ref": "6.1",
+   "bbox_min_m": [
+    -6.775,
+    -2.85,
+    0.0
+   ],
+   "bbox_max_m": [
+    4.1,
+    2.85,
+    7.72
+   ],
+   "attach_points_m": {
+    "attach_base": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "lightning_tip": {
+     "blender_xyz": [
+      0.4,
+      0.0,
+      7.72
+     ]
+    },
+    "hook": {
+     "blender_xyz": [
+      -6.6,
+      0.0,
+      1.4
+     ]
+    }
+   },
+   "materials": [
+    "concrete",
+    "detail_dark",
+    "engine_metal",
+    "gantry",
+    "hull",
+    "livery"
+   ],
+   "triangles": {
+    "lod0": 636,
+    "lod1": 194,
+    "phone": 636
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/world_gantry_crown.fbx",
+    "glb": "client/public/models/world_gantry_crown.glb",
+    "fbx_bytes": 47052,
+    "glb_bytes": 39052,
+    "blend": "assets/blender/world_gantry_crown.blend",
+    "blend_bytes": 94279
+   },
+   "issues": []
+  },
+  "world_gantry_segment": {
+   "id": "world_gantry_segment",
+   "length_m": 6.0,
+   "stack": false,
+   "ring_check": false,
+   "required_empties": [
+    "attach_top"
+   ],
+   "width_m": 5.4,
+   "vehicle_axis_offset_m": [
+    -12.0,
+    0.0
+   ],
+   "stackable": true,
+   "max_stack_height_m": 60.0,
+   "value_types": {
+    "length_m": "game_value",
+    "width_m": "game_value",
+    "vehicle_axis_offset_m": "game_value"
+   },
+   "max_diameter_m": 5.4,
+   "family": "world_pad",
+   "design_ref": "6.1",
+   "bbox_min_m": [
+    -3.91,
+    -2.7,
+    0.0
+   ],
+   "bbox_max_m": [
+    2.7,
+    2.7,
+    6.0
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      6.0
+     ]
+    },
+    "attach_base": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "gantry",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 556,
+    "lod1": 194,
+    "phone": 556
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/world_gantry_segment.fbx",
+    "glb": "client/public/models/world_gantry_segment.glb",
+    "fbx_bytes": 38732,
+    "glb_bytes": 37196,
+    "blend": "assets/blender/world_gantry_segment.blend",
+    "blend_bytes": 88334
+   },
+   "issues": []
+  },
+  "world_lightning_mast": {
+   "id": "world_lightning_mast",
+   "length_m": 33.1,
+   "stack": false,
+   "ring_check": false,
+   "required_empties": [
+    "lightning_tip"
+   ],
+   "mast_height_m": 30.0,
+   "base_radius_m": 1.4,
+   "value_types": {
+    "mast_height_m": "game_value",
+    "base_radius_m": "game_value",
+    "length_m": "game_value"
+   },
+   "max_diameter_m": 33.1,
+   "family": "world_pad",
+   "design_ref": "6.1, 7.1",
+   "bbox_min_m": [
+    -2.0,
+    -2.0,
+    0.0
+   ],
+   "bbox_max_m": [
+    2.0,
+    2.0,
+    33.08
+   ],
+   "attach_points_m": {
+    "lightning_tip": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      33.1
+     ]
+    }
+   },
+   "materials": [
+    "concrete",
+    "engine_metal",
+    "gantry"
+   ],
+   "triangles": {
+    "lod0": 620,
+    "lod1": 194,
+    "phone": 620
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/world_lightning_mast.fbx",
+    "glb": "client/public/models/world_lightning_mast.glb",
+    "fbx_bytes": 46540,
+    "glb_bytes": 31592,
+    "blend": "assets/blender/world_lightning_mast.blend",
+    "blend_bytes": 92198
+   },
+   "issues": []
+  },
+  "world_pad_deck": {
+   "id": "world_pad_deck",
+   "length_m": 9.0,
+   "stack": false,
+   "ring_check": false,
+   "required_empties": [
+    "vehicle_base",
+    "trench_mate"
+   ],
+   "deck_height_m": 9.0,
+   "deck_size_m": [
+    18.0,
+    30.0
+   ],
+   "opening_m": 10.0,
+   "hold_down_count": 8,
+   "hold_down_radius_m": 4.2,
+   "value_types": {
+    "deck_height_m": "game_value",
+    "deck_size_m": "game_value",
+    "opening_m": "game_value",
+    "hold_down_count": "game_value",
+    "hold_down_radius_m": "real_world_approximate"
+   },
+   "max_diameter_m": 9.0,
+   "family": "world_pad",
+   "design_ref": "6.1, 7.1",
+   "bbox_min_m": [
+    -9.0,
+    -15.0,
+    7.0
+   ],
+   "bbox_max_m": [
+    9.0,
+    15.0,
+    11.2
+   ],
+   "attach_points_m": {
+    "vehicle_base": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      9.0
+     ]
+    },
+    "clamp_ring": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      10.75
+     ]
+    },
+    "trench_mate": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      7.0
+     ]
+    }
+   },
+   "materials": [
+    "concrete",
+    "detail_dark",
+    "engine_metal",
+    "gantry"
+   ],
+   "triangles": {
+    "lod0": 1008,
+    "lod1": 292,
+    "phone": 1008
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/world_pad_deck.fbx",
+    "glb": "client/public/models/world_pad_deck.glb",
+    "fbx_bytes": 55084,
+    "glb_bytes": 56688,
+    "blend": "assets/blender/world_pad_deck.blend",
+    "blend_bytes": 101150
+   },
+   "issues": []
+  },
+  "world_umbilical_arm": {
+   "id": "world_umbilical_arm",
+   "length_m": 7.6,
+   "stack": false,
+   "ring_check": false,
+   "required_empties": [
+    "pivot",
+    "tip"
+   ],
+   "arm_length_m": 7.6,
+   "reach_axis": "-X",
+   "value_types": {
+    "arm_length_m": "game_value",
+    "length_m": "game_value"
+   },
+   "max_diameter_m": 7.6,
+   "family": "world_pad",
+   "design_ref": "6.1",
+   "bbox_min_m": [
+    -8.05,
+    -0.45,
+    0.0
+   ],
+   "bbox_max_m": [
+    0.34,
+    0.45,
+    2.6
+   ],
+   "attach_points_m": {
+    "pivot": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.9
+     ]
+    },
+    "tip": {
+     "blender_xyz": [
+      -8.1,
+      0.0,
+      0.9
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "gantry",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 520,
+    "lod1": 184,
+    "phone": 520
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/world_umbilical_arm.fbx",
+    "glb": "client/public/models/world_umbilical_arm.glb",
+    "fbx_bytes": 39692,
+    "glb_bytes": 30176,
+    "blend": "assets/blender/world_umbilical_arm.blend",
+    "blend_bytes": 87164
    },
    "issues": []
   }

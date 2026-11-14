@@ -226,3 +226,32 @@ BOOSTERS = {
 # topped by this nose cone, which carries the forward attach fitting. All game_value.
 LIQUID_SIDE_NOSE = {d: dict(gap=round(0.10 * d + 0.12, 2), collar=round(0.45 * d, 2), nose=round(1.6 * d, 2))
                     for d in DIAMETERS.values()}
+
+
+# --------------------------------------------------------------------------- T017: launch pad and gantry
+# World parts (design 6.1, 6.10, 7.1). Frame: pad parts have their origin at ground level under the
+# vehicle axis; gantry parts have their origin at ground level under the tower axis, so segments
+# stack with identity transforms. All game_value layout choices; the clearances come from the
+# largest vehicle the kit can build (8.4 m core with a 3.7 m heavy solid strap-on at a 0.5 m gap).
+PAD_DECK_H = 9.0            # deck top above ground, m. Deep enough for the longest engine under a mount.
+PAD_DECK_T = 2.0            # deck slab thickness, m
+PAD_DECK_HALF_X = 9.0       # deck half width, m
+PAD_DECK_HALF_Y = 15.0      # deck half length, m
+PAD_OPENING = 10.0          # square launch-mount opening, m (> 8.4 m core)
+PAD_MOUNT_R_IN, PAD_MOUNT_R_OUT, PAD_MOUNT_H = 4.35, 6.2, 0.8   # launch mount ring, m
+PAD_CLAMPS = 8              # hold-down clamps around the core base ring
+PAD_CLAMP_R = 4.2           # clamp jaw radius = 8.4 m core skin
+TRENCH_HALF_W = 5.5         # clear half width of the flame trench, m
+TRENCH_LEN_AFT = 15.0       # trench length behind the axis (under the deck), m
+TRENCH_LEN_FWD = 40.0       # trench length ahead of the axis (exit), m
+VEHICLE_ENVELOPE_R = 8.4    # core 4.2 + gap 0.5 + heavy solid 3.7 (spec.BOOSTERS), m
+GANTRY_OFFSET_X = 12.0      # gantry axis offset from the vehicle axis along +X, m
+GANTRY_HALF = 2.7           # tower half footprint (outer faces), m -> inner face at 9.3 m, clearance 0.9 m
+GANTRY_LEG = 0.40           # corner leg section, m
+GANTRY_SEGMENT_H = 6.0      # one stackable segment, m
+GANTRY_BASE_H = PAD_DECK_H  # concrete pedestal so segment 1 starts at deck level, m
+GANTRY_MAX_H = 60.0         # tallest authored stack in the Build Bay, m
+WORLD_VALUE_TYPES = dict(
+    PAD_DECK_H=("game_value", "LC-39A class pad: deck about 12 m above grade"),
+    GANTRY_OFFSET_X="game_value", GANTRY_SEGMENT_H="game_value", GANTRY_HALF="game_value",
+    VEHICLE_ENVELOPE_R="game_value")
