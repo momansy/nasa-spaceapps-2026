@@ -208,7 +208,7 @@ FAIRINGS = {
     "fairing_small": dict(diameter=1.5, base_d=1.5, length=3.6, name="Small fairing"),
     "fairing_standard": dict(diameter=4.0, base_d=3.7, length=11.0, name="Standard fairing"),
     "fairing_large": dict(diameter=5.4, base_d=5.4, length=14.5, name="Large fairing"),
-    "fairing_large_reusable": dict(diameter=5.4, base_d=5.4, length=14.5,
+    "fairing_reusable_large": dict(diameter=5.4, base_d=5.4, length=14.5,
                                    name="Reusable large fairing", reusable=True),
 }
 
@@ -221,3 +221,8 @@ BOOSTERS = {
                                 twin="Space Shuttle / SLS solid rocket booster",
                                 attach_fwd_z=37.5, attach_aft_z=3.2, segments=4),
 }
+# Liquid side boosters (design 7.11, "= first stage", Falcon Heavy style). A side core is
+# built from the same first-stage kit parts as the core (mount + engines + tank) and is
+# topped by this nose cone, which carries the forward attach fitting. All game_value.
+LIQUID_SIDE_NOSE = {d: dict(gap=round(0.10 * d + 0.12, 2), collar=round(0.45 * d, 2), nose=round(1.6 * d, 2))
+                    for d in DIAMETERS.values()}

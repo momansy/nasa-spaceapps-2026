@@ -8,7 +8,7 @@ import bpy
 
 from . import pipeline, studio
 
-EVIDENCE_DIR = os.path.join(pipeline.REPO_DIR, "orchestration", "evidence", "T006")
+EVIDENCE_DIR = os.path.join(pipeline.REPO_DIR, "orchestration", "evidence", "T009")
 
 FAMILY_ORDER = ["engine_s1", "engine_s2", "mount_s1", "mount_s2", "tank", "interstage", "adapter",
                 "fairing", "booster"]
@@ -115,7 +115,7 @@ def contact_sheets(scene=None, *, tile=480, cols=6, families=None, out_dir=None)
 
 def triangle_table(manifest: dict) -> str:
     """Markdown triangle-count table grouped by family."""
-    lines = ["# T006 kit: triangle counts and sizes", "",
+    lines = ["# T009 kit: triangle counts and sizes", "",
              "Budgets: host LOD0 <= 30 000 triangles, LOD1 <= 30 % of LOD0, phone GLB <= 8 000 triangles "
              "and <= 2 MB. Lengths in metres.", ""]
     parts = list(manifest["parts"].values())

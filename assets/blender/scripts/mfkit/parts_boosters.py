@@ -231,5 +231,63 @@ def gen_heavy_solid(ctx):
     ctx.meta["value_types"]["aft_skirt_base_diameter_m"] = GAME
 
 
+def gen_liquid_nose(ctx):
+    """Nose cone of a liquid side booster (a first-stage copy, design 7.11).
+
+    Stack part: origin on the bottom mating ring, which fits the top of the side core's
+    first-stage tank; the side core's tank, mount and engines hang below it. The forward
+    thrust fitting on the +Y side ends on y = D/2 + gap, the core's skin (`attach_side`).
+    Game simplification: the aft attachment is not modelled (it would belong to the tank)."""
+    mb = ctx.mesh()
+    d = ctx.params["d"]
+    p = spec.LIQUID_SIDE_NOSE[d]
+    r, gap = d / 2.0, p["gap"]
+    zc, nose_len = p["collar"], p["nose"]
+    length = round(zc + nose_len, 3)
+    seg = mb.seg(max(32, int(r * 24)), 18)
+    t = spec.SKIN
+
+    # ---- open bottom: dark inner lip and a metal mating ring
+    mb.lathe([(r - t, 0.18 * zc), (r - t, 0.0)], seg, "detail_dark")
+    mb.lathe([(r - t, 0.0), (r, 0.0)], seg, "engine_metal")
+    # ---- collar with livery band, then the blunted ogive; metal tip cap
+    skin_runs(mb, [(r, 0.0), (r, zc)], seg, "hull", [(0.52 * zc, 0.78 * zc, "livery")])
+    nose, cap_i = nose_points(r, nose_len, zc, mb.steps(12, 6), blunt=0.16,
+                              cap_steps=4 if mb.lod == 0 else 3)
+    mb.lathe(nose[:cap_i + 1], seg, "hull", crease=12.0)
+    mb.lathe(nose[cap_i:], seg, "livery", crease=60.0)
+    # separation joint at the base of the cone and a doubler at the bottom ring
+    mb.band(r, zc - 0.03, zc + 0.03, 0.012, seg, "engine_metal")
+    mb.band(r, 0.03, 0.03 + 0.05 * d, 0.010, seg, "engine_metal")
+    if mb.want(0):
+        mb.bolt_ring(r + 0.012, zc, max(24, int(r * 20)), 0.012, 0.010, "engine_metal", axis="R")
+        # raceway down the collar on the side away from the core
+        mb.panel(r, 0.10 * zc, 0.95 * zc, 0.12 / r, 0.03, "hull", ang=math.radians(-90.0), seg=2)
+
+    # ---- forward thrust fitting (same hardware language as the solid boosters)
+    z_fwd = 0.30 * zc
+    y_end = r + gap
+    puck = min(0.08 * r, gap * 0.3)
+    s = mb.seg(12, 8)
+    mb.box((0.55 * r, 0.14 * r, min(0.6 * r, 0.42 * zc)), "engine_metal", center=(0.0, r, z_fwd), taper=0.8)
+    mb.cyl((0.0, r, z_fwd), (0.0, y_end - puck, z_fwd), 0.14 * r, s, "engine_metal", r1=0.08 * r, caps=False)
+    mb.cyl((0.0, y_end - puck, z_fwd), (0.0, y_end, z_fwd), 0.10 * r, s, "engine_metal", caps=True)
+    if mb.want(0):
+        for sx in (-1.0, 1.0):
+            mb.box((0.05 * r, 0.18 * r, 0.40 * zc), "engine_metal", center=(sx * 0.18 * r, r + 0.05 * r, z_fwd),
+                   taper=0.5)
+
+    ctx.empty("attach_top", (0, 0, length))
+    ctx.empty("attach_side", (0, y_end, z_fwd))
+    ctx.meta.update(
+        length_m=length, diameter_bottom_m=d, diameter_top_m=0.0, ring_check=False, gap_m=gap,
+        core_side="+Y", attach_fwd_z_m=round(z_fwd, 3), stack_diameter_m=d,
+        side_core_parts="first-stage tank, mount and engines of the core design hang below this nose",
+        value_types=dict(length_m=GAME, diameter_bottom_m=GAME, diameter_top_m=GAME, gap_m=GAME,
+                         attach_fwd_z_m=GAME))
+
+
 register("booster_small_solid", "booster", gen_small_solid, "7.11")
 register("booster_heavy_solid", "booster", gen_heavy_solid, "7.11")
+for _d in spec.DIAMETERS.values():
+    register(f"booster_liquid_nose_{spec.dkey(_d)}", "booster", gen_liquid_nose, "7.11", d=_d)

@@ -2,6 +2,162 @@
  "schema": 1,
  "units": "metres, Blender axes (+Z up, +Y forward)",
  "parts": {
+  "adapter_d15_to_d37": {
+   "id": "adapter_d15_to_d37",
+   "length_m": 3.0,
+   "diameter_bottom_m": 1.5,
+   "diameter_top_m": 3.7,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value"
+   },
+   "family": "adapter",
+   "design_ref": "7.5 (fairing mating)",
+   "bbox_min_m": [
+    -1.85,
+    -1.85,
+    0.0
+   ],
+   "bbox_max_m": [
+    1.85,
+    1.85,
+    3.0
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      3.0
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery"
+   ],
+   "triangles": {
+    "lod0": 2242,
+    "lod1": 650,
+    "phone": 2242
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/adapter_d15_to_d37.fbx",
+    "glb": "client/public/models/adapter_d15_to_d37.glb",
+    "fbx_bytes": 79196,
+    "glb_bytes": 116960,
+    "blend": "assets/blender/adapter_d15_to_d37.blend",
+    "blend_bytes": 131826
+   },
+   "issues": []
+  },
+  "adapter_d37_to_d15": {
+   "id": "adapter_d37_to_d15",
+   "length_m": 3.0,
+   "diameter_bottom_m": 3.7,
+   "diameter_top_m": 1.5,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value"
+   },
+   "family": "adapter",
+   "design_ref": "7.5 (fairing mating)",
+   "bbox_min_m": [
+    -1.85,
+    -1.85,
+    0.0
+   ],
+   "bbox_max_m": [
+    1.85,
+    1.85,
+    3.0
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      3.0
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery"
+   ],
+   "triangles": {
+    "lod0": 2242,
+    "lod1": 650,
+    "phone": 2242
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/adapter_d37_to_d15.fbx",
+    "glb": "client/public/models/adapter_d37_to_d15.glb",
+    "fbx_bytes": 79132,
+    "glb_bytes": 116960,
+    "blend": "assets/blender/adapter_d37_to_d15.blend",
+    "blend_bytes": 131679
+   },
+   "issues": []
+  },
+  "adapter_d37_to_d54": {
+   "id": "adapter_d37_to_d54",
+   "length_m": 2.3,
+   "diameter_bottom_m": 3.7,
+   "diameter_top_m": 5.4,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value"
+   },
+   "family": "adapter",
+   "design_ref": "7.5 (fairing mating)",
+   "bbox_min_m": [
+    -2.7,
+    -2.699,
+    0.0
+   ],
+   "bbox_max_m": [
+    2.7,
+    2.699,
+    2.3
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      2.3
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery"
+   ],
+   "triangles": {
+    "lod0": 3592,
+    "lod1": 1004,
+    "phone": 3592
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/adapter_d37_to_d54.fbx",
+    "glb": "client/public/models/adapter_d37_to_d54.glb",
+    "fbx_bytes": 114236,
+    "glb_bytes": 187604,
+    "blend": "assets/blender/adapter_d37_to_d54.blend",
+    "blend_bytes": 166406
+   },
+   "issues": []
+  },
   "adapter_d54_to_d37": {
    "id": "adapter_d54_to_d37",
    "length_m": 2.3,
@@ -45,12 +201,6634 @@
     "phone": 3592
    },
    "files": {
-    "fbx": "unity/MissionForge/Assets/Art/Models/adapter_d54_to_d37.fbx",
+    "fbx": "assets/blender/export/fbx/adapter_d54_to_d37.fbx",
     "glb": "client/public/models/adapter_d54_to_d37.glb",
-    "fbx_bytes": 113836,
-    "glb_bytes": 187696,
+    "fbx_bytes": 113868,
+    "glb_bytes": 187604,
     "blend": "assets/blender/adapter_d54_to_d37.blend",
-    "blend_bytes": 166337
+    "blend_bytes": 166662
+   },
+   "issues": []
+  },
+  "adapter_d54_to_d84": {
+   "id": "adapter_d54_to_d84",
+   "length_m": 4.1,
+   "diameter_bottom_m": 5.4,
+   "diameter_top_m": 8.4,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value"
+   },
+   "family": "adapter",
+   "design_ref": "7.5 (fairing mating)",
+   "bbox_min_m": [
+    -4.2,
+    -4.2,
+    0.0
+   ],
+   "bbox_max_m": [
+    4.2,
+    4.2,
+    4.1
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      4.1
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery"
+   ],
+   "triangles": {
+    "lod0": 5520,
+    "lod1": 1532,
+    "phone": 5520
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/adapter_d54_to_d84.fbx",
+    "glb": "client/public/models/adapter_d54_to_d84.glb",
+    "fbx_bytes": 160076,
+    "glb_bytes": 285760,
+    "blend": "assets/blender/adapter_d54_to_d84.blend",
+    "blend_bytes": 208452
+   },
+   "issues": []
+  },
+  "adapter_d84_to_d54": {
+   "id": "adapter_d84_to_d54",
+   "length_m": 4.1,
+   "diameter_bottom_m": 8.4,
+   "diameter_top_m": 5.4,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value"
+   },
+   "family": "adapter",
+   "design_ref": "7.5 (fairing mating)",
+   "bbox_min_m": [
+    -4.2,
+    -4.2,
+    0.0
+   ],
+   "bbox_max_m": [
+    4.2,
+    4.2,
+    4.1
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      4.1
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery"
+   ],
+   "triangles": {
+    "lod0": 5520,
+    "lod1": 1532,
+    "phone": 5520
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/adapter_d84_to_d54.fbx",
+    "glb": "client/public/models/adapter_d84_to_d54.glb",
+    "fbx_bytes": 159580,
+    "glb_bytes": 285312,
+    "blend": "assets/blender/adapter_d84_to_d54.blend",
+    "blend_bytes": 209212
+   },
+   "issues": []
+  },
+  "booster_heavy_solid": {
+   "id": "booster_heavy_solid",
+   "length_m": 45.5,
+   "diameter_bottom_m": 3.7,
+   "diameter_top_m": 3.7,
+   "stack": false,
+   "ring_check": false,
+   "gap_m": 0.5,
+   "core_side": "+Y",
+   "core_axis_offset_note": "core axis is at y = D/2 + gap + core radius",
+   "attach_fwd_z_m": 37.5,
+   "attach_aft_z_m": 3.2,
+   "twin": "Space Shuttle / SLS solid rocket booster",
+   "value_types": {
+    "length_m": "real_world_approximate",
+    "diameter_bottom_m": "real_world_approximate",
+    "diameter_top_m": "real_world_approximate",
+    "gap_m": "game_value",
+    "attach_fwd_z_m": "game_value",
+    "attach_aft_z_m": "game_value",
+    "aft_skirt_base_diameter_m": "game_value"
+   },
+   "nozzle_exit_diameter_m": 3.76,
+   "casing_segments": 4,
+   "aft_skirt_base_diameter_m": 4.58,
+   "nozzle": "gimballed (flex bearing at gimbal_pivot)",
+   "family": "booster",
+   "design_ref": "7.11",
+   "bbox_min_m": [
+    -2.29,
+    -2.29,
+    0.0
+   ],
+   "bbox_max_m": [
+    2.29,
+    2.351,
+    45.5
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      45.5
+     ]
+    },
+    "nozzle_exit": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "gimbal_pivot": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      3.3
+     ]
+    },
+    "attach_side": {
+     "blender_xyz": [
+      0.0,
+      2.35,
+      37.5
+     ]
+    },
+    "attach_side_aft": {
+     "blender_xyz": [
+      0.0,
+      2.35,
+      3.2
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery",
+    "nozzle_hot",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 19382,
+    "lod1": 5778,
+    "phone": 5778
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/booster_heavy_solid.fbx",
+    "glb": "client/public/models/booster_heavy_solid.glb",
+    "fbx_bytes": 518908,
+    "glb_bytes": 209840,
+    "blend": "assets/blender/booster_heavy_solid.blend",
+    "blend_bytes": 502594
+   },
+   "issues": []
+  },
+  "booster_small_solid": {
+   "id": "booster_small_solid",
+   "length_m": 20.0,
+   "diameter_bottom_m": 1.6,
+   "diameter_top_m": 1.6,
+   "stack": false,
+   "ring_check": false,
+   "gap_m": 0.22,
+   "core_side": "+Y",
+   "core_axis_offset_note": "core axis is at y = D/2 + gap + core radius",
+   "attach_fwd_z_m": 15.0,
+   "attach_aft_z_m": 1.6,
+   "twin": "GEM-63 class",
+   "value_types": {
+    "length_m": "real_world_approximate",
+    "diameter_bottom_m": "real_world_approximate",
+    "diameter_top_m": "real_world_approximate",
+    "gap_m": "game_value",
+    "attach_fwd_z_m": "game_value",
+    "attach_aft_z_m": "game_value"
+   },
+   "nozzle_exit_diameter_m": 1.28,
+   "nozzle": "fixed (gimbal_pivot marks the throat)",
+   "family": "booster",
+   "design_ref": "7.11",
+   "bbox_min_m": [
+    -0.834,
+    -0.834,
+    0.0
+   ],
+   "bbox_max_m": [
+    0.834,
+    1.02,
+    20.0
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      20.0
+     ]
+    },
+    "nozzle_exit": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "gimbal_pivot": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      1.75
+     ]
+    },
+    "attach_side": {
+     "blender_xyz": [
+      0.0,
+      1.02,
+      15.0
+     ]
+    },
+    "attach_side_aft": {
+     "blender_xyz": [
+      0.0,
+      1.02,
+      1.6
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery",
+    "nozzle_hot",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 8934,
+    "lod1": 2598,
+    "phone": 2598
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/booster_small_solid.fbx",
+    "glb": "client/public/models/booster_small_solid.glb",
+    "fbx_bytes": 262012,
+    "glb_bytes": 92132,
+    "blend": "assets/blender/booster_small_solid.blend",
+    "blend_bytes": 289021
+   },
+   "issues": []
+  },
+  "eng_electric_pump_mini": {
+   "id": "eng_electric_pump_mini",
+   "length_m": 0.65,
+   "diameter_bottom_m": 0.25,
+   "diameter_top_m": 0.2,
+   "exit_diameter_m": 0.25,
+   "envelope_diameter_m": 0.42,
+   "gimbal_pivot_z_m": 0.5757,
+   "ring_check": false,
+   "twin": "Rutherford",
+   "name": "Electric-Pump Mini",
+   "stage": 1,
+   "value_types": {
+    "length_m": "real_world_approximate",
+    "exit_diameter_m": "real_world_approximate",
+    "envelope_diameter_m": "real_world_approximate",
+    "diameter_bottom_m": "real_world_approximate",
+    "diameter_top_m": "game_value",
+    "gimbal_pivot_z_m": "game_value"
+   },
+   "family": "engine_s1",
+   "design_ref": "7.7",
+   "bbox_min_m": [
+    -0.19,
+    -0.156,
+    0.0
+   ],
+   "bbox_max_m": [
+    0.19,
+    0.207,
+    0.65
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.65
+     ]
+    },
+    "nozzle_exit": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "gimbal_pivot": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.5757
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "livery",
+    "nozzle_hot"
+   ],
+   "triangles": {
+    "lod0": 7742,
+    "lod1": 2252,
+    "phone": 7742
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/eng_electric_pump_mini.fbx",
+    "glb": "client/public/models/eng_electric_pump_mini.glb",
+    "fbx_bytes": 238716,
+    "glb_bytes": 311136,
+    "blend": "assets/blender/eng_electric_pump_mini.blend",
+    "blend_bytes": 268468
+   },
+   "issues": []
+  },
+  "eng_hydrolox_high_efficiency": {
+   "id": "eng_hydrolox_high_efficiency",
+   "length_m": 4.3,
+   "diameter_bottom_m": 2.4,
+   "diameter_top_m": 1.0,
+   "exit_diameter_m": 2.4,
+   "envelope_diameter_m": 2.4,
+   "gimbal_pivot_z_m": 4.047,
+   "ring_check": false,
+   "twin": "RS-25",
+   "name": "Hydrolox High-Efficiency",
+   "stage": 1,
+   "value_types": {
+    "length_m": "real_world_approximate",
+    "exit_diameter_m": "real_world_approximate",
+    "envelope_diameter_m": "real_world_approximate",
+    "diameter_bottom_m": "real_world_approximate",
+    "diameter_top_m": "game_value",
+    "gimbal_pivot_z_m": "game_value"
+   },
+   "family": "engine_s1",
+   "design_ref": "7.7",
+   "bbox_min_m": [
+    -1.182,
+    -1.195,
+    0.0
+   ],
+   "bbox_max_m": [
+    1.182,
+    1.182,
+    4.3
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      4.3
+     ]
+    },
+    "nozzle_exit": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "gimbal_pivot": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      4.047
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "nozzle_hot",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 26030,
+    "lod1": 7462,
+    "phone": 7462
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/eng_hydrolox_high_efficiency.fbx",
+    "glb": "client/public/models/eng_hydrolox_high_efficiency.glb",
+    "fbx_bytes": 758332,
+    "glb_bytes": 237028,
+    "blend": "assets/blender/eng_hydrolox_high_efficiency.blend",
+    "blend_bytes": 719551
+   },
+   "issues": []
+  },
+  "eng_hydrolox_vacuum": {
+   "id": "eng_hydrolox_vacuum",
+   "name": "Hydrolox Vacuum",
+   "twin": "RL10",
+   "stage": 2,
+   "length_m": 2.2,
+   "diameter_bottom_m": 1.45,
+   "diameter_top_m": 0.5,
+   "exit_diameter_m": 1.45,
+   "envelope_diameter_m": 1.45,
+   "gimbal_pivot_z_m": 2.079,
+   "ring_check": false,
+   "value_types": {
+    "length_m": "real_world_approximate",
+    "diameter_bottom_m": "real_world_approximate",
+    "diameter_top_m": "game_value",
+    "exit_diameter_m": "real_world_approximate",
+    "envelope_diameter_m": "real_world_approximate",
+    "gimbal_pivot_z_m": "game_value"
+   },
+   "family": "engine_s2",
+   "design_ref": "7.8",
+   "bbox_min_m": [
+    -0.733,
+    -0.733,
+    0.0
+   ],
+   "bbox_max_m": [
+    0.733,
+    0.733,
+    2.2
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      2.2
+     ]
+    },
+    "nozzle_exit": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "gimbal_pivot": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      2.079
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "nozzle_hot"
+   ],
+   "triangles": {
+    "lod0": 23442,
+    "lod1": 5812,
+    "phone": 5812
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/eng_hydrolox_vacuum.fbx",
+    "glb": "client/public/models/eng_hydrolox_vacuum.glb",
+    "fbx_bytes": 640220,
+    "glb_bytes": 174404,
+    "blend": "assets/blender/eng_hydrolox_vacuum.blend",
+    "blend_bytes": 614345
+   },
+   "issues": []
+  },
+  "eng_hypergolic_storable": {
+   "id": "eng_hypergolic_storable",
+   "name": "Hypergolic Storable",
+   "twin": "AJ10-137 (Apollo Service Propulsion System)",
+   "stage": 2,
+   "length_m": 3.9,
+   "diameter_bottom_m": 2.5,
+   "diameter_top_m": 0.7,
+   "exit_diameter_m": 2.5,
+   "envelope_diameter_m": 2.5,
+   "gimbal_pivot_z_m": 3.22,
+   "ring_check": false,
+   "value_types": {
+    "length_m": "real_world_approximate",
+    "diameter_bottom_m": "real_world_approximate",
+    "diameter_top_m": "game_value",
+    "exit_diameter_m": "real_world_approximate",
+    "envelope_diameter_m": "real_world_approximate",
+    "gimbal_pivot_z_m": "game_value"
+   },
+   "family": "engine_s2",
+   "design_ref": "7.8",
+   "bbox_min_m": [
+    -1.262,
+    -1.262,
+    0.0
+   ],
+   "bbox_max_m": [
+    1.262,
+    1.262,
+    3.9
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      3.9
+     ]
+    },
+    "nozzle_exit": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "gimbal_pivot": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      3.22
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "nozzle_hot"
+   ],
+   "triangles": {
+    "lod0": 17240,
+    "lod1": 5052,
+    "phone": 5052
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/eng_hypergolic_storable.fbx",
+    "glb": "client/public/models/eng_hypergolic_storable.glb",
+    "fbx_bytes": 478956,
+    "glb_bytes": 174732,
+    "blend": "assets/blender/eng_hypergolic_storable.blend",
+    "blend_bytes": 486734
+   },
+   "issues": []
+  },
+  "eng_kerolox_giant": {
+   "id": "eng_kerolox_giant",
+   "name": "Kerolox Giant",
+   "twin": "F-1 (Saturn V)",
+   "stage": 1,
+   "length_m": 5.6,
+   "diameter_bottom_m": 3.7,
+   "diameter_top_m": 1.5,
+   "exit_diameter_m": 3.7,
+   "envelope_diameter_m": 3.7,
+   "mount_diameter_m": 1.5,
+   "gimbal_pivot_z_m": 5.039,
+   "ring_check": false,
+   "value_types": {
+    "length_m": "real_world_approximate",
+    "exit_diameter_m": "real_world_approximate",
+    "envelope_diameter_m": "real_world_approximate",
+    "diameter_bottom_m": "real_world_approximate",
+    "diameter_top_m": "game_value",
+    "mount_diameter_m": "game_value",
+    "gimbal_pivot_z_m": "game_value"
+   },
+   "cycle": "gas generator",
+   "exhaust_manifold_z_m": 1.3,
+   "family": "engine_s1",
+   "design_ref": "7.7",
+   "bbox_min_m": [
+    -1.878,
+    -1.878,
+    0.0
+   ],
+   "bbox_max_m": [
+    1.878,
+    1.878,
+    5.6
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      5.6
+     ]
+    },
+    "nozzle_exit": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "gimbal_pivot": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      5.039
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "nozzle_hot",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 25686,
+    "lod1": 6784,
+    "phone": 6784
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/eng_kerolox_giant.fbx",
+    "glb": "client/public/models/eng_kerolox_giant.glb",
+    "fbx_bytes": 737292,
+    "glb_bytes": 223668,
+    "blend": "assets/blender/eng_kerolox_giant.blend",
+    "blend_bytes": 694622
+   },
+   "issues": []
+  },
+  "eng_kerolox_staged_combustion": {
+   "id": "eng_kerolox_staged_combustion",
+   "name": "Kerolox Staged-Combustion",
+   "twin": "RD-180 class (two chambers, one turbopump)",
+   "stage": 1,
+   "length_m": 3.6,
+   "diameter_bottom_m": 1.45,
+   "diameter_top_m": 1.6,
+   "exit_diameter_m": 1.45,
+   "envelope_diameter_m": 3.15,
+   "mount_diameter_m": 1.6,
+   "gimbal_pivot_z_m": 3.118,
+   "ring_check": false,
+   "value_types": {
+    "length_m": "real_world_approximate",
+    "exit_diameter_m": "real_world_approximate",
+    "envelope_diameter_m": "real_world_approximate",
+    "diameter_bottom_m": "real_world_approximate",
+    "diameter_top_m": "game_value",
+    "mount_diameter_m": "game_value",
+    "gimbal_pivot_z_m": "game_value"
+   },
+   "cycle": "oxidiser-rich staged combustion",
+   "nozzles": 2,
+   "nozzle_spacing_m": 1.62,
+   "family": "engine_s1",
+   "design_ref": "7.7",
+   "bbox_min_m": [
+    -1.549,
+    -1.17,
+    0.0
+   ],
+   "bbox_max_m": [
+    1.549,
+    1.204,
+    3.6
+   ],
+   "attach_points_m": {
+    "nozzle_exit_1": {
+     "blender_xyz": [
+      0.81,
+      0.0,
+      0.0
+     ]
+    },
+    "nozzle_exit_2": {
+     "blender_xyz": [
+      -0.81,
+      0.0,
+      0.0
+     ]
+    },
+    "gimbal_pivot_1": {
+     "blender_xyz": [
+      0.81,
+      0.0,
+      3.118
+     ]
+    },
+    "gimbal_pivot_2": {
+     "blender_xyz": [
+      -0.81,
+      0.0,
+      3.118
+     ]
+    },
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      3.6
+     ]
+    },
+    "nozzle_exit": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "gimbal_pivot": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      3.118
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "nozzle_hot",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 25588,
+    "lod1": 7444,
+    "phone": 7444
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/eng_kerolox_staged_combustion.fbx",
+    "glb": "client/public/models/eng_kerolox_staged_combustion.glb",
+    "fbx_bytes": 754060,
+    "glb_bytes": 247916,
+    "blend": "assets/blender/eng_kerolox_staged_combustion.blend",
+    "blend_bytes": 672961
+   },
+   "issues": []
+  },
+  "eng_kerolox_vacuum": {
+   "id": "eng_kerolox_vacuum",
+   "name": "Kerolox Vacuum",
+   "twin": "Merlin Vacuum",
+   "stage": 2,
+   "length_m": 3.9,
+   "diameter_bottom_m": 3.0,
+   "diameter_top_m": 0.55,
+   "exit_diameter_m": 3.0,
+   "envelope_diameter_m": 3.0,
+   "gimbal_pivot_z_m": 3.746,
+   "ring_check": false,
+   "value_types": {
+    "length_m": "real_world_approximate",
+    "diameter_bottom_m": "real_world_approximate",
+    "diameter_top_m": "game_value",
+    "exit_diameter_m": "real_world_approximate",
+    "envelope_diameter_m": "real_world_approximate",
+    "gimbal_pivot_z_m": "game_value"
+   },
+   "family": "engine_s2",
+   "design_ref": "7.8",
+   "bbox_min_m": [
+    -1.508,
+    -1.508,
+    0.0
+   ],
+   "bbox_max_m": [
+    1.508,
+    1.508,
+    3.9
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      3.9
+     ]
+    },
+    "nozzle_exit": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "gimbal_pivot": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      3.746
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "nozzle_hot"
+   ],
+   "triangles": {
+    "lod0": 18098,
+    "lod1": 5390,
+    "phone": 5390
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/eng_kerolox_vacuum.fbx",
+    "glb": "client/public/models/eng_kerolox_vacuum.glb",
+    "fbx_bytes": 514124,
+    "glb_bytes": 163140,
+    "blend": "assets/blender/eng_kerolox_vacuum.blend",
+    "blend_bytes": 522937
+   },
+   "issues": []
+  },
+  "eng_kerolox_workhorse": {
+   "id": "eng_kerolox_workhorse",
+   "name": "Kerolox Workhorse",
+   "twin": "Merlin 1D",
+   "stage": 1,
+   "length_m": 2.9,
+   "diameter_bottom_m": 0.92,
+   "diameter_top_m": 0.55,
+   "exit_diameter_m": 0.92,
+   "envelope_diameter_m": 1.25,
+   "mount_diameter_m": 0.55,
+   "gimbal_pivot_z_m": 2.691,
+   "ring_check": false,
+   "value_types": {
+    "length_m": "real_world_approximate",
+    "exit_diameter_m": "real_world_approximate",
+    "envelope_diameter_m": "real_world_approximate",
+    "diameter_bottom_m": "real_world_approximate",
+    "diameter_top_m": "game_value",
+    "mount_diameter_m": "game_value",
+    "gimbal_pivot_z_m": "game_value"
+   },
+   "cycle": "gas generator",
+   "family": "engine_s1",
+   "design_ref": "7.7",
+   "bbox_min_m": [
+    -0.483,
+    -0.483,
+    0.0
+   ],
+   "bbox_max_m": [
+    0.624,
+    0.483,
+    2.9
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      2.9
+     ]
+    },
+    "nozzle_exit": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "gimbal_pivot": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      2.691
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "nozzle_hot"
+   ],
+   "triangles": {
+    "lod0": 16220,
+    "lod1": 4280,
+    "phone": 4280
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/eng_kerolox_workhorse.fbx",
+    "glb": "client/public/models/eng_kerolox_workhorse.glb",
+    "fbx_bytes": 473500,
+    "glb_bytes": 145296,
+    "blend": "assets/blender/eng_kerolox_workhorse.blend",
+    "blend_bytes": 470241
+   },
+   "issues": []
+  },
+  "eng_methalox_full_flow": {
+   "id": "eng_methalox_full_flow",
+   "length_m": 3.1,
+   "diameter_bottom_m": 1.3,
+   "diameter_top_m": 0.8,
+   "exit_diameter_m": 1.3,
+   "envelope_diameter_m": 1.35,
+   "gimbal_pivot_z_m": 2.902,
+   "ring_check": false,
+   "twin": "Raptor class",
+   "name": "Methalox Full-Flow",
+   "stage": 1,
+   "value_types": {
+    "length_m": "real_world_approximate",
+    "exit_diameter_m": "real_world_approximate",
+    "envelope_diameter_m": "real_world_approximate",
+    "diameter_bottom_m": "real_world_approximate",
+    "diameter_top_m": "game_value",
+    "gimbal_pivot_z_m": "game_value"
+   },
+   "family": "engine_s1",
+   "design_ref": "7.7",
+   "bbox_min_m": [
+    -0.657,
+    -0.642,
+    0.0
+   ],
+   "bbox_max_m": [
+    0.642,
+    0.642,
+    3.1
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      3.1
+     ]
+    },
+    "nozzle_exit": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "gimbal_pivot": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      2.902
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "nozzle_hot"
+   ],
+   "triangles": {
+    "lod0": 14408,
+    "lod1": 4192,
+    "phone": 4192
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/eng_methalox_full_flow.fbx",
+    "glb": "client/public/models/eng_methalox_full_flow.glb",
+    "fbx_bytes": 423740,
+    "glb_bytes": 139968,
+    "blend": "assets/blender/eng_methalox_full_flow.blend",
+    "blend_bytes": 442330
+   },
+   "issues": []
+  },
+  "eng_methalox_vacuum": {
+   "id": "eng_methalox_vacuum",
+   "name": "Methalox Vacuum",
+   "twin": "Raptor Vacuum class",
+   "stage": 2,
+   "length_m": 4.7,
+   "diameter_bottom_m": 2.5,
+   "diameter_top_m": 0.8,
+   "exit_diameter_m": 2.5,
+   "envelope_diameter_m": 2.5,
+   "gimbal_pivot_z_m": 4.502,
+   "ring_check": false,
+   "value_types": {
+    "length_m": "real_world_approximate",
+    "diameter_bottom_m": "real_world_approximate",
+    "diameter_top_m": "game_value",
+    "exit_diameter_m": "real_world_approximate",
+    "envelope_diameter_m": "real_world_approximate",
+    "gimbal_pivot_z_m": "game_value"
+   },
+   "family": "engine_s2",
+   "design_ref": "7.8",
+   "bbox_min_m": [
+    -1.258,
+    -1.258,
+    0.0
+   ],
+   "bbox_max_m": [
+    1.258,
+    1.258,
+    4.7
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      4.7
+     ]
+    },
+    "nozzle_exit": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "gimbal_pivot": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      4.502
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "nozzle_hot"
+   ],
+   "triangles": {
+    "lod0": 18882,
+    "lod1": 5494,
+    "phone": 5494
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/eng_methalox_vacuum.fbx",
+    "glb": "client/public/models/eng_methalox_vacuum.glb",
+    "fbx_bytes": 537756,
+    "glb_bytes": 165352,
+    "blend": "assets/blender/eng_methalox_vacuum.blend",
+    "blend_bytes": 543890
+   },
+   "issues": []
+  },
+  "eng_solid_kick_motor": {
+   "id": "eng_solid_kick_motor",
+   "name": "Solid Kick Motor",
+   "twin": "Star 48 class",
+   "stage": 2,
+   "length_m": 2.03,
+   "diameter_bottom_m": 0.75,
+   "diameter_top_m": 0.9,
+   "exit_diameter_m": 0.75,
+   "envelope_diameter_m": 1.24,
+   "gimbal_pivot_z_m": 0.86,
+   "ring_check": false,
+   "value_types": {
+    "length_m": "real_world_approximate",
+    "diameter_bottom_m": "real_world_approximate",
+    "diameter_top_m": "game_value",
+    "exit_diameter_m": "real_world_approximate",
+    "envelope_diameter_m": "real_world_approximate",
+    "gimbal_pivot_z_m": "game_value"
+   },
+   "family": "engine_s2",
+   "design_ref": "7.8",
+   "bbox_min_m": [
+    -0.629,
+    -0.629,
+    0.0
+   ],
+   "bbox_max_m": [
+    0.629,
+    0.629,
+    2.03
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      2.03
+     ]
+    },
+    "nozzle_exit": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "gimbal_pivot": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.86
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "nozzle_hot",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 14628,
+    "lod1": 4168,
+    "phone": 4168
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/eng_solid_kick_motor.fbx",
+    "glb": "client/public/models/eng_solid_kick_motor.glb",
+    "fbx_bytes": 404156,
+    "glb_bytes": 128696,
+    "blend": "assets/blender/eng_solid_kick_motor.blend",
+    "blend_bytes": 421246
+   },
+   "issues": []
+  },
+  "fairing_large": {
+   "id": "fairing_large",
+   "name": "Large fairing",
+   "length_m": 14.5,
+   "diameter_bottom_m": 5.4,
+   "diameter_top_m": 0.0,
+   "max_diameter_m": 5.4,
+   "usable_inner_diameter_m": 4.93,
+   "cylinder_length_m": 7.4,
+   "nose_length_m": 6.75,
+   "halves": [
+    "half_a",
+    "half_b"
+   ],
+   "seam_plane": "x=0",
+   "open_direction": {
+    "half_a": "+X",
+    "half_b": "-X"
+   },
+   "reusable": false,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "max_diameter_m": "game_value",
+    "usable_inner_diameter_m": "game_value",
+    "cylinder_length_m": "game_value",
+    "nose_length_m": "game_value"
+   },
+   "family": "fairing",
+   "design_ref": "7.5",
+   "bbox_min_m": [
+    -2.706,
+    -2.746,
+    0.0
+   ],
+   "bbox_max_m": [
+    2.706,
+    2.746,
+    14.5
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      14.5
+     ]
+    },
+    "hinge_a": {
+     "blender_xyz": [
+      2.7,
+      0.0,
+      0.0
+     ],
+     "sub": "half_a"
+    },
+    "hinge_b": {
+     "blender_xyz": [
+      -2.7,
+      0.0,
+      0.0
+     ],
+     "sub": "half_b"
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery"
+   ],
+   "triangles": {
+    "lod0": 10092,
+    "lod1": 2932,
+    "phone": 2932
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/fairing_large.fbx",
+    "glb": "client/public/models/fairing_large.glb",
+    "fbx_bytes": 328684,
+    "glb_bytes": 114688,
+    "blend": "assets/blender/fairing_large.blend",
+    "blend_bytes": 271843
+   },
+   "issues": []
+  },
+  "fairing_reusable_large": {
+   "id": "fairing_reusable_large",
+   "name": "Reusable large fairing",
+   "length_m": 14.5,
+   "diameter_bottom_m": 5.4,
+   "diameter_top_m": 0.0,
+   "max_diameter_m": 5.4,
+   "usable_inner_diameter_m": 4.93,
+   "cylinder_length_m": 7.4,
+   "nose_length_m": 6.75,
+   "halves": [
+    "half_a",
+    "half_b"
+   ],
+   "seam_plane": "x=0",
+   "open_direction": {
+    "half_a": "+X",
+    "half_b": "-X"
+   },
+   "reusable": true,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "max_diameter_m": "game_value",
+    "usable_inner_diameter_m": "game_value",
+    "cylinder_length_m": "game_value",
+    "nose_length_m": "game_value"
+   },
+   "family": "fairing",
+   "design_ref": "7.5",
+   "bbox_min_m": [
+    -2.88,
+    -2.746,
+    0.0
+   ],
+   "bbox_max_m": [
+    2.88,
+    2.746,
+    14.5
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      14.5
+     ]
+    },
+    "hinge_a": {
+     "blender_xyz": [
+      2.7,
+      0.0,
+      0.0
+     ],
+     "sub": "half_a"
+    },
+    "hinge_b": {
+     "blender_xyz": [
+      -2.7,
+      0.0,
+      0.0
+     ],
+     "sub": "half_b"
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 11004,
+    "lod1": 3200,
+    "phone": 3200
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/fairing_reusable_large.fbx",
+    "glb": "client/public/models/fairing_reusable_large.glb",
+    "fbx_bytes": 362780,
+    "glb_bytes": 129208,
+    "blend": "assets/blender/fairing_reusable_large.blend",
+    "blend_bytes": 294240
+   },
+   "issues": []
+  },
+  "fairing_small": {
+   "id": "fairing_small",
+   "name": "Small fairing",
+   "length_m": 3.6,
+   "diameter_bottom_m": 1.5,
+   "diameter_top_m": 0.0,
+   "max_diameter_m": 1.5,
+   "usable_inner_diameter_m": 1.34,
+   "cylinder_length_m": 1.45,
+   "nose_length_m": 2.03,
+   "halves": [
+    "half_a",
+    "half_b"
+   ],
+   "seam_plane": "x=0",
+   "open_direction": {
+    "half_a": "+X",
+    "half_b": "-X"
+   },
+   "reusable": false,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "max_diameter_m": "game_value",
+    "usable_inner_diameter_m": "game_value",
+    "cylinder_length_m": "game_value",
+    "nose_length_m": "game_value"
+   },
+   "family": "fairing",
+   "design_ref": "7.5",
+   "bbox_min_m": [
+    -0.756,
+    -0.773,
+    0.0
+   ],
+   "bbox_max_m": [
+    0.756,
+    0.773,
+    3.6
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      3.6
+     ]
+    },
+    "hinge_a": {
+     "blender_xyz": [
+      0.75,
+      0.0,
+      0.0
+     ],
+     "sub": "half_a"
+    },
+    "hinge_b": {
+     "blender_xyz": [
+      -0.75,
+      0.0,
+      0.0
+     ],
+     "sub": "half_b"
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery"
+   ],
+   "triangles": {
+    "lod0": 6332,
+    "lod1": 1840,
+    "phone": 6332
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/fairing_small.fbx",
+    "glb": "client/public/models/fairing_small.glb",
+    "fbx_bytes": 225516,
+    "glb_bytes": 228808,
+    "blend": "assets/blender/fairing_small.blend",
+    "blend_bytes": 205200
+   },
+   "issues": []
+  },
+  "fairing_standard": {
+   "id": "fairing_standard",
+   "name": "Standard fairing",
+   "length_m": 11.0,
+   "diameter_bottom_m": 3.7,
+   "diameter_top_m": 0.0,
+   "max_diameter_m": 4.0,
+   "usable_inner_diameter_m": 3.65,
+   "cylinder_length_m": 5.13,
+   "nose_length_m": 5.0,
+   "halves": [
+    "half_a",
+    "half_b"
+   ],
+   "seam_plane": "x=0",
+   "open_direction": {
+    "half_a": "+X",
+    "half_b": "-X"
+   },
+   "reusable": false,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "max_diameter_m": "game_value",
+    "usable_inner_diameter_m": "game_value",
+    "cylinder_length_m": "game_value",
+    "nose_length_m": "game_value"
+   },
+   "family": "fairing",
+   "design_ref": "7.5",
+   "bbox_min_m": [
+    -2.0,
+    -2.038,
+    0.0
+   ],
+   "bbox_max_m": [
+    2.0,
+    2.038,
+    11.0
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      11.0
+     ]
+    },
+    "hinge_a": {
+     "blender_xyz": [
+      1.85,
+      0.0,
+      0.0
+     ],
+     "sub": "half_a"
+    },
+    "hinge_b": {
+     "blender_xyz": [
+      -1.85,
+      0.0,
+      0.0
+     ],
+     "sub": "half_b"
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery"
+   ],
+   "triangles": {
+    "lod0": 9476,
+    "lod1": 2756,
+    "phone": 2756
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/fairing_standard.fbx",
+    "glb": "client/public/models/fairing_standard.glb",
+    "fbx_bytes": 312268,
+    "glb_bytes": 111676,
+    "blend": "assets/blender/fairing_standard.blend",
+    "blend_bytes": 254426
+   },
+   "issues": []
+  },
+  "interstage_hot_staging_d15": {
+   "id": "interstage_hot_staging_d15",
+   "length_m": 2.9,
+   "diameter_bottom_m": 1.5,
+   "diameter_top_m": 1.5,
+   "separation_system": "hot_staging",
+   "separation_plane_z_m": 2.697,
+   "clear_inner_diameter_m": 1.32,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "separation_plane_z_m": "game_value",
+    "clear_inner_diameter_m": "game_value"
+   },
+   "family": "interstage",
+   "design_ref": "7.12",
+   "bbox_min_m": [
+    -0.766,
+    -0.766,
+    0.0
+   ],
+   "bbox_max_m": [
+    0.766,
+    0.766,
+    2.9
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      2.9
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 5252,
+    "lod1": 1526,
+    "phone": 5252
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/interstage_hot_staging_d15.fbx",
+    "glb": "client/public/models/interstage_hot_staging_d15.glb",
+    "fbx_bytes": 166332,
+    "glb_bytes": 226840,
+    "blend": "assets/blender/interstage_hot_staging_d15.blend",
+    "blend_bytes": 207344
+   },
+   "issues": []
+  },
+  "interstage_hot_staging_d15_to_d37": {
+   "id": "interstage_hot_staging_d15_to_d37",
+   "length_m": 6.0,
+   "diameter_bottom_m": 1.5,
+   "diameter_top_m": 3.7,
+   "separation_system": "hot_staging",
+   "separation_plane_z_m": 5.58,
+   "clear_inner_diameter_m": 3.256,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "separation_plane_z_m": "game_value",
+    "clear_inner_diameter_m": "game_value"
+   },
+   "family": "interstage",
+   "design_ref": "7.12",
+   "bbox_min_m": [
+    -1.859,
+    -1.859,
+    0.0
+   ],
+   "bbox_max_m": [
+    1.859,
+    1.859,
+    6.0
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      6.0
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 7062,
+    "lod1": 2054,
+    "phone": 7062
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/interstage_hot_staging_d15_to_d37.fbx",
+    "glb": "client/public/models/interstage_hot_staging_d15_to_d37.glb",
+    "fbx_bytes": 223564,
+    "glb_bytes": 307760,
+    "blend": "assets/blender/interstage_hot_staging_d15_to_d37.blend",
+    "blend_bytes": 262030
+   },
+   "issues": []
+  },
+  "interstage_hot_staging_d37": {
+   "id": "interstage_hot_staging_d37",
+   "length_m": 6.0,
+   "diameter_bottom_m": 3.7,
+   "diameter_top_m": 3.7,
+   "separation_system": "hot_staging",
+   "separation_plane_z_m": 5.58,
+   "clear_inner_diameter_m": 3.256,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "separation_plane_z_m": "game_value",
+    "clear_inner_diameter_m": "game_value"
+   },
+   "family": "interstage",
+   "design_ref": "7.12",
+   "bbox_min_m": [
+    -1.885,
+    -1.868,
+    0.0
+   ],
+   "bbox_max_m": [
+    1.885,
+    1.868,
+    6.0
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      6.0
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 7360,
+    "lod1": 2140,
+    "phone": 7360
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/interstage_hot_staging_d37.fbx",
+    "glb": "client/public/models/interstage_hot_staging_d37.glb",
+    "fbx_bytes": 216940,
+    "glb_bytes": 331060,
+    "blend": "assets/blender/interstage_hot_staging_d37.blend",
+    "blend_bytes": 251565
+   },
+   "issues": []
+  },
+  "interstage_hot_staging_d37_to_d15": {
+   "id": "interstage_hot_staging_d37_to_d15",
+   "length_m": 2.9,
+   "diameter_bottom_m": 3.7,
+   "diameter_top_m": 1.5,
+   "separation_system": "hot_staging",
+   "separation_plane_z_m": 2.697,
+   "clear_inner_diameter_m": 1.32,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "separation_plane_z_m": "game_value",
+    "clear_inner_diameter_m": "game_value"
+   },
+   "family": "interstage",
+   "design_ref": "7.12",
+   "bbox_min_m": [
+    -1.85,
+    -1.858,
+    0.0
+   ],
+   "bbox_max_m": [
+    1.85,
+    1.858,
+    2.9
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      2.9
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 7062,
+    "lod1": 2054,
+    "phone": 7062
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/interstage_hot_staging_d37_to_d15.fbx",
+    "glb": "client/public/models/interstage_hot_staging_d37_to_d15.glb",
+    "fbx_bytes": 224764,
+    "glb_bytes": 306288,
+    "blend": "assets/blender/interstage_hot_staging_d37_to_d15.blend",
+    "blend_bytes": 262400
+   },
+   "issues": []
+  },
+  "interstage_hot_staging_d37_to_d54": {
+   "id": "interstage_hot_staging_d37_to_d54",
+   "length_m": 6.4,
+   "diameter_bottom_m": 3.7,
+   "diameter_top_m": 5.4,
+   "separation_system": "hot_staging",
+   "separation_plane_z_m": 5.952,
+   "clear_inner_diameter_m": 4.752,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "separation_plane_z_m": "game_value",
+    "clear_inner_diameter_m": "game_value"
+   },
+   "family": "interstage",
+   "design_ref": "7.12",
+   "bbox_min_m": [
+    -2.712,
+    -2.712,
+    0.0
+   ],
+   "bbox_max_m": [
+    2.712,
+    2.712,
+    6.4
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      6.4
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 10676,
+    "lod1": 3105,
+    "phone": 3105
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/interstage_hot_staging_d37_to_d54.fbx",
+    "glb": "client/public/models/interstage_hot_staging_d37_to_d54.glb",
+    "fbx_bytes": 343036,
+    "glb_bytes": 127724,
+    "blend": "assets/blender/interstage_hot_staging_d37_to_d54.blend",
+    "blend_bytes": 368776
+   },
+   "issues": []
+  },
+  "interstage_hot_staging_d54": {
+   "id": "interstage_hot_staging_d54",
+   "length_m": 6.4,
+   "diameter_bottom_m": 5.4,
+   "diameter_top_m": 5.4,
+   "separation_system": "hot_staging",
+   "separation_plane_z_m": 5.952,
+   "clear_inner_diameter_m": 4.752,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "separation_plane_z_m": "game_value",
+    "clear_inner_diameter_m": "game_value"
+   },
+   "family": "interstage",
+   "design_ref": "7.12",
+   "bbox_min_m": [
+    -2.746,
+    -2.722,
+    0.0
+   ],
+   "bbox_max_m": [
+    2.746,
+    2.722,
+    6.4
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      6.4
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 10742,
+    "lod1": 3124,
+    "phone": 3124
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/interstage_hot_staging_d54.fbx",
+    "glb": "client/public/models/interstage_hot_staging_d54.glb",
+    "fbx_bytes": 314172,
+    "glb_bytes": 126756,
+    "blend": "assets/blender/interstage_hot_staging_d54.blend",
+    "blend_bytes": 346911
+   },
+   "issues": []
+  },
+  "interstage_hot_staging_d54_to_d37": {
+   "id": "interstage_hot_staging_d54_to_d37",
+   "length_m": 6.0,
+   "diameter_bottom_m": 5.4,
+   "diameter_top_m": 3.7,
+   "separation_system": "hot_staging",
+   "separation_plane_z_m": 5.58,
+   "clear_inner_diameter_m": 3.256,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "separation_plane_z_m": "game_value",
+    "clear_inner_diameter_m": "game_value"
+   },
+   "family": "interstage",
+   "design_ref": "7.12",
+   "bbox_min_m": [
+    -2.705,
+    -2.705,
+    0.0
+   ],
+   "bbox_max_m": [
+    2.705,
+    2.705,
+    6.0
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      6.0
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 10676,
+    "lod1": 3105,
+    "phone": 3105
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/interstage_hot_staging_d54_to_d37.fbx",
+    "glb": "client/public/models/interstage_hot_staging_d54_to_d37.glb",
+    "fbx_bytes": 340364,
+    "glb_bytes": 127688,
+    "blend": "assets/blender/interstage_hot_staging_d54_to_d37.blend",
+    "blend_bytes": 369005
+   },
+   "issues": []
+  },
+  "interstage_hot_staging_d54_to_d84": {
+   "id": "interstage_hot_staging_d54_to_d84",
+   "length_m": 7.0,
+   "diameter_bottom_m": 5.4,
+   "diameter_top_m": 8.4,
+   "separation_system": "hot_staging",
+   "separation_plane_z_m": 6.51,
+   "clear_inner_diameter_m": 7.392,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "separation_plane_z_m": "game_value",
+    "clear_inner_diameter_m": "game_value"
+   },
+   "family": "interstage",
+   "design_ref": "7.12",
+   "bbox_min_m": [
+    -4.216,
+    -4.216,
+    0.0
+   ],
+   "bbox_max_m": [
+    4.216,
+    4.216,
+    7.0
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      7.0
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 16480,
+    "lod1": 4795,
+    "phone": 4795
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/interstage_hot_staging_d54_to_d84.fbx",
+    "glb": "client/public/models/interstage_hot_staging_d54_to_d84.glb",
+    "fbx_bytes": 508892,
+    "glb_bytes": 188784,
+    "blend": "assets/blender/interstage_hot_staging_d54_to_d84.blend",
+    "blend_bytes": 518515
+   },
+   "issues": []
+  },
+  "interstage_hot_staging_d84": {
+   "id": "interstage_hot_staging_d84",
+   "length_m": 7.0,
+   "diameter_bottom_m": 8.4,
+   "diameter_top_m": 8.4,
+   "separation_system": "hot_staging",
+   "separation_plane_z_m": 6.51,
+   "clear_inner_diameter_m": 7.392,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "separation_plane_z_m": "game_value",
+    "clear_inner_diameter_m": "game_value"
+   },
+   "family": "interstage",
+   "design_ref": "7.12",
+   "bbox_min_m": [
+    -4.264,
+    -4.229,
+    0.0
+   ],
+   "bbox_max_m": [
+    4.264,
+    4.229,
+    7.0
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      7.0
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 16744,
+    "lod1": 4872,
+    "phone": 4872
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/interstage_hot_staging_d84.fbx",
+    "glb": "client/public/models/interstage_hot_staging_d84.glb",
+    "fbx_bytes": 474780,
+    "glb_bytes": 190432,
+    "blend": "assets/blender/interstage_hot_staging_d84.blend",
+    "blend_bytes": 488240
+   },
+   "issues": []
+  },
+  "interstage_hot_staging_d84_to_d54": {
+   "id": "interstage_hot_staging_d84_to_d54",
+   "length_m": 6.4,
+   "diameter_bottom_m": 8.4,
+   "diameter_top_m": 5.4,
+   "separation_system": "hot_staging",
+   "separation_plane_z_m": 5.952,
+   "clear_inner_diameter_m": 4.752,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "separation_plane_z_m": "game_value",
+    "clear_inner_diameter_m": "game_value"
+   },
+   "family": "interstage",
+   "design_ref": "7.12",
+   "bbox_min_m": [
+    -4.214,
+    -4.221,
+    0.0
+   ],
+   "bbox_max_m": [
+    4.214,
+    4.221,
+    6.4
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      6.4
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 16480,
+    "lod1": 4795,
+    "phone": 4795
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/interstage_hot_staging_d84_to_d54.fbx",
+    "glb": "client/public/models/interstage_hot_staging_d84_to_d54.glb",
+    "fbx_bytes": 513068,
+    "glb_bytes": 189292,
+    "blend": "assets/blender/interstage_hot_staging_d84_to_d54.blend",
+    "blend_bytes": 520271
+   },
+   "issues": []
+  },
+  "interstage_pneumatic_d15": {
+   "id": "interstage_pneumatic_d15",
+   "length_m": 2.9,
+   "diameter_bottom_m": 1.5,
+   "diameter_top_m": 1.5,
+   "separation_system": "pneumatic",
+   "separation_plane_z_m": 2.697,
+   "clear_inner_diameter_m": 1.32,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "separation_plane_z_m": "game_value",
+    "clear_inner_diameter_m": "game_value"
+   },
+   "family": "interstage",
+   "design_ref": "7.12",
+   "bbox_min_m": [
+    -0.756,
+    -0.756,
+    0.0
+   ],
+   "bbox_max_m": [
+    0.756,
+    0.756,
+    2.9
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      2.9
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery"
+   ],
+   "triangles": {
+    "lod0": 5056,
+    "lod1": 1470,
+    "phone": 5056
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/interstage_pneumatic_d15.fbx",
+    "glb": "client/public/models/interstage_pneumatic_d15.glb",
+    "fbx_bytes": 162668,
+    "glb_bytes": 223232,
+    "blend": "assets/blender/interstage_pneumatic_d15.blend",
+    "blend_bytes": 197157
+   },
+   "issues": []
+  },
+  "interstage_pneumatic_d15_to_d37": {
+   "id": "interstage_pneumatic_d15_to_d37",
+   "length_m": 6.0,
+   "diameter_bottom_m": 1.5,
+   "diameter_top_m": 3.7,
+   "separation_system": "pneumatic",
+   "separation_plane_z_m": 5.58,
+   "clear_inner_diameter_m": 3.256,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "separation_plane_z_m": "game_value",
+    "clear_inner_diameter_m": "game_value"
+   },
+   "family": "interstage",
+   "design_ref": "7.12",
+   "bbox_min_m": [
+    -1.859,
+    -1.859,
+    0.0
+   ],
+   "bbox_max_m": [
+    1.859,
+    1.859,
+    6.0
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      6.0
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery"
+   ],
+   "triangles": {
+    "lod0": 7086,
+    "lod1": 2061,
+    "phone": 7086
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/interstage_pneumatic_d15_to_d37.fbx",
+    "glb": "client/public/models/interstage_pneumatic_d15_to_d37.glb",
+    "fbx_bytes": 227532,
+    "glb_bytes": 315364,
+    "blend": "assets/blender/interstage_pneumatic_d15_to_d37.blend",
+    "blend_bytes": 257134
+   },
+   "issues": []
+  },
+  "interstage_pneumatic_d37": {
+   "id": "interstage_pneumatic_d37",
+   "length_m": 6.0,
+   "diameter_bottom_m": 3.7,
+   "diameter_top_m": 3.7,
+   "separation_system": "pneumatic",
+   "separation_plane_z_m": 5.58,
+   "clear_inner_diameter_m": 3.256,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "separation_plane_z_m": "game_value",
+    "clear_inner_diameter_m": "game_value"
+   },
+   "family": "interstage",
+   "design_ref": "7.12",
+   "bbox_min_m": [
+    -1.859,
+    -1.859,
+    0.0
+   ],
+   "bbox_max_m": [
+    1.859,
+    1.859,
+    6.0
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      6.0
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery"
+   ],
+   "triangles": {
+    "lod0": 7256,
+    "lod1": 2110,
+    "phone": 7256
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/interstage_pneumatic_d37.fbx",
+    "glb": "client/public/models/interstage_pneumatic_d37.glb",
+    "fbx_bytes": 210300,
+    "glb_bytes": 331888,
+    "blend": "assets/blender/interstage_pneumatic_d37.blend",
+    "blend_bytes": 242509
+   },
+   "issues": []
+  },
+  "interstage_pneumatic_d37_to_d15": {
+   "id": "interstage_pneumatic_d37_to_d15",
+   "length_m": 2.9,
+   "diameter_bottom_m": 3.7,
+   "diameter_top_m": 1.5,
+   "separation_system": "pneumatic",
+   "separation_plane_z_m": 2.697,
+   "clear_inner_diameter_m": 1.32,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "separation_plane_z_m": "game_value",
+    "clear_inner_diameter_m": "game_value"
+   },
+   "family": "interstage",
+   "design_ref": "7.12",
+   "bbox_min_m": [
+    -1.85,
+    -1.85,
+    0.0
+   ],
+   "bbox_max_m": [
+    1.85,
+    1.85,
+    2.9
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      2.9
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery"
+   ],
+   "triangles": {
+    "lod0": 6426,
+    "lod1": 1869,
+    "phone": 6426
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/interstage_pneumatic_d37_to_d15.fbx",
+    "glb": "client/public/models/interstage_pneumatic_d37_to_d15.glb",
+    "fbx_bytes": 210620,
+    "glb_bytes": 287436,
+    "blend": "assets/blender/interstage_pneumatic_d37_to_d15.blend",
+    "blend_bytes": 242367
+   },
+   "issues": []
+  },
+  "interstage_pneumatic_d37_to_d54": {
+   "id": "interstage_pneumatic_d37_to_d54",
+   "length_m": 6.4,
+   "diameter_bottom_m": 3.7,
+   "diameter_top_m": 5.4,
+   "separation_system": "pneumatic",
+   "separation_plane_z_m": 5.952,
+   "clear_inner_diameter_m": 4.752,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "separation_plane_z_m": "game_value",
+    "clear_inner_diameter_m": "game_value"
+   },
+   "family": "interstage",
+   "design_ref": "7.12",
+   "bbox_min_m": [
+    -2.707,
+    -2.71,
+    0.0
+   ],
+   "bbox_max_m": [
+    2.711,
+    2.71,
+    6.4
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      6.4
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery"
+   ],
+   "triangles": {
+    "lod0": 9450,
+    "lod1": 2749,
+    "phone": 2749
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/interstage_pneumatic_d37_to_d54.fbx",
+    "glb": "client/public/models/interstage_pneumatic_d37_to_d54.glb",
+    "fbx_bytes": 300748,
+    "glb_bytes": 127020,
+    "blend": "assets/blender/interstage_pneumatic_d37_to_d54.blend",
+    "blend_bytes": 325023
+   },
+   "issues": []
+  },
+  "interstage_pneumatic_d54": {
+   "id": "interstage_pneumatic_d54",
+   "length_m": 6.4,
+   "diameter_bottom_m": 5.4,
+   "diameter_top_m": 5.4,
+   "separation_system": "pneumatic",
+   "separation_plane_z_m": 5.952,
+   "clear_inner_diameter_m": 4.752,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "separation_plane_z_m": "game_value",
+    "clear_inner_diameter_m": "game_value"
+   },
+   "family": "interstage",
+   "design_ref": "7.12",
+   "bbox_min_m": [
+    -2.707,
+    -2.71,
+    0.0
+   ],
+   "bbox_max_m": [
+    2.711,
+    2.71,
+    6.4
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      6.4
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery"
+   ],
+   "triangles": {
+    "lod0": 9388,
+    "lod1": 2731,
+    "phone": 2731
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/interstage_pneumatic_d54.fbx",
+    "glb": "client/public/models/interstage_pneumatic_d54.glb",
+    "fbx_bytes": 265116,
+    "glb_bytes": 125936,
+    "blend": "assets/blender/interstage_pneumatic_d54.blend",
+    "blend_bytes": 296126
+   },
+   "issues": []
+  },
+  "interstage_pneumatic_d54_to_d37": {
+   "id": "interstage_pneumatic_d54_to_d37",
+   "length_m": 6.0,
+   "diameter_bottom_m": 5.4,
+   "diameter_top_m": 3.7,
+   "separation_system": "pneumatic",
+   "separation_plane_z_m": 5.58,
+   "clear_inner_diameter_m": 3.256,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "separation_plane_z_m": "game_value",
+    "clear_inner_diameter_m": "game_value"
+   },
+   "family": "interstage",
+   "design_ref": "7.12",
+   "bbox_min_m": [
+    -2.696,
+    -2.699,
+    0.0
+   ],
+   "bbox_max_m": [
+    2.7,
+    2.699,
+    6.0
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      6.0
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery"
+   ],
+   "triangles": {
+    "lod0": 9450,
+    "lod1": 2749,
+    "phone": 2749
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/interstage_pneumatic_d54_to_d37.fbx",
+    "glb": "client/public/models/interstage_pneumatic_d54_to_d37.glb",
+    "fbx_bytes": 298924,
+    "glb_bytes": 127336,
+    "blend": "assets/blender/interstage_pneumatic_d54_to_d37.blend",
+    "blend_bytes": 323015
+   },
+   "issues": []
+  },
+  "interstage_pneumatic_d54_to_d84": {
+   "id": "interstage_pneumatic_d54_to_d84",
+   "length_m": 7.0,
+   "diameter_bottom_m": 5.4,
+   "diameter_top_m": 8.4,
+   "separation_system": "pneumatic",
+   "separation_plane_z_m": 6.51,
+   "clear_inner_diameter_m": 7.392,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "separation_plane_z_m": "game_value",
+    "clear_inner_diameter_m": "game_value"
+   },
+   "family": "interstage",
+   "design_ref": "7.12",
+   "bbox_min_m": [
+    -4.215,
+    -4.215,
+    0.0
+   ],
+   "bbox_max_m": [
+    4.215,
+    4.215,
+    7.0
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      7.0
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery"
+   ],
+   "triangles": {
+    "lod0": 13136,
+    "lod1": 3821,
+    "phone": 3821
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/interstage_pneumatic_d54_to_d84.fbx",
+    "glb": "client/public/models/interstage_pneumatic_d54_to_d84.glb",
+    "fbx_bytes": 400620,
+    "glb_bytes": 166348,
+    "blend": "assets/blender/interstage_pneumatic_d54_to_d84.blend",
+    "blend_bytes": 422023
+   },
+   "issues": []
+  },
+  "interstage_pneumatic_d84": {
+   "id": "interstage_pneumatic_d84",
+   "length_m": 7.0,
+   "diameter_bottom_m": 8.4,
+   "diameter_top_m": 8.4,
+   "separation_system": "pneumatic",
+   "separation_plane_z_m": 6.51,
+   "clear_inner_diameter_m": 7.392,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "separation_plane_z_m": "game_value",
+    "clear_inner_diameter_m": "game_value"
+   },
+   "family": "interstage",
+   "design_ref": "7.12",
+   "bbox_min_m": [
+    -4.215,
+    -4.215,
+    0.0
+   ],
+   "bbox_max_m": [
+    4.215,
+    4.215,
+    7.0
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      7.0
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery"
+   ],
+   "triangles": {
+    "lod0": 13144,
+    "lod1": 3823,
+    "phone": 3823
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/interstage_pneumatic_d84.fbx",
+    "glb": "client/public/models/interstage_pneumatic_d84.glb",
+    "fbx_bytes": 365964,
+    "glb_bytes": 166624,
+    "blend": "assets/blender/interstage_pneumatic_d84.blend",
+    "blend_bytes": 382154
+   },
+   "issues": []
+  },
+  "interstage_pneumatic_d84_to_d54": {
+   "id": "interstage_pneumatic_d84_to_d54",
+   "length_m": 6.4,
+   "diameter_bottom_m": 8.4,
+   "diameter_top_m": 5.4,
+   "separation_system": "pneumatic",
+   "separation_plane_z_m": 5.952,
+   "clear_inner_diameter_m": 4.752,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "separation_plane_z_m": "game_value",
+    "clear_inner_diameter_m": "game_value"
+   },
+   "family": "interstage",
+   "design_ref": "7.12",
+   "bbox_min_m": [
+    -4.2,
+    -4.2,
+    0.0
+   ],
+   "bbox_max_m": [
+    4.2,
+    4.2,
+    6.4
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      6.4
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery"
+   ],
+   "triangles": {
+    "lod0": 13136,
+    "lod1": 3821,
+    "phone": 3821
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/interstage_pneumatic_d84_to_d54.fbx",
+    "glb": "client/public/models/interstage_pneumatic_d84_to_d54.glb",
+    "fbx_bytes": 401660,
+    "glb_bytes": 167884,
+    "blend": "assets/blender/interstage_pneumatic_d84_to_d54.blend",
+    "blend_bytes": 420706
+   },
+   "issues": []
+  },
+  "interstage_pyro_d15": {
+   "id": "interstage_pyro_d15",
+   "length_m": 2.9,
+   "diameter_bottom_m": 1.5,
+   "diameter_top_m": 1.5,
+   "separation_system": "pyro",
+   "separation_plane_z_m": 2.697,
+   "clear_inner_diameter_m": 1.32,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "separation_plane_z_m": "game_value",
+    "clear_inner_diameter_m": "game_value"
+   },
+   "family": "interstage",
+   "design_ref": "7.12",
+   "bbox_min_m": [
+    -0.787,
+    -0.787,
+    0.0
+   ],
+   "bbox_max_m": [
+    0.787,
+    0.787,
+    2.9
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      2.9
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery",
+    "nozzle_hot"
+   ],
+   "triangles": {
+    "lod0": 4876,
+    "lod1": 1418,
+    "phone": 4876
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/interstage_pyro_d15.fbx",
+    "glb": "client/public/models/interstage_pyro_d15.glb",
+    "fbx_bytes": 167852,
+    "glb_bytes": 238868,
+    "blend": "assets/blender/interstage_pyro_d15.blend",
+    "blend_bytes": 202489
+   },
+   "issues": []
+  },
+  "interstage_pyro_d15_to_d37": {
+   "id": "interstage_pyro_d15_to_d37",
+   "length_m": 6.0,
+   "diameter_bottom_m": 1.5,
+   "diameter_top_m": 3.7,
+   "separation_system": "pyro",
+   "separation_plane_z_m": 5.58,
+   "clear_inner_diameter_m": 3.256,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "separation_plane_z_m": "game_value",
+    "clear_inner_diameter_m": "game_value"
+   },
+   "family": "interstage",
+   "design_ref": "7.12",
+   "bbox_min_m": [
+    -1.914,
+    -1.914,
+    0.0
+   ],
+   "bbox_max_m": [
+    1.914,
+    1.914,
+    6.0
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      6.0
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery",
+    "nozzle_hot"
+   ],
+   "triangles": {
+    "lod0": 6762,
+    "lod1": 1966,
+    "phone": 6762
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/interstage_pyro_d15_to_d37.fbx",
+    "glb": "client/public/models/interstage_pyro_d15_to_d37.glb",
+    "fbx_bytes": 232140,
+    "glb_bytes": 338108,
+    "blend": "assets/blender/interstage_pyro_d15_to_d37.blend",
+    "blend_bytes": 258811
+   },
+   "issues": []
+  },
+  "interstage_pyro_d37": {
+   "id": "interstage_pyro_d37",
+   "length_m": 6.0,
+   "diameter_bottom_m": 3.7,
+   "diameter_top_m": 3.7,
+   "separation_system": "pyro",
+   "separation_plane_z_m": 5.58,
+   "clear_inner_diameter_m": 3.256,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "separation_plane_z_m": "game_value",
+    "clear_inner_diameter_m": "game_value"
+   },
+   "family": "interstage",
+   "design_ref": "7.12",
+   "bbox_min_m": [
+    -1.914,
+    -1.914,
+    0.0
+   ],
+   "bbox_max_m": [
+    1.914,
+    1.914,
+    6.0
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      6.0
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery",
+    "nozzle_hot"
+   ],
+   "triangles": {
+    "lod0": 6932,
+    "lod1": 2016,
+    "phone": 6932
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/interstage_pyro_d37.fbx",
+    "glb": "client/public/models/interstage_pyro_d37.glb",
+    "fbx_bytes": 221548,
+    "glb_bytes": 354620,
+    "blend": "assets/blender/interstage_pyro_d37.blend",
+    "blend_bytes": 248097
+   },
+   "issues": []
+  },
+  "interstage_pyro_d37_to_d15": {
+   "id": "interstage_pyro_d37_to_d15",
+   "length_m": 2.9,
+   "diameter_bottom_m": 3.7,
+   "diameter_top_m": 1.5,
+   "separation_system": "pyro",
+   "separation_plane_z_m": 2.697,
+   "clear_inner_diameter_m": 1.32,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "separation_plane_z_m": "game_value",
+    "clear_inner_diameter_m": "game_value"
+   },
+   "family": "interstage",
+   "design_ref": "7.12",
+   "bbox_min_m": [
+    -1.85,
+    -1.85,
+    0.0
+   ],
+   "bbox_max_m": [
+    1.85,
+    1.85,
+    2.9
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      2.9
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery",
+    "nozzle_hot"
+   ],
+   "triangles": {
+    "lod0": 6306,
+    "lod1": 1834,
+    "phone": 6306
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/interstage_pyro_d37_to_d15.fbx",
+    "glb": "client/public/models/interstage_pyro_d37_to_d15.glb",
+    "fbx_bytes": 215708,
+    "glb_bytes": 308808,
+    "blend": "assets/blender/interstage_pyro_d37_to_d15.blend",
+    "blend_bytes": 244134
+   },
+   "issues": []
+  },
+  "interstage_pyro_d37_to_d54": {
+   "id": "interstage_pyro_d37_to_d54",
+   "length_m": 6.4,
+   "diameter_bottom_m": 3.7,
+   "diameter_top_m": 5.4,
+   "separation_system": "pyro",
+   "separation_plane_z_m": 5.952,
+   "clear_inner_diameter_m": 4.752,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "separation_plane_z_m": "game_value",
+    "clear_inner_diameter_m": "game_value"
+   },
+   "family": "interstage",
+   "design_ref": "7.12",
+   "bbox_min_m": [
+    -2.78,
+    -2.78,
+    0.0
+   ],
+   "bbox_max_m": [
+    2.78,
+    2.78,
+    6.4
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      6.4
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery",
+    "nozzle_hot"
+   ],
+   "triangles": {
+    "lod0": 9396,
+    "lod1": 2732,
+    "phone": 2732
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/interstage_pyro_d37_to_d54.fbx",
+    "glb": "client/public/models/interstage_pyro_d37_to_d54.glb",
+    "fbx_bytes": 314588,
+    "glb_bytes": 135856,
+    "blend": "assets/blender/interstage_pyro_d37_to_d54.blend",
+    "blend_bytes": 336094
+   },
+   "issues": []
+  },
+  "interstage_pyro_d54": {
+   "id": "interstage_pyro_d54",
+   "length_m": 6.4,
+   "diameter_bottom_m": 5.4,
+   "diameter_top_m": 5.4,
+   "separation_system": "pyro",
+   "separation_plane_z_m": 5.952,
+   "clear_inner_diameter_m": 4.752,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "separation_plane_z_m": "game_value",
+    "clear_inner_diameter_m": "game_value"
+   },
+   "family": "interstage",
+   "design_ref": "7.12",
+   "bbox_min_m": [
+    -2.78,
+    -2.78,
+    0.0
+   ],
+   "bbox_max_m": [
+    2.78,
+    2.78,
+    6.4
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      6.4
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery",
+    "nozzle_hot"
+   ],
+   "triangles": {
+    "lod0": 9334,
+    "lod1": 2715,
+    "phone": 2715
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/interstage_pyro_d54.fbx",
+    "glb": "client/public/models/interstage_pyro_d54.glb",
+    "fbx_bytes": 288156,
+    "glb_bytes": 134928,
+    "blend": "assets/blender/interstage_pyro_d54.blend",
+    "blend_bytes": 312804
+   },
+   "issues": []
+  },
+  "interstage_pyro_d54_to_d37": {
+   "id": "interstage_pyro_d54_to_d37",
+   "length_m": 6.0,
+   "diameter_bottom_m": 5.4,
+   "diameter_top_m": 3.7,
+   "separation_system": "pyro",
+   "separation_plane_z_m": 5.58,
+   "clear_inner_diameter_m": 3.256,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "separation_plane_z_m": "game_value",
+    "clear_inner_diameter_m": "game_value"
+   },
+   "family": "interstage",
+   "design_ref": "7.12",
+   "bbox_min_m": [
+    -2.712,
+    -2.71,
+    0.0
+   ],
+   "bbox_max_m": [
+    2.704,
+    2.71,
+    6.0
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      6.0
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery",
+    "nozzle_hot"
+   ],
+   "triangles": {
+    "lod0": 9156,
+    "lod1": 2663,
+    "phone": 2663
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/interstage_pyro_d54_to_d37.fbx",
+    "glb": "client/public/models/interstage_pyro_d54_to_d37.glb",
+    "fbx_bytes": 306476,
+    "glb_bytes": 129896,
+    "blend": "assets/blender/interstage_pyro_d54_to_d37.blend",
+    "blend_bytes": 327797
+   },
+   "issues": []
+  },
+  "interstage_pyro_d54_to_d84": {
+   "id": "interstage_pyro_d54_to_d84",
+   "length_m": 7.0,
+   "diameter_bottom_m": 5.4,
+   "diameter_top_m": 8.4,
+   "separation_system": "pyro",
+   "separation_plane_z_m": 6.51,
+   "clear_inner_diameter_m": 7.392,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "separation_plane_z_m": "game_value",
+    "clear_inner_diameter_m": "game_value"
+   },
+   "family": "interstage",
+   "design_ref": "7.12",
+   "bbox_min_m": [
+    -4.292,
+    -4.302,
+    0.0
+   ],
+   "bbox_max_m": [
+    4.305,
+    4.302,
+    7.0
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      7.0
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery",
+    "nozzle_hot"
+   ],
+   "triangles": {
+    "lod0": 13526,
+    "lod1": 3935,
+    "phone": 3935
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/interstage_pyro_d54_to_d84.fbx",
+    "glb": "client/public/models/interstage_pyro_d54_to_d84.glb",
+    "fbx_bytes": 430940,
+    "glb_bytes": 186624,
+    "blend": "assets/blender/interstage_pyro_d54_to_d84.blend",
+    "blend_bytes": 440384
+   },
+   "issues": []
+  },
+  "interstage_pyro_d84": {
+   "id": "interstage_pyro_d84",
+   "length_m": 7.0,
+   "diameter_bottom_m": 8.4,
+   "diameter_top_m": 8.4,
+   "separation_system": "pyro",
+   "separation_plane_z_m": 6.51,
+   "clear_inner_diameter_m": 7.392,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "separation_plane_z_m": "game_value",
+    "clear_inner_diameter_m": "game_value"
+   },
+   "family": "interstage",
+   "design_ref": "7.12",
+   "bbox_min_m": [
+    -4.292,
+    -4.302,
+    0.0
+   ],
+   "bbox_max_m": [
+    4.305,
+    4.302,
+    7.0
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      7.0
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery",
+    "nozzle_hot"
+   ],
+   "triangles": {
+    "lod0": 13534,
+    "lod1": 3937,
+    "phone": 3937
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/interstage_pyro_d84.fbx",
+    "glb": "client/public/models/interstage_pyro_d84.glb",
+    "fbx_bytes": 398972,
+    "glb_bytes": 186220,
+    "blend": "assets/blender/interstage_pyro_d84.blend",
+    "blend_bytes": 406218
+   },
+   "issues": []
+  },
+  "interstage_pyro_d84_to_d54": {
+   "id": "interstage_pyro_d84_to_d54",
+   "length_m": 6.4,
+   "diameter_bottom_m": 8.4,
+   "diameter_top_m": 5.4,
+   "separation_system": "pyro",
+   "separation_plane_z_m": 5.952,
+   "clear_inner_diameter_m": 4.752,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "separation_plane_z_m": "game_value",
+    "clear_inner_diameter_m": "game_value"
+   },
+   "family": "interstage",
+   "design_ref": "7.12",
+   "bbox_min_m": [
+    -4.209,
+    -4.214,
+    0.0
+   ],
+   "bbox_max_m": [
+    4.209,
+    4.214,
+    6.4
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      6.4
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery",
+    "nozzle_hot"
+   ],
+   "triangles": {
+    "lod0": 13136,
+    "lod1": 3821,
+    "phone": 3821
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/interstage_pyro_d84_to_d54.fbx",
+    "glb": "client/public/models/interstage_pyro_d84_to_d54.glb",
+    "fbx_bytes": 418444,
+    "glb_bytes": 177036,
+    "blend": "assets/blender/interstage_pyro_d84_to_d54.blend",
+    "blend_bytes": 433877
+   },
+   "issues": []
+  },
+  "mount_s1_1_d15": {
+   "id": "mount_s1_1_d15",
+   "length_m": 0.7,
+   "diameter_bottom_m": 1.5,
+   "diameter_top_m": 1.5,
+   "engine_count": 1,
+   "stage": 1,
+   "engine_attach_z_m": 0.25,
+   "slot_clear_diameter_m": 1.5,
+   "thrust_pad_diameter_m": 0.55,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "engine_attach_z_m": "game_value",
+    "slot_clear_diameter_m": "game_value",
+    "thrust_pad_diameter_m": "game_value"
+   },
+   "family": "mount_s1",
+   "design_ref": "7.6",
+   "bbox_min_m": [
+    -0.776,
+    -0.758,
+    0.0
+   ],
+   "bbox_max_m": [
+    0.758,
+    0.758,
+    0.7
+   ],
+   "attach_points_m": {
+    "attach_engine_1": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.25
+     ]
+    },
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.7
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 4004,
+    "lod1": 1164,
+    "phone": 4004
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/mount_s1_1_d15.fbx",
+    "glb": "client/public/models/mount_s1_1_d15.glb",
+    "fbx_bytes": 141708,
+    "glb_bytes": 190776,
+    "blend": "assets/blender/mount_s1_1_d15.blend",
+    "blend_bytes": 184643
+   },
+   "issues": []
+  },
+  "mount_s1_1_d37": {
+   "id": "mount_s1_1_d37",
+   "length_m": 1.6,
+   "diameter_bottom_m": 3.7,
+   "diameter_top_m": 3.7,
+   "engine_count": 1,
+   "stage": 1,
+   "engine_attach_z_m": 0.55,
+   "slot_clear_diameter_m": 3.7,
+   "thrust_pad_diameter_m": 1.21,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "engine_attach_z_m": "game_value",
+    "slot_clear_diameter_m": "game_value",
+    "thrust_pad_diameter_m": "game_value"
+   },
+   "family": "mount_s1",
+   "design_ref": "7.6",
+   "bbox_min_m": [
+    -1.87,
+    -1.866,
+    0.0
+   ],
+   "bbox_max_m": [
+    1.864,
+    1.866,
+    1.6
+   ],
+   "attach_points_m": {
+    "attach_engine_1": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.55
+     ]
+    },
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      1.6
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 5558,
+    "lod1": 1616,
+    "phone": 5558
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/mount_s1_1_d37.fbx",
+    "glb": "client/public/models/mount_s1_1_d37.glb",
+    "fbx_bytes": 177836,
+    "glb_bytes": 271036,
+    "blend": "assets/blender/mount_s1_1_d37.blend",
+    "blend_bytes": 217497
+   },
+   "issues": []
+  },
+  "mount_s1_1_d54": {
+   "id": "mount_s1_1_d54",
+   "length_m": 2.2,
+   "diameter_bottom_m": 5.4,
+   "diameter_top_m": 5.4,
+   "engine_count": 1,
+   "stage": 1,
+   "engine_attach_z_m": 0.75,
+   "slot_clear_diameter_m": 5.4,
+   "thrust_pad_diameter_m": 1.7,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "engine_attach_z_m": "game_value",
+    "slot_clear_diameter_m": "game_value",
+    "thrust_pad_diameter_m": "game_value"
+   },
+   "family": "mount_s1",
+   "design_ref": "7.6",
+   "bbox_min_m": [
+    -2.724,
+    -2.723,
+    0.0
+   ],
+   "bbox_max_m": [
+    2.718,
+    2.723,
+    2.2
+   ],
+   "attach_points_m": {
+    "attach_engine_1": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.75
+     ]
+    },
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      2.2
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 7763,
+    "lod1": 2258,
+    "phone": 7763
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/mount_s1_1_d54.fbx",
+    "glb": "client/public/models/mount_s1_1_d54.glb",
+    "fbx_bytes": 245068,
+    "glb_bytes": 370940,
+    "blend": "assets/blender/mount_s1_1_d54.blend",
+    "blend_bytes": 281690
+   },
+   "issues": []
+  },
+  "mount_s1_1_d84": {
+   "id": "mount_s1_1_d84",
+   "length_m": 3.2,
+   "diameter_bottom_m": 8.4,
+   "diameter_top_m": 8.4,
+   "engine_count": 1,
+   "stage": 1,
+   "engine_attach_z_m": 1.1,
+   "slot_clear_diameter_m": 8.4,
+   "thrust_pad_diameter_m": 1.7,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "engine_attach_z_m": "game_value",
+    "slot_clear_diameter_m": "game_value",
+    "thrust_pad_diameter_m": "game_value"
+   },
+   "family": "mount_s1",
+   "design_ref": "7.6",
+   "bbox_min_m": [
+    -4.232,
+    -4.232,
+    0.0
+   ],
+   "bbox_max_m": [
+    4.229,
+    4.232,
+    3.2
+   ],
+   "attach_points_m": {
+    "attach_engine_1": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      1.1
+     ]
+    },
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      3.2
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 11033,
+    "lod1": 3209,
+    "phone": 3209
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/mount_s1_1_d84.fbx",
+    "glb": "client/public/models/mount_s1_1_d84.glb",
+    "fbx_bytes": 339404,
+    "glb_bytes": 132136,
+    "blend": "assets/blender/mount_s1_1_d84.blend",
+    "blend_bytes": 370088
+   },
+   "issues": []
+  },
+  "mount_s1_3_d15": {
+   "id": "mount_s1_3_d15",
+   "length_m": 0.7,
+   "diameter_bottom_m": 1.5,
+   "diameter_top_m": 1.5,
+   "engine_count": 3,
+   "stage": 1,
+   "engine_attach_z_m": 0.25,
+   "slot_clear_diameter_m": 0.71,
+   "thrust_pad_diameter_m": 0.426,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "engine_attach_z_m": "game_value",
+    "slot_clear_diameter_m": "game_value",
+    "thrust_pad_diameter_m": "game_value"
+   },
+   "family": "mount_s1",
+   "design_ref": "7.6",
+   "bbox_min_m": [
+    -0.776,
+    -0.758,
+    0.0
+   ],
+   "bbox_max_m": [
+    0.758,
+    0.758,
+    0.7
+   ],
+   "attach_points_m": {
+    "attach_engine_1": {
+     "blender_xyz": [
+      0.0,
+      0.4125,
+      0.25
+     ]
+    },
+    "attach_engine_2": {
+     "blender_xyz": [
+      -0.3572,
+      -0.2062,
+      0.25
+     ]
+    },
+    "attach_engine_3": {
+     "blender_xyz": [
+      0.3572,
+      -0.2063,
+      0.25
+     ]
+    },
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.7
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 4978,
+    "lod1": 1447,
+    "phone": 4978
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/mount_s1_3_d15.fbx",
+    "glb": "client/public/models/mount_s1_3_d15.glb",
+    "fbx_bytes": 172268,
+    "glb_bytes": 242324,
+    "blend": "assets/blender/mount_s1_3_d15.blend",
+    "blend_bytes": 207268
+   },
+   "issues": []
+  },
+  "mount_s1_3_d37": {
+   "id": "mount_s1_3_d37",
+   "length_m": 1.6,
+   "diameter_bottom_m": 3.7,
+   "diameter_top_m": 3.7,
+   "engine_count": 3,
+   "stage": 1,
+   "engine_attach_z_m": 0.55,
+   "slot_clear_diameter_m": 1.76,
+   "thrust_pad_diameter_m": 1.056,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "engine_attach_z_m": "game_value",
+    "slot_clear_diameter_m": "game_value",
+    "thrust_pad_diameter_m": "game_value"
+   },
+   "family": "mount_s1",
+   "design_ref": "7.6",
+   "bbox_min_m": [
+    -1.87,
+    -1.876,
+    0.0
+   ],
+   "bbox_max_m": [
+    1.864,
+    1.866,
+    1.6
+   ],
+   "attach_points_m": {
+    "attach_engine_1": {
+     "blender_xyz": [
+      0.0,
+      1.0175,
+      0.55
+     ]
+    },
+    "attach_engine_2": {
+     "blender_xyz": [
+      -0.8812,
+      -0.5087,
+      0.55
+     ]
+    },
+    "attach_engine_3": {
+     "blender_xyz": [
+      0.8812,
+      -0.5088,
+      0.55
+     ]
+    },
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      1.6
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 7105,
+    "lod1": 2066,
+    "phone": 7105
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/mount_s1_3_d37.fbx",
+    "glb": "client/public/models/mount_s1_3_d37.glb",
+    "fbx_bytes": 223116,
+    "glb_bytes": 358784,
+    "blend": "assets/blender/mount_s1_3_d37.blend",
+    "blend_bytes": 251427
+   },
+   "issues": []
+  },
+  "mount_s1_3_d54": {
+   "id": "mount_s1_3_d54",
+   "length_m": 2.2,
+   "diameter_bottom_m": 5.4,
+   "diameter_top_m": 5.4,
+   "engine_count": 3,
+   "stage": 1,
+   "engine_attach_z_m": 0.75,
+   "slot_clear_diameter_m": 2.57,
+   "thrust_pad_diameter_m": 1.542,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "engine_attach_z_m": "game_value",
+    "slot_clear_diameter_m": "game_value",
+    "thrust_pad_diameter_m": "game_value"
+   },
+   "family": "mount_s1",
+   "design_ref": "7.6",
+   "bbox_min_m": [
+    -2.724,
+    -2.759,
+    0.0
+   ],
+   "bbox_max_m": [
+    2.718,
+    2.723,
+    2.2
+   ],
+   "attach_points_m": {
+    "attach_engine_1": {
+     "blender_xyz": [
+      0.0,
+      1.485,
+      0.75
+     ]
+    },
+    "attach_engine_2": {
+     "blender_xyz": [
+      -1.286,
+      -0.7425,
+      0.75
+     ]
+    },
+    "attach_engine_3": {
+     "blender_xyz": [
+      1.286,
+      -0.7425,
+      0.75
+     ]
+    },
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      2.2
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 9721,
+    "lod1": 2828,
+    "phone": 2828
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/mount_s1_3_d54.fbx",
+    "glb": "client/public/models/mount_s1_3_d54.glb",
+    "fbx_bytes": 290924,
+    "glb_bytes": 124180,
+    "blend": "assets/blender/mount_s1_3_d54.blend",
+    "blend_bytes": 320323
+   },
+   "issues": []
+  },
+  "mount_s1_3_d84": {
+   "id": "mount_s1_3_d84",
+   "length_m": 3.2,
+   "diameter_bottom_m": 8.4,
+   "diameter_top_m": 8.4,
+   "engine_count": 3,
+   "stage": 1,
+   "engine_attach_z_m": 1.1,
+   "slot_clear_diameter_m": 4.0,
+   "thrust_pad_diameter_m": 1.7,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "engine_attach_z_m": "game_value",
+    "slot_clear_diameter_m": "game_value",
+    "thrust_pad_diameter_m": "game_value"
+   },
+   "family": "mount_s1",
+   "design_ref": "7.6",
+   "bbox_min_m": [
+    -4.232,
+    -4.252,
+    0.0
+   ],
+   "bbox_max_m": [
+    4.229,
+    4.232,
+    3.2
+   ],
+   "attach_points_m": {
+    "attach_engine_1": {
+     "blender_xyz": [
+      0.0,
+      2.31,
+      1.1
+     ]
+    },
+    "attach_engine_2": {
+     "blender_xyz": [
+      -2.0005,
+      -1.155,
+      1.1
+     ]
+    },
+    "attach_engine_3": {
+     "blender_xyz": [
+      2.0005,
+      -1.155,
+      1.1
+     ]
+    },
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      3.2
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 13063,
+    "lod1": 3800,
+    "phone": 3800
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/mount_s1_3_d84.fbx",
+    "glb": "client/public/models/mount_s1_3_d84.glb",
+    "fbx_bytes": 382972,
+    "glb_bytes": 160608,
+    "blend": "assets/blender/mount_s1_3_d84.blend",
+    "blend_bytes": 400899
+   },
+   "issues": []
+  },
+  "mount_s1_5_d15": {
+   "id": "mount_s1_5_d15",
+   "length_m": 0.7,
+   "diameter_bottom_m": 1.5,
+   "diameter_top_m": 1.5,
+   "engine_count": 5,
+   "stage": 1,
+   "engine_attach_z_m": 0.25,
+   "slot_clear_diameter_m": 0.54,
+   "thrust_pad_diameter_m": 0.324,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "engine_attach_z_m": "game_value",
+    "slot_clear_diameter_m": "game_value",
+    "thrust_pad_diameter_m": "game_value"
+   },
+   "family": "mount_s1",
+   "design_ref": "7.6",
+   "bbox_min_m": [
+    -0.778,
+    -0.778,
+    0.0
+   ],
+   "bbox_max_m": [
+    0.778,
+    0.778,
+    0.7
+   ],
+   "attach_points_m": {
+    "attach_engine_1": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.25
+     ]
+    },
+    "attach_engine_2": {
+     "blender_xyz": [
+      0.3818,
+      0.3818,
+      0.25
+     ]
+    },
+    "attach_engine_3": {
+     "blender_xyz": [
+      -0.3818,
+      0.3818,
+      0.25
+     ]
+    },
+    "attach_engine_4": {
+     "blender_xyz": [
+      -0.3818,
+      -0.3818,
+      0.25
+     ]
+    },
+    "attach_engine_5": {
+     "blender_xyz": [
+      0.3818,
+      -0.3818,
+      0.25
+     ]
+    },
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.7
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 6102,
+    "lod1": 1774,
+    "phone": 6102
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/mount_s1_5_d15.fbx",
+    "glb": "client/public/models/mount_s1_5_d15.glb",
+    "fbx_bytes": 190076,
+    "glb_bytes": 296948,
+    "blend": "assets/blender/mount_s1_5_d15.blend",
+    "blend_bytes": 229155
+   },
+   "issues": []
+  },
+  "mount_s1_5_d37": {
+   "id": "mount_s1_5_d37",
+   "length_m": 1.6,
+   "diameter_bottom_m": 3.7,
+   "diameter_top_m": 3.7,
+   "engine_count": 5,
+   "stage": 1,
+   "engine_attach_z_m": 0.55,
+   "slot_clear_diameter_m": 1.33,
+   "thrust_pad_diameter_m": 0.798,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "engine_attach_z_m": "game_value",
+    "slot_clear_diameter_m": "game_value",
+    "thrust_pad_diameter_m": "game_value"
+   },
+   "family": "mount_s1",
+   "design_ref": "7.6",
+   "bbox_min_m": [
+    -1.919,
+    -1.919,
+    0.0
+   ],
+   "bbox_max_m": [
+    1.919,
+    1.919,
+    1.6
+   ],
+   "attach_points_m": {
+    "attach_engine_1": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.55
+     ]
+    },
+    "attach_engine_2": {
+     "blender_xyz": [
+      0.9419,
+      0.9419,
+      0.55
+     ]
+    },
+    "attach_engine_3": {
+     "blender_xyz": [
+      -0.9419,
+      0.9419,
+      0.55
+     ]
+    },
+    "attach_engine_4": {
+     "blender_xyz": [
+      -0.9419,
+      -0.9419,
+      0.55
+     ]
+    },
+    "attach_engine_5": {
+     "blender_xyz": [
+      0.9419,
+      -0.9419,
+      0.55
+     ]
+    },
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      1.6
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 7917,
+    "lod1": 2302,
+    "phone": 7917
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/mount_s1_5_d37.fbx",
+    "glb": "client/public/models/mount_s1_5_d37.glb",
+    "fbx_bytes": 236972,
+    "glb_bytes": 401184,
+    "blend": "assets/blender/mount_s1_5_d37.blend",
+    "blend_bytes": 266805
+   },
+   "issues": []
+  },
+  "mount_s1_5_d54": {
+   "id": "mount_s1_5_d54",
+   "length_m": 2.2,
+   "diameter_bottom_m": 5.4,
+   "diameter_top_m": 5.4,
+   "engine_count": 5,
+   "stage": 1,
+   "engine_attach_z_m": 0.75,
+   "slot_clear_diameter_m": 1.94,
+   "thrust_pad_diameter_m": 1.164,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "engine_attach_z_m": "game_value",
+    "slot_clear_diameter_m": "game_value",
+    "thrust_pad_diameter_m": "game_value"
+   },
+   "family": "mount_s1",
+   "design_ref": "7.6",
+   "bbox_min_m": [
+    -2.801,
+    -2.801,
+    0.0
+   ],
+   "bbox_max_m": [
+    2.801,
+    2.801,
+    2.2
+   ],
+   "attach_points_m": {
+    "attach_engine_1": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.75
+     ]
+    },
+    "attach_engine_2": {
+     "blender_xyz": [
+      1.3746,
+      1.3746,
+      0.75
+     ]
+    },
+    "attach_engine_3": {
+     "blender_xyz": [
+      -1.3746,
+      1.3746,
+      0.75
+     ]
+    },
+    "attach_engine_4": {
+     "blender_xyz": [
+      -1.3746,
+      -1.3746,
+      0.75
+     ]
+    },
+    "attach_engine_5": {
+     "blender_xyz": [
+      1.3746,
+      -1.3746,
+      0.75
+     ]
+    },
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      2.2
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 10917,
+    "lod1": 3176,
+    "phone": 3176
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/mount_s1_5_d54.fbx",
+    "glb": "client/public/models/mount_s1_5_d54.glb",
+    "fbx_bytes": 310444,
+    "glb_bytes": 138756,
+    "blend": "assets/blender/mount_s1_5_d54.blend",
+    "blend_bytes": 340394
+   },
+   "issues": []
+  },
+  "mount_s1_5_d84": {
+   "id": "mount_s1_5_d84",
+   "length_m": 3.2,
+   "diameter_bottom_m": 8.4,
+   "diameter_top_m": 8.4,
+   "engine_count": 5,
+   "stage": 1,
+   "engine_attach_z_m": 1.1,
+   "slot_clear_diameter_m": 3.7,
+   "thrust_pad_diameter_m": 1.7,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "engine_attach_z_m": "game_value",
+    "slot_clear_diameter_m": "game_value",
+    "thrust_pad_diameter_m": "game_value"
+   },
+   "family": "mount_s1",
+   "design_ref": "7.6",
+   "bbox_min_m": [
+    -4.59,
+    -4.59,
+    0.0
+   ],
+   "bbox_max_m": [
+    4.59,
+    4.59,
+    3.2
+   ],
+   "attach_points_m": {
+    "attach_engine_1": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      1.1
+     ]
+    },
+    "attach_engine_2": {
+     "blender_xyz": [
+      2.6135,
+      2.6135,
+      1.1
+     ]
+    },
+    "attach_engine_3": {
+     "blender_xyz": [
+      -2.6135,
+      2.6135,
+      1.1
+     ]
+    },
+    "attach_engine_4": {
+     "blender_xyz": [
+      -2.6135,
+      -2.6135,
+      1.1
+     ]
+    },
+    "attach_engine_5": {
+     "blender_xyz": [
+      2.6135,
+      -2.6135,
+      1.1
+     ]
+    },
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      3.2
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 18057,
+    "lod1": 5254,
+    "phone": 5254
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/mount_s1_5_d84.fbx",
+    "glb": "client/public/models/mount_s1_5_d84.glb",
+    "fbx_bytes": 506156,
+    "glb_bytes": 210300,
+    "blend": "assets/blender/mount_s1_5_d84.blend",
+    "blend_bytes": 507468
+   },
+   "issues": []
+  },
+  "mount_s1_9_d15": {
+   "id": "mount_s1_9_d15",
+   "length_m": 0.7,
+   "diameter_bottom_m": 1.5,
+   "diameter_top_m": 1.5,
+   "engine_count": 9,
+   "stage": 1,
+   "engine_attach_z_m": 0.25,
+   "slot_clear_diameter_m": 0.41,
+   "thrust_pad_diameter_m": 0.246,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "engine_attach_z_m": "game_value",
+    "slot_clear_diameter_m": "game_value",
+    "thrust_pad_diameter_m": "game_value"
+   },
+   "family": "mount_s1",
+   "design_ref": "7.6",
+   "bbox_min_m": [
+    -0.776,
+    -0.758,
+    0.0
+   ],
+   "bbox_max_m": [
+    0.758,
+    0.758,
+    0.7
+   ],
+   "attach_points_m": {
+    "attach_engine_1": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.25
+     ]
+    },
+    "attach_engine_2": {
+     "blender_xyz": [
+      0.54,
+      0.0,
+      0.25
+     ]
+    },
+    "attach_engine_3": {
+     "blender_xyz": [
+      0.3818,
+      0.3818,
+      0.25
+     ]
+    },
+    "attach_engine_4": {
+     "blender_xyz": [
+      0.0,
+      0.54,
+      0.25
+     ]
+    },
+    "attach_engine_5": {
+     "blender_xyz": [
+      -0.3818,
+      0.3818,
+      0.25
+     ]
+    },
+    "attach_engine_6": {
+     "blender_xyz": [
+      -0.54,
+      0.0,
+      0.25
+     ]
+    },
+    "attach_engine_7": {
+     "blender_xyz": [
+      -0.3818,
+      -0.3818,
+      0.25
+     ]
+    },
+    "attach_engine_8": {
+     "blender_xyz": [
+      -0.0,
+      -0.54,
+      0.25
+     ]
+    },
+    "attach_engine_9": {
+     "blender_xyz": [
+      0.3818,
+      -0.3818,
+      0.25
+     ]
+    },
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.7
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 8846,
+    "lod1": 2572,
+    "phone": 2572
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/mount_s1_9_d15.fbx",
+    "glb": "client/public/models/mount_s1_9_d15.glb",
+    "fbx_bytes": 263788,
+    "glb_bytes": 130756,
+    "blend": "assets/blender/mount_s1_9_d15.blend",
+    "blend_bytes": 294751
+   },
+   "issues": []
+  },
+  "mount_s1_9_d37": {
+   "id": "mount_s1_9_d37",
+   "length_m": 1.6,
+   "diameter_bottom_m": 3.7,
+   "diameter_top_m": 3.7,
+   "engine_count": 9,
+   "stage": 1,
+   "engine_attach_z_m": 0.55,
+   "slot_clear_diameter_m": 1.02,
+   "thrust_pad_diameter_m": 0.612,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "engine_attach_z_m": "game_value",
+    "slot_clear_diameter_m": "game_value",
+    "thrust_pad_diameter_m": "game_value"
+   },
+   "family": "mount_s1",
+   "design_ref": "7.6",
+   "bbox_min_m": [
+    -1.87,
+    -1.866,
+    0.0
+   ],
+   "bbox_max_m": [
+    1.864,
+    1.866,
+    1.6
+   ],
+   "attach_points_m": {
+    "attach_engine_1": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.55
+     ]
+    },
+    "attach_engine_2": {
+     "blender_xyz": [
+      1.332,
+      0.0,
+      0.55
+     ]
+    },
+    "attach_engine_3": {
+     "blender_xyz": [
+      0.9419,
+      0.9419,
+      0.55
+     ]
+    },
+    "attach_engine_4": {
+     "blender_xyz": [
+      0.0,
+      1.332,
+      0.55
+     ]
+    },
+    "attach_engine_5": {
+     "blender_xyz": [
+      -0.9419,
+      0.9419,
+      0.55
+     ]
+    },
+    "attach_engine_6": {
+     "blender_xyz": [
+      -1.332,
+      0.0,
+      0.55
+     ]
+    },
+    "attach_engine_7": {
+     "blender_xyz": [
+      -0.9419,
+      -0.9419,
+      0.55
+     ]
+    },
+    "attach_engine_8": {
+     "blender_xyz": [
+      -0.0,
+      -1.332,
+      0.55
+     ]
+    },
+    "attach_engine_9": {
+     "blender_xyz": [
+      0.9419,
+      -0.9419,
+      0.55
+     ]
+    },
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      1.6
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 10604,
+    "lod1": 3084,
+    "phone": 3084
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/mount_s1_9_d37.fbx",
+    "glb": "client/public/models/mount_s1_9_d37.glb",
+    "fbx_bytes": 303548,
+    "glb_bytes": 147604,
+    "blend": "assets/blender/mount_s1_9_d37.blend",
+    "blend_bytes": 330779
+   },
+   "issues": []
+  },
+  "mount_s1_9_d54": {
+   "id": "mount_s1_9_d54",
+   "length_m": 2.2,
+   "diameter_bottom_m": 5.4,
+   "diameter_top_m": 5.4,
+   "engine_count": 9,
+   "stage": 1,
+   "engine_attach_z_m": 0.75,
+   "slot_clear_diameter_m": 1.49,
+   "thrust_pad_diameter_m": 0.894,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "engine_attach_z_m": "game_value",
+    "slot_clear_diameter_m": "game_value",
+    "thrust_pad_diameter_m": "game_value"
+   },
+   "family": "mount_s1",
+   "design_ref": "7.6",
+   "bbox_min_m": [
+    -2.724,
+    -2.723,
+    0.0
+   ],
+   "bbox_max_m": [
+    2.718,
+    2.723,
+    2.2
+   ],
+   "attach_points_m": {
+    "attach_engine_1": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.75
+     ]
+    },
+    "attach_engine_2": {
+     "blender_xyz": [
+      1.944,
+      0.0,
+      0.75
+     ]
+    },
+    "attach_engine_3": {
+     "blender_xyz": [
+      1.3746,
+      1.3746,
+      0.75
+     ]
+    },
+    "attach_engine_4": {
+     "blender_xyz": [
+      0.0,
+      1.944,
+      0.75
+     ]
+    },
+    "attach_engine_5": {
+     "blender_xyz": [
+      -1.3746,
+      1.3746,
+      0.75
+     ]
+    },
+    "attach_engine_6": {
+     "blender_xyz": [
+      -1.944,
+      0.0,
+      0.75
+     ]
+    },
+    "attach_engine_7": {
+     "blender_xyz": [
+      -1.3746,
+      -1.3746,
+      0.75
+     ]
+    },
+    "attach_engine_8": {
+     "blender_xyz": [
+      -0.0,
+      -1.944,
+      0.75
+     ]
+    },
+    "attach_engine_9": {
+     "blender_xyz": [
+      1.3746,
+      -1.3746,
+      0.75
+     ]
+    },
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      2.2
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 13499,
+    "lod1": 3926,
+    "phone": 3926
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/mount_s1_9_d54.fbx",
+    "glb": "client/public/models/mount_s1_9_d54.glb",
+    "fbx_bytes": 382492,
+    "glb_bytes": 176820,
+    "blend": "assets/blender/mount_s1_9_d54.blend",
+    "blend_bytes": 402835
+   },
+   "issues": []
+  },
+  "mount_s1_9_d84": {
+   "id": "mount_s1_9_d84",
+   "length_m": 3.2,
+   "diameter_bottom_m": 8.4,
+   "diameter_top_m": 8.4,
+   "engine_count": 9,
+   "stage": 1,
+   "engine_attach_z_m": 1.1,
+   "slot_clear_diameter_m": 2.41,
+   "thrust_pad_diameter_m": 1.446,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "engine_attach_z_m": "game_value",
+    "slot_clear_diameter_m": "game_value",
+    "thrust_pad_diameter_m": "game_value"
+   },
+   "family": "mount_s1",
+   "design_ref": "7.6",
+   "bbox_min_m": [
+    -4.232,
+    -4.232,
+    0.0
+   ],
+   "bbox_max_m": [
+    4.229,
+    4.232,
+    3.2
+   ],
+   "attach_points_m": {
+    "attach_engine_1": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      1.1
+     ]
+    },
+    "attach_engine_2": {
+     "blender_xyz": [
+      3.15,
+      0.0,
+      1.1
+     ]
+    },
+    "attach_engine_3": {
+     "blender_xyz": [
+      2.2274,
+      2.2274,
+      1.1
+     ]
+    },
+    "attach_engine_4": {
+     "blender_xyz": [
+      0.0,
+      3.15,
+      1.1
+     ]
+    },
+    "attach_engine_5": {
+     "blender_xyz": [
+      -2.2274,
+      2.2274,
+      1.1
+     ]
+    },
+    "attach_engine_6": {
+     "blender_xyz": [
+      -3.15,
+      0.0,
+      1.1
+     ]
+    },
+    "attach_engine_7": {
+     "blender_xyz": [
+      -2.2274,
+      -2.2274,
+      1.1
+     ]
+    },
+    "attach_engine_8": {
+     "blender_xyz": [
+      -0.0,
+      -3.15,
+      1.1
+     ]
+    },
+    "attach_engine_9": {
+     "blender_xyz": [
+      2.2274,
+      -2.2274,
+      1.1
+     ]
+    },
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      3.2
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 19847,
+    "lod1": 5820,
+    "phone": 5820
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/mount_s1_9_d84.fbx",
+    "glb": "client/public/models/mount_s1_9_d84.glb",
+    "fbx_bytes": 525676,
+    "glb_bytes": 244072,
+    "blend": "assets/blender/mount_s1_9_d84.blend",
+    "blend_bytes": 534278
+   },
+   "issues": []
+  },
+  "mount_s2_1_d15": {
+   "id": "mount_s2_1_d15",
+   "length_m": 0.35,
+   "diameter_bottom_m": 1.28,
+   "diameter_top_m": 1.28,
+   "ring_check": false,
+   "engine_count": 1,
+   "stage": 2,
+   "stack_diameter_m": 1.5,
+   "engine_attach_z_m": 0.0,
+   "slot_clear_diameter_m": 1.34,
+   "thrust_pad_diameter_m": 0.576,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "stack_diameter_m": "game_value",
+    "engine_attach_z_m": "game_value",
+    "slot_clear_diameter_m": "game_value",
+    "thrust_pad_diameter_m": "game_value"
+   },
+   "family": "mount_s2",
+   "design_ref": "7.6",
+   "bbox_min_m": [
+    -0.639,
+    -0.639,
+    0.0
+   ],
+   "bbox_max_m": [
+    0.639,
+    0.639,
+    0.35
+   ],
+   "attach_points_m": {
+    "attach_engine_1": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.35
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 4040,
+    "lod1": 1175,
+    "phone": 4040
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/mount_s2_1_d15.fbx",
+    "glb": "client/public/models/mount_s2_1_d15.glb",
+    "fbx_bytes": 131580,
+    "glb_bytes": 140048,
+    "blend": "assets/blender/mount_s2_1_d15.blend",
+    "blend_bytes": 168678
+   },
+   "issues": []
+  },
+  "mount_s2_1_d37": {
+   "id": "mount_s2_1_d37",
+   "length_m": 0.8,
+   "diameter_bottom_m": 3.216,
+   "diameter_top_m": 3.216,
+   "ring_check": false,
+   "engine_count": 1,
+   "stage": 2,
+   "stack_diameter_m": 3.7,
+   "engine_attach_z_m": 0.0,
+   "slot_clear_diameter_m": 3.54,
+   "thrust_pad_diameter_m": 0.92,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "stack_diameter_m": "game_value",
+    "engine_attach_z_m": "game_value",
+    "slot_clear_diameter_m": "game_value",
+    "thrust_pad_diameter_m": "game_value"
+   },
+   "family": "mount_s2",
+   "design_ref": "7.6",
+   "bbox_min_m": [
+    -1.606,
+    -1.592,
+    0.0
+   ],
+   "bbox_max_m": [
+    1.606,
+    1.592,
+    0.8
+   ],
+   "attach_points_m": {
+    "attach_engine_1": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.8
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 4524,
+    "lod1": 1315,
+    "phone": 4524
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/mount_s2_1_d37.fbx",
+    "glb": "client/public/models/mount_s2_1_d37.glb",
+    "fbx_bytes": 145132,
+    "glb_bytes": 160040,
+    "blend": "assets/blender/mount_s2_1_d37.blend",
+    "blend_bytes": 181166
+   },
+   "issues": []
+  },
+  "mount_s2_1_d54": {
+   "id": "mount_s2_1_d54",
+   "length_m": 1.1,
+   "diameter_bottom_m": 4.712,
+   "diameter_top_m": 4.712,
+   "ring_check": false,
+   "engine_count": 1,
+   "stage": 2,
+   "stack_diameter_m": 5.4,
+   "engine_attach_z_m": 0.0,
+   "slot_clear_diameter_m": 5.24,
+   "thrust_pad_diameter_m": 0.92,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "stack_diameter_m": "game_value",
+    "engine_attach_z_m": "game_value",
+    "slot_clear_diameter_m": "game_value",
+    "thrust_pad_diameter_m": "game_value"
+   },
+   "family": "mount_s2",
+   "design_ref": "7.6",
+   "bbox_min_m": [
+    -2.353,
+    -2.353,
+    0.0
+   ],
+   "bbox_max_m": [
+    2.353,
+    2.353,
+    1.1
+   ],
+   "attach_points_m": {
+    "attach_engine_1": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      1.1
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 5280,
+    "lod1": 1536,
+    "phone": 5280
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/mount_s2_1_d54.fbx",
+    "glb": "client/public/models/mount_s2_1_d54.glb",
+    "fbx_bytes": 165084,
+    "glb_bytes": 188704,
+    "blend": "assets/blender/mount_s2_1_d54.blend",
+    "blend_bytes": 195468
+   },
+   "issues": []
+  },
+  "mount_s2_1_d84": {
+   "id": "mount_s2_1_d84",
+   "length_m": 1.6,
+   "diameter_bottom_m": 7.352,
+   "diameter_top_m": 7.352,
+   "ring_check": false,
+   "engine_count": 1,
+   "stage": 2,
+   "stack_diameter_m": 8.4,
+   "engine_attach_z_m": 0.0,
+   "slot_clear_diameter_m": 8.24,
+   "thrust_pad_diameter_m": 0.92,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "stack_diameter_m": "game_value",
+    "engine_attach_z_m": "game_value",
+    "slot_clear_diameter_m": "game_value",
+    "thrust_pad_diameter_m": "game_value"
+   },
+   "family": "mount_s2",
+   "design_ref": "7.6",
+   "bbox_min_m": [
+    -3.667,
+    -3.672,
+    0.0
+   ],
+   "bbox_max_m": [
+    3.673,
+    3.672,
+    1.6
+   ],
+   "attach_points_m": {
+    "attach_engine_1": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      1.6
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 6646,
+    "lod1": 1932,
+    "phone": 6646
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/mount_s2_1_d84.fbx",
+    "glb": "client/public/models/mount_s2_1_d84.glb",
+    "fbx_bytes": 204156,
+    "glb_bytes": 243456,
+    "blend": "assets/blender/mount_s2_1_d84.blend",
+    "blend_bytes": 232489
+   },
+   "issues": []
+  },
+  "mount_s2_2_d15": {
+   "id": "mount_s2_2_d15",
+   "length_m": 0.35,
+   "diameter_bottom_m": 1.28,
+   "diameter_top_m": 1.28,
+   "ring_check": false,
+   "engine_count": 2,
+   "stage": 2,
+   "stack_diameter_m": 1.5,
+   "engine_attach_z_m": 0.0,
+   "slot_clear_diameter_m": 0.59,
+   "thrust_pad_diameter_m": 0.354,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "stack_diameter_m": "game_value",
+    "engine_attach_z_m": "game_value",
+    "slot_clear_diameter_m": "game_value",
+    "thrust_pad_diameter_m": "game_value"
+   },
+   "family": "mount_s2",
+   "design_ref": "7.6",
+   "bbox_min_m": [
+    -0.639,
+    -0.639,
+    0.0
+   ],
+   "bbox_max_m": [
+    0.639,
+    0.639,
+    0.35
+   ],
+   "attach_points_m": {
+    "attach_engine_1": {
+     "blender_xyz": [
+      0.375,
+      0.0,
+      0.0
+     ]
+    },
+    "attach_engine_2": {
+     "blender_xyz": [
+      -0.375,
+      0.0,
+      0.0
+     ]
+    },
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.35
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 4692,
+    "lod1": 1364,
+    "phone": 4692
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/mount_s2_2_d15.fbx",
+    "glb": "client/public/models/mount_s2_2_d15.glb",
+    "fbx_bytes": 151340,
+    "glb_bytes": 161296,
+    "blend": "assets/blender/mount_s2_2_d15.blend",
+    "blend_bytes": 182389
+   },
+   "issues": []
+  },
+  "mount_s2_2_d37": {
+   "id": "mount_s2_2_d37",
+   "length_m": 0.8,
+   "diameter_bottom_m": 3.216,
+   "diameter_top_m": 3.216,
+   "ring_check": false,
+   "engine_count": 2,
+   "stage": 2,
+   "stack_diameter_m": 3.7,
+   "engine_attach_z_m": 0.0,
+   "slot_clear_diameter_m": 1.69,
+   "thrust_pad_diameter_m": 0.92,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "stack_diameter_m": "game_value",
+    "engine_attach_z_m": "game_value",
+    "slot_clear_diameter_m": "game_value",
+    "thrust_pad_diameter_m": "game_value"
+   },
+   "family": "mount_s2",
+   "design_ref": "7.6",
+   "bbox_min_m": [
+    -1.606,
+    -1.592,
+    0.0
+   ],
+   "bbox_max_m": [
+    1.606,
+    1.592,
+    0.8
+   ],
+   "attach_points_m": {
+    "attach_engine_1": {
+     "blender_xyz": [
+      0.925,
+      0.0,
+      0.0
+     ]
+    },
+    "attach_engine_2": {
+     "blender_xyz": [
+      -0.925,
+      0.0,
+      0.0
+     ]
+    },
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.8
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 5232,
+    "lod1": 1521,
+    "phone": 5232
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/mount_s2_2_d37.fbx",
+    "glb": "client/public/models/mount_s2_2_d37.glb",
+    "fbx_bytes": 166412,
+    "glb_bytes": 183308,
+    "blend": "assets/blender/mount_s2_2_d37.blend",
+    "blend_bytes": 194554
+   },
+   "issues": []
+  },
+  "mount_s2_2_d54": {
+   "id": "mount_s2_2_d54",
+   "length_m": 1.1,
+   "diameter_bottom_m": 4.712,
+   "diameter_top_m": 4.712,
+   "ring_check": false,
+   "engine_count": 2,
+   "stage": 2,
+   "stack_diameter_m": 5.4,
+   "engine_attach_z_m": 0.0,
+   "slot_clear_diameter_m": 2.54,
+   "thrust_pad_diameter_m": 0.92,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "stack_diameter_m": "game_value",
+    "engine_attach_z_m": "game_value",
+    "slot_clear_diameter_m": "game_value",
+    "thrust_pad_diameter_m": "game_value"
+   },
+   "family": "mount_s2",
+   "design_ref": "7.6",
+   "bbox_min_m": [
+    -2.353,
+    -2.353,
+    0.0
+   ],
+   "bbox_max_m": [
+    2.353,
+    2.353,
+    1.1
+   ],
+   "attach_points_m": {
+    "attach_engine_1": {
+     "blender_xyz": [
+      1.35,
+      0.0,
+      0.0
+     ]
+    },
+    "attach_engine_2": {
+     "blender_xyz": [
+      -1.35,
+      0.0,
+      0.0
+     ]
+    },
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      1.1
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 5988,
+    "lod1": 1742,
+    "phone": 5988
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/mount_s2_2_d54.fbx",
+    "glb": "client/public/models/mount_s2_2_d54.glb",
+    "fbx_bytes": 186300,
+    "glb_bytes": 211968,
+    "blend": "assets/blender/mount_s2_2_d54.blend",
+    "blend_bytes": 213443
+   },
+   "issues": []
+  },
+  "mount_s2_2_d84": {
+   "id": "mount_s2_2_d84",
+   "length_m": 1.6,
+   "diameter_bottom_m": 7.352,
+   "diameter_top_m": 7.352,
+   "ring_check": false,
+   "engine_count": 2,
+   "stage": 2,
+   "stack_diameter_m": 8.4,
+   "engine_attach_z_m": 0.0,
+   "slot_clear_diameter_m": 4.04,
+   "thrust_pad_diameter_m": 0.92,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "stack_diameter_m": "game_value",
+    "engine_attach_z_m": "game_value",
+    "slot_clear_diameter_m": "game_value",
+    "thrust_pad_diameter_m": "game_value"
+   },
+   "family": "mount_s2",
+   "design_ref": "7.6",
+   "bbox_min_m": [
+    -3.667,
+    -3.672,
+    0.0
+   ],
+   "bbox_max_m": [
+    3.673,
+    3.672,
+    1.6
+   ],
+   "attach_points_m": {
+    "attach_engine_1": {
+     "blender_xyz": [
+      2.1,
+      0.0,
+      0.0
+     ]
+    },
+    "attach_engine_2": {
+     "blender_xyz": [
+      -2.1,
+      0.0,
+      0.0
+     ]
+    },
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      1.6
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 7354,
+    "lod1": 2138,
+    "phone": 7354
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/mount_s2_2_d84.fbx",
+    "glb": "client/public/models/mount_s2_2_d84.glb",
+    "fbx_bytes": 226444,
+    "glb_bytes": 266728,
+    "blend": "assets/blender/mount_s2_2_d84.blend",
+    "blend_bytes": 247110
+   },
+   "issues": []
+  },
+  "tank_s1_l": {
+   "id": "tank_s1_l",
+   "length_m": 23.4,
+   "diameter_bottom_m": 5.4,
+   "diameter_top_m": 5.4,
+   "stage": 1,
+   "size": "l",
+   "propellant_family": "standard",
+   "propellant_t": 420.0,
+   "volume_m3": 424.1,
+   "skirt_height_m": 1.188,
+   "intertank_height_m": 2.268,
+   "bulkhead_or_intertank_z_m": 7.846,
+   "max_radius_m": 2.859,
+   "value_types": {
+    "propellant_t": "game_value",
+    "bulk_density": "physical",
+    "volume_m3": "physical (propellant mass / bulk density, plus 3 % ullage: game_value)",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "length_m": "game_value derived from the physical volume",
+    "skirt_height_m": "game_value",
+    "intertank_height_m": "game_value"
+   },
+   "family": "tank",
+   "design_ref": "7.9",
+   "bbox_min_m": [
+    -2.74,
+    -2.86,
+    0.0
+   ],
+   "bbox_max_m": [
+    2.74,
+    2.74,
+    23.4
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      23.4
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery"
+   ],
+   "triangles": {
+    "lod0": 13044,
+    "lod1": 3795,
+    "phone": 3795
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/tank_s1_l.fbx",
+    "glb": "client/public/models/tank_s1_l.glb",
+    "fbx_bytes": 386332,
+    "glb_bytes": 190340,
+    "blend": "assets/blender/tank_s1_l.blend",
+    "blend_bytes": 389951
+   },
+   "issues": []
+  },
+  "tank_s1_l_hydrolox": {
+   "id": "tank_s1_l_hydrolox",
+   "length_m": 57.3,
+   "diameter_bottom_m": 5.4,
+   "diameter_top_m": 5.4,
+   "stage": 1,
+   "size": "l",
+   "propellant_family": "hydrolox",
+   "propellant_t": 420.0,
+   "volume_m3": 1201.7,
+   "skirt_height_m": 1.188,
+   "intertank_height_m": 2.268,
+   "bulkhead_or_intertank_z_m": 39.522,
+   "max_radius_m": 3.212,
+   "value_types": {
+    "propellant_t": "game_value",
+    "bulk_density": "physical",
+    "volume_m3": "physical (propellant mass / bulk density, plus 3 % ullage: game_value)",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "length_m": "game_value derived from the physical volume",
+    "skirt_height_m": "game_value",
+    "intertank_height_m": "game_value"
+   },
+   "family": "tank",
+   "design_ref": "7.9",
+   "bbox_min_m": [
+    -2.764,
+    -2.905,
+    0.0
+   ],
+   "bbox_max_m": [
+    2.855,
+    2.764,
+    57.3
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      57.3
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 19556,
+    "lod1": 5689,
+    "phone": 5689
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/tank_s1_l_hydrolox.fbx",
+    "glb": "client/public/models/tank_s1_l_hydrolox.glb",
+    "fbx_bytes": 564380,
+    "glb_bytes": 272752,
+    "blend": "assets/blender/tank_s1_l_hydrolox.blend",
+    "blend_bytes": 550511
+   },
+   "issues": []
+  },
+  "tank_s1_m": {
+   "id": "tank_s1_m",
+   "length_m": 29.6,
+   "diameter_bottom_m": 3.7,
+   "diameter_top_m": 3.7,
+   "stage": 1,
+   "size": "m",
+   "propellant_family": "standard",
+   "propellant_t": 280.0,
+   "volume_m3": 282.7,
+   "skirt_height_m": 0.814,
+   "intertank_height_m": 1.554,
+   "bulkhead_or_intertank_z_m": 10.192,
+   "max_radius_m": 1.972,
+   "value_types": {
+    "propellant_t": "game_value",
+    "bulk_density": "physical",
+    "volume_m3": "physical (propellant mass / bulk density, plus 3 % ullage: game_value)",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "length_m": "game_value derived from the physical volume",
+    "skirt_height_m": "game_value",
+    "intertank_height_m": "game_value"
+   },
+   "family": "tank",
+   "design_ref": "7.9",
+   "bbox_min_m": [
+    -1.88,
+    -1.968,
+    0.0
+   ],
+   "bbox_max_m": [
+    1.878,
+    1.879,
+    29.6
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      29.6
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery"
+   ],
+   "triangles": {
+    "lod0": 12368,
+    "lod1": 3598,
+    "phone": 3598
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/tank_s1_m.fbx",
+    "glb": "client/public/models/tank_s1_m.glb",
+    "fbx_bytes": 359756,
+    "glb_bytes": 173232,
+    "blend": "assets/blender/tank_s1_m.blend",
+    "blend_bytes": 359568
+   },
+   "issues": []
+  },
+  "tank_s1_m_hydrolox": {
+   "id": "tank_s1_m_hydrolox",
+   "length_m": 39.8,
+   "diameter_bottom_m": 5.4,
+   "diameter_top_m": 5.4,
+   "stage": 1,
+   "size": "m",
+   "propellant_family": "hydrolox",
+   "propellant_t": 280.0,
+   "volume_m3": 801.1,
+   "skirt_height_m": 1.188,
+   "intertank_height_m": 2.268,
+   "bulkhead_or_intertank_z_m": 26.782,
+   "max_radius_m": 3.212,
+   "value_types": {
+    "propellant_t": "game_value",
+    "bulk_density": "physical",
+    "volume_m3": "physical (propellant mass / bulk density, plus 3 % ullage: game_value)",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "length_m": "game_value derived from the physical volume",
+    "skirt_height_m": "game_value",
+    "intertank_height_m": "game_value"
+   },
+   "family": "tank",
+   "design_ref": "7.9",
+   "bbox_min_m": [
+    -2.764,
+    -2.905,
+    0.0
+   ],
+   "bbox_max_m": [
+    2.855,
+    2.764,
+    39.8
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      39.8
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 19016,
+    "lod1": 5532,
+    "phone": 5532
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/tank_s1_m_hydrolox.fbx",
+    "glb": "client/public/models/tank_s1_m_hydrolox.glb",
+    "fbx_bytes": 551692,
+    "glb_bytes": 263008,
+    "blend": "assets/blender/tank_s1_m_hydrolox.blend",
+    "blend_bytes": 533313
+   },
+   "issues": []
+  },
+  "tank_s1_s": {
+   "id": "tank_s1_s",
+   "length_m": 14.6,
+   "diameter_bottom_m": 3.7,
+   "diameter_top_m": 3.7,
+   "stage": 1,
+   "size": "s",
+   "propellant_family": "standard",
+   "propellant_t": 120.0,
+   "volume_m3": 121.2,
+   "skirt_height_m": 0.814,
+   "intertank_height_m": 1.554,
+   "bulkhead_or_intertank_z_m": 4.867,
+   "max_radius_m": 1.972,
+   "value_types": {
+    "propellant_t": "game_value",
+    "bulk_density": "physical",
+    "volume_m3": "physical (propellant mass / bulk density, plus 3 % ullage: game_value)",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "length_m": "game_value derived from the physical volume",
+    "skirt_height_m": "game_value",
+    "intertank_height_m": "game_value"
+   },
+   "family": "tank",
+   "design_ref": "7.9",
+   "bbox_min_m": [
+    -1.88,
+    -1.968,
+    0.0
+   ],
+   "bbox_max_m": [
+    1.878,
+    1.879,
+    14.6
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      14.6
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery"
+   ],
+   "triangles": {
+    "lod0": 10016,
+    "lod1": 2913,
+    "phone": 2913
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/tank_s1_s.fbx",
+    "glb": "client/public/models/tank_s1_s.glb",
+    "fbx_bytes": 302988,
+    "glb_bytes": 145648,
+    "blend": "assets/blender/tank_s1_s.blend",
+    "blend_bytes": 319771
+   },
+   "issues": []
+  },
+  "tank_s1_s_hydrolox": {
+   "id": "tank_s1_s_hydrolox",
+   "length_m": 35.3,
+   "diameter_bottom_m": 3.7,
+   "diameter_top_m": 3.7,
+   "stage": 1,
+   "size": "s",
+   "propellant_family": "hydrolox",
+   "propellant_t": 120.0,
+   "volume_m3": 343.3,
+   "skirt_height_m": 0.814,
+   "intertank_height_m": 1.554,
+   "bulkhead_or_intertank_z_m": 24.196,
+   "max_radius_m": 2.214,
+   "value_types": {
+    "propellant_t": "game_value",
+    "bulk_density": "physical",
+    "volume_m3": "physical (propellant mass / bulk density, plus 3 % ullage: game_value)",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "length_m": "game_value derived from the physical volume",
+    "skirt_height_m": "game_value",
+    "intertank_height_m": "game_value"
+   },
+   "family": "tank",
+   "design_ref": "7.9",
+   "bbox_min_m": [
+    -1.9,
+    -2.002,
+    0.0
+   ],
+   "bbox_max_m": [
+    1.968,
+    1.9,
+    35.3
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      35.3
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 16200,
+    "lod1": 4714,
+    "phone": 4714
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/tank_s1_s_hydrolox.fbx",
+    "glb": "client/public/models/tank_s1_s_hydrolox.glb",
+    "fbx_bytes": 476092,
+    "glb_bytes": 222680,
+    "blend": "assets/blender/tank_s1_s_hydrolox.blend",
+    "blend_bytes": 464227
+   },
+   "issues": []
+  },
+  "tank_s1_xl": {
+   "id": "tank_s1_xl",
+   "length_m": 25.8,
+   "diameter_bottom_m": 8.4,
+   "diameter_top_m": 8.4,
+   "stage": 1,
+   "size": "xl",
+   "propellant_family": "standard",
+   "propellant_t": 1000.0,
+   "volume_m3": 1009.8,
+   "skirt_height_m": 1.848,
+   "intertank_height_m": 3.528,
+   "bulkhead_or_intertank_z_m": 8.442,
+   "max_radius_m": 4.425,
+   "value_types": {
+    "propellant_t": "game_value",
+    "bulk_density": "physical",
+    "volume_m3": "physical (propellant mass / bulk density, plus 3 % ullage: game_value)",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "length_m": "game_value derived from the physical volume",
+    "skirt_height_m": "game_value",
+    "intertank_height_m": "game_value"
+   },
+   "family": "tank",
+   "design_ref": "7.9",
+   "bbox_min_m": [
+    -4.258,
+    -4.434,
+    0.0
+   ],
+   "bbox_max_m": [
+    4.258,
+    4.259,
+    25.8
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      25.8
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery"
+   ],
+   "triangles": {
+    "lod0": 16272,
+    "lod1": 4734,
+    "phone": 4734
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/tank_s1_xl.fbx",
+    "glb": "client/public/models/tank_s1_xl.glb",
+    "fbx_bytes": 477756,
+    "glb_bytes": 244940,
+    "blend": "assets/blender/tank_s1_xl.blend",
+    "blend_bytes": 462288
+   },
+   "issues": []
+  },
+  "tank_s1_xl_hydrolox": {
+   "id": "tank_s1_xl_hydrolox",
+   "length_m": 59.2,
+   "diameter_bottom_m": 8.4,
+   "diameter_top_m": 8.4,
+   "stage": 1,
+   "size": "xl",
+   "propellant_family": "hydrolox",
+   "propellant_t": 1000.0,
+   "volume_m3": 2861.1,
+   "skirt_height_m": 1.848,
+   "intertank_height_m": 3.528,
+   "bulkhead_or_intertank_z_m": 39.687,
+   "max_radius_m": 4.973,
+   "value_types": {
+    "propellant_t": "game_value",
+    "bulk_density": "physical",
+    "volume_m3": "physical (propellant mass / bulk density, plus 3 % ullage: game_value)",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "length_m": "game_value derived from the physical volume",
+    "skirt_height_m": "game_value",
+    "intertank_height_m": "game_value"
+   },
+   "family": "tank",
+   "design_ref": "7.9",
+   "bbox_min_m": [
+    -4.29,
+    -4.497,
+    0.0
+   ],
+   "bbox_max_m": [
+    4.42,
+    4.29,
+    59.2
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      59.2
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 23972,
+    "lod1": 6974,
+    "phone": 6974
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/tank_s1_xl_hydrolox.fbx",
+    "glb": "client/public/models/tank_s1_xl_hydrolox.glb",
+    "fbx_bytes": 687916,
+    "glb_bytes": 336872,
+    "blend": "assets/blender/tank_s1_xl_hydrolox.blend",
+    "blend_bytes": 643234
+   },
+   "issues": []
+  },
+  "tank_s1_xs": {
+   "id": "tank_s1_xs",
+   "length_m": 8.2,
+   "diameter_bottom_m": 1.5,
+   "diameter_top_m": 1.5,
+   "stage": 1,
+   "size": "xs",
+   "propellant_family": "standard",
+   "propellant_t": 12.0,
+   "volume_m3": 12.1,
+   "skirt_height_m": 0.33,
+   "intertank_height_m": 0.63,
+   "bulkhead_or_intertank_z_m": 2.783,
+   "max_radius_m": 0.824,
+   "value_types": {
+    "propellant_t": "game_value",
+    "bulk_density": "physical",
+    "volume_m3": "physical (propellant mass / bulk density, plus 3 % ullage: game_value)",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "length_m": "game_value derived from the physical volume",
+    "skirt_height_m": "game_value",
+    "intertank_height_m": "game_value"
+   },
+   "family": "tank",
+   "design_ref": "7.9",
+   "bbox_min_m": [
+    -0.765,
+    -0.814,
+    0.0
+   ],
+   "bbox_max_m": [
+    0.77,
+    0.765,
+    8.2
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      8.2
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery"
+   ],
+   "triangles": {
+    "lod0": 7096,
+    "lod1": 2064,
+    "phone": 7096
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/tank_s1_xs.fbx",
+    "glb": "client/public/models/tank_s1_xs.glb",
+    "fbx_bytes": 224444,
+    "glb_bytes": 337052,
+    "blend": "assets/blender/tank_s1_xs.blend",
+    "blend_bytes": 249020
+   },
+   "issues": []
+  },
+  "tank_s1_xs_hydrolox": {
+   "id": "tank_s1_xs_hydrolox",
+   "length_m": 20.8,
+   "diameter_bottom_m": 1.5,
+   "diameter_top_m": 1.5,
+   "stage": 1,
+   "size": "xs",
+   "propellant_family": "hydrolox",
+   "propellant_t": 12.0,
+   "volume_m3": 34.3,
+   "skirt_height_m": 0.33,
+   "intertank_height_m": 0.63,
+   "bulkhead_or_intertank_z_m": 14.533,
+   "max_radius_m": 0.922,
+   "value_types": {
+    "propellant_t": "game_value",
+    "bulk_density": "physical",
+    "volume_m3": "physical (propellant mass / bulk density, plus 3 % ullage: game_value)",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "length_m": "game_value derived from the physical volume",
+    "skirt_height_m": "game_value",
+    "intertank_height_m": "game_value"
+   },
+   "family": "tank",
+   "design_ref": "7.9",
+   "bbox_min_m": [
+    -0.78,
+    -0.835,
+    0.0
+   ],
+   "bbox_max_m": [
+    0.82,
+    0.78,
+    20.8
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      20.8
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 12396,
+    "lod1": 3606,
+    "phone": 3606
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/tank_s1_xs_hydrolox.fbx",
+    "glb": "client/public/models/tank_s1_xs_hydrolox.glb",
+    "fbx_bytes": 367564,
+    "glb_bytes": 174908,
+    "blend": "assets/blender/tank_s1_xs_hydrolox.blend",
+    "blend_bytes": 373642
+   },
+   "issues": []
+  },
+  "tank_s2_l": {
+   "id": "tank_s2_l",
+   "length_m": 12.0,
+   "diameter_bottom_m": 3.7,
+   "diameter_top_m": 3.7,
+   "stage": 2,
+   "size": "l",
+   "propellant_family": "standard",
+   "propellant_t": 110.0,
+   "volume_m3": 111.1,
+   "skirt_height_m": 0.814,
+   "intertank_height_m": 0.0,
+   "bulkhead_or_intertank_z_m": 4.496,
+   "max_radius_m": 1.972,
+   "value_types": {
+    "propellant_t": "game_value",
+    "bulk_density": "physical",
+    "volume_m3": "physical (propellant mass / bulk density, plus 3 % ullage: game_value)",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "length_m": "game_value derived from the physical volume",
+    "skirt_height_m": "game_value",
+    "intertank_height_m": "game_value"
+   },
+   "family": "tank",
+   "design_ref": "7.9",
+   "bbox_min_m": [
+    -1.88,
+    -1.968,
+    0.0
+   ],
+   "bbox_max_m": [
+    1.878,
+    1.879,
+    12.0
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      12.0
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery"
+   ],
+   "triangles": {
+    "lod0": 8812,
+    "lod1": 2563,
+    "phone": 2563
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/tank_s2_l.fbx",
+    "glb": "client/public/models/tank_s2_l.glb",
+    "fbx_bytes": 268844,
+    "glb_bytes": 121892,
+    "blend": "assets/blender/tank_s2_l.blend",
+    "blend_bytes": 292598
+   },
+   "issues": []
+  },
+  "tank_s2_l_hydrolox": {
+   "id": "tank_s2_l_hydrolox",
+   "length_m": 16.2,
+   "diameter_bottom_m": 5.4,
+   "diameter_top_m": 5.4,
+   "stage": 2,
+   "size": "l",
+   "propellant_family": "hydrolox",
+   "propellant_t": 110.0,
+   "volume_m3": 314.7,
+   "skirt_height_m": 1.188,
+   "intertank_height_m": 0.0,
+   "bulkhead_or_intertank_z_m": 4.948,
+   "max_radius_m": 2.904,
+   "value_types": {
+    "propellant_t": "game_value",
+    "bulk_density": "physical",
+    "volume_m3": "physical (propellant mass / bulk density, plus 3 % ullage: game_value)",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "length_m": "game_value derived from the physical volume",
+    "skirt_height_m": "game_value",
+    "intertank_height_m": "game_value"
+   },
+   "family": "tank",
+   "design_ref": "7.9",
+   "bbox_min_m": [
+    -2.778,
+    -2.905,
+    0.0
+   ],
+   "bbox_max_m": [
+    2.778,
+    2.778,
+    16.2
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      16.2
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 11696,
+    "lod1": 3402,
+    "phone": 3402
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/tank_s2_l_hydrolox.fbx",
+    "glb": "client/public/models/tank_s2_l_hydrolox.glb",
+    "fbx_bytes": 351628,
+    "glb_bytes": 159788,
+    "blend": "assets/blender/tank_s2_l_hydrolox.blend",
+    "blend_bytes": 367381
+   },
+   "issues": []
+  },
+  "tank_s2_m": {
+   "id": "tank_s2_m",
+   "length_m": 7.3,
+   "diameter_bottom_m": 3.7,
+   "diameter_top_m": 3.7,
+   "stage": 2,
+   "size": "m",
+   "propellant_family": "standard",
+   "propellant_t": 60.0,
+   "volume_m3": 60.6,
+   "skirt_height_m": 0.814,
+   "intertank_height_m": 0.0,
+   "bulkhead_or_intertank_z_m": 2.828,
+   "max_radius_m": 1.972,
+   "value_types": {
+    "propellant_t": "game_value",
+    "bulk_density": "physical",
+    "volume_m3": "physical (propellant mass / bulk density, plus 3 % ullage: game_value)",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "length_m": "game_value derived from the physical volume",
+    "skirt_height_m": "game_value",
+    "intertank_height_m": "game_value"
+   },
+   "family": "tank",
+   "design_ref": "7.9",
+   "bbox_min_m": [
+    -1.88,
+    -1.968,
+    0.0
+   ],
+   "bbox_max_m": [
+    1.878,
+    1.879,
+    7.3
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      7.3
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery"
+   ],
+   "triangles": {
+    "lod0": 8056,
+    "lod1": 2343,
+    "phone": 2343
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/tank_s2_m.fbx",
+    "glb": "client/public/models/tank_s2_m.glb",
+    "fbx_bytes": 244316,
+    "glb_bytes": 113168,
+    "blend": "assets/blender/tank_s2_m.blend",
+    "blend_bytes": 275458
+   },
+   "issues": []
+  },
+  "tank_s2_m_hydrolox": {
+   "id": "tank_s2_m_hydrolox",
+   "length_m": 17.6,
+   "diameter_bottom_m": 3.7,
+   "diameter_top_m": 3.7,
+   "stage": 2,
+   "size": "m",
+   "propellant_family": "hydrolox",
+   "propellant_t": 60.0,
+   "volume_m3": 171.7,
+   "skirt_height_m": 0.814,
+   "intertank_height_m": 0.0,
+   "bulkhead_or_intertank_z_m": 5.158,
+   "max_radius_m": 2.006,
+   "value_types": {
+    "propellant_t": "game_value",
+    "bulk_density": "physical",
+    "volume_m3": "physical (propellant mass / bulk density, plus 3 % ullage: game_value)",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "length_m": "game_value derived from the physical volume",
+    "skirt_height_m": "game_value",
+    "intertank_height_m": "game_value"
+   },
+   "family": "tank",
+   "design_ref": "7.9",
+   "bbox_min_m": [
+    -1.91,
+    -2.002,
+    0.0
+   ],
+   "bbox_max_m": [
+    1.91,
+    1.91,
+    17.6
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      17.6
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 11420,
+    "lod1": 3323,
+    "phone": 3323
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/tank_s2_m_hydrolox.fbx",
+    "glb": "client/public/models/tank_s2_m_hydrolox.glb",
+    "fbx_bytes": 339004,
+    "glb_bytes": 151704,
+    "blend": "assets/blender/tank_s2_m_hydrolox.blend",
+    "blend_bytes": 354953
+   },
+   "issues": []
+  },
+  "tank_s2_s": {
+   "id": "tank_s2_s",
+   "length_m": 4.0,
+   "diameter_bottom_m": 3.7,
+   "diameter_top_m": 3.7,
+   "stage": 2,
+   "size": "s",
+   "propellant_family": "standard",
+   "propellant_t": 25.0,
+   "volume_m3": 25.2,
+   "skirt_height_m": 0.8,
+   "intertank_height_m": 0.0,
+   "bulkhead_or_intertank_z_m": 1.652,
+   "max_radius_m": 1.972,
+   "value_types": {
+    "propellant_t": "game_value",
+    "bulk_density": "physical",
+    "volume_m3": "physical (propellant mass / bulk density, plus 3 % ullage: game_value)",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "length_m": "game_value derived from the physical volume",
+    "skirt_height_m": "game_value",
+    "intertank_height_m": "game_value"
+   },
+   "family": "tank",
+   "design_ref": "7.9",
+   "bbox_min_m": [
+    -1.88,
+    -1.968,
+    0.0
+   ],
+   "bbox_max_m": [
+    1.878,
+    1.879,
+    4.0
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      4.0
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery"
+   ],
+   "triangles": {
+    "lod0": 7832,
+    "lod1": 2278,
+    "phone": 7832
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/tank_s2_s.fbx",
+    "glb": "client/public/models/tank_s2_s.glb",
+    "fbx_bytes": 237324,
+    "glb_bytes": 367752,
+    "blend": "assets/blender/tank_s2_s.blend",
+    "blend_bytes": 268850
+   },
+   "issues": []
+  },
+  "tank_s2_s_hydrolox": {
+   "id": "tank_s2_s_hydrolox",
+   "length_m": 8.3,
+   "diameter_bottom_m": 3.7,
+   "diameter_top_m": 3.7,
+   "stage": 2,
+   "size": "s",
+   "propellant_family": "hydrolox",
+   "propellant_t": 25.0,
+   "volume_m3": 71.5,
+   "skirt_height_m": 0.814,
+   "intertank_height_m": 0.0,
+   "bulkhead_or_intertank_z_m": 2.629,
+   "max_radius_m": 2.006,
+   "value_types": {
+    "propellant_t": "game_value",
+    "bulk_density": "physical",
+    "volume_m3": "physical (propellant mass / bulk density, plus 3 % ullage: game_value)",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "length_m": "game_value derived from the physical volume",
+    "skirt_height_m": "game_value",
+    "intertank_height_m": "game_value"
+   },
+   "family": "tank",
+   "design_ref": "7.9",
+   "bbox_min_m": [
+    -1.91,
+    -2.002,
+    0.0
+   ],
+   "bbox_max_m": [
+    1.91,
+    1.91,
+    8.3
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      8.3
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 8696,
+    "lod1": 2529,
+    "phone": 2529
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/tank_s2_s_hydrolox.fbx",
+    "glb": "client/public/models/tank_s2_s_hydrolox.glb",
+    "fbx_bytes": 269900,
+    "glb_bytes": 120268,
+    "blend": "assets/blender/tank_s2_s_hydrolox.blend",
+    "blend_bytes": 294621
+   },
+   "issues": []
+  },
+  "tank_s2_xl": {
+   "id": "tank_s2_xl",
+   "length_m": 13.5,
+   "diameter_bottom_m": 5.4,
+   "diameter_top_m": 5.4,
+   "stage": 2,
+   "size": "xl",
+   "propellant_family": "standard",
+   "propellant_t": 250.0,
+   "volume_m3": 252.5,
+   "skirt_height_m": 1.188,
+   "intertank_height_m": 0.0,
+   "bulkhead_or_intertank_z_m": 5.137,
+   "max_radius_m": 2.859,
+   "value_types": {
+    "propellant_t": "game_value",
+    "bulk_density": "physical",
+    "volume_m3": "physical (propellant mass / bulk density, plus 3 % ullage: game_value)",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "length_m": "game_value derived from the physical volume",
+    "skirt_height_m": "game_value",
+    "intertank_height_m": "game_value"
+   },
+   "family": "tank",
+   "design_ref": "7.9",
+   "bbox_min_m": [
+    -2.74,
+    -2.86,
+    0.0
+   ],
+   "bbox_max_m": [
+    2.738,
+    2.74,
+    13.5
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      13.5
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery"
+   ],
+   "triangles": {
+    "lod0": 10564,
+    "lod1": 3073,
+    "phone": 3073
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/tank_s2_xl.fbx",
+    "glb": "client/public/models/tank_s2_xl.glb",
+    "fbx_bytes": 312444,
+    "glb_bytes": 147320,
+    "blend": "assets/blender/tank_s2_xl.blend",
+    "blend_bytes": 337521
+   },
+   "issues": []
+  },
+  "tank_s2_xl_hydrolox": {
+   "id": "tank_s2_xl_hydrolox",
+   "length_m": 16.7,
+   "diameter_bottom_m": 8.4,
+   "diameter_top_m": 8.4,
+   "stage": 2,
+   "size": "xl",
+   "propellant_family": "hydrolox",
+   "propellant_t": 250.0,
+   "volume_m3": 715.3,
+   "skirt_height_m": 1.848,
+   "intertank_height_m": 0.0,
+   "bulkhead_or_intertank_z_m": 5.385,
+   "max_radius_m": 4.488,
+   "value_types": {
+    "propellant_t": "game_value",
+    "bulk_density": "physical",
+    "volume_m3": "physical (propellant mass / bulk density, plus 3 % ullage: game_value)",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "length_m": "game_value derived from the physical volume",
+    "skirt_height_m": "game_value",
+    "intertank_height_m": "game_value"
+   },
+   "family": "tank",
+   "design_ref": "7.9",
+   "bbox_min_m": [
+    -4.309,
+    -4.497,
+    0.0
+   ],
+   "bbox_max_m": [
+    4.309,
+    4.309,
+    16.7
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      16.7
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 13916,
+    "lod1": 4048,
+    "phone": 4048
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/tank_s2_xl_hydrolox.fbx",
+    "glb": "client/public/models/tank_s2_xl_hydrolox.glb",
+    "fbx_bytes": 407740,
+    "glb_bytes": 194260,
+    "blend": "assets/blender/tank_s2_xl_hydrolox.blend",
+    "blend_bytes": 410365
+   },
+   "issues": []
+  },
+  "tank_s2_xs": {
+   "id": "tank_s2_xs",
+   "length_m": 2.1,
+   "diameter_bottom_m": 1.5,
+   "diameter_top_m": 1.5,
+   "stage": 2,
+   "size": "xs",
+   "propellant_family": "standard",
+   "propellant_t": 2.5,
+   "volume_m3": 2.5,
+   "skirt_height_m": 0.33,
+   "intertank_height_m": 0.0,
+   "bulkhead_or_intertank_z_m": 0.841,
+   "max_radius_m": 0.824,
+   "value_types": {
+    "propellant_t": "game_value",
+    "bulk_density": "physical",
+    "volume_m3": "physical (propellant mass / bulk density, plus 3 % ullage: game_value)",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "length_m": "game_value derived from the physical volume",
+    "skirt_height_m": "game_value",
+    "intertank_height_m": "game_value"
+   },
+   "family": "tank",
+   "design_ref": "7.9",
+   "bbox_min_m": [
+    -0.766,
+    -0.814,
+    0.0
+   ],
+   "bbox_max_m": [
+    0.77,
+    0.766,
+    2.1
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      2.1
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery"
+   ],
+   "triangles": {
+    "lod0": 5556,
+    "lod1": 1616,
+    "phone": 5556
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/tank_s2_xs.fbx",
+    "glb": "client/public/models/tank_s2_xs.glb",
+    "fbx_bytes": 179772,
+    "glb_bytes": 254408,
+    "blend": "assets/blender/tank_s2_xs.blend",
+    "blend_bytes": 214072
+   },
+   "issues": []
+  },
+  "tank_s2_xs_hydrolox": {
+   "id": "tank_s2_xs_hydrolox",
+   "length_m": 4.7,
+   "diameter_bottom_m": 1.5,
+   "diameter_top_m": 1.5,
+   "stage": 2,
+   "size": "xs",
+   "propellant_family": "hydrolox",
+   "propellant_t": 2.5,
+   "volume_m3": 7.2,
+   "skirt_height_m": 0.33,
+   "intertank_height_m": 0.0,
+   "bulkhead_or_intertank_z_m": 1.429,
+   "max_radius_m": 0.845,
+   "value_types": {
+    "propellant_t": "game_value",
+    "bulk_density": "physical",
+    "volume_m3": "physical (propellant mass / bulk density, plus 3 % ullage: game_value)",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value",
+    "length_m": "game_value derived from the physical volume",
+    "skirt_height_m": "game_value",
+    "intertank_height_m": "game_value"
+   },
+   "family": "tank",
+   "design_ref": "7.9",
+   "bbox_min_m": [
+    -0.787,
+    -0.835,
+    0.0
+   ],
+   "bbox_max_m": [
+    0.787,
+    0.787,
+    4.7
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      4.7
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 6004,
+    "lod1": 1746,
+    "phone": 6004
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/tank_s2_xs_hydrolox.fbx",
+    "glb": "client/public/models/tank_s2_xs_hydrolox.glb",
+    "fbx_bytes": 197500,
+    "glb_bytes": 269852,
+    "blend": "assets/blender/tank_s2_xs_hydrolox.blend",
+    "blend_bytes": 228828
    },
    "issues": []
   }

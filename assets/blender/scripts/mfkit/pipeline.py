@@ -17,7 +17,7 @@ from .core import SLOTS, MeshBuilder
 SCRIPTS_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BLENDER_DIR = os.path.dirname(SCRIPTS_DIR)                      # assets/blender
 REPO_DIR = os.path.dirname(os.path.dirname(BLENDER_DIR))
-FBX_DIR = os.path.join(REPO_DIR, "unity", "MissionForge", "Assets", "Art", "Models")
+FBX_DIR = os.path.join(BLENDER_DIR, "export", "fbx")              # T008 imports into Unity from here
 GLB_DIR = os.path.join(REPO_DIR, "client", "public", "models")
 BUILD_DIR = os.path.join(BLENDER_DIR, "_build")                 # git-ignored scratch
 MANIFEST_PATH = os.path.join(BLENDER_DIR, "kit_manifest.json")
