@@ -48,8 +48,12 @@ namespace MissionForge.Core.Flight.Mission
         public FlightPhaseCatalog Phases { get; set; } = null!;
         public string AssistLevelId { get; set; } = "engineer";
         public AssistLevelCatalog? Assists { get; set; }
+        /// <summary>Abort modes (9.8); without a catalog no abort is ever available.</summary>
+        public AbortCatalog? Aborts { get; set; }
         /// <summary>Game_value test/demo controller; distinct from the player-facing assist levels.</summary>
         public bool FullAutopilot { get; set; }
+        /// <summary>Booster return flown by the autopilot (true) or the second pilot, <c>PilotInput.Booster</c> (false); null follows <see cref="FullAutopilot"/>.</summary>
+        public bool? BoosterAutopilot { get; set; }
         public FlightModifiers Modifiers { get; set; } = new FlightModifiers();
         public double RolloutDurationS { get; set; } = 2;
         public double CountdownDurationS { get; set; } = 8;
@@ -100,7 +104,24 @@ namespace MissionForge.Core.Flight.Mission
         public double HeatLoadPct { get; internal set; }
         public double WarpFactor { get; internal set; } = 1;
         public double? TargetPitchDeg { get; internal set; }
+        /// <summary>Booster return track (F7b); null before separation or without recovery.</summary>
+        public BoosterHud? Booster { get; internal set; }
         public IReadOnlyDictionary<string, double> StageDeltaVMs { get; internal set; } = null!;
         public IReadOnlyDictionary<string, IReadOnlyDictionary<string, double>> Channels { get; internal set; } = null!;
+    }
+}
+
+namespace MissionForge.Core.Flight.Mission
+{
+    /// <summary>Second-pilot view of the falling booster (km and percent allowed at the UI boundary).</summary>
+    public sealed class BoosterHud
+    {
+        public string Stage { get; internal set; } = "";
+        public double AltitudeKm { get; internal set; }
+        public double SpeedMs { get; internal set; }
+        public double VerticalSpeedMs { get; internal set; }
+        public double PropellantPct { get; internal set; }
+        public double ThrottlePct { get; internal set; }
+        public bool Landed { get; internal set; }
     }
 }

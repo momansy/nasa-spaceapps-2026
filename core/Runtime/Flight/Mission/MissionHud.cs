@@ -21,9 +21,9 @@ namespace MissionForge.Core.Flight.Mission
             {
                 var stage = spec.Stages[i];
                 var dv = i < stageIndex ? 0 : i == stageIndex
-                    ? stage.Engine.IspVacS * PhysicalConstants.StandardGravityMs2
+                    ? CurrentEngine.IspVacS * PhysicalConstants.StandardGravityMs2
                         * Math.Log(state.MassKg / (stage.FinalMassKg + carriedJettisonKg))
-                    : stage.IdealDeltaVMs;
+                    : stage.IdealDeltaVMs * IspBoostFactor;
                 deltaV.Add(stage.Id, Math.Max(0, dv)); total += Math.Max(0, dv);
             }
             var propPct = 100 * PropellantKg / Stage.PropellantMassKg;
@@ -40,12 +40,13 @@ namespace MissionForge.Core.Flight.Mission
                 ("inclination_deg", InclinationDeg), ("window_remaining_s", Math.Max(0, setup.OrbitalOperationsDurationS - (elapsedS - phaseStartS))),
                 ("dv_remaining_ms", total));
             channels["RETRO"] = Channel(("entry_angle_deg", EntryPhysics.FlightPathAngleRad(state) * 180 / Math.PI),
-                ("heat_load_pct", 0), ("landing_ellipse_km", 0), ("descent_rate_ms", Math.Max(0, -RadialMs)), ("chutes_deployed", 0));
+                ("heat_load_pct", descent?.HeatLoadPercent ?? 0), ("landing_ellipse_km", metrics.TryGetValue("capsule_landing_error_km", out var ellipse) ? ellipse : 0),
+                ("descent_rate_ms", Math.Max(0, -RadialMs)), ("chutes_deployed", descent == null ? 0 : (descent.MainDeployed ? 2 : descent.DrogueDeployed ? 1 : 0)));
             return new HudSnapshot
             {
                 TickCount = tick, Phase = phase, MetS = MetS, AltitudeKm = AltitudeM / 1000,
                 VelocityMs = AltitudeM < 70000 ? AirSpeedMs : state.SpeedMs, VerticalSpeedMs = RadialMs,
-                QKpa = qKpa, GLoad = gLoad, ThrottlePct = throttleFraction * 100, PropellantPct = propPct,
+                Booster = BoosterSnapshot(), QKpa = qKpa, GLoad = gLoad, HeatLoadPct = descent?.HeatLoadPercent ?? 0, WarpFactor = WarpFactor, ThrottlePct = throttleFraction * 100, PropellantPct = propPct,
                 DvRemainingMs = total, ApoapsisKm = apo, PeriapsisKm = peri, InclinationDeg = InclinationDeg,
                 TargetPitchDeg = setup.FullAutopilot || HasAid("guidance_cue_on_hud") ? GuidancePitchRad() * 180 / Math.PI : (double?)null,
                 StageDeltaVMs = new ReadOnlyDictionary<string, double>(deltaV),

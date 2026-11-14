@@ -47,6 +47,16 @@ namespace MissionForge.Core.Flight.Mission
                 ?? vehicle.Part(Slots.Capsule)?.Stats.DiameterM ?? 3.7; // game_value default
             ReferenceAreaM2 = Math.PI * diameterM * diameterM / 4;
             HeatShieldSpeedRatingMs = dashboard.MaxEntrySpeedRatingMps ?? 0;
+            var entryDiameterM = vehicle.Part(Slots.Capsule)?.Stats.DiameterM
+                ?? vehicle.Part(Slots.Lander)?.Stats.DiameterM ?? 3.7; // game_value default, m
+            EntryAreaM2 = Math.PI * entryDiameterM * entryDiameterM / 4;
+            EntryNoseRadiusM = entryDiameterM / 2; // game_value: blunt body, nose radius = body radius
+            EntryMassKg = vehicle.Mass.PayloadKg;
+            LanderKind = vehicle.Part(Slots.Lander)?.Id ?? "";
+            HasHeatShield = vehicle.Part(Slots.HeatShield) != null;
+            EscapeSystemKind = vehicle.Part(Slots.LaunchEscape)?.Id ?? "";
+            EscapeEnvelope = vehicle.Part(Slots.LaunchEscape)?.Stats.GetText("abort_envelope_max") ?? "";
+            BoosterReserveDeltaVMs = dashboard.RecoveryDvCostMps;
             RecoveryKind = vehicle.Part(Slots.BoosterRecovery)?.Id ?? "brec_expendable";
             CapsuleRecoveryKind = vehicle.Part(Slots.CapsuleRecovery)?.Id ?? "";
             UpperStageRestartsCount = vehicle.UpperEngine?.Stats.Restarts ?? 0;
@@ -64,12 +74,25 @@ namespace MissionForge.Core.Flight.Mission
         public double FairingMassKg { get; }
         public double EscapeTowerMassKg { get; }
         public double ReferenceAreaM2 { get; }
+        /// <summary>Capsule or lander cross-section for entry drag, m².</summary>
+        public double EntryAreaM2 { get; }
+        /// <summary>Stagnation nose radius for Sutton-Graves heating, m (game_value).</summary>
+        public double EntryNoseRadiusM { get; }
+        /// <summary>Mass of the payload stack that enters (capsule, cargo or lander), kg.</summary>
+        public double EntryMassKg { get; }
+        public string LanderKind { get; }
+        public string EscapeSystemKind { get; }
+        /// <summary>low_altitude, upper_atmosphere or orbit (data: abort_envelope_max).</summary>
+        public string EscapeEnvelope { get; }
+        public bool HasHeatShield { get; }
         public double HeatShieldSpeedRatingMs { get; }
         public double IdealDeltaVMs { get; }
         /// <summary>Dashboard budget after rotation, recovery, plane-change and build bonuses.</summary>
         public double DashboardDeltaVMs { get; }
         public double LatitudeRad { get; }
         public int UpperStageRestartsCount { get; }
+        /// <summary>Δv held back for the booster return (Dashboard recovery cost), m/s.</summary>
+        public double BoosterReserveDeltaVMs { get; }
         public string RecoveryKind { get; }
         public string CapsuleRecoveryKind { get; }
 
