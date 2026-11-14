@@ -46,6 +46,16 @@ namespace MissionForge.Core.Campaign
         public const int AdvancedContractReputation = 50;
         /// <summary>Reputation threshold for C7/C8, points (game_value).</summary>
         public const int ExpertContractReputation = 75;
+        /// <summary>Methalox research price in Knowledge Points (game_value).</summary>
+        public const int MethaloxTechCostKp = 10;
+        /// <summary>Laser communications research price in Knowledge Points (game_value).</summary>
+        public const int LaserCommsTechCostKp = 12;
+        /// <summary>Terrain-relative navigation research price in Knowledge Points (game_value).</summary>
+        public const int TerrainTechCostKp = 16;
+        /// <summary>Inflatable decelerator research price in Knowledge Points (game_value).</summary>
+        public const int HiadTechCostKp = 18;
+        /// <summary>Hot staging research price in Knowledge Points (game_value).</summary>
+        public const int HotStagingTechCostKp = 8;
         /// <summary>Team name maximum length in Unicode UTF-16 code units, game_value.</summary>
         public const int TeamNameMaxLength = 24;
     }
