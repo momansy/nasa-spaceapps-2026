@@ -1,0 +1,90 @@
+{
+  "frames": {
+    "total": 93,
+    "valid": 91,
+    "invalid": 2,
+    "unknownTypes": 0
+  },
+  "latencyMs": {
+    "voteCastToAck": {
+      "n": 1,
+      "p50": 11.509,
+      "p95": 11.509,
+      "max": 11.509
+    },
+    "voteCastToTally": {
+      "n": 0,
+      "p50": null,
+      "p95": null,
+      "max": null
+    },
+    "pollAnswerToAnswered": {
+      "n": 0,
+      "p50": null,
+      "p95": null,
+      "max": null
+    },
+    "mgResultRelayed": {
+      "n": 0,
+      "p50": null,
+      "p95": null,
+      "max": null
+    }
+  },
+  "messageRateHzMax": {
+    "c1:flight.hud": 0,
+    "c1:console.telemetry": 0,
+    "c1:vote.tally": 1,
+    "c1:pilot.hud": 0,
+    "c2:flight.hud": 0,
+    "c2:console.telemetry": 0,
+    "c2:vote.tally": 1,
+    "c2:pilot.hud": 0,
+    "c3:flight.hud": 0,
+    "c3:console.telemetry": 0,
+    "c3:vote.tally": 0,
+    "c3:pilot.hud": 0
+  },
+  "bytesPerSecond": {
+    "c1": 849.91,
+    "c2": 133.69,
+    "c3": 23.3
+  },
+  "errors": {
+    "protocolErrorFrames": {
+      "BAD_PAYLOAD": [
+        {
+          "connId": "c3",
+          "seq": 2,
+          "d": {
+            "code": "BAD_PAYLOAD",
+            "fatal": false,
+            "re": 2,
+            "reT": "room.resume",
+            "field": "token"
+          }
+        }
+      ]
+    },
+    "schemaViolations": [
+      {
+        "connId": "c1",
+        "t": "roles.state",
+        "seq": 5,
+        "errors": [
+          "roles.state/groups must NOT have fewer than 1 items"
+        ]
+      },
+      {
+        "connId": "c3",
+        "t": "room.resume",
+        "seq": 2,
+        "errors": [
+          "room.resume must have required property 'token'"
+        ]
+      }
+    ],
+    "unknownTypes": [],
+    "seqGaps": []
+  }
+}

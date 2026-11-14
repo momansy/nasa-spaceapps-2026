@@ -1,0 +1,20 @@
+{
+  "runId": "2026-11-14T20-35-32-209Z-stub-p6-s2801",
+  "playerCount": 6,
+  "spectatorCount": 0,
+  "seed": 2801,
+  "host": "stub",
+  "segment": "full",
+  "fixtureNumbers": "fixture (not Core)",
+  "milestones": [],
+  "failures": [
+    "locator.waitFor: Timeout 20000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByTestId('watch-screen') to be visible\u001b[22m\n\n    at PhoneDriver.open (C:\\Users\\moham\\Documents\\Codex\\2026-11-14\\https-nasasc-netlify-app-https-nasasc\\work\\nasa-spaceapps-2026\\tools\\e2e\\lib\\phone-driver.mjs:44:51)\n    at async runStub (C:\\Users\\moham\\Documents\\Codex\\2026-11-14\\https-nasasc-netlify-app-https-nasasc\\work\\nasa-spaceapps-2026\\tools\\e2e\\run.mjs:54:7)\n    at async file:///C:/Users/moham/Documents/Codex/2026-11-14/https-nasasc-netlify-app-https-nasasc/work/nasa-spaceapps-2026/tools/e2e/run.mjs:149:74"
+  ],
+  "segments": [],
+  "frameCounts": {
+    "total": 230,
+    "valid": 229,
+    "invalid": 1,
+    "unknownTypes": 0
+  }
+}

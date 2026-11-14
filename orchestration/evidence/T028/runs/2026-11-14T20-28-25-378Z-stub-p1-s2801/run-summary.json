@@ -1,0 +1,234 @@
+{
+  "runId": "2026-11-14T20-28-25-378Z-stub-p1-s2801",
+  "playerCount": 1,
+  "spectatorCount": 0,
+  "seed": 2801,
+  "host": "stub",
+  "segment": "full",
+  "fixtureNumbers": "fixture (not Core)",
+  "milestones": [
+    {
+      "name": "lobby",
+      "at": "2026-11-14T20:28:32.629Z"
+    },
+    {
+      "name": "briefing",
+      "at": "2026-11-14T20:28:33.238Z"
+    },
+    {
+      "name": "vote",
+      "at": "2026-11-14T20:28:34.395Z",
+      "roundId": "m1.contract",
+      "kind": "CONTRACT",
+      "ids": [
+        "C1",
+        "C0",
+        "C2"
+      ],
+      "scenario": null
+    },
+    {
+      "name": "build_started",
+      "at": "2026-11-14T20:28:37.471Z"
+    },
+    {
+      "name": "vote",
+      "at": "2026-11-14T20:28:58.982Z",
+      "roundId": "m1.part.1",
+      "kind": "PART",
+      "ids": [
+        "site_cape_atlantic",
+        "site_pacific_range",
+        "site_equatorial_sea"
+      ],
+      "scenario": null
+    },
+    {
+      "name": "vote",
+      "at": "2026-11-14T20:29:05.287Z",
+      "roundId": "m1.part.2",
+      "kind": "PART",
+      "ids": [
+        "payload_earth_obs_small",
+        "payload_earth_obs_medium",
+        "payload_earth_obs_large"
+      ],
+      "scenario": null
+    },
+    {
+      "name": "vote",
+      "at": "2026-11-14T20:29:11.586Z",
+      "roundId": "m1.part.3",
+      "kind": "PART",
+      "ids": [
+        "eng_hydrolox_vacuum",
+        "eng_kerolox_vacuum",
+        "eng_methalox_vacuum"
+      ],
+      "scenario": null
+    },
+    {
+      "name": "vote",
+      "at": "2026-11-14T20:29:20.096Z",
+      "roundId": "m1.part.4",
+      "kind": "PART",
+      "ids": [
+        "eng_kerolox_workhorse",
+        "eng_methalox_full_flow",
+        "eng_hydrolox_high_perf"
+      ],
+      "scenario": "veto"
+    },
+    {
+      "name": "vote",
+      "at": "2026-11-14T20:29:28.293Z",
+      "roundId": "m1.part.5",
+      "kind": "PART",
+      "ids": [
+        "tank_s",
+        "tank_m",
+        "tank_l"
+      ],
+      "scenario": "forced_tie_when_player_count_allows"
+    },
+    {
+      "name": "vote",
+      "at": "2026-11-14T20:29:34.328Z",
+      "roundId": "m1.test",
+      "kind": "TEST",
+      "ids": [
+        "TEST",
+        "SKIP"
+      ],
+      "scenario": null
+    },
+    {
+      "name": "vote",
+      "at": "2026-11-14T20:29:39.338Z",
+      "roundId": "m1.pdr",
+      "kind": "REVIEW",
+      "ids": [
+        "PASS",
+        "REWORK"
+      ],
+      "scenario": null
+    },
+    {
+      "name": "poll",
+      "at": "2026-11-14T20:29:44.356Z",
+      "pollId": "m1.frr.1",
+      "round": 1
+    },
+    {
+      "name": "poll",
+      "at": "2026-11-14T20:30:14.373Z",
+      "pollId": "m1.frr.2",
+      "round": 2
+    },
+    {
+      "name": "minigame",
+      "at": "2026-11-14T20:30:17.450Z",
+      "runId": "m1.mg07.23",
+      "id": "MG-07",
+      "implemented": false
+    },
+    {
+      "name": "minigame",
+      "at": "2026-11-14T20:30:20.090Z",
+      "runId": "m1.mg08.25",
+      "id": "MG-08",
+      "implemented": true
+    },
+    {
+      "name": "minigame",
+      "at": "2026-11-14T20:30:34.246Z",
+      "runId": "m1.mg09.27",
+      "id": "MG-09",
+      "implemented": false
+    },
+    {
+      "name": "minigame",
+      "at": "2026-11-14T20:30:36.871Z",
+      "runId": "m1.mg10a.29",
+      "id": "MG-10a",
+      "implemented": false
+    },
+    {
+      "name": "blackout",
+      "at": "2026-11-14T20:30:39.488Z"
+    },
+    {
+      "name": "minigame",
+      "at": "2026-11-14T20:30:40.424Z",
+      "runId": "m1.mg13.31",
+      "id": "MG-13",
+      "implemented": false
+    },
+    {
+      "name": "minigame",
+      "at": "2026-11-14T20:30:43.046Z",
+      "runId": "m1.mg15.33",
+      "id": "MG-15",
+      "implemented": false
+    },
+    {
+      "name": "minigame",
+      "at": "2026-11-14T20:30:45.664Z",
+      "runId": "m1.mg21.35",
+      "id": "MG-21",
+      "implemented": false
+    },
+    {
+      "name": "debrief",
+      "at": "2026-11-14T20:30:47.270Z"
+    }
+  ],
+  "failures": [
+    "poll: locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByTestId('role-ready')\u001b[22m\n\n    at PhoneDriver.handlePoll (C:\\Users\\moham\\Documents\\Codex\\2026-11-14\\https-nasasc-netlify-app-https-nasasc\\work\\nasa-spaceapps-2026\\tools\\e2e\\lib\\phone-driver.mjs:113:73)\n    at async onMilestone (C:\\Users\\moham\\Documents\\Codex\\2026-11-14\\https-nasasc-netlify-app-https-nasasc\\work\\nasa-spaceapps-2026\\tools\\e2e\\run.mjs:74:32)\n    at async ScriptedHost.poll (C:\\Users\\moham\\Documents\\Codex\\2026-11-14\\https-nasasc-netlify-app-https-nasasc\\work\\nasa-spaceapps-2026\\tools\\e2e\\host\\scripted-host.mjs:149:5)\n    at async ScriptedHost.full (C:\\Users\\moham\\Documents\\Codex\\2026-11-14\\https-nasasc-netlify-app-https-nasasc\\work\\nasa-spaceapps-2026\\tools\\e2e\\host\\scripted-host.mjs:202:5)\n    at async runStub (C:\\Users\\moham\\Documents\\Codex\\2026-11-14\\https-nasasc-netlify-app-https-nasasc\\work\\nasa-spaceapps-2026\\tools\\e2e\\run.mjs:80:66)\n    at async file:///C:/Users/moham/Documents/Codex/2026-11-14/https-nasasc-netlify-app-https-nasasc/work/nasa-spaceapps-2026/tools/e2e/run.mjs:149:74"
+  ],
+  "segments": [
+    "LOBBY",
+    "BRIEFING",
+    "CONTRACT_VOTE",
+    "vote:m1.contract:C0:normal",
+    "BUILD:VOTE_ROUND",
+    "BUILD:VOTE_ROUND",
+    "vote:m1.part.1:site_cape_atlantic:normal",
+    "BUILD:VOTE_ROUND",
+    "vote:m1.part.2:payload_earth_obs_small:normal",
+    "BUILD:VOTE_ROUND",
+    "vote:m1.part.3:eng_hydrolox_vacuum:normal",
+    "BUILD:VOTE_ROUND",
+    "vote:m1.part.4:eng_kerolox_workhorse:veto",
+    "BUILD:VOTE_ROUND",
+    "vote:m1.part.5:tank_s:forced_tie_when_player_count_allows",
+    "BUILD:TEST",
+    "vote:m1.test:SKIP:normal",
+    "BUILD:REVIEW",
+    "vote:m1.pdr:REWORK:normal",
+    "FRR",
+    "poll:1:all_go",
+    "poll:2:all_go",
+    "COUNTDOWN:F0",
+    "minigame:MG-07:not_bundled",
+    "FLIGHT:FLYING:F2",
+    "minigame:MG-08:played",
+    "FLIGHT:FLYING:F3",
+    "minigame:MG-09:not_bundled",
+    "FLIGHT:FLYING:F4",
+    "minigame:MG-10a:not_bundled",
+    "FLIGHT:FLYING:F6",
+    "minigame:MG-13:not_bundled",
+    "FLIGHT:FLYING:F8",
+    "minigame:MG-15:not_bundled",
+    "FLIGHT:FLYING:F9",
+    "minigame:MG-21:not_bundled",
+    "DEBRIEF:SUMMARY"
+  ],
+  "frameCounts": {
+    "total": 755,
+    "valid": 754,
+    "invalid": 1,
+    "unknownTypes": 0
+  }
+}

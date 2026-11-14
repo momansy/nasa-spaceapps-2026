@@ -1,0 +1,78 @@
+{
+  "frames": {
+    "total": 755,
+    "valid": 754,
+    "invalid": 1,
+    "unknownTypes": 0
+  },
+  "latencyMs": {
+    "voteCastToAck": {
+      "n": 5,
+      "p50": 1.859,
+      "p95": 8.334,
+      "max": 8.334
+    },
+    "voteCastToTally": {
+      "n": 4,
+      "p50": 129.699,
+      "p95": 147.46,
+      "max": 147.46
+    },
+    "pollAnswerToAnswered": {
+      "n": 2,
+      "p50": 3009.562,
+      "p95": 3009.562,
+      "max": 3009.562
+    },
+    "mgResultRelayed": {
+      "n": 2,
+      "p50": 117638.658,
+      "p95": 117638.658,
+      "max": 117638.658
+    }
+  },
+  "messageRateHzMax": {
+    "c1:flight.hud": 0,
+    "c1:console.telemetry": 0,
+    "c1:vote.tally": 1,
+    "c1:pilot.hud": 0,
+    "c2:flight.hud": 0,
+    "c2:console.telemetry": 0,
+    "c2:vote.tally": 1,
+    "c2:pilot.hud": 0,
+    "c3:flight.hud": 0,
+    "c3:console.telemetry": 0,
+    "c3:vote.tally": 2,
+    "c3:pilot.hud": 0,
+    "c4:flight.hud": 5,
+    "c4:console.telemetry": 0,
+    "c4:vote.tally": 2,
+    "c4:pilot.hud": 0,
+    "c5:flight.hud": 5,
+    "c5:console.telemetry": 0,
+    "c5:vote.tally": 2,
+    "c5:pilot.hud": 0
+  },
+  "bytesPerSecond": {
+    "c1": 850.35,
+    "c2": 486.63,
+    "c3": 317.18,
+    "c4": 496.65,
+    "c5": 473.81
+  },
+  "errors": {
+    "protocolErrorFrames": {},
+    "schemaViolations": [
+      {
+        "connId": "c1",
+        "t": "roles.state",
+        "seq": 5,
+        "errors": [
+          "roles.state/groups must NOT have fewer than 1 items"
+        ]
+      }
+    ],
+    "unknownTypes": [],
+    "seqGaps": []
+  }
+}

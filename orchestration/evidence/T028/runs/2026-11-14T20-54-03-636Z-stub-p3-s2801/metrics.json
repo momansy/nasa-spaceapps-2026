@@ -1,0 +1,113 @@
+{
+  "frames": {
+    "total": 1590,
+    "valid": 1589,
+    "invalid": 1,
+    "unknownTypes": 0
+  },
+  "latencyMs": {
+    "voteCastToAck": {
+      "n": 17,
+      "p50": 1.821,
+      "p95": 6.737,
+      "max": 6.737
+    },
+    "voteCastToTally": {
+      "n": 14,
+      "p50": 176.692,
+      "p95": 208.83,
+      "max": 208.83
+    },
+    "pollAnswerToAnswered": {
+      "n": 18,
+      "p50": 102.862,
+      "p95": 3206.603,
+      "max": 3206.603
+    },
+    "mgResultRelayed": {
+      "n": 4,
+      "p50": 1.274,
+      "p95": 1.94,
+      "max": 1.94
+    }
+  },
+  "messageRateHzMax": {
+    "c1:flight.hud": 0,
+    "c1:console.telemetry": 0,
+    "c1:vote.tally": 1,
+    "c1:pilot.hud": 0,
+    "c2:flight.hud": 0,
+    "c2:console.telemetry": 0,
+    "c2:vote.tally": 1,
+    "c2:pilot.hud": 0,
+    "c3:flight.hud": 0,
+    "c3:console.telemetry": 0,
+    "c3:vote.tally": 0,
+    "c3:pilot.hud": 0,
+    "c4:flight.hud": 0,
+    "c4:console.telemetry": 0,
+    "c4:vote.tally": 3,
+    "c4:pilot.hud": 0,
+    "c5:flight.hud": 0,
+    "c5:console.telemetry": 0,
+    "c5:vote.tally": 3,
+    "c5:pilot.hud": 0,
+    "c6:flight.hud": 0,
+    "c6:console.telemetry": 0,
+    "c6:vote.tally": 3,
+    "c6:pilot.hud": 0,
+    "c7:flight.hud": 0,
+    "c7:console.telemetry": 0,
+    "c7:vote.tally": 3,
+    "c7:pilot.hud": 0,
+    "c8:flight.hud": 0,
+    "c8:console.telemetry": 0,
+    "c8:vote.tally": 3,
+    "c8:pilot.hud": 0,
+    "c9:flight.hud": 5,
+    "c9:console.telemetry": 0,
+    "c9:vote.tally": 3,
+    "c9:pilot.hud": 0,
+    "c10:flight.hud": 5,
+    "c10:console.telemetry": 0,
+    "c10:vote.tally": 3,
+    "c10:pilot.hud": 0,
+    "c12:flight.hud": 5,
+    "c12:console.telemetry": 10,
+    "c12:vote.tally": 3,
+    "c12:pilot.hud": 0,
+    "c11:flight.hud": 5,
+    "c11:console.telemetry": 0,
+    "c11:vote.tally": 3,
+    "c11:pilot.hud": 0
+  },
+  "bytesPerSecond": {
+    "c1": 1300.14,
+    "c2": 735.51,
+    "c3": 4975,
+    "c4": 770.87,
+    "c5": 804.23,
+    "c6": 547.1,
+    "c7": 1258.11,
+    "c8": 1186.2,
+    "c9": 682.91,
+    "c10": 630.62,
+    "c12": 672.62,
+    "c11": 572.76
+  },
+  "errors": {
+    "protocolErrorFrames": {},
+    "schemaViolations": [
+      {
+        "connId": "c1",
+        "t": "roles.state",
+        "seq": 5,
+        "errors": [
+          "roles.state/groups must NOT have fewer than 1 items"
+        ]
+      }
+    ],
+    "unknownTypes": [],
+    "seqGaps": []
+  }
+}
