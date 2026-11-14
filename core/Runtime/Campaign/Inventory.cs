@@ -23,7 +23,7 @@ namespace MissionForge.Core.Campaign
         /// Applies the price refund and a per-flight reliability loss to the matching chosen
         /// part slots. Both operations are non-destructive and once-only for a given item ID.
         /// </summary>
-        public BuildState ApplyReuse(BuildState build, GameCatalog catalog, string itemId)
+        public BuildState ApplyReuse(BuildState build, GameCatalog catalog, string itemId, string? slotId = null)
         {
             if (build == null || catalog == null) throw new ArgumentNullException(
                 build == null ? nameof(build) : nameof(catalog));
@@ -31,9 +31,16 @@ namespace MissionForge.Core.Campaign
             if (!item.Available) throw new InvalidOperationException("Inventory item is already in flight.");
             string flag = "campaign_reused:" + item.ItemId;
             if (build.HasFlag(flag)) return build;
-            var slots = build.Choices.Where(c => c.Value == item.PartId).Select(c => c.Key).ToArray();
-            if (slots.Length == 0) throw new InvalidOperationException(
+            var matches = build.Choices.Where(c => c.Value == item.PartId).Select(c => c.Key).ToArray();
+            if (matches.Length == 0) throw new InvalidOperationException(
                 "Recovered hardware is not selected in this build: " + item.PartId);
+            // A part ID may occupy multiple slots (e.g. both stage tanks). One recovered
+            // physical item cannot be used to refurbish BOTH slots at once.
+            if (slotId == null && matches.Length > 1)
+                throw new InvalidOperationException("Ambiguous reusable part: provide the chosen build slot ID.");
+            if (slotId != null && !matches.Contains(slotId))
+                throw new ArgumentException("Reusable item does not match build slot: " + slotId, nameof(slotId));
+            var slots = slotId == null ? matches : new[] { slotId };
             double costM = catalog.Part(item.PartId).CostM;
             var result = build.WithLedger(new LedgerEntry(LedgerKind.Budget,
                 "campaign_reuse:" + item.ItemId,
