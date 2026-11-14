@@ -1,0 +1,143 @@
+# T020 Playwright output
+
+## 1. npx playwright test e2e/minigames/ascent (all T020 lab checks, after the frame-rate fix)
+
+Running 30 tests using 1 worker
+
+  ok  1 e2e\minigames\ascent\ascent.spec.ts:119:1 › lab smoke: MG-08 reference minigame mounts, plays and reports (7.3s)
+  ok  2 e2e\minigames\ascent\ascent.spec.ts:134:5 › MG-09 › MG-09 demo (560ms)
+  ok  3 e2e\minigames\ascent\ascent.spec.ts:142:5 › MG-09 › MG-09 play (standard, scripted good player) (8.8s)
+  ok  4 e2e\minigames\ascent\ascent.spec.ts:157:5 › MG-09 › MG-09 one-button (3.6s)
+  ok  5 e2e\minigames\ascent\ascent.spec.ts:165:5 › MG-09 › MG-09 frame rate at CPU ×4 (9.8s)
+  ok  6 e2e\minigames\ascent\ascent.spec.ts:134:5 › MG-10a › MG-10a demo (990ms)
+  ok  7 e2e\minigames\ascent\ascent.spec.ts:142:5 › MG-10a › MG-10a play (standard, scripted good player) (3.6s)
+  ok  8 e2e\minigames\ascent\ascent.spec.ts:157:5 › MG-10a › MG-10a one-button (1.4s)
+  ok  9 e2e\minigames\ascent\ascent.spec.ts:165:5 › MG-10a › MG-10a frame rate at CPU ×4 (9.1s)
+  ok 10 e2e\minigames\ascent\ascent.spec.ts:134:5 › MG-07 › MG-07 demo (410ms)
+  ok 11 e2e\minigames\ascent\ascent.spec.ts:142:5 › MG-07 › MG-07 play (standard, scripted good player) (9.3s)
+  ok 12 e2e\minigames\ascent\ascent.spec.ts:157:5 › MG-07 › MG-07 one-button (2.8s)
+  ok 13 e2e\minigames\ascent\ascent.spec.ts:165:5 › MG-07 › MG-07 frame rate at CPU ×4 (8.8s)
+  ok 14 e2e\minigames\ascent\ascent.spec.ts:134:5 › MG-08b › MG-08b demo (371ms)
+  ok 15 e2e\minigames\ascent\ascent.spec.ts:142:5 › MG-08b › MG-08b play (standard, scripted good player) (5.6s)
+  ok 16 e2e\minigames\ascent\ascent.spec.ts:157:5 › MG-08b › MG-08b one-button (1.9s)
+  ok 17 e2e\minigames\ascent\ascent.spec.ts:165:5 › MG-08b › MG-08b frame rate at CPU ×4 (9.3s)
+  ok 18 e2e\minigames\ascent\ascent.spec.ts:134:5 › MG-11 › MG-11 demo (429ms)
+  ok 19 e2e\minigames\ascent\ascent.spec.ts:142:5 › MG-11 › MG-11 play (standard, scripted good player) (4.8s)
+  ok 20 e2e\minigames\ascent\ascent.spec.ts:157:5 › MG-11 › MG-11 one-button (2.6s)
+  ok 21 e2e\minigames\ascent\ascent.spec.ts:165:5 › MG-11 › MG-11 frame rate at CPU ×4 (9.4s)
+  ok 22 e2e\minigames\ascent\ascent.spec.ts:134:5 › MG-12 › MG-12 demo (594ms)
+  ok 23 e2e\minigames\ascent\ascent.spec.ts:142:5 › MG-12 › MG-12 play (standard, scripted good player) (8.6s)
+  ok 24 e2e\minigames\ascent\ascent.spec.ts:157:5 › MG-12 › MG-12 one-button (2.4s)
+  ok 25 e2e\minigames\ascent\ascent.spec.ts:165:5 › MG-12 › MG-12 frame rate at CPU ×4 (8.7s)
+  ok 26 e2e\minigames\ascent\ascent.spec.ts:134:5 › MG-10 › MG-10 demo (499ms)
+  ok 27 e2e\minigames\ascent\ascent.spec.ts:142:5 › MG-10 › MG-10 play (standard, scripted good player) (7.1s)
+  ok 28 e2e\minigames\ascent\ascent.spec.ts:157:5 › MG-10 › MG-10 one-button (2.0s)
+  ok 29 e2e\minigames\ascent\ascent.spec.ts:165:5 › MG-10 › MG-10 frame rate at CPU ×4 (9.6s)
+  ok 30 e2e\minigames\ascent\ascent.spec.ts:199:1 › RTL, 200 % text and reduced motion (3.2s)
+
+  30 passed (2.7m)
+
+## 2. npm run e2e (whole suite: ascent + orbit (T021) + session)
+
+> missionforge-client@0.1.0 e2e
+> playwright test --output C:/Users/ramym/AppData/Local/Temp/claude/c43009baef7ecdf4/***/scratchpad/pw
+
+
+Running 58 tests using 1 worker
+
+  ok  1 e2e\minigames\ascent\ascent.spec.ts:119:1 › lab smoke: MG-08 reference minigame mounts, plays and reports (9.1s)
+  ok  2 e2e\minigames\ascent\ascent.spec.ts:134:5 › MG-09 › MG-09 demo (1.1s)
+  x   3 e2e\minigames\ascent\ascent.spec.ts:142:5 › MG-09 › MG-09 play (standard, scripted good player) (10.4s)
+  -   4 e2e\minigames\ascent\ascent.spec.ts:157:5 › MG-09 › MG-09 one-button
+  -   5 e2e\minigames\ascent\ascent.spec.ts:165:5 › MG-09 › MG-09 frame rate at CPU ×4
+  -   6 e2e\minigames\ascent\ascent.spec.ts:134:5 › MG-10a › MG-10a demo
+  -   7 e2e\minigames\ascent\ascent.spec.ts:142:5 › MG-10a › MG-10a play (standard, scripted good player)
+  -   8 e2e\minigames\ascent\ascent.spec.ts:157:5 › MG-10a › MG-10a one-button
+  -   9 e2e\minigames\ascent\ascent.spec.ts:165:5 › MG-10a › MG-10a frame rate at CPU ×4
+  -  10 e2e\minigames\ascent\ascent.spec.ts:134:5 › MG-07 › MG-07 demo
+  -  11 e2e\minigames\ascent\ascent.spec.ts:142:5 › MG-07 › MG-07 play (standard, scripted good player)
+  -  12 e2e\minigames\ascent\ascent.spec.ts:157:5 › MG-07 › MG-07 one-button
+  -  13 e2e\minigames\ascent\ascent.spec.ts:165:5 › MG-07 › MG-07 frame rate at CPU ×4
+  -  14 e2e\minigames\ascent\ascent.spec.ts:134:5 › MG-08b › MG-08b demo
+  -  15 e2e\minigames\ascent\ascent.spec.ts:142:5 › MG-08b › MG-08b play (standard, scripted good player)
+  -  16 e2e\minigames\ascent\ascent.spec.ts:157:5 › MG-08b › MG-08b one-button
+  -  17 e2e\minigames\ascent\ascent.spec.ts:165:5 › MG-08b › MG-08b frame rate at CPU ×4
+  -  18 e2e\minigames\ascent\ascent.spec.ts:134:5 › MG-11 › MG-11 demo
+  -  19 e2e\minigames\ascent\ascent.spec.ts:142:5 › MG-11 › MG-11 play (standard, scripted good player)
+  -  20 e2e\minigames\ascent\ascent.spec.ts:157:5 › MG-11 › MG-11 one-button
+  -  21 e2e\minigames\ascent\ascent.spec.ts:165:5 › MG-11 › MG-11 frame rate at CPU ×4
+  -  22 e2e\minigames\ascent\ascent.spec.ts:134:5 › MG-12 › MG-12 demo
+  -  23 e2e\minigames\ascent\ascent.spec.ts:142:5 › MG-12 › MG-12 play (standard, scripted good player)
+  -  24 e2e\minigames\ascent\ascent.spec.ts:157:5 › MG-12 › MG-12 one-button
+  -  25 e2e\minigames\ascent\ascent.spec.ts:165:5 › MG-12 › MG-12 frame rate at CPU ×4
+  -  26 e2e\minigames\ascent\ascent.spec.ts:134:5 › MG-10 › MG-10 demo
+  -  27 e2e\minigames\ascent\ascent.spec.ts:142:5 › MG-10 › MG-10 play (standard, scripted good player)
+  -  28 e2e\minigames\ascent\ascent.spec.ts:157:5 › MG-10 › MG-10 one-button
+  -  29 e2e\minigames\ascent\ascent.spec.ts:165:5 › MG-10 › MG-10 frame rate at CPU ×4
+  -  30 e2e\minigames\ascent\ascent.spec.ts:199:1 › RTL, 200 % text and reduced motion
+  ok 31 e2e\minigames\orbit\orbit.spec.ts:150:1 › lab smoke with MG-08 (2.9s)
+  ok 32 e2e\minigames\orbit\orbit.spec.ts:162:5 › MG-13 › MG-13 demo, play and one-button screenshots (2.8s)
+  ok 33 e2e\minigames\orbit\orbit.spec.ts:187:5 › MG-13 › MG-13 full run: the scripted player succeeds, idle fails, never past durationMs (19.5s)
+  ok 34 e2e\minigames\orbit\orbit.spec.ts:214:5 › MG-13 › MG-13 right-to-left at 200 % text with reduced motion (1.5s)
+  ok 35 e2e\minigames\orbit\orbit.spec.ts:162:5 › MG-15 › MG-15 demo, play and one-button screenshots (5.0s)
+  ok 36 e2e\minigames\orbit\orbit.spec.ts:187:5 › MG-15 › MG-15 full run: the scripted player succeeds, idle fails, never past durationMs (16.9s)
+  ok 37 e2e\minigames\orbit\orbit.spec.ts:214:5 › MG-15 › MG-15 right-to-left at 200 % text with reduced motion (1.7s)
+  ok 38 e2e\minigames\orbit\orbit.spec.ts:162:5 › MG-21 › MG-21 demo, play and one-button screenshots (3.3s)
+  ok 39 e2e\minigames\orbit\orbit.spec.ts:187:5 › MG-21 › MG-21 full run: the scripted player succeeds, idle fails, never past durationMs (14.5s)
+  ok 40 e2e\minigames\orbit\orbit.spec.ts:214:5 › MG-21 › MG-21 right-to-left at 200 % text with reduced motion (1.1s)
+  ok 41 e2e\minigames\orbit\orbit.spec.ts:162:5 › MG-14 › MG-14 demo, play and one-button screenshots (1.3s)
+  ok 42 e2e\minigames\orbit\orbit.spec.ts:187:5 › MG-14 › MG-14 full run: the scripted player succeeds, idle fails, never past durationMs (1.1s)
+  ok 43 e2e\minigames\orbit\orbit.spec.ts:214:5 › MG-14 › MG-14 right-to-left at 200 % text with reduced motion (390ms)
+  ok 44 e2e\minigames\orbit\orbit.spec.ts:162:5 › MG-18 › MG-18 demo, play and one-button screenshots (3.0s)
+  ok 45 e2e\minigames\orbit\orbit.spec.ts:187:5 › MG-18 › MG-18 full run: the scripted player succeeds, idle fails, never past durationMs (14.7s)
+  ok 46 e2e\minigames\orbit\orbit.spec.ts:214:5 › MG-18 › MG-18 right-to-left at 200 % text with reduced motion (1.3s)
+  ok 47 e2e\minigames\orbit\orbit.spec.ts:162:5 › MG-20 › MG-20 demo, play and one-button screenshots (1.4s)
+  ok 48 e2e\minigames\orbit\orbit.spec.ts:187:5 › MG-20 › MG-20 full run: the scripted player succeeds, idle fails, never past durationMs (6.2s)
+  ok 49 e2e\minigames\orbit\orbit.spec.ts:214:5 › MG-20 › MG-20 right-to-left at 200 % text with reduced motion (634ms)
+  ok 50 e2e\minigames\orbit\orbit.spec.ts:162:5 › MG-16 › MG-16 demo, play and one-button screenshots (2.4s)
+  ok 51 e2e\minigames\orbit\orbit.spec.ts:187:5 › MG-16 › MG-16 full run: the scripted player succeeds, idle fails, never past durationMs (32.3s)
+  ok 52 e2e\minigames\orbit\orbit.spec.ts:214:5 › MG-16 › MG-16 right-to-left at 200 % text with reduced motion (1.0s)
+  ok 53 e2e\minigames\orbit\orbit.spec.ts:162:5 › MG-17 › MG-17 demo, play and one-button screenshots (2.3s)
+  ok 54 e2e\minigames\orbit\orbit.spec.ts:187:5 › MG-17 › MG-17 full run: the scripted player succeeds, idle fails, never past durationMs (14.5s)
+  ok 55 e2e\minigames\orbit\orbit.spec.ts:214:5 › MG-17 › MG-17 right-to-left at 200 % text with reduced motion (1.1s)
+  ok 56 e2e\minigames\orbit\orbit.spec.ts:224:1 › frame rate at a ×4 CPU throttle (46.7s)
+missing strings: []
+console errors: []
+  ok 57 e2e\session.spec.ts:24:1 › full mock session on a phone (2.5m)
+  ok 58 e2e\session.spec.ts:243:1 › join screen right-to-left at 200 % text (1.2s)
+
+
+  1) e2e\minigames\ascent\ascent.spec.ts:142:5 › MG-09 › MG-09 play (standard, scripted good player) 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 1
+    Received: 0
+
+      149 |         await playScript(page, { actions: (s.play?.actions ?? []).filter((a) => a.at >= s.playShotMs).map((a) => ({ ...a, at: a.at - s.playShotMs })) }, s.durationMs - s.playShotMs + 500);
+      150 |         const r = await page.evaluate(() => ({ result: window.__lab.result, results: window.__lab.results }));
+    > 151 |         expect(r.results).toBe(1);
+          |                           ^
+      152 |         if (s.expectSuccess) expect(r.result?.success, JSON.stringify(r.result)).toBe(true);
+      153 |       }
+      154 |       expect(problems).toEqual([]);
+        at C:\Projects\NASA GAME\client\e2e\minigames\ascent\ascent.spec.ts:151:27
+
+    Error Context: ..\..\..\Users\ramym\AppData\Local\Temp\claude\c43009baef7ecdf4\837aa329-cf04-494f-a3ad-949746fd63e8\scratchpad\pw\minigames-ascent-ascent-MG-07284-ndard-scripted-good-player-\error-context.md
+
+    Error Context: ..\..\..\Users\ramym\AppData\Local\Temp\claude\c43009baef7ecdf4\837aa329-cf04-494f-a3ad-949746fd63e8\scratchpad\pw\minigames-ascent-ascent-MG-07284-ndard-scripted-good-player-\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\..\Users\ramym\AppData\Local\Temp\claude\c43009baef7ecdf4\837aa329-cf04-494f-a3ad-949746fd63e8\scratchpad\pw\minigames-ascent-ascent-MG-07284-ndard-scripted-good-player-\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\..\Users\ramym\AppData\Local\Temp\claude\c43009baef7ecdf4\837aa329-cf04-494f-a3ad-949746fd63e8\scratchpad\pw\minigames-ascent-ascent-MG-07284-ndard-scripted-good-player-\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    e2e\minigames\ascent\ascent.spec.ts:142:5 › MG-09 › MG-09 play (standard, scripted good player) 
+  27 did not run
+  30 passed (6.5m)
+
+## 3. MG-09 play re-run three times after the load flake in run 2: 3 × '1 passed'

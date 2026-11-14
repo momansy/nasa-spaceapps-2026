@@ -5,8 +5,8 @@ room, shows the role card, runs every vote (Part Cards, Predict, veto, pings, ta
 tie-breaks, quick votes), the GO/NO-GO poll, the role consoles during flight, the minigames,
 personal results and awards, the personal Codex and settings.
 
-Vite + React 18 + TypeScript. three.js is loaded only when a part model exists. No external
-fonts, CDNs, accounts, trackers or chat.
+Vite + React 18 + TypeScript. three.js is loaded only when a part model exists. Fonts are
+bundled; no CDNs, accounts, trackers or chat.
 
 ## Run
 
@@ -115,6 +115,31 @@ headless and validates every frame in both directions against `protocol/schema/`
 4. The host screen (`screens/MinigameScreen.tsx`) does the rest: lazy-loads the folder,
    `mg.ready`, one-line instruction from `data/minigames.json`, demo, countdown to `startAtMs`,
    relaxed / one-button toggles, pause, `mg.result`, and the tier screen with its fact.
+
+## Visual design
+
+The look follows `assets/media/style/STYLE_GUIDE.md` (palette, status language) and the phone
+section of `orchestration/VISUAL_TARGET.md` (type scale, motion tokens, rubric).
+
+- **Tokens** live in `src/theme/tokens.css`: palette, glass surfaces, the phone type scale
+  (display 32, h1 24, h2 20, body 16, label 14, meta 12 px), spacing, radii, elevation and the
+  motion tokens (micro 120, state 200, enter 320 / exit 220, screen 600, count 1000, pulse 1600,
+  celebrate 480 ms). Older token names are kept as aliases, and colour and font tokens stay plain
+  values because minigame canvases read them.
+- **Type**: Oxanium for titles and the logo, IBM Plex Sans for everything else (tabular figures),
+  IBM Plex Mono only for room codes. Labels are sentence case Plex Sans semibold, not monospace
+  capitals. Fonts are bundled WOFF subsets (`src/theme/fonts.css`); licences in
+  `THIRD_PARTY_NOTICES.md`.
+- **Backdrop** (`src/ui/Backdrop.tsx`): one pre-baked WebP per scene, made from the approved key
+  art (join: satellite; lobby and role card: Build Bay; build, vote, minigame: Earth limb; poll
+  and console: ascent; debrief: orbit), plus a twinkle layer and a breathing glow. High-contrast
+  mode removes it. There is no backdrop blur anywhere: it is the most expensive effect on old
+  phones, and glass depth comes from opacity, gradients and edge highlights instead.
+- **Motion**: only transform and opacity animate. The first screen after load appears at once,
+  later screens slide in, entrance keyframes never start fully transparent, and reduced motion
+  (device setting or the in-game switch) collapses every animation.
+- **Status** keeps colour, shape (circle / triangle / octagon), label and border (solid / dashed
+  / double); bars use solid, 45° hatch and cross-hatch fills.
 
 ## Accessibility
 

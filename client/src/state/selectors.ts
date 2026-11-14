@@ -1,5 +1,5 @@
 // Derived views of the state: which screen to show, who I am, what I may do.
-import type { OptionId, PlayerInfo, RoleId, VoteOption } from '@protocol';
+import type { Craft, OptionId, PlayerInfo, RoleId, VoteOption } from '@protocol';
 import { rolesOf } from './reducer';
 import type { AppState, Screen, VoteRound } from './types';
 
@@ -25,6 +25,58 @@ export function isPlayer(state: AppState): boolean {
   return state.me?.kind === 'PLAYER';
 }
 
+export type SeatKind = 'PILOT' | 'BOOSTER' | 'COPILOT';
+
+/** A seat this phone holds as a virtual gamepad (design 9.4). `craft` is null for the co-pilot. */
+export interface PilotSeat {
+  kind: SeatKind;
+  craft: Craft | null;
+}
+
+/**
+ * The seat this player holds in `pilot.assign` and may drive from the phone: the pilot or the
+ * booster pilot when that seat reads its input from PHONE, or the co-pilot (always the phone).
+ * A seat whose input is HOST_DEVICE is not a phone seat: the player falls back to the console.
+ */
+export function mySeat(state: AppState): PilotSeat | null {
+  const id = state.me?.kind === 'PLAYER' ? state.me.id : null;
+  const a = state.flight.pilot;
+  if (!id || !a) return null;
+  if (a.pilotId === id && a.pilotInput === 'PHONE') return { kind: 'PILOT', craft: 'VEHICLE' };
+  if (a.boosterPilotId === id && a.boosterInput === 'PHONE') return { kind: 'BOOSTER', craft: 'BOOSTER' };
+  if (a.copilotId === id) return { kind: 'COPILOT', craft: null };
+  return null;
+}
+
+export function sameSeat(a: PilotSeat | null, b: PilotSeat | null): boolean {
+  return a === b || (!!a && !!b && a.kind === b.kind && a.craft === b.craft);
+}
+
+/**
+ * The latest `pilot.hud` for this phone, unless a newer `pilot.assign` arrived after it: after a
+ * seat handover the previous holder's `canStage`, prompts and warp are not shown as if current.
+ */
+export function currentHud(state: AppState) {
+  return state.pilotHud && state.pilotHudFor === state.flight.pilot ? state.pilotHud : null;
+}
+
+/** Seats exist only from COUNTDOWN to FLIGHT (the server answers WRONG_PHASE otherwise). */
+export function seatPhaseOpen(state: AppState): boolean {
+  const phase = state.phase?.phase;
+  return phase === 'COUNTDOWN' || phase === 'FLIGHT';
+}
+
+/** May this phone send `pilot.input` for `craft` right now? (seat, phase and pause) */
+export function pilotInputOpen(state: AppState, craft: Craft): boolean {
+  const seat = mySeat(state);
+  return !!seat && seat.craft === craft && seatPhaseOpen(state) && !isPaused(state) && state.conn.phase === 'open';
+}
+
+/** May this phone send `pilot.action` / `copilot.action` now? (not while paused) */
+export function seatActionOpen(state: AppState): boolean {
+  return !!mySeat(state) && seatPhaseOpen(state) && !isPaused(state) && state.conn.phase === 'open';
+}
+
 /** The screen the phone shows now. Overlays (codex, settings, role card on demand) sit on top. */
 export function currentScreen(state: AppState): Screen {
   if (!state.me) return 'join';
@@ -33,12 +85,14 @@ export function currentScreen(state: AppState): Screen {
   if (state.poll) return 'poll';
   const phase = state.phase?.phase ?? 'LOBBY';
   if (isPlayer(state) && state.roles?.locked && myRoles(state).length > 0 && state.roleCardSeen !== rolesSignature(state)) return 'role';
+  // Spectators outside the lobby watch the host's view (debrief keeps its own screen).
+  if (state.me.kind === 'SPECTATOR' && phase !== 'LOBBY' && phase !== 'DEBRIEF') return 'watch';
   switch (phase) {
     case 'LOBBY':
       return 'lobby';
     case 'COUNTDOWN':
     case 'FLIGHT':
-      return 'console';
+      return mySeat(state) ? 'pilot' : 'console';
     case 'DEBRIEF':
       return 'debrief';
     default:

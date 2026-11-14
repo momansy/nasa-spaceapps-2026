@@ -1,0 +1,35 @@
+
+ RUN  v3.2.7 C:/Projects/NASA GAME/client
+
+ ✓ src/minigames/MG-08/model.test.ts (26 tests) 98ms
+ ✓ src/minigames/MG-14/model.test.ts (26 tests) 71ms
+ ✓ src/minigames/MG-08b/model.test.ts (24 tests) 356ms
+ ✓ src/minigames/MG-13/model.test.ts (21 tests) 322ms
+ ✓ src/minigames/MG-18/model.test.ts (22 tests) 448ms
+ ✓ src/minigames/MG-15/model.test.ts (24 tests) 431ms
+ ✓ src/minigames/MG-12/model.test.ts (22 tests) 518ms
+ ✓ src/minigames/MG-21/model.test.ts (33 tests) 694ms
+   ✓ MG-21 scene > radar: no city lights and no clouds in the way  397ms
+ ✓ src/minigames/MG-10/model.test.ts (22 tests) 849ms
+ ✓ src/minigames/MG-16/model.test.ts (20 tests) 128ms
+ ✓ src/minigames/MG-11/model.test.ts (23 tests) 48ms
+ ✓ src/minigames/MG-17/model.test.ts (21 tests) 82ms
+ ✓ src/minigames/MG-07/model.test.ts (24 tests) 53ms
+ ✓ src/i18n/strings.test.ts (9 tests) 38ms
+ ✓ src/minigames/MG-20/model.test.ts (30 tests) 54ms
+ ✓ src/minigames/MG-10a/model.test.ts (24 tests) 35ms
+ ✓ src/state/reducer.test.ts (14 tests) 14ms
+ ✓ src/minigames/slots.test.ts (3 tests) 4ms
+ ✓ src/data/statbars.test.ts (10 tests) 38ms
+ ✓ src/minigames/MG-09/shared/kit.test.ts (3 tests) 5ms
+ ✓ src/net/mock.test.ts (5 tests) 527ms
+   ✓ mock session > plays lobby → votes → poll → flight → minigame → debrief with valid frames  404ms
+ ✓ src/minigames/MG-09/model.test.ts (24 tests) 2114ms
+   ✓ MG-09 modes and difficulty > makes Relaxed easier: larger allowed deviation, slower scroll, smaller corrections  346ms
+   ✓ MG-09 modes and difficulty > scales with difficulty: Cadet sees further ahead, Flight Director less, with larger corrections  591ms
+
+ Test Files  22 passed (22)
+      Tests  430 passed (430)
+   Start at  23:07:54
+   Duration  2.93s (transform 2.85s, setup 0ms, collect 5.71s, tests 6.93s, environment 5ms, prepare 5.19s)
+

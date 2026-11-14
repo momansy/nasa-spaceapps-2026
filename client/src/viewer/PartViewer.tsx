@@ -123,8 +123,8 @@ export function PartViewer({ partId, size = 'card', active = true, onExpand }: P
         view.yaw += AUTO_SPEED * dt;
         dirty = true;
       }
-      // While only idling, 30 frames per second are plenty (old phones, battery).
-      if (dirty && (pointers.size > 0 || timeMs - lastDraw >= 30)) {
+      // While only idling (the turntable), 24 frames per second are plenty (old phones, battery).
+      if (dirty && (pointers.size > 0 || timeMs - lastDraw >= 41)) {
         draw(timeMs);
         lastDraw = timeMs;
         dirty = false;
@@ -148,7 +148,9 @@ export function PartViewer({ partId, size = 'card', active = true, onExpand }: P
       const rect = stage.getBoundingClientRect();
       width = Math.max(1, Math.round(rect.width));
       height = Math.max(1, Math.round(rect.height));
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      // Pixel budget for old phones: card headers render at most 1.25x, the full viewer 1.5x
+      // (the model is smooth-shaded and antialiased, so the difference is hard to see).
+      dpr = Math.min(window.devicePixelRatio || 1, size === 'card' ? 1.25 : 1.5);
       canvas.width = Math.round(width * dpr);
       canvas.height = Math.round(height * dpr);
       scene?.resize(width, height, dpr);

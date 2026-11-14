@@ -1,17 +1,35 @@
+/* Lobby: your crew badge over the dusk pad, the crew manifest, and how consoles are dealt. */
+
 .lobby__me {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 16px;
+  padding: 18px 16px;
   overflow: hidden;
+  background:
+    radial-gradient(70% 120% at 0% 50%, rgba(85, 197, 205, 0.2), transparent 65%),
+    radial-gradient(50% 80% at 100% 0%, rgba(255, 206, 131, 0.14), transparent 70%),
+    var(--glass);
+}
+
+.lobby__me .avatar--lg {
+  width: 5.5rem;
+  height: 5.5rem;
+}
+
+.lobby__me .title {
+  font-size: var(--fs-display);
+  line-height: 1.05;
 }
 
 .lobby__eye {
   display: grid;
   place-items: center;
-  width: 6rem;
-  height: 6rem;
+  width: 5.5rem;
+  height: 5.5rem;
   border-radius: 50%;
-  border: var(--border-w) solid var(--line-strong);
+  border: var(--border-w) solid var(--glass-edge-strong);
+  background: radial-gradient(closest-side, rgba(85, 197, 205, 0.18), transparent);
   color: var(--accent);
   flex: none;
 }
@@ -21,8 +39,11 @@
   align-items: center;
   gap: 10px;
   color: var(--text-dim);
-  font-size: 0.92rem;
+  font-size: var(--fs-label);
+  line-height: 1.35;
 }
+
+/* ── Crew manifest ── */
 
 .crew {
   display: flex;
@@ -31,30 +52,69 @@
 }
 
 .crew__row {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 12px;
-  min-height: var(--tap);
-  padding: 6px 12px 6px 8px;
-  border-radius: 14px;
-  border: var(--border-w) solid var(--line);
-  background: rgba(17, 43, 64, 0.7);
-  animation: crew-in var(--dur) var(--ease-out-back) both;
+  min-height: max(60px, 3.75rem);
+  padding: 8px 14px 8px 10px;
+  border-radius: var(--radius-md);
+  border: var(--border-w) solid var(--glass-edge);
+  background: var(--glass-flat);
+  box-shadow: var(--shadow-1);
+  animation: crew-in var(--dur-enter) var(--ease-out-cubic) both;
 }
 
+.crew > li:nth-child(2) { animation-delay: calc(var(--stagger) * 1); }
+.crew > li:nth-child(3) { animation-delay: calc(var(--stagger) * 2); }
+.crew > li:nth-child(4) { animation-delay: calc(var(--stagger) * 3); }
+.crew > li:nth-child(5) { animation-delay: calc(var(--stagger) * 4); }
+.crew > li:nth-child(6) { animation-delay: calc(var(--stagger) * 5); }
+.crew > li:nth-child(7) { animation-delay: calc(var(--stagger) * 6); }
+.crew > li:nth-child(n + 8) { animation-delay: calc(var(--stagger) * 7); }
+
 [dir='rtl'] .crew__row {
-  padding: 6px 8px 6px 12px;
+  padding: 8px 10px 8px 14px;
 }
 
 .crew__row--me {
-  border-color: var(--accent);
-  background: var(--accent-soft);
+  border-color: rgba(85, 197, 205, 0.6);
+  background:
+    linear-gradient(90deg, rgba(85, 197, 205, 0.18), rgba(85, 197, 205, 0.04) 60%),
+    var(--glass-flat);
+}
+
+/* Lit edge on your own row. */
+.crew__row--me::before {
+  content: '';
+  position: absolute;
+  inset-block: 10px;
+  inset-inline-start: -1px;
+  width: 3px;
+  border-radius: 2px;
+  background: var(--accent);
+  box-shadow: 0 0 10px var(--accent-glow);
 }
 
 @keyframes crew-in {
   from {
-    opacity: 0;
-    transform: translateX(-12px);
+    opacity: 0.35;
+    transform: translate3d(-14px, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+[dir='rtl'] .crew__row {
+  animation-name: crew-in-rtl;
+}
+
+@keyframes crew-in-rtl {
+  from {
+    opacity: 0.35;
+    transform: translate3d(14px, 0, 0);
   }
   to {
     opacity: 1;
@@ -72,33 +132,40 @@
 }
 
 .crew__nick {
-  font-weight: 700;
+  font-weight: 600;
+  font-size: var(--fs-lg);
   overflow-wrap: anywhere;
 }
 
 .crew__you {
-  font-family: var(--font-mono);
-  font-size: 0.66rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--accent-strong);
-  border: var(--border-w) solid var(--accent);
-  border-radius: 6px;
-  padding: 0 0.35rem;
+  font-size: var(--fs-meta);
+  font-weight: 600;
+  color: var(--accent-ink);
+  background: var(--accent);
+  border-radius: var(--radius-pill);
+  padding: 1px 8px;
 }
 
 .crew__away {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  font-size: 0.78rem;
+  font-size: var(--fs-label);
   color: var(--warn);
 }
 
+/* Seat number: a stencilled plate. */
 .crew__slot {
-  color: var(--text-faint);
-  font-size: 0.85rem;
+  display: inline-grid;
+  place-items: center;
+  min-width: 2.5rem;
+  height: 2rem;
+  padding-inline: 6px;
+  border-radius: var(--radius-sm);
+  background: rgba(3, 12, 20, 0.55);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.55);
+  color: var(--text-dim);
+  font-size: var(--fs-label);
 }
 
 .crew__roles {
@@ -108,6 +175,8 @@
   gap: 4px;
   max-width: 55%;
 }
+
+/* ── Pick a console group ── */
 
 .lobby__groups {
   display: flex;
@@ -122,19 +191,29 @@
   gap: 10px;
   width: 100%;
   min-height: var(--tap);
-  padding: 8px 12px;
-  border-radius: 14px;
-  border: var(--border-w) solid var(--line-strong);
-  background: var(--bg-2);
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  border: var(--border-w) solid var(--glass-edge-strong);
+  background: var(--glass-flat);
+  transition:
+    border-color var(--dur-state) var(--ease),
+    background-color var(--dur-state) var(--ease),
+    transform var(--dur-micro) var(--ease);
+}
+
+.lobby__group:active:not(:disabled) {
+  transform: scale(0.98);
 }
 
 .lobby__group:disabled {
   opacity: 0.55;
+  border-style: dashed;
 }
 
 .lobby__group.is-mine {
   border-color: var(--accent);
-  background: var(--accent-soft);
+  background: linear-gradient(90deg, rgba(85, 197, 205, 0.2), rgba(85, 197, 205, 0.05)), var(--glass-flat);
+  box-shadow: var(--glow-accent);
 }
 
 .lobby__grouproles {
@@ -147,7 +226,7 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  font-size: 0.86rem;
+  font-size: var(--fs-label);
   color: var(--text-dim);
   white-space: nowrap;
 }

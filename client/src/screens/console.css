@@ -13,13 +13,17 @@
   unicode-bidi: isolate;
 }
 
-/* ───────────── header strip ───────────── */
+/* ───────────── header strip: the primary flight display ───────────── */
 
 .hud {
-  padding: 12px 14px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
+  background:
+    radial-gradient(90% 70% at 50% 0%, rgba(85, 197, 205, 0.16), transparent 70%),
+    linear-gradient(180deg, rgba(9, 26, 41, 0.92), rgba(5, 15, 25, 0.94));
+  border-color: rgba(85, 197, 205, 0.35);
 }
 
 .hud__top {
@@ -38,15 +42,18 @@
 }
 
 .hud__clock {
-  font-size: 1.9rem;
-  font-weight: 750;
-  line-height: 1.05;
-  letter-spacing: 0.02em;
+  font-size: var(--fs-kpi);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: var(--ceramic);
+  text-shadow: 0 0 18px rgba(143, 224, 230, 0.25);
 }
 
 .hud--countdown .hud__clock {
-  font-size: 3rem;
+  font-size: 3.25rem;
   color: var(--accent-strong);
+  text-shadow: 0 0 24px rgba(85, 197, 205, 0.45);
 }
 
 .hud__phase {
@@ -54,43 +61,56 @@
   align-items: center;
   gap: 8px;
   min-width: 0;
-  padding-bottom: 3px;
+  padding-bottom: 4px;
 }
 
 .hud__phasename {
-  font-weight: 650;
-  font-size: 0.92rem;
+  font-weight: 600;
+  font-size: var(--fs-label);
   color: var(--text-dim);
   overflow-wrap: anywhere;
 }
 
 .hud__stats {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(4.4rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(5.2rem, 1fr));
   gap: 8px;
 }
 
 .hud__stat {
-  padding: 6px 8px;
+  position: relative;
+  padding: 10px 10px 12px;
   border-radius: var(--radius-sm);
-  border: var(--border-w) solid var(--line);
-  background: rgba(5, 16, 26, 0.5);
+  background: rgba(3, 12, 20, 0.6);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.6);
   min-width: 0;
+  overflow: hidden;
+}
+
+/* Tick-mark rule along the bottom of each readout. */
+.hud__stat::after {
+  content: '';
+  position: absolute;
+  inset-inline: 10px;
+  bottom: 5px;
+  height: 4px;
+  background: repeating-linear-gradient(90deg, rgba(85, 197, 205, 0.45) 0 1px, transparent 1px 8px);
+  opacity: 0.6;
 }
 
 .hud__stat dt {
-  font-family: var(--font-mono);
-  font-size: 0.62rem;
+  font-size: var(--fs-meta);
   font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--text-faint);
+  color: var(--text-dim);
 }
 
 .hud__stat dd {
-  font-size: 1.15rem;
-  font-weight: 700;
+  font-size: var(--fs-h2);
   white-space: nowrap;
+}
+
+.hud__stat dd .num {
+  font-weight: 600;
 }
 
 .hud__warp {
@@ -98,17 +118,18 @@
   align-items: center;
   gap: 6px;
   align-self: flex-start;
-  padding: 0.2rem 0.6rem;
-  border-radius: 999px;
-  border: var(--border-w) solid var(--warn);
+  padding: 0.25rem 0.7rem;
+  border-radius: var(--radius-pill);
+  border: var(--border-w) dashed var(--warn);
   background: var(--warn-soft);
   color: var(--warn);
-  font-size: 0.82rem;
-  font-weight: 700;
+  font-size: var(--fs-label);
+  font-weight: 600;
 }
 
 .hud__warp--slow {
   border-color: var(--accent);
+  border-style: solid;
   background: var(--accent-soft);
   color: var(--accent-strong);
 }
@@ -128,8 +149,7 @@
 }
 
 .teamstrip__value {
-  font-size: 0.86rem;
-  font-weight: 700;
+  font-size: var(--fs-label);
 }
 
 .teamstrip__boosts {
@@ -145,20 +165,24 @@
   align-items: center;
   justify-content: center;
   gap: 6px;
-  letter-spacing: 0.1em;
-  font-weight: 700;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.consoletabs__tab .mono {
+  font-family: var(--font-ui);
 }
 
 .consoletabs__tab[aria-selected='true'] {
-  background: var(--accent-soft);
-  border-color: var(--accent);
   color: var(--text);
 }
 
 .consoletabs__tab--alert {
   border-color: var(--bad);
+  border-style: double;
+  border-width: 3px;
   color: var(--bad);
-  animation: tab-alert 0.9s steps(2, jump-none) infinite;
+  animation: tab-alert var(--dur-pulse) var(--ease-in-out-sine) infinite;
 }
 
 .consoletabs__alert {
@@ -180,13 +204,13 @@
 }
 
 .consolehead__name {
-  font-weight: 650;
+  font-weight: 600;
   color: var(--text-dim);
-  font-size: 0.92rem;
+  font-size: var(--fs-label);
   overflow-wrap: anywhere;
 }
 
-/* ───────────── gauges ───────────── */
+/* ───────────── gauges: instrument glass ───────────── */
 
 .gauges {
   display: grid;
@@ -198,30 +222,39 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 6px;
   min-width: 0;
-  padding: 9px 10px 8px;
-  border-radius: 12px;
-  border: var(--border-w) solid var(--line);
-  background: linear-gradient(180deg, rgba(23, 58, 85, 0.5), rgba(11, 29, 46, 0.85));
-  transition: border-color var(--dur) var(--ease);
+  padding: 12px 12px 10px;
+  border-radius: var(--radius-md);
+  border: var(--border-w) solid rgba(150, 205, 228, 0.18);
+  background:
+    radial-gradient(120% 80% at 50% 0%, rgba(85, 197, 205, 0.1), transparent 70%),
+    linear-gradient(180deg, rgba(8, 24, 38, 0.94), rgba(4, 13, 22, 0.96));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 10px 24px -14px rgba(0, 0, 0, 0.8);
+  transition:
+    border-color var(--dur-state) var(--ease),
+    box-shadow var(--dur-state) var(--ease);
 }
 
 :root[data-contrast='high'] .gauge {
   background: var(--bg-1);
 }
 
+/* Near a limit: amber, dashed (Marginal). */
 .gauge--near {
   border-color: var(--warn);
+  border-style: dashed;
 }
 
-/* Out of limits: red border plus a hatched corner, so it reads without colour. */
+/* Out of limits: red double border plus a cross-hatched wash (Fails), readable without hue. */
 .gauge--low,
 .gauge--high {
-  border-color: var(--bad);
+  border: max(3px, var(--border-w)) double var(--bad);
   background:
-    repeating-linear-gradient(135deg, rgba(255, 143, 143, 0.16) 0 4px, transparent 4px 9px),
-    linear-gradient(180deg, rgba(60, 22, 18, 0.7), rgba(22, 10, 12, 0.9));
+    repeating-linear-gradient(45deg, rgba(255, 143, 143, 0.1) 0 2px, transparent 2px 9px),
+    repeating-linear-gradient(-45deg, rgba(255, 143, 143, 0.1) 0 2px, transparent 2px 9px),
+    linear-gradient(180deg, rgba(52, 20, 22, 0.92), rgba(24, 10, 14, 0.96));
+  box-shadow: 0 0 22px -8px rgba(255, 143, 143, 0.6);
 }
 
 .gauge__head {
@@ -233,11 +266,9 @@
 }
 
 .gauge__label {
-  font-family: var(--font-mono);
-  font-size: 0.66rem;
+  font-size: var(--fs-label);
   font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  line-height: 1.25;
   color: var(--text-dim);
   overflow-wrap: anywhere;
 }
@@ -245,11 +276,9 @@
 .gauge__flag {
   display: inline-flex;
   align-items: center;
-  gap: 3px;
-  font-size: 0.66rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  gap: 4px;
+  font-size: var(--fs-meta);
+  font-weight: 600;
   white-space: nowrap;
 }
 
@@ -258,41 +287,72 @@
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  min-height: 1.75rem;
+  min-height: 2rem;
 }
 
 .gauge__value {
-  font-size: 1.3rem;
-  font-weight: 750;
-  line-height: 1.1;
+  font-size: var(--fs-h1);
+  line-height: 1.05;
   white-space: nowrap;
+  color: var(--ceramic);
+}
+
+.gauge__value .num {
+  font-weight: 600;
 }
 
 .gauge__value--word {
   flex: 1 1 auto;
-  font-size: 1.05rem;
+  font-size: var(--fs-lg);
+  font-weight: 600;
   white-space: normal;
 }
 
-.gauge__spark {
-  flex: 0 1 3.6rem;
-  width: 3.6rem;
+.gauge__sparkwrap {
+  position: relative;
+  flex: 0 1 3.8rem;
+  width: 3.8rem;
   min-width: 2rem;
-  height: 1.5rem;
+  height: 1.6rem;
+}
+
+.gauge__spark {
+  width: 100%;
+  height: 100%;
   overflow: visible;
 }
 
 .gauge__sparkline {
   fill: none;
   stroke: var(--accent);
-  stroke-width: 1.5;
+  stroke-width: 2;
   stroke-linejoin: round;
   stroke-linecap: round;
   vector-effect: non-scaling-stroke;
 }
 
+.gauge__sparkdot {
+  position: absolute;
+  inset-inline-end: -3px;
+  width: 6px;
+  height: 6px;
+  margin-top: -3px;
+  border-radius: 50%;
+  background: var(--accent-strong);
+  box-shadow: 0 0 6px var(--accent);
+}
+
+[dir='rtl'] .gauge__sparkwrap {
+  transform: scaleX(-1);
+}
+
 .gauge--near .gauge__sparkline {
   stroke: var(--warn);
+}
+
+.gauge--near .gauge__sparkdot {
+  background: var(--warn);
+  box-shadow: 0 0 6px var(--warn);
 }
 
 .gauge--low .gauge__sparkline,
@@ -300,66 +360,81 @@
   stroke: var(--bad);
 }
 
+.gauge--low .gauge__sparkdot,
+.gauge--high .gauge__sparkdot {
+  background: var(--bad);
+  box-shadow: 0 0 6px var(--bad);
+}
+
 .gauge__sparklimit {
   stroke: var(--bad);
   stroke-width: 1;
   stroke-dasharray: 3 3;
-  opacity: 0.7;
+  opacity: 0.6;
   vector-effect: non-scaling-stroke;
 }
 
+/* Linear tape: Ceramic-10 % track with minor ticks, a fill and a bright needle. */
 .gauge__track {
   position: relative;
-  height: 0.62rem;
-  min-height: 9px;
-  border-radius: 999px;
-  border: var(--border-w) solid var(--line-strong);
-  background: rgba(182, 199, 211, 0.16);
+  height: 12px;
+  border-radius: 6px;
+  background:
+    repeating-linear-gradient(90deg, rgba(232, 238, 240, 0.16) 0 1px, transparent 1px 10%),
+    rgba(232, 238, 240, 0.08);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.6);
   overflow: hidden;
 }
 
-/* Limit strip under the track: hatched stretches are out of limits (pattern, not only red). */
+/* Limit strip under the track: cross-hatched stretches are out of limits. */
 .gauge__limits {
   position: relative;
-  height: 5px;
-  margin-top: -2px;
+  height: 4px;
+  margin-top: -3px;
   border-radius: 2px;
-  background: rgba(182, 199, 211, 0.14);
+  background: rgba(232, 238, 240, 0.06);
   overflow: hidden;
 }
 
 .gauge__zone {
   position: absolute;
   inset-block: 0;
-  background: repeating-linear-gradient(135deg, var(--bad) 0 2.5px, transparent 2.5px 5px);
+  background: repeating-linear-gradient(135deg, var(--bad) 0 2px, transparent 2px 4px);
 }
 
 .gauge__fill {
   position: absolute;
   inset-block: 0;
   inset-inline-start: 0;
-  background: var(--accent);
-  opacity: 0.55;
+  border-radius: 6px;
+  background: linear-gradient(90deg, rgba(23, 104, 135, 0.6), rgba(85, 197, 205, 0.75));
   transition: width 110ms linear;
 }
 
+[dir='rtl'] .gauge__fill {
+  background: linear-gradient(270deg, rgba(23, 104, 135, 0.6), rgba(85, 197, 205, 0.75));
+}
+
 .gauge--near .gauge__fill {
-  background: var(--warn);
+  background: repeating-linear-gradient(45deg, rgba(7, 21, 34, 0.4) 0 2px, transparent 2px 6px), var(--warn);
 }
 
 .gauge--low .gauge__fill,
 .gauge--high .gauge__fill {
-  background: var(--bad);
-  opacity: 0.7;
+  background:
+    repeating-linear-gradient(45deg, rgba(7, 21, 34, 0.45) 0 2px, transparent 2px 6px),
+    repeating-linear-gradient(-45deg, rgba(7, 21, 34, 0.45) 0 2px, transparent 2px 6px),
+    var(--bad);
 }
 
 .gauge__needle {
   position: absolute;
-  inset-block: -1px;
+  inset-block: 0;
   width: 3px;
   margin-inline-start: -1.5px;
-  background: var(--text);
+  background: var(--ceramic);
   border-radius: 2px;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.7);
   transition: inset-inline-start 110ms linear;
 }
 
@@ -367,10 +442,10 @@
   display: flex;
   justify-content: space-between;
   gap: 6px;
-  font-family: var(--font-mono);
-  font-size: 0.6rem;
+  font-size: var(--fs-meta);
   color: var(--text-faint);
   white-space: nowrap;
+  font-variant-numeric: tabular-nums;
 }
 
 .lamps {
@@ -382,16 +457,17 @@
 .lamp {
   display: inline-grid;
   place-items: center;
-  width: 1.15rem;
-  height: 1.15rem;
+  width: 1.4rem;
+  height: 1.4rem;
   border-radius: 50%;
   border: var(--border-w) solid var(--line-strong);
 }
 
 .lamp--on.lamp--good {
-  background: var(--good);
+  background: radial-gradient(circle at 40% 35%, #c4f5da, var(--good));
   border-color: var(--good);
   color: var(--good-ink);
+  box-shadow: 0 0 8px rgba(119, 214, 161, 0.6);
 }
 
 .lamp--on.lamp--bad {
@@ -429,7 +505,7 @@
   color: var(--warn);
 }
 
-/* ───────────── alerts ───────────── */
+/* ───────────── alerts: master caution / master warning ───────────── */
 
 .alerts {
   position: sticky;
@@ -441,45 +517,50 @@
 }
 
 .alert {
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 12px;
+  gap: 10px;
+  padding: 14px;
   border-radius: var(--radius);
-  border: 2px solid var(--warn);
+  border: 2px dashed var(--warn);
   background:
-    repeating-linear-gradient(135deg, rgba(255, 209, 102, 0.1) 0 8px, transparent 8px 16px),
-    rgba(40, 30, 6, 0.92);
+    repeating-linear-gradient(45deg, rgba(255, 209, 102, 0.08) 0 10px, transparent 10px 20px),
+    linear-gradient(180deg, rgba(48, 38, 12, 0.96), rgba(26, 22, 10, 0.97));
+  box-shadow: 0 16px 40px -14px rgba(0, 0, 0, 0.85), 0 0 30px -10px rgba(255, 209, 102, 0.5);
   color: var(--text);
-  animation: alert-in var(--dur) var(--ease-out-back) both;
+  animation: alert-in var(--dur-celebrate) var(--ease-celebrate) both;
 }
 
 .alert--bad {
-  border-color: var(--bad);
+  border: 4px double var(--bad);
   background:
-    repeating-linear-gradient(135deg, rgba(255, 143, 143, 0.12) 0 8px, transparent 8px 16px),
-    rgba(48, 14, 8, 0.92);
+    repeating-linear-gradient(45deg, rgba(255, 143, 143, 0.08) 0 10px, transparent 10px 20px),
+    repeating-linear-gradient(-45deg, rgba(255, 143, 143, 0.06) 0 10px, transparent 10px 20px),
+    linear-gradient(180deg, rgba(58, 18, 20, 0.96), rgba(28, 10, 14, 0.97));
+  box-shadow: 0 16px 40px -14px rgba(0, 0, 0, 0.85), 0 0 30px -10px rgba(255, 143, 143, 0.55);
 }
 
 .alert--good {
-  border-color: var(--good);
-  background: rgba(6, 40, 32, 0.92);
+  border: 2px solid var(--good);
+  background: radial-gradient(90% 90% at 50% 0%, rgba(119, 214, 161, 0.22), transparent 70%), rgba(6, 34, 28, 0.96);
 }
 
 :root[data-contrast='high'] .alert {
   background: #000;
 }
 
+/* Last seconds only: a slow 1.6 s pulse (motion token "pulse"). */
 .alert--live {
   animation:
-    alert-in var(--dur) var(--ease-out-back) both,
-    alert-pulse 1s ease-in-out 0.3s infinite;
+    alert-in var(--dur-celebrate) var(--ease-celebrate) both,
+    alert-pulse var(--dur-pulse) var(--ease-in-out-sine) 0.3s infinite;
 }
 
 @keyframes alert-in {
   from {
-    opacity: 0;
-    transform: scale(0.96);
+    opacity: 0.35;
+    transform: translate3d(0, -10px, 0) scale(0.97);
   }
   to {
     opacity: 1;
@@ -489,7 +570,7 @@
 
 @keyframes alert-pulse {
   50% {
-    box-shadow: 0 0 0 4px rgba(255, 209, 102, 0.22);
+    box-shadow: 0 16px 40px -14px rgba(0, 0, 0, 0.85), 0 0 0 5px rgba(255, 209, 102, 0.2);
   }
 }
 
@@ -510,28 +591,24 @@
 }
 
 .alert__sev {
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  font-size: var(--fs-label);
+  font-weight: 600;
 }
 
 .alert__left {
-  font-size: 1.25rem;
-  font-weight: 800;
+  font-size: var(--fs-h1);
   color: var(--text);
 }
 
 .alert__what {
-  font-size: 1.15rem;
-  font-weight: 800;
-  letter-spacing: 0.03em;
+  font-size: var(--fs-h2);
+  font-weight: 600;
+  letter-spacing: 0.02em;
   overflow-wrap: anywhere;
 }
 
 .alert__bar {
-  height: 5px;
+  height: 6px;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.14);
   overflow: hidden;
@@ -555,7 +632,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  font-weight: 700;
+  font-weight: 600;
   min-height: 1.6rem;
 }
 
@@ -568,7 +645,8 @@
 .alert .btn--ghost {
   align-self: flex-start;
   color: var(--text);
-  border-color: var(--line-strong);
+  border-color: rgba(232, 238, 240, 0.35);
+  background: rgba(7, 21, 34, 0.5);
 }
 
 /* ───────────── callouts and requests ───────────── */
@@ -581,27 +659,28 @@
   overflow-y: auto;
 }
 
+/* Callouts are radio calls ("ENGINE 3 OUT"): the strings keep their capitals; the face is the
+   UI sans, not a monospace. */
 .callout {
   min-width: 0;
-  min-height: max(48px, 2.4rem);
-  padding: 0.4rem 0.6rem;
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  min-height: max(52px, 3.25rem);
+  padding: 0.45rem 0.7rem;
+  font-size: var(--fs-label);
+  font-weight: 600;
+  letter-spacing: 0.03em;
   overflow-wrap: anywhere;
 }
 
 .callout--wanted {
   grid-column: 1 / -1;
-  font-size: 0.95rem;
-  animation: wanted 0.9s ease-in-out infinite;
+  min-height: max(60px, 3.75rem);
+  font-size: var(--fs-lg);
+  animation: wanted var(--dur-pulse) var(--ease-in-out-sine) infinite;
 }
 
 @keyframes wanted {
   50% {
-    transform: scale(1.02);
+    transform: scale(1.015);
   }
 }
 
@@ -621,12 +700,13 @@
 .request {
   justify-content: flex-start;
   min-width: 0;
-  padding: 0.45rem 0.8rem;
-  font-size: 0.92rem;
-  font-weight: 650;
+  padding: 0.5rem 0.85rem;
+  font-size: var(--fs-label);
+  font-weight: 600;
   text-align: start;
-  background: transparent;
-  border-color: var(--line-strong);
+  background: rgba(10, 27, 43, 0.6);
+  border-color: var(--glass-edge-strong);
+  box-shadow: none;
 }
 
 .request__text {
@@ -637,8 +717,8 @@
 }
 
 .request__sent {
-  font-size: 0.74rem;
-  font-weight: 700;
+  font-size: var(--fs-meta);
+  font-weight: 600;
   color: var(--good);
 }
 
@@ -661,14 +741,14 @@
   grid-template-columns: auto auto 1fr;
   align-items: baseline;
   gap: 8px;
-  padding: 6px 8px;
+  padding: 8px 10px;
   border-radius: var(--radius-sm);
-  font-size: 0.88rem;
+  font-size: var(--fs-label);
   color: var(--text-dim);
 }
 
 .event--new {
-  background: var(--neutral-soft);
+  background: linear-gradient(90deg, rgba(85, 197, 205, 0.14), transparent);
   color: var(--text);
   animation: event-in var(--dur) var(--ease) both;
 }
@@ -679,7 +759,7 @@
 }
 
 .event__time {
-  font-size: 0.78rem;
+  font-size: var(--fs-meta);
   color: var(--text-faint);
 }
 
@@ -738,10 +818,10 @@
   gap: 10px;
   padding: 22px 18px;
   text-align: center;
-  border-radius: var(--radius);
-  border: var(--border-w) solid var(--line-strong);
-  background: rgba(5, 16, 26, 0.88);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+  border-radius: var(--radius-lg);
+  border: var(--border-w) solid var(--glass-edge-strong);
+  background: rgba(5, 16, 26, 0.9);
+  box-shadow: var(--shadow-3), inset 0 1px 0 var(--glass-hi);
 }
 
 .blackout__icon {
@@ -764,7 +844,6 @@
 }
 
 .blackout__time {
-  font-size: 2.2rem;
-  font-weight: 750;
+  font-size: var(--fs-kpi);
   line-height: 1.1;
 }

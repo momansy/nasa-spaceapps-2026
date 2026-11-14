@@ -19,6 +19,7 @@ const FEED_MAX = 30;
 const SOCIAL_MAX = 12;
 const HISTORY_MAX = 48;
 const EVENTS_MAX = 20;
+const AUDIENCE_MAX = 6;
 
 const emptyFlight = (): FlightState => ({
   hud: null,
@@ -57,6 +58,9 @@ export function initialState(prefs: PlayerPrefs = DEFAULT_PREFS, kind: 'ws' | 'm
     codex: { unlocked: [], fresh: [], badges: [] },
     debrief: { score: null, awards: null, facts: null },
     social: [],
+    pilotHud: null,
+    pilotHudFor: null,
+    audience: [],
     prefs,
     roleCardSeen: '',
     nextId: 1,
@@ -372,6 +376,10 @@ function reduceMessage(state: AppState, msg: Message, nowMs: number): AppState {
     }
     case 'pilot.assign':
       return { ...state, flight: { ...state.flight, pilot: msg.d } };
+    case 'pilot.hud':
+      return state.me && msg.d.to.includes(state.me.id) ? { ...state, pilotHud: msg.d, pilotHudFor: state.flight.pilot } : state;
+    case 'react.audience':
+      return { ...state, audience: [...state.audience, { id: state.nextId, atMs: nowMs, windowMs: msg.d.windowMs, counts: msg.d.counts }].slice(-AUDIENCE_MAX), nextId: state.nextId + 1 };
     case 'console.config': {
       const prev = state.flight.consoles[msg.d.role];
       const consoleState: ConsoleState = { config: msg.d, values: prev?.values ?? {}, metS: prev?.metS ?? null, history: prev?.history ?? {} };

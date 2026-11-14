@@ -64,7 +64,7 @@ function limitState(v: number | undefined, c: ChannelCfg): LimitState {
 }
 
 const STATE_TONE: Record<LimitState, Tone> = { none: 'neutral', ok: 'good', near: 'warn', low: 'bad', high: 'bad' };
-const STATE_ICON: Record<LimitState, IconName> = { none: 'dot', ok: 'check', near: 'warn', low: 'arrowDown', high: 'arrowUp' };
+const STATE_ICON: Record<LimitState, IconName> = { none: 'dot', ok: 'statusGood', near: 'statusWarn', low: 'statusBad', high: 'statusBad' };
 
 function pct(v: number, min: number, max: number): number {
   if (max === min) return 0;
@@ -93,12 +93,16 @@ function Sparkline({ history, cfg }: { history: number[] | undefined; cfg: Chann
   const y = (v: number) => 21 - (pct(v, cfg.min, cfg.max) / 100) * 20;
   let d = '';
   for (let i = 0; i < n; i++) d += `${i === 0 ? 'M' : 'L'}${((i / (n - 1)) * 60).toFixed(1)} ${y(history[i]!).toFixed(1)}`;
+  const endY = y(history[n - 1]!);
   return (
-    <svg className="gauge__spark" viewBox="0 0 60 22" preserveAspectRatio="none" aria-hidden="true">
-      {cfg.warnHigh != null && <line className="gauge__sparklimit" x1="0" x2="60" y1={y(cfg.warnHigh)} y2={y(cfg.warnHigh)} />}
-      {cfg.warnLow != null && <line className="gauge__sparklimit" x1="0" x2="60" y1={y(cfg.warnLow)} y2={y(cfg.warnLow)} />}
-      <path className="gauge__sparkline" d={d} />
-    </svg>
+    <span className="gauge__sparkwrap" aria-hidden="true">
+      <svg className="gauge__spark" viewBox="0 0 60 22" preserveAspectRatio="none">
+        {cfg.warnHigh != null && <line className="gauge__sparklimit" x1="0" x2="60" y1={y(cfg.warnHigh)} y2={y(cfg.warnHigh)} />}
+        {cfg.warnLow != null && <line className="gauge__sparklimit" x1="0" x2="60" y1={y(cfg.warnLow)} y2={y(cfg.warnLow)} />}
+        <path className="gauge__sparkline" d={d} />
+      </svg>
+      <span className="gauge__sparkdot" style={{ top: `${(endY / 22) * 100}%` }} />
+    </span>
   );
 }
 
@@ -131,8 +135,14 @@ const Gauge = memo(function Gauge({ cfg, value, history }: { cfg: ChannelCfg; va
       </div>
       <div className="gauge__row">
         <span className="gauge__value">
-          <span className="num">{text.num}</span>
-          {text.unit && <span className="unit">{text.unit}</span>}
+          {value == null || !Number.isFinite(value) ? (
+            <span className="skel" aria-hidden="true" />
+          ) : (
+            <>
+              <span className="num">{text.num}</span>
+              {text.unit && <span className="unit">{text.unit}</span>}
+            </>
+          )}
         </span>
         <Sparkline history={history} cfg={cfg} />
       </div>
@@ -175,9 +185,7 @@ const PairGauge = memo(function PairGauge({ labelKey, a, b }: { labelKey: string
         )}
       </div>
       <div className="gauge__row">
-        <span className="gauge__value">
-          <span className="num">{value}</span>
-        </span>
+        <span className="gauge__value">{a == null || b == null ? <span className="skel" aria-hidden="true" /> : <span className="num">{value}</span>}</span>
       </div>
       {total > 0 && total <= 12 && (
         <div className="lamps" aria-hidden="true">
@@ -207,7 +215,7 @@ const FlagGauge = memo(function FlagGauge({ id, value }: { id: TelemetryChannel;
         <span className={`flaglamp flaglamp--${tone} ${on ? 'flaglamp--on' : ''}`} aria-hidden="true">
           <Icon name={id === 'hold' ? (on ? 'pause' : 'play') : on ? 'radio' : 'signalOff'} size="1rem" />
         </span>
-        <span className="gauge__value gauge__value--word">{text}</span>
+        <span className="gauge__value gauge__value--word">{value == null ? <span className="skel" aria-hidden="true" /> : text}</span>
       </div>
     </div>
   );
@@ -329,7 +337,7 @@ function Hud() {
         <div className="hud__clockwrap">
           {countdown && <span className="eyebrow eyebrow--dim">{hold ? t('ui.console.on_hold') : hud && hud.metS >= 0 ? t('ui.console.clock') : t('ui.console.liftoff_in')}</span>}
           <span className="hud__clock num" role="timer" data-testid="hud-clock">
-            {hud ? fmtMet(hud.metS) : 'T−‒‒:‒‒'}
+            {hud ? fmtMet(hud.metS) : <span className="skel skel--clock" aria-hidden="true" />}
           </span>
         </div>
         <div className="hud__phase">

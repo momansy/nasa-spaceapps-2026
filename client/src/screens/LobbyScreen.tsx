@@ -1,10 +1,12 @@
 // Lobby: you are in, who else is here, and how roles will be assigned (random, pick or vote).
+import { useState } from 'react';
 import type { PlayerInfo, RoleGroup } from '@protocol';
 import { useT } from '../i18n';
 import { myPlayer } from '../state/selectors';
 import { useSel, useStore } from '../state/store';
 import { Icon } from '../ui/Icon';
 import { Avatar, CallSign } from '../ui/kit';
+import { ProfileSheet } from './profile/ProfileSheet';
 import './lobby.css';
 
 export function CrewRow({ player, me, trailing }: { player: PlayerInfo; me: boolean; trailing?: React.ReactNode }) {
@@ -115,6 +117,7 @@ export function LobbyScreen() {
   const players = useSel((s) => s.room?.players ?? []);
   const spectators = useSel((s) => s.room?.spectatorCount ?? 0);
   const locked = useSel((s) => !!s.roles?.locked);
+  const [profileOpen, setProfileOpen] = useState(false);
 
   return (
     <div className="screen" data-testid="screen-lobby">
@@ -128,6 +131,7 @@ export function LobbyScreen() {
               <span className="pulse-dot" aria-hidden="true" />
               <span>{t(kind === 'SPECTATOR' ? 'ui.lobby.wait_spectator' : locked ? 'ui.lobby.wait_locked' : 'ui.lobby.wait')}</span>
             </p>
+            {me && !locked && <button type="button" className="btn btn--sm" onClick={() => setProfileOpen(true)} data-testid="profile-open"><Icon name="user" size="1.1rem" />{t('ui.profile.edit')}</button>}
           </div>
         </section>
 
@@ -153,6 +157,7 @@ export function LobbyScreen() {
 
         <p className="body-sm center">{t('ui.lobby.tip')}</p>
       </div>
+      {profileOpen && <ProfileSheet onClose={() => setProfileOpen(false)} />}
     </div>
   );
 }
