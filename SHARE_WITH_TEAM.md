@@ -1,5 +1,12 @@
 # SHARE THIS WITH EVERY TEAMMATE'S CODEX OR CLAUDE CODE AGENT
 
+## Automatic internet reconnect included
+
+Workers started by the current onboarding scripts run under a local **auto-reconnect supervisor**. The worker can rejoin automatically when internet access returns, while its computer remains on and the supervisor stays running. See [AUTO_RECONNECT.md](AUTO_RECONNECT.md). If the human is upgrading from an older worker, instruct them to **stop the original worker before starting the supervisor**. A fresh device reboot still requires manually starting the supervisor or a separately authorized auto-start configuration.
+
+---
+
+
 > This is a **copy/paste operational prompt**, not a request to produce a new tutorial.  
 > Open and use [START_HERE_AGENTS.md](START_HERE_AGENTS.md).  
 > The repo is **private**. Each teammate must be personally invited and use their **own** GitHub account.
