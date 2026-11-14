@@ -1,0 +1,110 @@
+{
+  "$schema": "../schema/part.schema.json",
+  "category": "capsule",
+  "name_key": "category.capsule.name",
+  "design_section": "7.2.2",
+  "design_notes": [
+    "Section 7.2.2 is headed \"Capsule contracts (C3, C4, C6)\" and restricts no single option, so every capsule lists all three.",
+    "Capacity \"2 crew or 3 t cargo\" is stored as crew_capacity 2 and cargo_capacity_t 3. The deep-space capsule gives \"4 crew, 21 days\" and no cargo figure, so cargo_capacity_t is left out.",
+    "The table has no Cost or Twin column: \"cheap\" (compact) has no number, and no twin is stored.",
+    "Table 5.1 gives capsule payloads of 6 t (C3), 8 t (C4) and 10 t (C6); this table has 6 t, 9 t and 10 t + 15 t service module. The design does not say how the two relate (open question 10 in data/README.md).",
+    "\"Cramped (crew morale −)\" has no number: flag crew_morale_penalty. \"Lunar-rated life support\" is the flag lunar_rated_life_support; the design does not say whether C6 requires it.",
+    "Stats are tagged game_value (table 5.1 labels the payload a game value)."
+  ],
+  "parts": [
+    {
+      "id": "cap_compact",
+      "category": "capsule",
+      "name_key": "part.cap_compact.name",
+      "strengths": [
+        "part.cap_compact.strength.1",
+        "part.cap_compact.strength.2"
+      ],
+      "drawbacks": [
+        "part.cap_compact.drawback.1",
+        "part.cap_compact.drawback.2"
+      ],
+      "contracts": [
+        "C3",
+        "C4",
+        "C6"
+      ],
+      "model": "models/cap_compact.glb",
+      "stats": {
+        "mass_t": 6,
+        "crew_capacity": 2,
+        "cargo_capacity_t": 3
+      },
+      "game": {},
+      "rules": [
+        {
+          "kind": "flag",
+          "flag": "crew_morale_penalty"
+        }
+      ],
+      "value_types": {
+        "stats": "game_value"
+      }
+    },
+    {
+      "id": "cap_standard",
+      "category": "capsule",
+      "name_key": "part.cap_standard.name",
+      "strengths": [
+        "part.cap_standard.strength.1"
+      ],
+      "drawbacks": [
+        "part.cap_standard.drawback.1"
+      ],
+      "contracts": [
+        "C3",
+        "C4",
+        "C6"
+      ],
+      "model": "models/cap_standard.glb",
+      "stats": {
+        "mass_t": 9,
+        "crew_capacity": 4,
+        "cargo_capacity_t": 6
+      },
+      "game": {},
+      "value_types": {
+        "stats": "game_value"
+      }
+    },
+    {
+      "id": "cap_deep_space",
+      "category": "capsule",
+      "name_key": "part.cap_deep_space.name",
+      "strengths": [
+        "part.cap_deep_space.strength.1"
+      ],
+      "drawbacks": [
+        "part.cap_deep_space.drawback.1",
+        "part.cap_deep_space.drawback.2"
+      ],
+      "contracts": [
+        "C3",
+        "C4",
+        "C6"
+      ],
+      "model": "models/cap_deep_space.glb",
+      "stats": {
+        "mass_t": 10,
+        "service_module_mass_t": 15,
+        "crew_capacity": 4,
+        "endurance_days": 21
+      },
+      "game": {},
+      "rules": [
+        {
+          "kind": "flag",
+          "flag": "lunar_rated_life_support"
+        }
+      ],
+      "value_types": {
+        "stats": "game_value"
+      }
+    }
+  ]
+}

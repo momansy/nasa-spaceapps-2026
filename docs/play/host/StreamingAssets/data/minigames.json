@@ -1,0 +1,1448 @@
+{
+  "$schema": "./schema/minigame.schema.json",
+  "design_notes": [
+    "One entry per block of design section 10.5, in catalog order (MG-08b before MG-08, MG-10a before MG-10, as printed). when_key, detail_key, success_key and reward_summary_key are the When, How to play, Success and Boost lines as printed; how_to_play_key is the one-sentence instruction that rule 4 of 10.1 asks for, condensed from the How to play line.",
+    "params holds the numbers of the Success line. Suffix convention: _min means at least (≥), _max at most (≤), _below strictly less than (<); fractions are 0 to 1 (85% is 0.85). Where the Success line has no number (MG-09, MG-12, MG-18, MG-19, MG-20, MG-23, MG-26, MG-27, MG-28, MG-29) nothing is stored: the bands and gates are minigame tuning the design leaves open.",
+    "rewards: a reward with boost pays the catalog amount of data/boosts.json for the tier earned (Platinum pays the Gold column). A reward limited to tiers applies only there. Rewards the design states without a number are flags with a text; Core must implement or deliberately ignore each flag. boost_size small marks \"small\" boosts, whose size the design leaves open.",
+    "fact_key is the one-line fact of the result screen (25 words or fewer, 12.1). For the 22 minigames whose fact is in the fact bank it is the text key of that fact and facts holds its ID; for the other ten (MG-03, MG-05, MG-06, MG-08b, MG-09, MG-10, MG-20, MG-24, MG-27, MG-28) the bank of 12.4 has no entry, so the text is stored under the minigame. Section 12.4 asks that new facts be added to the bank with a source before release.",
+    "accessibility: section 16 requires a Relaxed mode and a One-Button alternative for every timing minigame and rule 8 of 10.1 a one-button or no-timing mode for every minigame, but the design describes neither for any minigame. Both notes of every entry are proposals by the data author and give no numbers; hold-to-press can always switch to toggle.",
+    "triggers follow the When line. Event names (staging, ground_station_pass, debris_conjunction, alarms, eclipse, life_support_event, science_target_pass, blackout_end, mission_failure, major_anomaly) are markers Core must raise; debris_conjunction, alarms and eclipse are the possible events of flight phase F8 in data/flight_phases.json.",
+    "flight_phases holds flight-phase IDs (F0 to F14), facts holds fact IDs (F01 to F40); the two kinds never share a field.",
+    "Durations are play time. The types of MG-28 and MG-30 are \"Cooperative\", which is not one of the four types of 10.2."
+  ],
+  "minigames": [
+    {
+      "id": "MG-01",
+      "name_key": "minigame.MG-01.name",
+      "when_key": "minigame.MG-01.when",
+      "stage": "build",
+      "triggers": [
+        {
+          "kind": "review",
+          "review": "PDR"
+        }
+      ],
+      "type": "parallel_solo",
+      "duration_s": 25,
+      "how_to_play_key": "minigame.MG-01.how_to_play",
+      "detail_key": "minigame.MG-01.detail",
+      "success_key": "minigame.MG-01.success",
+      "params": {
+        "correct_min": 8,
+        "wrong_max": 1
+      },
+      "aggregation": "none",
+      "facts": [
+        "F01"
+      ],
+      "fact_key": "fact.F01.text",
+      "reward_summary_key": "minigame.MG-01.boost",
+      "rewards": [
+        {
+          "flag": "removes_unit_error_software_fault",
+          "text_key": "minigame.MG-01.reward.1"
+        },
+        {
+          "tiers": [
+            "bronze"
+          ],
+          "effects": [
+            {
+              "target": "uncertainty_band",
+              "op": "add_fraction",
+              "value": -0.2
+            }
+          ]
+        },
+        {
+          "tiers": [
+            "silver"
+          ],
+          "effects": [
+            {
+              "target": "uncertainty_band",
+              "op": "add_fraction",
+              "value": -0.4
+            }
+          ]
+        },
+        {
+          "boost": "reliability_shield",
+          "tiers": [
+            "gold",
+            "platinum"
+          ]
+        }
+      ],
+      "accessibility": {
+        "relaxed_key": "minigame.MG-01.relaxed",
+        "one_button_key": "minigame.MG-01.one_button"
+      },
+      "design_notes": [
+        "The Boost line does not say at which tiers the hidden fault is removed (stored for every tier), which parts the narrower uncertainty band applies to (no scope stored), or which shield Gold gives; the catalog pays \"negate next failure\" at Gold."
+      ]
+    },
+    {
+      "id": "MG-02",
+      "name_key": "minigame.MG-02.name",
+      "when_key": "minigame.MG-02.when",
+      "stage": "build",
+      "triggers": [
+        {
+          "kind": "votes_done",
+          "category": "tank_size"
+        }
+      ],
+      "type": "parallel_solo",
+      "duration_s": 30,
+      "how_to_play_key": "minigame.MG-02.how_to_play",
+      "detail_key": "minigame.MG-02.detail",
+      "success_key": "minigame.MG-02.success",
+      "params": {
+        "extra_blocks_max": 1
+      },
+      "aggregation": "none",
+      "facts": [
+        "F02"
+      ],
+      "fact_key": "fact.F02.text",
+      "reward_summary_key": "minigame.MG-02.boost",
+      "rewards": [
+        {
+          "boost": "dv_bonus"
+        }
+      ],
+      "accessibility": {
+        "relaxed_key": "minigame.MG-02.relaxed",
+        "one_button_key": "minigame.MG-02.one_button"
+      }
+    },
+    {
+      "id": "MG-03",
+      "name_key": "minigame.MG-03.name",
+      "when_key": "minigame.MG-03.when",
+      "stage": "build",
+      "triggers": [
+        {
+          "kind": "category_integrated",
+          "category": "structural_material"
+        },
+        {
+          "kind": "test",
+          "test": "static_fire"
+        }
+      ],
+      "type": "parallel_solo",
+      "duration_s": 25,
+      "how_to_play_key": "minigame.MG-03.how_to_play",
+      "detail_key": "minigame.MG-03.detail",
+      "success_key": "minigame.MG-03.success",
+      "params": {
+        "defects_found_fraction_min": 0.8,
+        "false_alarms_max": 1
+      },
+      "aggregation": "none",
+      "fact_key": "minigame.MG-03.fact",
+      "reward_summary_key": "minigame.MG-03.boost",
+      "rewards": [
+        {
+          "boost": "load_margin"
+        },
+        {
+          "flag": "structural_reliability_up",
+          "text_key": "minigame.MG-03.reward.1"
+        }
+      ],
+      "accessibility": {
+        "relaxed_key": "minigame.MG-03.relaxed",
+        "one_button_key": "minigame.MG-03.one_button"
+      },
+      "design_notes": [
+        "\"Structural reliability\" has no number in the design; it is a flag."
+      ]
+    },
+    {
+      "id": "MG-04",
+      "name_key": "minigame.MG-04.name",
+      "when_key": "minigame.MG-04.when",
+      "stage": "build",
+      "triggers": [
+        {
+          "kind": "category_integrated",
+          "category": "avionics"
+        },
+        {
+          "kind": "category_integrated",
+          "category": "navigation_sensor"
+        },
+        {
+          "kind": "test",
+          "test": "software_in_the_loop"
+        },
+        {
+          "kind": "test",
+          "test": "drop_test"
+        }
+      ],
+      "type": "parallel_solo",
+      "duration_s": 20,
+      "how_to_play_key": "minigame.MG-04.how_to_play",
+      "detail_key": "minigame.MG-04.detail",
+      "success_key": "minigame.MG-04.success",
+      "params": {
+        "all_correct_required": true,
+        "drawing_error_catch_required": true
+      },
+      "aggregation": "none",
+      "facts": [
+        "F21"
+      ],
+      "fact_key": "fact.F21.text",
+      "reward_summary_key": "minigame.MG-04.boost",
+      "rewards": [
+        {
+          "flag": "parachute_and_sensor_reliability_up",
+          "text_key": "minigame.MG-04.reward.1"
+        },
+        {
+          "boost": "reliability_shield",
+          "shield_scope": "descent",
+          "tiers": [
+            "gold",
+            "platinum"
+          ]
+        }
+      ],
+      "accessibility": {
+        "relaxed_key": "minigame.MG-04.relaxed",
+        "one_button_key": "minigame.MG-04.one_button"
+      },
+      "design_notes": [
+        "The When line names avionics and sensor integration; section 6.6 says testing triggers this minigame without naming a test. data/tests.json attaches it to the software-in-the-loop test and the drop test, so both are triggers here as well. To be confirmed.",
+        "\"Parachute & sensor reliability\" has no number in the design; it is a flag."
+      ]
+    },
+    {
+      "id": "MG-05",
+      "name_key": "minigame.MG-05.name",
+      "when_key": "minigame.MG-05.when",
+      "stage": "build",
+      "triggers": [
+        {
+          "kind": "category_integrated",
+          "category": "instrument"
+        },
+        {
+          "kind": "anomaly",
+          "anomaly": "contamination_in_clean_room"
+        }
+      ],
+      "type": "parallel_solo",
+      "duration_s": 20,
+      "how_to_play_key": "minigame.MG-05.how_to_play",
+      "detail_key": "minigame.MG-05.detail",
+      "success_key": "minigame.MG-05.success",
+      "params": {
+        "clean_fraction_min": 0.9,
+        "scratches_max": 0
+      },
+      "aggregation": "none",
+      "fact_key": "minigame.MG-05.fact",
+      "reward_summary_key": "minigame.MG-05.boost",
+      "rewards": [
+        {
+          "boost": "data_multiplier"
+        }
+      ],
+      "accessibility": {
+        "relaxed_key": "minigame.MG-05.relaxed",
+        "one_button_key": "minigame.MG-05.one_button"
+      },
+      "design_notes": [
+        "\"Science payload integration\" is read as integration of the instrument category (C1)."
+      ]
+    },
+    {
+      "id": "MG-06",
+      "name_key": "minigame.MG-06.name",
+      "when_key": "minigame.MG-06.when",
+      "stage": "build",
+      "triggers": [
+        {
+          "kind": "test",
+          "test": "vibration_test"
+        }
+      ],
+      "type": "cooperative_split",
+      "duration_s": 30,
+      "how_to_play_key": "minigame.MG-06.how_to_play",
+      "detail_key": "minigame.MG-06.detail",
+      "success_key": "minigame.MG-06.success",
+      "params": {
+        "in_green_fraction_min": 0.8
+      },
+      "aggregation": "none",
+      "fact_key": "minigame.MG-06.fact",
+      "reward_summary_key": "minigame.MG-06.boost",
+      "rewards": [
+        {
+          "flag": "payload_reliability_up",
+          "text_key": "minigame.MG-06.reward.1"
+        },
+        {
+          "boost": "schedule_recovery"
+        }
+      ],
+      "accessibility": {
+        "relaxed_key": "minigame.MG-06.relaxed",
+        "one_button_key": "minigame.MG-06.one_button"
+      },
+      "design_notes": [
+        "\"Payload reliability\" has no number in the design; it is a flag. data/tests.json gives the vibration test itself +0.01 payload reliability."
+      ]
+    },
+    {
+      "id": "MG-07",
+      "name_key": "minigame.MG-07.name",
+      "when_key": "minigame.MG-07.when",
+      "stage": "countdown",
+      "flight_phases": [
+        "F1",
+        "F2"
+      ],
+      "triggers": [
+        {
+          "kind": "always"
+        }
+      ],
+      "type": "relay",
+      "duration_s": 5,
+      "duration_per_player": true,
+      "how_to_play_key": "minigame.MG-07.how_to_play",
+      "detail_key": "minigame.MG-07.detail",
+      "success_key": "minigame.MG-07.success",
+      "params": {
+        "readings_per_console": 3,
+        "answer_window_s": 5
+      },
+      "aggregation": "none",
+      "facts": [
+        "F31"
+      ],
+      "fact_key": "fact.F31.text",
+      "reward_summary_key": "minigame.MG-07.boost",
+      "rewards": [
+        {
+          "flag": "removes_countdown_holds",
+          "text_key": "minigame.MG-07.reward.1"
+        },
+        {
+          "tiers": [
+            "gold",
+            "platinum"
+          ],
+          "flag": "launch_at_optimal_second",
+          "text_key": "minigame.MG-07.reward.2"
+        }
+      ],
+      "accessibility": {
+        "relaxed_key": "minigame.MG-07.relaxed",
+        "one_button_key": "minigame.MG-07.one_button"
+      },
+      "design_notes": [
+        "Time is \"~5 s per player\" (duration_per_player). Flight phase F2 is listed because table 9.1 puts \"Ignition timing (part of MG-07)\" there.",
+        "\"+Δv saved\" has no number in the design."
+      ]
+    },
+    {
+      "id": "MG-08b",
+      "name_key": "minigame.MG-08b.name",
+      "when_key": "minigame.MG-08b.when",
+      "stage": "countdown",
+      "flight_phases": [
+        "F1"
+      ],
+      "triggers": [
+        {
+          "kind": "always"
+        }
+      ],
+      "type": "parallel_solo",
+      "duration_s": 20,
+      "how_to_play_key": "minigame.MG-08b.how_to_play",
+      "detail_key": "minigame.MG-08b.detail",
+      "success_key": "minigame.MG-08b.success",
+      "params": {
+        "fill_fraction_min": 0.99,
+        "overpressure_allowed": false
+      },
+      "aggregation": "none",
+      "fact_key": "minigame.MG-08b.fact",
+      "reward_summary_key": "minigame.MG-08b.boost",
+      "rewards": [
+        {
+          "boost": "fuel_saver"
+        }
+      ],
+      "accessibility": {
+        "relaxed_key": "minigame.MG-08b.relaxed",
+        "one_button_key": "minigame.MG-08b.one_button"
+      }
+    },
+    {
+      "id": "MG-08",
+      "name_key": "minigame.MG-08.name",
+      "when_key": "minigame.MG-08.when",
+      "stage": "flight",
+      "flight_phases": [
+        "F4"
+      ],
+      "triggers": [
+        {
+          "kind": "always"
+        }
+      ],
+      "type": "parallel_solo",
+      "duration_s": 20,
+      "how_to_play_key": "minigame.MG-08.how_to_play",
+      "detail_key": "minigame.MG-08.detail",
+      "success_key": "minigame.MG-08.success",
+      "params": {
+        "in_band_fraction_min": 0.85
+      },
+      "aggregation": "none",
+      "facts": [
+        "F04"
+      ],
+      "fact_key": "fact.F04.text",
+      "reward_summary_key": "minigame.MG-08.boost",
+      "rewards": [
+        {
+          "boost": "load_margin"
+        },
+        {
+          "boost": "dv_bonus",
+          "boost_size": "small"
+        }
+      ],
+      "accessibility": {
+        "relaxed_key": "minigame.MG-08.relaxed",
+        "one_button_key": "minigame.MG-08.one_button"
+      },
+      "design_notes": [
+        "\"Small Δv Bonus\" has no magnitude in the design (boost_size small)."
+      ]
+    },
+    {
+      "id": "MG-09",
+      "name_key": "minigame.MG-09.name",
+      "when_key": "minigame.MG-09.when",
+      "stage": "flight",
+      "flight_phases": [
+        "F3"
+      ],
+      "triggers": [
+        {
+          "kind": "always"
+        }
+      ],
+      "type": "parallel_solo",
+      "duration_s": 25,
+      "how_to_play_key": "minigame.MG-09.how_to_play",
+      "detail_key": "minigame.MG-09.detail",
+      "success_key": "minigame.MG-09.success",
+      "aggregation": "team_average",
+      "fact_key": "minigame.MG-09.fact",
+      "reward_summary_key": "minigame.MG-09.boost",
+      "rewards": [
+        {
+          "boost": "precision"
+        },
+        {
+          "boost": "dv_bonus"
+        }
+      ],
+      "accessibility": {
+        "relaxed_key": "minigame.MG-09.relaxed",
+        "one_button_key": "minigame.MG-09.one_button"
+      },
+      "design_notes": [
+        "The design gives no value for the deviation threshold."
+      ]
+    },
+    {
+      "id": "MG-10a",
+      "name_key": "minigame.MG-10a.name",
+      "when_key": "minigame.MG-10a.when",
+      "stage": "flight",
+      "flight_phases": [
+        "F5"
+      ],
+      "triggers": [
+        {
+          "kind": "event",
+          "event": "staging"
+        }
+      ],
+      "type": "team_sync",
+      "duration_s": 10,
+      "how_to_play_key": "minigame.MG-10a.how_to_play",
+      "detail_key": "minigame.MG-10a.detail",
+      "success_key": "minigame.MG-10a.success",
+      "params": {
+        "tap_window_s": 0.3
+      },
+      "aggregation": "none",
+      "facts": [
+        "F03"
+      ],
+      "fact_key": "fact.F03.text",
+      "reward_summary_key": "minigame.MG-10a.boost",
+      "rewards": [
+        {
+          "boost": "dv_bonus"
+        },
+        {
+          "tiers": [
+            "gold",
+            "platinum"
+          ],
+          "flag": "prevents_recontact",
+          "text_key": "minigame.MG-10a.reward.1"
+        }
+      ],
+      "accessibility": {
+        "relaxed_key": "minigame.MG-10a.relaxed",
+        "one_button_key": "minigame.MG-10a.one_button"
+      },
+      "design_notes": [
+        "tap_window_s is the half-width: a tap counts within ±0.3 s. Section 10.2 words it as \"all tap within 0.3 s\"."
+      ]
+    },
+    {
+      "id": "MG-10",
+      "name_key": "minigame.MG-10.name",
+      "when_key": "minigame.MG-10.when",
+      "stage": "flight",
+      "flight_phases": [
+        "F6"
+      ],
+      "triggers": [
+        {
+          "kind": "part_chosen",
+          "part": "fairing_reusable_large"
+        }
+      ],
+      "type": "cooperative_split",
+      "duration_s": 20,
+      "how_to_play_key": "minigame.MG-10.how_to_play",
+      "detail_key": "minigame.MG-10.detail",
+      "success_key": "minigame.MG-10.success",
+      "params": {
+        "under_target_fraction_min": 0.7,
+        "fairing_refund_fraction_max": 0.6
+      },
+      "aggregation": "none",
+      "fact_key": "minigame.MG-10.fact",
+      "reward_summary_key": "minigame.MG-10.boost",
+      "rewards": [
+        {
+          "boost": "budget_refund",
+          "text_key": "minigame.MG-10.reward.1"
+        }
+      ],
+      "accessibility": {
+        "relaxed_key": "minigame.MG-10.relaxed",
+        "one_button_key": "minigame.MG-10.one_button"
+      },
+      "design_notes": [
+        "The design does not say whether the catalog Budget Refund ($1 M / $2 M / $4 M) is paid in addition to the fairing refund or whether \"Budget Refund\" here simply means the fairing refund, nor how \"up to 60%\" scales with the tier. The 60% is fairing_refund_fraction_max and matches the reusable fairing part (cost_refund_fraction 0.6 if recovered)."
+      ]
+    },
+    {
+      "id": "MG-11",
+      "name_key": "minigame.MG-11.name",
+      "when_key": "minigame.MG-11.when",
+      "stage": "flight",
+      "flight_phases": [
+        "F5"
+      ],
+      "triggers": [
+        {
+          "kind": "failure_mode",
+          "failure_mode": "pogo_oscillation"
+        }
+      ],
+      "type": "team_sync",
+      "duration_s": 15,
+      "how_to_play_key": "minigame.MG-11.how_to_play",
+      "detail_key": "minigame.MG-11.detail",
+      "success_key": "minigame.MG-11.success",
+      "params": {
+        "counter_phase_beats_fraction_min": 0.7
+      },
+      "aggregation": "none",
+      "facts": [
+        "F07"
+      ],
+      "fact_key": "fact.F07.text",
+      "reward_summary_key": "minigame.MG-11.boost",
+      "rewards": [
+        {
+          "flag": "prevents_engine_shutdown",
+          "text_key": "minigame.MG-11.reward.1"
+        },
+        {
+          "boost": "load_margin"
+        }
+      ],
+      "accessibility": {
+        "relaxed_key": "minigame.MG-11.relaxed",
+        "one_button_key": "minigame.MG-11.one_button"
+      },
+      "design_notes": [
+        "Table 9.1 does not list MG-11 in the Minigames column of F5; it lists pogo under Possible events. \"Chance raised without a pogo test\" has no number."
+      ]
+    },
+    {
+      "id": "MG-12",
+      "name_key": "minigame.MG-12.name",
+      "when_key": "minigame.MG-12.when",
+      "stage": "flight",
+      "flight_phases": [
+        "F5",
+        "F7"
+      ],
+      "triggers": [
+        {
+          "kind": "failure_mode",
+          "failure_mode": "engine_shutdown"
+        }
+      ],
+      "type": "cooperative_split",
+      "duration_s": 20,
+      "how_to_play_key": "minigame.MG-12.how_to_play",
+      "detail_key": "minigame.MG-12.detail",
+      "success_key": "minigame.MG-12.success",
+      "aggregation": "none",
+      "facts": [
+        "F08"
+      ],
+      "fact_key": "fact.F08.text",
+      "reward_summary_key": "minigame.MG-12.boost",
+      "rewards": [
+        {
+          "flag": "recovers_lost_delta_v",
+          "text_key": "minigame.MG-12.reward.1"
+        },
+        {
+          "tiers": [
+            "gold",
+            "platinum"
+          ],
+          "flag": "restores_planned_trajectory",
+          "text_key": "minigame.MG-12.reward.2"
+        }
+      ],
+      "accessibility": {
+        "relaxed_key": "minigame.MG-12.relaxed",
+        "one_button_key": "minigame.MG-12.one_button"
+      },
+      "design_notes": [
+        "Table 9.1 lists MG-12 under F7 only; the When line also names F5. \"Near zero\" and \"recovers lost Δv\" have no numbers. Engine counts above one enable the minigame through their part rules."
+      ]
+    },
+    {
+      "id": "MG-13",
+      "name_key": "minigame.MG-13.name",
+      "when_key": "minigame.MG-13.when",
+      "stage": "flight",
+      "flight_phases": [
+        "F8"
+      ],
+      "triggers": [
+        {
+          "kind": "event",
+          "event": "ground_station_pass"
+        }
+      ],
+      "type": "parallel_solo",
+      "duration_s": 20,
+      "how_to_play_key": "minigame.MG-13.how_to_play",
+      "detail_key": "minigame.MG-13.detail",
+      "success_key": "minigame.MG-13.success",
+      "params": {
+        "lock_fraction_min": 0.75
+      },
+      "aggregation": "none",
+      "facts": [
+        "F09"
+      ],
+      "fact_key": "fact.F09.text",
+      "reward_summary_key": "minigame.MG-13.boost",
+      "rewards": [
+        {
+          "boost": "data_multiplier"
+        }
+      ],
+      "accessibility": {
+        "relaxed_key": "minigame.MG-13.relaxed",
+        "one_button_key": "minigame.MG-13.one_button"
+      }
+    },
+    {
+      "id": "MG-14",
+      "name_key": "minigame.MG-14.name",
+      "when_key": "minigame.MG-14.when",
+      "stage": "flight",
+      "flight_phases": [
+        "F8"
+      ],
+      "triggers": [
+        {
+          "kind": "event",
+          "event": "debris_conjunction"
+        }
+      ],
+      "type": "parallel_solo",
+      "duration_s": 20,
+      "how_to_play_key": "minigame.MG-14.how_to_play",
+      "detail_key": "minigame.MG-14.detail",
+      "success_key": "minigame.MG-14.success",
+      "params": {
+        "delta_v_ratio_max": 1.2
+      },
+      "aggregation": "none",
+      "facts": [
+        "F10"
+      ],
+      "fact_key": "fact.F10.text",
+      "reward_summary_key": "minigame.MG-14.boost",
+      "rewards": [
+        {
+          "boost": "fuel_saver"
+        },
+        {
+          "boost": "reliability_shield",
+          "shield_scope": "orbit"
+        }
+      ],
+      "accessibility": {
+        "relaxed_key": "minigame.MG-14.relaxed",
+        "one_button_key": "minigame.MG-14.one_button"
+      }
+    },
+    {
+      "id": "MG-15",
+      "name_key": "minigame.MG-15.name",
+      "when_key": "minigame.MG-15.when",
+      "stage": "flight",
+      "flight_phases": [
+        "F8"
+      ],
+      "triggers": [
+        {
+          "kind": "part_chosen",
+          "part": "satpwr_deployable_solar_wings"
+        },
+        {
+          "kind": "part_chosen",
+          "part": "satpwr_large_deployable_array"
+        },
+        {
+          "kind": "part_chosen",
+          "part": "pwr_deployable_solar_liion"
+        }
+      ],
+      "type": "cooperative_split",
+      "duration_s": 20,
+      "how_to_play_key": "minigame.MG-15.how_to_play",
+      "detail_key": "minigame.MG-15.detail",
+      "success_key": "minigame.MG-15.success",
+      "params": {
+        "sun_pointing_fraction_min": 0.8
+      },
+      "aggregation": "none",
+      "facts": [
+        "F11"
+      ],
+      "fact_key": "fact.F11.text",
+      "reward_summary_key": "minigame.MG-15.boost",
+      "rewards": [
+        {
+          "flag": "prevents_brownouts",
+          "text_key": "minigame.MG-15.reward.1"
+        },
+        {
+          "boost": "data_multiplier"
+        }
+      ],
+      "accessibility": {
+        "relaxed_key": "minigame.MG-15.relaxed",
+        "one_button_key": "minigame.MG-15.one_button"
+      },
+      "design_notes": [
+        "\"Deployable arrays\" is read as the three parts whose rules enable this minigame: the deployable solar wings and the large deployable array of 7.2.1 and the deployable solar arrays of 7.16."
+      ]
+    },
+    {
+      "id": "MG-16",
+      "name_key": "minigame.MG-16.name",
+      "when_key": "minigame.MG-16.when",
+      "stage": "flight",
+      "flight_phases": [
+        "F8"
+      ],
+      "contracts": [
+        "C3"
+      ],
+      "triggers": [
+        {
+          "kind": "always"
+        }
+      ],
+      "type": "parallel_solo",
+      "duration_s": 40,
+      "how_to_play_key": "minigame.MG-16.how_to_play",
+      "detail_key": "minigame.MG-16.detail",
+      "success_key": "minigame.MG-16.success",
+      "params": {
+        "alignment_error_below_cm": 10,
+        "contact_speed_below_cm_s": 10
+      },
+      "aggregation": "best_three_average",
+      "facts": [
+        "F12"
+      ],
+      "fact_key": "fact.F12.text",
+      "reward_summary_key": "minigame.MG-16.boost",
+      "rewards": [
+        {
+          "boost": "precision"
+        },
+        {
+          "boost": "score_multiplier"
+        },
+        {
+          "tiers": [
+            "gold",
+            "platinum"
+          ],
+          "flag": "enables_stretch_objective",
+          "text_key": "minigame.MG-16.reward.1"
+        }
+      ],
+      "accessibility": {
+        "relaxed_key": "minigame.MG-16.relaxed",
+        "one_button_key": "minigame.MG-16.one_button"
+      },
+      "design_notes": [
+        "\"The team's best three average sets the result\" is aggregation best_three_average. The C3 stretch objective asks for contact under 0.05 m/s (5 cm/s), half the success limit."
+      ]
+    },
+    {
+      "id": "MG-17",
+      "name_key": "minigame.MG-17.name",
+      "when_key": "minigame.MG-17.when",
+      "stage": "flight",
+      "flight_phases": [
+        "F8",
+        "F12"
+      ],
+      "triggers": [
+        {
+          "kind": "event",
+          "event": "alarms"
+        },
+        {
+          "kind": "anomaly",
+          "anomaly": "software_bug_found"
+        }
+      ],
+      "type": "parallel_solo",
+      "duration_s": 20,
+      "how_to_play_key": "minigame.MG-17.how_to_play",
+      "detail_key": "minigame.MG-17.detail",
+      "success_key": "minigame.MG-17.success",
+      "params": {
+        "correct_fraction_min": 0.85
+      },
+      "aggregation": "none",
+      "facts": [
+        "F13"
+      ],
+      "fact_key": "fact.F13.text",
+      "reward_summary_key": "minigame.MG-17.boost",
+      "rewards": [
+        {
+          "boost": "reliability_shield"
+        },
+        {
+          "boost": "precision"
+        }
+      ],
+      "accessibility": {
+        "relaxed_key": "minigame.MG-17.relaxed",
+        "one_button_key": "minigame.MG-17.one_button"
+      },
+      "design_notes": [
+        "\"Descent\" is read as flight phase F12 (Descent: drogues → mains); table 9.1 lists the minigame under F8 only. The anomaly trigger is the \"fly with workaround\" response of the Software Bug Found card."
+      ]
+    },
+    {
+      "id": "MG-18",
+      "name_key": "minigame.MG-18.name",
+      "when_key": "minigame.MG-18.when",
+      "stage": "flight",
+      "flight_phases": [
+        "F8"
+      ],
+      "triggers": [
+        {
+          "kind": "event",
+          "event": "eclipse"
+        }
+      ],
+      "type": "parallel_solo",
+      "duration_s": 25,
+      "how_to_play_key": "minigame.MG-18.how_to_play",
+      "detail_key": "minigame.MG-18.detail",
+      "success_key": "minigame.MG-18.success",
+      "aggregation": "none",
+      "facts": [
+        "F14"
+      ],
+      "fact_key": "fact.F14.text",
+      "reward_summary_key": "minigame.MG-18.boost",
+      "rewards": [
+        {
+          "flag": "power_margin_up",
+          "text_key": "minigame.MG-18.reward.1"
+        },
+        {
+          "boost": "data_multiplier"
+        }
+      ],
+      "accessibility": {
+        "relaxed_key": "minigame.MG-18.relaxed",
+        "one_button_key": "minigame.MG-18.one_button"
+      },
+      "design_notes": [
+        "\"Power margin\" has no number in the design; it is a flag."
+      ]
+    },
+    {
+      "id": "MG-19",
+      "name_key": "minigame.MG-19.name",
+      "when_key": "minigame.MG-19.when",
+      "stage": "flight",
+      "flight_phases": [
+        "F8"
+      ],
+      "crewed_only": true,
+      "triggers": [
+        {
+          "kind": "event",
+          "event": "life_support_event"
+        }
+      ],
+      "type": "cooperative_split",
+      "duration_s": 35,
+      "how_to_play_key": "minigame.MG-19.how_to_play",
+      "detail_key": "minigame.MG-19.detail",
+      "success_key": "minigame.MG-19.success",
+      "aggregation": "none",
+      "facts": [
+        "F15"
+      ],
+      "fact_key": "fact.F15.text",
+      "reward_summary_key": "minigame.MG-19.boost",
+      "rewards": [
+        {
+          "boost": "crew_morale"
+        },
+        {
+          "boost": "reliability_shield",
+          "shield_scope": "crew_safety"
+        }
+      ],
+      "accessibility": {
+        "relaxed_key": "minigame.MG-19.relaxed",
+        "one_button_key": "minigame.MG-19.one_button"
+      },
+      "design_notes": [
+        "The regenerative life-support option enables this minigame through its part rule (7.2.2)."
+      ]
+    },
+    {
+      "id": "MG-20",
+      "name_key": "minigame.MG-20.name",
+      "when_key": "minigame.MG-20.when",
+      "stage": "flight",
+      "flight_phases": [
+        "F9"
+      ],
+      "triggers": [
+        {
+          "kind": "always"
+        }
+      ],
+      "type": "parallel_solo",
+      "duration_s": 15,
+      "how_to_play_key": "minigame.MG-20.how_to_play",
+      "detail_key": "minigame.MG-20.detail",
+      "success_key": "minigame.MG-20.success",
+      "aggregation": "team_median",
+      "fact_key": "minigame.MG-20.fact",
+      "reward_summary_key": "minigame.MG-20.boost",
+      "rewards": [
+        {
+          "boost": "precision",
+          "precision_target": "landing_ellipse"
+        },
+        {
+          "boost": "fuel_saver"
+        }
+      ],
+      "accessibility": {
+        "relaxed_key": "minigame.MG-20.relaxed",
+        "one_button_key": "minigame.MG-20.one_button"
+      },
+      "design_notes": [
+        "Table 9.1 writes the F8 minigames as \"MG-13 to MG-21\", a range that includes MG-20; its own entry and the F9 row place it in F9 only."
+      ]
+    },
+    {
+      "id": "MG-21",
+      "name_key": "minigame.MG-21.name",
+      "when_key": "minigame.MG-21.when",
+      "stage": "flight",
+      "flight_phases": [
+        "F8"
+      ],
+      "contracts": [
+        "C1"
+      ],
+      "triggers": [
+        {
+          "kind": "event",
+          "event": "science_target_pass"
+        }
+      ],
+      "type": "parallel_solo",
+      "duration_s": 20,
+      "how_to_play_key": "minigame.MG-21.how_to_play",
+      "detail_key": "minigame.MG-21.detail",
+      "success_key": "minigame.MG-21.success",
+      "params": {
+        "good_captures_min": 3
+      },
+      "aggregation": "none",
+      "facts": [
+        "F16"
+      ],
+      "fact_key": "fact.F16.text",
+      "reward_summary_key": "minigame.MG-21.boost",
+      "rewards": [
+        {
+          "boost": "data_multiplier"
+        },
+        {
+          "flag": "science_objective_credit",
+          "text_key": "minigame.MG-21.reward.1"
+        }
+      ],
+      "accessibility": {
+        "relaxed_key": "minigame.MG-21.relaxed",
+        "one_button_key": "minigame.MG-21.one_button"
+      },
+      "design_notes": [
+        "\"Other observation contracts\": only C1 has science scoring in table 5.1, so contracts lists C1."
+      ]
+    },
+    {
+      "id": "MG-22",
+      "name_key": "minigame.MG-22.name",
+      "when_key": "minigame.MG-22.when",
+      "stage": "flight",
+      "flight_phases": [
+        "F10"
+      ],
+      "triggers": [
+        {
+          "kind": "always"
+        }
+      ],
+      "type": "parallel_solo",
+      "duration_s": 25,
+      "how_to_play_key": "minigame.MG-22.how_to_play",
+      "detail_key": "minigame.MG-22.detail",
+      "success_key": "minigame.MG-22.success",
+      "params": {
+        "in_corridor_fraction_min": 0.85
+      },
+      "aggregation": "team_average",
+      "facts": [
+        "F17"
+      ],
+      "fact_key": "fact.F17.text",
+      "reward_summary_key": "minigame.MG-22.boost",
+      "rewards": [
+        {
+          "boost": "heat_margin"
+        },
+        {
+          "boost": "precision"
+        }
+      ],
+      "accessibility": {
+        "relaxed_key": "minigame.MG-22.relaxed",
+        "one_button_key": "minigame.MG-22.one_button"
+      },
+      "design_notes": [
+        "\"The team average sets the real flight path angle\" is aggregation team_average."
+      ]
+    },
+    {
+      "id": "MG-23",
+      "name_key": "minigame.MG-23.name",
+      "when_key": "minigame.MG-23.when",
+      "stage": "flight",
+      "flight_phases": [
+        "F12"
+      ],
+      "triggers": [
+        {
+          "kind": "always"
+        }
+      ],
+      "type": "cooperative_split",
+      "duration_s": 20,
+      "how_to_play_key": "minigame.MG-23.how_to_play",
+      "detail_key": "minigame.MG-23.detail",
+      "success_key": "minigame.MG-23.success",
+      "aggregation": "none",
+      "facts": [
+        "F18"
+      ],
+      "fact_key": "fact.F18.text",
+      "reward_summary_key": "minigame.MG-23.boost",
+      "rewards": [
+        {
+          "boost": "crew_morale"
+        },
+        {
+          "flag": "recovery_refund",
+          "text_key": "minigame.MG-23.reward.1"
+        },
+        {
+          "boost": "score_multiplier"
+        }
+      ],
+      "accessibility": {
+        "relaxed_key": "minigame.MG-23.relaxed",
+        "one_button_key": "minigame.MG-23.one_button"
+      },
+      "design_notes": [
+        "\"Recovery refund\" has no number in the design; it is a flag. Crew Morale applies on crewed contracts only (boost catalog)."
+      ]
+    },
+    {
+      "id": "MG-24",
+      "name_key": "minigame.MG-24.name",
+      "when_key": "minigame.MG-24.when",
+      "stage": "flight",
+      "flight_phases": [
+        "F7b"
+      ],
+      "triggers": [
+        {
+          "kind": "part_chosen",
+          "part": "brec_propulsive_rtls"
+        },
+        {
+          "kind": "part_chosen",
+          "part": "brec_propulsive_drone_ship"
+        }
+      ],
+      "type": "parallel_solo",
+      "duration_s": 20,
+      "how_to_play_key": "minigame.MG-24.how_to_play",
+      "detail_key": "minigame.MG-24.detail",
+      "success_key": "minigame.MG-24.success",
+      "params": {
+        "touchdown_speed_below_m_s": 2
+      },
+      "aggregation": "team_median",
+      "fact_key": "minigame.MG-24.fact",
+      "reward_summary_key": "minigame.MG-24.boost",
+      "rewards": [
+        {
+          "flag": "booster_recovery_success",
+          "text_key": "minigame.MG-24.reward.1"
+        },
+        {
+          "boost": "budget_refund"
+        }
+      ],
+      "accessibility": {
+        "relaxed_key": "minigame.MG-24.relaxed",
+        "one_button_key": "minigame.MG-24.one_button"
+      },
+      "design_notes": [
+        "\"C8 landing\" is the booster landing of C8, which is flight phase F7b as well. The two propulsive booster-recovery options enable the minigame (7.18)."
+      ]
+    },
+    {
+      "id": "MG-25",
+      "name_key": "minigame.MG-25.name",
+      "when_key": "minigame.MG-25.when",
+      "stage": "flight",
+      "flight_phases": [
+        "F11"
+      ],
+      "triggers": [
+        {
+          "kind": "event",
+          "event": "blackout_end"
+        }
+      ],
+      "type": "parallel_solo",
+      "duration_s": 15,
+      "how_to_play_key": "minigame.MG-25.how_to_play",
+      "detail_key": "minigame.MG-25.detail",
+      "success_key": "minigame.MG-25.success",
+      "params": {
+        "lock_time_max_s": 10
+      },
+      "aggregation": "none",
+      "facts": [
+        "F19"
+      ],
+      "fact_key": "fact.F19.text",
+      "reward_summary_key": "minigame.MG-25.boost",
+      "rewards": [
+        {
+          "boost": "precision"
+        },
+        {
+          "boost": "crew_morale"
+        }
+      ],
+      "accessibility": {
+        "relaxed_key": "minigame.MG-25.relaxed",
+        "one_button_key": "minigame.MG-25.one_button"
+      }
+    },
+    {
+      "id": "MG-26",
+      "name_key": "minigame.MG-26.name",
+      "when_key": "minigame.MG-26.when",
+      "stage": "flight",
+      "flight_phases": [
+        "F10"
+      ],
+      "contracts": [
+        "C7"
+      ],
+      "triggers": [
+        {
+          "kind": "always"
+        }
+      ],
+      "type": "relay",
+      "duration_s": 45,
+      "how_to_play_key": "minigame.MG-26.how_to_play",
+      "detail_key": "minigame.MG-26.detail",
+      "success_key": "minigame.MG-26.success",
+      "aggregation": "none",
+      "facts": [
+        "F20"
+      ],
+      "fact_key": "fact.F20.text",
+      "reward_summary_key": "minigame.MG-26.boost",
+      "rewards": [
+        {
+          "boost": "precision",
+          "precision_target": "landing_ellipse"
+        },
+        {
+          "boost": "reliability_shield"
+        }
+      ],
+      "accessibility": {
+        "relaxed_key": "minigame.MG-26.relaxed",
+        "one_button_key": "minigame.MG-26.one_button"
+      },
+      "design_notes": [
+        "The type is \"Relay (pre-programming), 45 s, then watch\". The When line names no flight phase; the minigame is placed in F10 (entry interface) because it is played \"before entry\". The Mars landers enable it through their part rules."
+      ]
+    },
+    {
+      "id": "MG-27",
+      "name_key": "minigame.MG-27.name",
+      "when_key": "minigame.MG-27.when",
+      "stage": "flight",
+      "flight_phases": [
+        "F13"
+      ],
+      "triggers": [
+        {
+          "kind": "part_chosen",
+          "part": "crec_parachutes_splashdown"
+        }
+      ],
+      "type": "cooperative_split",
+      "duration_s": 20,
+      "how_to_play_key": "minigame.MG-27.how_to_play",
+      "detail_key": "minigame.MG-27.detail",
+      "success_key": "minigame.MG-27.success",
+      "aggregation": "none",
+      "fact_key": "minigame.MG-27.fact",
+      "reward_summary_key": "minigame.MG-27.boost",
+      "rewards": [
+        {
+          "boost": "crew_morale"
+        },
+        {
+          "flag": "recovery_refund",
+          "text_key": "minigame.MG-27.reward.1"
+        }
+      ],
+      "accessibility": {
+        "relaxed_key": "minigame.MG-27.relaxed",
+        "one_button_key": "minigame.MG-27.one_button"
+      },
+      "design_notes": [
+        "\"F13 splashdown\" is read as the Parachutes + splashdown recovery option, whose part rule enables the minigame. \"Recovery refund\" has no number in the design."
+      ]
+    },
+    {
+      "id": "MG-28",
+      "name_key": "minigame.MG-28.name",
+      "when_key": "minigame.MG-28.when",
+      "stage": "debrief",
+      "flight_phases": [
+        "F14"
+      ],
+      "triggers": [
+        {
+          "kind": "event",
+          "event": "mission_failure"
+        },
+        {
+          "kind": "event",
+          "event": "major_anomaly"
+        }
+      ],
+      "type": "cooperative",
+      "duration_s": 45,
+      "how_to_play_key": "minigame.MG-28.how_to_play",
+      "detail_key": "minigame.MG-28.detail",
+      "success_key": "minigame.MG-28.success",
+      "aggregation": "none",
+      "fact_key": "minigame.MG-28.fact",
+      "reward_summary_key": "minigame.MG-28.boost",
+      "rewards": [
+        {
+          "flag": "lessons_learned_card_quality",
+          "text_key": "minigame.MG-28.reward.1"
+        },
+        {
+          "tiers": [
+            "gold",
+            "platinum"
+          ],
+          "flag": "permanent_free_fix_and_codex_badge",
+          "text_key": "minigame.MG-28.reward.2"
+        }
+      ],
+      "accessibility": {
+        "relaxed_key": "minigame.MG-28.relaxed",
+        "one_button_key": "minigame.MG-28.one_button"
+      },
+      "design_notes": [
+        "The type is \"Cooperative\" with no sub-type of 10.2. \"(debrief)\" is read as flight phase F14 Debrief, whose row in table 9.1 lists no minigame."
+      ]
+    },
+    {
+      "id": "MG-29",
+      "name_key": "minigame.MG-29.name",
+      "when_key": "minigame.MG-29.when",
+      "stage": "between_phases",
+      "triggers": [
+        {
+          "kind": "always"
+        }
+      ],
+      "type": "parallel_solo",
+      "duration_s": 10,
+      "how_to_play_key": "minigame.MG-29.how_to_play",
+      "detail_key": "minigame.MG-29.detail",
+      "success_key": "minigame.MG-29.success",
+      "aggregation": "none",
+      "facts": [
+        "F32"
+      ],
+      "fact_key": "fact.F32.text",
+      "reward_summary_key": "minigame.MG-29.boost",
+      "rewards": [
+        {
+          "flag": "knowledge_points",
+          "text_key": "minigame.MG-29.reward.1"
+        },
+        {
+          "boost": "score_multiplier",
+          "boost_size": "small"
+        }
+      ],
+      "accessibility": {
+        "relaxed_key": "minigame.MG-29.relaxed",
+        "one_button_key": "minigame.MG-29.one_button"
+      },
+      "design_notes": [
+        "The design gives no Knowledge Point amount here; section 11.3 scores a correct prediction at 50 points. \"Small Score Multiplier\" has no magnitude (boost_size small)."
+      ]
+    },
+    {
+      "id": "MG-30",
+      "name_key": "minigame.MG-30.name",
+      "when_key": "minigame.MG-30.when",
+      "stage": "build",
+      "triggers": [
+        {
+          "kind": "review",
+          "review": "CDR"
+        }
+      ],
+      "type": "cooperative",
+      "duration_s": 30,
+      "how_to_play_key": "minigame.MG-30.how_to_play",
+      "detail_key": "minigame.MG-30.detail",
+      "success_key": "minigame.MG-30.success",
+      "always_succeeds": true,
+      "aggregation": "none",
+      "facts": [
+        "F36"
+      ],
+      "fact_key": "fact.F36.text",
+      "reward_summary_key": "minigame.MG-30.boost",
+      "rewards": [
+        {
+          "flag": "cosmetic_mission_patch",
+          "text_key": "minigame.MG-30.reward.1"
+        }
+      ],
+      "accessibility": {
+        "relaxed_key": "minigame.MG-30.relaxed",
+        "one_button_key": "minigame.MG-30.one_button"
+      },
+      "design_notes": [
+        "The type is \"Cooperative\" with no sub-type of 10.2."
+      ]
+    }
+  ],
+  "value_types": {
+    "minigames": "game_value"
+  }
+}

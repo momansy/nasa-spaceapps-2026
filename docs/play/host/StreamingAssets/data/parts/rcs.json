@@ -1,0 +1,99 @@
+{
+  "$schema": "../schema/part.schema.json",
+  "category": "rcs",
+  "name_key": "category.rcs.name",
+  "design_section": "7.15",
+  "design_notes": [
+    "The table heading says the RCS is \"used in space\". The table has no twin, fact, cost or mass column, so those fields are absent.",
+    "Isp is stored without the \"~\" and tagged real_world_approximate: the three figures are typical of the real thruster classes.",
+    "\"Cheap\", \"costly\", \"weak\", \"limited fuel\", \"toxic\" and \"complex\" have no numbers. The ones Core could act on are flags; the design gives no cost for any RCS option, so the cost words cannot affect the budget yet.",
+    "Helium Shortage (6.8) is weighted by \"pressure-fed systems\", but the design labels no part as pressure-fed, so no RCS option carries that anomaly weight (same choice as upper_stage_engine.json). Real hydrazine and bipropellant thrusters are fed by tank pressure, so they are the natural candidates once the design names them.",
+    "No option is restricted to a contract."
+  ],
+  "parts": [
+    {
+      "id": "rcs_cold_gas",
+      "category": "rcs",
+      "name_key": "part.rcs_cold_gas.name",
+      "strengths": [
+        "part.rcs_cold_gas.strength.1",
+        "part.rcs_cold_gas.strength.2",
+        "part.rcs_cold_gas.strength.3"
+      ],
+      "drawbacks": [
+        "part.rcs_cold_gas.drawback.1",
+        "part.rcs_cold_gas.drawback.2"
+      ],
+      "model": "models/rcs_cold_gas.glb",
+      "stats": {
+        "isp_s": 70
+      },
+      "game": {},
+      "rules": [
+        {
+          "kind": "flag",
+          "flag": "weak_thrust"
+        },
+        {
+          "kind": "flag",
+          "flag": "limited_fuel"
+        }
+      ],
+      "value_types": {
+        "stats": "real_world_approximate"
+      }
+    },
+    {
+      "id": "rcs_monopropellant_hydrazine",
+      "category": "rcs",
+      "name_key": "part.rcs_monopropellant_hydrazine.name",
+      "strengths": [
+        "part.rcs_monopropellant_hydrazine.strength.1"
+      ],
+      "drawbacks": [
+        "part.rcs_monopropellant_hydrazine.drawback.1"
+      ],
+      "model": "models/rcs_monopropellant_hydrazine.glb",
+      "stats": {
+        "isp_s": 225
+      },
+      "game": {},
+      "rules": [
+        {
+          "kind": "flag",
+          "flag": "toxic_propellant"
+        }
+      ],
+      "value_types": {
+        "stats": "real_world_approximate"
+      }
+    },
+    {
+      "id": "rcs_bipropellant",
+      "category": "rcs",
+      "name_key": "part.rcs_bipropellant.name",
+      "strengths": [
+        "part.rcs_bipropellant.strength.1",
+        "part.rcs_bipropellant.strength.2"
+      ],
+      "drawbacks": [
+        "part.rcs_bipropellant.drawback.1",
+        "part.rcs_bipropellant.drawback.2"
+      ],
+      "model": "models/rcs_bipropellant.glb",
+      "stats": {
+        "isp_s": 290
+      },
+      "game": {},
+      "rules": [
+        {
+          "kind": "flag",
+          "flag": "complex_system"
+        }
+      ],
+      "value_types": {
+        "stats": "real_world_approximate"
+      }
+    }
+  ]
+}

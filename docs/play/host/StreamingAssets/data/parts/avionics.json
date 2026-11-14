@@ -1,0 +1,178 @@
+{
+  "$schema": "../schema/part.schema.json",
+  "category": "avionics",
+  "name_key": "category.avionics.name",
+  "design_section": "7.13",
+  "design_notes": [
+    "The \"Twin / fact\" column is stored in twin. Commercial computer (single) shows none.",
+    "Mass is tagged game_value: the design classifies only engine thrust and Isp as real-world approximate (7.0, 19) and says nothing about avionics mass.",
+    "computer_count is not a table column. It is read from the option names: single = 1, \"three computers vote\" = 3, rad-hard + backup = 2, and plain radiation-hardened = 1 because the next row is the one that adds a backup.",
+    "The table reliability is taken as the figure of the whole option. The redundancy formula of 6.5 does not reproduce it (three 97% computers in parallel give 99.997%, the table says 99.2%), so Core should not apply the formula on top of the table value. Open design question.",
+    "radiation_bit_flip (8.4: \"Commercial computer, long mission\", mitigated by rad-hard or redundancy) is listed only for the single commercial computer. The design does not say how long a \"long mission\" is.",
+    "software_overflow (8.4: \"Skipped software test\") is listed for every flight computer, with the software-in-the-loop test of 6.6 as its mitigation.",
+    "\"Slow processor (guidance precision −10%)\" is a modifier on guidance_precision. Rad-hard + backup uses the same class of computer, but the design does not repeat the penalty there, so it carries none.",
+    "\"More wiring & integration\" (triple-redundant) has no day or cost number; 6.7 says redundancy adds integration days without giving them. It is carried as a flag.",
+    "No option is restricted to a contract. \"Best for crewed & deep space\" is advice, not a restriction."
+  ],
+  "parts": [
+    {
+      "id": "avi_commercial_single",
+      "category": "avionics",
+      "name_key": "part.avi_commercial_single.name",
+      "strengths": [
+        "part.avi_commercial_single.strength.1",
+        "part.avi_commercial_single.strength.2"
+      ],
+      "drawbacks": [
+        "part.avi_commercial_single.drawback.1"
+      ],
+      "model": "models/avi_commercial_single.glb",
+      "stats": {
+        "mass_kg": 10,
+        "computer_count": 1,
+        "radiation_hardened": false
+      },
+      "game": {
+        "cost_M": 1,
+        "reliability": 0.97
+      },
+      "rules": [
+        {
+          "kind": "test_mitigates_failure_mode",
+          "failure_mode": "software_overflow",
+          "test": "software_in_the_loop"
+        }
+      ],
+      "failure_modes": [
+        "radiation_bit_flip",
+        "software_overflow"
+      ],
+      "value_types": {
+        "stats": "game_value",
+        "game": "game_value"
+      }
+    },
+    {
+      "id": "avi_triple_redundant_commercial",
+      "category": "avionics",
+      "name_key": "part.avi_triple_redundant_commercial.name",
+      "twin": "part.avi_triple_redundant_commercial.twin",
+      "strengths": [
+        "part.avi_triple_redundant_commercial.strength.1",
+        "part.avi_triple_redundant_commercial.strength.2"
+      ],
+      "drawbacks": [
+        "part.avi_triple_redundant_commercial.drawback.1"
+      ],
+      "model": "models/avi_triple_redundant_commercial.glb",
+      "stats": {
+        "mass_kg": 30,
+        "computer_count": 3,
+        "radiation_hardened": false
+      },
+      "game": {
+        "cost_M": 3,
+        "reliability": 0.992
+      },
+      "rules": [
+        {
+          "kind": "flag",
+          "flag": "more_wiring_and_integration"
+        },
+        {
+          "kind": "test_mitigates_failure_mode",
+          "failure_mode": "software_overflow",
+          "test": "software_in_the_loop"
+        }
+      ],
+      "failure_modes": [
+        "software_overflow"
+      ],
+      "value_types": {
+        "stats": "game_value",
+        "game": "game_value"
+      }
+    },
+    {
+      "id": "avi_radiation_hardened",
+      "category": "avionics",
+      "name_key": "part.avi_radiation_hardened.name",
+      "twin": "part.avi_radiation_hardened.twin",
+      "strengths": [
+        "part.avi_radiation_hardened.strength.1",
+        "part.avi_radiation_hardened.strength.2"
+      ],
+      "drawbacks": [
+        "part.avi_radiation_hardened.drawback.1"
+      ],
+      "model": "models/avi_radiation_hardened.glb",
+      "stats": {
+        "mass_kg": 15,
+        "computer_count": 1,
+        "radiation_hardened": true
+      },
+      "game": {
+        "cost_M": 8,
+        "reliability": 0.995
+      },
+      "modifiers": [
+        {
+          "target": "guidance_precision",
+          "op": "add_fraction",
+          "value": -0.1
+        }
+      ],
+      "rules": [
+        {
+          "kind": "test_mitigates_failure_mode",
+          "failure_mode": "software_overflow",
+          "test": "software_in_the_loop"
+        }
+      ],
+      "failure_modes": [
+        "software_overflow"
+      ],
+      "value_types": {
+        "stats": "game_value",
+        "game": "game_value",
+        "modifiers": "game_value"
+      }
+    },
+    {
+      "id": "avi_rad_hard_backup",
+      "category": "avionics",
+      "name_key": "part.avi_rad_hard_backup.name",
+      "twin": "part.avi_rad_hard_backup.twin",
+      "strengths": [
+        "part.avi_rad_hard_backup.strength.1"
+      ],
+      "drawbacks": [
+        "part.avi_rad_hard_backup.drawback.1"
+      ],
+      "model": "models/avi_rad_hard_backup.glb",
+      "stats": {
+        "mass_kg": 30,
+        "computer_count": 2,
+        "radiation_hardened": true
+      },
+      "game": {
+        "cost_M": 12,
+        "reliability": 0.998
+      },
+      "rules": [
+        {
+          "kind": "test_mitigates_failure_mode",
+          "failure_mode": "software_overflow",
+          "test": "software_in_the_loop"
+        }
+      ],
+      "failure_modes": [
+        "software_overflow"
+      ],
+      "value_types": {
+        "stats": "game_value",
+        "game": "game_value"
+      }
+    }
+  ]
+}

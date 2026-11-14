@@ -1,0 +1,120 @@
+{
+  "$schema": "../schema/part.schema.json",
+  "category": "escape_system",
+  "name_key": "category.escape_system.name",
+  "design_section": "7.4",
+  "facts": [
+    "F30"
+  ],
+  "design_notes": [
+    "\"Crewed only\": the options list C4 (launch escape system required, 5.1) and C6. Table 5.1 does not say whether C6 Lunar Loop is crewed; it is included so the options exist if it is.",
+    "Escape tower: \"jettisoned after ~2.5 min\" is stored as jettison_time_s 150 and carried_all_flight false.",
+    "Ejection seats: the Mass cell says only \"0.4 t\". carried_all_flight is required by the schema and is set to true as a choice of this file (nothing says the seats are jettisoned); confirm with the design owner.",
+    "abort_envelope_max maps the Abort envelope column: \"Pad → upper atmosphere\" upper_atmosphere, \"Pad → orbit\" orbit, \"Pad & low altitude only\" low_altitude.",
+    "The table has no cost, reliability or maturity: \"cheap\" (ejection seats) and \"proven\" (tower) are texts only. Stats are tagged game_value: the design states no provenance for them.",
+    "Flags: crew_safety_score_capped (ejection seats; no cap value is given) and enables_propulsive_landing_upgrades (pusher engines; 7.19 says propulsive capsule landing \"needs pusher escape engines\").",
+    "F30 (Soyuz MS-10) is the \"Did you know?\" line under the table and is kept at category level: the line names no option."
+  ],
+  "parts": [
+    {
+      "id": "les_escape_tower",
+      "category": "escape_system",
+      "name_key": "part.les_escape_tower.name",
+      "twin": "part.les_escape_tower.twin",
+      "strengths": [
+        "part.les_escape_tower.strength.1",
+        "part.les_escape_tower.strength.2"
+      ],
+      "drawbacks": [
+        "part.les_escape_tower.drawback.1",
+        "part.les_escape_tower.drawback.2"
+      ],
+      "contracts": [
+        "C4",
+        "C6"
+      ],
+      "model": "models/les_escape_tower.glb",
+      "stats": {
+        "mass_t": 7,
+        "carried_all_flight": false,
+        "jettison_time_s": 150,
+        "abort_envelope_key": "part.les_escape_tower.abort_envelope",
+        "abort_envelope_max": "upper_atmosphere"
+      },
+      "game": {},
+      "value_types": {
+        "stats": "game_value"
+      }
+    },
+    {
+      "id": "les_integrated_pusher",
+      "category": "escape_system",
+      "name_key": "part.les_integrated_pusher.name",
+      "twin": "part.les_integrated_pusher.twin",
+      "strengths": [
+        "part.les_integrated_pusher.strength.1",
+        "part.les_integrated_pusher.strength.2"
+      ],
+      "drawbacks": [
+        "part.les_integrated_pusher.drawback.1",
+        "part.les_integrated_pusher.drawback.2"
+      ],
+      "contracts": [
+        "C4",
+        "C6"
+      ],
+      "model": "models/les_integrated_pusher.glb",
+      "stats": {
+        "mass_t": 1.5,
+        "carried_all_flight": true,
+        "abort_envelope_key": "part.les_integrated_pusher.abort_envelope",
+        "abort_envelope_max": "orbit"
+      },
+      "game": {},
+      "rules": [
+        {
+          "kind": "flag",
+          "flag": "enables_propulsive_landing_upgrades"
+        }
+      ],
+      "value_types": {
+        "stats": "game_value"
+      }
+    },
+    {
+      "id": "les_ejection_seats",
+      "category": "escape_system",
+      "name_key": "part.les_ejection_seats.name",
+      "twin": "part.les_ejection_seats.twin",
+      "strengths": [
+        "part.les_ejection_seats.strength.1",
+        "part.les_ejection_seats.strength.2"
+      ],
+      "drawbacks": [
+        "part.les_ejection_seats.drawback.1",
+        "part.les_ejection_seats.drawback.2"
+      ],
+      "contracts": [
+        "C4",
+        "C6"
+      ],
+      "model": "models/les_ejection_seats.glb",
+      "stats": {
+        "mass_t": 0.4,
+        "carried_all_flight": true,
+        "abort_envelope_key": "part.les_ejection_seats.abort_envelope",
+        "abort_envelope_max": "low_altitude"
+      },
+      "game": {},
+      "rules": [
+        {
+          "kind": "flag",
+          "flag": "crew_safety_score_capped"
+        }
+      ],
+      "value_types": {
+        "stats": "game_value"
+      }
+    }
+  ]
+}

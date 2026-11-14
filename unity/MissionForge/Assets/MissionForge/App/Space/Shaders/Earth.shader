@@ -115,7 +115,7 @@ Shader "MissionForge/Earth"
 
                 float dayAmount = smoothstep(-0.08, 0.30, ndl);
                 float lit = saturate(ndl);
-                float3 sunTint = lerp(_TerminatorTint.rgb, float3(1, 1, 1), smoothstep(0.0, 0.42, ndl));
+                float3 sunTint = lerp(_TerminatorTint.rgb, float3(1, 1, 1), smoothstep(0.0, 0.16, ndl)); // Warm only in a narrow twilight band.
                 float3 sun = sunTint * _SunIntensity;
 
                 float shadow = 1.0 - _CloudShadow * smoothstep(0.15, 0.9, cloudShadowSample) * (1.0 - cloud);

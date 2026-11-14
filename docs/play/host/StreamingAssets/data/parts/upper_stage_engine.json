@@ -1,0 +1,210 @@
+{
+  "$schema": "../schema/part.schema.json",
+  "category": "upper_stage_engine",
+  "name_key": "category.upper_stage_engine.name",
+  "design_section": "7.8",
+  "facts": [
+    "F25"
+  ],
+  "design_notes": [
+    "The table has no Strengths, Lead / Integ. or Throttle column: no strengths, no lead_days, no integ_days, and a throttle range only for the solid motor (\"can't throttle\" is stored as throttle_min 1 and throttle_max 1, like the fixed-thrust Kerolox Giant of 7.7).",
+    "No contracts list: the design restricts no upper-stage engine (Appendix A shows Kerolox Vacuum and Hydrolox Vacuum offered in C1).",
+    "Hypergolic Storable: \"+$2 M ground handling, +3 days\" are modifiers. The cost is added once per vehicle (not per engine); the days are stored as schedule_days because the design does not say whether they are lead or integration time.",
+    "Solid Kick Motor: mass \"0.12 t (+2 t propellant fixed)\" is mass_t 0.12 and fixed_propellant_t 2; the motor ignores the tank-size vote. \"Can't shut down\" is the flag cannot_shut_down.",
+    "engine_shutdown is listed for every engine, as in first_stage_engine.json. For the solid motor it stands for a loss of thrust: 8.4 has no failure mode of its own for a motor that cannot be shut down.",
+    "Methalox Vacuum: \"large nozzle needs a bigger interstage\" has no mass: flag needs_bigger_interstage. Its row says \"New tech\" but, unlike the Methalox Full-Flow of 7.7, recommends no test.",
+    "Hydrolox Vacuum: boil-off on long coasts is checked by rule 6.11 through the propellant, so it has no flag (as for the hydrolox first-stage engine).",
+    "Section 6.8 weights Helium Shortage towards \"pressure-fed systems\", but the design labels no engine as pressure-fed, so no engine carries that anomaly weight.",
+    "F25 (hypergolics) is the \"Did you know?\" line under the table; it is on the category and on the Hypergolic Storable engine."
+  ],
+  "parts": [
+    {
+      "id": "eng_hydrolox_vacuum",
+      "category": "upper_stage_engine",
+      "name_key": "part.eng_hydrolox_vacuum.name",
+      "twin": "part.eng_hydrolox_vacuum.twin",
+      "strengths": [],
+      "drawbacks": [
+        "part.eng_hydrolox_vacuum.drawback.1",
+        "part.eng_hydrolox_vacuum.drawback.2",
+        "part.eng_hydrolox_vacuum.drawback.3"
+      ],
+      "model": "models/eng_hydrolox_vacuum.glb",
+      "stats": {
+        "propellant": "LH2_LOX",
+        "thrust_vac_kN": 110,
+        "isp_vac_s": 460,
+        "mass_t": 0.3,
+        "restarts": 15
+      },
+      "game": {
+        "cost_M": 10,
+        "reliability": 0.993,
+        "maturity": "proven"
+      },
+      "failure_modes": [
+        "engine_shutdown"
+      ],
+      "value_types": {
+        "stats": "real_world_approximate",
+        "game": "game_value"
+      }
+    },
+    {
+      "id": "eng_kerolox_vacuum",
+      "category": "upper_stage_engine",
+      "name_key": "part.eng_kerolox_vacuum.name",
+      "twin": "part.eng_kerolox_vacuum.twin",
+      "strengths": [],
+      "drawbacks": [
+        "part.eng_kerolox_vacuum.drawback.1"
+      ],
+      "model": "models/eng_kerolox_vacuum.glb",
+      "stats": {
+        "propellant": "RP1_LOX",
+        "thrust_vac_kN": 980,
+        "isp_vac_s": 348,
+        "mass_t": 0.6,
+        "restarts": 4
+      },
+      "game": {
+        "cost_M": 3,
+        "reliability": 0.985,
+        "maturity": "proven"
+      },
+      "failure_modes": [
+        "engine_shutdown"
+      ],
+      "value_types": {
+        "stats": "real_world_approximate",
+        "game": "game_value"
+      }
+    },
+    {
+      "id": "eng_methalox_vacuum",
+      "category": "upper_stage_engine",
+      "name_key": "part.eng_methalox_vacuum.name",
+      "twin": "part.eng_methalox_vacuum.twin",
+      "strengths": [],
+      "drawbacks": [
+        "part.eng_methalox_vacuum.drawback.1",
+        "part.eng_methalox_vacuum.drawback.2"
+      ],
+      "model": "models/eng_methalox_vacuum.glb",
+      "stats": {
+        "propellant": "CH4_LOX",
+        "thrust_vac_kN": 2000,
+        "isp_vac_s": 375,
+        "mass_t": 1.6,
+        "restarts": 6
+      },
+      "game": {
+        "cost_M": 4,
+        "reliability": 0.955,
+        "maturity": "new"
+      },
+      "rules": [
+        {
+          "kind": "flag",
+          "flag": "needs_bigger_interstage"
+        }
+      ],
+      "failure_modes": [
+        "engine_shutdown"
+      ],
+      "value_types": {
+        "stats": "real_world_approximate",
+        "game": "game_value"
+      }
+    },
+    {
+      "id": "eng_hypergolic_storable",
+      "category": "upper_stage_engine",
+      "name_key": "part.eng_hypergolic_storable.name",
+      "twin": "part.eng_hypergolic_storable.twin",
+      "strengths": [],
+      "drawbacks": [
+        "part.eng_hypergolic_storable.drawback.1",
+        "part.eng_hypergolic_storable.drawback.2"
+      ],
+      "facts": [
+        "F25"
+      ],
+      "model": "models/eng_hypergolic_storable.glb",
+      "stats": {
+        "propellant": "A50_N2O4",
+        "thrust_vac_kN": 90,
+        "isp_vac_s": 315,
+        "mass_t": 0.3,
+        "restarts": 50
+      },
+      "game": {
+        "cost_M": 6,
+        "reliability": 0.996,
+        "maturity": "proven"
+      },
+      "modifiers": [
+        {
+          "target": "cost_M",
+          "op": "add",
+          "value": 2,
+          "scope": "vehicle"
+        },
+        {
+          "target": "schedule_days",
+          "op": "add",
+          "value": 3,
+          "scope": "mission"
+        }
+      ],
+      "failure_modes": [
+        "engine_shutdown"
+      ],
+      "value_types": {
+        "stats": "real_world_approximate",
+        "game": "game_value",
+        "modifiers": "game_value"
+      }
+    },
+    {
+      "id": "eng_solid_kick_motor",
+      "category": "upper_stage_engine",
+      "name_key": "part.eng_solid_kick_motor.name",
+      "twin": "part.eng_solid_kick_motor.twin",
+      "strengths": [],
+      "drawbacks": [
+        "part.eng_solid_kick_motor.drawback.1",
+        "part.eng_solid_kick_motor.drawback.2"
+      ],
+      "model": "models/eng_solid_kick_motor.glb",
+      "stats": {
+        "propellant": "SOLID",
+        "thrust_vac_kN": 68,
+        "isp_vac_s": 290,
+        "mass_t": 0.12,
+        "fixed_propellant_t": 2,
+        "throttle_min": 1,
+        "throttle_max": 1,
+        "restarts": 0
+      },
+      "game": {
+        "cost_M": 2,
+        "reliability": 0.992,
+        "maturity": "proven"
+      },
+      "rules": [
+        {
+          "kind": "flag",
+          "flag": "cannot_shut_down"
+        }
+      ],
+      "failure_modes": [
+        "engine_shutdown"
+      ],
+      "value_types": {
+        "stats": "real_world_approximate",
+        "game": "game_value"
+      }
+    }
+  ]
+}

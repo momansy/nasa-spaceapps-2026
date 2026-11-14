@@ -1,0 +1,101 @@
+{
+  "$schema": "./schema/validation_rule.schema.json",
+  "design_notes": [
+    "One rule per row of table 6.11, in table order. The rule id is the condition identifier: Core maps each id to a predicate. name is the Rule column, explanation the \"Explanation shown\" column without its quotation marks.",
+    "Section 6.9 says the checks run at PDR, CDR and FRR; the design does not say which rule runs at which review.",
+    "The Readiness Dashboard (6.3) also warns when the upper-stage TWR is below 0.3 and shows a stability icon; neither is a row of 6.11, so neither is a rule here."
+  ],
+  "rules": [
+    {
+      "id": "liftoff_twr_too_low",
+      "name_key": "validation_rule.liftoff_twr_too_low.name",
+      "severity": "blocker",
+      "explanation_key": "validation_rule.liftoff_twr_too_low.explanation",
+      "params": {
+        "twr_min": 1
+      },
+      "value_types": {
+        "params": "physical"
+      },
+      "design_notes": [
+        "The rule fires when lift-off TWR is less than or equal to twr_min."
+      ]
+    },
+    {
+      "id": "delta_v_below_requirement",
+      "name_key": "validation_rule.delta_v_below_requirement.name",
+      "severity": "blocker",
+      "explanation_key": "validation_rule.delta_v_below_requirement.explanation",
+      "relaxed": {
+        "severity": "major",
+        "margin_fraction": 0.03
+      },
+      "value_types": {
+        "relaxed": "game_value"
+      },
+      "design_notes": [
+        "\"Blocker (unless margin within 3% → Major)\": a shortfall of up to 3% of the required Δv is Major instead of Blocker."
+      ]
+    },
+    {
+      "id": "crewed_without_launch_escape",
+      "name_key": "validation_rule.crewed_without_launch_escape.name",
+      "severity": "blocker",
+      "explanation_key": "validation_rule.crewed_without_launch_escape.explanation"
+    },
+    {
+      "id": "returning_payload_without_heat_shield",
+      "name_key": "validation_rule.returning_payload_without_heat_shield.name",
+      "severity": "blocker",
+      "explanation_key": "validation_rule.returning_payload_without_heat_shield.explanation",
+      "design_notes": [
+        "As written the rule also fires for C0, whose payload returns from a suborbital flight and which has no heat shield vote (see contracts.json)."
+      ]
+    },
+    {
+      "id": "heat_shield_rating_below_entry_speed",
+      "name_key": "validation_rule.heat_shield_rating_below_entry_speed.name",
+      "severity": "major",
+      "explanation_key": "validation_rule.heat_shield_rating_below_entry_speed.explanation"
+    },
+    {
+      "id": "payload_does_not_fit_fairing",
+      "name_key": "validation_rule.payload_does_not_fit_fairing.name",
+      "severity": "blocker",
+      "explanation_key": "validation_rule.payload_does_not_fit_fairing.explanation",
+      "design_notes": [
+        "The design gives fairing diameters (7.5) but no payload diameter for any contract or payload part."
+      ]
+    },
+    {
+      "id": "power_negative_in_eclipse",
+      "name_key": "validation_rule.power_negative_in_eclipse.name",
+      "severity": "major",
+      "explanation_key": "validation_rule.power_negative_in_eclipse.explanation"
+    },
+    {
+      "id": "upper_stage_restarts_below_required_burns",
+      "name_key": "validation_rule.upper_stage_restarts_below_required_burns.name",
+      "severity": "blocker",
+      "explanation_key": "validation_rule.upper_stage_restarts_below_required_burns.explanation",
+      "design_notes": [
+        "The design text is \"This mission needs N engine starts.\"; {n} is the placeholder for the number of burns the contract requires. No other string in the catalog has a placeholder yet, so the syntax is a proposal."
+      ]
+    },
+    {
+      "id": "hydrolox_upper_long_coast_without_boiloff_mitigation",
+      "name_key": "validation_rule.hydrolox_upper_long_coast_without_boiloff_mitigation.name",
+      "severity": "major",
+      "explanation_key": "validation_rule.hydrolox_upper_long_coast_without_boiloff_mitigation.explanation",
+      "design_notes": [
+        "No part or vote in the design provides boil-off mitigation, and \"long coast\" has no duration; only C5 is described as a long coast (5.1)."
+      ]
+    },
+    {
+      "id": "data_generated_exceeds_downlink",
+      "name_key": "validation_rule.data_generated_exceeds_downlink.name",
+      "severity": "minor",
+      "explanation_key": "validation_rule.data_generated_exceeds_downlink.explanation"
+    }
+  ]
+}

@@ -50,7 +50,9 @@ namespace MissionForge.Editor
         private static readonly Dictionary<ScreenId, (Vector3 position, Vector3 lookAt)> Vantages =
             new Dictionary<ScreenId, (Vector3, Vector3)>
             {
-                { ScreenId.Title, (new Vector3(-9.5f, 3.4f, -15.5f), new Vector3(-5.2f, 0.9f, 0f)) },
+                // Title (STYLE_GUIDE shot direction): Earth's limb low in frame with the terminator crossing it,
+                // quiet space above-left for the logo, rocket on the right against space.
+                { ScreenId.Title, (new Vector3(0f, 0f, -9.4f), new Vector3(0f, 7.55f, -2.84f)) },
                 { ScreenId.Lobby, (new Vector3(-3.0f, 10.5f, -22.0f), new Vector3(-1.0f, 8.4f, 0f)) },
                 { ScreenId.Briefing, (new Vector3(7.5f, 5.0f, -16.0f), new Vector3(5.6f, 2.0f, 0f)) },
                 { ScreenId.ContractVote, (new Vector3(0f, 13.0f, -21.0f), new Vector3(0f, 9.8f, 0f)) },
@@ -70,6 +72,7 @@ namespace MissionForge.Editor
         {
             ConfigureProject();
             ConfigureTextures();
+            RocketKitImport.SyncFromRepository();
             Mesh sphere = CreateSphereMesh();
             Material earth = CreateMaterial("MissionForge/Earth", SpaceDir + "/Materials/Earth.mat");
             earth.SetTexture("_DayTex", LoadTexture("earth_day_4k.jpg"));
@@ -78,6 +81,8 @@ namespace MissionForge.Editor
             earth.SetTexture("_CloudTex", LoadTexture("earth_clouds_2k.jpg"));
             Material atmosphere = CreateMaterial("MissionForge/Atmosphere", SpaceDir + "/Materials/Atmosphere.mat");
             Material starfield = CreateMaterial("MissionForge/Starfield", SpaceDir + "/Materials/Starfield.mat");
+            starfield.SetFloat("_StarBrightness", 0.7f); // Low star density and brightness (STYLE_GUIDE.md), game value.
+            EditorUtility.SetDirty(starfield);
             EditorUtility.SetDirty(earth);
 
             VolumeProfile profile = CreateVolumeProfile();
@@ -112,8 +117,8 @@ namespace MissionForge.Editor
             PlayerSettings.colorSpace = ColorSpace.Linear;
             PlayerSettings.runInBackground = true;
             PlayerSettings.SplashScreen.showUnityLogo = false;
-            PlayerSettings.WebGL.compressionFormat = WebGLCompressionFormat.Disabled;
-            PlayerSettings.WebGL.decompressionFallback = false;
+            PlayerSettings.WebGL.compressionFormat = WebGLCompressionFormat.Gzip;
+            PlayerSettings.WebGL.decompressionFallback = true; // Any static host works: the loader inflates .gz itself when Content-Encoding is missing.
             PlayerSettings.WebGL.template = "PROJECT:MissionForge";
             PlayerSettings.defaultScreenWidth = 1920;
             PlayerSettings.defaultScreenHeight = 1080;
@@ -265,7 +270,7 @@ namespace MissionForge.Editor
             tonemapping.mode.Override(TonemappingMode.ACES);
 
             var vignette = profile.Add<Vignette>(true);
-            vignette.intensity.Override(0.26f);
+            vignette.intensity.Override(0.16f); // STYLE_GUIDE.md: no heavy vignette.
             vignette.smoothness.Override(0.45f);
 
             var colour = profile.Add<ColorAdjustments>(true);
@@ -376,6 +381,7 @@ namespace MissionForge.Editor
             var navigator = app.AddComponent<HostNavigator>();
             var room = app.AddComponent<RoomClientBehaviour>();
             var data = app.AddComponent<GameDataService>();
+            var evidence = app.AddComponent<EvidenceDirector>();
             room.config = serverConfig;
             EditorUtility.SetDirty(room);
 
@@ -392,11 +398,31 @@ namespace MissionForge.Editor
             SetReference(root, "data", data);
             SetReference(flow, "chrome", chrome);
             SetReference(navigator, "flow", flow);
+            SetReference(evidence, "flow", flow);
 
             string path = ScenesDir + "/" + ScreenCatalog.ShellSceneName + ".unity";
             EnsureFolder(path);
             EditorSceneManager.SaveScene(scene, path);
+            BindPanelSettingsInSceneFile(path, panel);
             return path;
+        }
+
+        /// <summary>
+        /// Unity 6000.6 ignores UIDocument.panelSettings (setter and SerializedObject alike) for a document
+        /// created by an editor script, so every generated scene saved m_PanelSettings as null and no UI
+        /// rendered at runtime. The reference is written into the saved scene file instead and the scene
+        /// re-imported; at runtime the document then attaches to the shared panel as authored.
+        /// </summary>
+        private static void BindPanelSettingsInSceneFile(string scenePath, PanelSettings panel)
+        {
+            string guid = AssetDatabase.AssetPathToGUID(PanelSettingsPath);
+            if (string.IsNullOrEmpty(guid)) throw new System.InvalidOperationException("No panel settings asset at " + PanelSettingsPath);
+            string full = Path.GetFullPath(scenePath);
+            string text = File.ReadAllText(full);
+            string bound = text.Replace("m_PanelSettings: {fileID: 0}", "m_PanelSettings: {fileID: 11400000, guid: " + guid + ", type: 2}");
+            if (bound == text) return;
+            File.WriteAllText(full, bound);
+            AssetDatabase.ImportAsset(scenePath, ImportAssetOptions.ForceUpdate);
         }
 
         private static string BuildScreenScene(ScreenInfo info, PanelSettings panel, Material starfield)
@@ -424,6 +450,9 @@ namespace MissionForge.Editor
                 vantageGo.AddComponent<CameraDrift>();
             }
 
+            if (info.Id == ScreenId.BuildBay && vantage != null) KitStaging.AddBuildBayPad(go.transform, vantage.transform);
+            if (info.Id == ScreenId.Title && vantage != null) KitStaging.AddTitleVehicle(go.transform, vantage.transform);
+
             ScreenController controller;
             switch (info.Id)
             {
@@ -436,6 +465,7 @@ namespace MissionForge.Editor
 
             string path = ScenesDir + "/" + info.SceneName + ".unity";
             EditorSceneManager.SaveScene(scene, path);
+            BindPanelSettingsInSceneFile(path, panel);
             return path;
         }
 
