@@ -50,7 +50,7 @@ python3 mesh_supervisor.py --agent "$AGENT_ID" --provider claude --mode build --
 
 | Worker | `--model` | `--capabilities` | `--mcp` |
 |---|---|---|---|
-| `yousuf-amek` | `claude-fable-5-2` | `unity,blender,art3d` | your Unity and Blender server names |
+| `yousuf-amek`, `cyrex04` | `claude-fable-5-2` | `unity,blender,art3d` | your Unity and Blender server names |
 | `momansy` (Codex) | leave out (`--provider codex`) | `media,higgsfield` | not used by Codex |
 | `mohammed-alainieh` | `claude-opus-5-5` | `coding,qa,media` | your Higgsfield server name |
 | everyone else | `claude-opus-5-5` | `coding,qa` | leave out |
