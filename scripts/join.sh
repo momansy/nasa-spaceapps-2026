@@ -52,7 +52,8 @@ cd "$DEST"
 "$PYTHON" mesh.py bootstrap
 "$PYTHON" mesh.py roster
 if [ "${MESH_NO_START:-0}" = '1' ]; then say 'SETUP COMPLETE — no worker started'; exit 0; fi
-say "READY — starting $AGENT ($PROVIDER), mode=$MODE. Keep this terminal running."
-ARGS=(mesh.py worker --agent "$AGENT" --provider "$PROVIDER" --mode "$MODE" --path "$DEST")
+say "READY — starting auto-reconnect supervisor for $AGENT ($PROVIDER), mode=$MODE."
+say 'The worker will be restarted after internet outages; keep this terminal running.'
+ARGS=(mesh_supervisor.py --repo "$REPO" --agent "$AGENT" --provider "$PROVIDER" --mode "$MODE" --path "$DEST")
 if [ -n "$CAPABILITIES" ]; then ARGS+=(--capabilities "$CAPABILITIES"); fi
 exec "$PYTHON" "${ARGS[@]}"
