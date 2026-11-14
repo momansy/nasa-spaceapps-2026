@@ -871,7 +871,25 @@ def flag_stale_running(gh, lease_minutes=45):
     return stale
 
 
+def ensure_git_identity(repo_path, agent):
+    """Commits need an author. If this machine has none configured, use the agent's ID
+    for this worker process only (nothing is written to the git configuration)."""
+    try:
+        configured = subprocess.run(["git", "config", "user.email"], cwd=repo_path, text=True,
+                                    capture_output=True, timeout=30).stdout.strip()
+    except (OSError, subprocess.TimeoutExpired):
+        configured = ""
+    if configured:
+        return False
+    for role in ("AUTHOR", "COMMITTER"):
+        os.environ.setdefault(f"GIT_{role}_NAME", f"{agent} (agent mesh)")
+        os.environ.setdefault(f"GIT_{role}_EMAIL", f"{agent}@users.noreply.github.com")
+    return True
+
+
 def worker_loop(gh, args, repo_path):
+    if args.mode in ("code", "build") and ensure_git_identity(repo_path, args.agent):
+        print(f"No git identity configured; committing as {args.agent}@users.noreply.github.com")
     # A keepalive thread keeps long model calls online (model timeout may exceed TTL).
     stop = threading.Event()
     capabilities = normalized_capabilities(args.capabilities)
