@@ -98,7 +98,7 @@ namespace MissionForge.Core.Tests.Data
             Assert.Equal(0.015, c.Part("sep_hot_staging").Stats.DvBonusFraction);
             Assert.Equal(-0.15, c.Part("assur_faster_cheaper").Stats.CostFraction);
             Assert.Equal(1.5, c.Part("assur_faster_cheaper").Stats.BandScale);
-            Assert.Equal(0.01, c.Part("assur_class_a").Stats.ReliabilityBonus);
+            Assert.Equal(0.005, c.Part("assur_class_a").Stats.ReliabilityBonus);       // T012 balance fix (design 7.20 says +1%)
             Assert.Equal(2.0, c.Part("eng_hypergolic_storable").Stats.ExtraCostM);
             Assert.Equal(3.0, c.Part("eng_hypergolic_storable").Stats.ExtraIntegDays);
             Assert.Equal(2000.0, c.Part("eng_solid_kick_motor").Stats.PropellantKg);     // 2 t fixed propellant
