@@ -237,5 +237,21 @@ class TestPresenceRouting(unittest.TestCase):
             self.assertEqual(len(self.gh.find("ali", "done")), 1)
 
 
+    def test_claude_print_mode_prompt_uses_stdin(self):
+        # Some Claude CLI versions treat arguments after --allowedTools as more
+        # allowed tool names, leaving --print with no actual prompt.
+        envelope = '{"structured_output":{"summary":"ok","status":"done","handoffs":[]}}'
+        with TemporaryDirectory() as root:
+            with patch.object(mesh, "run_command", return_value=envelope) as run:
+                result = mesh.run_agent("claude", "Check Unity safely", root, "plan")
+            self.assertEqual(result["status"], "done")
+            args, kwargs = run.call_args
+            self.assertEqual(kwargs["input_text"], "Check Unity safely")
+            self.assertNotIn("Check Unity safely", args[0])
+            self.assertIn("-p", args[0])
+            self.assertFalse((Path(root) / ".mesh-output-schema.json").exists())
+
+
+
 if __name__ == "__main__":
     unittest.main()
