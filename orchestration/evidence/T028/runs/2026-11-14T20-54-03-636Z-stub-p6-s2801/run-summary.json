@@ -1,0 +1,236 @@
+{
+  "runId": "2026-11-14T20-54-03-636Z-stub-p6-s2801",
+  "playerCount": 6,
+  "spectatorCount": 2,
+  "seed": 2801,
+  "host": "stub",
+  "segment": "full",
+  "fixtureNumbers": "fixture (not Core)",
+  "milestones": [
+    {
+      "name": "lobby",
+      "at": "2026-11-14T20:56:29.139Z"
+    },
+    {
+      "name": "briefing",
+      "at": "2026-11-14T20:56:29.900Z"
+    },
+    {
+      "name": "vote",
+      "at": "2026-11-14T20:56:31.186Z",
+      "roundId": "m1.contract",
+      "kind": "CONTRACT",
+      "ids": [
+        "C1",
+        "C0",
+        "C2"
+      ],
+      "scenario": null
+    },
+    {
+      "name": "build_started",
+      "at": "2026-11-14T20:56:34.341Z"
+    },
+    {
+      "name": "vote",
+      "at": "2026-11-14T20:56:55.744Z",
+      "roundId": "m1.part.1",
+      "kind": "PART",
+      "ids": [
+        "site_cape_atlantic",
+        "site_pacific_range",
+        "site_equatorial_sea"
+      ],
+      "scenario": null
+    },
+    {
+      "name": "vote",
+      "at": "2026-11-14T20:57:02.053Z",
+      "roundId": "m1.part.2",
+      "kind": "PART",
+      "ids": [
+        "payload_earth_obs_small",
+        "payload_earth_obs_medium",
+        "payload_earth_obs_large"
+      ],
+      "scenario": null
+    },
+    {
+      "name": "vote",
+      "at": "2026-11-14T20:57:08.360Z",
+      "roundId": "m1.part.3",
+      "kind": "PART",
+      "ids": [
+        "eng_hydrolox_vacuum",
+        "eng_kerolox_vacuum",
+        "eng_methalox_vacuum"
+      ],
+      "scenario": null
+    },
+    {
+      "name": "vote",
+      "at": "2026-11-14T20:57:32.302Z",
+      "roundId": "m1.part.4",
+      "kind": "PART",
+      "ids": [
+        "eng_kerolox_workhorse",
+        "eng_methalox_full_flow",
+        "eng_hydrolox_high_perf"
+      ],
+      "scenario": "veto"
+    },
+    {
+      "name": "vote",
+      "at": "2026-11-14T20:57:56.886Z",
+      "roundId": "m1.part.5",
+      "kind": "PART",
+      "ids": [
+        "tank_s",
+        "tank_m",
+        "tank_l"
+      ],
+      "scenario": "forced_tie_when_player_count_allows"
+    },
+    {
+      "name": "vote",
+      "at": "2026-11-14T20:58:02.936Z",
+      "roundId": "m1.test",
+      "kind": "TEST",
+      "ids": [
+        "TEST",
+        "SKIP"
+      ],
+      "scenario": null
+    },
+    {
+      "name": "vote",
+      "at": "2026-11-14T20:58:07.969Z",
+      "roundId": "m1.pdr",
+      "kind": "REVIEW",
+      "ids": [
+        "PASS",
+        "REWORK"
+      ],
+      "scenario": null
+    },
+    {
+      "name": "poll",
+      "at": "2026-11-14T20:58:12.972Z",
+      "pollId": "m1.frr.1",
+      "round": 1
+    },
+    {
+      "name": "poll",
+      "at": "2026-11-14T20:58:16.552Z",
+      "pollId": "m1.frr.2",
+      "round": 2
+    },
+    {
+      "name": "minigame",
+      "at": "2026-11-14T20:58:20.151Z",
+      "runId": "m1.mg07.23",
+      "id": "MG-07",
+      "implemented": false
+    },
+    {
+      "name": "alert",
+      "at": "2026-11-14T20:58:22.987Z"
+    },
+    {
+      "name": "minigame",
+      "at": "2026-11-14T20:58:22.995Z",
+      "runId": "m1.mg08.25",
+      "id": "MG-08",
+      "implemented": true
+    },
+    {
+      "name": "minigame",
+      "at": "2026-11-14T20:58:37.510Z",
+      "runId": "m1.mg09.27",
+      "id": "MG-09",
+      "implemented": false
+    },
+    {
+      "name": "minigame",
+      "at": "2026-11-14T20:58:40.206Z",
+      "runId": "m1.mg10a.29",
+      "id": "MG-10a",
+      "implemented": false
+    },
+    {
+      "name": "blackout",
+      "at": "2026-11-14T20:58:42.915Z"
+    },
+    {
+      "name": "minigame",
+      "at": "2026-11-14T20:58:43.892Z",
+      "runId": "m1.mg13.31",
+      "id": "MG-13",
+      "implemented": false
+    },
+    {
+      "name": "minigame",
+      "at": "2026-11-14T20:58:46.573Z",
+      "runId": "m1.mg15.33",
+      "id": "MG-15",
+      "implemented": false
+    },
+    {
+      "name": "minigame",
+      "at": "2026-11-14T20:58:49.289Z",
+      "runId": "m1.mg21.35",
+      "id": "MG-21",
+      "implemented": false
+    },
+    {
+      "name": "debrief",
+      "at": "2026-11-14T20:58:50.923Z"
+    }
+  ],
+  "failures": [],
+  "segments": [
+    "LOBBY",
+    "BRIEFING",
+    "CONTRACT_VOTE",
+    "vote:m1.contract:C1:normal",
+    "BUILD:VOTE_ROUND",
+    "BUILD:VOTE_ROUND",
+    "vote:m1.part.1:site_cape_atlantic:normal",
+    "BUILD:VOTE_ROUND",
+    "vote:m1.part.2:payload_earth_obs_small:normal",
+    "BUILD:VOTE_ROUND",
+    "vote:m1.part.3:eng_hydrolox_vacuum:normal",
+    "BUILD:VOTE_ROUND",
+    "vote:m1.part.4:eng_kerolox_workhorse:veto",
+    "BUILD:VOTE_ROUND",
+    "vote:m1.part.5:tank_s:forced_tie_when_player_count_allows",
+    "BUILD:TEST",
+    "vote:m1.test:TEST:normal",
+    "BUILD:REVIEW",
+    "vote:m1.pdr:PASS:normal",
+    "FRR",
+    "poll:1:no_go",
+    "poll:2:all_go",
+    "COUNTDOWN:F0",
+    "minigame:MG-07:not_bundled",
+    "FLIGHT:FLYING:F2",
+    "minigame:MG-08:played",
+    "FLIGHT:FLYING:F3",
+    "minigame:MG-09:not_bundled",
+    "FLIGHT:FLYING:F4",
+    "minigame:MG-10a:not_bundled",
+    "FLIGHT:FLYING:F6",
+    "minigame:MG-13:not_bundled",
+    "FLIGHT:FLYING:F8",
+    "minigame:MG-15:not_bundled",
+    "FLIGHT:FLYING:F9",
+    "minigame:MG-21:not_bundled",
+    "DEBRIEF:SUMMARY"
+  ],
+  "frameCounts": {
+    "total": 2827,
+    "valid": 2826,
+    "invalid": 1,
+    "unknownTypes": 0
+  }
+}

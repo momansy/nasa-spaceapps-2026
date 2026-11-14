@@ -1,0 +1,103 @@
+{
+  "frames": {
+    "total": 1445,
+    "valid": 1444,
+    "invalid": 1,
+    "unknownTypes": 0
+  },
+  "latencyMs": {
+    "voteCastToAck": {
+      "n": 17,
+      "p50": 1.653,
+      "p95": 7.442,
+      "max": 7.442
+    },
+    "voteCastToTally": {
+      "n": 14,
+      "p50": 139.304,
+      "p95": 216.137,
+      "max": 216.137
+    },
+    "pollAnswerToAnswered": {
+      "n": 18,
+      "p50": 109.068,
+      "p95": 3222.444,
+      "max": 3222.444
+    },
+    "mgResultRelayed": {
+      "n": 4,
+      "p50": 1.205,
+      "p95": 2.39,
+      "max": 2.39
+    }
+  },
+  "messageRateHzMax": {
+    "c1:flight.hud": 0,
+    "c1:console.telemetry": 0,
+    "c1:vote.tally": 1,
+    "c1:pilot.hud": 0,
+    "c2:flight.hud": 0,
+    "c2:console.telemetry": 0,
+    "c2:vote.tally": 1,
+    "c2:pilot.hud": 0,
+    "c3:flight.hud": 0,
+    "c3:console.telemetry": 0,
+    "c3:vote.tally": 0,
+    "c3:pilot.hud": 0,
+    "c4:flight.hud": 5,
+    "c4:console.telemetry": 0,
+    "c4:vote.tally": 3,
+    "c4:pilot.hud": 0,
+    "c5:flight.hud": 0,
+    "c5:console.telemetry": 0,
+    "c5:vote.tally": 3,
+    "c5:pilot.hud": 0,
+    "c6:flight.hud": 0,
+    "c6:console.telemetry": 0,
+    "c6:vote.tally": 3,
+    "c6:pilot.hud": 0,
+    "c7:flight.hud": 5,
+    "c7:console.telemetry": 0,
+    "c7:vote.tally": 3,
+    "c7:pilot.hud": 0,
+    "c8:flight.hud": 0,
+    "c8:console.telemetry": 0,
+    "c8:vote.tally": 3,
+    "c8:pilot.hud": 0,
+    "c9:flight.hud": 5,
+    "c9:console.telemetry": 0,
+    "c9:vote.tally": 3,
+    "c9:pilot.hud": 0,
+    "c10:flight.hud": 5,
+    "c10:console.telemetry": 0,
+    "c10:vote.tally": 3,
+    "c10:pilot.hud": 0
+  },
+  "bytesPerSecond": {
+    "c1": 1321.01,
+    "c2": 747.5,
+    "c3": 4975,
+    "c4": 533.66,
+    "c5": 699.56,
+    "c6": 393.38,
+    "c7": 564.05,
+    "c8": 1052,
+    "c9": 426.35,
+    "c10": 426.93
+  },
+  "errors": {
+    "protocolErrorFrames": {},
+    "schemaViolations": [
+      {
+        "connId": "c1",
+        "t": "roles.state",
+        "seq": 5,
+        "errors": [
+          "roles.state/groups must NOT have fewer than 1 items"
+        ]
+      }
+    ],
+    "unknownTypes": [],
+    "seqGaps": []
+  }
+}

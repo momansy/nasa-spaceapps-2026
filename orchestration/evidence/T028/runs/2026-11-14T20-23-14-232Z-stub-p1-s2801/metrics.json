@@ -1,0 +1,87 @@
+{
+  "frames": {
+    "total": 57,
+    "valid": 55,
+    "invalid": 2,
+    "unknownTypes": 0
+  },
+  "latencyMs": {
+    "voteCastToAck": {
+      "n": 0,
+      "p50": null,
+      "p95": null,
+      "max": null
+    },
+    "voteCastToTally": {
+      "n": 0,
+      "p50": null,
+      "p95": null,
+      "max": null
+    },
+    "pollAnswerToAnswered": {
+      "n": 0,
+      "p50": null,
+      "p95": null,
+      "max": null
+    },
+    "mgResultRelayed": {
+      "n": 0,
+      "p50": null,
+      "p95": null,
+      "max": null
+    }
+  },
+  "messageRateHzMax": {
+    "c1:flight.hud": 0,
+    "c1:console.telemetry": 0,
+    "c1:vote.tally": 0,
+    "c1:pilot.hud": 0,
+    "c2:flight.hud": 0,
+    "c2:console.telemetry": 0,
+    "c2:vote.tally": 0,
+    "c2:pilot.hud": 0
+  },
+  "bytesPerSecond": {
+    "c1": 131.08,
+    "c2": 200.78
+  },
+  "errors": {
+    "protocolErrorFrames": {
+      "BAD_PAYLOAD": [
+        {
+          "connId": "c1",
+          "seq": 10,
+          "d": {
+            "code": "BAD_PAYLOAD",
+            "fatal": false,
+            "re": 7,
+            "reT": "vote.open",
+            "field": "timers.voteMs"
+          }
+        }
+      ]
+    },
+    "schemaViolations": [
+      {
+        "connId": "c1",
+        "t": "roles.state",
+        "seq": 5,
+        "errors": [
+          "roles.state/groups must NOT have fewer than 1 items"
+        ]
+      },
+      {
+        "connId": "c1",
+        "t": "vote.open",
+        "seq": 7,
+        "errors": [
+          "vote.open/timers/voteMs must be >= 3000",
+          "vote.open/timers must be null",
+          "vote.open/timers must match a schema in anyOf"
+        ]
+      }
+    ],
+    "unknownTypes": [],
+    "seqGaps": []
+  }
+}

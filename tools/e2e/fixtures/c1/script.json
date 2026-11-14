@@ -1,0 +1,20 @@
+{
+  "contract": {
+    "options": ["C1", "C0", "C2"],
+    "source": "data/contracts.json",
+    "numeric_origin": "fixture (not Core)"
+  },
+  "part_rounds": [
+    { "subject": "launch_site", "options": ["site_equatorial_spaceport", "site_subtropical_coast", "site_west_coast_polar_range"], "owner": "PM" },
+    { "subject": "instrument", "options": ["inst_wide_field_optical_camera", "inst_multispectral_imager", "inst_thermal_infrared_camera"], "owner": "PAYLOAD" },
+    { "subject": "upper_stage_engine", "options": ["eng_hydrolox_vacuum", "eng_kerolox_vacuum", "eng_methalox_vacuum"], "owner": "BOOSTER" },
+    { "subject": "first_stage_engine", "options": ["eng_kerolox_workhorse", "eng_methalox_full_flow", "eng_hydrolox_high_efficiency"], "owner": "BOOSTER", "scenario": "veto" },
+    { "subject": "tank_size", "options": ["tank_s", "tank_m", "tank_l"], "owner": "STRUCT", "scenario": "forced_tie_when_player_count_allows" }
+  ],
+  "preview_numbers": {
+    "TOTAL_DV_MS": { "value": 9700, "unit": "m/s", "type": "fixture (not Core)" },
+    "TOTAL_MASS_T": { "value": 210, "unit": "t", "type": "fixture (not Core)" },
+    "COST_M": { "value": 76, "unit": "$M", "type": "fixture (not Core)" },
+    "SUCCESS_PCT": { "value": 86, "unit": "%", "type": "fixture (not Core)" }
+  }
+}

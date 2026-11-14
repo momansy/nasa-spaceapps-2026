@@ -1,0 +1,14 @@
+{
+  "runId": "2026-11-14T21-01-59-386Z-unity-probe-s2801",
+  "host": "unity",
+  "status": "browser_launch_failed",
+  "browserMode": "headed",
+  "flags": [
+    "--use-angle=swiftshader",
+    "--enable-unsafe-swiftshader",
+    "--enable-webgl",
+    "--ignore-gpu-blocklist"
+  ],
+  "error": "browserType.launch: spawn UNKNOWN",
+  "note": "This was the required headed fallback after the headless Unity probe remained on LOADING MISSION CONTROL. No room was created."
+}

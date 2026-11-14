@@ -1,0 +1,154 @@
+{
+  "runId": "2026-11-14T20-25-49-930Z-stub-p1-s2801",
+  "playerCount": 1,
+  "spectatorCount": 0,
+  "seed": 2801,
+  "host": "stub",
+  "segment": "full",
+  "fixtureNumbers": "fixture (not Core)",
+  "milestones": [
+    {
+      "name": "lobby",
+      "at": "2026-11-14T20:25:57.078Z"
+    },
+    {
+      "name": "briefing",
+      "at": "2026-11-14T20:25:57.697Z"
+    },
+    {
+      "name": "vote",
+      "at": "2026-11-14T20:25:58.885Z",
+      "roundId": "m1.contract",
+      "kind": "CONTRACT",
+      "ids": [
+        "C1",
+        "C0",
+        "C2"
+      ],
+      "scenario": null
+    },
+    {
+      "name": "build_started",
+      "at": "2026-11-14T20:26:01.957Z"
+    },
+    {
+      "name": "vote",
+      "at": "2026-11-14T20:26:23.534Z",
+      "roundId": "m1.part.1",
+      "kind": "PART",
+      "ids": [
+        "site_cape_atlantic",
+        "site_pacific_range",
+        "site_equatorial_sea"
+      ],
+      "scenario": null
+    },
+    {
+      "name": "vote",
+      "at": "2026-11-14T20:26:29.835Z",
+      "roundId": "m1.part.2",
+      "kind": "PART",
+      "ids": [
+        "payload_earth_obs_small",
+        "payload_earth_obs_medium",
+        "payload_earth_obs_large"
+      ],
+      "scenario": null
+    },
+    {
+      "name": "vote",
+      "at": "2026-11-14T20:26:36.145Z",
+      "roundId": "m1.part.3",
+      "kind": "PART",
+      "ids": [
+        "eng_hydrolox_vacuum",
+        "eng_kerolox_vacuum",
+        "eng_methalox_vacuum"
+      ],
+      "scenario": null
+    },
+    {
+      "name": "vote",
+      "at": "2026-11-14T20:26:44.395Z",
+      "roundId": "m1.part.4",
+      "kind": "PART",
+      "ids": [
+        "eng_kerolox_workhorse",
+        "eng_methalox_full_flow",
+        "eng_hydrolox_high_perf"
+      ],
+      "scenario": "veto"
+    },
+    {
+      "name": "vote",
+      "at": "2026-11-14T20:26:52.329Z",
+      "roundId": "m1.part.5",
+      "kind": "PART",
+      "ids": [
+        "tank_s",
+        "tank_m",
+        "tank_l"
+      ],
+      "scenario": "forced_tie_when_player_count_allows"
+    },
+    {
+      "name": "vote",
+      "at": "2026-11-14T20:26:58.353Z",
+      "roundId": "m1.test",
+      "kind": "TEST",
+      "ids": [
+        "TEST",
+        "SKIP"
+      ],
+      "scenario": null
+    },
+    {
+      "name": "vote",
+      "at": "2026-11-14T20:27:03.379Z",
+      "roundId": "m1.pdr",
+      "kind": "REVIEW",
+      "ids": [
+        "PASS",
+        "REWORK"
+      ],
+      "scenario": null
+    },
+    {
+      "name": "poll",
+      "at": "2026-11-14T20:27:08.392Z",
+      "pollId": "m1.frr.1",
+      "round": 1
+    }
+  ],
+  "failures": [
+    "Error: timeout waiting for host poll.result\n    at Timeout._onTimeout (file:///C:/Users/moham/Documents/Codex/2026-11-14/https-nasasc-netlify-app-https-nasasc/work/nasa-spaceapps-2026/tools/e2e/host/scripted-host.mjs:101:16)\n    at listOnTimeout (node:internal/timers:605:17)\n    at process.processTimers (node:internal/timers:541:7)"
+  ],
+  "segments": [
+    "LOBBY",
+    "BRIEFING",
+    "CONTRACT_VOTE",
+    "vote:m1.contract:C0:normal",
+    "BUILD:VOTE_ROUND",
+    "BUILD:VOTE_ROUND",
+    "vote:m1.part.1:site_cape_atlantic:normal",
+    "BUILD:VOTE_ROUND",
+    "vote:m1.part.2:payload_earth_obs_small:normal",
+    "BUILD:VOTE_ROUND",
+    "vote:m1.part.3:eng_hydrolox_vacuum:normal",
+    "BUILD:VOTE_ROUND",
+    "vote:m1.part.4:eng_kerolox_workhorse:veto",
+    "BUILD:VOTE_ROUND",
+    "vote:m1.part.5:tank_s:forced_tie_when_player_count_allows",
+    "BUILD:TEST",
+    "vote:m1.test:SKIP:normal",
+    "BUILD:REVIEW",
+    "vote:m1.pdr:REWORK:normal",
+    "FRR"
+  ],
+  "frameCounts": {
+    "total": 498,
+    "valid": 496,
+    "invalid": 2,
+    "unknownTypes": 0
+  }
+}
