@@ -1,5 +1,12 @@
 # Space Apps Agent Mesh — Dynamic Team Edition (v2)
 
+## Automatic reconnection after network outages
+
+**New in the worker setup:** The onboarding scripts now launch [mesh_supervisor.py](mesh_supervisor.py), which restarts exited Codex/Claude workers after connection failures using 5–60 second backoff. After internet returns, workers register a fresh heartbeat and appear online again. Existing users must stop their old worker, update the checkout, and start the supervisor once; see [AUTO_RECONNECT.md](AUTO_RECONNECT.md). Shutdown/reboot still needs a user-level startup task or an always-on host. Partially running tasks are never silently replayed.
+
+---
+
+
 ## 🌌 MissionForge Team HQ — interactive website
 
 **New teammates: start here.** The full, beginner-friendly [Team HQ website](docs/index.html) explains the NASA challenge, our proposed game, team workflow, optional MCPs, setup, troubleshooting, and an executable-agent prompt. To open it as a real website, download **docs/index.html** and open the HTML file in a browser. The page is self-contained; public hosting is not enabled yet.
