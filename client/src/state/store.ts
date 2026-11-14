@@ -1,19 +1,32 @@
 // The store: one state, one reducer, the connection bound to it, and the side effects that
 // do not belong in a reducer (haptics, device storage, applying preferences to the page).
 import { createContext, useContext, useRef, useSyncExternalStore } from 'react';
-import type { Avatar, GoNoGo, Message, OptionId, PingId, PlayerPrefs, ReactionId, RoleId, TagKind } from '@protocol';
+import type { AttMode, Avatar, Craft, DeployTarget, ErrorCode, GoNoGo, Message, OptionId, PilotAction, PingId, PlayerPrefs, ReactionId, RoleId, TagKind } from '@protocol';
 import { setLanguage } from '../i18n';
 import { setNumberLocale } from '../data/format';
 import { playCue, setHapticsEnabled, tap } from '../lib/haptics';
 import type { ClientSendType, Connection } from '../net/connection';
 import type { PayloadMap } from '@protocol';
 import { DEFAULT_PREFS, initialState, reducer } from './reducer';
-import { myRoles } from './selectors';
+import { InputSampler, type Axes } from '../screens/pilot/inputSampler';
+import { currentHud, myRoles, mySeat, pilotInputOpen, seatActionOpen, seatPhaseOpen } from './selectors';
 import type { Action, AppState, MinigameOutcome } from './types';
 
 const PREFS_KEY = 'mf.prefs';
 const CODEX_KEY = 'mf.codex';
 const PROFILE_KEY = 'mf.profile';
+/**
+ * First counter of a session, so a reload mid-flight never restarts `n` below what the host already
+ * applied (it ignores older `pilot.input` and duplicate action counters). 33 counts per second since
+ * 2026-01-01 outgrows the fastest sender (30 inputs per second); it fits int32 until 2028 (game value).
+ */
+const N_EPOCH_MS = Date.UTC(2026, 0, 1);
+export function counterBase(nowMs: number = Date.now()): number {
+  return Math.max(0, Math.floor((nowMs - N_EPOCH_MS) / 30));
+}
+
+/** Longest wait for the first `pilot.hud` of a seat before the phone starts sending, ms (game value). */
+const HUD_WAIT_MS = 1200;
 
 function readJson<T>(key: string): T | null {
   try {
@@ -76,6 +89,9 @@ export function applyPrefsToDocument(state: Pick<AppState, 'prefs' | 'settings'>
 export function isReducedMotion(state: Pick<AppState, 'prefs' | 'settings'>): boolean {
   return state.prefs.reducedMotion || !!state.settings?.a11y.reducedMotion;
 }
+
+/** Outcome of `Store.setProfile`: what the server answered to `player.profile`. */
+export type ProfileResult = { ok: true; nickname: string } | { ok: false; code: ErrorCode | 'NO_ANSWER'; suggestion: string | null };
 
 export class Store {
   private state: AppState;
@@ -300,6 +316,154 @@ export class Store {
 
   ackRoleCard(signature: string) {
     this.dispatch({ type: 'local.roleCardSeen', signature });
+  }
+
+  // ───────────── pilot, co-pilot, profile (T030) ─────────────
+
+  private samplers = new Map<Craft, InputSampler>();
+  private pilotActionN = counterBase();
+  private copilotActionN = counterBase();
+
+  /** Seats that just opened and wait for the host's first `pilot.hud` before the sampler starts. */
+  /** Crafts whose throttle the player has moved since the seat opened (never overwrite that). */
+  private userThrottle = new Set<Craft>();
+  private waiting = new Map<Craft, { hud: AppState['pilotHud']; timedOut: boolean; timer: ReturnType<typeof setTimeout> }>();
+  private starters = new Map<Craft, () => void>();
+
+  private sampler(craft: Craft): InputSampler {
+    let sampler = this.samplers.get(craft);
+    if (sampler) return sampler;
+    const made = new InputSampler({
+      send: (frame) => {
+        this.send('pilot.input', { craft, ...frame });
+      },
+      now: () => performance.now(),
+      setTimer: (fn, ms) => setTimeout(fn, ms),
+      clearTimer: (h) => clearTimeout(h as ReturnType<typeof setTimeout>),
+    }, counterBase());
+    sampler = made;
+    this.samplers.set(craft, sampler);
+    // The host holds the throttle (also across a seat handover): the first frame of a seat must
+    // carry what the host reports, never a closed throttle. Wait for a `pilot.hud` that arrived
+    // after the seat opened (at most `HUD_WAIT_MS`), then seed the throttle from it and start.
+    let needHud = true;
+    const start = () => {
+      needHud = false;
+      const w = this.waiting.get(craft);
+      if (w) clearTimeout(w.timer);
+      this.waiting.delete(craft);
+      const hud = currentHud(this.state);
+      if (hud && hud.craft === craft && !this.userThrottle.has(craft)) made.set({ throttle: hud.throttlePct / 100 });
+      made.setActive(true);
+    };
+    this.starters.set(craft, () => {
+      // Waited long enough for a hud: start only for a player who is actually flying (touched an axis).
+      const w = this.waiting.get(craft);
+      if (w?.timedOut) start();
+    });
+    // Stop conditions: seat moved away, input source is the host device, paused, offline, page hidden.
+    const sync = () => {
+      const seat = mySeat(this.state);
+      // A seat that is gone (handover, HOST_DEVICE, phase over) must be re-seeded next time; a pause,
+      // a hidden page or a short offline spell only stops the frames: the host kept the throttle.
+      if (!(seat?.craft === craft && seatPhaseOpen(this.state))) {
+        needHud = true;
+        this.userThrottle.delete(craft);
+      }
+      const open = pilotInputOpen(this.state, craft) && !(typeof document !== 'undefined' && document.hidden);
+      if (!open) {
+        const w = this.waiting.get(craft);
+        if (w) clearTimeout(w.timer);
+        this.waiting.delete(craft);
+        made.setActive(false);
+        return;
+      }
+      if (made.isActive) return;
+      if (!needHud) {
+        made.setActive(true);
+        return;
+      }
+      let w = this.waiting.get(craft);
+      if (!w) {
+        const created = { hud: this.state.pilotHud, timedOut: false, timer: setTimeout(() => (created.timedOut = true), HUD_WAIT_MS) };
+        w = created;
+        this.waiting.set(craft, w);
+      }
+      const hud = this.state.pilotHud;
+      if (hud && hud !== w.hud && hud.craft === craft) start();
+    };
+    this.subscribe(sync);
+    if (typeof document !== 'undefined') document.addEventListener('visibilitychange', sync);
+    sync();
+    return sampler;
+  }
+
+  /** Axes of the seat's virtual gamepad (throttle holds, the others centre when the finger lifts). */
+  pilotInput(craft: Craft, patch: Partial<Axes>) {
+    const sampler = this.sampler(craft);
+    if (patch.throttle !== undefined) this.userThrottle.add(craft);
+    sampler.set(patch);
+    this.starters.get(craft)?.();
+  }
+
+  /** The commanded axes (what the sampler last took), for the controls to draw. */
+  pilotAxes(craft: Craft): Axes {
+    return this.sampler(craft).current();
+  }
+
+  /** One completed gesture of the pilot seat (`pilot.action`). Returns false when it was not sent. */
+  pilotAction(craft: Craft, action: PilotAction, extra: { attMode?: AttMode; deploy?: DeployTarget } = {}): boolean {
+    const seat = mySeat(this.state);
+    if (!seat || seat.craft !== craft || !seatActionOpen(this.state)) return false;
+    if (action === 'ATT_HOLD' && !extra.attMode) return false;
+    if (action === 'DEPLOY' && !extra.deploy) return false;
+    tap();
+    this.pilotActionN += 1;
+    return this.send('pilot.action', {
+      craft,
+      n: this.pilotActionN,
+      action,
+      ...(action === 'ATT_HOLD' ? { attMode: extra.attMode } : {}),
+      ...(action === 'DEPLOY' ? { deploy: extra.deploy } : {}),
+    });
+  }
+
+  /** One completed gesture of the co-pilot seat (`copilot.action`). */
+  copilotAction(action: 'STAGE' | 'DEPLOY', deploy?: DeployTarget): boolean {
+    const seat = mySeat(this.state);
+    if (seat?.kind !== 'COPILOT' || !seatActionOpen(this.state)) return false;
+    if (action === 'DEPLOY' && !deploy) return false;
+    tap();
+    this.copilotActionN += 1;
+    return this.send('copilot.action', { n: this.copilotActionN, action, ...(action === 'DEPLOY' ? { deploy } : {}) });
+  }
+
+  /** Changes nickname and avatar in the lobby (`player.profile`); resolves with the server's answer. */
+  setProfile(nickname: string, avatar: Avatar): Promise<ProfileResult> {
+    return new Promise((resolve) => {
+      let settled = false;
+      const before = this.state.room?.players.find((p) => p.id === this.state.me?.id)?.nickname;
+      const finish = (r: ProfileResult) => {
+        if (settled) return;
+        settled = true;
+        off();
+        clearTimeout(timer);
+        if (r.ok) saveProfile({ nickname: r.nickname, avatar });
+        resolve(r);
+      };
+      const off = this.conn.subscribe((msg) => {
+        if (msg.t === 'error' && msg.d.reT === 'player.profile') finish({ ok: false, code: msg.d.code, suggestion: msg.d.suggestion ?? null });
+        if (msg.t === 'room.state') {
+          const me = msg.d.players.find((p) => p.id === this.state.me?.id);
+          // Our change is in once the avatar matches and the nickname is the one asked for (or any new one,
+          // when the server normalised it); a `room.state` about someone else must not count.
+          const same = me && me.avatar.suitId === avatar.suitId && me.avatar.patchId === avatar.patchId;
+          if (me && same && (me.nickname.toLowerCase() === nickname.toLowerCase() || me.nickname !== before)) finish({ ok: true, nickname: me.nickname });
+        }
+      });
+      const timer = setTimeout(() => finish({ ok: false, code: 'NO_ANSWER', suggestion: null }), 4000);
+      if (!this.send('player.profile', { nickname, avatar })) finish({ ok: false, code: 'NO_ANSWER', suggestion: null });
+    });
   }
 }
 

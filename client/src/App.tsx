@@ -16,6 +16,8 @@ import { PollScreen } from './screens/PollScreen';
 import { ConsoleScreen } from './screens/ConsoleScreen';
 import { MinigameScreen } from './screens/MinigameScreen';
 import { DebriefScreen } from './screens/DebriefScreen';
+import { PilotScreen } from './screens/pilot/PilotScreen';
+import { WatchScreen } from './screens/spectator/WatchScreen';
 import { CodexSheet } from './screens/CodexSheet';
 import { SettingsSheet } from './screens/SettingsSheet';
 import './screens/shell.css';
@@ -42,6 +44,10 @@ function ScreenView({ screen }: { screen: Screen }) {
       return <MinigameScreen />;
     case 'debrief':
       return <DebriefScreen />;
+    case 'pilot':
+      return <PilotScreen />;
+    case 'watch':
+      return <WatchScreen />;
   }
 }
 

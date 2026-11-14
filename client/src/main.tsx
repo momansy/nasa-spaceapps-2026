@@ -19,7 +19,14 @@ async function boot() {
   let conn: Connection;
   if (query.get('mock') === '1') {
     const { createMockConnection } = await import('./net/mock');
-    const mock = createMockConnection(prefs.lang, { speed: Number(query.get('speed')) || 1 });
+    const seat = query.get('seat');
+    const mock = createMockConnection(prefs.lang, {
+      speed: Number(query.get('speed')) || 1,
+      ...(seat === 'pilot' || seat === 'copilot' || seat === 'booster' ? { seat } : {}),
+      ...(query.get('watch') === '1' ? { watch: true } : {}),
+      ...(Number(query.get('lobby')) > 0 ? { lobbyHoldMs: Number(query.get('lobby')) * 1000 } : {}),
+      ...(Number(query.get('brief')) > 0 ? { briefingHoldMs: Number(query.get('brief')) * 1000 } : {}),
+    });
     conn = mock;
     // Test and demo hooks (mock mode only): drop the connection, list missing strings.
     (window as unknown as { __mf: unknown }).__mf = { room: mock.room, drop: () => mock.room.dropConnection(), missing: missingKeys };

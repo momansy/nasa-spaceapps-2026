@@ -18,6 +18,7 @@ import { fmtMetricDelta, fmtMetricValue, METRIC_SPECS } from '../../data/format'
 import { optionDetail, optionName, optionNameById } from './names';
 import { PartCard } from './PartCard';
 import { PingFeed, PingSheet } from './Pings';
+import { AudienceSays } from '../spectator/AudienceSays';
 import './vote.css';
 
 const VOTING = new Set(['VOTE', 'RUNOFF']);
@@ -849,6 +850,7 @@ export function VoteScreen() {
       <VoteHeader round={round} />
       <HintBanner round={round} t={t} />
       <DecisionTime round={round} />
+      <AudienceSays round={round} />
       <div className="vote__stage" key={stage}>
         {body}
       </div>

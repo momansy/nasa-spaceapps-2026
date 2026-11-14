@@ -46,6 +46,7 @@ import type {
   VoteStagePayload,
 } from '@protocol';
 import type { Connection, SessionStore, SocketLike } from './connection';
+import { MockSeat, type SeatKind } from '../screens/pilot/mockSeat';
 import { ProtocolClient } from './protocolClient';
 import { APP_VERSION, browserSession } from './wsConnection';
 
@@ -59,6 +60,14 @@ export interface MockOptions {
   onFrame?: FrameObserver;
   /** Server clock minus local clock, to exercise the client's offset estimate. */
   serverOffsetMs?: number;
+  /** `&seat=`: the player sits in this pilot seat on the phone; the script jumps to the flight. */
+  seat?: SeatKind;
+  /** `&watch=1`: the phone joins as a spectator (audience); five bots play. */
+  watch?: boolean;
+  /** `&lobby=`: keep the lobby open this long (game ms) so the profile sheet can be tried. */
+  lobbyHoldMs?: number;
+  /** `&brief=`: keep the briefing open this long (game ms), e.g. to look at the spectator screen. */
+  briefingHoldMs?: number;
 }
 
 const DEFAULT_SETTINGS: RoomSettings = {
@@ -246,7 +255,38 @@ export class MockRoom {
   private telemetryTimer: ReturnType<typeof setInterval> | null = null;
   private flightT0 = 0;
 
+  // ───────── T030: pilot seat, spectator, profile (test hooks are public) ─────────
+  /** The phone's pilot seat when `seat` was given, else null. */
+  seat: MockSeat | null = null;
+  private readonly seatKind: SeatKind | null;
+  private readonly watchMode: boolean;
+  private lobbyHoldMs: number;
+  private briefingHoldMs: number;
+  private spectatorId: string | null = null;
+  /** Test hook: answer every `player.profile` with this error (WRONG_PHASE race, rate limit…). */
+  profileFault: PayloadMap['error']['code'] | null = null;
+  /** Test hook: report the spectator as waiting to join the crew (shown after a reconnect). */
+  pendingSpectator = false;
+  /** The current `pilot.assign`, as the server stores it to authorise pilot messages. */
+  assign: PayloadMap['pilot.assign'] | null = null;
+  private paused = false;
+  private pausedAtMs = 0;
+  private hudTimer: ReturnType<typeof setInterval> | null = null;
+  private lastHud = '';
+  private lastHudAtMs = 0;
+  private audienceTimer: ReturnType<typeof setInterval> | null = null;
+  private audienceTick = 0;
+  private ownReactions: Record<string, number> = {};
+  private reactTokens = 2;
+  private reactAt = 0;
+  /** Every message the phone sent after joining (newest last, at most 3000), for tests. */
+  readonly received: Array<{ t: string; d: unknown; atMs: number }> = [];
+
   constructor(opts: MockOptions = {}) {
+    this.seatKind = opts.seat ?? null;
+    this.watchMode = !!opts.watch;
+    this.lobbyHoldMs = opts.lobbyHoldMs ?? 0;
+    this.briefingHoldMs = opts.briefingHoldMs ?? 0;
     this.speed = opts.speed && opts.speed > 0 ? opts.speed : 1;
     this.onFrame = opts.onFrame ?? null;
     this.offsetMs = opts.serverOffsetMs ?? 1500;
@@ -297,6 +337,8 @@ export class MockRoom {
     this.timers.forEach((h) => clearTimeout(h));
     this.timers.clear();
     if (this.telemetryTimer) clearInterval(this.telemetryTimer);
+    if (this.hudTimer) clearInterval(this.hudTimer);
+    if (this.audienceTimer) clearInterval(this.audienceTimer);
   }
 
   // ───────── connections ─────────
@@ -430,16 +472,18 @@ export class MockRoom {
       this.error(sock, 'ROOM_NOT_FOUND', seq, 'room.join');
       return;
     }
-    if (d.as === 'SPECTATOR') {
+    if (d.as === 'SPECTATOR' && !this.watchMode) {
       this.error(sock, 'FORBIDDEN', seq, 'room.join');
       return;
     }
-    const nick = normaliseNickname(d.nickname ?? '');
-    if (!NICK_RE.test(nick)) {
+    const spectator = d.as === 'SPECTATOR';
+    // A spectator phone has no player of its own: a hidden fifth bot fills the seat the script uses.
+    const nick = spectator ? 'Orion' : normaliseNickname(d.nickname ?? '');
+    if (!spectator && !NICK_RE.test(nick)) {
       this.error(sock, 'NICK_REJECTED', seq, 'room.join', { suggestion: 'Comet' });
       return;
     }
-    if (BOTS.some((b) => b.nickname.toLowerCase() === nick.toLowerCase())) {
+    if (!spectator && BOTS.some((b) => b.nickname.toLowerCase() === nick.toLowerCase())) {
       this.error(sock, 'NICK_TAKEN', seq, 'room.join', { suggestion: `${nick.slice(0, 13)}-2` });
       return;
     }
@@ -458,7 +502,12 @@ export class MockRoom {
       prefs: d.prefs ?? BOT_PREFS,
     });
     this.regroup();
-    this.emitTo(sock, 'room.joined', { room: this.code, kind: 'PLAYER', id, slot: 1, nickname: nick, token: this.token, spectatorReason: null, pendingPlayer: false });
+    if (spectator) {
+      this.spectatorId = 's1';
+      this.emitTo(sock, 'room.joined', { room: this.code, kind: 'SPECTATOR', id: 's1', slot: null, nickname: null, token: this.token, spectatorReason: 'REQUESTED', pendingPlayer: this.pendingSpectator });
+    } else {
+      this.emitTo(sock, 'room.joined', { room: this.code, kind: 'PLAYER', id, slot: 1, nickname: nick, token: this.token, spectatorReason: null, pendingPlayer: false });
+    }
     this.snapshot(sock);
     if (!this.started) {
       this.started = true;
@@ -474,7 +523,7 @@ export class MockRoom {
       return;
     }
     this.setConnected(true);
-    this.emitTo(sock, 'room.resumed', { room: this.code, kind: 'PLAYER', id: this.meId!, slot: 1, pendingPlayer: false, paused: false });
+    this.emitTo(sock, 'room.resumed', this.spectatorId ? { room: this.code, kind: 'SPECTATOR', id: this.spectatorId, slot: null, pendingPlayer: this.pendingSpectator, paused: this.paused } : { room: this.code, kind: 'PLAYER', id: this.meId!, slot: 1, pendingPlayer: false, paused: this.paused });
     this.snapshot(sock);
     this.send('room.state', this.roomState());
   }
@@ -487,7 +536,7 @@ export class MockRoom {
     for (const [key, m] of this.sticky) {
       if (key.startsWith('console.config:')) {
         const role = (m.d as PayloadMap['console.config']).role;
-        if (!this.rolesOf(this.meId).includes(role)) continue;
+        if (this.spectatorId || !this.rolesOf(this.meId).includes(role)) continue;
       }
       this.emitTo(sock, m.t, m.d);
     }
@@ -500,7 +549,7 @@ export class MockRoom {
       if (v.stage.stage === 'TIEBREAK_TRIVIA' && v.spec.trivia) this.emitTo(sock, 'vote.trivia.open', { roundId: v.opened.roundId, question: this.publicQ(v.spec.trivia), tiedOptionIds: v.tied });
       this.emitTo(sock, 'vote.stage', v.stage);
       if (v.stage.stage === 'VOTE' || v.stage.stage === 'RUNOFF') this.emitTo(sock, 'vote.tally', this.tally(v));
-      this.emitTo(sock, 'vote.ack', { roundId: v.opened.roundId, optionId: v.ballots.get(this.meId!) ?? null, reason: 'SNAPSHOT' });
+      if (!this.spectatorId) this.emitTo(sock, 'vote.ack', { roundId: v.opened.roundId, optionId: v.ballots.get(this.meId!) ?? null, reason: 'SNAPSHOT' });
     }
     if (this.poll) this.emitTo(sock, 'poll.call', this.poll.call);
     if (this.mg && !this.mg.result) this.emitTo(sock, 'mg.start', this.mg.start);
@@ -508,7 +557,7 @@ export class MockRoom {
   }
 
   roomState(): PayloadMap['room.state'] {
-    return { room: this.code, hostConnected: true, paused: false, players: [...this.players].sort((a, b) => a.slot - b.slot), spectatorCount: 0, pendingPlayerCount: 0 };
+    return { room: this.code, hostConnected: true, paused: this.paused, players: [...this.players].sort((a, b) => a.slot - b.slot), spectatorCount: this.spectatorId ? 1 : 0, pendingPlayerCount: 0 };
   }
 
   rolesOf(playerId: PlayerId | null): RoleId[] {
@@ -572,6 +621,12 @@ export class MockRoom {
 
   private onPlayerMessage(sock: MockSocket, m: Message) {
     const me = this.meId!;
+    this.received.push({ t: m.t, d: m.d, atMs: this.now() });
+    if (this.received.length > 3000) this.received.shift();
+    if (this.spectatorId && !['react.send', 'player.prefs', 'room.leave'].includes(m.t)) {
+      this.error(sock, 'FORBIDDEN', m.seq, m.t);
+      return;
+    }
     switch (m.t) {
       case 'room.leave':
         this.emitTo(sock, 'bye', { reason: 'LEFT', closeCode: BYE_CODES.LEFT, canResume: false });
@@ -588,12 +643,16 @@ export class MockRoom {
         return;
       }
       case 'player.profile':
-        this.error(sock, 'WRONG_PHASE', m.seq, m.t);
+        this.onProfile(sock, m.seq, me, m.d);
         return;
       case 'ping.send':
         this.send('ping.event', { playerId: me, pingId: m.d.pingId, roundId: this.vote?.opened.roundId ?? null, optionId: m.d.optionId });
         return;
       case 'react.send':
+        if (this.spectatorId) {
+          this.onSpectatorReaction(sock, m.seq, m.d.emoji);
+          return;
+        }
         this.send('react.event', { playerId: me, emoji: m.d.emoji });
         return;
       case 'vote.cast':
@@ -684,10 +743,127 @@ export class MockRoom {
       case 'pilot.input':
       case 'pilot.action':
       case 'copilot.action':
-        return this.error(sock, 'NOT_PILOT', m.seq, m.t);
+        return this.onPilotMessage(sock, m);
       default:
         return this.error(sock, 'UNKNOWN_TYPE', m.seq, (m as Envelope).t);
     }
+  }
+
+  // ───────── T030: profile, spectator reactions, pilot seat ─────────
+
+  /** `player.profile` (messages.md): LOBBY only; nickname rules as in `room.join`. */
+  private onProfile(sock: MockSocket, seq: number, me: PlayerId, d: PayloadMap['player.profile']) {
+    if (this.sticky.get('phase.set') && (this.sticky.get('phase.set')!.d as PhaseSetPayload).phase !== 'LOBBY') return this.error(sock, 'WRONG_PHASE', seq, 'player.profile');
+    if (this.profileFault) return this.error(sock, this.profileFault, seq, 'player.profile');
+    const nick = normaliseNickname(d.nickname ?? '');
+    // "badword" stands in for the server's profanity filter in the demo.
+    if (!NICK_RE.test(nick) || /badword/i.test(nick)) return this.error(sock, 'NICK_REJECTED', seq, 'player.profile', { suggestion: 'Comet' });
+    if (this.players.some((p) => p.id !== me && p.nickname.toLowerCase() === nick.toLowerCase())) {
+      return this.error(sock, 'NICK_TAKEN', seq, 'player.profile', { suggestion: `${nick.slice(0, 13)}-2` });
+    }
+    const p = this.players.find((x) => x.id === me);
+    if (p) {
+      p.nickname = nick;
+      p.avatar = d.avatar;
+    }
+    this.send('room.state', this.roomState());
+  }
+
+  /** A spectator reaction: 1 per second, burst 2 (messages.md rate limits), anonymous, aggregated. */
+  private onSpectatorReaction(sock: MockSocket, seq: number, emoji: string) {
+    const t = this.now();
+    this.reactTokens = Math.min(2, this.reactTokens + (t - this.reactAt) / 1000);
+    this.reactAt = t;
+    if (this.reactTokens < 1) return this.error(sock, 'RATE_LIMITED', seq, 'react.send', { retryAfterMs: Math.ceil((1 - this.reactTokens) * 1000) });
+    this.reactTokens -= 1;
+    this.ownReactions[emoji] = (this.ownReactions[emoji] ?? 0) + 1;
+  }
+
+  /** Seeded audience: one `react.audience` per second with a few anonymous reactions (game values). */
+  private startAudience() {
+    if (this.audienceTimer) return;
+    this.audienceTimer = setInterval(() => {
+      if (this.stopped || !this.spectatorId) return;
+      this.audienceTick += 1;
+      let x = (0x9e3779b9 * this.audienceTick) >>> 0;
+      const rnd = () => {
+        x ^= x << 13;
+        x >>>= 0;
+        x ^= x >>> 17;
+        x ^= x << 5;
+        x >>>= 0;
+        return x / 4294967296;
+      };
+      const draw = (id: string) => Math.floor(rnd() * rnd() * 9) + (this.ownReactions[id] ?? 0);
+      const counts: PayloadMap['react.audience']['counts'] = { ROCKET: draw('ROCKET'), THUMBS_UP: draw('THUMBS_UP'), GRIMACE: draw('GRIMACE'), FIRE: draw('FIRE'), THINKING: draw('THINKING') };
+      this.ownReactions = {};
+      if (Object.values(counts).some((n) => n > 0)) this.send('react.audience', { windowMs: 1000, counts });
+    }, 1000);
+  }
+
+  /** Test hook: pause or resume the game as the host would. */
+  setPaused(on: boolean) {
+    if (on === this.paused) return;
+    this.paused = on;
+    if (on) {
+      this.pausedAtMs = this.now();
+      this.send('game.paused', { reason: 'HOST_REQUEST', atMs: this.pausedAtMs, roomExpiresAtMs: null });
+    } else {
+      this.send('game.resumed', { atMs: this.now(), pausedForMs: this.now() - this.pausedAtMs });
+    }
+    this.send('room.state', this.roomState());
+  }
+
+  /** Test hook: a new `pilot.assign` (seat handover between segments), merged over the current one. */
+  reassign(over: Partial<PayloadMap['pilot.assign']>) {
+    const next = { ...(this.assign ?? { segment: null, pilotId: null, pilotInput: 'HOST_DEVICE', copilotId: null, boosterPilotId: null, boosterInput: null }), ...over } as PayloadMap['pilot.assign'];
+    this.assign = next;
+    this.send('pilot.assign', next);
+  }
+
+  /** Test hook: change the room's assist level (design 9.3) and tell the phone. */
+  setAssist(level: RoomSettings['assistLevel']) {
+    this.settings = { ...this.settings, assistLevel: level };
+    this.send('settings.state', { settings: this.settings });
+  }
+
+  private onPilotMessage(sock: MockSocket, m: Message) {
+    const phase = (this.sticky.get('phase.set')?.d as PhaseSetPayload | undefined)?.phase;
+    if (phase !== 'COUNTDOWN' && phase !== 'FLIGHT') return this.error(sock, 'WRONG_PHASE', m.seq, m.t);
+    const seat = this.seat;
+    const craft = m.t === 'copilot.action' ? 'VEHICLE' : (m.d as PayloadMap['pilot.input']).craft;
+    const fault = seat ? seat.authorise(this.assign, m.t === 'copilot.action' ? 'copilot' : 'pilot', craft) : 'NOT_PILOT';
+    if (fault || !seat) return this.error(sock, 'NOT_PILOT', m.seq, m.t);
+    if (this.paused) return this.error(sock, 'PAUSED', m.seq, m.t);
+    const bad = m.t === 'pilot.input' ? (seat.onInput(m.d, this.now()), null) : m.t === 'pilot.action' ? seat.onAction(m.d) : m.t === 'copilot.action' ? seat.onCopilot(m.d) : null;
+    if (bad) this.error(sock, bad, m.seq, m.t);
+    if (m.t !== 'pilot.input') this.sendHud(true);
+  }
+
+  /** Sends `pilot.hud` to the phone when it changed (≤ 10 Hz) and at least once a second. */
+  private sendHud(force = false) {
+    const seat = this.seat;
+    if (!seat || !this.meId || this.paused) return;
+    const bo = this.sticky.get('blackout.set')?.d as PayloadMap['blackout.set'] | undefined;
+    if (bo?.active) return;
+    const t = this.now();
+    if (!force && t - this.lastHudAtMs < 100) return;
+    const hud = seat.hud([this.meId]);
+    const key = JSON.stringify(hud);
+    if (key === this.lastHud && t - this.lastHudAtMs < 1000) return;
+    if (t - this.lastHudAtMs < 100) return;
+    this.lastHud = key;
+    this.lastHudAtMs = t;
+    this.send('pilot.hud', hud);
+  }
+
+  private startHud() {
+    if (this.hudTimer || !this.seat) return;
+    this.hudTimer = setInterval(() => {
+      if (this.stopped || !this.seat) return;
+      if (!this.paused) this.seat.tick(100, this.now(), Math.max(0, this.met()));
+      this.sendHud();
+    }, 100);
   }
 
   /**
@@ -767,7 +943,7 @@ export class MockRoom {
       best = c.n;
       leading = c.optionId;
     }
-    return { roundId: v.opened.roundId, stage: v.stage.stage, counts, votedIds: [...v.ballots.keys()], audienceCounts: cands.map((id) => ({ optionId: id, n: 0 })), audienceTotal: 0, leadingOptionId: leading };
+    return { roundId: v.opened.roundId, stage: v.stage.stage, counts, votedIds: [...v.ballots.keys()], audienceCounts: cands.map((id, i) => ({ optionId: id, n: this.spectatorId ? (i * 2 + 3) % 5 + 1 : 0 })), audienceTotal: this.spectatorId ? cands.reduce((sum, _id, i) => sum + (i * 2 + 3) % 5 + 1, 0) : 0, leadingOptionId: leading };
   }
 
   private setStage(v: ActiveVote, stage: VoteStage, durationMs: number | null, pickerId: PlayerId | null = null) {
@@ -1212,7 +1388,7 @@ export class MockRoom {
         verticalSpeedMs: metS <= 0 ? 0 : Math.round(Math.min(900, 9 * metS)),
         qKpa: this.telemetry(metS)[1]!.v.q_kpa ?? 0,
         gLoad: this.telemetry(metS)[1]!.v.g_load ?? 1,
-        throttlePct: this.telemetry(metS)[0]!.v.throttle_pct ?? 0,
+        throttlePct: this.seat ? Math.round(this.seat.state.throttlePct) : this.telemetry(metS)[0]!.v.throttle_pct ?? 0,
         propellantPct: this.telemetry(metS)[0]!.v.prop_stage1_pct ?? 100,
         dvRemainingMs: Math.max(0, Math.round(9700 - vel * 1.05)),
         apoapsisKm: metS > 60 ? Math.round(Math.min(553, alt * 1.6)) : null,
@@ -1401,7 +1577,36 @@ export class MockRoom {
     this.phase({ phase: 'BUILD', sub: 'NONE', contractId: 'C1', step: { index: step, total: 12 } });
   }
 
+  /**
+   * `&seat=` session: briefing, a short build, then the countdown and an ascent that holds until
+   * the page is closed. The phone's player sits in the seat with PHONE input from COUNTDOWN on.
+   */
+  private async seatFlight(kind: SeatKind) {
+    this.seat = new MockSeat(kind, this.meId!, this.botId(0));
+    await this.sleep(1500);
+    this.build(1, [], 0, 30);
+    await this.sleep(1200);
+    this.flightT0 = this.now() + this.ms(6000);
+    this.phase({ phase: 'COUNTDOWN', flightPhase: 'F1', contractId: 'C1' });
+    for (const c of this.consoles(false)) this.send('console.config', c);
+    this.assign = this.seat.assignment('ASCENT');
+    this.send('pilot.assign', this.assign);
+    this.startTelemetry();
+    this.startHud();
+    await this.sleep(6000);
+    this.phase({ phase: 'FLIGHT', sub: 'FLYING', flightPhase: 'F2', segment: 'ASCENT', contractId: 'C1' });
+    this.send('haptic.cue', { cue: 'IGNITION', to: null });
+    for (const c of this.consoles(true)) this.send('console.config', c);
+    this.send('flight.event', { eventId: 'liftoff', flightPhase: 'F2', metS: 0, severity: 'INFO', text: { key: 'demo.event.liftoff' }, factId: null });
+    await this.sleep(3000);
+    this.phase({ phase: 'FLIGHT', sub: 'FLYING', flightPhase: 'F3', segment: 'ASCENT', contractId: 'C1' });
+    await this.sleep(2500);
+    this.phase({ phase: 'FLIGHT', sub: 'FLYING', flightPhase: 'F4', segment: 'ASCENT', contractId: 'C1' });
+    await this.sleep(3_600_000);
+  }
+
   private async script() {
+    if (this.watchMode) this.startAudience();
     const me = () => this.meId!;
     this.send('phase.set', { missionSeq: 0, mode: 'QUICK', phase: 'LOBBY', sub: 'NONE', review: null, flightPhase: null, segment: null, boosterTrack: false, contractId: null, step: null });
     for (let i = 0; i < BOTS.length; i++) {
@@ -1409,11 +1614,16 @@ export class MockRoom {
       this.addBot(i);
     }
     await this.sleep(2200);
+    if (this.lobbyHoldMs > 0) await this.sleep(this.lobbyHoldMs);
     this.lockRoles();
     await this.sleep(600);
     this.phase({ phase: 'BRIEFING', contractId: 'C1' });
     this.notice('CAPCOM', 'demo.notice.briefing', 6000);
-    await this.sleep(4500);
+    if (this.seatKind) {
+      await this.seatFlight(this.seatKind);
+      return;
+    }
+    await this.sleep(4500 + this.briefingHoldMs);
 
     const parts: Array<{ category: string; partId: string }> = [];
     this.build(1, parts, 0, 30);

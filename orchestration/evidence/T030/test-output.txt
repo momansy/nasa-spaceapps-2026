@@ -1,0 +1,80 @@
+== npm test (client) ==
+
+
+ RUN  v3.2.7 /Users/alainieh/Developer/Nasa/client
+
+ ✓ src/state/reducer.test.ts (14 tests) 4ms
+ ✓ src/screens/pilot/state.test.ts (63 tests) 6ms
+ ✓ src/screens/pilot/inputSampler.test.ts (9 tests) 8ms
+ ✓ src/minigames/MG-08/model.test.ts (26 tests) 19ms
+ ✓ src/i18n/strings.test.ts (9 tests) 9ms
+ ✓ src/screens/pilot/holdGesture.test.ts (7 tests) 2ms
+ ✓ src/data/statbars.test.ts (10 tests) 15ms
+ ✓ src/minigames/slots.test.ts (3 tests) 2ms
+ ✓ src/screens/spectator/audience.test.ts (6 tests) 2ms
+ ✓ src/screens/pilot/controlsData.test.ts (3 tests) 1ms
+ ✓ src/net/mock.test.ts (5 tests) 262ms
+ ✓ src/screens/pilot/mockSeats.test.ts (10 tests) 303ms
+
+ Test Files  12 passed (12)
+      Tests  165 passed (165)
+   Start at  21:56:24
+   Duration  585ms (transform 546ms, setup 0ms, collect 1.17s, tests 634ms, environment 1ms, prepare 427ms)
+
+
+== npm run build (client) ==
+rendering chunks...
+computing gzip size...
+dist/index.html                       1.24 kB │ gzip:   0.64 kB
+dist/assets/index-DQIhbL2G.css      107.95 kB │ gzip:  20.17 kB
+dist/assets/threeScene-qc9j4Qx3.js    1.71 kB │ gzip:   0.98 kB
+dist/assets/MG-08-YOyrF3xB.js        26.36 kB │ gzip:   9.19 kB
+dist/assets/contracts-D9DBF7fv.js    49.85 kB │ gzip:   8.63 kB
+dist/assets/mock-B-TmCWwO.js         55.57 kB │ gzip:  17.28 kB
+dist/assets/react-Bv9AnACW.js       142.95 kB │ gzip:  45.73 kB
+dist/assets/three-DqAy3I61.js       564.55 kB │ gzip: 143.87 kB
+dist/assets/index-ZwzgZlhF.js       573.10 kB │ gzip: 158.40 kB
+✓ built in 840ms
+
+== npm run e2e (client) ==
+
+> missionforge-client@0.1.0 e2e
+> playwright test
+
+
+Running 23 tests using 1 worker
+
+  ✓   1 e2e/pilot/a11y.spec.ts:45:3 › accessibility of the new screens › touch targets on the pilot, co-pilot, spectator and profile screens (27.9s)
+  ✓   2 e2e/pilot/a11y.spec.ts:79:5 › accessibility of the new screens › pilot, co-pilot and spectator: text 200 percent, right-to-left (29.9s)
+  ✓   3 e2e/pilot/a11y.spec.ts:79:5 › accessibility of the new screens › pilot, co-pilot and spectator: high contrast (28.3s)
+  ✓   4 e2e/pilot/a11y.spec.ts:112:3 › accessibility of the new screens › throttle side setting is kept and mirrors correctly in right-to-left (14.7s)
+  ✓   5 e2e/pilot/a11y.spec.ts:125:3 › accessibility of the new screens › reduced motion: no animation on the new screens (6.7s)
+CPU throttling x4, Chromium headless, 390x844, 38 drag cycles over 5.1 s on the pilot screen (throttle and pitch)
+frames: 306, mean fps: 60.0, p95 frame time: 16.8 ms, worst frame: 16.8 ms
+
+  ✓   6 e2e/pilot/a11y.spec.ts:143:3 › performance with the CPU throttled ×4 › continuous throttle and pitch input keeps 30 fps or better (12.5s)
+  ✓   7 e2e/pilot/copilot.spec.ts:7:1 › co-pilot: STAGE hold and every DEPLOY target (11.3s)
+  ✓   8 e2e/pilot/pilot-full.spec.ts:9:3 › pilot seat: full touch column › pitch, RCS, rotate, attitude, deploy, warp, map and camera send the right frames (12.0s)
+  ✓   9 e2e/pilot/pilot-full.spec.ts:113:3 › pilot seat: full touch column › countdown HOLD and RESUME exist only during the countdown (14.9s)
+  ✓  10 e2e/pilot/pilot-full.spec.ts:125:3 › pilot seat: full touch column › assist layouts: Cadet shows throttle, STAGE, DEPLOY and ABORT only (10.0s)
+  ✓  11 e2e/pilot/pilot-full.spec.ts:141:3 › pilot seat: full touch column › booster seat: own title, craft BOOSTER on every frame (8.8s)
+  ✓  12 e2e/pilot/pilot-full.spec.ts:155:3 › pilot seat: full touch column › seat handover mid-flight swaps the screen without a reload (7.4s)
+  ✓  13 e2e/pilot/pilot-full.spec.ts:174:3 › pilot seat: full touch column › nothing is sent while paused, while the page is hidden, or after the seat moves away (12.9s)
+  ✓  14 e2e/pilot/pilot-full.spec.ts:215:3 › pilot seat: full touch column › input rate: at most 30 Hz while moving, 5 Hz keep-alive while still (10.9s)
+  ✓  15 e2e/pilot/pilot.spec.ts:8:3 › pilot seat › throttle, STAGE hold and guarded ABORT reach the host and come back in pilot.hud (13.3s)
+  ✓  16 e2e/pilot/pilot.spec.ts:88:3 › pilot seat › screenshots in portrait and landscape, abort cover open (8.3s)
+  ✓  17 e2e/pilot/profile.spec.ts:6:1 › profile sheet: change call sign and astronaut, see the server errors (6.7s)
+  ✓  18 e2e/pilot/watch.spec.ts:7:3 › spectator view › phase strip, reaction pad at 1 per second, audience bursts and counters (11.7s)
+  ✓  19 e2e/pilot/watch.spec.ts:44:3 › spectator view › reduced motion: counters only, no bursts (8.3s)
+  ✓  20 e2e/pilot/watch.spec.ts:57:3 › spectator view › pending spectator note for a late joiner (9.3s)
+  ✓  21 e2e/pilot/watch.spec.ts:69:3 › spectator view › "Audience says" bar during a vote, and the flight numbers after (36.9s)
+missing strings: []
+console errors: []
+  ✓  22 e2e/session.spec.ts:24:1 › full mock session on a phone (2.4m)
+  ✓  23 e2e/session.spec.ts:243:1 › join screen right-to-left at 200 % text (597ms)
+
+  23 passed (7.5m)
+done
+
+Baseline before T030: npm test 67 passed (6 files), build ok, e2e 2 passed.
+After T030: npm test 165 passed (12 files), build ok, e2e 23 passed (2 existing + 21 new).
