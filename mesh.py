@@ -387,9 +387,9 @@ def reconcile_queued(gh):
     return changed
 
 
-def run_command(args, cwd, env, timeout=1200):
+def run_command(args, cwd, env, timeout=1200, input_text=None):
     result = subprocess.run(args, cwd=cwd, env=env, text=True, capture_output=True,
-                            timeout=timeout, check=False)
+                            input=input_text, timeout=timeout, check=False)
     if result.returncode:
         raise RuntimeError(f"Command {args[0]!r} exited {result.returncode}: "
                            f"{result.stderr[-1200:]} {result.stdout[-500:]}")
@@ -456,8 +456,9 @@ def run_agent(provider, prompt, cwd, mode, output_schema=SCHEMA, timeout=1200):
                 command += ["--permission-mode", "plan", "--allowedTools", "Read"]
             else:
                 command += ["--permission-mode", "acceptEdits", "--allowedTools", "Read,Edit,Write"]
-            command.append(prompt)
-            envelope = json.loads(run_command(command, cwd, env, timeout))
+            # Pass the prompt on stdin: variadic flags such as --allowedTools can
+            # absorb a trailing positional prompt in some Claude CLI versions.
+            envelope = json.loads(run_command(command, cwd, env, timeout, input_text=prompt))
             if "structured_output" not in envelope:
                 raise RuntimeError("Claude did not return structured_output")
             content = envelope["structured_output"]
