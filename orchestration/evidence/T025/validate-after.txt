@@ -1,0 +1,123 @@
+MissionForge data validation
+  data:   C:\Projects\NASA GAME\data
+  schema: C:\Projects\NASA GAME\data\schema
+  mode:   default (unknown references are warnings; --strict makes them errors)
+
+Schemas: 20 loaded, lint OK
+Files:
+  OK    abort_modes.json                   (abort_mode.schema.json)
+  OK    achievements.json                  (achievement.schema.json)
+  OK    anomalies.json                     (anomaly.schema.json)
+  OK    assist_levels.json                 (assist_level.schema.json)
+  OK    awards.json                        (award.schema.json)
+  OK    boosts.json                        (boost.schema.json)
+  OK    contracts.json                     (contract.schema.json)
+  OK    facts.json                         (fact.schema.json)
+  OK    flight_phases.json                 (flight_phase.schema.json)
+  OK    minigames.json                     (minigame.schema.json)
+  OK    parts/aero_control.json            (part.schema.json)
+  OK    parts/attitude_control.json        (part.schema.json)
+  OK    parts/avionics.json                (part.schema.json)
+  OK    parts/booster_recovery.json        (part.schema.json)
+  OK    parts/capsule.json                 (part.schema.json)
+  OK    parts/capsule_recovery.json        (part.schema.json)
+  OK    parts/communications.json          (part.schema.json)
+  OK    parts/engine_count.json            (part.schema.json)
+  OK    parts/escape_system.json           (part.schema.json)
+  OK    parts/fairing.json                 (part.schema.json)
+  OK    parts/first_stage_engine.json      (part.schema.json)
+  OK    parts/heat_shield.json             (part.schema.json)
+  OK    parts/instrument.json              (part.schema.json)
+  OK    parts/launch_site.json             (part.schema.json)
+  OK    parts/life_support.json            (part.schema.json)
+  OK    parts/mars_lander.json             (part.schema.json)
+  OK    parts/mission_assurance.json       (part.schema.json)
+  OK    parts/navigation_sensor.json       (part.schema.json)
+  OK    parts/power_system.json            (part.schema.json)
+  OK    parts/rcs.json                     (part.schema.json)
+  OK    parts/satellite_power.json         (part.schema.json)
+  OK    parts/separation_system.json       (part.schema.json)
+  OK    parts/strap_on_booster.json        (part.schema.json)
+  OK    parts/structural_material.json     (part.schema.json)
+  OK    parts/tank_size.json               (part.schema.json)
+  OK    parts/upper_stage_engine.json      (part.schema.json)
+  OK    pilot_controls.json                (pilot_control.schema.json)
+  OK    pings.json                         (ping.schema.json)
+  OK    roles.json                         (role.schema.json)
+  OK    scoring.json                       (scoring.schema.json)
+  OK    strings/en.content.json            (strings.schema.json)
+  OK    strings/en.json                    (strings.schema.json)
+  OK    strings/en.parts_a.json            (strings.schema.json)
+  OK    strings/en.parts_b.json            (strings.schema.json)
+  OK    tests.json                         (test.schema.json)
+  OK    validation_rules.json              (validation_rule.schema.json)
+
+Cross-checks:
+  IDs declared:  5 abort_mode, 12 achievement, 12 anomaly, 3 assist_level, 8 award, 11 boost, 9 contract, 40 fact, 16 flight_phase, 32 minigame, 102 part, 13 pilot_action, 13 ping, 2 role_tag, 10 role, 3 sync_moment, 6 score_component, 2 score_multiplier, 5 grade, 10 test, 10 validation_rule
+  String keys:   1468 in strings/en.json, 1468 referenced by data
+  References:    482 checked, all resolved
+  value_types:   132 tagged objects checked
+
+RESULT: PASS (0 errors, 0 warnings)
+--- --strict
+MissionForge data validation
+  data:   C:\Projects\NASA GAME\data
+  schema: C:\Projects\NASA GAME\data\schema
+  mode:   strict (unknown references are errors)
+
+Schemas: 20 loaded, lint OK
+Files:
+  OK    abort_modes.json                   (abort_mode.schema.json)
+  OK    achievements.json                  (achievement.schema.json)
+  OK    anomalies.json                     (anomaly.schema.json)
+  OK    assist_levels.json                 (assist_level.schema.json)
+  OK    awards.json                        (award.schema.json)
+  OK    boosts.json                        (boost.schema.json)
+  OK    contracts.json                     (contract.schema.json)
+  OK    facts.json                         (fact.schema.json)
+  OK    flight_phases.json                 (flight_phase.schema.json)
+  OK    minigames.json                     (minigame.schema.json)
+  OK    parts/aero_control.json            (part.schema.json)
+  OK    parts/attitude_control.json        (part.schema.json)
+  OK    parts/avionics.json                (part.schema.json)
+  OK    parts/booster_recovery.json        (part.schema.json)
+  OK    parts/capsule.json                 (part.schema.json)
+  OK    parts/capsule_recovery.json        (part.schema.json)
+  OK    parts/communications.json          (part.schema.json)
+  OK    parts/engine_count.json            (part.schema.json)
+  OK    parts/escape_system.json           (part.schema.json)
+  OK    parts/fairing.json                 (part.schema.json)
+  OK    parts/first_stage_engine.json      (part.schema.json)
+  OK    parts/heat_shield.json             (part.schema.json)
+  OK    parts/instrument.json              (part.schema.json)
+  OK    parts/launch_site.json             (part.schema.json)
+  OK    parts/life_support.json            (part.schema.json)
+  OK    parts/mars_lander.json             (part.schema.json)
+  OK    parts/mission_assurance.json       (part.schema.json)
+  OK    parts/navigation_sensor.json       (part.schema.json)
+  OK    parts/power_system.json            (part.schema.json)
+  OK    parts/rcs.json                     (part.schema.json)
+  OK    parts/satellite_power.json         (part.schema.json)
+  OK    parts/separation_system.json       (part.schema.json)
+  OK    parts/strap_on_booster.json        (part.schema.json)
+  OK    parts/structural_material.json     (part.schema.json)
+  OK    parts/tank_size.json               (part.schema.json)
+  OK    parts/upper_stage_engine.json      (part.schema.json)
+  OK    pilot_controls.json                (pilot_control.schema.json)
+  OK    pings.json                         (ping.schema.json)
+  OK    roles.json                         (role.schema.json)
+  OK    scoring.json                       (scoring.schema.json)
+  OK    strings/en.content.json            (strings.schema.json)
+  OK    strings/en.json                    (strings.schema.json)
+  OK    strings/en.parts_a.json            (strings.schema.json)
+  OK    strings/en.parts_b.json            (strings.schema.json)
+  OK    tests.json                         (test.schema.json)
+  OK    validation_rules.json              (validation_rule.schema.json)
+
+Cross-checks:
+  IDs declared:  5 abort_mode, 12 achievement, 12 anomaly, 3 assist_level, 8 award, 11 boost, 9 contract, 40 fact, 16 flight_phase, 32 minigame, 102 part, 13 pilot_action, 13 ping, 2 role_tag, 10 role, 3 sync_moment, 6 score_component, 2 score_multiplier, 5 grade, 10 test, 10 validation_rule
+  String keys:   1468 in strings/en.json, 1468 referenced by data
+  References:    482 checked, all resolved
+  value_types:   132 tagged objects checked
+
+RESULT: PASS (0 errors, 0 warnings)
