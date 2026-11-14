@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "validation_rule.schema.json",
+  "title": "MissionForge build validation rules",
+  "description": "The validation rule list.",
+  "x-data-files": [
+    "validation_rules.json"
+  ],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Optional relative path to the JSON Schema of this file, for editor support. Loaders ignore it."
+    },
+    "design_notes": {
+      "$ref": "common.schema.json#/$defs/design_notes",
+      "description": "Designer-facing notes about ambiguities or decisions. Never shown to players and never localised."
+    },
+    "rules": {
+      "type": "array",
+      "description": "Rules in design-table order.",
+      "items": {
+        "$ref": "#/$defs/rule"
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "rules"
+  ],
+  "$defs": {
+    "rule": {
+      "type": "object",
+      "description": "One validation rule. The predicate itself is code in Core; data carries its identity, severity, thresholds and text.",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/snake_id",
+          "description": "Unique rule ID, for example liftoff_twr_too_low. Core maps it to a predicate.",
+          "x-id": "validation_rule"
+        },
+        "name_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the Rule column."
+        },
+        "severity": {
+          "$ref": "common.schema.json#/$defs/severity",
+          "description": "Severity when the rule fires."
+        },
+        "explanation_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the Explanation shown column."
+        },
+        "params": {
+          "$ref": "common.schema.json#/$defs/params_map",
+          "description": "Thresholds of the predicate, for example twr_min."
+        },
+        "relaxed": {
+          "type": "object",
+          "description": "Lower severity that applies when the shortfall is small (\"Blocker unless margin within 3% -> Major\").",
+          "additionalProperties": false,
+          "properties": {
+            "severity": {
+              "$ref": "common.schema.json#/$defs/severity",
+              "description": "Severity used inside the margin."
+            },
+            "margin_fraction": {
+              "type": "number",
+              "description": "Shortfall, as a fraction of the requirement, up to which the relaxed severity applies (0.03 = 3%).",
+              "minimum": 0,
+              "maximum": 1
+            }
+          },
+          "required": [
+            "severity",
+            "margin_fraction"
+          ]
+        },
+        "value_types": {
+          "type": "object",
+          "description": "Provenance tags.",
+          "additionalProperties": false,
+          "properties": {
+            "params": {
+              "$ref": "common.schema.json#/$defs/value_type",
+              "description": "Tag of params."
+            },
+            "relaxed": {
+              "$ref": "common.schema.json#/$defs/value_type",
+              "description": "Tag of relaxed."
+            }
+          },
+          "required": []
+        },
+        "design_notes": {
+          "$ref": "common.schema.json#/$defs/design_notes",
+          "description": "Designer-facing notes about ambiguities or decisions. Never shown to players and never localised."
+        }
+      },
+      "required": [
+        "id",
+        "name_key",
+        "severity",
+        "explanation_key"
+      ],
+      "x-value-groups": [
+        "params",
+        "relaxed"
+      ]
+    }
+  }
+}

@@ -1,0 +1,280 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "minigame.schema.json",
+  "title": "MissionForge minigames",
+  "description": "The minigame catalog.",
+  "x-data-files": [
+    "minigames.json"
+  ],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Optional relative path to the JSON Schema of this file, for editor support. Loaders ignore it."
+    },
+    "design_notes": {
+      "$ref": "common.schema.json#/$defs/design_notes",
+      "description": "Designer-facing notes about ambiguities or decisions. Never shown to players and never localised."
+    },
+    "minigames": {
+      "type": "array",
+      "description": "Minigames in catalog order.",
+      "items": {
+        "$ref": "#/$defs/minigame"
+      },
+      "minItems": 1
+    },
+    "value_types": {
+      "type": "object",
+      "description": "Provenance tags.",
+      "additionalProperties": false,
+      "properties": {
+        "minigames": {
+          "$ref": "common.schema.json#/$defs/value_type",
+          "description": "Tag of all durations, thresholds and reward magnitudes in minigames."
+        }
+      },
+      "required": [
+        "minigames"
+      ]
+    }
+  },
+  "required": [
+    "minigames",
+    "value_types"
+  ],
+  "x-value-groups": [
+    "minigames"
+  ],
+  "$defs": {
+    "minigame": {
+      "type": "object",
+      "description": "One minigame.",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/minigame_id",
+          "description": "Unique minigame ID.",
+          "x-id": "minigame"
+        },
+        "name_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the minigame name."
+        },
+        "when_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the When line."
+        },
+        "stage": {
+          "type": "string",
+          "description": "Part of the session in which the minigame occurs.",
+          "enum": [
+            "build",
+            "countdown",
+            "flight",
+            "debrief",
+            "between_phases"
+          ]
+        },
+        "flight_phases": {
+          "type": "array",
+          "description": "Flight phases in which the minigame can occur.",
+          "items": {
+            "$ref": "common.schema.json#/$defs/flight_phase"
+          },
+          "uniqueItems": true
+        },
+        "contracts": {
+          "type": "array",
+          "description": "Contracts the minigame is limited to. Omit when unrestricted.",
+          "items": {
+            "$ref": "common.schema.json#/$defs/contract_ref"
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "triggers": {
+          "type": "array",
+          "description": "Conditions that start the minigame; any one suffices. Parts enable minigames through their enables_minigame rules.",
+          "items": {
+            "type": "object",
+            "description": "One trigger.",
+            "additionalProperties": false,
+            "properties": {
+              "kind": {
+                "type": "string",
+                "description": "Trigger kind.",
+                "enum": [
+                  "always",
+                  "review",
+                  "votes_done",
+                  "test",
+                  "anomaly",
+                  "part_chosen",
+                  "category_integrated",
+                  "failure_mode",
+                  "event"
+                ]
+              },
+              "review": {
+                "type": "string",
+                "description": "Design review the trigger refers to.",
+                "enum": [
+                  "PDR",
+                  "CDR",
+                  "FRR"
+                ]
+              },
+              "category": {
+                "$ref": "common.schema.json#/$defs/part_category",
+                "description": "Part category the trigger refers to."
+              },
+              "test": {
+                "$ref": "common.schema.json#/$defs/test_ref",
+                "description": "Test the trigger refers to."
+              },
+              "anomaly": {
+                "$ref": "common.schema.json#/$defs/anomaly_ref",
+                "description": "Anomaly card the trigger refers to."
+              },
+              "part": {
+                "$ref": "common.schema.json#/$defs/part_ref",
+                "description": "Part the trigger refers to."
+              },
+              "failure_mode": {
+                "$ref": "common.schema.json#/$defs/failure_mode",
+                "description": "Failure mode the trigger refers to."
+              },
+              "event": {
+                "$ref": "common.schema.json#/$defs/flag",
+                "description": "Flight or session event the trigger refers to, for example conjunction_warning."
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          }
+        },
+        "type": {
+          "type": "string",
+          "description": "Minigame type (design section 10.2). cooperative is used by MG-28 and MG-30, which the catalog labels \"Cooperative\" without a sub-type.",
+          "enum": [
+            "parallel_solo",
+            "cooperative_split",
+            "relay",
+            "team_sync",
+            "cooperative"
+          ]
+        },
+        "duration_s": {
+          "type": "number",
+          "description": "Play time in seconds.",
+          "exclusiveMinimum": 0
+        },
+        "duration_per_player": {
+          "type": "boolean",
+          "description": "True if duration_s is per player (relay)."
+        },
+        "how_to_play_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the one-sentence instruction."
+        },
+        "success_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the success rule."
+        },
+        "always_succeeds": {
+          "type": "boolean",
+          "description": "True if taking part counts as success."
+        },
+        "params": {
+          "$ref": "common.schema.json#/$defs/params_map",
+          "description": "Thresholds and windows sent to phones in mg.start, for example in_band_fraction_min."
+        },
+        "aggregation": {
+          "type": "string",
+          "description": "How individual results set the real flight value.",
+          "enum": [
+            "none",
+            "team_average",
+            "team_median",
+            "best_three_average"
+          ]
+        },
+        "facts": {
+          "type": "array",
+          "description": "Facts shown on the result screen.",
+          "items": {
+            "$ref": "common.schema.json#/$defs/fact_ref"
+          },
+          "uniqueItems": true
+        },
+        "rewards": {
+          "type": "array",
+          "description": "What success grants.",
+          "items": {
+            "type": "object",
+            "description": "One reward. At least one of boost, effects, flag or text_key.",
+            "additionalProperties": false,
+            "properties": {
+              "boost": {
+                "$ref": "common.schema.json#/$defs/boost_ref",
+                "description": "Catalog boost granted at the earned tier."
+              },
+              "boost_size": {
+                "type": "string",
+                "description": "small when the catalog says a \"small\" boost; the magnitude is then a balance decision.",
+                "enum": [
+                  "normal",
+                  "small"
+                ]
+              },
+              "tiers": {
+                "type": "array",
+                "description": "Tiers at which the reward applies. Omit for every tier.",
+                "items": {
+                  "$ref": "common.schema.json#/$defs/tier"
+                },
+                "uniqueItems": true,
+                "minItems": 1
+              },
+              "effects": {
+                "type": "array",
+                "description": "Numeric effects outside the boost catalog.",
+                "items": {
+                  "$ref": "common.schema.json#/$defs/effect"
+                }
+              },
+              "flag": {
+                "$ref": "common.schema.json#/$defs/flag",
+                "description": "Qualitative reward Core acts on, for example prevents_recontact."
+              },
+              "text_key": {
+                "$ref": "common.schema.json#/$defs/string_key",
+                "description": "String key of the reward text for rewards outside the boost catalog."
+              }
+            },
+            "required": [],
+            "minProperties": 1
+          }
+        },
+        "design_notes": {
+          "$ref": "common.schema.json#/$defs/design_notes",
+          "description": "Designer-facing notes about ambiguities or decisions. Never shown to players and never localised."
+        }
+      },
+      "required": [
+        "id",
+        "name_key",
+        "when_key",
+        "stage",
+        "type",
+        "duration_s",
+        "how_to_play_key",
+        "success_key",
+        "rewards"
+      ]
+    }
+  }
+}

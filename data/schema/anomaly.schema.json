@@ -1,0 +1,231 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "anomaly.schema.json",
+  "title": "MissionForge anomaly cards",
+  "description": "The anomaly deck.",
+  "x-data-files": [
+    "anomalies.json"
+  ],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Optional relative path to the JSON Schema of this file, for editor support. Loaders ignore it."
+    },
+    "design_notes": {
+      "$ref": "common.schema.json#/$defs/design_notes",
+      "description": "Designer-facing notes about ambiguities or decisions. Never shown to players and never localised."
+    },
+    "draw": {
+      "type": "object",
+      "description": "When a card may be drawn.",
+      "additionalProperties": false,
+      "properties": {
+        "min_votes_between": {
+          "type": "integer",
+          "description": "Fewest votes between two draws.",
+          "minimum": 1
+        },
+        "max_votes_between": {
+          "type": "integer",
+          "description": "Most votes between two draws.",
+          "minimum": 1
+        }
+      },
+      "required": [
+        "min_votes_between",
+        "max_votes_between"
+      ]
+    },
+    "anomalies": {
+      "type": "array",
+      "description": "Cards in design-table order.",
+      "items": {
+        "$ref": "#/$defs/anomaly"
+      },
+      "minItems": 1
+    },
+    "value_types": {
+      "type": "object",
+      "description": "Provenance tags.",
+      "additionalProperties": false,
+      "properties": {
+        "draw": {
+          "$ref": "common.schema.json#/$defs/value_type",
+          "description": "Tag of draw."
+        },
+        "anomalies": {
+          "$ref": "common.schema.json#/$defs/value_type",
+          "description": "Tag of all weights and effects in anomalies."
+        }
+      },
+      "required": [
+        "draw",
+        "anomalies"
+      ]
+    }
+  },
+  "required": [
+    "draw",
+    "anomalies",
+    "value_types"
+  ],
+  "x-value-groups": [
+    "draw",
+    "anomalies"
+  ],
+  "$defs": {
+    "anomaly": {
+      "type": "object",
+      "description": "One anomaly card.",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/snake_id",
+          "description": "Unique card ID, for example supplier_delay.",
+          "x-id": "anomaly"
+        },
+        "name_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the card name."
+        },
+        "flavor_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the flavour line, where the design gives one."
+        },
+        "trigger_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the Trigger weight column."
+        },
+        "positive": {
+          "type": "boolean",
+          "description": "True for a card that helps the team."
+        },
+        "base_weight": {
+          "type": "number",
+          "description": "Draw weight before part rules and triggers (game value).",
+          "minimum": 0
+        },
+        "triggers": {
+          "type": "array",
+          "description": "Conditions that raise the draw weight or make the card eligible. Parts raise weights through their anomaly_weight rules.",
+          "items": {
+            "type": "object",
+            "description": "One trigger.",
+            "additionalProperties": false,
+            "properties": {
+              "kind": {
+                "type": "string",
+                "description": "Trigger kind.",
+                "enum": [
+                  "part_rule",
+                  "campaign_mode",
+                  "test_revealed_flaw",
+                  "test_skipped",
+                  "payload_contract",
+                  "science_payload",
+                  "random",
+                  "rare"
+                ]
+              },
+              "test": {
+                "$ref": "common.schema.json#/$defs/test_ref",
+                "description": "Test the trigger refers to, for test_skipped."
+              },
+              "weight_mult": {
+                "type": "number",
+                "description": "Multiplier on the draw weight when the trigger holds (game value).",
+                "exclusiveMinimum": 0
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          }
+        },
+        "effects": {
+          "type": "array",
+          "description": "Effects applied when the card is drawn, before any response.",
+          "items": {
+            "$ref": "common.schema.json#/$defs/effect"
+          }
+        },
+        "responses": {
+          "type": "array",
+          "description": "Quick-vote responses.",
+          "items": {
+            "type": "object",
+            "description": "One response.",
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "$ref": "common.schema.json#/$defs/snake_id",
+                "description": "Response ID, unique within the card."
+              },
+              "text_key": {
+                "$ref": "common.schema.json#/$defs/string_key",
+                "description": "String key of the response text."
+              },
+              "action": {
+                "type": "string",
+                "description": "Structural action the response performs, beyond its numeric effects.",
+                "enum": [
+                  "swap_part",
+                  "downgrade_part",
+                  "cut_test",
+                  "use_emergency_funding",
+                  "remove_instrument",
+                  "revote_category",
+                  "switch_pressurant"
+                ]
+              },
+              "revote_category": {
+                "$ref": "common.schema.json#/$defs/part_category",
+                "description": "Category reopened by a revote_category action."
+              },
+              "effects": {
+                "type": "array",
+                "description": "Numeric effects of the response.",
+                "items": {
+                  "$ref": "common.schema.json#/$defs/effect"
+                }
+              },
+              "flags": {
+                "type": "array",
+                "description": "Qualitative effects with no number in the design.",
+                "items": {
+                  "$ref": "common.schema.json#/$defs/flag"
+                },
+                "uniqueItems": true
+              },
+              "minigame": {
+                "$ref": "common.schema.json#/$defs/minigame_ref",
+                "description": "Minigame played as part of the response."
+              },
+              "guarantees_minigame": {
+                "$ref": "common.schema.json#/$defs/minigame_ref",
+                "description": "Minigame guaranteed to occur later in flight."
+              }
+            },
+            "required": [
+              "id",
+              "text_key"
+            ]
+          },
+          "minItems": 2
+        },
+        "design_notes": {
+          "$ref": "common.schema.json#/$defs/design_notes",
+          "description": "Designer-facing notes about ambiguities or decisions. Never shown to players and never localised."
+        }
+      },
+      "required": [
+        "id",
+        "name_key",
+        "trigger_key",
+        "responses"
+      ]
+    }
+  }
+}

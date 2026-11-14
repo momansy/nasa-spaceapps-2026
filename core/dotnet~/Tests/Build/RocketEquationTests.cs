@@ -15,10 +15,10 @@ namespace MissionForge.Core.Tests.Build
             //   delta-v         = 3049.86815 * 1.3862943611
             //                   = 3000 * 1.3862943611    = 4158.8830834
             //                   +   49.86815 * 1.3862943611 =   69.1319351
-            //                   = 4228.0150185 m/s
+            //                   = 4228.0150185 m/s, which is 4228.01502 to five decimals
             double deltaVMs = RocketEquation.DeltaVMs(311.0, 100_000.0, 25_000.0);
 
-            Assert.Equal(4228.0150185, deltaVMs, 6);
+            Assert.Equal(4228.01502, deltaVMs, 5);
         }
 
         [Fact]

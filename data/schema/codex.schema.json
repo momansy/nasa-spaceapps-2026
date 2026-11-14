@@ -1,0 +1,157 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "codex.schema.json",
+  "title": "MissionForge Mission Codex",
+  "description": "The Codex.",
+  "x-data-files": [
+    "codex.json"
+  ],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Optional relative path to the JSON Schema of this file, for editor support. Loaders ignore it."
+    },
+    "design_notes": {
+      "$ref": "common.schema.json#/$defs/design_notes",
+      "description": "Designer-facing notes about ambiguities or decisions. Never shown to players and never localised."
+    },
+    "entries": {
+      "type": "array",
+      "description": "Codex entries.",
+      "items": {
+        "$ref": "#/$defs/entry"
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "entries"
+  ],
+  "$defs": {
+    "entry": {
+      "type": "object",
+      "description": "One Codex entry.",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/snake_id",
+          "description": "Unique entry ID.",
+          "x-id": "codex"
+        },
+        "kind": {
+          "type": "string",
+          "description": "Kind of entry.",
+          "enum": [
+            "part",
+            "physics",
+            "simplification",
+            "history",
+            "mission",
+            "lesson_learned",
+            "milestone",
+            "glossary"
+          ]
+        },
+        "title_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the title."
+        },
+        "body_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the body text."
+        },
+        "simplification_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the line saying what the game simplifies; expected on physics entries (design section 12.1)."
+        },
+        "image": {
+          "type": "string",
+          "description": "Path of the illustration relative to the media root.",
+          "pattern": "^[a-z0-9_/-]+\\.(png|jpg|webp|svg)$"
+        },
+        "facts": {
+          "type": "array",
+          "description": "Facts the entry cites.",
+          "items": {
+            "$ref": "common.schema.json#/$defs/fact_ref"
+          },
+          "uniqueItems": true
+        },
+        "sensitive": {
+          "type": "boolean",
+          "description": "True for entries about real tragedies; they are shown only in the Codex and Lessons Learned, in a respectful tone."
+        },
+        "unlock": {
+          "type": "object",
+          "description": "What unlocks the entry.",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "type": "string",
+              "description": "Unlock trigger.",
+              "enum": [
+                "always",
+                "part_chosen",
+                "contract_completed",
+                "minigame_tier",
+                "failure_mode",
+                "anomaly",
+                "fact_seen",
+                "milestone",
+                "lesson_learned"
+              ]
+            },
+            "part": {
+              "$ref": "common.schema.json#/$defs/part_ref",
+              "description": "Part for part_chosen."
+            },
+            "contract": {
+              "$ref": "common.schema.json#/$defs/contract_ref",
+              "description": "Contract for contract_completed."
+            },
+            "minigame": {
+              "$ref": "common.schema.json#/$defs/minigame_ref",
+              "description": "Minigame for minigame_tier."
+            },
+            "tier": {
+              "$ref": "common.schema.json#/$defs/tier",
+              "description": "Lowest tier for minigame_tier."
+            },
+            "failure_mode": {
+              "$ref": "common.schema.json#/$defs/failure_mode",
+              "description": "Failure mode for failure_mode."
+            },
+            "anomaly": {
+              "$ref": "common.schema.json#/$defs/anomaly_ref",
+              "description": "Anomaly card for anomaly."
+            },
+            "fact": {
+              "$ref": "common.schema.json#/$defs/fact_ref",
+              "description": "Fact for fact_seen."
+            },
+            "milestone": {
+              "$ref": "common.schema.json#/$defs/flag",
+              "description": "Campaign milestone for milestone, for example first_orbit."
+            }
+          },
+          "required": [
+            "kind"
+          ]
+        },
+        "design_notes": {
+          "$ref": "common.schema.json#/$defs/design_notes",
+          "description": "Designer-facing notes about ambiguities or decisions. Never shown to players and never localised."
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "title_key",
+        "body_key",
+        "unlock"
+      ]
+    }
+  }
+}

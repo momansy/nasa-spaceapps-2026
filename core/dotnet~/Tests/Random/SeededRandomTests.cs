@@ -133,7 +133,7 @@ namespace MissionForge.Core.Tests.RandomTests
                 seen[value + 2] = true;
             }
 
-            Assert.All(seen, Assert.True);
+            Assert.All(seen, reached => Assert.True(reached));
         }
 
         [Fact]

@@ -1,0 +1,1715 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "part.schema.json",
+  "title": "MissionForge part category file",
+  "description": "A part category and its options.",
+  "x-data-files": [
+    "parts/*.json"
+  ],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Optional relative path to the JSON Schema of this file, for editor support. Loaders ignore it."
+    },
+    "category": {
+      "$ref": "common.schema.json#/$defs/part_category",
+      "description": "Category of every part in the file; must equal the file name without extension."
+    },
+    "name_key": {
+      "$ref": "common.schema.json#/$defs/string_key",
+      "description": "String key of the category name shown in the vote Reveal step."
+    },
+    "intro_key": {
+      "$ref": "common.schema.json#/$defs/string_key",
+      "description": "String key of the one-sentence \"why it matters\" line, where the design gives one."
+    },
+    "design_section": {
+      "type": "string",
+      "description": "Design section the table comes from, for example 7.7.",
+      "pattern": "^7\\.[0-9]+(\\.[0-9]+)?$"
+    },
+    "facts": {
+      "type": "array",
+      "description": "Fact IDs attached to the whole category (the \"Did you know?\" line under the design table).",
+      "items": {
+        "$ref": "common.schema.json#/$defs/fact_ref"
+      },
+      "uniqueItems": true
+    },
+    "category_params": {
+      "type": "object",
+      "description": "Numbers that belong to the category rather than to one option.",
+      "additionalProperties": false,
+      "properties": {
+        "structural_ratio_by_propellant": {
+          "type": "object",
+          "description": "Tank structural ratio by propellant (design section 7.9): dry tank mass = propellant mass x ratio x material multiplier.",
+          "additionalProperties": false,
+          "properties": {
+            "RP1_LOX": {
+              "type": "number",
+              "description": "Structural ratio for kerolox tanks.",
+              "exclusiveMinimum": 0,
+              "maximum": 1
+            },
+            "LH2_LOX": {
+              "type": "number",
+              "description": "Structural ratio for hydrolox tanks.",
+              "exclusiveMinimum": 0,
+              "maximum": 1
+            },
+            "CH4_LOX": {
+              "type": "number",
+              "description": "Structural ratio for methalox tanks.",
+              "exclusiveMinimum": 0,
+              "maximum": 1
+            },
+            "A50_N2O4": {
+              "type": "number",
+              "description": "Structural ratio for hypergolic tanks.",
+              "exclusiveMinimum": 0,
+              "maximum": 1
+            }
+          },
+          "required": []
+        },
+        "value_type": {
+          "$ref": "common.schema.json#/$defs/value_type",
+          "description": "Provenance of the category parameters."
+        }
+      },
+      "required": [
+        "value_type"
+      ]
+    },
+    "design_notes": {
+      "$ref": "common.schema.json#/$defs/design_notes",
+      "description": "Designer-facing notes about ambiguities or decisions. Never shown to players and never localised."
+    },
+    "parts": {
+      "type": "array",
+      "description": "The options of the category, in design-table order.",
+      "items": {
+        "$ref": "#/$defs/part"
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "category",
+    "name_key",
+    "design_section",
+    "parts"
+  ],
+  "$defs": {
+    "part": {
+      "type": "object",
+      "description": "One selectable option of a part category.",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/part_id",
+          "description": "Unique part ID.",
+          "x-id": "part"
+        },
+        "category": {
+          "$ref": "common.schema.json#/$defs/part_category",
+          "description": "Category of the option; must equal the category of the file."
+        },
+        "name_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the generic in-game name."
+        },
+        "twin": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the real-world twin line. Omit when the design table shows none."
+        },
+        "strengths": {
+          "type": "array",
+          "description": "String keys of the Strengths bullets, in display order. Empty when the design lists none.",
+          "items": {
+            "$ref": "common.schema.json#/$defs/string_key"
+          },
+          "uniqueItems": true
+        },
+        "drawbacks": {
+          "type": "array",
+          "description": "String keys of the Drawbacks bullets, in display order. Always shown on the Part Card.",
+          "items": {
+            "$ref": "common.schema.json#/$defs/string_key"
+          },
+          "uniqueItems": true
+        },
+        "facts": {
+          "type": "array",
+          "description": "Fact IDs offered as the \"Did you know?\" line of the Part Card.",
+          "items": {
+            "$ref": "common.schema.json#/$defs/fact_ref"
+          },
+          "uniqueItems": true
+        },
+        "contracts": {
+          "type": "array",
+          "description": "Contracts that offer this option. Omit when the design does not restrict it; the option is then available wherever its category is voted.",
+          "items": {
+            "$ref": "common.schema.json#/$defs/contract_ref"
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "model": {
+          "type": "string",
+          "description": "Path of the 3D model relative to the model root, models/<id>.glb.",
+          "pattern": "^models/[a-z0-9_]+\\.glb$"
+        },
+        "stats": {
+          "description": "Physical and performance figures of the option. The allowed fields depend on category (see the allOf block)."
+        },
+        "game": {
+          "$ref": "#/$defs/game",
+          "description": "Game-balance figures of the option."
+        },
+        "modifiers": {
+          "type": "array",
+          "description": "Multipliers and deltas the option applies to the whole vehicle or mission, for example a dry-mass multiplier.",
+          "items": {
+            "$ref": "common.schema.json#/$defs/effect"
+          }
+        },
+        "rules": {
+          "type": "array",
+          "description": "Hooks for dependencies and side effects: required parts, anomaly weights, enabled minigames, test-mitigated risks, flags.",
+          "items": {
+            "oneOf": [
+              {
+                "type": "object",
+                "description": "The option needs another part, for example propulsive booster landing requires grid fins.",
+                "additionalProperties": false,
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "const": "requires_part",
+                    "description": "Rule kind: requires_part."
+                  },
+                  "part": {
+                    "$ref": "common.schema.json#/$defs/part_ref",
+                    "description": "Part that must also be chosen."
+                  }
+                },
+                "required": [
+                  "kind",
+                  "part"
+                ]
+              },
+              {
+                "type": "object",
+                "description": "The option needs at least one of several parts.",
+                "additionalProperties": false,
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "const": "requires_any_part",
+                    "description": "Rule kind: requires_any_part."
+                  },
+                  "parts": {
+                    "type": "array",
+                    "description": "Parts of which at least one must also be chosen.",
+                    "items": {
+                      "$ref": "common.schema.json#/$defs/part_ref"
+                    },
+                    "minItems": 1,
+                    "uniqueItems": true
+                  }
+                },
+                "required": [
+                  "kind",
+                  "parts"
+                ]
+              },
+              {
+                "type": "object",
+                "description": "The option cannot be combined with another part.",
+                "additionalProperties": false,
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "const": "incompatible_with_part",
+                    "description": "Rule kind: incompatible_with_part."
+                  },
+                  "part": {
+                    "$ref": "common.schema.json#/$defs/part_ref",
+                    "description": "Part that cannot be combined with this one."
+                  }
+                },
+                "required": [
+                  "kind",
+                  "part"
+                ]
+              },
+              {
+                "type": "object",
+                "description": "Choosing the option makes an anomaly card more likely (design section 6.8).",
+                "additionalProperties": false,
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "const": "anomaly_weight",
+                    "description": "Rule kind: anomaly_weight."
+                  },
+                  "anomaly": {
+                    "$ref": "common.schema.json#/$defs/anomaly_ref",
+                    "description": "Anomaly card whose draw weight this option raises."
+                  },
+                  "weight_mult": {
+                    "type": "number",
+                    "description": "Multiplier on the card draw weight (game value). Omit while the design only says \"more likely\".",
+                    "exclusiveMinimum": 0
+                  }
+                },
+                "required": [
+                  "kind",
+                  "anomaly"
+                ]
+              },
+              {
+                "type": "object",
+                "description": "Choosing the option enables a minigame.",
+                "additionalProperties": false,
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "const": "enables_minigame",
+                    "description": "Rule kind: enables_minigame."
+                  },
+                  "minigame": {
+                    "$ref": "common.schema.json#/$defs/minigame_ref",
+                    "description": "Minigame that becomes possible when this option is chosen."
+                  }
+                },
+                "required": [
+                  "kind",
+                  "minigame"
+                ]
+              },
+              {
+                "type": "object",
+                "description": "The option carries a failure mode unless a named test is run.",
+                "additionalProperties": false,
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "const": "test_mitigates_failure_mode",
+                    "description": "Rule kind: test_mitigates_failure_mode."
+                  },
+                  "failure_mode": {
+                    "$ref": "common.schema.json#/$defs/failure_mode",
+                    "description": "Failure mode the option is exposed to."
+                  },
+                  "test": {
+                    "$ref": "common.schema.json#/$defs/test_ref",
+                    "description": "Test that removes or reveals the risk."
+                  },
+                  "with_propellant": {
+                    "$ref": "common.schema.json#/$defs/propellant",
+                    "description": "Restricts the risk to builds using this propellant."
+                  }
+                },
+                "required": [
+                  "kind",
+                  "failure_mode",
+                  "test"
+                ]
+              },
+              {
+                "type": "object",
+                "description": "The Part Card recommends a test for this option.",
+                "additionalProperties": false,
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "const": "recommends_test",
+                    "description": "Rule kind: recommends_test."
+                  },
+                  "test": {
+                    "$ref": "common.schema.json#/$defs/test_ref",
+                    "description": "Test the Part Card recommends."
+                  }
+                },
+                "required": [
+                  "kind",
+                  "test"
+                ]
+              },
+              {
+                "type": "object",
+                "description": "A qualitative effect with no number in the design.",
+                "additionalProperties": false,
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "const": "flag",
+                    "description": "Rule kind: flag."
+                  },
+                  "flag": {
+                    "$ref": "common.schema.json#/$defs/flag",
+                    "description": "Marker Core acts on."
+                  }
+                },
+                "required": [
+                  "kind",
+                  "flag"
+                ]
+              }
+            ]
+          }
+        },
+        "failure_modes": {
+          "type": "array",
+          "description": "Failure modes this option can roll at flight checkpoints (design section 8.4).",
+          "items": {
+            "$ref": "common.schema.json#/$defs/failure_mode"
+          },
+          "uniqueItems": true
+        },
+        "value_types": {
+          "$ref": "#/$defs/value_types",
+          "description": "Provenance tag for every numeric group of the option."
+        },
+        "design_notes": {
+          "$ref": "common.schema.json#/$defs/design_notes",
+          "description": "Designer-facing notes about ambiguities or decisions. Never shown to players and never localised."
+        }
+      },
+      "required": [
+        "id",
+        "category",
+        "name_key",
+        "strengths",
+        "drawbacks",
+        "stats",
+        "game",
+        "value_types"
+      ],
+      "x-value-groups": [
+        "stats",
+        "game",
+        "modifiers",
+        "rules"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "category": {
+                "const": "launch_site"
+              }
+            },
+            "required": [
+              "category"
+            ]
+          },
+          "then": {
+            "properties": {
+              "stats": {
+                "$ref": "#/$defs/stats_launch_site"
+              },
+              "game": {
+                "type": "object",
+                "required": [
+                  "cost_M",
+                  "lead_days"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "category": {
+                "const": "instrument"
+              }
+            },
+            "required": [
+              "category"
+            ]
+          },
+          "then": {
+            "properties": {
+              "stats": {
+                "$ref": "#/$defs/stats_instrument"
+              },
+              "game": {
+                "type": "object",
+                "required": [
+                  "cost_M"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "category": {
+                "const": "satellite_power"
+              }
+            },
+            "required": [
+              "category"
+            ]
+          },
+          "then": {
+            "properties": {
+              "stats": {
+                "$ref": "#/$defs/stats_satellite_power"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "category": {
+                "const": "attitude_control"
+              }
+            },
+            "required": [
+              "category"
+            ]
+          },
+          "then": {
+            "properties": {
+              "stats": {
+                "$ref": "#/$defs/stats_attitude_control"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "category": {
+                "const": "capsule"
+              }
+            },
+            "required": [
+              "category"
+            ]
+          },
+          "then": {
+            "properties": {
+              "stats": {
+                "$ref": "#/$defs/stats_capsule"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "category": {
+                "const": "life_support"
+              }
+            },
+            "required": [
+              "category"
+            ]
+          },
+          "then": {
+            "properties": {
+              "stats": {
+                "$ref": "#/$defs/stats_life_support"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "category": {
+                "const": "mars_lander"
+              }
+            },
+            "required": [
+              "category"
+            ]
+          },
+          "then": {
+            "properties": {
+              "stats": {
+                "$ref": "#/$defs/stats_mars_lander"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "category": {
+                "const": "heat_shield"
+              }
+            },
+            "required": [
+              "category"
+            ]
+          },
+          "then": {
+            "properties": {
+              "stats": {
+                "$ref": "#/$defs/stats_heat_shield"
+              },
+              "game": {
+                "type": "object",
+                "required": [
+                  "cost_M"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "category": {
+                "const": "escape_system"
+              }
+            },
+            "required": [
+              "category"
+            ]
+          },
+          "then": {
+            "properties": {
+              "stats": {
+                "$ref": "#/$defs/stats_escape_system"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "category": {
+                "const": "fairing"
+              }
+            },
+            "required": [
+              "category"
+            ]
+          },
+          "then": {
+            "properties": {
+              "stats": {
+                "$ref": "#/$defs/stats_fairing"
+              },
+              "game": {
+                "type": "object",
+                "required": [
+                  "cost_M"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "category": {
+                "const": "engine_count"
+              }
+            },
+            "required": [
+              "category"
+            ]
+          },
+          "then": {
+            "properties": {
+              "stats": {
+                "$ref": "#/$defs/stats_engine_count"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "category": {
+                "const": "first_stage_engine"
+              }
+            },
+            "required": [
+              "category"
+            ]
+          },
+          "then": {
+            "properties": {
+              "stats": {
+                "$ref": "#/$defs/stats_first_stage_engine"
+              },
+              "game": {
+                "type": "object",
+                "required": [
+                  "cost_M",
+                  "lead_days",
+                  "integ_days",
+                  "reliability",
+                  "maturity"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "category": {
+                "const": "upper_stage_engine"
+              }
+            },
+            "required": [
+              "category"
+            ]
+          },
+          "then": {
+            "properties": {
+              "stats": {
+                "$ref": "#/$defs/stats_upper_stage_engine"
+              },
+              "game": {
+                "type": "object",
+                "required": [
+                  "cost_M",
+                  "reliability",
+                  "maturity"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "category": {
+                "const": "tank_size"
+              }
+            },
+            "required": [
+              "category"
+            ]
+          },
+          "then": {
+            "properties": {
+              "stats": {
+                "$ref": "#/$defs/stats_tank_size"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "category": {
+                "const": "structural_material"
+              }
+            },
+            "required": [
+              "category"
+            ]
+          },
+          "then": {
+            "properties": {
+              "stats": {
+                "$ref": "#/$defs/stats_structural_material"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "category": {
+                "const": "strap_on_booster"
+              }
+            },
+            "required": [
+              "category"
+            ]
+          },
+          "then": {
+            "properties": {
+              "stats": {
+                "$ref": "#/$defs/stats_strap_on_booster"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "category": {
+                "const": "separation_system"
+              }
+            },
+            "required": [
+              "category"
+            ]
+          },
+          "then": {
+            "properties": {
+              "stats": {
+                "$ref": "#/$defs/stats_separation_system"
+              },
+              "game": {
+                "type": "object",
+                "required": [
+                  "reliability"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "category": {
+                "const": "avionics"
+              }
+            },
+            "required": [
+              "category"
+            ]
+          },
+          "then": {
+            "properties": {
+              "stats": {
+                "$ref": "#/$defs/stats_avionics"
+              },
+              "game": {
+                "type": "object",
+                "required": [
+                  "cost_M",
+                  "reliability"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "category": {
+                "const": "navigation_sensor"
+              }
+            },
+            "required": [
+              "category"
+            ]
+          },
+          "then": {
+            "properties": {
+              "stats": {
+                "$ref": "#/$defs/stats_navigation_sensor"
+              },
+              "game": {
+                "type": "object",
+                "required": [
+                  "cost_M"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "category": {
+                "const": "aero_control"
+              }
+            },
+            "required": [
+              "category"
+            ]
+          },
+          "then": {
+            "properties": {
+              "stats": {
+                "$ref": "#/$defs/stats_aero_control"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "category": {
+                "const": "rcs"
+              }
+            },
+            "required": [
+              "category"
+            ]
+          },
+          "then": {
+            "properties": {
+              "stats": {
+                "$ref": "#/$defs/stats_rcs"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "category": {
+                "const": "power_system"
+              }
+            },
+            "required": [
+              "category"
+            ]
+          },
+          "then": {
+            "properties": {
+              "stats": {
+                "$ref": "#/$defs/stats_power_system"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "category": {
+                "const": "communications"
+              }
+            },
+            "required": [
+              "category"
+            ]
+          },
+          "then": {
+            "properties": {
+              "stats": {
+                "$ref": "#/$defs/stats_communications"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "category": {
+                "const": "booster_recovery"
+              }
+            },
+            "required": [
+              "category"
+            ]
+          },
+          "then": {
+            "properties": {
+              "stats": {
+                "$ref": "#/$defs/stats_booster_recovery"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "category": {
+                "const": "capsule_recovery"
+              }
+            },
+            "required": [
+              "category"
+            ]
+          },
+          "then": {
+            "properties": {
+              "stats": {
+                "$ref": "#/$defs/stats_capsule_recovery"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "category": {
+                "const": "mission_assurance"
+              }
+            },
+            "required": [
+              "category"
+            ]
+          },
+          "then": {
+            "properties": {
+              "stats": {
+                "$ref": "#/$defs/stats_mission_assurance"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "game": {
+      "type": "object",
+      "description": "Game-balance figures (design section 7.0). A field is omitted when the design table has no value for it.",
+      "additionalProperties": false,
+      "properties": {
+        "cost_M": {
+          "type": "number",
+          "description": "Contribution of the option to build cost, in game $M (not a real price).",
+          "minimum": 0
+        },
+        "lead_days": {
+          "type": "number",
+          "description": "Procurement lead time in days. Lead times run in parallel: only the longest counts.",
+          "minimum": 0
+        },
+        "integ_days": {
+          "type": "number",
+          "description": "Contribution to serial integration time in days. Integration days add up; a negative value speeds integration up."
+        },
+        "reliability": {
+          "type": "number",
+          "description": "Displayed base reliability per flight as a fraction (0.985 = 98.5%). The hidden true value lies within the maturity band.",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "maturity": {
+          "type": "string",
+          "description": "Maturity level; sets the uncertainty band: proven +-1%, mature +-3%, new +-6%.",
+          "enum": [
+            "proven",
+            "mature",
+            "new"
+          ]
+        }
+      },
+      "required": []
+    },
+    "value_types": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Provenance tags; {} for an option without numbers. Each group that contains a number needs a tag; a single field can override its group with a dotted key such as stats.eastward_boost_m_s.",
+      "properties": {
+        "stats": {
+          "$ref": "common.schema.json#/$defs/value_type",
+          "description": "Tag of the stats group."
+        },
+        "game": {
+          "$ref": "common.schema.json#/$defs/value_type",
+          "description": "Tag of the game group."
+        },
+        "modifiers": {
+          "$ref": "common.schema.json#/$defs/value_type",
+          "description": "Tag of the modifiers group; a modifier can override it with its own value_type."
+        },
+        "rules": {
+          "$ref": "common.schema.json#/$defs/value_type",
+          "description": "Tag of the numeric values inside rules (anomaly weight multipliers)."
+        }
+      },
+      "patternProperties": {
+        "^(stats|game)\\.[a-z][A-Za-z0-9_]*$": {
+          "$ref": "common.schema.json#/$defs/value_type",
+          "description": "Tag of one field, overriding the tag of its group."
+        }
+      }
+    },
+    "stats_launch_site": {
+      "type": "object",
+      "description": "Launch site stats (design section 7.1).",
+      "additionalProperties": false,
+      "properties": {
+        "latitude_deg": {
+          "type": "number",
+          "description": "Site latitude in degrees, positive north.",
+          "minimum": -90,
+          "maximum": 90
+        },
+        "eastward_boost_m_s": {
+          "type": "number",
+          "description": "Free eastward speed from Earth rotation at the site, in m/s: 465 m/s x cos(latitude).",
+          "minimum": 0
+        },
+        "min_inclination_deg": {
+          "type": "number",
+          "description": "Lowest orbital inclination the site reaches efficiently, in degrees. Present only where the design states it.",
+          "minimum": 0,
+          "maximum": 180
+        }
+      },
+      "required": [
+        "latitude_deg",
+        "eastward_boost_m_s"
+      ]
+    },
+    "stats_instrument": {
+      "type": "object",
+      "description": "Satellite instrument stats (design section 7.2.1).",
+      "additionalProperties": false,
+      "properties": {
+        "mass_kg": {
+          "type": "number",
+          "description": "Instrument mass in kg.",
+          "minimum": 0
+        },
+        "power_W": {
+          "type": "number",
+          "description": "Electrical power draw in W.",
+          "minimum": 0
+        },
+        "power_duty": {
+          "type": "string",
+          "description": "When power_W is drawn: continuous, or during_imaging only.",
+          "enum": [
+            "continuous",
+            "during_imaging"
+          ]
+        },
+        "requires_cooling": {
+          "type": "boolean",
+          "description": "True if the detector must be kept cold (thermal penalty)."
+        },
+        "data_GB_per_day": {
+          "type": "number",
+          "description": "Data generated per day in GB.",
+          "minimum": 0
+        },
+        "science_stars": {
+          "type": "integer",
+          "description": "Science value in stars, 1 to 5.",
+          "minimum": 1,
+          "maximum": 5
+        },
+        "sees_through_clouds": {
+          "type": "boolean",
+          "description": "True if the instrument images through cloud. Present only where the design states it."
+        },
+        "works_at_night": {
+          "type": "boolean",
+          "description": "True if the instrument images at night. Present only where the design states it."
+        }
+      },
+      "required": [
+        "mass_kg",
+        "power_W",
+        "data_GB_per_day",
+        "science_stars"
+      ]
+    },
+    "stats_satellite_power": {
+      "type": "object",
+      "description": "Satellite power generation stats (design section 7.2.1).",
+      "additionalProperties": false,
+      "properties": {
+        "mass_kg": {
+          "type": "number",
+          "description": "Mass in kg.",
+          "minimum": 0
+        },
+        "generation_avg_W": {
+          "type": "number",
+          "description": "Orbit-average power generation in W.",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "mass_kg",
+        "generation_avg_W"
+      ]
+    },
+    "stats_attitude_control": {
+      "type": "object",
+      "description": "Satellite attitude control stats (design section 7.2.1).",
+      "additionalProperties": false,
+      "properties": {
+        "pointing_accuracy_deg": {
+          "type": "number",
+          "description": "Pointing accuracy in degrees (smaller is better).",
+          "exclusiveMinimum": 0
+        },
+        "mass_kg": {
+          "type": "number",
+          "description": "Mass in kg.",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "pointing_accuracy_deg",
+        "mass_kg"
+      ]
+    },
+    "stats_capsule": {
+      "type": "object",
+      "description": "Capsule stats (design section 7.2.2).",
+      "additionalProperties": false,
+      "properties": {
+        "mass_t": {
+          "type": "number",
+          "description": "Capsule mass in tonnes, without service module.",
+          "minimum": 0
+        },
+        "service_module_mass_t": {
+          "type": "number",
+          "description": "Service module mass in tonnes, where the option has one.",
+          "minimum": 0
+        },
+        "crew_capacity": {
+          "type": "integer",
+          "description": "Maximum crew.",
+          "minimum": 0
+        },
+        "cargo_capacity_t": {
+          "type": "number",
+          "description": "Cargo capacity in tonnes when flown uncrewed.",
+          "minimum": 0
+        },
+        "endurance_days": {
+          "type": "number",
+          "description": "Crewed endurance in days, where the design states it.",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "mass_t"
+      ]
+    },
+    "stats_life_support": {
+      "type": "object",
+      "description": "Life support stats (design section 7.2.2).",
+      "additionalProperties": false,
+      "properties": {
+        "loop_type": {
+          "type": "string",
+          "description": "open_loop = consumables only; regenerative = regenerative CO2 removal.",
+          "enum": [
+            "open_loop",
+            "regenerative"
+          ]
+        }
+      },
+      "required": [
+        "loop_type"
+      ]
+    },
+    "stats_mars_lander": {
+      "type": "object",
+      "description": "Mars lander stats (design section 7.2.3).",
+      "additionalProperties": false,
+      "properties": {
+        "landing_method_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the landing method text."
+        },
+        "mass_t": {
+          "type": "number",
+          "description": "Lander mass in tonnes.",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "landing_method_key",
+        "mass_t"
+      ]
+    },
+    "stats_heat_shield": {
+      "type": "object",
+      "description": "Heat shield stats (design section 7.3).",
+      "additionalProperties": false,
+      "properties": {
+        "max_entry_speed_km_s": {
+          "type": "number",
+          "description": "Rated entry speed in km/s. A table value of \"~11+\" is stored as 11.",
+          "minimum": 0
+        },
+        "mass_t": {
+          "type": "number",
+          "description": "Shield mass in tonnes for the reference capsule.",
+          "minimum": 0
+        },
+        "reference_capsule_mass_t": {
+          "type": "number",
+          "description": "Capsule mass in tonnes that mass_t was quoted for (9 in the design).",
+          "exclusiveMinimum": 0
+        },
+        "reusable": {
+          "type": "string",
+          "description": "Reusability column of the design table.",
+          "enum": [
+            "no",
+            "partially",
+            "yes"
+          ]
+        }
+      },
+      "required": [
+        "max_entry_speed_km_s",
+        "mass_t",
+        "reference_capsule_mass_t",
+        "reusable"
+      ]
+    },
+    "stats_escape_system": {
+      "type": "object",
+      "description": "Launch escape system stats (design section 7.4).",
+      "additionalProperties": false,
+      "properties": {
+        "mass_t": {
+          "type": "number",
+          "description": "System mass in tonnes.",
+          "minimum": 0
+        },
+        "carried_all_flight": {
+          "type": "boolean",
+          "description": "True if the mass stays aboard for the whole flight; false if it is jettisoned."
+        },
+        "jettison_time_s": {
+          "type": "number",
+          "description": "Seconds after lift-off at which the system is jettisoned, when it is.",
+          "minimum": 0
+        },
+        "abort_envelope_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the abort envelope text."
+        },
+        "abort_envelope_max": {
+          "type": "string",
+          "description": "Last flight regime in which an abort is possible; every option covers the pad.",
+          "enum": [
+            "low_altitude",
+            "upper_atmosphere",
+            "orbit"
+          ]
+        }
+      },
+      "required": [
+        "mass_t",
+        "carried_all_flight",
+        "abort_envelope_key",
+        "abort_envelope_max"
+      ]
+    },
+    "stats_fairing": {
+      "type": "object",
+      "description": "Payload fairing stats (design section 7.5).",
+      "additionalProperties": false,
+      "properties": {
+        "diameter_m": {
+          "type": "number",
+          "description": "Usable diameter in m.",
+          "exclusiveMinimum": 0
+        },
+        "mass_t": {
+          "type": "number",
+          "description": "Fairing mass in tonnes.",
+          "minimum": 0
+        },
+        "reusable": {
+          "type": "boolean",
+          "description": "True if the fairing can be recovered for a refund."
+        }
+      },
+      "required": [
+        "diameter_m",
+        "mass_t"
+      ]
+    },
+    "stats_engine_count": {
+      "type": "object",
+      "description": "Engine count and clustering stats (design section 7.6).",
+      "additionalProperties": false,
+      "properties": {
+        "stage": {
+          "type": "string",
+          "description": "Stage the option applies to.",
+          "enum": [
+            "first",
+            "upper"
+          ]
+        },
+        "engine_count": {
+          "type": "integer",
+          "description": "Number of engines on the stage.",
+          "minimum": 1
+        },
+        "engine_out_capability": {
+          "type": "string",
+          "description": "Engine-out capable? column: no, partial (if TWR allows), usually, yes.",
+          "enum": [
+            "no",
+            "partial",
+            "usually",
+            "yes"
+          ]
+        },
+        "engine_out_bonus": {
+          "type": "string",
+          "description": "Size of the engine-out bonus named in the table.",
+          "enum": [
+            "none",
+            "standard",
+            "strong"
+          ]
+        }
+      },
+      "required": [
+        "stage",
+        "engine_count"
+      ]
+    },
+    "stats_first_stage_engine": {
+      "type": "object",
+      "description": "First-stage engine stats (design section 7.7). Thrust and Isp are for one engine.",
+      "additionalProperties": false,
+      "properties": {
+        "propellant": {
+          "$ref": "common.schema.json#/$defs/propellant",
+          "description": "Propellant combination burned by the engine."
+        },
+        "thrust_sl_kN": {
+          "type": "number",
+          "description": "Sea-level thrust of one engine in kN.",
+          "exclusiveMinimum": 0
+        },
+        "thrust_vac_kN": {
+          "type": "number",
+          "description": "Vacuum thrust of one engine in kN.",
+          "exclusiveMinimum": 0
+        },
+        "isp_sl_s": {
+          "type": "number",
+          "description": "Sea-level specific impulse in s.",
+          "exclusiveMinimum": 0
+        },
+        "isp_vac_s": {
+          "type": "number",
+          "description": "Vacuum specific impulse in s.",
+          "exclusiveMinimum": 0
+        },
+        "mass_t": {
+          "type": "number",
+          "description": "Dry mass of one engine in tonnes.",
+          "exclusiveMinimum": 0
+        },
+        "throttle_min": {
+          "type": "number",
+          "description": "Lowest throttle setting as a fraction of rated thrust (0.40 = 40%). 1 for a fixed-thrust engine.",
+          "exclusiveMinimum": 0,
+          "maximum": 1.5
+        },
+        "throttle_max": {
+          "type": "number",
+          "description": "Highest throttle setting as a fraction of rated thrust (1.09 = 109%).",
+          "exclusiveMinimum": 0,
+          "maximum": 1.5
+        },
+        "restarts": {
+          "type": "integer",
+          "description": "Number of in-flight restarts available.",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "propellant",
+        "thrust_sl_kN",
+        "thrust_vac_kN",
+        "isp_sl_s",
+        "isp_vac_s",
+        "mass_t",
+        "throttle_min",
+        "throttle_max",
+        "restarts"
+      ]
+    },
+    "stats_upper_stage_engine": {
+      "type": "object",
+      "description": "Upper-stage engine stats (design section 7.8). Thrust and Isp are for one engine.",
+      "additionalProperties": false,
+      "properties": {
+        "propellant": {
+          "$ref": "common.schema.json#/$defs/propellant",
+          "description": "Propellant combination burned by the engine."
+        },
+        "thrust_vac_kN": {
+          "type": "number",
+          "description": "Vacuum thrust of one engine in kN.",
+          "exclusiveMinimum": 0
+        },
+        "isp_vac_s": {
+          "type": "number",
+          "description": "Vacuum specific impulse in s.",
+          "exclusiveMinimum": 0
+        },
+        "mass_t": {
+          "type": "number",
+          "description": "Dry mass of one engine in tonnes.",
+          "exclusiveMinimum": 0
+        },
+        "fixed_propellant_t": {
+          "type": "number",
+          "description": "Fixed propellant load in tonnes for motors that ignore the tank vote (solid kick motor).",
+          "minimum": 0
+        },
+        "throttle_min": {
+          "type": "number",
+          "description": "Lowest throttle setting as a fraction of rated thrust, where the design gives one.",
+          "exclusiveMinimum": 0,
+          "maximum": 1.5
+        },
+        "throttle_max": {
+          "type": "number",
+          "description": "Highest throttle setting as a fraction of rated thrust, where the design gives one.",
+          "exclusiveMinimum": 0,
+          "maximum": 1.5
+        },
+        "restarts": {
+          "type": "integer",
+          "description": "Number of in-flight restarts available.",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "propellant",
+        "thrust_vac_kN",
+        "isp_vac_s",
+        "mass_t",
+        "restarts"
+      ]
+    },
+    "stats_tank_size": {
+      "type": "object",
+      "description": "Tank size stats (design section 7.9). One entry serves both stage votes.",
+      "additionalProperties": false,
+      "properties": {
+        "size": {
+          "type": "string",
+          "description": "Size label.",
+          "enum": [
+            "XS",
+            "S",
+            "M",
+            "L",
+            "XL"
+          ]
+        },
+        "first_stage_propellant_t": {
+          "type": "number",
+          "description": "Propellant capacity in tonnes when chosen for the first stage.",
+          "exclusiveMinimum": 0
+        },
+        "upper_stage_propellant_t": {
+          "type": "number",
+          "description": "Propellant capacity in tonnes when chosen for the upper stage.",
+          "exclusiveMinimum": 0
+        }
+      },
+      "required": [
+        "size",
+        "first_stage_propellant_t",
+        "upper_stage_propellant_t"
+      ]
+    },
+    "stats_structural_material": {
+      "type": "object",
+      "description": "Structural material (design section 7.10). No per-part stats: the dry-mass and cost multipliers live in modifiers and the integration days in game.integ_days.",
+      "additionalProperties": false,
+      "properties": {},
+      "required": []
+    },
+    "stats_strap_on_booster": {
+      "type": "object",
+      "description": "Strap-on booster stats (design section 7.11).",
+      "additionalProperties": false,
+      "properties": {
+        "booster_count": {
+          "type": "integer",
+          "description": "Number of boosters in the option (0 for None).",
+          "minimum": 0
+        },
+        "thrust_sl_each_kN": {
+          "type": "number",
+          "description": "Sea-level thrust of one booster in kN.",
+          "minimum": 0
+        },
+        "burn_time_s": {
+          "type": "number",
+          "description": "Burn time in s.",
+          "minimum": 0
+        },
+        "mass_each_t": {
+          "type": "number",
+          "description": "Mass of one booster in tonnes.",
+          "minimum": 0
+        },
+        "cost_each_M": {
+          "type": "number",
+          "description": "Cost of one booster in game $M, as printed in the table; game.cost_M holds the total for the option.",
+          "minimum": 0
+        },
+        "mirrors_first_stage": {
+          "type": "boolean",
+          "description": "True if thrust, burn time and mass of each booster equal the first stage as built (liquid side boosters)."
+        },
+        "cost_first_stage_mult": {
+          "type": "number",
+          "description": "Cost of the option as a multiple of the first-stage cost (2 for liquid side boosters).",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "booster_count"
+      ]
+    },
+    "stats_separation_system": {
+      "type": "object",
+      "description": "Stage separation system stats (design section 7.12).",
+      "additionalProperties": false,
+      "properties": {
+        "mass_t": {
+          "type": "number",
+          "description": "System mass in tonnes.",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "mass_t"
+      ]
+    },
+    "stats_avionics": {
+      "type": "object",
+      "description": "Avionics stats (design section 7.13).",
+      "additionalProperties": false,
+      "properties": {
+        "mass_kg": {
+          "type": "number",
+          "description": "Mass in kg.",
+          "minimum": 0
+        },
+        "computer_count": {
+          "type": "integer",
+          "description": "Number of flight computers, for the redundancy formula of design section 6.5.",
+          "minimum": 1
+        },
+        "radiation_hardened": {
+          "type": "boolean",
+          "description": "True for radiation-hardened computers."
+        }
+      },
+      "required": [
+        "mass_kg"
+      ]
+    },
+    "stats_navigation_sensor": {
+      "type": "object",
+      "description": "Navigation sensor stats (design section 7.14).",
+      "additionalProperties": false,
+      "properties": {
+        "insertion_error_km": {
+          "type": "number",
+          "description": "Orbit insertion error in km (plus or minus).",
+          "minimum": 0
+        },
+        "precise_attitude": {
+          "type": "boolean",
+          "description": "True if the option gives precise attitude knowledge."
+        },
+        "add_on_to": {
+          "$ref": "common.schema.json#/$defs/part_ref",
+          "description": "Part ID this option extends, for add-on options such as terrain-relative navigation."
+        }
+      },
+      "required": []
+    },
+    "stats_aero_control": {
+      "type": "object",
+      "description": "Aerodynamic control (design section 7.15). No numeric stats in the design; effects are expressed through game.cost_M, rules and flags.",
+      "additionalProperties": false,
+      "properties": {},
+      "required": []
+    },
+    "stats_rcs": {
+      "type": "object",
+      "description": "Reaction control system stats (design section 7.15).",
+      "additionalProperties": false,
+      "properties": {
+        "isp_s": {
+          "type": "number",
+          "description": "Specific impulse in s.",
+          "exclusiveMinimum": 0
+        }
+      },
+      "required": [
+        "isp_s"
+      ]
+    },
+    "stats_power_system": {
+      "type": "object",
+      "description": "Power system stats (design section 7.16).",
+      "additionalProperties": false,
+      "properties": {
+        "best_for_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the Best for column."
+        }
+      },
+      "required": []
+    },
+    "stats_communications": {
+      "type": "object",
+      "description": "Communications stats (design section 7.17).",
+      "additionalProperties": false,
+      "properties": {
+        "data_rate_GB_per_pass": {
+          "type": "number",
+          "description": "Data downlinked per ground pass in GB.",
+          "minimum": 0
+        },
+        "pointing": {
+          "type": "string",
+          "description": "Pointing requirement column.",
+          "enum": [
+            "omni",
+            "omni_wide",
+            "precise",
+            "very_precise",
+            "extreme"
+          ]
+        },
+        "continuous_coverage": {
+          "type": "boolean",
+          "description": "True if the option removes the wait for ground passes (relay network)."
+        }
+      },
+      "required": []
+    },
+    "stats_booster_recovery": {
+      "type": "object",
+      "description": "Booster recovery (design section 7.18). No per-part stats: the delta-v cost and refund live in modifiers.",
+      "additionalProperties": false,
+      "properties": {},
+      "required": []
+    },
+    "stats_capsule_recovery": {
+      "type": "object",
+      "description": "Capsule or payload recovery (design section 7.19). No numeric stats in the design.",
+      "additionalProperties": false,
+      "properties": {},
+      "required": []
+    },
+    "stats_mission_assurance": {
+      "type": "object",
+      "description": "Mission assurance level (design section 7.20). No per-part stats: all effects live in modifiers.",
+      "additionalProperties": false,
+      "properties": {},
+      "required": []
+    }
+  }
+}

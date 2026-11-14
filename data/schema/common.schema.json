@@ -1,0 +1,401 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "common.schema.json",
+  "title": "MissionForge shared definitions",
+  "description": "Definitions shared by every MissionForge data schema. Custom annotations: x-id marks a field that declares an ID of the named kind; x-ref marks a field that references an ID (or a string key) of the named kind; x-value-groups lists the numeric groups of an object that must be tagged in its value_types; x-data-files lists the files under data/ that a schema validates. Other validators ignore these keywords; tools/validate-data.mjs uses them for cross-checks.",
+  "$defs": {
+    "string_key": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*(\\.[A-Za-z0-9][A-Za-z0-9_-]*)+$",
+      "x-ref": "string",
+      "description": "Key of a player-visible string in data/strings/<lang>.json. Dot-separated segments, for example part.eng_kerolox_workhorse.name."
+    },
+    "value_type": {
+      "type": "string",
+      "description": "Provenance of a numeric value group (design section 19): physical = a physical constant or the result of a physical model; real_world_approximate = rounded from real hardware or real missions; game_value = tuned for balance, not a real figure.",
+      "enum": [
+        "physical",
+        "real_world_approximate",
+        "game_value"
+      ]
+    },
+    "snake_id": {
+      "type": "string",
+      "description": "Lowercase snake_case identifier. Never changes once merged.",
+      "pattern": "^[a-z][a-z0-9]*(_[a-z0-9]+)*$"
+    },
+    "part_id": {
+      "type": "string",
+      "description": "Part option ID: lowercase snake_case with a category prefix, for example eng_kerolox_workhorse. Never changes once merged.",
+      "pattern": "^[a-z][a-z0-9]*(_[a-z0-9]+)+$"
+    },
+    "part_ref": {
+      "$ref": "#/$defs/part_id",
+      "x-ref": "part",
+      "description": "Reference to a part option ID declared in data/parts/."
+    },
+    "contract_id": {
+      "type": "string",
+      "description": "Contract ID, C0 to C8.",
+      "pattern": "^C[0-9]{1,2}$"
+    },
+    "contract_ref": {
+      "$ref": "#/$defs/contract_id",
+      "x-ref": "contract",
+      "description": "Reference to a contract ID declared in data/contracts.json."
+    },
+    "minigame_id": {
+      "type": "string",
+      "description": "Minigame ID as written in design section 10.5, for example MG-01, MG-08b, MG-10a.",
+      "pattern": "^MG-[0-9]{2}[a-z]?$"
+    },
+    "minigame_ref": {
+      "$ref": "#/$defs/minigame_id",
+      "x-ref": "minigame",
+      "description": "Reference to a minigame ID declared in data/minigames.json."
+    },
+    "fact_id": {
+      "type": "string",
+      "description": "Fact ID as written in design section 12.4, for example F01. Not a flight phase: phases use the same letter (F0 to F14) but live in fields named phase or flight_phases.",
+      "pattern": "^F[0-9]{2,3}$"
+    },
+    "fact_ref": {
+      "$ref": "#/$defs/fact_id",
+      "x-ref": "fact",
+      "description": "Reference to a fact ID declared in data/facts.json."
+    },
+    "role_id": {
+      "type": "string",
+      "description": "Mission Control role ID: the console call sign in capitals, for example FLIGHT.",
+      "pattern": "^[A-Z]{2,8}$"
+    },
+    "role_ref": {
+      "$ref": "#/$defs/role_id",
+      "x-ref": "role",
+      "description": "Reference to a role ID declared in data/roles.json."
+    },
+    "boost_ref": {
+      "$ref": "#/$defs/snake_id",
+      "x-ref": "boost",
+      "description": "Reference to a boost ID declared in data/boosts.json."
+    },
+    "test_ref": {
+      "$ref": "#/$defs/snake_id",
+      "x-ref": "test",
+      "description": "Reference to a test ID declared in data/tests.json."
+    },
+    "anomaly_ref": {
+      "$ref": "#/$defs/snake_id",
+      "x-ref": "anomaly",
+      "description": "Reference to an anomaly card ID declared in data/anomalies.json."
+    },
+    "part_category": {
+      "type": "string",
+      "description": "Part category. Equals the file name data/parts/<category>.json and maps to one option table of design section 7.",
+      "enum": [
+        "launch_site",
+        "instrument",
+        "satellite_power",
+        "attitude_control",
+        "capsule",
+        "life_support",
+        "mars_lander",
+        "heat_shield",
+        "escape_system",
+        "fairing",
+        "engine_count",
+        "first_stage_engine",
+        "upper_stage_engine",
+        "tank_size",
+        "structural_material",
+        "strap_on_booster",
+        "separation_system",
+        "avionics",
+        "navigation_sensor",
+        "aero_control",
+        "rcs",
+        "power_system",
+        "communications",
+        "booster_recovery",
+        "capsule_recovery",
+        "mission_assurance"
+      ]
+    },
+    "propellant": {
+      "type": "string",
+      "description": "Propellant combination: RP1_LOX (kerolox), LH2_LOX (hydrolox), CH4_LOX (methalox), A50_N2O4 (hypergolic storable), SOLID.",
+      "enum": [
+        "RP1_LOX",
+        "LH2_LOX",
+        "CH4_LOX",
+        "A50_N2O4",
+        "SOLID"
+      ]
+    },
+    "failure_mode": {
+      "type": "string",
+      "description": "Failure mode from the failure model in design section 8.4.",
+      "enum": [
+        "engine_shutdown",
+        "combustion_instability",
+        "pogo_oscillation",
+        "structural_failure",
+        "stage_recontact",
+        "fairing_stuck",
+        "guidance_drift",
+        "radiation_bit_flip",
+        "software_overflow",
+        "solar_array_stuck",
+        "cryogenic_leak",
+        "heat_shield_burn_through",
+        "parachute_failure",
+        "range_safety_termination"
+      ]
+    },
+    "flight_phase": {
+      "type": "string",
+      "description": "Flight phase from design section 9.1 (F0 rollout to F14 debrief; F7b is the parallel booster return).",
+      "enum": [
+        "F0",
+        "F1",
+        "F2",
+        "F3",
+        "F4",
+        "F5",
+        "F6",
+        "F7",
+        "F7b",
+        "F8",
+        "F9",
+        "F10",
+        "F11",
+        "F12",
+        "F13",
+        "F14"
+      ]
+    },
+    "tier": {
+      "type": "string",
+      "description": "Minigame completion tier (design section 10.3).",
+      "enum": [
+        "bronze",
+        "silver",
+        "gold",
+        "platinum"
+      ]
+    },
+    "severity": {
+      "type": "string",
+      "description": "Design review severity (design sections 6.9 and 6.11): blocker = cannot fly, major = high risk, minor = advisory.",
+      "enum": [
+        "blocker",
+        "major",
+        "minor"
+      ]
+    },
+    "flag": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(_[a-z0-9]+)*$",
+      "description": "Snake_case marker for a qualitative effect that Core must act on but for which the design gives no number, for example no_eastward_launch. Every flag in data must be implemented or deliberately ignored by Core."
+    },
+    "design_notes": {
+      "type": "array",
+      "description": "Designer-facing notes. Never shown to players.",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "params_map": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Named numeric or boolean parameters. Names are snake_case and carry a unit suffix where the value has a unit (window_s, margin_fraction).",
+      "patternProperties": {
+        "^[a-z][A-Za-z0-9_]*$": {
+          "type": [
+            "number",
+            "boolean"
+          ],
+          "description": "One parameter value."
+        }
+      }
+    },
+    "effect": {
+      "type": "object",
+      "description": "One numeric effect on a vehicle, mission or session metric. Core combines effects on the same target as (base x product of mul x (1 + sum of add_fraction)) + sum of add.",
+      "additionalProperties": false,
+      "properties": {
+        "target": {
+          "type": "string",
+          "description": "Metric affected. The unit of an add value is the suffix of the target name: dry_mass_t (t), cost_M, budget_M and test_cost_M (game $M), lead_days, integ_days and schedule_days (days), delta_v_m_s (m/s), insertion_error_km, landing_ellipse_km and position_error_km (km), launch_window_min (minutes), maneuver_propellant_kg (kg), data_GB (GB), crew_morale_points and score_points (points). reliability, cost_refund_fraction, load_margin, heat_margin, uncertainty_band, guidance_precision and science_value are dimensionless (fractions of 1).",
+          "enum": [
+            "dry_mass_t",
+            "cost_M",
+            "budget_M",
+            "test_cost_M",
+            "cost_refund_fraction",
+            "lead_days",
+            "integ_days",
+            "schedule_days",
+            "delta_v_m_s",
+            "reliability",
+            "uncertainty_band",
+            "guidance_precision",
+            "insertion_error_km",
+            "landing_ellipse_km",
+            "position_error_km",
+            "load_margin",
+            "heat_margin",
+            "launch_window_min",
+            "maneuver_propellant_kg",
+            "data_GB",
+            "science_value",
+            "crew_morale_points",
+            "score_points"
+          ]
+        },
+        "op": {
+          "type": "string",
+          "description": "add = value is added in the unit of the target (reliability -0.003 means minus 0.3 percentage points); add_fraction = relative change, value is a fraction of the base (-0.15 means minus 15%); mul = value is a dimensionless multiplier (0.88 means x0.88).",
+          "enum": [
+            "add",
+            "add_fraction",
+            "mul"
+          ]
+        },
+        "value": {
+          "type": "number",
+          "description": "Magnitude, copied from the design table. Percentages are stored as fractions."
+        },
+        "scope": {
+          "type": "string",
+          "description": "What the effect applies to. Omit when the target is unambiguous. stage = the stage the part is installed on.",
+          "enum": [
+            "vehicle",
+            "stage",
+            "first_stage",
+            "upper_stage",
+            "strap_on_boosters",
+            "payload",
+            "capsule",
+            "this_part",
+            "all_parts",
+            "one_engine",
+            "one_stage",
+            "next_engine_test",
+            "one_ground_pass",
+            "one_science_capture",
+            "segment",
+            "mission"
+          ]
+        },
+        "condition": {
+          "type": "string",
+          "description": "Condition under which the effect applies. recovered = only if the hardware is recovered in flight.",
+          "enum": [
+            "recovered"
+          ]
+        },
+        "value_type": {
+          "$ref": "common.schema.json#/$defs/value_type",
+          "description": "Provenance of this value when it differs from the tag of the enclosing group."
+        },
+        "note_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "Optional player-visible explanation of the effect."
+        }
+      },
+      "required": [
+        "target",
+        "op",
+        "value"
+      ]
+    },
+    "criterion": {
+      "type": "object",
+      "description": "One measurable condition on a mission, build or career metric.",
+      "additionalProperties": false,
+      "properties": {
+        "metric": {
+          "type": "string",
+          "description": "Metric name in snake_case with a unit suffix where it has a unit (apogee_km, data_downlinked_GB). Each metric used in data must be implemented by Core.",
+          "pattern": "^[a-z][A-Za-z0-9_]*$"
+        },
+        "op": {
+          "type": "string",
+          "description": "Comparison: gte, gt, lte, lt and eq compare the metric with value; within means |metric - value| <= tolerance; is_true and is_false test a boolean metric.",
+          "enum": [
+            "gte",
+            "gt",
+            "lte",
+            "lt",
+            "eq",
+            "within",
+            "is_true",
+            "is_false"
+          ]
+        },
+        "value": {
+          "type": "number",
+          "description": "Threshold or target, in the unit named by the metric suffix."
+        },
+        "tolerance": {
+          "type": "number",
+          "description": "Allowed deviation from value for op within, same unit as value.",
+          "minimum": 0
+        },
+        "minigame": {
+          "$ref": "common.schema.json#/$defs/minigame_ref",
+          "description": "Minigame the metric refers to, for metrics about one minigame result."
+        }
+      },
+      "required": [
+        "metric",
+        "op"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "enum": [
+                  "gte",
+                  "gt",
+                  "lte",
+                  "lt",
+                  "eq"
+                ]
+              }
+            },
+            "required": [
+              "op"
+            ]
+          },
+          "then": {
+            "required": [
+              "value"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "within"
+              }
+            },
+            "required": [
+              "op"
+            ]
+          },
+          "then": {
+            "required": [
+              "value",
+              "tolerance"
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

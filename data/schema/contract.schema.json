@@ -1,0 +1,553 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contract.schema.json",
+  "title": "MissionForge contracts",
+  "description": "The contract catalog.",
+  "x-data-files": [
+    "contracts.json"
+  ],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Optional relative path to the JSON Schema of this file, for editor support. Loaders ignore it."
+    },
+    "design_notes": {
+      "$ref": "common.schema.json#/$defs/design_notes",
+      "description": "Designer-facing notes about ambiguities or decisions. Never shown to players and never localised."
+    },
+    "contracts": {
+      "type": "array",
+      "description": "Contracts in ID order.",
+      "items": {
+        "$ref": "#/$defs/contract"
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "contracts"
+  ],
+  "$defs": {
+    "contract": {
+      "type": "object",
+      "description": "One mission contract.",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/contract_id",
+          "description": "Unique contract ID.",
+          "x-id": "contract"
+        },
+        "name_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the contract name."
+        },
+        "tutorial": {
+          "type": "boolean",
+          "description": "True for the tutorial contract."
+        },
+        "inspired_by_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the Inspired by column."
+        },
+        "destination": {
+          "type": "object",
+          "description": "Where the payload must go.",
+          "additionalProperties": false,
+          "properties": {
+            "type": {
+              "type": "string",
+              "description": "Kind of destination.",
+              "enum": [
+                "suborbital",
+                "sun_synchronous_orbit",
+                "low_earth_orbit",
+                "space_station_orbit",
+                "geostationary_transfer_orbit",
+                "lunar_flyby_return",
+                "mars_surface"
+              ]
+            },
+            "description_key": {
+              "$ref": "common.schema.json#/$defs/string_key",
+              "description": "String key of the Destination column text."
+            },
+            "apogee_min_km": {
+              "type": "number",
+              "description": "Minimum apogee altitude in km, for suborbital contracts.",
+              "minimum": 0
+            },
+            "altitude_km": {
+              "type": "number",
+              "description": "Target circular orbit altitude in km.",
+              "minimum": 0
+            },
+            "inclination_deg": {
+              "type": "number",
+              "description": "Target orbital inclination in degrees.",
+              "minimum": 0,
+              "maximum": 180
+            },
+            "duration_days": {
+              "type": "number",
+              "description": "Required time on orbit in days.",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "type",
+            "description_key"
+          ]
+        },
+        "payload": {
+          "type": "object",
+          "description": "What is carried.",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "type": "string",
+              "description": "Kind of payload.",
+              "enum": [
+                "science_package",
+                "satellite",
+                "cargo_capsule",
+                "crew_capsule",
+                "capsule",
+                "lander"
+              ]
+            },
+            "description_key": {
+              "$ref": "common.schema.json#/$defs/string_key",
+              "description": "String key of the Payload column text."
+            },
+            "mass_kg": {
+              "type": "number",
+              "description": "Mass of one payload unit in kg.",
+              "exclusiveMinimum": 0
+            },
+            "count": {
+              "type": "integer",
+              "description": "Number of identical payload units.",
+              "minimum": 1
+            },
+            "crew": {
+              "type": "integer",
+              "description": "Crew aboard.",
+              "minimum": 0
+            },
+            "designed_by_team": {
+              "type": "boolean",
+              "description": "True if the team designs the payload through Payload Bay sub-votes."
+            }
+          },
+          "required": [
+            "kind",
+            "description_key",
+            "mass_kg",
+            "count"
+          ]
+        },
+        "delta_v_required_km_s": {
+          "type": "number",
+          "description": "Delta-v needed from the pad in km/s, including gravity and drag losses.",
+          "exclusiveMinimum": 0
+        },
+        "delta_v_payload_km_s": {
+          "type": "number",
+          "description": "Additional delta-v the payload itself must provide, in km/s (C3 capsule).",
+          "minimum": 0
+        },
+        "budget_M": {
+          "type": "number",
+          "description": "Budget in game $M.",
+          "exclusiveMinimum": 0
+        },
+        "schedule_days": {
+          "type": "number",
+          "description": "Deadline in days.",
+          "exclusiveMinimum": 0
+        },
+        "special_rule_keys": {
+          "type": "array",
+          "description": "String keys of the Special rules column, one per rule.",
+          "items": {
+            "$ref": "common.schema.json#/$defs/string_key"
+          },
+          "uniqueItems": true
+        },
+        "requirements": {
+          "type": "object",
+          "description": "Machine-readable form of the special rules, read by validation rules and the session flow. Every field is optional; absent means not required.",
+          "additionalProperties": false,
+          "properties": {
+            "crewed": {
+              "type": "boolean",
+              "description": "True if people are aboard; turns on the safety objective."
+            },
+            "launch_escape_required": {
+              "type": "boolean",
+              "description": "True if a launch escape system is mandatory."
+            },
+            "payload_returns": {
+              "type": "boolean",
+              "description": "True if the payload reenters and must survive."
+            },
+            "payload_recovery": {
+              "type": "string",
+              "description": "Mandatory recovery method for the payload.",
+              "enum": [
+                "parachute"
+              ]
+            },
+            "entry_speed_km_s": {
+              "type": "number",
+              "description": "Entry speed in km/s the heat shield must be rated for.",
+              "minimum": 0
+            },
+            "upper_stage_restarts_min": {
+              "type": "integer",
+              "description": "Minimum upper-stage engine restarts.",
+              "minimum": 0
+            },
+            "payload_deployments": {
+              "type": "integer",
+              "description": "Number of separate payload deployments.",
+              "minimum": 1
+            },
+            "long_coast": {
+              "type": "boolean",
+              "description": "True if the mission has a long coast (boil-off and restarts matter)."
+            },
+            "rendezvous_docking": {
+              "type": "boolean",
+              "description": "True if the mission includes rendezvous and docking."
+            },
+            "short_launch_window": {
+              "type": "boolean",
+              "description": "True if the launch window is short."
+            },
+            "booster_landing_required": {
+              "type": "boolean",
+              "description": "True if the booster must land."
+            },
+            "payload_bay_design": {
+              "type": "boolean",
+              "description": "True if the build has a Payload Bay design sub-phase."
+            },
+            "science_scoring": {
+              "type": "boolean",
+              "description": "True if science capture is scored."
+            },
+            "mission_duration_days": {
+              "type": "number",
+              "description": "Mission duration in days.",
+              "minimum": 0
+            },
+            "launch_window_interval_months": {
+              "type": "number",
+              "description": "Months between launch windows.",
+              "minimum": 0
+            },
+            "signal_delay": {
+              "type": "boolean",
+              "description": "True if light-time delay prevents live control."
+            },
+            "skip_entry_optional": {
+              "type": "boolean",
+              "description": "True if a skip entry may be chosen."
+            }
+          },
+          "required": []
+        },
+        "params": {
+          "$ref": "common.schema.json#/$defs/params_map",
+          "description": "Contract-specific numbers that objectives or scoring refer to, for example science_targets_total."
+        },
+        "objectives": {
+          "type": "object",
+          "description": "Objective structure of design section 5.2.",
+          "additionalProperties": false,
+          "properties": {
+            "primary": {
+              "type": "object",
+              "description": "Primary objective: required for mission success.",
+              "additionalProperties": false,
+              "properties": {
+                "id": {
+                  "$ref": "common.schema.json#/$defs/snake_id",
+                  "description": "Objective ID, unique within the contract."
+                },
+                "text_key": {
+                  "$ref": "common.schema.json#/$defs/string_key",
+                  "description": "String key of the objective text."
+                },
+                "criteria": {
+                  "type": "array",
+                  "description": "Conditions that must all hold for the objective to be met.",
+                  "items": {
+                    "$ref": "common.schema.json#/$defs/criterion"
+                  },
+                  "minItems": 1
+                }
+              },
+              "required": [
+                "id",
+                "text_key",
+                "criteria"
+              ]
+            },
+            "secondary": {
+              "type": "array",
+              "description": "Secondary objectives: bonus points.",
+              "items": {
+                "type": "object",
+                "description": "One secondary objective.",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "$ref": "common.schema.json#/$defs/snake_id",
+                    "description": "Objective ID, unique within the contract."
+                  },
+                  "text_key": {
+                    "$ref": "common.schema.json#/$defs/string_key",
+                    "description": "String key of the objective text."
+                  },
+                  "criteria": {
+                    "type": "array",
+                    "description": "Conditions that must all hold for the objective to be met.",
+                    "items": {
+                      "$ref": "common.schema.json#/$defs/criterion"
+                    },
+                    "minItems": 1
+                  }
+                },
+                "required": [
+                  "id",
+                  "text_key",
+                  "criteria"
+                ]
+              },
+              "minItems": 2,
+              "maxItems": 3
+            },
+            "stretch": {
+              "type": "object",
+              "description": "Stretch objective: hard bonus.",
+              "additionalProperties": false,
+              "properties": {
+                "id": {
+                  "$ref": "common.schema.json#/$defs/snake_id",
+                  "description": "Objective ID, unique within the contract."
+                },
+                "text_key": {
+                  "$ref": "common.schema.json#/$defs/string_key",
+                  "description": "String key of the objective text."
+                },
+                "criteria": {
+                  "type": "array",
+                  "description": "Conditions that must all hold for the objective to be met.",
+                  "items": {
+                    "$ref": "common.schema.json#/$defs/criterion"
+                  },
+                  "minItems": 1
+                }
+              },
+              "required": [
+                "id",
+                "text_key",
+                "criteria"
+              ]
+            },
+            "safety": {
+              "type": "object",
+              "description": "Safety objective of crewed contracts: the crew returns safely.",
+              "additionalProperties": false,
+              "properties": {
+                "id": {
+                  "$ref": "common.schema.json#/$defs/snake_id",
+                  "description": "Objective ID, unique within the contract."
+                },
+                "text_key": {
+                  "$ref": "common.schema.json#/$defs/string_key",
+                  "description": "String key of the objective text."
+                },
+                "criteria": {
+                  "type": "array",
+                  "description": "Conditions that must all hold for the objective to be met.",
+                  "items": {
+                    "$ref": "common.schema.json#/$defs/criterion"
+                  },
+                  "minItems": 1
+                }
+              },
+              "required": [
+                "id",
+                "text_key",
+                "criteria"
+              ]
+            }
+          },
+          "required": [
+            "primary",
+            "secondary",
+            "stretch"
+          ]
+        },
+        "votes": {
+          "type": "array",
+          "description": "Part votes of the contract in vote order (design section 6.2).",
+          "items": {
+            "$ref": "#/$defs/vote"
+          },
+          "minItems": 1
+        },
+        "value_types": {
+          "type": "object",
+          "description": "Provenance tag for every numeric group of the contract.",
+          "additionalProperties": false,
+          "properties": {
+            "destination": {
+              "$ref": "common.schema.json#/$defs/value_type",
+              "description": "Tag of destination."
+            },
+            "payload": {
+              "$ref": "common.schema.json#/$defs/value_type",
+              "description": "Tag of payload."
+            },
+            "delta_v_required_km_s": {
+              "$ref": "common.schema.json#/$defs/value_type",
+              "description": "Tag of delta_v_required_km_s."
+            },
+            "delta_v_payload_km_s": {
+              "$ref": "common.schema.json#/$defs/value_type",
+              "description": "Tag of delta_v_payload_km_s."
+            },
+            "budget_M": {
+              "$ref": "common.schema.json#/$defs/value_type",
+              "description": "Tag of budget_M."
+            },
+            "schedule_days": {
+              "$ref": "common.schema.json#/$defs/value_type",
+              "description": "Tag of schedule_days."
+            },
+            "requirements": {
+              "$ref": "common.schema.json#/$defs/value_type",
+              "description": "Tag of the numbers in requirements."
+            },
+            "params": {
+              "$ref": "common.schema.json#/$defs/value_type",
+              "description": "Tag of params."
+            },
+            "objectives": {
+              "$ref": "common.schema.json#/$defs/value_type",
+              "description": "Tag of the thresholds in objectives."
+            }
+          },
+          "required": []
+        },
+        "design_notes": {
+          "$ref": "common.schema.json#/$defs/design_notes",
+          "description": "Designer-facing notes about ambiguities or decisions. Never shown to players and never localised."
+        }
+      },
+      "required": [
+        "id",
+        "name_key",
+        "inspired_by_key",
+        "destination",
+        "payload",
+        "delta_v_required_km_s",
+        "budget_M",
+        "schedule_days",
+        "special_rule_keys",
+        "requirements",
+        "objectives",
+        "votes",
+        "value_types"
+      ],
+      "x-value-groups": [
+        "destination",
+        "payload",
+        "delta_v_required_km_s",
+        "delta_v_payload_km_s",
+        "budget_M",
+        "schedule_days",
+        "requirements",
+        "params",
+        "objectives"
+      ]
+    },
+    "vote": {
+      "type": "object",
+      "description": "One part vote.",
+      "additionalProperties": false,
+      "properties": {
+        "step": {
+          "type": "integer",
+          "description": "Step number in the vote order of design section 6.2 (1 to 21). Sub-votes share a step.",
+          "minimum": 1,
+          "maximum": 21
+        },
+        "id": {
+          "$ref": "common.schema.json#/$defs/snake_id",
+          "description": "Vote slot ID, unique within the contract, for example upper_stage_tank_size."
+        },
+        "category": {
+          "$ref": "common.schema.json#/$defs/part_category",
+          "description": "Part category the options come from."
+        },
+        "stage": {
+          "type": "string",
+          "description": "Stage the vote configures. Required for engine_count and tank_size, which are voted once per stage.",
+          "enum": [
+            "first",
+            "upper"
+          ]
+        },
+        "name_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the vote name."
+        },
+        "options": {
+          "type": "array",
+          "description": "Complete list of part IDs offered in this vote. Omit when the design does not enumerate them; the options are then the parts of the category whose contracts list includes this contract or is absent.",
+          "items": {
+            "$ref": "common.schema.json#/$defs/part_ref"
+          },
+          "minItems": 2,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "step",
+        "id",
+        "category",
+        "name_key"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "category": {
+                "enum": [
+                  "engine_count",
+                  "tank_size"
+                ]
+              }
+            },
+            "required": [
+              "category"
+            ]
+          },
+          "then": {
+            "required": [
+              "stage"
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

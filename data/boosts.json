@@ -1,0 +1,334 @@
+{
+  "$schema": "./schema/boost.schema.json",
+  "design_notes": [
+    "Percentages are stored as fractions: Δv Bonus +1% is op add_fraction, value 0.01. Multipliers (×1.1) are op mul. Money, days and morale points are op add.",
+    "Section 11.1 says same-type boosts stack additively up to the cap. For the two multiplier boosts the design does not say whether ×1.1 and ×1.25 stack to ×1.35 or ×1.375; the cap is stored as printed.",
+    "Completion fraction f = players who succeeded / active players in the minigame; disconnected players are excluded. Solo play uses the performance score s in [0,1] with the same thresholds. With two players, one success is f = 0.5, which is Bronze."
+  ],
+  "below_bronze": {
+    "reward_key": "tier.none.reward",
+    "cosmetic_min_successes": 1
+  },
+  "tiers": [
+    {
+      "id": "bronze",
+      "name_key": "tier.bronze.name",
+      "min_fraction": 0.33,
+      "requires_all_perfect": false,
+      "boost_tier": "bronze",
+      "reward_key": "tier.bronze.reward"
+    },
+    {
+      "id": "silver",
+      "name_key": "tier.silver.name",
+      "min_fraction": 0.66,
+      "requires_all_perfect": false,
+      "boost_tier": "silver",
+      "reward_key": "tier.silver.reward"
+    },
+    {
+      "id": "gold",
+      "name_key": "tier.gold.name",
+      "min_fraction": 1,
+      "requires_all_perfect": false,
+      "boost_tier": "gold",
+      "reward_key": "tier.gold.reward"
+    },
+    {
+      "id": "platinum",
+      "name_key": "tier.platinum.name",
+      "min_fraction": 1,
+      "requires_all_perfect": true,
+      "boost_tier": "gold",
+      "reward_key": "tier.platinum.reward"
+    }
+  ],
+  "boosts": [
+    {
+      "id": "dv_bonus",
+      "name_key": "boost.dv_bonus.name",
+      "subtitle_key": "boost.dv_bonus.subtitle",
+      "kind": "effect",
+      "target": "delta_v_m_s",
+      "op": "add_fraction",
+      "tiers": {
+        "bronze": {
+          "value": 0.01
+        },
+        "silver": {
+          "value": 0.02
+        },
+        "gold": {
+          "value": 0.03
+        }
+      },
+      "cap": {
+        "value": 0.08,
+        "kind": "total_per_mission"
+      },
+      "phase": "any",
+      "crewed_only": false,
+      "scope": "mission"
+    },
+    {
+      "id": "reliability_shield",
+      "name_key": "boost.reliability_shield.name",
+      "kind": "shield",
+      "tiers": {
+        "bronze": null,
+        "silver": {
+          "shield": "reroll_next_failure",
+          "text_key": "boost.reliability_shield.tier.silver"
+        },
+        "gold": {
+          "shield": "negate_next_failure",
+          "text_key": "boost.reliability_shield.tier.gold"
+        }
+      },
+      "cap": {
+        "value": 2,
+        "kind": "held_at_once"
+      },
+      "phase": "any",
+      "crewed_only": false,
+      "scope": "mission"
+    },
+    {
+      "id": "heat_margin",
+      "name_key": "boost.heat_margin.name",
+      "kind": "effect",
+      "target": "heat_margin",
+      "op": "add_fraction",
+      "tiers": {
+        "bronze": {
+          "value": 0.05
+        },
+        "silver": {
+          "value": 0.1
+        },
+        "gold": {
+          "value": 0.15
+        }
+      },
+      "cap": {
+        "value": 0.25,
+        "kind": "total_per_mission"
+      },
+      "phase": "any",
+      "crewed_only": false,
+      "scope": "mission",
+      "design_notes": [
+        "The Bronze cell reads \"+5% TPS capacity\"."
+      ]
+    },
+    {
+      "id": "precision",
+      "name_key": "boost.precision.name",
+      "subtitle_key": "boost.precision.subtitle",
+      "kind": "effect",
+      "target": "position_error_km",
+      "op": "add_fraction",
+      "tiers": {
+        "bronze": {
+          "value": -0.25
+        },
+        "silver": {
+          "value": -0.5
+        },
+        "gold": {
+          "value": -0.8
+        }
+      },
+      "cap": {
+        "value": -0.9,
+        "kind": "total_per_mission"
+      },
+      "phase": "any",
+      "crewed_only": false,
+      "scope": "mission"
+    },
+    {
+      "id": "load_margin",
+      "name_key": "boost.load_margin.name",
+      "subtitle_key": "boost.load_margin.subtitle",
+      "kind": "effect",
+      "target": "load_margin",
+      "op": "add_fraction",
+      "tiers": {
+        "bronze": {
+          "value": 0.05
+        },
+        "silver": {
+          "value": 0.1
+        },
+        "gold": {
+          "value": 0.15
+        }
+      },
+      "cap": {
+        "value": 0.25,
+        "kind": "total_per_mission"
+      },
+      "phase": "any",
+      "crewed_only": false,
+      "scope": "mission"
+    },
+    {
+      "id": "fuel_saver",
+      "name_key": "boost.fuel_saver.name",
+      "subtitle_key": "boost.fuel_saver.subtitle",
+      "kind": "effect",
+      "target": "maneuver_propellant_kg",
+      "op": "add_fraction",
+      "tiers": {
+        "bronze": {
+          "value": -0.03
+        },
+        "silver": {
+          "value": -0.06
+        },
+        "gold": {
+          "value": -0.1
+        }
+      },
+      "cap": {
+        "value": -0.2,
+        "kind": "total_per_mission"
+      },
+      "phase": "any",
+      "crewed_only": false,
+      "scope": "mission"
+    },
+    {
+      "id": "data_multiplier",
+      "name_key": "boost.data_multiplier.name",
+      "subtitle_key": "boost.data_multiplier.subtitle",
+      "kind": "effect",
+      "target": "data_GB",
+      "op": "mul",
+      "tiers": {
+        "bronze": {
+          "value": 1.1
+        },
+        "silver": {
+          "value": 1.25
+        },
+        "gold": {
+          "value": 1.5
+        }
+      },
+      "cap": {
+        "value": 2,
+        "kind": "total_per_mission"
+      },
+      "phase": "any",
+      "crewed_only": false,
+      "scope": "mission"
+    },
+    {
+      "id": "budget_refund",
+      "name_key": "boost.budget_refund.name",
+      "kind": "effect",
+      "target": "budget_M",
+      "op": "add",
+      "tiers": {
+        "bronze": {
+          "value": 1
+        },
+        "silver": {
+          "value": 2
+        },
+        "gold": {
+          "value": 4
+        }
+      },
+      "cap": null,
+      "phase": "any",
+      "crewed_only": false,
+      "scope": "mission"
+    },
+    {
+      "id": "schedule_recovery",
+      "name_key": "boost.schedule_recovery.name",
+      "subtitle_key": "boost.schedule_recovery.subtitle",
+      "kind": "effect",
+      "target": "schedule_days",
+      "op": "add",
+      "tiers": {
+        "bronze": {
+          "value": -1
+        },
+        "silver": {
+          "value": -3
+        },
+        "gold": {
+          "value": -5
+        }
+      },
+      "cap": {
+        "value": -15,
+        "kind": "total_per_mission"
+      },
+      "phase": "build",
+      "crewed_only": false,
+      "scope": "mission"
+    },
+    {
+      "id": "crew_morale",
+      "name_key": "boost.crew_morale.name",
+      "subtitle_key": "boost.crew_morale.subtitle",
+      "kind": "effect",
+      "target": "crew_morale_points",
+      "op": "add",
+      "tiers": {
+        "bronze": {
+          "value": 5
+        },
+        "silver": {
+          "value": 10
+        },
+        "gold": {
+          "value": 20
+        }
+      },
+      "cap": {
+        "value": 100,
+        "kind": "meter_max"
+      },
+      "phase": "any",
+      "crewed_only": true,
+      "scope": "mission"
+    },
+    {
+      "id": "score_multiplier",
+      "name_key": "boost.score_multiplier.name",
+      "subtitle_key": "boost.score_multiplier.subtitle",
+      "kind": "effect",
+      "target": "score_points",
+      "op": "mul",
+      "tiers": {
+        "bronze": {
+          "value": 1.05
+        },
+        "silver": {
+          "value": 1.1
+        },
+        "gold": {
+          "value": 1.2
+        }
+      },
+      "cap": {
+        "value": 1.5,
+        "kind": "total_per_mission"
+      },
+      "phase": "any",
+      "crewed_only": false,
+      "scope": "segment"
+    }
+  ],
+  "value_types": {
+    "below_bronze": "game_value",
+    "tiers": "game_value",
+    "boosts": "game_value"
+  }
+}
