@@ -62,6 +62,9 @@ Updated: 2026-11-14 (build start).
 **Usage allowance (team owner, 2026-11-14):** `yousuf-amek` is on a $125 plan; every other
 worker, including `cyrex04`, is on a $20 plan. Routing rule:
 
+- **Model:** every $20 Claude worker (`cyrex04`, `ahmed-saeed-amek`, `mohammed-alainieh`)
+  runs on Claude Sonnet 5.5; each task for them carries `mesh-model: sonnet` and
+  `mesh-effort: high`. `yousuf-amek` stays on Fable 5.2. `momansy` uses Codex.
 - Large, long or critical-path tasks go to `yousuf-amek`.
 - $20 workers get small bounded tasks (one screen, one minigame, one data file, one
   module), told to finish and verify one piece before starting the next and to use at most
