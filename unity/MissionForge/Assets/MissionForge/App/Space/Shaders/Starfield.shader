@@ -5,7 +5,7 @@ Shader "MissionForge/Starfield"
 {
     Properties
     {
-        _StarBrightness ("Star brightness", Float) = 1.0
+        _StarBrightness ("Star brightness", Float) = 0.7
         _GalaxyBrightness ("Galactic band brightness", Float) = 0.035
         _GalaxyNormal ("Galactic plane normal", Vector) = (0.35, 0.85, -0.39, 0)
         _SunDiscIntensity ("Sun disc intensity", Float) = 60
@@ -108,7 +108,7 @@ Shader "MissionForge/Starfield"
                 float3 starDir = normalize(starPos);
                 float d = length(dir - starDir);
                 float mag = pow(Hash13(cell + 3.1), 5.0);
-                float radius = max(baseRadius * (0.6 + mag * 1.6), pixelAngle * 1.1);
+                float radius = min(max(baseRadius * (0.6 + mag * 1.6), pixelAngle * 0.9), 0.11 / scale);
                 float core = exp(-(d * d) / (radius * radius * 0.35));
                 // Conserve energy when the radius is clamped up to a pixel.
                 float energy = saturate((baseRadius * baseRadius) / (radius * radius)) * 0.7 + 0.3;
@@ -129,9 +129,11 @@ Shader "MissionForge/Starfield"
                 float galaxy = band * smoothstep(0.25, 0.85, clouds) * (0.55 + 0.45 * dust);
 
                 float3 col = 0;
-                col += StarLayer(dir, 70.0, 0.80, 0.0030, pixelAngle, galaxy * 0.10);
-                col += StarLayer(dir, 160.0, 0.72, 0.0016, pixelAngle, galaxy * 0.25) * 0.55;
-                col += StarLayer(dir, 330.0, 0.62, 0.0010, pixelAngle, galaxy * 0.35) * 0.30;
+                // Low star density (STYLE_GUIDE.md). A star never reaches past a quarter of its hash cell
+                // (radius x 2.2 < 0.25 / scale), so no star is cut off at a cell boundary.
+                col += StarLayer(dir, 40.0, 0.935, 0.0010, pixelAngle, galaxy * 0.04);
+                col += StarLayer(dir, 90.0, 0.880, 0.00055, pixelAngle, galaxy * 0.12) * 0.40;
+                col += StarLayer(dir, 190.0, 0.900, 0.00030, pixelAngle, galaxy * 0.20) * 0.16;
                 col *= _StarBrightness;
 
                 float3 galaxyTint = lerp(float3(0.42, 0.50, 0.80), float3(0.95, 0.78, 0.62), dust);

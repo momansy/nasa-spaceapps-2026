@@ -145,6 +145,8 @@ namespace MissionForge.Core.Build
         public const double FlawFixCostFraction = 0.2;
         /// <summary>Minimum flaw fix cost, $M. game_value (decision; Appendix A heater fix = $1 M).</summary>
         public const double FlawFixMinCostM = 1.0;
+        /// <summary>Range fee of a launch site whose stages fall on land (flag <c>stages_fall_on_land</c>, Inland Steppe), $M. game_value (decision: design 7.1 gives no amount).</summary>
+        public const double RangeFeeM = 1.0;
         /// <summary>Days needed to fix a revealed flaw. game_value (decision).</summary>
         public const double FlawFixDays = 3.0;
         /// <summary>Highest reliability any part can have, fraction. game_value (nothing is perfect).</summary>

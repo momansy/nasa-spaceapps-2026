@@ -11,7 +11,8 @@ namespace MissionForge
 {
     /// <summary>
     /// Build entry points. <c>MissionForge.Build.WebGL</c> builds the host to the repository's
-    /// docs/play/host/ folder, uncompressed so any static host can serve it without special headers.
+    /// docs/play/host/ folder, gzip with the decompression fallback so any static host can serve it
+    /// without special headers (files stay well under the 49 MB publish limit).
     /// Batch mode: Unity -batchmode -quit -projectPath unity/MissionForge -buildTarget WebGL -executeMethod MissionForge.Build.WebGL
     /// </summary>
     public static class Build
@@ -29,11 +30,15 @@ namespace MissionForge
             string[] scenes = EditorBuildSettings.scenes.Where(s => s.enabled).Select(s => s.path).ToArray();
             if (scenes.Length == 0) throw new BuildFailedException("No scenes in Build Settings. Run MissionForge/Rebuild Scenes And Assets first.");
 
-            PlayerSettings.WebGL.compressionFormat = WebGLCompressionFormat.Disabled;
-            PlayerSettings.WebGL.decompressionFallback = false;
+            PlayerSettings.WebGL.compressionFormat = WebGLCompressionFormat.Gzip;
+            PlayerSettings.WebGL.decompressionFallback = true; // Any static host works: the loader inflates .gz itself when Content-Encoding is missing.
             PlayerSettings.WebGL.template = "PROJECT:MissionForge";
             PlayerSettings.WebGL.dataCaching = true;
             PlayerSettings.SetManagedStrippingLevel(NamedBuildTarget.WebGL, ManagedStrippingLevel.Minimal);
+
+            // Stale files from a build with other settings (for example uncompressed) must not linger.
+            string staleBuild = Path.Combine(WebGLOutputPath, "Build");
+            if (Directory.Exists(staleBuild)) Directory.Delete(staleBuild, true);
 
             var options = new BuildPlayerOptions
             {
@@ -55,6 +60,26 @@ namespace MissionForge
                 if (Application.isBatchMode) EditorApplication.Exit(1);
                 throw new BuildFailedException("WebGL build failed: " + report.summary.result);
             }
+        }
+
+        /// <summary>
+        /// Look-development player for evidence screenshots (macOS, Metal) into Logs/lookdev/ (git-ignored).
+        /// Run it with -mfShot (see EvidenceDirector). Not a release target.
+        /// </summary>
+        [MenuItem("MissionForge/Build/macOS look-dev player")]
+        public static void MacLookDev()
+        {
+            string[] scenes = EditorBuildSettings.scenes.Where(s => s.enabled).Select(s => s.path).ToArray();
+            string output = Path.GetFullPath(Path.Combine(Application.dataPath, "..", "Logs", "lookdev", "MissionForge.app"));
+            BuildReport report = BuildPipeline.BuildPlayer(new BuildPlayerOptions
+            {
+                scenes = scenes,
+                locationPathName = output,
+                target = BuildTarget.StandaloneOSX,
+                options = BuildOptions.None,
+            });
+            Debug.Log("[MissionForge] macOS look-dev build " + report.summary.result + " → " + output);
+            if (report.summary.result != BuildResult.Succeeded && Application.isBatchMode) EditorApplication.Exit(1);
         }
 
         private static string Summarise(BuildReport report, string[] scenes)

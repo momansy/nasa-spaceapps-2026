@@ -1,0 +1,308 @@
+{
+  "$schema": "./schema/pilot_control.schema.json",
+  "design_notes": [
+    "Table 9.2, one entry per row. label_key is the cell as printed; inputs lists the keys, buttons or sticks of the cell in the order printed (for two-way actions the first is up / left / minus). Input names are not translated.",
+    "Hold times are stored only where the design prints them: Space 0.3 s to stage, Backspace 1.5 s to abort.",
+    "The table reuses some gamepad inputs: the D-pad (deploy, and left/right for time warp), Select (map view, and with Start for abort) and Start (pause, and with Select for abort). The pilot rotation and \"pass the controls\" settings of 9.4 are not part of this table."
+  ],
+  "controls": [
+    {
+      "id": "throttle",
+      "name_key": "pilot_control.throttle.name",
+      "keyboard": {
+        "label_key": "pilot_control.throttle.keyboard",
+        "inputs": [
+          "W",
+          "S"
+        ],
+        "fine_modifiers": [
+          "Shift",
+          "Ctrl"
+        ]
+      },
+      "gamepad": {
+        "label_key": "pilot_control.throttle.gamepad",
+        "inputs": [
+          "RT",
+          "LT"
+        ]
+      },
+      "touch": {
+        "label_key": "pilot_control.throttle.touch"
+      }
+    },
+    {
+      "id": "pitch",
+      "name_key": "pilot_control.pitch.name",
+      "keyboard": {
+        "label_key": "pilot_control.pitch.keyboard",
+        "inputs": [
+          "A",
+          "D"
+        ]
+      },
+      "gamepad": {
+        "label_key": "pilot_control.pitch.gamepad",
+        "inputs": [
+          "Left stick"
+        ]
+      },
+      "touch": {
+        "label_key": "pilot_control.pitch.touch"
+      }
+    },
+    {
+      "id": "yaw_roll",
+      "name_key": "pilot_control.yaw_roll.name",
+      "keyboard": {
+        "label_key": "pilot_control.yaw_roll.keyboard",
+        "inputs": [
+          "Q",
+          "E",
+          "Arrow keys"
+        ]
+      },
+      "gamepad": {
+        "label_key": "pilot_control.yaw_roll.gamepad",
+        "inputs": [
+          "Right stick"
+        ]
+      },
+      "touch": {
+        "label_key": "pilot_control.yaw_roll.touch"
+      }
+    },
+    {
+      "id": "stage_separate",
+      "name_key": "pilot_control.stage_separate.name",
+      "keyboard": {
+        "label_key": "pilot_control.stage_separate.keyboard",
+        "inputs": [
+          "Space"
+        ],
+        "hold": true,
+        "hold_s": 0.3
+      },
+      "gamepad": {
+        "label_key": "pilot_control.stage_separate.gamepad",
+        "inputs": [
+          "A"
+        ],
+        "hold": true
+      },
+      "touch": {
+        "label_key": "pilot_control.stage_separate.touch"
+      },
+      "design_notes": [
+        "The gamepad hold has no duration in the design."
+      ]
+    },
+    {
+      "id": "cut_engines",
+      "name_key": "pilot_control.cut_engines.name",
+      "keyboard": {
+        "label_key": "pilot_control.cut_engines.keyboard",
+        "inputs": [
+          "X"
+        ]
+      },
+      "gamepad": {
+        "label_key": "pilot_control.cut_engines.gamepad",
+        "inputs": [
+          "B"
+        ]
+      },
+      "touch": {
+        "label_key": "pilot_control.cut_engines.touch"
+      }
+    },
+    {
+      "id": "toggle_rcs",
+      "name_key": "pilot_control.toggle_rcs.name",
+      "keyboard": {
+        "label_key": "pilot_control.toggle_rcs.keyboard",
+        "inputs": [
+          "R"
+        ]
+      },
+      "gamepad": {
+        "label_key": "pilot_control.toggle_rcs.gamepad",
+        "inputs": [
+          "LB"
+        ]
+      },
+      "touch": {
+        "label_key": "pilot_control.toggle_rcs.touch"
+      }
+    },
+    {
+      "id": "attitude_hold",
+      "name_key": "pilot_control.attitude_hold.name",
+      "keyboard": {
+        "label_key": "pilot_control.attitude_hold.keyboard",
+        "inputs": [
+          "T"
+        ],
+        "cycles": true
+      },
+      "gamepad": {
+        "label_key": "pilot_control.attitude_hold.gamepad",
+        "inputs": [
+          "Y"
+        ]
+      },
+      "touch": {
+        "label_key": "pilot_control.attitude_hold.touch"
+      },
+      "modes": [
+        "prograde",
+        "retrograde",
+        "heat_shield_forward"
+      ]
+    },
+    {
+      "id": "deploy",
+      "name_key": "pilot_control.deploy.name",
+      "keyboard": {
+        "label_key": "pilot_control.deploy.keyboard",
+        "inputs": [
+          "P",
+          "G",
+          "F"
+        ]
+      },
+      "gamepad": {
+        "label_key": "pilot_control.deploy.gamepad",
+        "inputs": [
+          "D-pad"
+        ]
+      },
+      "touch": {
+        "label_key": "pilot_control.deploy.touch"
+      },
+      "modes": [
+        "fairing",
+        "chutes",
+        "legs",
+        "arrays"
+      ],
+      "design_notes": [
+        "Four deployable items and three keys: the design does not say which key deploys which item. The D-pad is also used for time warp (D-pad L/R)."
+      ]
+    },
+    {
+      "id": "time_warp",
+      "name_key": "pilot_control.time_warp.name",
+      "keyboard": {
+        "label_key": "pilot_control.time_warp.keyboard",
+        "inputs": [
+          ",",
+          "."
+        ]
+      },
+      "gamepad": {
+        "label_key": "pilot_control.time_warp.gamepad",
+        "inputs": [
+          "D-pad Left",
+          "D-pad Right"
+        ]
+      },
+      "touch": {
+        "label_key": "pilot_control.time_warp.touch"
+      }
+    },
+    {
+      "id": "map_view",
+      "name_key": "pilot_control.map_view.name",
+      "keyboard": {
+        "label_key": "pilot_control.map_view.keyboard",
+        "inputs": [
+          "M"
+        ]
+      },
+      "gamepad": {
+        "label_key": "pilot_control.map_view.gamepad",
+        "inputs": [
+          "View",
+          "Select"
+        ]
+      },
+      "touch": {
+        "label_key": "pilot_control.map_view.touch"
+      },
+      "design_notes": [
+        "\"View / Select\" is read as two names for the same button on different gamepads. Select is also part of the abort combination."
+      ]
+    },
+    {
+      "id": "camera_cycle",
+      "name_key": "pilot_control.camera_cycle.name",
+      "keyboard": {
+        "label_key": "pilot_control.camera_cycle.keyboard",
+        "inputs": [
+          "C"
+        ]
+      },
+      "gamepad": {
+        "label_key": "pilot_control.camera_cycle.gamepad",
+        "inputs": [
+          "Right stick click"
+        ]
+      },
+      "touch": {
+        "label_key": "pilot_control.camera_cycle.touch"
+      }
+    },
+    {
+      "id": "abort",
+      "name_key": "pilot_control.abort.name",
+      "keyboard": {
+        "label_key": "pilot_control.abort.keyboard",
+        "inputs": [
+          "Backspace"
+        ],
+        "hold": true,
+        "hold_s": 1.5
+      },
+      "gamepad": {
+        "label_key": "pilot_control.abort.gamepad",
+        "inputs": [
+          "Select",
+          "Start"
+        ],
+        "combination": true,
+        "hold": true
+      },
+      "touch": {
+        "label_key": "pilot_control.abort.touch",
+        "guarded": true
+      },
+      "design_notes": [
+        "The gamepad hold has no duration in the design. Start alone is Pause."
+      ]
+    },
+    {
+      "id": "pause",
+      "name_key": "pilot_control.pause.name",
+      "keyboard": {
+        "label_key": "pilot_control.pause.keyboard",
+        "inputs": [
+          "Esc"
+        ]
+      },
+      "gamepad": {
+        "label_key": "pilot_control.pause.gamepad",
+        "inputs": [
+          "Start"
+        ]
+      },
+      "touch": {
+        "label_key": "pilot_control.pause.touch"
+      },
+      "host_only": true
+    }
+  ],
+  "value_types": {
+    "controls": "game_value"
+  }
+}

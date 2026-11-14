@@ -1,0 +1,1261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="194" result="Passed" total="194" passed="194" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.3902109">
+  <test-suite type="TestSuite" id="1000" name="MissionForge" fullname="MissionForge" runstate="Runnable" testcasecount="194" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.390211" total="194" passed="194" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1218" name="MissionForge.Tests.EditMode.dll" fullname="/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/ScriptAssemblies/MissionForge.Tests.EditMode.dll" runstate="Runnable" testcasecount="194" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.386730" total="194" passed="194" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="1592" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1219" name="MissionForge" fullname="MissionForge" runstate="Runnable" testcasecount="194" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.386533" total="194" passed="194" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1220" name="Tests" fullname="MissionForge.Tests" runstate="Runnable" testcasecount="194" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.386348" total="194" passed="194" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1001" name="CoreGatewayTests" fullname="MissionForge.Tests.CoreGatewayTests" classname="MissionForge.Tests.CoreGatewayTests" runstate="Runnable" testcasecount="8" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.014217" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1009" name="Current_CannotBeSetToNull" fullname="MissionForge.Tests.CoreGatewayTests.Current_CannotBeSetToNull" methodname="Current_CannotBeSetToNull" classname="MissionForge.Tests.CoreGatewayTests" runstate="Runnable" seed="1758745885" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.005613" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1002" name="DefaultGateway_IsBoundToTheCorePackage" fullname="MissionForge.Tests.CoreGatewayTests.DefaultGateway_IsBoundToTheCorePackage" methodname="DefaultGateway_IsBoundToTheCorePackage" classname="MissionForge.Tests.CoreGatewayTests" runstate="Runnable" seed="99457268" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000288" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1003" name="IdealDeltaV_ForKnownStage_MatchesTheRocketEquation" fullname="MissionForge.Tests.CoreGatewayTests.IdealDeltaV_ForKnownStage_MatchesTheRocketEquation" methodname="IdealDeltaV_ForKnownStage_MatchesTheRocketEquation" classname="MissionForge.Tests.CoreGatewayTests" runstate="Runnable" seed="782032453" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.001826" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1004" name="IdealDeltaV_IsExactlyWhatCoreComputes" fullname="MissionForge.Tests.CoreGatewayTests.IdealDeltaV_IsExactlyWhatCoreComputes" methodname="IdealDeltaV_IsExactlyWhatCoreComputes" classname="MissionForge.Tests.CoreGatewayTests" runstate="Runnable" seed="368617134" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000107" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1006" name="IdealDeltaV_WithInvalidMass_IsRejectedByCore" fullname="MissionForge.Tests.CoreGatewayTests.IdealDeltaV_WithInvalidMass_IsRejectedByCore" methodname="IdealDeltaV_WithInvalidMass_IsRejectedByCore" classname="MissionForge.Tests.CoreGatewayTests" runstate="Runnable" seed="1159452270" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000202" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1005" name="LiftoffTwr_ForKnownVehicle_MatchesCore" fullname="MissionForge.Tests.CoreGatewayTests.LiftoffTwr_ForKnownVehicle_MatchesCore" methodname="LiftoffTwr_ForKnownVehicle_MatchesCore" classname="MissionForge.Tests.CoreGatewayTests" runstate="Runnable" seed="341243923" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000081" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1007" name="LoadCatalog_KeepsTheFiles" fullname="MissionForge.Tests.CoreGatewayTests.LoadCatalog_KeepsTheFiles" methodname="LoadCatalog_KeepsTheFiles" classname="MissionForge.Tests.CoreGatewayTests" runstate="Runnable" seed="1867039433" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000281" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1008" name="UnavailableGateway_RefusesToInventNumbers" fullname="MissionForge.Tests.CoreGatewayTests.UnavailableGateway_RefusesToInventNumbers" methodname="UnavailableGateway_RefusesToInventNumbers" classname="MissionForge.Tests.CoreGatewayTests" runstate="Runnable" seed="852449186" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000159" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1010" name="GameCatalogTests" fullname="MissionForge.Tests.GameCatalogTests" classname="MissionForge.Tests.GameCatalogTests" runstate="Runnable" testcasecount="9" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.041629" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1011" name="Catalog_ContainsTheCoreFiles" fullname="MissionForge.Tests.GameCatalogTests.Catalog_ContainsTheCoreFiles" methodname="Catalog_ContainsTheCoreFiles" classname="MissionForge.Tests.GameCatalogTests" runstate="Runnable" seed="974436015" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000163" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1012" name="Catalog_HasEveryPart" fullname="MissionForge.Tests.GameCatalogTests.Catalog_HasEveryPart" methodname="Catalog_HasEveryPart" classname="MissionForge.Tests.GameCatalogTests" runstate="Runnable" seed="1894181866" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.007396" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1020" name="IsStringFile_MatchesOnlyTheLanguage" fullname="MissionForge.Tests.GameCatalogTests.IsStringFile_MatchesOnlyTheLanguage" classname="MissionForge.Tests.GameCatalogTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.001407" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1015" name="IsStringFile_MatchesOnlyTheLanguage(&quot;strings/en.json&quot;)" fullname="MissionForge.Tests.GameCatalogTests.IsStringFile_MatchesOnlyTheLanguage(&quot;strings/en.json&quot;)" methodname="IsStringFile_MatchesOnlyTheLanguage" classname="MissionForge.Tests.GameCatalogTests" runstate="Runnable" seed="189512973" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000726" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1016" name="IsStringFile_MatchesOnlyTheLanguage(&quot;strings/en.parts_a.json&quot;)" fullname="MissionForge.Tests.GameCatalogTests.IsStringFile_MatchesOnlyTheLanguage(&quot;strings/en.parts_a.json&quot;)" methodname="IsStringFile_MatchesOnlyTheLanguage" classname="MissionForge.Tests.GameCatalogTests" runstate="Runnable" seed="1336807234" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000042" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1017" name="IsStringFile_MatchesOnlyTheLanguage(&quot;strings/es.json&quot;)" fullname="MissionForge.Tests.GameCatalogTests.IsStringFile_MatchesOnlyTheLanguage(&quot;strings/es.json&quot;)" methodname="IsStringFile_MatchesOnlyTheLanguage" classname="MissionForge.Tests.GameCatalogTests" runstate="Runnable" seed="1909578612" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000025" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1018" name="IsStringFile_MatchesOnlyTheLanguage(&quot;strings/en_gb.json&quot;)" fullname="MissionForge.Tests.GameCatalogTests.IsStringFile_MatchesOnlyTheLanguage(&quot;strings/en_gb.json&quot;)" methodname="IsStringFile_MatchesOnlyTheLanguage" classname="MissionForge.Tests.GameCatalogTests" runstate="Runnable" seed="1241295867" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000023" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1019" name="IsStringFile_MatchesOnlyTheLanguage(&quot;contracts.json&quot;)" fullname="MissionForge.Tests.GameCatalogTests.IsStringFile_MatchesOnlyTheLanguage(&quot;contracts.json&quot;)" methodname="IsStringFile_MatchesOnlyTheLanguage" classname="MissionForge.Tests.GameCatalogTests" runstate="Runnable" seed="1058410865" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000021" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1013" name="Strings_MergeEveryEnglishFileWithoutClashes" fullname="MissionForge.Tests.GameCatalogTests.Strings_MergeEveryEnglishFileWithoutClashes" methodname="Strings_MergeEveryEnglishFileWithoutClashes" classname="MissionForge.Tests.GameCatalogTests" runstate="Runnable" seed="1112422881" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.004006" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1014" name="Strings_ReportDuplicateKeysAndKeepTheFirst" fullname="MissionForge.Tests.GameCatalogTests.Strings_ReportDuplicateKeysAndKeepTheFirst" methodname="Strings_ReportDuplicateKeysAndKeepTheFirst" classname="MissionForge.Tests.GameCatalogTests" runstate="Runnable" seed="1468945074" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000171" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1021" name="GameDataTests" fullname="MissionForge.Tests.GameDataTests" classname="MissionForge.Tests.GameDataTests" runstate="Runnable" testcasecount="8" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.015338" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1029" name="GetText_ForUnknownFile_Throws" fullname="MissionForge.Tests.GameDataTests.GetText_ForUnknownFile_Throws" methodname="GetText_ForUnknownFile_Throws" classname="MissionForge.Tests.GameDataTests" runstate="Runnable" seed="1377979210" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.003114" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1026" name="Index_IsSortedAndUsesForwardSlashes" fullname="MissionForge.Tests.GameDataTests.Index_IsSortedAndUsesForwardSlashes" methodname="Index_IsSortedAndUsesForwardSlashes" classname="MissionForge.Tests.GameDataTests" runstate="Runnable" seed="542250547" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.002004" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1027" name="Index_Parse_RejectsEmptyText" fullname="MissionForge.Tests.GameDataTests.Index_Parse_RejectsEmptyText" methodname="Index_Parse_RejectsEmptyText" classname="MissionForge.Tests.GameDataTests" runstate="Runnable" seed="1065922587" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000942" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1028" name="Loader_ToRequestUrl_AddsFileSchemeOnlyToLocalPaths" fullname="MissionForge.Tests.GameDataTests.Loader_ToRequestUrl_AddsFileSchemeOnlyToLocalPaths" methodname="Loader_ToRequestUrl_AddsFileSchemeOnlyToLocalPaths" classname="MissionForge.Tests.GameDataTests" runstate="Runnable" seed="250083150" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000877" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1024" name="Sync_RemovesFilesDeletedFromTheSource" fullname="MissionForge.Tests.GameDataTests.Sync_RemovesFilesDeletedFromTheSource" methodname="Sync_RemovesFilesDeletedFromTheSource" classname="MissionForge.Tests.GameDataTests" runstate="Runnable" seed="1146750326" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.002303" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1023" name="Sync_SkipsSchemas" fullname="MissionForge.Tests.GameDataTests.Sync_SkipsSchemas" methodname="Sync_SkipsSchemas" classname="MissionForge.Tests.GameDataTests" runstate="Runnable" seed="1846799352" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.001855" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1022" name="Sync_ThenLoad_ReturnsEveryDataFileWithItsText" fullname="MissionForge.Tests.GameDataTests.Sync_ThenLoad_ReturnsEveryDataFileWithItsText" methodname="Sync_ThenLoad_ReturnsEveryDataFileWithItsText" classname="MissionForge.Tests.GameDataTests" runstate="Runnable" seed="1452645060" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.001955" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1025" name="Sync_WithMissingSource_WritesAnEmptyIndex" fullname="MissionForge.Tests.GameDataTests.Sync_WithMissingSource_WritesAnEmptyIndex" methodname="Sync_WithMissingSource_WritesAnEmptyIndex" classname="MissionForge.Tests.GameDataTests" runstate="Runnable" seed="461210089" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.001200" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1030" name="GamePhaseMachineTests" fullname="MissionForge.Tests.GamePhaseMachineTests" classname="MissionForge.Tests.GamePhaseMachineTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.002437" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1035" name="AnyPhase_CanQuitToTitle" fullname="MissionForge.Tests.GamePhaseMachineTests.AnyPhase_CanQuitToTitle" methodname="AnyPhase_CanQuitToTitle" classname="MissionForge.Tests.GamePhaseMachineTests" runstate="Runnable" seed="276847820" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000894" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1032" name="CanTransition_RejectsSkippingAPhase" fullname="MissionForge.Tests.GamePhaseMachineTests.CanTransition_RejectsSkippingAPhase" methodname="CanTransition_RejectsSkippingAPhase" classname="MissionForge.Tests.GamePhaseMachineTests" runstate="Runnable" seed="619175318" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000207" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1033" name="Debrief_LeadsToCampaignHubOrLobby" fullname="MissionForge.Tests.GamePhaseMachineTests.Debrief_LeadsToCampaignHubOrLobby" methodname="Debrief_LeadsToCampaignHubOrLobby" classname="MissionForge.Tests.GamePhaseMachineTests" runstate="Runnable" seed="632855046" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000372" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1034" name="Frr_NoGo_ReturnsToBuild" fullname="MissionForge.Tests.GamePhaseMachineTests.Frr_NoGo_ReturnsToBuild" methodname="Frr_NoGo_ReturnsToBuild" classname="MissionForge.Tests.GamePhaseMachineTests" runstate="Runnable" seed="359832351" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000046" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1031" name="MainLine_FollowsDesignSection17_3_InOrder" fullname="MissionForge.Tests.GamePhaseMachineTests.MainLine_FollowsDesignSection17_3_InOrder" methodname="MainLine_FollowsDesignSection17_3_InOrder" classname="MissionForge.Tests.GamePhaseMachineTests" runstate="Runnable" seed="781680191" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000139" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1036" name="WireName_UsesDesignSpelling" fullname="MissionForge.Tests.GamePhaseMachineTests.WireName_UsesDesignSpelling" methodname="WireName_UsesDesignSpelling" classname="MissionForge.Tests.GamePhaseMachineTests" runstate="Runnable" seed="611761675" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000092" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestSuite" id="1221" name="Net" fullname="MissionForge.Tests.Net" runstate="Runnable" testcasecount="147" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.286591" total="147" passed="147" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1057" name="BackoffPolicyTests" fullname="MissionForge.Tests.Net.BackoffPolicyTests" classname="MissionForge.Tests.Net.BackoffPolicyTests" runstate="Runnable" testcasecount="10" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.014604" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1065" name="Attempt_CountsDelaysHandedOut" fullname="MissionForge.Tests.Net.BackoffPolicyTests.Attempt_CountsDelaysHandedOut" methodname="Attempt_CountsDelaysHandedOut" classname="MissionForge.Tests.Net.BackoffPolicyTests" runstate="Runnable" seed="1056004067" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000213" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1067" name="Constructor_RejectsOutOfRangeArguments" fullname="MissionForge.Tests.Net.BackoffPolicyTests.Constructor_RejectsOutOfRangeArguments" methodname="Constructor_RejectsOutOfRangeArguments" classname="MissionForge.Tests.Net.BackoffPolicyTests" runstate="Runnable" seed="1639925009" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000470" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1061" name="NextDelaySeconds_DefaultSeed_MatchesKnownSequence" fullname="MissionForge.Tests.Net.BackoffPolicyTests.NextDelaySeconds_DefaultSeed_MatchesKnownSequence" methodname="NextDelaySeconds_DefaultSeed_MatchesKnownSequence" classname="MissionForge.Tests.Net.BackoffPolicyTests" runstate="Runnable" seed="355034850" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000105" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1063" name="NextDelaySeconds_DifferentSeeds_GiveDifferentSequences" fullname="MissionForge.Tests.Net.BackoffPolicyTests.NextDelaySeconds_DifferentSeeds_GiveDifferentSequences" methodname="NextDelaySeconds_DifferentSeeds_GiveDifferentSequences" classname="MissionForge.Tests.Net.BackoffPolicyTests" runstate="Runnable" seed="1846625277" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000082" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1060" name="NextDelaySeconds_JitterStaysWithinTheConfiguredFraction" fullname="MissionForge.Tests.Net.BackoffPolicyTests.NextDelaySeconds_JitterStaysWithinTheConfiguredFraction" methodname="NextDelaySeconds_JitterStaysWithinTheConfiguredFraction" classname="MissionForge.Tests.Net.BackoffPolicyTests" runstate="Runnable" seed="761089594" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000527" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1059" name="NextDelaySeconds_NeverExceedsMax_EvenAfterManyAttempts" fullname="MissionForge.Tests.Net.BackoffPolicyTests.NextDelaySeconds_NeverExceedsMax_EvenAfterManyAttempts" methodname="NextDelaySeconds_NeverExceedsMax_EvenAfterManyAttempts" classname="MissionForge.Tests.Net.BackoffPolicyTests" runstate="Runnable" seed="1740932632" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.012143" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1062" name="NextDelaySeconds_SameSeed_GivesTheSameSequence" fullname="MissionForge.Tests.Net.BackoffPolicyTests.NextDelaySeconds_SameSeed_GivesTheSameSequence" methodname="NextDelaySeconds_SameSeed_GivesTheSameSequence" classname="MissionForge.Tests.Net.BackoffPolicyTests" runstate="Runnable" seed="820560822" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000120" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1058" name="NextDelaySeconds_WithoutJitter_DoublesFromBaseAndStopsAtMax" fullname="MissionForge.Tests.Net.BackoffPolicyTests.NextDelaySeconds_WithoutJitter_DoublesFromBaseAndStopsAtMax" methodname="NextDelaySeconds_WithoutJitter_DoublesFromBaseAndStopsAtMax" classname="MissionForge.Tests.Net.BackoffPolicyTests" runstate="Runnable" seed="1808957015" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000060" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1064" name="NextDelaySeconds_ZeroSeed_StillProducesJitter" fullname="MissionForge.Tests.Net.BackoffPolicyTests.NextDelaySeconds_ZeroSeed_StillProducesJitter" methodname="NextDelaySeconds_ZeroSeed_StillProducesJitter" classname="MissionForge.Tests.Net.BackoffPolicyTests" runstate="Runnable" seed="1278331203" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000038" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1066" name="Reset_RestartsGrowthFromBase" fullname="MissionForge.Tests.Net.BackoffPolicyTests.Reset_RestartsGrowthFromBase" methodname="Reset_RestartsGrowthFromBase" classname="MissionForge.Tests.Net.BackoffPolicyTests" runstate="Runnable" seed="234036037" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000062" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1068" name="EnvelopeCodecTests" fullname="MissionForge.Tests.Net.EnvelopeCodecTests" classname="MissionForge.Tests.Net.EnvelopeCodecTests" runstate="Runnable" testcasecount="32" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.008668" total="32" passed="32" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1072" name="Encode_Envelope_MatchesTheFieldOverload" fullname="MissionForge.Tests.Net.EnvelopeCodecTests.Encode_Envelope_MatchesTheFieldOverload" methodname="Encode_Envelope_MatchesTheFieldOverload" classname="MissionForge.Tests.Net.EnvelopeCodecTests" runstate="Runnable" seed="603415017" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000289" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1070" name="Encode_NullPayload_WritesEmptyDataObject" fullname="MissionForge.Tests.Net.EnvelopeCodecTests.Encode_NullPayload_WritesEmptyDataObject" methodname="Encode_NullPayload_WritesEmptyDataObject" classname="MissionForge.Tests.Net.EnvelopeCodecTests" runstate="Runnable" seed="1376981926" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000037" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1071" name="Encode_PlainObjectPayload_IsSerializedAsJsonObject" fullname="MissionForge.Tests.Net.EnvelopeCodecTests.Encode_PlainObjectPayload_IsSerializedAsJsonObject" methodname="Encode_PlainObjectPayload_IsSerializedAsJsonObject" classname="MissionForge.Tests.Net.EnvelopeCodecTests" runstate="Runnable" seed="278313428" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000346" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1069" name="Encode_ProducesCompactJsonInTypeSeqDataOrder" fullname="MissionForge.Tests.Net.EnvelopeCodecTests.Encode_ProducesCompactJsonInTypeSeqDataOrder" methodname="Encode_ProducesCompactJsonInTypeSeqDataOrder" classname="MissionForge.Tests.Net.EnvelopeCodecTests" runstate="Runnable" seed="914526207" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000064" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1073" name="Encode_RejectsEmptyTypeAndNonObjectPayloads" fullname="MissionForge.Tests.Net.EnvelopeCodecTests.Encode_RejectsEmptyTypeAndNonObjectPayloads" methodname="Encode_RejectsEmptyTypeAndNonObjectPayloads" classname="MissionForge.Tests.Net.EnvelopeCodecTests" runstate="Runnable" seed="1489857766" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000595" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1074" name="EncodeThenDecode_RoundTripsTypeSeqAndNestedUnicodeData" fullname="MissionForge.Tests.Net.EnvelopeCodecTests.EncodeThenDecode_RoundTripsTypeSeqAndNestedUnicodeData" methodname="EncodeThenDecode_RoundTripsTypeSeqAndNestedUnicodeData" classname="MissionForge.Tests.Net.EnvelopeCodecTests" runstate="Runnable" seed="510094234" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.001574" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1077" name="TryDecode_AcceptsWhitespaceAnyPropertyOrderAndUnknownProperties" fullname="MissionForge.Tests.Net.EnvelopeCodecTests.TryDecode_AcceptsWhitespaceAnyPropertyOrderAndUnknownProperties" methodname="TryDecode_AcceptsWhitespaceAnyPropertyOrderAndUnknownProperties" classname="MissionForge.Tests.Net.EnvelopeCodecTests" runstate="Runnable" seed="1115070814" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000162" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1075" name="TryDecode_MissingData_BecomesEmptyObject" fullname="MissionForge.Tests.Net.EnvelopeCodecTests.TryDecode_MissingData_BecomesEmptyObject" methodname="TryDecode_MissingData_BecomesEmptyObject" classname="MissionForge.Tests.Net.EnvelopeCodecTests" runstate="Runnable" seed="1476079858" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000070" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1076" name="TryDecode_NullData_BecomesEmptyObject" fullname="MissionForge.Tests.Net.EnvelopeCodecTests.TryDecode_NullData_BecomesEmptyObject" methodname="TryDecode_NullData_BecomesEmptyObject" classname="MissionForge.Tests.Net.EnvelopeCodecTests" runstate="Runnable" seed="1661789166" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000045" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1101" name="TryDecode_RejectsInvalidFrames" fullname="MissionForge.Tests.Net.EnvelopeCodecTests.TryDecode_RejectsInvalidFrames" classname="MissionForge.Tests.Net.EnvelopeCodecTests" runstate="Runnable" testcasecount="23" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.004046" total="23" passed="23" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1078" name="TryDecode_Rejects_Null" fullname="MissionForge.Tests.Net.EnvelopeCodecTests.TryDecode_Rejects_Null" methodname="TryDecode_RejectsInvalidFrames" classname="MissionForge.Tests.Net.EnvelopeCodecTests" runstate="Runnable" seed="15438231" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000131" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1079" name="TryDecode_Rejects_EmptyString" fullname="MissionForge.Tests.Net.EnvelopeCodecTests.TryDecode_Rejects_EmptyString" methodname="TryDecode_RejectsInvalidFrames" classname="MissionForge.Tests.Net.EnvelopeCodecTests" runstate="Runnable" seed="1608291231" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000032" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1080" name="TryDecode_Rejects_Garbage" fullname="MissionForge.Tests.Net.EnvelopeCodecTests.TryDecode_Rejects_Garbage" methodname="TryDecode_RejectsInvalidFrames" classname="MissionForge.Tests.Net.EnvelopeCodecTests" runstate="Runnable" seed="47892055" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000362" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1081" name="TryDecode_Rejects_TruncatedJson" fullname="MissionForge.Tests.Net.EnvelopeCodecTests.TryDecode_Rejects_TruncatedJson" methodname="TryDecode_RejectsInvalidFrames" classname="MissionForge.Tests.Net.EnvelopeCodecTests" runstate="Runnable" seed="801408810" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000247" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1082" name="TryDecode_Rejects_TrailingText" fullname="MissionForge.Tests.Net.EnvelopeCodecTests.TryDecode_Rejects_TrailingText" methodname="TryDecode_RejectsInvalidFrames" classname="MissionForge.Tests.Net.EnvelopeCodecTests" runstate="Runnable" seed="1462436059" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000042" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1083" name="TryDecode_Rejects_ArrayRoot" fullname="MissionForge.Tests.Net.EnvelopeCodecTests.TryDecode_Rejects_ArrayRoot" methodname="TryDecode_RejectsInvalidFrames" classname="MissionForge.Tests.Net.EnvelopeCodecTests" runstate="Runnable" seed="940669777" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000095" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1084" name="TryDecode_Rejects_StringRoot" fullname="MissionForge.Tests.Net.EnvelopeCodecTests.TryDecode_Rejects_StringRoot" methodname="TryDecode_RejectsInvalidFrames" classname="MissionForge.Tests.Net.EnvelopeCodecTests" runstate="Runnable" seed="244977572" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000035" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1085" name="TryDecode_Rejects_NumberRoot" fullname="MissionForge.Tests.Net.EnvelopeCodecTests.TryDecode_Rejects_NumberRoot" methodname="TryDecode_RejectsInvalidFrames" classname="MissionForge.Tests.Net.EnvelopeCodecTests" runstate="Runnable" seed="1745895516" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000036" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1086" name="TryDecode_Rejects_NullRoot" fullname="MissionForge.Tests.Net.EnvelopeCodecTests.TryDecode_Rejects_NullRoot" methodname="TryDecode_RejectsInvalidFrames" classname="MissionForge.Tests.Net.EnvelopeCodecTests" runstate="Runnable" seed="841307883" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000035" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1087" name="TryDecode_Rejects_MissingType" fullname="MissionForge.Tests.Net.EnvelopeCodecTests.TryDecode_Rejects_MissingType" methodname="TryDecode_RejectsInvalidFrames" classname="MissionForge.Tests.Net.EnvelopeCodecTests" runstate="Runnable" seed="696655365" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000038" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1088" name="TryDecode_Rejects_NumericType" fullname="MissionForge.Tests.Net.EnvelopeCodecTests.TryDecode_Rejects_NumericType" methodname="TryDecode_RejectsInvalidFrames" classname="MissionForge.Tests.Net.EnvelopeCodecTests" runstate="Runnable" seed="570737428" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000038" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1089" name="TryDecode_Rejects_NullType" fullname="MissionForge.Tests.Net.EnvelopeCodecTests.TryDecode_Rejects_NullType" methodname="TryDecode_RejectsInvalidFrames" classname="MissionForge.Tests.Net.EnvelopeCodecTests" runstate="Runnable" seed="900732395" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000038" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1090" name="TryDecode_Rejects_EmptyType" fullname="MissionForge.Tests.Net.EnvelopeCodecTests.TryDecode_Rejects_EmptyType" methodname="TryDecode_RejectsInvalidFrames" classname="MissionForge.Tests.Net.EnvelopeCodecTests" runstate="Runnable" seed="1526081677" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000040" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1091" name="TryDecode_Rejects_MissingSeq" fullname="MissionForge.Tests.Net.EnvelopeCodecTests.TryDecode_Rejects_MissingSeq" methodname="TryDecode_RejectsInvalidFrames" classname="MissionForge.Tests.Net.EnvelopeCodecTests" runstate="Runnable" seed="1167180855" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000037" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1092" name="TryDecode_Rejects_StringSeq" fullname="MissionForge.Tests.Net.EnvelopeCodecTests.TryDecode_Rejects_StringSeq" methodname="TryDecode_RejectsInvalidFrames" classname="MissionForge.Tests.Net.EnvelopeCodecTests" runstate="Runnable" seed="1797596152" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000037" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1093" name="TryDecode_Rejects_FractionalSeq" fullname="MissionForge.Tests.Net.EnvelopeCodecTests.TryDecode_Rejects_FractionalSeq" methodname="TryDecode_RejectsInvalidFrames" classname="MissionForge.Tests.Net.EnvelopeCodecTests" runstate="Runnable" seed="1649193175" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000038" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1094" name="TryDecode_Rejects_FloatSeq" fullname="MissionForge.Tests.Net.EnvelopeCodecTests.TryDecode_Rejects_FloatSeq" methodname="TryDecode_RejectsInvalidFrames" classname="MissionForge.Tests.Net.EnvelopeCodecTests" runstate="Runnable" seed="1570461851" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000041" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1095" name="TryDecode_Rejects_NullSeq" fullname="MissionForge.Tests.Net.EnvelopeCodecTests.TryDecode_Rejects_NullSeq" methodname="TryDecode_RejectsInvalidFrames" classname="MissionForge.Tests.Net.EnvelopeCodecTests" runstate="Runnable" seed="2077289326" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000036" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1096" name="TryDecode_Rejects_BooleanSeq" fullname="MissionForge.Tests.Net.EnvelopeCodecTests.TryDecode_Rejects_BooleanSeq" methodname="TryDecode_RejectsInvalidFrames" classname="MissionForge.Tests.Net.EnvelopeCodecTests" runstate="Runnable" seed="1520110368" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000036" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1097" name="TryDecode_Rejects_SeqAboveInt32" fullname="MissionForge.Tests.Net.EnvelopeCodecTests.TryDecode_Rejects_SeqAboveInt32" methodname="TryDecode_RejectsInvalidFrames" classname="MissionForge.Tests.Net.EnvelopeCodecTests" runstate="Runnable" seed="1140623728" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000037" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1098" name="TryDecode_Rejects_HugeSeq" fullname="MissionForge.Tests.Net.EnvelopeCodecTests.TryDecode_Rejects_HugeSeq" methodname="TryDecode_RejectsInvalidFrames" classname="MissionForge.Tests.Net.EnvelopeCodecTests" runstate="Runnable" seed="921353228" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.001313" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1099" name="TryDecode_Rejects_ArrayData" fullname="MissionForge.Tests.Net.EnvelopeCodecTests.TryDecode_Rejects_ArrayData" methodname="TryDecode_RejectsInvalidFrames" classname="MissionForge.Tests.Net.EnvelopeCodecTests" runstate="Runnable" seed="197201576" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000042" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1100" name="TryDecode_Rejects_StringData" fullname="MissionForge.Tests.Net.EnvelopeCodecTests.TryDecode_Rejects_StringData" methodname="TryDecode_RejectsInvalidFrames" classname="MissionForge.Tests.Net.EnvelopeCodecTests" runstate="Runnable" seed="1704612842" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000042" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+            </test-suite>
+            <test-suite type="TestFixture" id="1102" name="ProtocolContractTests" fullname="MissionForge.Tests.Net.ProtocolContractTests" classname="MissionForge.Tests.Net.ProtocolContractTests" runstate="Runnable" testcasecount="44" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.040902" total="44" passed="44" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="ParameterizedMethod" id="1131" name="Dto_FieldNamesMatchTheSchema" fullname="MissionForge.Tests.Net.ProtocolContractTests.Dto_FieldNamesMatchTheSchema" classname="MissionForge.Tests.Net.ProtocolContractTests" runstate="Runnable" testcasecount="25" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.012710" total="25" passed="25" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1106" name="Dto_FieldNamesMatchTheSchema(MissionForge.Net.HelloDto,&quot;hello&quot;,&quot;&quot;)" fullname="MissionForge.Tests.Net.ProtocolContractTests.Dto_FieldNamesMatchTheSchema(MissionForge.Net.HelloDto,&quot;hello&quot;,&quot;&quot;)" methodname="Dto_FieldNamesMatchTheSchema" classname="MissionForge.Tests.Net.ProtocolContractTests" runstate="Runnable" seed="1441162081" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.001173" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1107" name="Dto_FieldNamesMatchTheSchema(MissionForge.Net.HelloOkDto,&quot;hello.ok&quot;,&quot;&quot;)" fullname="MissionForge.Tests.Net.ProtocolContractTests.Dto_FieldNamesMatchTheSchema(MissionForge.Net.HelloOkDto,&quot;hello.ok&quot;,&quot;&quot;)" methodname="Dto_FieldNamesMatchTheSchema" classname="MissionForge.Tests.Net.ProtocolContractTests" runstate="Runnable" seed="1580797090" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.003186" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1108" name="Dto_FieldNamesMatchTheSchema(MissionForge.Net.ClockPongDto,&quot;clock.pong&quot;,&quot;&quot;)" fullname="MissionForge.Tests.Net.ProtocolContractTests.Dto_FieldNamesMatchTheSchema(MissionForge.Net.ClockPongDto,&quot;clock.pong&quot;,&quot;&quot;)" methodname="Dto_FieldNamesMatchTheSchema" classname="MissionForge.Tests.Net.ProtocolContractTests" runstate="Runnable" seed="1404762125" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000345" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1109" name="Dto_FieldNamesMatchTheSchema(MissionForge.Net.ErrorDto,&quot;error&quot;,&quot;&quot;)" fullname="MissionForge.Tests.Net.ProtocolContractTests.Dto_FieldNamesMatchTheSchema(MissionForge.Net.ErrorDto,&quot;error&quot;,&quot;&quot;)" methodname="Dto_FieldNamesMatchTheSchema" classname="MissionForge.Tests.Net.ProtocolContractTests" runstate="Runnable" seed="850738484" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000312" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1110" name="Dto_FieldNamesMatchTheSchema(MissionForge.Net.ByeDto,&quot;bye&quot;,&quot;&quot;)" fullname="MissionForge.Tests.Net.ProtocolContractTests.Dto_FieldNamesMatchTheSchema(MissionForge.Net.ByeDto,&quot;bye&quot;,&quot;&quot;)" methodname="Dto_FieldNamesMatchTheSchema" classname="MissionForge.Tests.Net.ProtocolContractTests" runstate="Runnable" seed="1668398125" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000177" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1111" name="Dto_FieldNamesMatchTheSchema(MissionForge.Net.RelayDto,&quot;relay&quot;,&quot;&quot;)" fullname="MissionForge.Tests.Net.ProtocolContractTests.Dto_FieldNamesMatchTheSchema(MissionForge.Net.RelayDto,&quot;relay&quot;,&quot;&quot;)" methodname="Dto_FieldNamesMatchTheSchema" classname="MissionForge.Tests.Net.ProtocolContractTests" runstate="Runnable" seed="140080384" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000414" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1112" name="Dto_FieldNamesMatchTheSchema(MissionForge.Net.SnapshotEndDto,&quot;snapshot.end&quot;,&quot;&quot;)" fullname="MissionForge.Tests.Net.ProtocolContractTests.Dto_FieldNamesMatchTheSchema(MissionForge.Net.SnapshotEndDto,&quot;snapshot.end&quot;,&quot;&quot;)" methodname="Dto_FieldNamesMatchTheSchema" classname="MissionForge.Tests.Net.ProtocolContractTests" runstate="Runnable" seed="1876761360" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000237" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1113" name="Dto_FieldNamesMatchTheSchema(MissionForge.Net.RoomCreatedDto,&quot;room.created&quot;,&quot;&quot;)" fullname="MissionForge.Tests.Net.ProtocolContractTests.Dto_FieldNamesMatchTheSchema(MissionForge.Net.RoomCreatedDto,&quot;room.created&quot;,&quot;&quot;)" methodname="Dto_FieldNamesMatchTheSchema" classname="MissionForge.Tests.Net.ProtocolContractTests" runstate="Runnable" seed="435071446" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000288" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1114" name="Dto_FieldNamesMatchTheSchema(MissionForge.Net.RoomResumeDto,&quot;room.resume&quot;,&quot;&quot;)" fullname="MissionForge.Tests.Net.ProtocolContractTests.Dto_FieldNamesMatchTheSchema(MissionForge.Net.RoomResumeDto,&quot;room.resume&quot;,&quot;&quot;)" methodname="Dto_FieldNamesMatchTheSchema" classname="MissionForge.Tests.Net.ProtocolContractTests" runstate="Runnable" seed="1081383293" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000200" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1115" name="Dto_FieldNamesMatchTheSchema(MissionForge.Net.RoomResumedDto,&quot;room.resumed&quot;,&quot;&quot;)" fullname="MissionForge.Tests.Net.ProtocolContractTests.Dto_FieldNamesMatchTheSchema(MissionForge.Net.RoomResumedDto,&quot;room.resumed&quot;,&quot;&quot;)" methodname="Dto_FieldNamesMatchTheSchema" classname="MissionForge.Tests.Net.ProtocolContractTests" runstate="Runnable" seed="1484738209" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000217" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1116" name="Dto_FieldNamesMatchTheSchema(MissionForge.Net.RoomStateDto,&quot;room.state&quot;,&quot;&quot;)" fullname="MissionForge.Tests.Net.ProtocolContractTests.Dto_FieldNamesMatchTheSchema(MissionForge.Net.RoomStateDto,&quot;room.state&quot;,&quot;&quot;)" methodname="Dto_FieldNamesMatchTheSchema" classname="MissionForge.Tests.Net.ProtocolContractTests" runstate="Runnable" seed="1422939522" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000438" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1117" name="Dto_FieldNamesMatchTheSchema(MissionForge.Net.PlayerInfoDto,&quot;room.state&quot;,&quot;$defs/PlayerInfo&quot;)" fullname="MissionForge.Tests.Net.ProtocolContractTests.Dto_FieldNamesMatchTheSchema(MissionForge.Net.PlayerInfoDto,&quot;room.state&quot;,&quot;$defs/PlayerInfo&quot;)" methodname="Dto_FieldNamesMatchTheSchema" classname="MissionForge.Tests.Net.ProtocolContractTests" runstate="Runnable" seed="434435020" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000539" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1118" name="Dto_FieldNamesMatchTheSchema(MissionForge.Net.AvatarDto,&quot;room.state&quot;,&quot;$defs/Avatar&quot;)" fullname="MissionForge.Tests.Net.ProtocolContractTests.Dto_FieldNamesMatchTheSchema(MissionForge.Net.AvatarDto,&quot;room.state&quot;,&quot;$defs/Avatar&quot;)" methodname="Dto_FieldNamesMatchTheSchema" classname="MissionForge.Tests.Net.ProtocolContractTests" runstate="Runnable" seed="1757339475" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000302" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1119" name="Dto_FieldNamesMatchTheSchema(MissionForge.Net.PlayerPrefsDto,&quot;room.state&quot;,&quot;$defs/PlayerPrefs&quot;)" fullname="MissionForge.Tests.Net.ProtocolContractTests.Dto_FieldNamesMatchTheSchema(MissionForge.Net.PlayerPrefsDto,&quot;room.state&quot;,&quot;$defs/PlayerPrefs&quot;)" methodname="Dto_FieldNamesMatchTheSchema" classname="MissionForge.Tests.Net.ProtocolContractTests" runstate="Runnable" seed="149452408" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000324" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1120" name="Dto_FieldNamesMatchTheSchema(MissionForge.Net.SettingsStateDto,&quot;settings.state&quot;,&quot;&quot;)" fullname="MissionForge.Tests.Net.ProtocolContractTests.Dto_FieldNamesMatchTheSchema(MissionForge.Net.SettingsStateDto,&quot;settings.state&quot;,&quot;&quot;)" methodname="Dto_FieldNamesMatchTheSchema" classname="MissionForge.Tests.Net.ProtocolContractTests" runstate="Runnable" seed="1998940117" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000328" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1121" name="Dto_FieldNamesMatchTheSchema(MissionForge.Net.RoomSettingsDto,&quot;settings.state&quot;,&quot;$defs/RoomSettings&quot;)" fullname="MissionForge.Tests.Net.ProtocolContractTests.Dto_FieldNamesMatchTheSchema(MissionForge.Net.RoomSettingsDto,&quot;settings.state&quot;,&quot;$defs/RoomSettings&quot;)" methodname="Dto_FieldNamesMatchTheSchema" classname="MissionForge.Tests.Net.ProtocolContractTests" runstate="Runnable" seed="404435390" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000269" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1122" name="Dto_FieldNamesMatchTheSchema(MissionForge.Net.RoomA11yDto,&quot;settings.state&quot;,&quot;$defs/RoomA11y&quot;)" fullname="MissionForge.Tests.Net.ProtocolContractTests.Dto_FieldNamesMatchTheSchema(MissionForge.Net.RoomA11yDto,&quot;settings.state&quot;,&quot;$defs/RoomA11y&quot;)" methodname="Dto_FieldNamesMatchTheSchema" classname="MissionForge.Tests.Net.ProtocolContractTests" runstate="Runnable" seed="1735665014" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000240" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1123" name="Dto_FieldNamesMatchTheSchema(MissionForge.Net.SettingsPatchDto,&quot;settings.set&quot;,&quot;$defs/SettingsPatch&quot;)" fullname="MissionForge.Tests.Net.ProtocolContractTests.Dto_FieldNamesMatchTheSchema(MissionForge.Net.SettingsPatchDto,&quot;settings.set&quot;,&quot;$defs/SettingsPatch&quot;)" methodname="Dto_FieldNamesMatchTheSchema" classname="MissionForge.Tests.Net.ProtocolContractTests" runstate="Runnable" seed="1158383153" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000413" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1124" name="Dto_FieldNamesMatchTheSchema(MissionForge.Net.RolesStateDto,&quot;roles.state&quot;,&quot;&quot;)" fullname="MissionForge.Tests.Net.ProtocolContractTests.Dto_FieldNamesMatchTheSchema(MissionForge.Net.RolesStateDto,&quot;roles.state&quot;,&quot;&quot;)" methodname="Dto_FieldNamesMatchTheSchema" classname="MissionForge.Tests.Net.ProtocolContractTests" runstate="Runnable" seed="864195811" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000336" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1125" name="Dto_FieldNamesMatchTheSchema(MissionForge.Net.RoleGroupDto,&quot;roles.state&quot;,&quot;$defs/RoleGroup&quot;)" fullname="MissionForge.Tests.Net.ProtocolContractTests.Dto_FieldNamesMatchTheSchema(MissionForge.Net.RoleGroupDto,&quot;roles.state&quot;,&quot;$defs/RoleGroup&quot;)" methodname="Dto_FieldNamesMatchTheSchema" classname="MissionForge.Tests.Net.ProtocolContractTests" runstate="Runnable" seed="300776043" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000207" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1126" name="Dto_FieldNamesMatchTheSchema(MissionForge.Net.FlightVoteDto,&quot;roles.state&quot;,&quot;properties/flightVotes/items&quot;)" fullname="MissionForge.Tests.Net.ProtocolContractTests.Dto_FieldNamesMatchTheSchema(MissionForge.Net.FlightVoteDto,&quot;roles.state&quot;,&quot;properties/flightVotes/items&quot;)" methodname="Dto_FieldNamesMatchTheSchema" classname="MissionForge.Tests.Net.ProtocolContractTests" runstate="Runnable" seed="20862836" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000199" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1127" name="Dto_FieldNamesMatchTheSchema(MissionForge.Net.PhaseSetDto,&quot;phase.set&quot;,&quot;&quot;)" fullname="MissionForge.Tests.Net.ProtocolContractTests.Dto_FieldNamesMatchTheSchema(MissionForge.Net.PhaseSetDto,&quot;phase.set&quot;,&quot;&quot;)" methodname="Dto_FieldNamesMatchTheSchema" classname="MissionForge.Tests.Net.ProtocolContractTests" runstate="Runnable" seed="803776822" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000403" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1128" name="Dto_FieldNamesMatchTheSchema(MissionForge.Net.PhaseStepDto,&quot;phase.set&quot;,&quot;properties/step/anyOf/0&quot;)" fullname="MissionForge.Tests.Net.ProtocolContractTests.Dto_FieldNamesMatchTheSchema(MissionForge.Net.PhaseStepDto,&quot;phase.set&quot;,&quot;properties/step/anyOf/0&quot;)" methodname="Dto_FieldNamesMatchTheSchema" classname="MissionForge.Tests.Net.ProtocolContractTests" runstate="Runnable" seed="625343168" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000334" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1129" name="Dto_FieldNamesMatchTheSchema(MissionForge.Net.GamePausedDto,&quot;game.paused&quot;,&quot;&quot;)" fullname="MissionForge.Tests.Net.ProtocolContractTests.Dto_FieldNamesMatchTheSchema(MissionForge.Net.GamePausedDto,&quot;game.paused&quot;,&quot;&quot;)" methodname="Dto_FieldNamesMatchTheSchema" classname="MissionForge.Tests.Net.ProtocolContractTests" runstate="Runnable" seed="217571854" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000211" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1130" name="Dto_FieldNamesMatchTheSchema(MissionForge.Net.GameResumedDto,&quot;game.resumed&quot;,&quot;&quot;)" fullname="MissionForge.Tests.Net.ProtocolContractTests.Dto_FieldNamesMatchTheSchema(MissionForge.Net.GameResumedDto,&quot;game.resumed&quot;,&quot;&quot;)" methodname="Dto_FieldNamesMatchTheSchema" classname="MissionForge.Tests.Net.ProtocolContractTests" runstate="Runnable" seed="829207431" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000216" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-suite type="ParameterizedMethod" id="1146" name="EnumConstants_MatchTheSchemaEnum" fullname="MissionForge.Tests.Net.ProtocolContractTests.EnumConstants_MatchTheSchemaEnum" classname="MissionForge.Tests.Net.ProtocolContractTests" runstate="Runnable" testcasecount="14" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.004259" total="14" passed="14" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1132" name="EnumConstants_MatchTheSchemaEnum(MissionForge.Net.ProtocolNames+ClientKinds,&quot;hello&quot;,&quot;ClientKind&quot;)" fullname="MissionForge.Tests.Net.ProtocolContractTests.EnumConstants_MatchTheSchemaEnum(MissionForge.Net.ProtocolNames+ClientKinds,&quot;hello&quot;,&quot;ClientKind&quot;)" methodname="EnumConstants_MatchTheSchemaEnum" classname="MissionForge.Tests.Net.ProtocolContractTests" runstate="Runnable" seed="1586695316" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000675" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1133" name="EnumConstants_MatchTheSchemaEnum(MissionForge.Net.ProtocolNames+ConnKinds,&quot;room.resumed&quot;,&quot;ConnKind&quot;)" fullname="MissionForge.Tests.Net.ProtocolContractTests.EnumConstants_MatchTheSchemaEnum(MissionForge.Net.ProtocolNames+ConnKinds,&quot;room.resumed&quot;,&quot;ConnKind&quot;)" methodname="EnumConstants_MatchTheSchemaEnum" classname="MissionForge.Tests.Net.ProtocolContractTests" runstate="Runnable" seed="1962294560" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000164" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1134" name="EnumConstants_MatchTheSchemaEnum(MissionForge.Net.ProtocolNames+ErrorCodes,&quot;error&quot;,&quot;ErrorCode&quot;)" fullname="MissionForge.Tests.Net.ProtocolContractTests.EnumConstants_MatchTheSchemaEnum(MissionForge.Net.ProtocolNames+ErrorCodes,&quot;error&quot;,&quot;ErrorCode&quot;)" methodname="EnumConstants_MatchTheSchemaEnum" classname="MissionForge.Tests.Net.ProtocolContractTests" runstate="Runnable" seed="1182217043" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000232" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1135" name="EnumConstants_MatchTheSchemaEnum(MissionForge.Net.ProtocolNames+ByeReasons,&quot;bye&quot;,&quot;ByeReason&quot;)" fullname="MissionForge.Tests.Net.ProtocolContractTests.EnumConstants_MatchTheSchemaEnum(MissionForge.Net.ProtocolNames+ByeReasons,&quot;bye&quot;,&quot;ByeReason&quot;)" methodname="EnumConstants_MatchTheSchemaEnum" classname="MissionForge.Tests.Net.ProtocolContractTests" runstate="Runnable" seed="2038276391" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000125" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1136" name="EnumConstants_MatchTheSchemaEnum(MissionForge.Net.ProtocolNames+PauseReasons,&quot;game.paused&quot;,&quot;PauseReason&quot;)" fullname="MissionForge.Tests.Net.ProtocolContractTests.EnumConstants_MatchTheSchemaEnum(MissionForge.Net.ProtocolNames+PauseReasons,&quot;game.paused&quot;,&quot;PauseReason&quot;)" methodname="EnumConstants_MatchTheSchemaEnum" classname="MissionForge.Tests.Net.ProtocolContractTests" runstate="Runnable" seed="691839712" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000107" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1137" name="EnumConstants_MatchTheSchemaEnum(MissionForge.Net.ProtocolNames+RoleIds,&quot;roles.state&quot;,&quot;RoleId&quot;)" fullname="MissionForge.Tests.Net.ProtocolContractTests.EnumConstants_MatchTheSchemaEnum(MissionForge.Net.ProtocolNames+RoleIds,&quot;roles.state&quot;,&quot;RoleId&quot;)" methodname="EnumConstants_MatchTheSchemaEnum" classname="MissionForge.Tests.Net.ProtocolContractTests" runstate="Runnable" seed="241666870" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000213" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1138" name="EnumConstants_MatchTheSchemaEnum(MissionForge.Net.ProtocolNames+RoleAssignModes,&quot;settings.state&quot;,&quot;RoleAssignMode&quot;)" fullname="MissionForge.Tests.Net.ProtocolContractTests.EnumConstants_MatchTheSchemaEnum(MissionForge.Net.ProtocolNames+RoleAssignModes,&quot;settings.state&quot;,&quot;RoleAssignMode&quot;)" methodname="EnumConstants_MatchTheSchemaEnum" classname="MissionForge.Tests.Net.ProtocolContractTests" runstate="Runnable" seed="116776037" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000225" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1139" name="EnumConstants_MatchTheSchemaEnum(MissionForge.Net.ProtocolNames+AssistLevels,&quot;settings.state&quot;,&quot;AssistLevel&quot;)" fullname="MissionForge.Tests.Net.ProtocolContractTests.EnumConstants_MatchTheSchemaEnum(MissionForge.Net.ProtocolNames+AssistLevels,&quot;settings.state&quot;,&quot;AssistLevel&quot;)" methodname="EnumConstants_MatchTheSchemaEnum" classname="MissionForge.Tests.Net.ProtocolContractTests" runstate="Runnable" seed="414175667" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000224" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1140" name="EnumConstants_MatchTheSchemaEnum(MissionForge.Net.ProtocolNames+TallyVisibilities,&quot;settings.state&quot;,&quot;TallyVisibility&quot;)" fullname="MissionForge.Tests.Net.ProtocolContractTests.EnumConstants_MatchTheSchemaEnum(MissionForge.Net.ProtocolNames+TallyVisibilities,&quot;settings.state&quot;,&quot;TallyVisibility&quot;)" methodname="EnumConstants_MatchTheSchemaEnum" classname="MissionForge.Tests.Net.ProtocolContractTests" runstate="Runnable" seed="501253456" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000220" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1141" name="EnumConstants_MatchTheSchemaEnum(MissionForge.Net.ProtocolNames+PilotRotations,&quot;settings.state&quot;,&quot;PilotRotation&quot;)" fullname="MissionForge.Tests.Net.ProtocolContractTests.EnumConstants_MatchTheSchemaEnum(MissionForge.Net.ProtocolNames+PilotRotations,&quot;settings.state&quot;,&quot;PilotRotation&quot;)" methodname="EnumConstants_MatchTheSchemaEnum" classname="MissionForge.Tests.Net.ProtocolContractTests" runstate="Runnable" seed="1590701612" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000231" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1142" name="EnumConstants_MatchTheSchemaEnum(MissionForge.Net.ProtocolNames+PilotSelects,&quot;settings.state&quot;,&quot;PilotSelect&quot;)" fullname="MissionForge.Tests.Net.ProtocolContractTests.EnumConstants_MatchTheSchemaEnum(MissionForge.Net.ProtocolNames+PilotSelects,&quot;settings.state&quot;,&quot;PilotSelect&quot;)" methodname="EnumConstants_MatchTheSchemaEnum" classname="MissionForge.Tests.Net.ProtocolContractTests" runstate="Runnable" seed="1677612099" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000218" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1143" name="EnumConstants_MatchTheSchemaEnum(MissionForge.Net.ProtocolNames+Phases,&quot;phase.set&quot;,&quot;Phase&quot;)" fullname="MissionForge.Tests.Net.ProtocolContractTests.EnumConstants_MatchTheSchemaEnum(MissionForge.Net.ProtocolNames+Phases,&quot;phase.set&quot;,&quot;Phase&quot;)" methodname="EnumConstants_MatchTheSchemaEnum" classname="MissionForge.Tests.Net.ProtocolContractTests" runstate="Runnable" seed="525681894" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000222" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1144" name="EnumConstants_MatchTheSchemaEnum(MissionForge.Net.ProtocolNames+SubPhases,&quot;phase.set&quot;,&quot;SubPhase&quot;)" fullname="MissionForge.Tests.Net.ProtocolContractTests.EnumConstants_MatchTheSchemaEnum(MissionForge.Net.ProtocolNames+SubPhases,&quot;phase.set&quot;,&quot;SubPhase&quot;)" methodname="EnumConstants_MatchTheSchemaEnum" classname="MissionForge.Tests.Net.ProtocolContractTests" runstate="Runnable" seed="538936499" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000221" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1145" name="EnumConstants_MatchTheSchemaEnum(MissionForge.Net.ProtocolNames+GameModes,&quot;phase.set&quot;,&quot;GameMode&quot;)" fullname="MissionForge.Tests.Net.ProtocolContractTests.EnumConstants_MatchTheSchemaEnum(MissionForge.Net.ProtocolNames+GameModes,&quot;phase.set&quot;,&quot;GameMode&quot;)" methodname="EnumConstants_MatchTheSchemaEnum" classname="MissionForge.Tests.Net.ProtocolContractTests" runstate="Runnable" seed="1497392669" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000217" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="1103" name="EveryMessageConstant_HasASchemaFile" fullname="MissionForge.Tests.Net.ProtocolContractTests.EveryMessageConstant_HasASchemaFile" methodname="EveryMessageConstant_HasASchemaFile" classname="MissionForge.Tests.Net.ProtocolContractTests" runstate="Runnable" seed="1533189582" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000859" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1148" name="EverySchemaExample_ParsesIntoItsDto" fullname="MissionForge.Tests.Net.ProtocolContractTests.EverySchemaExample_ParsesIntoItsDto" methodname="EverySchemaExample_ParsesIntoItsDto" classname="MissionForge.Tests.Net.ProtocolContractTests" runstate="Runnable" seed="510001377" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.020284" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1104" name="EverySchemaFile_HasAMessageConstant" fullname="MissionForge.Tests.Net.ProtocolContractTests.EverySchemaFile_HasAMessageConstant" methodname="EverySchemaFile_HasAMessageConstant" classname="MissionForge.Tests.Net.ProtocolContractTests" runstate="Runnable" seed="1718795746" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000619" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1105" name="MessageConstants_AreUnique" fullname="MissionForge.Tests.Net.ProtocolContractTests.MessageConstants_AreUnique" methodname="MessageConstants_AreUnique" classname="MissionForge.Tests.Net.ProtocolContractTests" runstate="Runnable" seed="1168552440" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000212" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1147" name="RoomCodeAlphabet_MatchesTheRoomCodePattern" fullname="MissionForge.Tests.Net.ProtocolContractTests.RoomCodeAlphabet_MatchesTheRoomCodePattern" methodname="RoomCodeAlphabet_MatchesTheRoomCodePattern" classname="MissionForge.Tests.Net.ProtocolContractTests" runstate="Runnable" seed="370998074" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.001041" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1149" name="RoomClientTests" fullname="MissionForge.Tests.Net.RoomClientTests" classname="MissionForge.Tests.Net.RoomClientTests" runstate="Runnable" testcasecount="33" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.016021" total="33" passed="33" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1151" name="AppVersion_IsSentWhenValid_AndFallsBackOtherwise" fullname="MissionForge.Tests.Net.RoomClientTests.AppVersion_IsSentWhenValid_AndFallsBackOtherwise" methodname="AppVersion_IsSentWhenValid_AndFallsBackOtherwise" classname="MissionForge.Tests.Net.RoomClientTests" runstate="Runnable" seed="15583265" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000552" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1179" name="ByeReplaced_StopsReconnecting" fullname="MissionForge.Tests.Net.RoomClientTests.ByeReplaced_StopsReconnecting" methodname="ByeReplaced_StopsReconnecting" classname="MissionForge.Tests.Net.RoomClientTests" runstate="Runnable" seed="283933677" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.001625" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1177" name="ByeWithCanResumeFalse_ForgetsTheRoomButStillReconnects" fullname="MissionForge.Tests.Net.RoomClientTests.ByeWithCanResumeFalse_ForgetsTheRoomButStillReconnects" methodname="ByeWithCanResumeFalse_ForgetsTheRoomButStillReconnects" classname="MissionForge.Tests.Net.RoomClientTests" runstate="Runnable" seed="1260697460" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000293" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1178" name="ByeWithCanResumeTrue_KeepsTheRoomForResume" fullname="MissionForge.Tests.Net.RoomClientTests.ByeWithCanResumeTrue_KeepsTheRoomForResume" methodname="ByeWithCanResumeTrue_KeepsTheRoomForResume" classname="MissionForge.Tests.Net.RoomClientTests" runstate="Runnable" seed="1531044268" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000454" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1165" name="Clock_SendsThreeProbesThenEveryHeartbeat_AndEstimatesTheServerClock" fullname="MissionForge.Tests.Net.RoomClientTests.Clock_SendsThreeProbesThenEveryHeartbeat_AndEstimatesTheServerClock" methodname="Clock_SendsThreeProbesThenEveryHeartbeat_AndEstimatesTheServerClock" classname="MissionForge.Tests.Net.RoomClientTests" runstate="Runnable" seed="70352426" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000618" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1180" name="CloseCodeThatRevokesTheToken_ForgetsTheRoomEvenWithoutBye" fullname="MissionForge.Tests.Net.RoomClientTests.CloseCodeThatRevokesTheToken_ForgetsTheRoomEvenWithoutBye" methodname="CloseCodeThatRevokesTheToken_ForgetsTheRoomEvenWithoutBye" classname="MissionForge.Tests.Net.RoomClientTests" runstate="Runnable" seed="1870777023" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000105" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1150" name="Connect_SendsHelloFirst_AndIsConnectedOnlyAfterHelloOk" fullname="MissionForge.Tests.Net.RoomClientTests.Connect_SendsHelloFirst_AndIsConnectedOnlyAfterHelloOk" methodname="Connect_SendsHelloFirst_AndIsConnectedOnlyAfterHelloOk" classname="MissionForge.Tests.Net.RoomClientTests" runstate="Runnable" seed="1025233874" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000330" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1183" name="Connect_WhileConnected_StartsAFreshSession" fullname="MissionForge.Tests.Net.RoomClientTests.Connect_WhileConnected_StartsAFreshSession" methodname="Connect_WhileConnected_StartsAFreshSession" classname="MissionForge.Tests.Net.RoomClientTests" runstate="Runnable" seed="271351336" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000137" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1154" name="CreateRoom_SendsRoomCreate_WithOptionalSettingsPatch" fullname="MissionForge.Tests.Net.RoomClientTests.CreateRoom_SendsRoomCreate_WithOptionalSettingsPatch" methodname="CreateRoom_SendsRoomCreate_WithOptionalSettingsPatch" classname="MissionForge.Tests.Net.RoomClientTests" runstate="Runnable" seed="575398792" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.001086" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1181" name="Disconnect_ClosesTheTransportAndStopsReconnecting" fullname="MissionForge.Tests.Net.RoomClientTests.Disconnect_ClosesTheTransportAndStopsReconnecting" methodname="Disconnect_ClosesTheTransportAndStopsReconnecting" classname="MissionForge.Tests.Net.RoomClientTests" runstate="Runnable" seed="1289893995" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000174" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1182" name="Disconnect_WhileWaitingToReconnect_CancelsThePendingAttempt" fullname="MissionForge.Tests.Net.RoomClientTests.Disconnect_WhileWaitingToReconnect_CancelsThePendingAttempt" methodname="Disconnect_WhileWaitingToReconnect_CancelsThePendingAttempt" classname="MissionForge.Tests.Net.RoomClientTests" runstate="Runnable" seed="1334551710" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000112" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1152" name="DuplicateHelloOk_IsAProtocolError" fullname="MissionForge.Tests.Net.RoomClientTests.DuplicateHelloOk_IsAProtocolError" methodname="DuplicateHelloOk_IsAProtocolError" classname="MissionForge.Tests.Net.RoomClientTests" runstate="Runnable" seed="923730285" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000104" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1169" name="FailedReconnectAttempts_BackOffExponentiallyAndResetAfterASuccessfulHandshake" fullname="MissionForge.Tests.Net.RoomClientTests.FailedReconnectAttempts_BackOffExponentiallyAndResetAfterASuccessfulHandshake" methodname="FailedReconnectAttempts_BackOffExponentiallyAndResetAfterASuccessfulHandshake" classname="MissionForge.Tests.Net.RoomClientTests" runstate="Runnable" seed="1934549746" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000165" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1161" name="MalformedFrames_RaiseProtocolErrorAndKeepTheConnection" fullname="MissionForge.Tests.Net.RoomClientTests.MalformedFrames_RaiseProtocolErrorAndKeepTheConnection" methodname="MalformedFrames_RaiseProtocolErrorAndKeepTheConnection" classname="MissionForge.Tests.Net.RoomClientTests" runstate="Runnable" seed="1546815612" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.002195" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1167" name="NoHelloOk_DropsTheSocketAndReconnects" fullname="MissionForge.Tests.Net.RoomClientTests.NoHelloOk_DropsTheSocketAndReconnects" methodname="NoHelloOk_DropsTheSocketAndReconnects" classname="MissionForge.Tests.Net.RoomClientTests" runstate="Runnable" seed="575581825" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000112" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1166" name="NoPongForTenSeconds_DropsTheSocketAndReconnects" fullname="MissionForge.Tests.Net.RoomClientTests.NoPongForTenSeconds_DropsTheSocketAndReconnects" methodname="NoPongForTenSeconds_DropsTheSocketAndReconnects" classname="MissionForge.Tests.Net.RoomClientTests" runstate="Runnable" seed="1787504589" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000129" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1163" name="PauseAndResume_AreTracked" fullname="MissionForge.Tests.Net.RoomClientTests.PauseAndResume_AreTracked" methodname="PauseAndResume_AreTracked" classname="MissionForge.Tests.Net.RoomClientTests" runstate="Runnable" seed="1757954151" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000273" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1156" name="PhaseSetForPhase_UsesAnAllowedFieldCombination" fullname="MissionForge.Tests.Net.RoomClientTests.PhaseSetForPhase_UsesAnAllowedFieldCombination" methodname="PhaseSetForPhase_UsesAnAllowedFieldCombination" classname="MissionForge.Tests.Net.RoomClientTests" runstate="Runnable" seed="2097681132" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000183" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1171" name="ReconnectWithKnownRoom_SendsHelloThenRoomResumeThenQueuedMessages" fullname="MissionForge.Tests.Net.RoomClientTests.ReconnectWithKnownRoom_SendsHelloThenRoomResumeThenQueuedMessages" methodname="ReconnectWithKnownRoom_SendsHelloThenRoomResumeThenQueuedMessages" classname="MissionForge.Tests.Net.RoomClientTests" runstate="Runnable" seed="679815575" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000469" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1173" name="ReconnectWithoutRoom_SendsOnlyHello" fullname="MissionForge.Tests.Net.RoomClientTests.ReconnectWithoutRoom_SendsOnlyHello" methodname="ReconnectWithoutRoom_SendsOnlyHello" classname="MissionForge.Tests.Net.RoomClientTests" runstate="Runnable" seed="350855264" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000118" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1164" name="Relay_RaisesRelayReceivedWithTheInnerMessage" fullname="MissionForge.Tests.Net.RoomClientTests.Relay_RaisesRelayReceivedWithTheInnerMessage" methodname="Relay_RaisesRelayReceivedWithTheInnerMessage" classname="MissionForge.Tests.Net.RoomClientTests" runstate="Runnable" seed="718330849" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000174" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1176" name="ResumeRejected_ForgetsTheRoomSoItIsNotResumedAgain" fullname="MissionForge.Tests.Net.RoomClientTests.ResumeRejected_ForgetsTheRoomSoItIsNotResumedAgain" classname="MissionForge.Tests.Net.RoomClientTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000842" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1174" name="ResumeRejected_ForgetsTheRoomSoItIsNotResumedAgain(&quot;TOKEN_INVALID&quot;)" fullname="MissionForge.Tests.Net.RoomClientTests.ResumeRejected_ForgetsTheRoomSoItIsNotResumedAgain(&quot;TOKEN_INVALID&quot;)" methodname="ResumeRejected_ForgetsTheRoomSoItIsNotResumedAgain" classname="MissionForge.Tests.Net.RoomClientTests" runstate="Runnable" seed="909194929" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000318" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1175" name="ResumeRejected_ForgetsTheRoomSoItIsNotResumedAgain(&quot;ROOM_NOT_FOUND&quot;)" fullname="MissionForge.Tests.Net.RoomClientTests.ResumeRejected_ForgetsTheRoomSoItIsNotResumedAgain(&quot;ROOM_NOT_FOUND&quot;)" methodname="ResumeRejected_ForgetsTheRoomSoItIsNotResumedAgain" classname="MissionForge.Tests.Net.RoomClientTests" runstate="Runnable" seed="1164493222" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000199" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="1159" name="RoomCreatedAndSnapshot_FillTheRoomModel" fullname="MissionForge.Tests.Net.RoomClientTests.RoomCreatedAndSnapshot_FillTheRoomModel" methodname="RoomCreatedAndSnapshot_FillTheRoomModel" classname="MissionForge.Tests.Net.RoomClientTests" runstate="Runnable" seed="1166647580" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.001061" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1172" name="RoomResumed_ReportsThePauseAndStartsTheSnapshot" fullname="MissionForge.Tests.Net.RoomClientTests.RoomResumed_ReportsThePauseAndStartsTheSnapshot" methodname="RoomResumed_ReportsThePauseAndStartsTheSnapshot" classname="MissionForge.Tests.Net.RoomClientTests" runstate="Runnable" seed="485117173" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000227" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1160" name="RoomState_ToleratesUnknownMissingAndNullFields_AndSortsBySlot" fullname="MissionForge.Tests.Net.RoomClientTests.RoomState_ToleratesUnknownMissingAndNullFields_AndSortsBySlot" methodname="RoomState_ToleratesUnknownMissingAndNullFields_AndSortsBySlot" classname="MissionForge.Tests.Net.RoomClientTests" runstate="Runnable" seed="1539520871" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000267" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1155" name="Send_ReturnsSeqPerConnection_AndHostMessagesUseContractShapes" fullname="MissionForge.Tests.Net.RoomClientTests.Send_ReturnsSeqPerConnection_AndHostMessagesUseContractShapes" methodname="Send_ReturnsSeqPerConnection_AndHostMessagesUseContractShapes" classname="MissionForge.Tests.Net.RoomClientTests" runstate="Runnable" seed="1834811014" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000633" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1158" name="SendQueue_IsBoundedAndDropsTheOldest" fullname="MissionForge.Tests.Net.RoomClientTests.SendQueue_IsBoundedAndDropsTheOldest" methodname="SendQueue_IsBoundedAndDropsTheOldest" classname="MissionForge.Tests.Net.RoomClientTests" runstate="Runnable" seed="1489243015" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000429" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1157" name="SendsBeforeTheHandshake_AreQueuedAndFlushedAfterHelloWithFreshSeqs" fullname="MissionForge.Tests.Net.RoomClientTests.SendsBeforeTheHandshake_AreQueuedAndFlushedAfterHelloWithFreshSeqs" methodname="SendsBeforeTheHandshake_AreQueuedAndFlushedAfterHelloWithFreshSeqs" classname="MissionForge.Tests.Net.RoomClientTests" runstate="Runnable" seed="1165041552" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000162" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1162" name="ServerError_RaisesServerErrorEvent" fullname="MissionForge.Tests.Net.RoomClientTests.ServerError_RaisesServerErrorEvent" methodname="ServerError_RaisesServerErrorEvent" classname="MissionForge.Tests.Net.RoomClientTests" runstate="Runnable" seed="1299681755" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000229" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1153" name="Tick_PumpsTheCurrentTransport" fullname="MissionForge.Tests.Net.RoomClientTests.Tick_PumpsTheCurrentTransport" methodname="Tick_PumpsTheCurrentTransport" classname="MissionForge.Tests.Net.RoomClientTests" runstate="Runnable" seed="2034880781" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000088" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1170" name="TransportErrorThatLeavesTheTransportClosed_AlsoTriggersReconnect" fullname="MissionForge.Tests.Net.RoomClientTests.TransportErrorThatLeavesTheTransportClosed_AlsoTriggersReconnect" methodname="TransportErrorThatLeavesTheTransportClosed_AlsoTriggersReconnect" classname="MissionForge.Tests.Net.RoomClientTests" runstate="Runnable" seed="1304101654" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000192" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1168" name="UnexpectedClose_ReconnectsWithANewTransportOnlyAfterTheBackoffDelay" fullname="MissionForge.Tests.Net.RoomClientTests.UnexpectedClose_ReconnectsWithANewTransportOnlyAfterTheBackoffDelay" methodname="UnexpectedClose_ReconnectsWithANewTransportOnlyAfterTheBackoffDelay" classname="MissionForge.Tests.Net.RoomClientTests" runstate="Runnable" seed="1902569379" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000276" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1184" name="ServerUrlResolverTests" fullname="MissionForge.Tests.Net.ServerUrlResolverTests" classname="MissionForge.Tests.Net.ServerUrlResolverTests" runstate="Runnable" testcasecount="27" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.011497" total="27" passed="27" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1210" name="BuildJoinUrl_AppendsTheEncodedServerOverride" fullname="MissionForge.Tests.Net.ServerUrlResolverTests.BuildJoinUrl_AppendsTheEncodedServerOverride" methodname="BuildJoinUrl_AppendsTheEncodedServerOverride" classname="MissionForge.Tests.Net.ServerUrlResolverTests" runstate="Runnable" seed="630845583" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.002462" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1212" name="BuildJoinUrl_DoesNotAppendAnUnusableServerOverride" fullname="MissionForge.Tests.Net.ServerUrlResolverTests.BuildJoinUrl_DoesNotAppendAnUnusableServerOverride" methodname="BuildJoinUrl_DoesNotAppendAnUnusableServerOverride" classname="MissionForge.Tests.Net.ServerUrlResolverTests" runstate="Runnable" seed="116681615" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000054" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1208" name="BuildJoinUrl_FallsBackWhenThePageIsNotHttp" fullname="MissionForge.Tests.Net.ServerUrlResolverTests.BuildJoinUrl_FallsBackWhenThePageIsNotHttp" classname="MissionForge.Tests.Net.ServerUrlResolverTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.003470" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1204" name="BuildJoinUrl_FallsBackWhenThePageIsNotHttp(null)" fullname="MissionForge.Tests.Net.ServerUrlResolverTests.BuildJoinUrl_FallsBackWhenThePageIsNotHttp(null)" methodname="BuildJoinUrl_FallsBackWhenThePageIsNotHttp" classname="MissionForge.Tests.Net.ServerUrlResolverTests" runstate="Runnable" seed="116968897" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000041" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1205" name="BuildJoinUrl_FallsBackWhenThePageIsNotHttp(&quot;&quot;)" fullname="MissionForge.Tests.Net.ServerUrlResolverTests.BuildJoinUrl_FallsBackWhenThePageIsNotHttp(&quot;&quot;)" methodname="BuildJoinUrl_FallsBackWhenThePageIsNotHttp" classname="MissionForge.Tests.Net.ServerUrlResolverTests" runstate="Runnable" seed="376895960" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000021" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1206" name="BuildJoinUrl_FallsBackWhenThePageIsNotHttp(&quot;file:///Users/dev/build/index.html&quot;)" fullname="MissionForge.Tests.Net.ServerUrlResolverTests.BuildJoinUrl_FallsBackWhenThePageIsNotHttp(&quot;file:///Users/dev/build/index.html&quot;)" methodname="BuildJoinUrl_FallsBackWhenThePageIsNotHttp" classname="MissionForge.Tests.Net.ServerUrlResolverTests" runstate="Runnable" seed="1668249749" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000072" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1207" name="BuildJoinUrl_FallsBackWhenThePageIsNotHttp(&quot;not a url&quot;)" fullname="MissionForge.Tests.Net.ServerUrlResolverTests.BuildJoinUrl_FallsBackWhenThePageIsNotHttp(&quot;not a url&quot;)" methodname="BuildJoinUrl_FallsBackWhenThePageIsNotHttp" classname="MissionForge.Tests.Net.ServerUrlResolverTests" runstate="Runnable" seed="584828549" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000023" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="1201" name="BuildJoinUrl_ServerProvidedUrlWins" fullname="MissionForge.Tests.Net.ServerUrlResolverTests.BuildJoinUrl_ServerProvidedUrlWins" methodname="BuildJoinUrl_ServerProvidedUrlWins" classname="MissionForge.Tests.Net.ServerUrlResolverTests" runstate="Runnable" seed="761237937" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000061" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1211" name="BuildJoinUrl_StartsAQueryWhenTheTemplateHasNoneAndKeepsTheFragment" fullname="MissionForge.Tests.Net.ServerUrlResolverTests.BuildJoinUrl_StartsAQueryWhenTheTemplateHasNoneAndKeepsTheFragment" methodname="BuildJoinUrl_StartsAQueryWhenTheTemplateHasNoneAndKeepsTheFragment" classname="MissionForge.Tests.Net.ServerUrlResolverTests" runstate="Runnable" seed="755755009" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000046" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1209" name="BuildJoinUrl_TrimsATrailingSlashFromTheFallbackOrigin" fullname="MissionForge.Tests.Net.ServerUrlResolverTests.BuildJoinUrl_TrimsATrailingSlashFromTheFallbackOrigin" methodname="BuildJoinUrl_TrimsATrailingSlashFromTheFallbackOrigin" classname="MissionForge.Tests.Net.ServerUrlResolverTests" runstate="Runnable" seed="1002746142" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000032" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1215" name="BuildJoinUrl_UsesTheDefaultTemplateWhenNoneIsGiven" fullname="MissionForge.Tests.Net.ServerUrlResolverTests.BuildJoinUrl_UsesTheDefaultTemplateWhenNoneIsGiven" classname="MissionForge.Tests.Net.ServerUrlResolverTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000301" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1213" name="BuildJoinUrl_UsesTheDefaultTemplateWhenNoneIsGiven(null)" fullname="MissionForge.Tests.Net.ServerUrlResolverTests.BuildJoinUrl_UsesTheDefaultTemplateWhenNoneIsGiven(null)" methodname="BuildJoinUrl_UsesTheDefaultTemplateWhenNoneIsGiven" classname="MissionForge.Tests.Net.ServerUrlResolverTests" runstate="Runnable" seed="877185202" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000036" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1214" name="BuildJoinUrl_UsesTheDefaultTemplateWhenNoneIsGiven(&quot;&quot;)" fullname="MissionForge.Tests.Net.ServerUrlResolverTests.BuildJoinUrl_UsesTheDefaultTemplateWhenNoneIsGiven(&quot;&quot;)" methodname="BuildJoinUrl_UsesTheDefaultTemplateWhenNoneIsGiven" classname="MissionForge.Tests.Net.ServerUrlResolverTests" runstate="Runnable" seed="980526032" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000018" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="1203" name="BuildJoinUrl_UsesTheHttpPageOrigin" fullname="MissionForge.Tests.Net.ServerUrlResolverTests.BuildJoinUrl_UsesTheHttpPageOrigin" methodname="BuildJoinUrl_UsesTheHttpPageOrigin" classname="MissionForge.Tests.Net.ServerUrlResolverTests" runstate="Runnable" seed="1649296371" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000289" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1202" name="BuildJoinUrl_UsesTheHttpsPageOriginIncludingPort" fullname="MissionForge.Tests.Net.ServerUrlResolverTests.BuildJoinUrl_UsesTheHttpsPageOriginIncludingPort" methodname="BuildJoinUrl_UsesTheHttpsPageOriginIncludingPort" classname="MissionForge.Tests.Net.ServerUrlResolverTests" runstate="Runnable" seed="1266065883" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000037" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1191" name="ResolveServerUrl_AcceptsAnUnencodedServerParameter" fullname="MissionForge.Tests.Net.ServerUrlResolverTests.ResolveServerUrl_AcceptsAnUnencodedServerParameter" methodname="ResolveServerUrl_AcceptsAnUnencodedServerParameter" classname="MissionForge.Tests.Net.ServerUrlResolverTests" runstate="Runnable" seed="1974649281" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000047" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1190" name="ResolveServerUrl_DecodesAnEncodedServerParameter" fullname="MissionForge.Tests.Net.ServerUrlResolverTests.ResolveServerUrl_DecodesAnEncodedServerParameter" methodname="ResolveServerUrl_DecodesAnEncodedServerParameter" classname="MissionForge.Tests.Net.ServerUrlResolverTests" runstate="Runnable" seed="1762122820" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000040" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1192" name="ResolveServerUrl_FindsTheParameterAmongOthersAndIgnoresTheFragment" fullname="MissionForge.Tests.Net.ServerUrlResolverTests.ResolveServerUrl_FindsTheParameterAmongOthersAndIgnoresTheFragment" methodname="ResolveServerUrl_FindsTheParameterAmongOthersAndIgnoresTheFragment" classname="MissionForge.Tests.Net.ServerUrlResolverTests" runstate="Runnable" seed="1731781198" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000032" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1200" name="ResolveServerUrl_IgnoresUnusableServerParameters" fullname="MissionForge.Tests.Net.ServerUrlResolverTests.ResolveServerUrl_IgnoresUnusableServerParameters" classname="MissionForge.Tests.Net.ServerUrlResolverTests" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000616" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1193" name="ResolveServerUrl_Ignores_ParameterInsideFragment" fullname="MissionForge.Tests.Net.ServerUrlResolverTests.ResolveServerUrl_Ignores_ParameterInsideFragment" methodname="ResolveServerUrl_IgnoresUnusableServerParameters" classname="MissionForge.Tests.Net.ServerUrlResolverTests" runstate="Runnable" seed="128985450" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000037" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1194" name="ResolveServerUrl_Ignores_HttpValue" fullname="MissionForge.Tests.Net.ServerUrlResolverTests.ResolveServerUrl_Ignores_HttpValue" methodname="ResolveServerUrl_IgnoresUnusableServerParameters" classname="MissionForge.Tests.Net.ServerUrlResolverTests" runstate="Runnable" seed="1809752863" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000024" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1195" name="ResolveServerUrl_Ignores_JavascriptValue" fullname="MissionForge.Tests.Net.ServerUrlResolverTests.ResolveServerUrl_Ignores_JavascriptValue" methodname="ResolveServerUrl_IgnoresUnusableServerParameters" classname="MissionForge.Tests.Net.ServerUrlResolverTests" runstate="Runnable" seed="1738588247" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000022" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1196" name="ResolveServerUrl_Ignores_EmptyValue" fullname="MissionForge.Tests.Net.ServerUrlResolverTests.ResolveServerUrl_Ignores_EmptyValue" methodname="ResolveServerUrl_IgnoresUnusableServerParameters" classname="MissionForge.Tests.Net.ServerUrlResolverTests" runstate="Runnable" seed="701023433" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000022" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1197" name="ResolveServerUrl_Ignores_ParameterWithoutValue" fullname="MissionForge.Tests.Net.ServerUrlResolverTests.ResolveServerUrl_Ignores_ParameterWithoutValue" methodname="ResolveServerUrl_IgnoresUnusableServerParameters" classname="MissionForge.Tests.Net.ServerUrlResolverTests" runstate="Runnable" seed="396518339" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000022" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1198" name="ResolveServerUrl_Ignores_SchemeOnly" fullname="MissionForge.Tests.Net.ServerUrlResolverTests.ResolveServerUrl_Ignores_SchemeOnly" methodname="ResolveServerUrl_IgnoresUnusableServerParameters" classname="MissionForge.Tests.Net.ServerUrlResolverTests" runstate="Runnable" seed="1831072840" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000022" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1199" name="ResolveServerUrl_Ignores_SimilarParameterName" fullname="MissionForge.Tests.Net.ServerUrlResolverTests.ResolveServerUrl_Ignores_SimilarParameterName" methodname="ResolveServerUrl_IgnoresUnusableServerParameters" classname="MissionForge.Tests.Net.ServerUrlResolverTests" runstate="Runnable" seed="444565618" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000024" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-suite type="ParameterizedMethod" id="1189" name="ResolveServerUrl_WithoutServerParameter_ReturnsConfiguredUrl" fullname="MissionForge.Tests.Net.ServerUrlResolverTests.ResolveServerUrl_WithoutServerParameter_ReturnsConfiguredUrl" classname="MissionForge.Tests.Net.ServerUrlResolverTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.002714" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1185" name="ResolveServerUrl_WithoutServerParameter_ReturnsConfiguredUrl(null)" fullname="MissionForge.Tests.Net.ServerUrlResolverTests.ResolveServerUrl_WithoutServerParameter_ReturnsConfiguredUrl(null)" methodname="ResolveServerUrl_WithoutServerParameter_ReturnsConfiguredUrl" classname="MissionForge.Tests.Net.ServerUrlResolverTests" runstate="Runnable" seed="143290097" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.002133" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1186" name="ResolveServerUrl_WithoutServerParameter_ReturnsConfiguredUrl(&quot;&quot;)" fullname="MissionForge.Tests.Net.ServerUrlResolverTests.ResolveServerUrl_WithoutServerParameter_ReturnsConfiguredUrl(&quot;&quot;)" methodname="ResolveServerUrl_WithoutServerParameter_ReturnsConfiguredUrl" classname="MissionForge.Tests.Net.ServerUrlResolverTests" runstate="Runnable" seed="884356630" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000022" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1187" name="ResolveServerUrl_WithoutServerParameter_ReturnsConfiguredUrl(&quot;https://game.example.com/host/&quot;)" fullname="MissionForge.Tests.Net.ServerUrlResolverTests.ResolveServerUrl_WithoutServerParameter_ReturnsConfiguredUrl(&quot;https://game.example.com/host/&quot;)" methodname="ResolveServerUrl_WithoutServerParameter_ReturnsConfiguredUrl" classname="MissionForge.Tests.Net.ServerUrlResolverTests" runstate="Runnable" seed="1742817478" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000021" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1188" name="ResolveServerUrl_WithoutServerParameter_ReturnsConfiguredUrl(&quot;https://game.example.com/host/?room=ABCD&quot;)" fullname="MissionForge.Tests.Net.ServerUrlResolverTests.ResolveServerUrl_WithoutServerParameter_ReturnsConfiguredUrl(&quot;https://game.example.com/host/?room=ABCD&quot;)" methodname="ResolveServerUrl_WithoutServerParameter_ReturnsConfiguredUrl" classname="MissionForge.Tests.Net.ServerUrlResolverTests" runstate="Runnable" seed="270106113" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000023" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+            </test-suite>
+            <test-suite type="TestFixture" id="1216" name="StubServerIntegrationTests" fullname="MissionForge.Tests.Net.StubServerIntegrationTests" classname="MissionForge.Tests.Net.StubServerIntegrationTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.194218" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1217" name="Host_CreatesRoom_SeesPhoneJoin_AndReconnectsWhenTheServerDies" fullname="MissionForge.Tests.Net.StubServerIntegrationTests.Host_CreatesRoom_SeesPhoneJoin_AndReconnectsWhenTheServerDies" methodname="Host_CreatesRoom_SeesPhoneJoin_AndReconnectsWhenTheServerDies" classname="MissionForge.Tests.Net.StubServerIntegrationTests" runstate="Runnable" seed="1456571227" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.193679" asserts="0">
+                <properties>
+                  <property name="Category" value="Integration" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+          </test-suite>
+          <test-suite type="TestFixture" id="1037" name="QrCodeTextureTests" fullname="MissionForge.Tests.QrCodeTextureTests" classname="MissionForge.Tests.QrCodeTextureTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.007105" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1039" name="Create_DrawsFinderPatternsAndAQuietZone" fullname="MissionForge.Tests.QrCodeTextureTests.Create_DrawsFinderPatternsAndAQuietZone" methodname="Create_DrawsFinderPatternsAndAQuietZone" classname="MissionForge.Tests.QrCodeTextureTests" runstate="Runnable" seed="1315061193" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.004497" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1038" name="Create_SizesTheTextureAsModulesPlusQuietZone" fullname="MissionForge.Tests.QrCodeTextureTests.Create_SizesTheTextureAsModulesPlusQuietZone" methodname="Create_SizesTheTextureAsModulesPlusQuietZone" classname="MissionForge.Tests.QrCodeTextureTests" runstate="Runnable" seed="2119353230" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000767" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1040" name="RocketKitTests" fullname="MissionForge.Tests.RocketKitTests" classname="MissionForge.Tests.RocketKitTests" runstate="Runnable" testcasecount="10" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.015350" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1050" name="CopyKit_CopiesOnlyFbxAndToleratesAMissingSource" fullname="MissionForge.Tests.RocketKitTests.CopyKit_CopiesOnlyFbxAndToleratesAMissingSource" methodname="CopyKit_CopiesOnlyFbxAndToleratesAMissingSource" classname="MissionForge.Tests.RocketKitTests" runstate="Runnable" seed="343694182" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.001571" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1051" name="DemoVehicle_EveryPartIsImportedAtMetreScaleWithStyleMaterials" fullname="MissionForge.Tests.RocketKitTests.DemoVehicle_EveryPartIsImportedAtMetreScaleWithStyleMaterials" methodname="DemoVehicle_EveryPartIsImportedAtMetreScaleWithStyleMaterials" classname="MissionForge.Tests.RocketKitTests" runstate="Runnable" seed="1768317885" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.011128" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1049" name="KitToUnity_MapsBlenderZUpToUnityYUp" fullname="MissionForge.Tests.RocketKitTests.KitToUnity_MapsBlenderZUpToUnityYUp" methodname="KitToUnity_MapsBlenderZUpToUnityYUp" classname="MissionForge.Tests.RocketKitTests" runstate="Runnable" seed="1755881379" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000167" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1048" name="SlotFor_MapsImportedMaterialNamesToKitSlots" fullname="MissionForge.Tests.RocketKitTests.SlotFor_MapsImportedMaterialNamesToKitSlots" classname="MissionForge.Tests.RocketKitTests" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.001883" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1041" name="SlotFor_MapsImportedMaterialNamesToKitSlots(&quot;hull&quot;)" fullname="MissionForge.Tests.RocketKitTests.SlotFor_MapsImportedMaterialNamesToKitSlots(&quot;hull&quot;)" methodname="SlotFor_MapsImportedMaterialNamesToKitSlots" classname="MissionForge.Tests.RocketKitTests" runstate="Runnable" seed="1466773297" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000271" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1042" name="SlotFor_MapsImportedMaterialNamesToKitSlots(&quot;hull.001&quot;)" fullname="MissionForge.Tests.RocketKitTests.SlotFor_MapsImportedMaterialNamesToKitSlots(&quot;hull.001&quot;)" methodname="SlotFor_MapsImportedMaterialNamesToKitSlots" classname="MissionForge.Tests.RocketKitTests" runstate="Runnable" seed="1593313277" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000031" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1043" name="SlotFor_MapsImportedMaterialNamesToKitSlots(&quot;engine_metal&quot;)" fullname="MissionForge.Tests.RocketKitTests.SlotFor_MapsImportedMaterialNamesToKitSlots(&quot;engine_metal&quot;)" methodname="SlotFor_MapsImportedMaterialNamesToKitSlots" classname="MissionForge.Tests.RocketKitTests" runstate="Runnable" seed="1778547253" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000031" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1044" name="SlotFor_MapsImportedMaterialNamesToKitSlots(&quot;Nozzle_Hot.002&quot;)" fullname="MissionForge.Tests.RocketKitTests.SlotFor_MapsImportedMaterialNamesToKitSlots(&quot;Nozzle_Hot.002&quot;)" methodname="SlotFor_MapsImportedMaterialNamesToKitSlots" classname="MissionForge.Tests.RocketKitTests" runstate="Runnable" seed="1610394412" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000023" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1045" name="SlotFor_MapsImportedMaterialNamesToKitSlots(&quot;detail_dark&quot;)" fullname="MissionForge.Tests.RocketKitTests.SlotFor_MapsImportedMaterialNamesToKitSlots(&quot;detail_dark&quot;)" methodname="SlotFor_MapsImportedMaterialNamesToKitSlots" classname="MissionForge.Tests.RocketKitTests" runstate="Runnable" seed="2113163645" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000029" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1046" name="SlotFor_MapsImportedMaterialNamesToKitSlots(&quot;Default-Material&quot;)" fullname="MissionForge.Tests.RocketKitTests.SlotFor_MapsImportedMaterialNamesToKitSlots(&quot;Default-Material&quot;)" methodname="SlotFor_MapsImportedMaterialNamesToKitSlots" classname="MissionForge.Tests.RocketKitTests" runstate="Runnable" seed="933022444" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000024" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1047" name="SlotFor_MapsImportedMaterialNamesToKitSlots(&quot;&quot;)" fullname="MissionForge.Tests.RocketKitTests.SlotFor_MapsImportedMaterialNamesToKitSlots(&quot;&quot;)" methodname="SlotFor_MapsImportedMaterialNamesToKitSlots" classname="MissionForge.Tests.RocketKitTests" runstate="Runnable" seed="180354007" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000023" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+          </test-suite>
+          <test-suite type="TestFixture" id="1052" name="ScreenCatalogTests" fullname="MissionForge.Tests.ScreenCatalogTests" classname="MissionForge.Tests.ScreenCatalogTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.002624" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1053" name="Catalog_HasOneEntryPerHostScreen" fullname="MissionForge.Tests.ScreenCatalogTests.Catalog_HasOneEntryPerHostScreen" methodname="Catalog_HasOneEntryPerHostScreen" classname="MissionForge.Tests.ScreenCatalogTests" runstate="Runnable" seed="1186977510" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.001058" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1054" name="EveryPhase_HasAPrimaryScreen" fullname="MissionForge.Tests.ScreenCatalogTests.EveryPhase_HasAPrimaryScreen" methodname="EveryPhase_HasAPrimaryScreen" classname="MissionForge.Tests.ScreenCatalogTests" runstate="Runnable" seed="1500197119" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000423" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1055" name="EveryScreen_HasASceneInBuildSettings_AndALayout" fullname="MissionForge.Tests.ScreenCatalogTests.EveryScreen_HasASceneInBuildSettings_AndALayout" methodname="EveryScreen_HasASceneInBuildSettings_AndALayout" classname="MissionForge.Tests.ScreenCatalogTests" runstate="Runnable" seed="2019397660" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000572" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1056" name="ShellScene_IsFirstInBuildSettings" fullname="MissionForge.Tests.ScreenCatalogTests.ShellScene_IsFirstInBuildSettings" methodname="ShellScene_IsFirstInBuildSettings" classname="MissionForge.Tests.ScreenCatalogTests" runstate="Runnable" seed="628094032" result="Passed" start-time="2026-11-14 13:27:45Z" end-time="2026-11-14 13:27:45Z" duration="0.000082" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: /Users/yousofdiaa/Library/Application Support/MissionForge Team/MissionForge/TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

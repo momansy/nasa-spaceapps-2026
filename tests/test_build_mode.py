@@ -215,6 +215,21 @@ class TestBuildFlow(unittest.TestCase):
                                   capture_output=True, text=True, check=True).stdout
         self.assertNotIn("agentmesh", branches)
 
+    def test_already_staged_deletion_does_not_break_publish(self):
+        number = self.task("kingrma")
+
+        def tidy(provider, prompt, cwd, mode, **_):
+            run(cwd, "rm", "-q", "README.md")  # deletion staged: gone from index and tree
+            Path(cwd, "new.txt").write_text("x\n", encoding="utf-8")
+            return {"summary": "done", "status": "done", "handoffs": []}
+
+        with patch.object(mesh, "run_agent", side_effect=tidy):
+            mesh.handle_one(self.gh, "sara", "mock", str(self.work), "build", options=self.options)
+        self.assertIn("mesh:done", self.labels(number))
+        files = subprocess.run(["git", "ls-tree", "-r", "--name-only", f"agentmesh/sara/issue-{number}"],
+                               cwd=self.remote, capture_output=True, text=True, check=True).stdout.split()
+        self.assertEqual(files, ["new.txt"])
+
     def test_build_outputs_are_never_published(self):
         number = self.task("kingrma")
 

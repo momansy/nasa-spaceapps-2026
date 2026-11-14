@@ -1,0 +1,85 @@
+{
+  "$schema": "./schema/ping.schema.json",
+  "design_notes": [
+    "Design section 3.4. Quick pings and emoji reactions are shown on the host screen next to the avatar of the sender; ping.send (17.4) carries the ID.",
+    "The screen-reader labels of the emoji are added by the data author for section 16 (screen-reader labels on phone UI); the design lists only the emoji.",
+    "Role tags: \"a role-holder can put a Recommended or Concern badge on any option in their area. The badge is visible to all.\" The design has no table mapping roles to part categories (data/roles.json).",
+    "Voice is not data: players in the same room talk, remote groups use their own voice chat."
+  ],
+  "free_text_chat": false,
+  "quick_pings": [
+    {
+      "id": "too_expensive",
+      "text_key": "ping.too_expensive.text"
+    },
+    {
+      "id": "too_heavy",
+      "text_key": "ping.too_heavy.text"
+    },
+    {
+      "id": "i_like_this_one",
+      "text_key": "ping.i_like_this_one.text"
+    },
+    {
+      "id": "check_the_drawback",
+      "text_key": "ping.check_the_drawback.text"
+    },
+    {
+      "id": "need_more_delta_v",
+      "text_key": "ping.need_more_delta_v.text"
+    },
+    {
+      "id": "test_it_first",
+      "text_key": "ping.test_it_first.text"
+    },
+    {
+      "id": "trust_me",
+      "text_key": "ping.trust_me.text"
+    },
+    {
+      "id": "agreed",
+      "text_key": "ping.agreed.text"
+    }
+  ],
+  "reactions": [
+    {
+      "id": "rocket",
+      "emoji": "🚀",
+      "label_key": "reaction.rocket.label"
+    },
+    {
+      "id": "thumbs_up",
+      "emoji": "👍",
+      "label_key": "reaction.thumbs_up.label"
+    },
+    {
+      "id": "grimace",
+      "emoji": "😬",
+      "label_key": "reaction.grimace.label"
+    },
+    {
+      "id": "fire",
+      "emoji": "🔥",
+      "label_key": "reaction.fire.label"
+    },
+    {
+      "id": "thinking",
+      "emoji": "🤔",
+      "label_key": "reaction.thinking.label"
+    }
+  ],
+  "role_tags": [
+    {
+      "id": "recommended",
+      "name_key": "role_tag.recommended.name",
+      "own_area_only": true,
+      "visible_to_all": true
+    },
+    {
+      "id": "concern",
+      "name_key": "role_tag.concern.name",
+      "own_area_only": true,
+      "visible_to_all": true
+    }
+  ]
+}

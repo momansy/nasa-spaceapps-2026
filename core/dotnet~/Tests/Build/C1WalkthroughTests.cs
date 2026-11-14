@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using MissionForge.Core.Build;
 using MissionForge.Core.Data;
@@ -10,6 +11,8 @@ namespace MissionForge.Core.Tests.Build
     /// GAME_DESIGN.md Appendix A: C1 Earth Watch, built from the real data files plus the design-table fixture
     /// (<see cref="DesignFixture"/>). Kerolox Workhorse ×3 with S first-stage tanks; the PDR reopens the upper tank
     /// and upgrades it from S to M; the dashboard then shows a lift-off TWR of about 1.35.
+    /// The dashboard numbers are checked on hand-built states; <see cref="Appendix_A_played_through_the_public_flow"/> plays the whole
+    /// walkthrough through the public calls (votes, anomaly card, PDR/CDR/FRR, rework, test, flaw fix, FRR poll).
     /// </summary>
     public class C1WalkthroughTests
     {
@@ -174,6 +177,116 @@ namespace MissionForge.Core.Tests.Build
             // Data: 10 GB/day generated, X-band 2 GB/pass × 6 passes/day = 12 GB/day down.
             Assert.Equal(10.0, d1.DataGeneratedGbPerDay);
             Assert.Equal(12.0, d1.DownlinkGbPerDay!.Value, 9);
+        }
+
+        // ------------------------------------------------------------ Appendix A through the public flow
+
+        /// <summary>
+        /// The build seed of the flow test. With seed 2026 (used by the dashboard tests above) the thermal-vacuum test finds no flaw in the
+        /// multispectral imager; seed 2028 is the first seed from 2026 on where it does (hidden flaw present, roll 0.638 &lt; reveal chance 0.8),
+        /// which is the "heater" flaw of Appendix A.
+        /// </summary>
+        private const ulong FlowSeed = 2028;
+
+        /// <summary>The votes of Appendix A: slot → part. The upper tank is voted S in step 5 and reworked to M after the PDR.</summary>
+        private static readonly Dictionary<string, string> AppendixAChoices = new Dictionary<string, string>
+        {
+            [Slots.LaunchSite] = "site_west_coast_polar_range",
+            [Slots.PayloadInstrument] = "inst_multispectral_imager",
+            [Slots.PayloadPower] = "satpwr_deployable_solar_wings",
+            [Slots.PayloadAttitude] = "adcs_reaction_wheels_star_tracker",
+            [Slots.Fairing] = "fairing_small",
+            [Slots.UpperStageEngine] = "eng_kerolox_vacuum",
+            [Slots.UpperStageEngineCount] = "engcount_upper_1",
+            [Slots.UpperStageTank] = "tank_s",
+            [Slots.StageSeparation] = "sep_pyro_bolts_springs",
+            [Slots.FirstStageEngine] = "eng_kerolox_workhorse",
+            [Slots.FirstStageEngineCount] = "engcount_first_3",
+            [Slots.FirstStageTank] = "tank_s",
+            [Slots.StructuralMaterial] = "mat_aluminum_2219",
+            [Slots.StrapOnBoosters] = "strap_none",
+            [Slots.BoosterRecovery] = "brec_expendable",
+            [Slots.Avionics] = "avi_commercial_single",
+            [Slots.Navigation] = "nav_imu_gnss",
+            [Slots.AeroControl] = "aero_gimbal_only",
+            [Slots.Rcs] = "rcs_cold_gas",
+            [Slots.PowerSystem] = "pwr_deployable_solar_liion",
+            [Slots.Communications] = "comm_x_band",
+            [Slots.MissionAssurance] = "assur_standard",
+        };
+
+        /// <summary>Plays every vote with <see cref="VoteOptions.NextVote"/> and <see cref="VoteOptions.Commit"/>.</summary>
+        private static BuildState PlayVotes(BuildState build, List<string> order)
+        {
+            while (VoteOptions.NextVote(build, Catalog) is string slot)
+            {
+                order.Add(slot);
+                build = VoteOptions.Commit(build, Catalog, slot, AppendixAChoices[slot]);
+            }
+            return build;
+        }
+
+        [Fact]
+        public void Appendix_A_played_through_the_public_flow()
+        {
+            // ---- votes: NextVote + Commit for every vote of the contract
+            var order = new List<string>();
+            var build = PlayVotes(BuildState.New("C1", FlowSeed), order);
+            Assert.Equal(AppendixAChoices.Count, order.Count);
+            Assert.Equal(AppendixAChoices.Keys.OrderBy(x => x), order.OrderBy(x => x));
+            foreach (var kv in AppendixAChoices) Assert.Equal(kv.Value, build.Choice(kv.Key));
+            Assert.Null(VoteOptions.NextVote(build, Catalog));
+            Assert.Equal(AppendixAChoices.Count, build.VotesCompleted);
+
+            // ---- anomaly: Supplier Delay, answered "pay to expedite" ($4 M, data)
+            var costBefore = Dashboard.Compute(build, Catalog).CostM;
+            var draw = AnomalyDeck.DrawSpecific(build, Catalog, "supplier_delay");
+            Assert.Equal("supplier_delay", draw.Card.Id);
+            build = AnomalyDeck.Respond(draw.Build, Catalog, "supplier_delay", "pay_to_expedite");
+            Assert.Equal(4.0, Dashboard.Compute(build, Catalog).CostM - costBefore, 9);
+            Assert.Contains("supplier_delay", build.AnomaliesDrawn);
+
+            // ---- PDR: no Blocker; the upper tank is reworked from S to M
+            var pdr = DesignReview.Run(ReviewKind.Pdr, build, Catalog);
+            Assert.Equal(0, pdr.Blockers);
+            Assert.True(pdr.PassAllowed);
+            var tankFee = DesignReview.ReworkFeeM(build, Catalog, Slots.UpperStageTank);
+            var reopened = DesignReview.Rework(build, Catalog, ReviewKind.Pdr, Slots.UpperStageTank);
+            Assert.Equal(Slots.UpperStageTank, VoteOptions.NextVote(reopened, Catalog));
+            build = DesignReview.CompleteRework(reopened, Catalog, "tank_m");
+            Assert.Equal("tank_m", build.Choice(Slots.UpperStageTank));
+            Assert.Equal(0.15, tankFee, 9); // 30 % of the S tank's 0.5 $M (game values)
+            Assert.Null(build.ReopenedCategory);
+
+            // ---- thermal-vacuum test of the instrument; FlowSeed reveals the flaw, which is fixed
+            var tvac = TestCampaign.Run(build, Catalog, "thermal_vacuum_test", Slots.PayloadInstrument);
+            Assert.True(tvac.FlawRevealed, "FlowSeed must reveal the instrument flaw (see FlowSeed)");
+            Assert.Equal(new[] { Slots.PayloadInstrument }, TestCampaign.OpenFlaws(tvac.Build));
+            Assert.Contains(DesignReview.Run(ReviewKind.Cdr, tvac.Build, Catalog).Issues, i => i.RuleId == DesignReview.FlawRule);
+            build = TestCampaign.FixFlaw(tvac.Build, Catalog, Slots.PayloadInstrument);
+            Assert.Empty(TestCampaign.OpenFlaws(build));
+
+            // ---- CDR and FRR
+            var cdr = DesignReview.Run(ReviewKind.Cdr, build, Catalog);
+            Assert.Equal(0, cdr.Blockers);
+            Assert.True(cdr.PassAllowed);
+            var frr = DesignReview.Run(ReviewKind.Frr, build, Catalog);
+            Assert.Equal(0, frr.Blockers);
+            Assert.DoesNotContain(frr.Issues, i => i.Severity == Severity.Blocker);
+            Assert.True(frr.PassAllowed);
+            var (outcome, _) = FrrPoll.Start.Record(4, 0);
+            Assert.Equal(PollOutcome.Go, outcome);
+
+            // ---- the numbers of Appendix A
+            var d = Dashboard.Compute(build, Catalog);
+            Assert.InRange(d.LiftoffTwr!.Value, 1.30, 1.40);
+            Assert.Equal(1.3557, d.LiftoffTwr!.Value, 4);
+            Assert.True(d.Budget.RemainingM >= 0, "remaining budget $M: " + d.Budget.RemainingM);
+            Assert.DoesNotContain(Validator.Validate(build, Catalog), i => i.Severity == Severity.Blocker);
+            // Appendix A quotes a 2 % Δv margin. The documented stage masses give 12 489 m/s against 9 700 m/s, a 28.8 % margin;
+            // the 2 % figure is not reproducible from the tables of section 7 and is kept as a documented difference.
+            Assert.Equal(12489.25, d.TotalDvMps, 1);
+            Assert.Equal(0.2875, d.DvMarginFraction, 3);
         }
     }
 }

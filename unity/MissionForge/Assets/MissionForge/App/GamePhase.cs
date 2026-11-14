@@ -65,7 +65,7 @@ namespace MissionForge.App
             return Allowed.TryGetValue(from, out GamePhase[] next) ? next : System.Array.Empty<GamePhase>();
         }
 
-        /// <summary>Wire name used in room.state / phase.set (design section 17.3 spelling).</summary>
+        /// <summary>Wire name of <c>phase.set.phase</c> (protocol enum Phase). TITLE is host-only and never sent.</summary>
         public static string WireName(GamePhase phase)
         {
             switch (phase)

@@ -1,0 +1,229 @@
+{
+ "task": "T018",
+ "attempts": [
+  {
+   "pack_id": "build_bay",
+   "outcome": "not submitted",
+   "reason": "ECONNRESET before job creation; balance and transactions confirmed no charge",
+   "cost_credits": 0
+  },
+  {
+   "pack_id": "key_art_landscape",
+   "outcome": "lost",
+   "reason": "client timeout; credit charged at 2026-11-14T13:26:41Z, job id and output not recoverable",
+   "cost_credits": 1
+  },
+  {
+   "pack_id": "c1_briefing",
+   "outcome": "not generated",
+   "reason": "cost preflight 84 credits (12 s, 720p) and 24 credits (8 s, 480p) vs 8 available; unlimited generation unavailable from Claude Code",
+   "cost_credits": 0
+  },
+  {
+   "pack_id": "mission_control",
+   "job_id": "d747694a-f33a-42ac-b4e7-721e3efca9ce",
+   "outcome": "rejected",
+   "reason": "large screen showed the title-frame rocket rather than the approved observation satellite (reference bleed); otherwise clean",
+   "cost_credits": 1
+  }
+ ],
+ "committed_files": [
+  {
+   "pack_id": "title",
+   "path": "assets/media/style/frames/01-title.png",
+   "job_id": "c578d0b0-a545-455c-a719-70e5d6a637ea",
+   "tool": "Higgsfield generate_image",
+   "model": "gpt_image_2_6",
+   "params": {
+    "model": "gpt_image_2_6",
+    "aspect_ratio": "16:9",
+    "resolution": "2k",
+    "size": "2048x1152",
+    "quality": "medium",
+    "output_format": "png",
+    "use_unlim": false
+   },
+   "prompt": "PROMPT_PACK.json id title (unchanged)",
+   "date_utc": "2026-11-14",
+   "width": 2048,
+   "height": 1152,
+   "bytes": 2705026,
+   "sha256": "7315ca0070683125a74b8dc39c6fa6cee2c0a3563cec56a1589b9cf5f76a3cdd",
+   "gate": "APPROVED. Logo safe region (upper-left 45%x35%) is empty navy (overlay: orchestration/evidence/T018/overlay-01-title.png); two-stage vehicle with clean engine bells; no text/logos/watermark.",
+   "cost_credits": 1
+  },
+  {
+   "pack_id": "orbit",
+   "path": "assets/media/style/frames/04-orbit-operations.png",
+   "job_id": "c87d4db0-ada3-4cf0-9e4e-e47b0e905489",
+   "tool": "Higgsfield generate_image",
+   "model": "gpt_image_2_6",
+   "params": {
+    "model": "gpt_image_2_6",
+    "aspect_ratio": "16:9",
+    "resolution": "2k",
+    "size": "2048x1152",
+    "quality": "medium",
+    "output_format": "png",
+    "use_unlim": false
+   },
+   "prompt": "PROMPT_PACK.json id orbit (unchanged)",
+   "date_utc": "2026-11-14",
+   "width": 2048,
+   "height": 1152,
+   "bytes": 2934002,
+   "sha256": "f25f7fb825f9e5faa796932d67f0705944bb120f05ef8eb2936a60b5d6cf2a39",
+   "gate": "APPROVED (design anchor). Coherent bus with gold blanket, two symmetric hinged wings, nadir aperture, separate dish antenna; no text/logos/watermark; all wing tips in frame. Title frame job c578d0b0 passed as image_references (style only).",
+   "cost_credits": 1
+  },
+  {
+   "pack_id": "build_bay",
+   "path": "assets/media/style/frames/02-build-bay.png",
+   "job_id": "722adfe7-b970-4ce3-a84b-341320d09a17",
+   "tool": "Higgsfield generate_image",
+   "model": "gpt_image_2_6",
+   "params": {
+    "model": "gpt_image_2_6",
+    "aspect_ratio": "16:9",
+    "resolution": "2k",
+    "size": "2048x1152",
+    "quality": "medium",
+    "output_format": "png",
+    "use_unlim": false
+   },
+   "prompt": "PROMPT_PACK.json id build_bay (unchanged)",
+   "date_utc": "2026-11-14",
+   "width": 2048,
+   "height": 1152,
+   "bytes": 2720112,
+   "sha256": "eaddb8b53768883914b4cbab3203d5a1bd8b837927279066bd84b26dd6c87048",
+   "gate": "APPROVED. Overlay orchestration/evidence/T018/overlay-02-build-bay.png: gantry, rocket, cranes and sun inside middle 52%; outer 24% each side is dark low-contrast navy vignette (faint distant hills only); two-stage vehicle coherent, clean bells, no text/logos/watermark. Title job c578d0b0 used as image_references. First attempt hit ECONNRESET before submission (verified no charge via balance/transactions) and was resubmitted unchanged.",
+   "cost_credits": 1
+  },
+  {
+   "pack_id": "key_art_landscape",
+   "path": "assets/media/key-art/missionforge-16x9.png",
+   "job_id": "ba83b33e-e8a9-4601-bb1f-58ea4e22f907",
+   "tool": "Higgsfield generate_image",
+   "model": "gpt_image_2_6",
+   "params": {
+    "model": "gpt_image_2_6",
+    "aspect_ratio": "16:9",
+    "resolution": "2k",
+    "size": "2048x1152",
+    "quality": "medium",
+    "output_format": "png",
+    "use_unlim": false
+   },
+   "prompt": "PROMPT_PACK.json id key_art_landscape (unchanged)",
+   "date_utc": "2026-11-14",
+   "width": 2048,
+   "height": 1152,
+   "bytes": 2909186,
+   "sha256": "f0a2850dc7ded2979669c6255b3e3b8248c76228bc700dc47eb6b801f990d0b9",
+   "gate": "APPROVED. Satellite identical in design to approved orbit anchor (job c87d4db0, passed as image_references); small distant rocket with exhaust trail upper right, not connected to satellite; upper-left quiet navy; no text/logos/watermark. Composition is close to the orbit frame by design of the reference. Note: the first submission of this prompt timed out client-side but was charged (1 credit, 2026-11-14T13:26:41Z); its job id and output were not recoverable (generation history tool returned nothing), so that attempt is logged as lost.",
+   "cost_credits": 1
+  },
+  {
+   "pack_id": "key_art_square",
+   "path": "assets/media/key-art/missionforge-1x1.png",
+   "job_id": "18335653-753e-407e-bd2b-1c29dae484cd",
+   "tool": "Higgsfield generate_image",
+   "model": "gpt_image_2_6",
+   "params": {
+    "model": "gpt_image_2_6",
+    "aspect_ratio": "1:1",
+    "resolution": "2k",
+    "size": "2048x2048",
+    "quality": "medium",
+    "output_format": "png",
+    "use_unlim": false
+   },
+   "prompt": "PROMPT_PACK.json id key_art_square (unchanged)",
+   "date_utc": "2026-11-14",
+   "width": 2048,
+   "height": 2048,
+   "bytes": 4891337,
+   "sha256": "b0500e383988a5f2a19c4636745db69262312de2806140797498b964ce40824d",
+   "gate": "APPROVED with noted flaw: satellite matches anchor, both wing tips and antenna fully inside frame, no text/logos/watermark; the sun halo (upper right) shows visible contour banding and the render is slightly more posterised than the landscape art. Not retried to keep the last spare credit for the three remaining stills. Landscape key art job ba83b33e passed as image_references.",
+   "cost_credits": 1
+  },
+  {
+   "pack_id": "ascent",
+   "path": "assets/media/style/frames/03-ascent.png",
+   "job_id": "0e16ce39-9ee5-4363-9faa-b40069d335a7",
+   "tool": "Higgsfield generate_image",
+   "model": "gpt_image_2_6",
+   "params": {
+    "model": "gpt_image_2_6",
+    "aspect_ratio": "16:9",
+    "resolution": "2k",
+    "size": "2048x1152",
+    "quality": "medium",
+    "output_format": "png",
+    "use_unlim": false
+   },
+   "prompt": "PROMPT_PACK.json id ascent (unchanged)",
+   "date_utc": "2026-11-14",
+   "width": 2048,
+   "height": 1152,
+   "bytes": 2837889,
+   "sha256": "703b806f014d55fd2c3de26fe84bea594191df2e45deaa905587347220543f93",
+   "gate": "APPROVED. Intact two-stage vehicle matching title-frame rocket (teal band/strakes, two bells), plume attached to bells, pad far below, no extra boosters/text/logos/watermark. Camera is a high oblique rather than a pure telephoto view; rocket appears large relative to the pad because it is high above it (acceptable). Title job c578d0b0 used as image_references.",
+   "cost_credits": 1
+  },
+  {
+   "pack_id": "reentry",
+   "path": "assets/media/style/frames/05-reentry.png",
+   "job_id": "815101d9-3c78-4adc-b8e8-7f15c8eee770",
+   "tool": "Higgsfield generate_image",
+   "model": "gpt_image_2_6",
+   "params": {
+    "model": "gpt_image_2_6",
+    "aspect_ratio": "16:9",
+    "resolution": "2k",
+    "size": "2048x1152",
+    "quality": "medium",
+    "output_format": "png",
+    "use_unlim": false
+   },
+   "prompt": "PROMPT_PACK.json id reentry (unchanged)",
+   "date_utc": "2026-11-14",
+   "width": 2048,
+   "height": 1152,
+   "bytes": 2751581,
+   "sha256": "582e01b1254adf782e741568165b9375bcff047ad15fa33b3a8cbe46c0f9f55c",
+   "gate": "APPROVED. Blunt capsule with dark segmented heat shield, ceramic-white back shell, teal band, gold blanket; amber plasma restrained so geometry stays readable; no exhaust, parachute, crew, text, logos or watermark. Not an Earth Watch return. Title job c578d0b0 used as image_references.",
+   "cost_credits": 1
+  },
+  {
+   "pack_id": "mission_control",
+   "path": "assets/media/style/frames/06-mission-control.png",
+   "job_id": "c45c310d-801e-459e-8f0f-f21cc13d19ae",
+   "tool": "Higgsfield generate_image",
+   "model": "gpt_image_2_6",
+   "params": {
+    "model": "gpt_image_2_6",
+    "aspect_ratio": "16:9",
+    "resolution": "2k",
+    "size": "2048x1152",
+    "quality": "medium",
+    "output_format": "png",
+    "use_unlim": false
+   },
+   "prompt": "PROMPT_PACK.json id mission_control (unchanged)",
+   "date_utc": "2026-11-14",
+   "width": 2048,
+   "height": 1152,
+   "bytes": 3113350,
+   "sha256": "47e6c99f2c848286ed9c6917c2ac079c266cfdafc2c1a61d058095def831ab76",
+   "gate": "APPROVED on retry. PROMPT CHANGED (pack entry unchanged): pack prompt plus final sentence 'The large forward screen shows the referenced compact observation satellite (bus with two solar wings) above Earth, not a rocket.' Reference changed from title frame to the approved orbit frame (job c87d4db0) as image_references so the screen shows the anchor satellite. Satellite on screen matches anchor; console screens abstract (charts, rings, arcs) with no letters or digits; no logos, insignia or watermark. Style is more cartoon-like than the other frames (people rendered stylised) but readable. Rejected attempt 1 (job d747694a-f33a-42ac-b4e7-721e3efca9ce, title frame as reference): big screen showed the title-frame rocket instead of the observation satellite; file not committed.",
+   "cost_credits": 1
+  }
+ ],
+ "balance_notes": {
+  "start_credits": 10,
+  "unlimited_available": false,
+  "end_credits": 0
+ }
+}

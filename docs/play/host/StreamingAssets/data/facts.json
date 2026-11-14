@@ -1,0 +1,541 @@
+{
+  "$schema": "./schema/fact.schema.json",
+  "design_notes": [
+    "F01 to F40 of design section 12.4. Fact IDs are not flight phases: a flight-phase ID (F0 to F14) appears in this file only inside used_in.flight_phases.",
+    "text_key is the on-screen sentence, 25 words or fewer (12.1). The bank column \"Fact (draft)\" is a keyword line, so the sentence is the one the design uses where it tells the fact (the Fact line of the minigame in 10.5, the \"Did you know?\" or table text of section 7, the failure model of 8.4, the abort table of 9.8), cut to 25 words where it was longer; detail_key then holds the full design sentence for the Codex. Every number is the one the design prints.",
+    "topic_key, used_in and source_key are the Topic, Used in and Source to cite columns. \"§7.x\" is stored as the part category of that section, \"§6.10\" as the rocket preview channel, \"§9.8\" as the abort-modes channel.",
+    "Every status is unverified (the column says \"Verify\") and no source_url is set: verification with links is a later task.",
+    "Ten minigame fact lines of 10.5 have no entry in this bank (see data/minigames.json); the flight-phase fact moments of 9.1 are stored in data/flight_phases.json."
+  ],
+  "facts": [
+    {
+      "id": "F01",
+      "topic_key": "fact.F01.topic",
+      "text_key": "fact.F01.text",
+      "used_in": {
+        "minigames": [
+          "MG-01"
+        ]
+      },
+      "source_key": "fact.F01.source",
+      "status": "unverified"
+    },
+    {
+      "id": "F02",
+      "topic_key": "fact.F02.topic",
+      "text_key": "fact.F02.text",
+      "detail_key": "fact.F02.detail",
+      "used_in": {
+        "minigames": [
+          "MG-02"
+        ],
+        "channels": [
+          "dashboard"
+        ]
+      },
+      "source_key": "fact.F02.source",
+      "status": "unverified",
+      "design_notes": [
+        "The bank draft is the formula alone. The on-screen text is the fact line of MG-02 as printed; the detail text adds the formula of the bank, which the dashboard also uses."
+      ]
+    },
+    {
+      "id": "F03",
+      "topic_key": "fact.F03.topic",
+      "text_key": "fact.F03.text",
+      "used_in": {
+        "minigames": [
+          "MG-10a"
+        ]
+      },
+      "source_key": "fact.F03.source",
+      "status": "unverified"
+    },
+    {
+      "id": "F04",
+      "topic_key": "fact.F04.topic",
+      "text_key": "fact.F04.text",
+      "used_in": {
+        "minigames": [
+          "MG-08"
+        ]
+      },
+      "source_key": "fact.F04.source",
+      "status": "unverified"
+    },
+    {
+      "id": "F05",
+      "topic_key": "fact.F05.topic",
+      "text_key": "fact.F05.text",
+      "used_in": {
+        "flight_phases": [
+          "F7"
+        ]
+      },
+      "source_key": "fact.F05.source",
+      "status": "unverified",
+      "design_notes": [
+        "\"Used in: F7\" is the flight phase F7 (upper stage burn & orbit insertion), not a fact ID. The part example of 17.5 also attaches F05 to the Kerolox Workhorse."
+      ]
+    },
+    {
+      "id": "F06",
+      "topic_key": "fact.F06.topic",
+      "text_key": "fact.F06.text",
+      "detail_key": "fact.F06.detail",
+      "used_in": {
+        "channels": [
+          "myth_or_fact"
+        ]
+      },
+      "source_key": "fact.F06.source",
+      "status": "unverified"
+    },
+    {
+      "id": "F07",
+      "topic_key": "fact.F07.topic",
+      "text_key": "fact.F07.text",
+      "used_in": {
+        "minigames": [
+          "MG-11"
+        ]
+      },
+      "source_key": "fact.F07.source",
+      "status": "unverified",
+      "design_notes": [
+        "The bank draft says \"S-II center engine\"; MG-11 says \"an engine\" and 8.4 \"its center engine\"."
+      ]
+    },
+    {
+      "id": "F08",
+      "topic_key": "fact.F08.topic",
+      "text_key": "fact.F08.text",
+      "used_in": {
+        "minigames": [
+          "MG-12"
+        ]
+      },
+      "source_key": "fact.F08.source",
+      "status": "unverified"
+    },
+    {
+      "id": "F09",
+      "topic_key": "fact.F09.topic",
+      "text_key": "fact.F09.text",
+      "detail_key": "fact.F09.detail",
+      "used_in": {
+        "minigames": [
+          "MG-13"
+        ]
+      },
+      "source_key": "fact.F09.source",
+      "status": "unverified",
+      "design_notes": [
+        "The bank draft names the complexes Goldstone, Madrid and Canberra; the MG-13 line names California, Spain and Australia."
+      ]
+    },
+    {
+      "id": "F10",
+      "topic_key": "fact.F10.topic",
+      "text_key": "fact.F10.text",
+      "used_in": {
+        "minigames": [
+          "MG-14"
+        ]
+      },
+      "source_key": "fact.F10.source",
+      "status": "unverified"
+    },
+    {
+      "id": "F11",
+      "topic_key": "fact.F11.topic",
+      "text_key": "fact.F11.text",
+      "used_in": {
+        "minigames": [
+          "MG-15"
+        ]
+      },
+      "source_key": "fact.F11.source",
+      "status": "unverified"
+    },
+    {
+      "id": "F12",
+      "topic_key": "fact.F12.topic",
+      "text_key": "fact.F12.text",
+      "used_in": {
+        "minigames": [
+          "MG-16"
+        ]
+      },
+      "source_key": "fact.F12.source",
+      "status": "unverified"
+    },
+    {
+      "id": "F13",
+      "topic_key": "fact.F13.topic",
+      "text_key": "fact.F13.text",
+      "detail_key": "fact.F13.detail",
+      "used_in": {
+        "minigames": [
+          "MG-17"
+        ]
+      },
+      "source_key": "fact.F13.source",
+      "status": "unverified",
+      "design_notes": [
+        "Shortened by one word from the MG-17 line to meet the 25-word limit; the full line is the detail text."
+      ]
+    },
+    {
+      "id": "F14",
+      "topic_key": "fact.F14.topic",
+      "text_key": "fact.F14.text",
+      "used_in": {
+        "minigames": [
+          "MG-18"
+        ]
+      },
+      "source_key": "fact.F14.source",
+      "status": "unverified"
+    },
+    {
+      "id": "F15",
+      "topic_key": "fact.F15.topic",
+      "text_key": "fact.F15.text",
+      "detail_key": "fact.F15.detail",
+      "used_in": {
+        "minigames": [
+          "MG-19"
+        ]
+      },
+      "source_key": "fact.F15.source",
+      "status": "unverified",
+      "design_notes": [
+        "Shortened from the MG-19 line to meet the 25-word limit; the full line is the detail text."
+      ]
+    },
+    {
+      "id": "F16",
+      "topic_key": "fact.F16.topic",
+      "text_key": "fact.F16.text",
+      "used_in": {
+        "minigames": [
+          "MG-21"
+        ]
+      },
+      "source_key": "fact.F16.source",
+      "status": "unverified"
+    },
+    {
+      "id": "F17",
+      "topic_key": "fact.F17.topic",
+      "text_key": "fact.F17.text",
+      "used_in": {
+        "minigames": [
+          "MG-22"
+        ]
+      },
+      "source_key": "fact.F17.source",
+      "status": "unverified"
+    },
+    {
+      "id": "F18",
+      "topic_key": "fact.F18.topic",
+      "text_key": "fact.F18.text",
+      "used_in": {
+        "minigames": [
+          "MG-23"
+        ]
+      },
+      "source_key": "fact.F18.source",
+      "status": "unverified"
+    },
+    {
+      "id": "F19",
+      "topic_key": "fact.F19.topic",
+      "text_key": "fact.F19.text",
+      "used_in": {
+        "minigames": [
+          "MG-25"
+        ]
+      },
+      "source_key": "fact.F19.source",
+      "status": "unverified"
+    },
+    {
+      "id": "F20",
+      "topic_key": "fact.F20.topic",
+      "text_key": "fact.F20.text",
+      "used_in": {
+        "minigames": [
+          "MG-26"
+        ]
+      },
+      "source_key": "fact.F20.source",
+      "status": "unverified"
+    },
+    {
+      "id": "F21",
+      "topic_key": "fact.F21.topic",
+      "text_key": "fact.F21.text",
+      "used_in": {
+        "minigames": [
+          "MG-04"
+        ]
+      },
+      "source_key": "fact.F21.source",
+      "status": "unverified"
+    },
+    {
+      "id": "F22",
+      "topic_key": "fact.F22.topic",
+      "text_key": "fact.F22.text",
+      "used_in": {
+        "channels": [
+          "failure_model"
+        ]
+      },
+      "source_key": "fact.F22.source",
+      "status": "unverified",
+      "design_notes": [
+        "Wording from the failure model (8.4): \"Ariane 5 Flight 501 (1996): a number too big for its variable\"."
+      ]
+    },
+    {
+      "id": "F23",
+      "topic_key": "fact.F23.topic",
+      "text_key": "fact.F23.text",
+      "used_in": {
+        "part_categories": [
+          "fairing"
+        ]
+      },
+      "source_key": "fact.F23.source",
+      "status": "unverified"
+    },
+    {
+      "id": "F24",
+      "topic_key": "fact.F24.topic",
+      "text_key": "fact.F24.text",
+      "used_in": {
+        "part_categories": [
+          "launch_site"
+        ]
+      },
+      "source_key": "fact.F24.source",
+      "status": "unverified"
+    },
+    {
+      "id": "F25",
+      "topic_key": "fact.F25.topic",
+      "text_key": "fact.F25.text",
+      "detail_key": "fact.F25.detail",
+      "used_in": {
+        "part_categories": [
+          "upper_stage_engine"
+        ]
+      },
+      "source_key": "fact.F25.source",
+      "status": "unverified",
+      "design_notes": [
+        "Shortened from the \"Did you know?\" line of 7.8 to meet the 25-word limit; the full line is the detail text."
+      ]
+    },
+    {
+      "id": "F26",
+      "topic_key": "fact.F26.topic",
+      "text_key": "fact.F26.text",
+      "used_in": {
+        "part_categories": [
+          "first_stage_engine"
+        ]
+      },
+      "source_key": "fact.F26.source",
+      "status": "unverified"
+    },
+    {
+      "id": "F27",
+      "topic_key": "fact.F27.topic",
+      "text_key": "fact.F27.text",
+      "used_in": {
+        "part_categories": [
+          "engine_count"
+        ]
+      },
+      "source_key": "fact.F27.source",
+      "status": "unverified"
+    },
+    {
+      "id": "F28",
+      "topic_key": "fact.F28.topic",
+      "text_key": "fact.F28.text",
+      "used_in": {
+        "part_categories": [
+          "heat_shield"
+        ]
+      },
+      "source_key": "fact.F28.source",
+      "status": "unverified",
+      "design_notes": [
+        "From the bank (\"Fastest reentry ~12.9 km/s\") and the PICA row of 7.3, which names Stardust as a real-world twin (\"fastest return at ~12.9 km/s\")."
+      ]
+    },
+    {
+      "id": "F29",
+      "topic_key": "fact.F29.topic",
+      "text_key": "fact.F29.text",
+      "used_in": {
+        "part_categories": [
+          "heat_shield"
+        ]
+      },
+      "source_key": "fact.F29.source",
+      "status": "unverified",
+      "design_notes": [
+        "From the HIAD row of 7.3: \"NASA LOFTID test (2022)\"."
+      ]
+    },
+    {
+      "id": "F30",
+      "topic_key": "fact.F30.topic",
+      "text_key": "fact.F30.text",
+      "used_in": {
+        "part_categories": [
+          "escape_system"
+        ]
+      },
+      "source_key": "fact.F30.source",
+      "status": "unverified"
+    },
+    {
+      "id": "F31",
+      "topic_key": "fact.F31.topic",
+      "text_key": "fact.F31.text",
+      "detail_key": "fact.F31.detail",
+      "used_in": {
+        "minigames": [
+          "MG-07"
+        ]
+      },
+      "source_key": "fact.F31.source",
+      "status": "unverified",
+      "design_notes": [
+        "The MG-07 line has 28 words; its second sentence is the on-screen text and the full line is the detail text."
+      ]
+    },
+    {
+      "id": "F32",
+      "topic_key": "fact.F32.topic",
+      "text_key": "fact.F32.text",
+      "used_in": {
+        "minigames": [
+          "MG-29"
+        ]
+      },
+      "source_key": "fact.F32.source",
+      "status": "unverified"
+    },
+    {
+      "id": "F33",
+      "topic_key": "fact.F33.topic",
+      "text_key": "fact.F33.text",
+      "used_in": {
+        "part_categories": [
+          "power_system"
+        ]
+      },
+      "source_key": "fact.F33.source",
+      "status": "unverified"
+    },
+    {
+      "id": "F34",
+      "topic_key": "fact.F34.topic",
+      "text_key": "fact.F34.text",
+      "used_in": {
+        "part_categories": [
+          "communications"
+        ]
+      },
+      "source_key": "fact.F34.source",
+      "status": "unverified"
+    },
+    {
+      "id": "F35",
+      "topic_key": "fact.F35.topic",
+      "text_key": "fact.F35.text",
+      "used_in": {
+        "part_categories": [
+          "communications"
+        ]
+      },
+      "source_key": "fact.F35.source",
+      "status": "unverified",
+      "design_notes": [
+        "From the laser row of 7.17: \"NASA LCRD (2021), DSOC on Psyche (2023)\"."
+      ]
+    },
+    {
+      "id": "F36",
+      "topic_key": "fact.F36.topic",
+      "text_key": "fact.F36.text",
+      "used_in": {
+        "minigames": [
+          "MG-30"
+        ]
+      },
+      "source_key": "fact.F36.source",
+      "status": "unverified"
+    },
+    {
+      "id": "F37",
+      "topic_key": "fact.F37.topic",
+      "text_key": "fact.F37.text",
+      "used_in": {
+        "channels": [
+          "abort_modes"
+        ]
+      },
+      "source_key": "fact.F37.source",
+      "status": "unverified",
+      "design_notes": [
+        "From the abort-mode table (9.8): \"Lower orbit, partial success (Shuttle STS-51F did this in 1985)\"."
+      ]
+    },
+    {
+      "id": "F38",
+      "topic_key": "fact.F38.topic",
+      "text_key": "fact.F38.text",
+      "used_in": {
+        "part_categories": [
+          "navigation_sensor"
+        ]
+      },
+      "source_key": "fact.F38.source",
+      "status": "unverified"
+    },
+    {
+      "id": "F39",
+      "topic_key": "fact.F39.topic",
+      "text_key": "fact.F39.text",
+      "used_in": {
+        "channels": [
+          "rocket_preview"
+        ]
+      },
+      "source_key": "fact.F39.source",
+      "status": "unverified"
+    },
+    {
+      "id": "F40",
+      "topic_key": "fact.F40.topic",
+      "text_key": "fact.F40.text",
+      "used_in": {
+        "contracts": [
+          "C7"
+        ]
+      },
+      "source_key": "fact.F40.source",
+      "status": "unverified"
+    }
+  ]
+}

@@ -11,7 +11,7 @@ namespace MissionForge.Net
         /// <summary>Message type, for example <c>room.state</c>.</summary>
         public string Type;
 
-        /// <summary>Sender-assigned sequence number.</summary>
+        /// <summary>Sender-assigned sequence number: 1 for the first message of each connection and direction, then +1 per message.</summary>
         public int Seq;
 
         /// <summary>Payload object. Never null after a successful decode.</summary>
@@ -181,7 +181,9 @@ namespace MissionForge.Net
             return true;
         }
 
-        private static JObject ToDataObject(object payload)
+        /// <summary>Converts a payload (null, <see cref="JObject"/> or a serializable object) into the <c>d</c> object.</summary>
+        /// <exception cref="ArgumentException">The payload does not serialize to a JSON object.</exception>
+        internal static JObject ToDataObject(object payload)
         {
             if (payload == null)
             {

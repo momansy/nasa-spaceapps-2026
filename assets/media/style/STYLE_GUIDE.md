@@ -107,3 +107,20 @@ Shot plan (`game_value` timing): 0–4 s introduce the illuminated Earth limb an
 Inspect every full-resolution image plus the combined contact sheet. Reject malformed bells, floating attachments, incoherent staging, text-like marks and mismatched satellite geometry. Check the title and Build Bay with live overlays before treating them as shipping backgrounds. Decode the full video and inspect opening, middle and closing frames for continuity and text. Confirm H.264, 8–15 s duration and every file below 50 MB. Record model, exact prompt, date, job ID and any derivation in `assets/media/CREDITS.md`.
 
 This checkout currently has no generated media. See [PROMPT_PACK.json](PROMPT_PACK.json) for prepared requests and the [blocked-generation record](../../../orchestration/evidence/T005/README.md). The art direction has not yet been matched to a Unity scene, Blender render or approved generated frame.
+
+## Approved references (T018) — 2026-11-14
+
+Generated with Higgsfield `gpt_image_2_6` (2K, medium). Match these in 3D, Unity and UI work. Full provenance: `assets/media/CREDITS.md`, `assets/media/GENERATION_LOG.json`.
+
+| File | Size (px) | Use as reference for |
+|---|---|---|
+| `assets/media/style/frames/01-title.png` | 2048 × 1152 | palette, lighting, launch vehicle (two-stage, teal band and strakes, two bells); upper-left 45 % × 35 % is clear for the logo |
+| `assets/media/style/frames/02-build-bay.png` | 2048 × 1152 | Build Bay mood; hardware in the middle 52 %, outer 24 % each side quiet |
+| `assets/media/style/frames/03-ascent.png` | 2048 × 1152 | ascent look and plume attached to the bells |
+| `assets/media/style/frames/04-orbit-operations.png` | 2048 × 1152 | **satellite design anchor** (bus with gold blanket, two symmetric hinged wings, nadir aperture, separate dish) |
+| `assets/media/style/frames/05-reentry.png` | 2048 × 1152 | capsule and restrained plasma look |
+| `assets/media/style/frames/06-mission-control.png` | 2048 × 1152 | room mood; abstract screens only; characters are more stylised than the other frames |
+| `assets/media/key-art/missionforge-16x9.png` | 2048 × 1152 | hero key art |
+| `assets/media/key-art/missionforge-1x1.png` | 2048 × 2048 | square key art (sun halo shows slight banding) |
+
+Not available: `assets/media/cinematics/c1-earth-watch-briefing.mp4` was not generated (credits ran out); use the orbit frame as the C1 look until it exists.

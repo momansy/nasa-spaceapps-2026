@@ -1,0 +1,294 @@
+{
+  "$schema": "../schema/part.schema.json",
+  "category": "first_stage_engine",
+  "name_key": "category.first_stage_engine.name",
+  "design_section": "7.7",
+  "design_notes": [
+    "Section 7.7 has no Strengths column. Strengths are filled only where the design states them elsewhere: Kerolox Workhorse from the example in section 17.5 (and the Part Card of 14.3), Hydrolox High-Efficiency from its drawback sentence (\"best Isp, but ...\"). The other four engines have none yet.",
+    "contracts, facts and failure_modes of Kerolox Workhorse are those of the example in section 17.5. F05 (LEO orbital speed) looks like a placeholder there: the fact bank ties F05 to flight phase F7.",
+    "Electric-Pump Mini: \"only for small contracts\" is read as C0 and C1; Appendix A shows it offered in C1. The other engines carry no contracts list because the design does not restrict them.",
+    "Hydrolox High-Efficiency: throttle 67-109% is stored as throttle_max 1.09. The table thrust (1,860 / 2,280 kN) matches the real engine at its 109% setting, so Core should treat the table thrust as the maximum, not scale it by 1.09 again.",
+    "engine_shutdown is listed for every engine because the failure model (8.4) applies it to engines in general; combustion_instability is specific to Kerolox Giant.",
+    "Methalox Full-Flow: \"Testing strongly recommended\" names no test; the engine hot-fire is the engine test of section 6.6."
+  ],
+  "parts": [
+    {
+      "id": "eng_kerolox_workhorse",
+      "category": "first_stage_engine",
+      "name_key": "part.eng_kerolox_workhorse.name",
+      "twin": "part.eng_kerolox_workhorse.twin",
+      "strengths": [
+        "part.eng_kerolox_workhorse.strength.1",
+        "part.eng_kerolox_workhorse.strength.2",
+        "part.eng_kerolox_workhorse.strength.3"
+      ],
+      "drawbacks": [
+        "part.eng_kerolox_workhorse.drawback.1",
+        "part.eng_kerolox_workhorse.drawback.2"
+      ],
+      "facts": [
+        "F05"
+      ],
+      "contracts": [
+        "C0",
+        "C1",
+        "C2",
+        "C3",
+        "C4",
+        "C8"
+      ],
+      "model": "models/eng_kerolox_workhorse.glb",
+      "stats": {
+        "propellant": "RP1_LOX",
+        "thrust_sl_kN": 850,
+        "thrust_vac_kN": 930,
+        "isp_sl_s": 282,
+        "isp_vac_s": 311,
+        "mass_t": 0.47,
+        "throttle_min": 0.4,
+        "throttle_max": 1,
+        "restarts": 3
+      },
+      "game": {
+        "cost_M": 1.2,
+        "lead_days": 30,
+        "integ_days": 2,
+        "reliability": 0.985,
+        "maturity": "proven"
+      },
+      "rules": [
+        {
+          "kind": "flag",
+          "flag": "reduced_reuse_life"
+        }
+      ],
+      "failure_modes": [
+        "engine_shutdown"
+      ],
+      "value_types": {
+        "stats": "real_world_approximate",
+        "game": "game_value"
+      }
+    },
+    {
+      "id": "eng_kerolox_giant",
+      "category": "first_stage_engine",
+      "name_key": "part.eng_kerolox_giant.name",
+      "twin": "part.eng_kerolox_giant.twin",
+      "strengths": [],
+      "drawbacks": [
+        "part.eng_kerolox_giant.drawback.1",
+        "part.eng_kerolox_giant.drawback.2"
+      ],
+      "facts": [
+        "F26"
+      ],
+      "model": "models/eng_kerolox_giant.glb",
+      "stats": {
+        "propellant": "RP1_LOX",
+        "thrust_sl_kN": 6770,
+        "thrust_vac_kN": 7770,
+        "isp_sl_s": 263,
+        "isp_vac_s": 304,
+        "mass_t": 8.4,
+        "throttle_min": 1,
+        "throttle_max": 1,
+        "restarts": 0
+      },
+      "game": {
+        "cost_M": 15,
+        "lead_days": 90,
+        "integ_days": 6,
+        "reliability": 0.97,
+        "maturity": "mature"
+      },
+      "rules": [
+        {
+          "kind": "test_mitigates_failure_mode",
+          "failure_mode": "combustion_instability",
+          "test": "engine_hot_fire"
+        }
+      ],
+      "failure_modes": [
+        "engine_shutdown",
+        "combustion_instability"
+      ],
+      "value_types": {
+        "stats": "real_world_approximate",
+        "game": "game_value"
+      }
+    },
+    {
+      "id": "eng_kerolox_staged_combustion",
+      "category": "first_stage_engine",
+      "name_key": "part.eng_kerolox_staged_combustion.name",
+      "twin": "part.eng_kerolox_staged_combustion.twin",
+      "strengths": [],
+      "drawbacks": [
+        "part.eng_kerolox_staged_combustion.drawback.1"
+      ],
+      "model": "models/eng_kerolox_staged_combustion.glb",
+      "stats": {
+        "propellant": "RP1_LOX",
+        "thrust_sl_kN": 3830,
+        "thrust_vac_kN": 4150,
+        "isp_sl_s": 311,
+        "isp_vac_s": 338,
+        "mass_t": 5.4,
+        "throttle_min": 0.47,
+        "throttle_max": 1,
+        "restarts": 0
+      },
+      "game": {
+        "cost_M": 10,
+        "lead_days": 120,
+        "integ_days": 5,
+        "reliability": 0.988,
+        "maturity": "proven"
+      },
+      "rules": [
+        {
+          "kind": "anomaly_weight",
+          "anomaly": "supplier_delay"
+        }
+      ],
+      "failure_modes": [
+        "engine_shutdown"
+      ],
+      "value_types": {
+        "stats": "real_world_approximate",
+        "game": "game_value"
+      }
+    },
+    {
+      "id": "eng_hydrolox_high_efficiency",
+      "category": "first_stage_engine",
+      "name_key": "part.eng_hydrolox_high_efficiency.name",
+      "twin": "part.eng_hydrolox_high_efficiency.twin",
+      "strengths": [
+        "part.eng_hydrolox_high_efficiency.strength.1"
+      ],
+      "drawbacks": [
+        "part.eng_hydrolox_high_efficiency.drawback.1",
+        "part.eng_hydrolox_high_efficiency.drawback.2",
+        "part.eng_hydrolox_high_efficiency.drawback.3"
+      ],
+      "model": "models/eng_hydrolox_high_efficiency.glb",
+      "stats": {
+        "propellant": "LH2_LOX",
+        "thrust_sl_kN": 1860,
+        "thrust_vac_kN": 2280,
+        "isp_sl_s": 366,
+        "isp_vac_s": 452,
+        "mass_t": 3.5,
+        "throttle_min": 0.67,
+        "throttle_max": 1.09,
+        "restarts": 0
+      },
+      "game": {
+        "cost_M": 40,
+        "lead_days": 150,
+        "integ_days": 6,
+        "reliability": 0.99,
+        "maturity": "proven"
+      },
+      "failure_modes": [
+        "engine_shutdown"
+      ],
+      "value_types": {
+        "stats": "real_world_approximate",
+        "game": "game_value"
+      }
+    },
+    {
+      "id": "eng_methalox_full_flow",
+      "category": "first_stage_engine",
+      "name_key": "part.eng_methalox_full_flow.name",
+      "twin": "part.eng_methalox_full_flow.twin",
+      "strengths": [],
+      "drawbacks": [
+        "part.eng_methalox_full_flow.drawback.1",
+        "part.eng_methalox_full_flow.drawback.2"
+      ],
+      "model": "models/eng_methalox_full_flow.glb",
+      "stats": {
+        "propellant": "CH4_LOX",
+        "thrust_sl_kN": 2300,
+        "thrust_vac_kN": 2500,
+        "isp_sl_s": 327,
+        "isp_vac_s": 350,
+        "mass_t": 1.6,
+        "throttle_min": 0.4,
+        "throttle_max": 1,
+        "restarts": 5
+      },
+      "game": {
+        "cost_M": 2.5,
+        "lead_days": 45,
+        "integ_days": 3,
+        "reliability": 0.955,
+        "maturity": "new"
+      },
+      "rules": [
+        {
+          "kind": "recommends_test",
+          "test": "engine_hot_fire"
+        }
+      ],
+      "failure_modes": [
+        "engine_shutdown"
+      ],
+      "value_types": {
+        "stats": "real_world_approximate",
+        "game": "game_value"
+      }
+    },
+    {
+      "id": "eng_electric_pump_mini",
+      "category": "first_stage_engine",
+      "name_key": "part.eng_electric_pump_mini.name",
+      "twin": "part.eng_electric_pump_mini.twin",
+      "strengths": [],
+      "drawbacks": [
+        "part.eng_electric_pump_mini.drawback.1",
+        "part.eng_electric_pump_mini.drawback.2"
+      ],
+      "contracts": [
+        "C0",
+        "C1"
+      ],
+      "model": "models/eng_electric_pump_mini.glb",
+      "stats": {
+        "propellant": "RP1_LOX",
+        "thrust_sl_kN": 24,
+        "thrust_vac_kN": 26,
+        "isp_sl_s": 303,
+        "isp_vac_s": 311,
+        "mass_t": 0.035,
+        "throttle_min": 0.5,
+        "throttle_max": 1,
+        "restarts": 0
+      },
+      "game": {
+        "cost_M": 0.3,
+        "lead_days": 20,
+        "integ_days": 1,
+        "reliability": 0.98,
+        "maturity": "mature"
+      },
+      "rules": [
+        {
+          "kind": "flag",
+          "flag": "battery_mass_grows_with_burn_time"
+        }
+      ],
+      "failure_modes": [
+        "engine_shutdown"
+      ],
+      "value_types": {
+        "stats": "real_world_approximate",
+        "game": "game_value"
+      }
+    }
+  ]
+}

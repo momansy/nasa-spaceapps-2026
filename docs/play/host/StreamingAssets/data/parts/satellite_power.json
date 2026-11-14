@@ -1,0 +1,120 @@
+{
+  "$schema": "../schema/part.schema.json",
+  "category": "satellite_power",
+  "name_key": "category.satellite_power.name",
+  "design_section": "7.2.1",
+  "design_notes": [
+    "The table sits under \"7.2.1 Satellite contracts (C1, C2, C5)\" and, unlike the instrument table, names no single contract, so the options list C1, C2 and C5. Only C1 is detailed in the design (5.3, Appendix A).",
+    "The table has no Strengths, Cost or Twin column: no strengths, no cost_M and no twin. \"Expensive\" and \"extra integration days\" (large array) have no numbers; the days are the flag extra_integration_days, the cost is left out.",
+    "Deployable arrays: the table names MG-15 only on the wings, but MG-15 runs for any \"satellite or capsule with deployable arrays\" and the failure model (8.4) gives Solar array stuck to \"Deployable arrays\", so the large deployable array carries the same minigame and failure mode. F11 is the fact of MG-15.",
+    "Stats are tagged game_value: the design states no provenance for them."
+  ],
+  "parts": [
+    {
+      "id": "satpwr_body_mounted_solar_cells",
+      "category": "satellite_power",
+      "name_key": "part.satpwr_body_mounted_solar_cells.name",
+      "strengths": [],
+      "drawbacks": [
+        "part.satpwr_body_mounted_solar_cells.drawback.1",
+        "part.satpwr_body_mounted_solar_cells.drawback.2"
+      ],
+      "contracts": [
+        "C1",
+        "C2",
+        "C5"
+      ],
+      "model": "models/satpwr_body_mounted_solar_cells.glb",
+      "stats": {
+        "mass_kg": 3,
+        "generation_avg_W": 40
+      },
+      "game": {},
+      "rules": [
+        {
+          "kind": "incompatible_with_part",
+          "part": "inst_synthetic_aperture_radar"
+        }
+      ],
+      "value_types": {
+        "stats": "game_value"
+      }
+    },
+    {
+      "id": "satpwr_deployable_solar_wings",
+      "category": "satellite_power",
+      "name_key": "part.satpwr_deployable_solar_wings.name",
+      "strengths": [],
+      "drawbacks": [
+        "part.satpwr_deployable_solar_wings.drawback.1"
+      ],
+      "facts": [
+        "F11"
+      ],
+      "contracts": [
+        "C1",
+        "C2",
+        "C5"
+      ],
+      "model": "models/satpwr_deployable_solar_wings.glb",
+      "stats": {
+        "mass_kg": 9,
+        "generation_avg_W": 150
+      },
+      "game": {},
+      "rules": [
+        {
+          "kind": "enables_minigame",
+          "minigame": "MG-15"
+        }
+      ],
+      "failure_modes": [
+        "solar_array_stuck"
+      ],
+      "value_types": {
+        "stats": "game_value"
+      }
+    },
+    {
+      "id": "satpwr_large_deployable_array",
+      "category": "satellite_power",
+      "name_key": "part.satpwr_large_deployable_array.name",
+      "strengths": [],
+      "drawbacks": [
+        "part.satpwr_large_deployable_array.drawback.1",
+        "part.satpwr_large_deployable_array.drawback.2",
+        "part.satpwr_large_deployable_array.drawback.3"
+      ],
+      "facts": [
+        "F11"
+      ],
+      "contracts": [
+        "C1",
+        "C2",
+        "C5"
+      ],
+      "model": "models/satpwr_large_deployable_array.glb",
+      "stats": {
+        "mass_kg": 20,
+        "generation_avg_W": 400
+      },
+      "game": {},
+      "rules": [
+        {
+          "kind": "enables_minigame",
+          "minigame": "MG-15"
+        },
+        {
+          "kind": "flag",
+          "flag": "extra_integration_days"
+        }
+      ],
+      "failure_modes": [
+        "solar_array_stuck"
+      ],
+      "value_types": {
+        "stats": "game_value"
+      }
+    }
+  ]
+}

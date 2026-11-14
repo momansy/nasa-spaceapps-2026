@@ -8,12 +8,13 @@ namespace MissionForge.App.Screens
 {
     /// <summary>
     /// Host screen 2 (design 14.1): crew avatars appear as phones join (driven by room.state), each
-    /// with a role chip; the host edits mission settings, which go to the server as room.settings.
+    /// with a role chip (from roles.state); the host edits mission settings, which go to the server
+    /// as settings.set and come back as settings.state (protocol/messages.md).
     /// </summary>
     public sealed class LobbyScreen : ScreenController
     {
-        /// <summary>Maximum voting players in a room (design 3.2).</summary>
-        public const int MaxCrew = 10;
+        /// <summary>Maximum voting players in a room (design 3.2, room.created.maxPlayers).</summary>
+        public const int MaxCrew = ProtocolNames.Defaults.MaxPlayers;
 
         private const string CardClass = "mf-crewcard";
         private const string CardInClass = "mf-crewcard--in";
@@ -21,8 +22,8 @@ namespace MissionForge.App.Screens
         private const string CardEmptyClass = "mf-crewcard--empty";
         private const string SegmentItemClass = "mf-segment__item";
         private const string SegmentOnClass = "mf-segment__item--on";
-        private static readonly Color32 QrDark = new Color32(8, 13, 24, 255);
-        private static readonly Color32 QrLight = new Color32(255, 255, 255, 255);
+        private static readonly Color32 QrDark = MfPalette.QrDark;
+        private static readonly Color32 QrLight = MfPalette.QrLight;
 
         private sealed class Slot
         {
@@ -59,25 +60,39 @@ namespace MissionForge.App.Screens
             _start.SetEnabled(false);
 
             BuildSlots(Screen.Q<VisualElement>("crew-grid"));
-            BuildSegment("seg-role-mode", ProtocolNames.Fields.RoleMode,
-                ("random", "Random"), ("pick", "Player pick"), ("vote", "Vote"));
-            BuildSegment("seg-assist", ProtocolNames.Fields.Assist,
-                ("cadet", "Cadet"), ("engineer", "Engineer"), ("flight_director", "Flight Director"));
+            BuildSegment("seg-role-mode", ProtocolNames.Fields.RoleAssignMode,
+                (ProtocolNames.RoleAssignModes.Random, "Random"),
+                (ProtocolNames.RoleAssignModes.Pick, "Player pick"),
+                (ProtocolNames.RoleAssignModes.Vote, "Vote"));
+            BuildSegment("seg-assist", ProtocolNames.Fields.AssistLevel,
+                (ProtocolNames.AssistLevels.Cadet, "Cadet"),
+                (ProtocolNames.AssistLevels.Engineer, "Engineer"),
+                (ProtocolNames.AssistLevels.FlightDirector, "Flight Director"));
+            // Contract range of voteTimerS is 10–60 s, default 20.
             BuildSegment("seg-vote-timer", ProtocolNames.Fields.VoteTimerS,
                 ("20", "20 s"), ("30", "30 s"), ("45", "45 s"), ("60", "60 s"));
-            BuildSegment("seg-tallies", ProtocolNames.Fields.HiddenTallies,
-                ("false", "Open"), ("true", "Hidden"));
+            BuildSegment("seg-tallies", ProtocolNames.Fields.TallyVisibility,
+                (ProtocolNames.TallyVisibilities.Open, "Open"),
+                (ProtocolNames.TallyVisibilities.Hidden, "Hidden"));
 
             _client = App != null && App.Room != null ? App.Room.Client : null;
             if (_client == null) return;
             _client.RoomStateChanged += OnRoomState;
-            ShowRoomCode(_client.RoomCode, null);
+            _client.SettingsChanged += OnSettings;
+            _client.RolesStateChanged += OnRolesState;
+            ShowRoomCode(_client.RoomCode);
+            if (_client.LastSettings != null) OnSettings(_client.LastSettings);
             if (_client.LastRoomState != null) OnRoomState(_client.LastRoomState);
         }
 
         protected override void OnExit()
         {
-            if (_client != null) _client.RoomStateChanged -= OnRoomState;
+            if (_client != null)
+            {
+                _client.RoomStateChanged -= OnRoomState;
+                _client.SettingsChanged -= OnSettings;
+                _client.RolesStateChanged -= OnRolesState;
+            }
             if (_qrTexture != null) Destroy(_qrTexture);
         }
 
@@ -101,7 +116,7 @@ namespace MissionForge.App.Screens
                 slot.RoleLabel.AddToClassList("mf-chip__label");
                 slot.RoleLabel.style.marginLeft = 0;
                 slot.RoleChip.Add(slot.RoleLabel);
-                slot.Empty = new Label("SEAT " + (i + 1).ToString("00") + "\nOPEN");
+                slot.Empty = new Label("Seat " + (i + 1).ToString("00") + "\nopen");
                 slot.Empty.AddToClassList("mf-crewcard__slot");
 
                 slot.Card.Add(slot.Avatar);
@@ -141,12 +156,18 @@ namespace MissionForge.App.Screens
 
         private void SendSetting(string key, string value)
         {
-            SelectSegment(key, value); // Optimistic; the server's room.state confirms or corrects it.
+            SelectSegment(key, value); // Optimistic; the server's settings.state confirms or corrects it.
             if (_client == null) return;
-            object typed = value;
-            if (key == ProtocolNames.Fields.VoteTimerS) typed = int.Parse(value);
-            else if (key == ProtocolNames.Fields.HiddenTallies) typed = value == "true";
-            _client.Send(ProtocolNames.Messages.RoomSettings, new Dictionary<string, object> { { key, typed } });
+            var patch = new SettingsPatchDto();
+            switch (key)
+            {
+                case ProtocolNames.Fields.RoleAssignMode: patch.RoleAssignMode = value; break;
+                case ProtocolNames.Fields.AssistLevel: patch.AssistLevel = value; break;
+                case ProtocolNames.Fields.VoteTimerS: patch.VoteTimerS = int.Parse(value); break;
+                case ProtocolNames.Fields.TallyVisibility: patch.TallyVisibility = value; break;
+                default: return;
+            }
+            _client.UpdateSettings(patch);
         }
 
         private void SelectSegment(string key, string value)
@@ -158,23 +179,47 @@ namespace MissionForge.App.Screens
             }
         }
 
+        private void OnSettings(RoomSettingsDto settings)
+        {
+            SelectSegment(ProtocolNames.Fields.RoleAssignMode, settings.RoleAssignMode);
+            SelectSegment(ProtocolNames.Fields.AssistLevel, settings.AssistLevel);
+            SelectSegment(ProtocolNames.Fields.VoteTimerS, settings.VoteTimerS.ToString());
+            SelectSegment(ProtocolNames.Fields.TallyVisibility, settings.TallyVisibility);
+        }
+
+        private void OnRolesState(RolesStateDto roles)
+        {
+            if (_client != null && _client.LastRoomState != null) OnRoomState(_client.LastRoomState);
+        }
+
+        /// <summary>Roles of a player from the last roles.state, e.g. "FLIGHT+PM"; null when none yet.</summary>
+        private string RoleLabelFor(string playerId)
+        {
+            RolesStateDto roles = _client != null ? _client.LastRolesState : null;
+            if (roles == null) return null;
+            List<string> held = roles.RolesOf(playerId);
+            return held.Count == 0 ? null : string.Join("+", held);
+        }
+
         private void OnRoomState(RoomStateDto state)
         {
-            ShowRoomCode(state.Code, null);
+            ShowRoomCode(state.Room);
 
-            var crew = new List<PlayerDto>();
-            if (state.Players != null)
+            // room.state lists players only (spectators are just counted), ordered by slot 1–10.
+            var seats = new PlayerInfoDto[_slots.Count];
+            int crewCount = 0;
+            foreach (PlayerInfoDto player in state.Players)
             {
-                foreach (PlayerDto player in state.Players)
-                {
-                    if (!player.Spectator && crew.Count < MaxCrew) crew.Add(player);
-                }
+                int index = player.Slot - 1;
+                if (index < 0 || index >= seats.Length || seats[index] != null) continue;
+                seats[index] = player;
+                if (player.Connected) crewCount++; // A dropped phone keeps its seat but is not counted as present.
             }
 
             for (int i = 0; i < _slots.Count; i++)
             {
                 Slot slot = _slots[i];
-                if (i >= crew.Count)
+                if (seats[i] == null)
                 {
                     slot.PlayerId = null;
                     slot.Card.AddToClassList(CardEmptyClass);
@@ -184,13 +229,14 @@ namespace MissionForge.App.Screens
                     continue;
                 }
 
-                PlayerDto player = crew[i];
+                PlayerInfoDto player = seats[i];
                 bool isNew = slot.PlayerId != player.Id;
                 slot.PlayerId = player.Id;
-                slot.Avatar.SetIdentity(player.Avatar, player.Nickname);
+                slot.Avatar.SetIdentity(player.Avatar.SuitId, player.Nickname);
                 slot.Name.text = player.Nickname;
-                bool hasRole = !string.IsNullOrEmpty(player.Role);
-                slot.RoleLabel.text = hasRole ? player.Role : "NO ROLE YET";
+                string role = RoleLabelFor(player.Id);
+                bool hasRole = !string.IsNullOrEmpty(role);
+                slot.RoleLabel.text = hasRole ? role : "No role yet";
                 slot.RoleChip.EnableInClassList("mf-chip--forge", hasRole);
                 slot.RoleChip.EnableInClassList("mf-chip--muted", !hasRole);
                 slot.Card.RemoveFromClassList(CardEmptyClass);
@@ -205,29 +251,21 @@ namespace MissionForge.App.Screens
                 }
             }
 
-            _crewCount.text = crew.Count.ToString();
-            _start.SetEnabled(crew.Count >= 1);
-            _hint.text = crew.Count == 0
+            _crewCount.text = crewCount.ToString();
+            _start.SetEnabled(crewCount >= 1);
+            _hint.text = crewCount == 0
                 ? "Waiting for the first crew member to join."
-                : crew.Count < 3
+                : crewCount < 3
                     ? "Ready when you are. Three or more crew gives the full party feel."
                     : "Crew is assembling. Start the briefing when everyone is in.";
-
-            if (state.Settings != null)
-            {
-                SelectSegment(ProtocolNames.Fields.RoleMode, state.Settings.RoleMode);
-                SelectSegment(ProtocolNames.Fields.Assist, state.Settings.Assist);
-                SelectSegment(ProtocolNames.Fields.VoteTimerS, state.Settings.VoteTimerS.ToString());
-                SelectSegment(ProtocolNames.Fields.HiddenTallies, state.Settings.HiddenTallies ? "true" : "false");
-            }
         }
 
-        private void ShowRoomCode(string code, string serverJoinUrl)
+        private void ShowRoomCode(string code)
         {
             if (string.IsNullOrEmpty(code) || code == _qrCodeShown) return;
             _qrCodeShown = code;
             _code.text = code;
-            string joinUrl = App.Room.BuildJoinUrl(code, serverJoinUrl);
+            string joinUrl = App.Room.BuildJoinUrl(code, _client != null && _client.RoomCode == code ? _client.JoinUrl : null);
             _joinUrl.text = joinUrl;
             if (_qrTexture != null) Destroy(_qrTexture);
             _qrTexture = QrCodeTexture.Create(joinUrl, QrDark, QrLight);

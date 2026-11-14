@@ -22,7 +22,7 @@ namespace MissionForge.Core.Tests.Build
             var issues = Validator.Validate(Rtls("aero_fins"), Catalog, ValidationMode.Partial);
             var issue = Assert.Single(issues, i => i.RuleId == ValidationRules.PartRequirement);
             Assert.Equal(Severity.Blocker, issue.Severity);
-            Assert.Equal("brec_propulsive_rtls needs aero_grid_fins.", issue.Text); // fixture parts have no strings: names fall back to IDs
+            Assert.Equal(Catalog.Part("brec_propulsive_rtls").Name + " needs " + Catalog.Part("aero_grid_fins").Name + ".", issue.Text); // names come from data/strings
         }
 
         [Fact]

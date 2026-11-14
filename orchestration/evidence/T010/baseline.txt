@@ -1,0 +1,41 @@
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  MissionForge.Core -> C:\Users\Ahmad\Desktop\nasa-ahmed\nasa-spaceapps-2026\core\dotnet~\bin\Debug\netstandard2.1\MissionForge.Core.dll
+  MissionForge.Core.Tests -> C:\Users\Ahmad\Desktop\nasa-ahmed\nasa-spaceapps-2026\core\dotnet~\Tests\bin\Debug\net8.0\MissionForge.Core.Tests.dll
+Test run for C:\Users\Ahmad\Desktop\nasa-ahmed\nasa-spaceapps-2026\core\dotnet~\Tests\bin\Debug\net8.0\MissionForge.Core.Tests.dll (.NETCoreApp,Version=v8.0)
+VSTest version 17.11.2 (x64)
+
+Starting test execution, please wait...
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:01.63]     MissionForge.Core.Tests.Build.PartRuleValidationTests.Rtls_without_grid_fins_is_a_blocker [FAIL]
+[xUnit.net 00:00:01.63]     MissionForge.Core.Tests.Data.CatalogLoaderTests.Modifiers_become_the_derived_stats_of_the_build_rules [FAIL]
+  Failed MissionForge.Core.Tests.Build.PartRuleValidationTests.Rtls_without_grid_fins_is_a_blocker [781 ms]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "brec_propulsive_rtls needs aero_grid_fins"···
+Actual:   "Propulsive landing on land (RTLS) needs +"···
+           ↑ (pos 0)
+  Stack Trace:
+     at MissionForge.Core.Tests.Build.PartRuleValidationTests.Rtls_without_grid_fins_is_a_blocker() in C:\Users\Ahmad\Desktop\nasa-ahmed\nasa-spaceapps-2026\core\dotnet~\Tests\Build\PartRuleValidationTests.cs:line 25
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+  Failed MissionForge.Core.Tests.Data.CatalogLoaderTests.Modifiers_become_the_derived_stats_of_the_build_rules [881 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at MissionForge.Core.Tests.Data.CatalogLoaderTests.Modifiers_become_the_derived_stats_of_the_build_rules() in C:\Users\Ahmad\Desktop\nasa-ahmed\nasa-spaceapps-2026\core\dotnet~\Tests\Data\CatalogLoaderTests.cs:line 112
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+[xUnit.net 00:00:02.22]     MissionForge.Core.Tests.Data.CatalogLoaderTests.Real_data_loads_leniently_and_converts_units_to_SI [FAIL]
+  Failed MissionForge.Core.Tests.Data.CatalogLoaderTests.Real_data_loads_leniently_and_converts_units_to_SI [47 ms]
+  Error Message:
+   Assert.NotEmpty() Failure: Collection was empty
+  Stack Trace:
+     at MissionForge.Core.Tests.Data.CatalogLoaderTests.Real_data_loads_leniently_and_converts_units_to_SI() in C:\Users\Ahmad\Desktop\nasa-ahmed\nasa-spaceapps-2026\core\dotnet~\Tests\Data\CatalogLoaderTests.cs:line 44
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+
+Failed!  - Failed:     3, Passed:   295, Skipped:     0, Total:   298, Duration: 1 s - MissionForge.Core.Tests.dll (net8.0)

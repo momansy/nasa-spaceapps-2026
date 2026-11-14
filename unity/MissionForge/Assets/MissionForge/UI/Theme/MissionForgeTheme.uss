@@ -1,36 +1,63 @@
-/* MissionForge host theme. Reference canvas 1920x1080, read from across a room:
-   body text is never smaller than 24 px, captions 20 px, key numbers 40 px and up.
-   Status colours follow design section 14.4 and are always paired with an icon and a
-   pattern (MfIcon / stat-bar hatch), never colour alone. Palette checked for
-   deuteranopia / protanopia separation by hue AND lightness (amber lightest, teal mid, rose darkest). */
+/* MissionForge host theme (UI Toolkit USS).
+   Art direction: assets/media/style/STYLE_GUIDE.md, "Palette and accessible status language" and
+   "Typography and composition". Every colour, size and radius below is an artistic `game_value`
+   choice, not a measured or physical value.
+
+   Reference canvas 1920 x 1080 (PanelSettings: ScaleWithScreenSize, match 0.5), read from across a room:
+     body 32 px, secondary labels 24 px, screen titles 64 px; key numbers 40 px and up.
+     A dense-data tier of 20 px exists only in Screens.uss for table heads and tick strips.
+   Faces: Oxanium (display) for titles, the logo and short identifiers only; IBM Plex Sans for body
+     and controls; IBM Plex Mono for numbers, telemetry and room codes (tabular figures).
+   Text: Ceramic for main text, Muted for secondary. Never pure white text. Ocean is decorative only.
+   Status (design section 14.4) is never hue alone: colour + shape glyph + border treatment + label.
+
+   USS subset notes (validated against the UI Toolkit property list):
+   - var() cannot appear inside rgba(), so translucent colours are explicit tokens (--mf-<name>-<alpha%>).
+   - No calc(), no dashed/dotted/double border styles, no outline property. Border treatments for
+     status and focus are emulated with border widths per side plus an inner glyph (see "status").
+   - Changing border-width changes layout size, so every focus/status width change is paired with an
+     equal padding change to keep the box the same size. */
 
 :root {
-    --mf-ink-900: rgb(4, 7, 14);
-    --mf-ink-800: rgb(8, 13, 24);
-    --mf-ink-700: rgb(14, 22, 38);
-    --mf-ink-600: rgb(24, 36, 58);
-    --mf-line: rgba(138, 180, 255, 0.20);
-    --mf-line-strong: rgba(150, 196, 255, 0.46);
-    --mf-glass: rgba(9, 15, 28, 0.74);
-    --mf-glass-raised: rgba(18, 28, 48, 0.82);
+    /* ---- palette tokens (sRGB, game_value) ---- */
+    --mf-space: #071522;
+    --mf-console: #112B40;
+    --mf-ocean: #176887;
+    --mf-ceramic: #E8EEF0;
+    --mf-signal: #55C5CD;
+    --mf-sunlight: #FFCE83;
+    --mf-muted: #B6C7D3;
+    --mf-meets: #77D6A1;
+    --mf-marginal: #FFD166;
+    --mf-fails: #FF8F8F;
 
-    --mf-text: rgb(236, 242, 252);
-    --mf-text-dim: rgb(160, 176, 202);
-    --mf-text-faint: rgb(108, 124, 152);
+    /* ---- translucent derivatives (same RGB as the token, alpha in the suffix) ---- */
+    --mf-space-0: rgba(7, 21, 34, 0);
+    --mf-space-60: rgba(7, 21, 34, 0.60);
+    --mf-space-80: rgba(7, 21, 34, 0.80);
+    --mf-space-92: rgba(7, 21, 34, 0.92);
+    --mf-console-60: rgba(17, 43, 64, 0.60);
+    --mf-ocean-24: rgba(23, 104, 135, 0.24);
+    --mf-ocean-48: rgba(23, 104, 135, 0.48);
+    --mf-ceramic-06: rgba(232, 238, 240, 0.06);
+    --mf-ceramic-10: rgba(232, 238, 240, 0.10);
+    --mf-ceramic-16: rgba(232, 238, 240, 0.16);
+    --mf-ceramic-32: rgba(232, 238, 240, 0.32);
+    --mf-ceramic-56: rgba(232, 238, 240, 0.56);
+    --mf-signal-16: rgba(85, 197, 205, 0.16);
+    --mf-signal-32: rgba(85, 197, 205, 0.32);
+    --mf-signal-56: rgba(85, 197, 205, 0.56);
+    --mf-sunlight-16: rgba(255, 206, 131, 0.16);
+    --mf-sunlight-40: rgba(255, 206, 131, 0.40);
+    --mf-meets-16: rgba(119, 214, 161, 0.16);
+    --mf-meets-56: rgba(119, 214, 161, 0.56);
+    --mf-marginal-16: rgba(255, 209, 102, 0.16);
+    --mf-fails-16: rgba(255, 143, 143, 0.16);
+    /* QR plate stays pure white to match the QR light modules (QrLight in TitleScreen/LobbyScreen,
+       MfPalette.QrLight). It is a scan surface, never a text colour. */
+    --mf-qr-light: rgb(255, 255, 255);
 
-    --mf-accent: rgb(92, 200, 255);
-    --mf-accent-soft: rgba(92, 200, 255, 0.16);
-    --mf-forge: rgb(255, 138, 61);
-    --mf-forge-hot: rgb(255, 176, 92);
-    --mf-forge-soft: rgba(255, 138, 61, 0.18);
-
-    --mf-good: rgb(53, 208, 165);
-    --mf-good-soft: rgba(53, 208, 165, 0.16);
-    --mf-warn: rgb(255, 197, 61);
-    --mf-warn-soft: rgba(255, 197, 61, 0.16);
-    --mf-bad: rgb(255, 93, 115);
-    --mf-bad-soft: rgba(255, 93, 115, 0.16);
-
+    /* ---- fonts (paths relative to this sheet; Unity resolves them at import) ---- */
     --mf-font-display: url("../Fonts/oxanium-700.ttf");
     --mf-font-display-heavy: url("../Fonts/oxanium-800.ttf");
     --mf-font-display-medium: url("../Fonts/oxanium-500.ttf");
@@ -41,8 +68,8 @@
     --mf-font-mono-bold: url("../Fonts/IBMPlexMono-SemiBold.ttf");
 
     -unity-font-definition: var(--mf-font-body);
-    color: var(--mf-text);
-    font-size: 24px;
+    color: var(--mf-ceramic);
+    font-size: 32px;
 }
 
 /* ---------- layout helpers ---------- */
@@ -60,92 +87,107 @@
 .mf-gap-top { margin-top: 24px; }
 .mf-hidden { display: none; }
 
-/* A screen: fills the panel, keeps a TV-safe margin, fades and lifts in. */
+/* A screen: fills the panel, keeps a 5% TV-safe inset, fades and lifts in. */
 .mf-screen {
     position: absolute; left: 0; top: 0; right: 0; bottom: 0;
-    padding: 132px 56px 48px 56px;
+    padding: 136px 56px 48px 56px;
     opacity: 0;
     translate: 0 18px;
     transition-property: opacity, translate;
     transition-duration: 0.55s, 0.7s;
     transition-timing-function: ease-out-cubic;
 }
-.mf-screen--bare { padding: 56px 72px 48px 72px; }
+.mf-screen--bare { padding: 54px 96px 54px 96px; }
 .mf-screen--shown { opacity: 1; translate: 0 0; }
 
 /* ---------- type ---------- */
+/* Logo-scale display (Oxanium heavy). */
 .mf-display {
     -unity-font-definition: var(--mf-font-display-heavy);
     font-size: 112px;
-    letter-spacing: 10px;
-    color: var(--mf-text);
+    letter-spacing: 4px;
+    color: var(--mf-ceramic);
     margin: 0; padding: 0;
 }
+/* Screen title: 64 px. */
 .mf-h1 {
     -unity-font-definition: var(--mf-font-display);
-    font-size: 56px;
-    letter-spacing: 5px;
-    color: var(--mf-text);
+    font-size: 64px;
+    letter-spacing: 2px;
+    color: var(--mf-ceramic);
     margin: 0; padding: 0;
 }
 .mf-h2 {
     -unity-font-definition: var(--mf-font-display);
-    font-size: 36px;
-    letter-spacing: 3px;
-    color: var(--mf-text);
+    font-size: 40px;
+    letter-spacing: 1px;
+    color: var(--mf-ceramic);
     margin: 0; padding: 0;
 }
 .mf-h3 {
     -unity-font-definition: var(--mf-font-display-medium);
-    font-size: 26px;
-    letter-spacing: 4px;
-    color: var(--mf-accent);
+    font-size: 28px;
+    letter-spacing: 2px;
+    color: var(--mf-signal);
     margin: 0; padding: 0;
 }
+/* Body: 32 px Plex Sans. */
 .mf-body {
     -unity-font-definition: var(--mf-font-body);
-    font-size: 26px;
-    color: var(--mf-text);
+    font-size: 32px;
+    color: var(--mf-ceramic);
     white-space: normal;
     margin: 0; padding: 0;
 }
-.mf-body--dim { color: var(--mf-text-dim); }
+.mf-body--dim { color: var(--mf-muted); }
+/* Secondary label: 24 px Plex Sans medium, Muted. */
 .mf-caption {
     -unity-font-definition: var(--mf-font-body-medium);
-    font-size: 20px;
-    letter-spacing: 3px;
-    color: var(--mf-text-dim);
+    font-size: 24px;
+    letter-spacing: 1px;
+    color: var(--mf-muted);
     margin: 0; padding: 0;
 }
+/* Telemetry numbers: Plex Mono (tabular figures). */
 .mf-num {
     -unity-font-definition: var(--mf-font-mono-bold);
     font-size: 40px;
-    color: var(--mf-text);
+    color: var(--mf-ceramic);
     margin: 0; padding: 0;
 }
 .mf-num--small { font-size: 26px; -unity-font-definition: var(--mf-font-mono); }
 .mf-unit {
     -unity-font-definition: var(--mf-font-mono);
-    font-size: 22px;
-    color: var(--mf-text-dim);
+    font-size: 24px;
+    color: var(--mf-muted);
     margin-left: 8px;
 }
-.mf-text-good { color: var(--mf-good); }
-.mf-text-warn { color: var(--mf-warn); }
-.mf-text-bad { color: var(--mf-bad); }
-.mf-text-accent { color: var(--mf-accent); }
-.mf-text-forge { color: var(--mf-forge); }
+.mf-text-good { color: var(--mf-meets); }
+.mf-text-warn { color: var(--mf-marginal); }
+.mf-text-bad { color: var(--mf-fails); }
+.mf-text-accent { color: var(--mf-signal); }
+.mf-text-forge { color: var(--mf-sunlight); }
+.mf-text-muted { color: var(--mf-muted); }
+.mf-mono { -unity-font-definition: var(--mf-font-mono); }
 
-/* ---------- panel ---------- */
+/* ---------- panel ----------
+   Opaque Console surfaces so a bright cloud or plume behind cannot wash out text.
+   Radius varies by hierarchy: top-level panel = one swept corner (top-right 20 px);
+   raised/primary panel = two swept corners (24 px); tiles inside = 2-4 px; chips = pill. */
 .mf-panel {
-    background-color: var(--mf-glass);
+    background-color: var(--mf-console);
     border-width: 1px;
-    border-color: var(--mf-line);
-    border-top-color: var(--mf-line-strong);
-    border-radius: 6px 22px 6px 22px;
+    border-color: var(--mf-ceramic-16);
+    border-radius: 4px 20px 4px 4px;
     padding: 24px 28px 26px 28px;
 }
-.mf-panel--raised { background-color: var(--mf-glass-raised); border-color: var(--mf-line-strong); }
+.mf-panel--raised {
+    border-color: var(--mf-ceramic-32);
+    border-top-width: 3px;
+    border-top-color: var(--mf-signal);
+    border-radius: 4px 24px 4px 24px;
+    padding-top: 22px;
+}
 .mf-panel--flush { padding: 0; }
 .mf-panel__header {
     flex-direction: row;
@@ -154,20 +196,20 @@
     margin-bottom: 18px;
     padding-bottom: 14px;
     border-bottom-width: 1px;
-    border-bottom-color: var(--mf-line);
+    border-bottom-color: var(--mf-ceramic-16);
 }
 .mf-panel__title {
     -unity-font-definition: var(--mf-font-display-medium);
-    font-size: 24px;
-    letter-spacing: 5px;
-    color: var(--mf-accent);
+    font-size: 28px;
+    letter-spacing: 2px;
+    color: var(--mf-ceramic);
     margin: 0; padding: 0;
 }
 .mf-panel__tag {
     -unity-font-definition: var(--mf-font-mono);
-    font-size: 18px;
-    letter-spacing: 2px;
-    color: var(--mf-text-faint);
+    font-size: 24px;
+    letter-spacing: 1px;
+    color: var(--mf-muted);
     margin: 0; padding: 0;
 }
 .mf-panel__body { flex-grow: 1; }
@@ -176,139 +218,249 @@
 .mf-region {
     flex-grow: 1;
     border-width: 1px;
-    border-color: rgba(138, 180, 255, 0.12);
-    border-radius: 4px;
-    background-color: rgba(92, 200, 255, 0.035);
+    border-color: var(--mf-ceramic-10);
+    border-radius: 2px;
+    background-color: var(--mf-space-60);
     padding: 18px 20px;
     justify-content: flex-end;
 }
 .mf-region__label {
     -unity-font-definition: var(--mf-font-mono);
-    font-size: 18px;
-    letter-spacing: 2px;
-    color: var(--mf-text-faint);
+    font-size: 20px;
+    letter-spacing: 1px;
+    color: var(--mf-muted);
     margin: 0; padding: 0;
     white-space: normal;
 }
 .mf-skeleton {
     height: 14px;
     border-radius: 7px;
-    background-color: rgba(138, 180, 255, 0.10);
+    background-color: var(--mf-ceramic-10);
     margin-bottom: 14px;
 }
 .mf-skeleton--short { width: 38%; }
 .mf-skeleton--mid { width: 64%; }
 .mf-skeleton--long { width: 88%; }
 
-/* ---------- buttons ---------- */
+/* ---------- buttons ----------
+   Motion uses compositor-friendly properties only: opacity, scale, translate, background-color.
+   Focus = Signal border + thicker border (padding shrinks by the same amount, so no layout shift)
+   + corner change to square 2 px: a visible shape change, not just a hue change.
+   USS has no outline property, so the Signal border is the focus ring. */
 .mf-btn {
-    -unity-font-definition: var(--mf-font-display);
+    -unity-font-definition: var(--mf-font-body-bold);
     font-size: 30px;
-    letter-spacing: 5px;
-    color: var(--mf-text);
-    background-color: rgba(18, 28, 48, 0.72);
+    letter-spacing: 0;
+    color: var(--mf-ceramic);
+    background-color: var(--mf-console);
     border-width: 2px;
-    border-color: var(--mf-line-strong);
-    border-radius: 4px 16px 4px 16px;
-    padding: 18px 38px;
+    border-color: var(--mf-ceramic-32);
+    border-radius: 6px;
+    padding: 16px 36px;
     margin: 0;
     min-height: 76px;
     -unity-text-align: middle-center;
-    transition-property: background-color, border-color, translate, scale, color;
-    transition-duration: 0.18s;
-    transition-timing-function: ease-out;
+    white-space: nowrap;
+    transition-property: background-color, translate, scale, opacity;
+    transition-duration: 0.16s;
+    transition-timing-function: ease-out-cubic;
 }
-.mf-btn:hover { background-color: rgba(92, 200, 255, 0.20); border-color: var(--mf-accent); translate: 0 -2px; }
-.mf-btn:focus { border-color: rgb(255, 255, 255); }
-.mf-btn:active { translate: 0 2px; scale: 0.985 0.985; background-color: rgba(92, 200, 255, 0.32); }
-.mf-btn:disabled { opacity: 0.42; }
+.mf-btn:hover { background-color: var(--mf-ocean); border-color: var(--mf-ceramic-56); translate: 0 -2px; }
+.mf-btn:active { background-color: var(--mf-space); translate: 0 1px; scale: 0.98 0.98; }
+.mf-btn:focus {
+    border-width: 4px;
+    border-color: var(--mf-signal);
+    border-radius: 2px;
+    padding: 14px 34px;
+}
+.mf-btn:disabled,
+.mf-btn:disabled:hover {
+    opacity: 0.5;
+    color: var(--mf-muted);
+    background-color: var(--mf-console);
+    border-color: var(--mf-ceramic-16);
+    translate: 0 0;
+    scale: 1 1;
+}
 
+/* Primary: Ceramic plate with Space text (rocket paint on navy). Not Sunlight, which would read as
+   the amber Marginal status. */
 .mf-btn--primary {
-    color: rgb(18, 10, 4);
-    background-color: var(--mf-forge);
-    border-color: var(--mf-forge-hot);
-    font-size: 36px;
-    padding: 24px 54px;
+    color: var(--mf-space);
+    background-color: var(--mf-ceramic);
+    border-color: var(--mf-ceramic);
+    font-size: 34px;
+    padding: 22px 52px;
     min-height: 96px;
+    border-radius: 10px 10px 10px 2px;
 }
-.mf-btn--primary:hover { background-color: var(--mf-forge-hot); border-color: rgb(255, 226, 188); translate: 0 -3px; }
-.mf-btn--primary:active { background-color: rgb(232, 112, 36); translate: 0 2px; }
-.mf-btn--ghost { background-color: rgba(0, 0, 0, 0); border-color: var(--mf-line); color: var(--mf-text-dim); font-size: 24px; min-height: 60px; padding: 12px 26px; }
-.mf-btn--ghost:hover { color: var(--mf-text); }
+.mf-btn--primary:hover { background-color: var(--mf-ceramic); border-color: var(--mf-signal); translate: 0 -3px; scale: 1.02 1.02; }
+.mf-btn--primary:active { background-color: var(--mf-muted); translate: 0 1px; scale: 0.98 0.98; }
+.mf-btn--primary:focus { border-color: var(--mf-signal); padding: 20px 50px; border-radius: 2px; }
+.mf-btn--primary:disabled,
+.mf-btn--primary:disabled:hover {
+    color: var(--mf-muted);
+    background-color: var(--mf-console);
+    border-color: var(--mf-ceramic-32);
+    opacity: 0.6;
+}
 
-/* Segmented control (settings). */
+.mf-btn--ghost {
+    background-color: var(--mf-space-0);
+    border-color: var(--mf-ceramic-16);
+    color: var(--mf-muted);
+    -unity-font-definition: var(--mf-font-body-medium);
+    font-size: 26px;
+    min-height: 64px;
+    padding: 12px 28px;
+}
+.mf-btn--ghost:hover { color: var(--mf-ceramic); background-color: var(--mf-console); }
+.mf-btn--ghost:focus { padding: 10px 26px; color: var(--mf-ceramic); }
+
+/* Segmented control (settings). Selection = Signal fill with Space text (selection, not status). */
 .mf-segment { flex-direction: row; }
 .mf-segment__item {
     -unity-font-definition: var(--mf-font-body-medium);
-    font-size: 22px;
-    letter-spacing: 1px;
-    color: var(--mf-text-dim);
-    background-color: rgba(18, 28, 48, 0.6);
+    font-size: 24px;
+    letter-spacing: 0;
+    color: var(--mf-muted);
+    background-color: var(--mf-space);
     border-width: 1px;
-    border-color: var(--mf-line);
+    border-color: var(--mf-ceramic-16);
     border-radius: 0;
     margin: 0 -1px 0 0;
     padding: 10px 18px;
-    min-height: 52px;
+    min-height: 56px;
     flex-grow: 1;
-    transition-property: background-color, color, border-color;
+    transition-property: background-color, translate;
     transition-duration: 0.15s;
 }
-.mf-segment__item:hover { color: var(--mf-text); border-color: var(--mf-line-strong); }
+.mf-segment__item:hover { color: var(--mf-ceramic); background-color: var(--mf-ocean-48); }
+.mf-segment__item:active { translate: 0 1px; }
+.mf-segment__item:focus { border-width: 3px; border-color: var(--mf-signal); padding: 8px 16px; border-radius: 2px; }
 .mf-segment__item--on {
-    color: rgb(4, 14, 22);
-    background-color: var(--mf-accent);
-    border-color: var(--mf-accent);
+    color: var(--mf-space);
+    background-color: var(--mf-signal);
+    border-color: var(--mf-signal);
     -unity-font-definition: var(--mf-font-body-bold);
 }
-.mf-segment__item--on:hover { color: rgb(4, 14, 22); }
+.mf-segment__item--on:hover { color: var(--mf-space); background-color: var(--mf-signal); }
 
 /* ---------- chips ---------- */
 .mf-chip {
     flex-direction: row;
     align-items: center;
     align-self: flex-start;
-    padding: 6px 14px 6px 10px;
+    padding: 6px 16px 6px 10px;
     border-radius: 999px;
     border-width: 1px;
-    border-color: var(--mf-line-strong);
-    background-color: var(--mf-accent-soft);
+    border-color: var(--mf-ceramic-32);
+    background-color: var(--mf-console);
 }
 .mf-chip__label {
-    -unity-font-definition: var(--mf-font-display-medium);
-    font-size: 20px;
-    letter-spacing: 3px;
-    color: var(--mf-text);
+    -unity-font-definition: var(--mf-font-body-medium);
+    font-size: 24px;
+    letter-spacing: 0;
+    color: var(--mf-ceramic);
     margin: 0 0 0 8px; padding: 0;
 }
-.mf-chip--good { border-color: var(--mf-good); background-color: var(--mf-good-soft); }
-.mf-chip--warn { border-color: var(--mf-warn); background-color: var(--mf-warn-soft); }
-.mf-chip--bad { border-color: var(--mf-bad); background-color: var(--mf-bad-soft); }
-.mf-chip--forge { border-color: var(--mf-forge); background-color: var(--mf-forge-soft); }
-.mf-chip--muted { border-color: var(--mf-line); background-color: rgba(0, 0, 0, 0); }
-.mf-chip--muted .mf-chip__label { color: var(--mf-text-faint); }
+/* Status chips: hue on Console + border treatment (see status block). Labels take the hue. */
+.mf-chip--good { border-width: 2px; border-color: var(--mf-meets); padding: 5px 15px 5px 9px; }
+.mf-chip--good .mf-chip__label { color: var(--mf-meets); }
+.mf-chip--warn { border-width: 2px 2px 2px 8px; border-color: var(--mf-marginal); border-radius: 4px; padding: 5px 15px 5px 3px; }
+.mf-chip--warn .mf-chip__label { color: var(--mf-marginal); }
+.mf-chip--bad { border-width: 4px; border-color: var(--mf-fails); border-radius: 6px; padding: 3px 13px 3px 7px; }
+.mf-chip--bad .mf-chip__label { color: var(--mf-fails); }
+/* Role chip (identity, not status): Ocean fill, Ceramic text (5.3:1). --forge kept as legacy alias. */
+.mf-chip--role,
+.mf-chip--forge { border-color: var(--mf-ceramic-32); background-color: var(--mf-ocean); }
+.mf-chip--role .mf-chip__label,
+.mf-chip--forge .mf-chip__label { color: var(--mf-ceramic); -unity-font-definition: var(--mf-font-body-bold); }
+.mf-chip--muted { border-color: var(--mf-ceramic-16); background-color: var(--mf-space-0); }
+.mf-chip--muted .mf-chip__label { color: var(--mf-muted); }
+
+/* ---------- status: Meets / Marginal / Fails ----------
+   Markup:
+     <VisualElement class="mf-status mf-status--meets">
+       <VisualElement class="mf-status__glyph"><mf:MfIcon kind="check" class="mf-status__icon" /></VisualElement>
+       <Label class="mf-status__label" text="Meets" />
+     </VisualElement>
+   Icon kinds: meets = "check", marginal = "warn" (MfIcon draws ! inside a triangle), fails = "cross".
+   MfIcon colour comes from its Tint property (C#: MfPalette.Meets / Marginal / Fails), not from USS.
+   Border treatment (USS has no dashed or double style, so they are emulated and stay distinct in grayscale):
+     meets    = solid 2 px all round, glyph inside a circle;
+     marginal = "notched": 2 px with an 8 px leading bar, square corners (stands in for dashed);
+     fails    = heavy 4 px, glyph inside a double ring with chamfer-like 8 px corners (stands in for
+                double border + octagon). */
+.mf-status {
+    flex-direction: row;
+    align-items: center;
+    align-self: flex-start;
+    background-color: var(--mf-console);
+    border-width: 2px;
+    border-color: var(--mf-ceramic-32);
+    border-radius: 6px;
+    padding: 6px 18px 6px 8px;
+}
+.mf-status__glyph {
+    width: 40px; height: 40px;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-right: 10px;
+}
+.mf-status__icon { width: 26px; height: 26px; }
+.mf-status__label {
+    -unity-font-definition: var(--mf-font-body-bold);
+    font-size: 24px;
+    color: var(--mf-ceramic);
+    margin: 0; padding: 0;
+}
+.mf-status--meets { border-color: var(--mf-meets); border-radius: 22px; }
+.mf-status--meets .mf-status__glyph { border-width: 2px; border-color: var(--mf-meets); border-radius: 20px; }
+.mf-status--meets .mf-status__label { color: var(--mf-meets); }
+
+.mf-status--marginal { border-color: var(--mf-marginal); border-left-width: 8px; border-radius: 0; padding-left: 2px; }
+.mf-status--marginal .mf-status__icon { width: 34px; height: 34px; }
+.mf-status--marginal .mf-status__label { color: var(--mf-marginal); }
+
+.mf-status--fails { border-width: 4px; border-color: var(--mf-fails); border-radius: 10px; padding: 4px 16px 4px 6px; }
+.mf-status--fails .mf-status__glyph { border-width: 2px; border-color: var(--mf-fails); border-radius: 8px; padding: 3px; }
+.mf-status--fails .mf-status__icon { border-width: 2px; border-color: var(--mf-fails); border-radius: 5px; width: 30px; height: 30px; }
+.mf-status--fails .mf-status__label { color: var(--mf-fails); }
+
+/* Filled variant for small badges: status fill with Space text (never white on pale fills). */
+.mf-status--filled.mf-status--meets { background-color: var(--mf-meets); }
+.mf-status--filled.mf-status--marginal { background-color: var(--mf-marginal); }
+.mf-status--filled.mf-status--fails { background-color: var(--mf-fails); }
+.mf-status--filled .mf-status__label { color: var(--mf-space); }
+.mf-status--filled .mf-status__glyph { border-color: var(--mf-space); }
+.mf-status--filled .mf-status__icon { border-color: var(--mf-space); }
 
 /* ---------- stat bar (Part Card, dashboard) ---------- */
 .mf-statbar { flex-direction: row; align-items: center; margin-bottom: 14px; }
-.mf-statbar__label { width: 190px; -unity-font-definition: var(--mf-font-body-medium); font-size: 24px; color: var(--mf-text-dim); margin: 0; padding: 0; }
-.mf-statbar__value { width: 230px; -unity-font-definition: var(--mf-font-mono-bold); font-size: 26px; color: var(--mf-text); margin: 0; padding: 0; -unity-text-align: middle-right; }
-.mf-statbar__track { flex-grow: 1; height: 18px; margin: 0 18px; background-color: rgba(138, 180, 255, 0.12); border-radius: 3px; overflow: hidden; }
-.mf-statbar__fill { height: 100%; background-color: var(--mf-accent); border-radius: 3px; transition-property: width; transition-duration: 0.45s; transition-timing-function: ease-out-cubic; }
-.mf-statbar--good .mf-statbar__fill { background-color: var(--mf-good); }
-.mf-statbar--warn .mf-statbar__fill { background-color: var(--mf-warn); }
-.mf-statbar--bad .mf-statbar__fill { background-color: var(--mf-bad); }
+.mf-statbar__label { width: 190px; -unity-font-definition: var(--mf-font-body-medium); font-size: 24px; color: var(--mf-muted); margin: 0; padding: 0; }
+.mf-statbar__value { width: 230px; -unity-font-definition: var(--mf-font-mono-bold); font-size: 26px; color: var(--mf-ceramic); margin: 0; padding: 0; -unity-text-align: middle-right; }
+.mf-statbar__track { flex-grow: 1; height: 18px; margin: 0 18px; background-color: var(--mf-ceramic-10); border-radius: 2px; overflow: hidden; }
+.mf-statbar__fill { height: 100%; background-color: var(--mf-signal); border-radius: 2px; transition-property: width; transition-duration: 0.45s; transition-timing-function: ease-out-cubic; }
+.mf-statbar--good .mf-statbar__fill { background-color: var(--mf-meets); }
+.mf-statbar--warn .mf-statbar__fill { background-color: var(--mf-marginal); }
+.mf-statbar--bad .mf-statbar__fill { background-color: var(--mf-fails); }
+/* Track outline per status so the bar is not hue-only (pair with an mf-status or MfIcon label). */
+.mf-statbar--warn .mf-statbar__track { border-left-width: 4px; border-left-color: var(--mf-marginal); }
+.mf-statbar--bad .mf-statbar__track { border-width: 2px; border-color: var(--mf-fails); }
 
 /* ---------- chrome (persistent top bar) ---------- */
 .mf-chrome { position: absolute; left: 0; top: 0; right: 0; bottom: 0; }
 .mf-topbar {
     position: absolute; left: 0; top: 0; right: 0;
-    height: 104px;
+    height: 112px;
     flex-direction: row;
     align-items: center;
     padding: 0 56px;
-    background-color: rgba(4, 7, 14, 0.72);
+    background-color: var(--mf-space-92);
     border-bottom-width: 1px;
-    border-bottom-color: var(--mf-line);
+    border-bottom-color: var(--mf-ceramic-16);
     opacity: 0;
     translate: 0 -24px;
     transition-property: opacity, translate;
@@ -316,77 +468,141 @@
     transition-timing-function: ease-out-cubic;
 }
 .mf-topbar--shown { opacity: 1; translate: 0 0; }
-.mf-topbar__brand { -unity-font-definition: var(--mf-font-display-heavy); font-size: 26px; letter-spacing: 6px; color: var(--mf-text); margin: 0 0 0 14px; padding: 0; }
-.mf-topbar__title { -unity-font-definition: var(--mf-font-display); font-size: 40px; letter-spacing: 6px; color: var(--mf-text); margin: 0 0 0 36px; padding: 0 0 0 36px; border-left-width: 2px; border-left-color: var(--mf-forge); }
-.mf-stepper { flex-direction: row; align-items: center; flex-grow: 1; justify-content: center; }
-.mf-step { -unity-font-definition: var(--mf-font-display-medium); font-size: 17px; letter-spacing: 2px; color: var(--mf-text-faint); margin: 0 9px; padding: 6px 0; border-bottom-width: 3px; border-bottom-color: rgba(0, 0, 0, 0); }
-.mf-step--done { color: var(--mf-text-dim); border-bottom-color: rgba(53, 208, 165, 0.55); }
-.mf-step--current { color: var(--mf-text); border-bottom-color: var(--mf-forge); }
-.mf-roomcode { flex-direction: row; align-items: center; }
-.mf-roomcode__label { -unity-font-definition: var(--mf-font-body-medium); font-size: 18px; letter-spacing: 3px; color: var(--mf-text-dim); margin: 0 12px 0 0; padding: 0; }
-.mf-roomcode__value { -unity-font-definition: var(--mf-font-mono-bold); font-size: 40px; letter-spacing: 10px; color: var(--mf-forge-hot); margin: 0 24px 0 0; padding: 0; }
-.mf-veil { position: absolute; left: 0; top: 0; right: 0; bottom: 0; background-color: rgb(2, 4, 9); opacity: 1; }
+.mf-topbar__brand { -unity-font-definition: var(--mf-font-display-heavy); font-size: 28px; letter-spacing: 3px; color: var(--mf-ceramic); margin: 0 0 0 14px; padding: 0; }
+/* Screen title in the bar. 48 px, not 64: the bar also carries the phase stepper, room code and
+   connection chip, and the longest title (SETTINGS & ACCESSIBILITY) must still fit at 1920 px.
+   In-screen titles (.mf-h1) use the full 64 px. */
+.mf-topbar__title {
+    -unity-font-definition: var(--mf-font-display);
+    font-size: 48px;
+    letter-spacing: 2px;
+    color: var(--mf-ceramic);
+    margin: 0 0 0 28px;
+    padding: 0 0 0 28px;
+    border-left-width: 3px;
+    border-left-color: var(--mf-signal);
+    flex-shrink: 0;
+}
+.mf-stepper { flex-direction: row; align-items: center; flex-grow: 1; flex-shrink: 1; justify-content: center; overflow: hidden; margin: 0 16px; }
+.mf-step {
+    -unity-font-definition: var(--mf-font-display-medium);
+    font-size: 20px;
+    letter-spacing: 1px;
+    color: var(--mf-muted);
+    opacity: 0.7;
+    margin: 0 8px;
+    padding: 6px 0;
+    border-bottom-width: 4px;
+    border-bottom-color: var(--mf-space-0);
+}
+.mf-step--done { opacity: 1; color: var(--mf-muted); border-bottom-color: var(--mf-ceramic-32); }
+.mf-step--current { opacity: 1; color: var(--mf-ceramic); border-bottom-color: var(--mf-signal); -unity-font-definition: var(--mf-font-display); }
+.mf-roomcode { flex-direction: row; align-items: center; flex-shrink: 0; }
+.mf-roomcode__label { -unity-font-definition: var(--mf-font-body-medium); font-size: 24px; color: var(--mf-muted); margin: 0 12px 0 0; padding: 0; }
+.mf-roomcode__value { -unity-font-definition: var(--mf-font-mono-bold); font-size: 44px; letter-spacing: 6px; color: var(--mf-ceramic); margin: 0 24px 0 0; padding: 0; }
+.mf-topbar__conn { align-self: center; flex-shrink: 0; }
+.mf-veil { position: absolute; left: 0; top: 0; right: 0; bottom: 0; background-color: var(--mf-space); opacity: 1; }
 
-/* ---------- title ---------- */
-.mf-title__left { position: absolute; left: 96px; top: 150px; width: 980px; }
-.mf-title__wordmark-row { flex-direction: row; align-items: flex-end; margin-top: 26px; }
-.mf-title__mission { -unity-font-definition: var(--mf-font-display-medium); font-size: 118px; letter-spacing: 12px; color: var(--mf-text); margin: 0; padding: 0; }
-.mf-title__forge { -unity-font-definition: var(--mf-font-display-heavy); font-size: 118px; letter-spacing: 12px; color: var(--mf-forge); margin: 0; padding: 0; text-shadow: 0 0 34px rgba(255, 138, 61, 0.55); }
-.mf-title__rule { width: 132px; height: 5px; background-color: var(--mf-forge); margin: 8px 0 26px 6px; }
-.mf-title__tagline { -unity-font-definition: var(--mf-font-display-medium); font-size: 32px; letter-spacing: 9px; color: var(--mf-text-dim); margin: 0 0 0 6px; padding: 0; }
-.mf-title__pitch { width: 760px; margin: 30px 0 46px 6px; font-size: 27px; color: var(--mf-text-dim); white-space: normal; padding: 0; }
-.mf-title__actions { flex-direction: row; align-items: center; margin-left: 6px; }
-.mf-title__footer { position: absolute; left: 102px; right: 96px; bottom: 44px; flex-direction: row; align-items: center; justify-content: space-between; }
-.mf-title__credit { font-size: 18px; letter-spacing: 1px; color: var(--mf-text-faint); margin: 0; padding: 0; }
+/* ---------- title ----------
+   Safe regions (STYLE_GUIDE, game_value): live logo inside the upper-left 45% x 35% (864 x 378 px),
+   inset 5% (96 / 54 px) -> logo box 768 x 324 px. Quiet navy above-left; the right ~24% of the frame
+   stays clear for the rocket silhouette; Earth sits low. Actions anchor bottom-left. */
+.mf-title__brand {
+    position: absolute; left: 96px; top: 54px;
+    width: 768px; height: 324px;
+    justify-content: flex-end;
+}
+.mf-title__lockup { flex-direction: row; align-items: center; }
+.mf-title__wordmark { margin-left: 28px; }
+.mf-title__mission { -unity-font-definition: var(--mf-font-display-medium); font-size: 96px; letter-spacing: 4px; color: var(--mf-ceramic); margin: 0; padding: 0; }
+.mf-title__forge { -unity-font-definition: var(--mf-font-display-heavy); font-size: 96px; letter-spacing: 4px; color: var(--mf-sunlight); margin: -16px 0 0 0; padding: 0; text-shadow: 0 0 28px rgba(255, 206, 131, 0.40); /* = --mf-sunlight-40, written out: var() is not reliable inside a multi-part shadow value */ }
+.mf-title__rule { width: 120px; height: 4px; background-color: var(--mf-signal); margin: 18px 0 16px 0; }
+.mf-title__tagline { -unity-font-definition: var(--mf-font-body-medium); font-size: 32px; letter-spacing: 1px; color: var(--mf-muted); margin: 0; padding: 0; }
 
+/* Pitch + actions: lower-left column, below the logo region. */
+.mf-title__left { position: absolute; left: 96px; bottom: 120px; width: 780px; }
+.mf-title__pitch { width: 720px; margin: 0 0 40px 0; font-size: 32px; color: var(--mf-muted); white-space: normal; padding: 0; }
+.mf-title__actions { flex-direction: row; align-items: center; }
+/* .mf-btn resets margins, so the action spacing needs the more specific selector. */
+.mf-title__actions > .mf-btn { margin-right: 24px; }
+.mf-title__footer { position: absolute; left: 96px; right: 96px; bottom: 40px; flex-direction: row; align-items: center; justify-content: space-between; }
+.mf-title__credit { font-size: 20px; color: var(--mf-muted); margin: 0 0 0 32px; padding: 6px 14px; border-radius: 4px; background-color: var(--mf-space-80); flex-grow: 0; -unity-text-align: middle-right; white-space: normal; flex-shrink: 1; }
+.mf-title__server { align-self: center; flex-shrink: 0; }
+
+/* Room panel: hidden until a room exists (C# adds .mf-roompanel--shown). Sits in the centre column,
+   right of the logo/actions (x 900-1500 px), leaving the right ~22% clear for the rocket. */
 .mf-roompanel {
-    position: absolute; right: 96px; top: 168px; width: 640px;
+    position: absolute; left: 900px; top: 160px; width: 600px;
     opacity: 0;
-    translate: 60px 0;
+    translate: 0 40px;
     transition-property: opacity, translate;
     transition-duration: 0.5s;
     transition-timing-function: ease-out-cubic;
 }
 .mf-roompanel--shown { opacity: 1; translate: 0 0; }
-.mf-codecells { flex-direction: row; justify-content: space-between; margin: 10px 0 26px 0; }
+.mf-codecells { flex-direction: row; justify-content: space-between; margin: 10px 0 24px 0; }
 .mf-codecell {
-    width: 128px; height: 150px;
+    width: 124px; height: 140px;
     align-items: center; justify-content: center;
-    background-color: rgba(4, 7, 14, 0.85);
+    background-color: var(--mf-space);
     border-width: 2px;
-    border-color: var(--mf-forge);
-    border-radius: 4px 14px 4px 14px;
+    border-color: var(--mf-ceramic-32);
+    border-bottom-width: 6px;
+    border-bottom-color: var(--mf-signal);
+    border-radius: 4px 4px 0 0;
 }
-.mf-codecell__char { -unity-font-definition: var(--mf-font-mono-bold); font-size: 104px; color: var(--mf-forge-hot); margin: 0; padding: 0; -unity-text-align: middle-center; }
-.mf-qr { width: 236px; height: 236px; background-color: rgb(255, 255, 255); border-radius: 10px; padding: 14px; flex-shrink: 0; }
+.mf-codecell__char { -unity-font-definition: var(--mf-font-mono-bold); font-size: 96px; color: var(--mf-ceramic); margin: 0; padding: 0; -unity-text-align: middle-center; }
+.mf-qr { width: 236px; height: 236px; background-color: var(--mf-qr-light); border-radius: 4px; padding: 14px; flex-shrink: 0; }
+.mf-qr--compact { width: 172px; height: 172px; padding: 10px; }
 .mf-qr__image { flex-grow: 1; -unity-background-scale-mode: scale-to-fit; }
-.mf-joinurl { -unity-font-definition: var(--mf-font-mono); font-size: 21px; color: var(--mf-accent); white-space: normal; margin: 6px 0 0 0; padding: 0; }
+.mf-joinurl { -unity-font-definition: var(--mf-font-mono); font-size: 24px; color: var(--mf-signal); white-space: normal; margin: 8px 0 0 0; padding: 0; }
+.mf-joinurl--small { font-size: 20px; }
+.mf-roompanel__hint { white-space: normal; margin-top: 8px; }
+.mf-roompanel__unit { margin-bottom: 8px; }
 
 /* ---------- lobby ---------- */
 .mf-crewgrid { flex-direction: row; flex-wrap: wrap; align-content: flex-start; margin: 0 -10px; }
 .mf-crewcard {
-    width: 222px; height: 276px;
+    width: 216px; height: 276px;
     margin: 0 10px 20px 10px;
     padding: 20px 12px 14px 12px;
     align-items: center;
-    background-color: rgba(18, 28, 48, 0.78);
+    background-color: var(--mf-space);
     border-width: 1px;
-    border-color: var(--mf-line-strong);
-    border-radius: 4px 18px 4px 18px;
+    border-color: var(--mf-ceramic-32);
+    border-top-width: 4px;
+    border-top-color: var(--mf-signal);
+    border-radius: 2px 2px 14px 14px;
     opacity: 0;
     scale: 0.86 0.86;
     translate: 0 16px;
-    transition-property: opacity, scale, translate, border-color;
+    transition-property: opacity, scale, translate;
     transition-duration: 0.45s;
     transition-timing-function: ease-out-back;
 }
 .mf-crewcard--in { opacity: 1; scale: 1 1; translate: 0 0; }
-.mf-crewcard--away { opacity: 0.45; }
-.mf-crewcard--empty { background-color: rgba(9, 15, 28, 0.38); border-color: rgba(138, 180, 255, 0.14); opacity: 1; scale: 1 1; translate: 0 0; justify-content: center; }
+/* Disconnected: dimmed plus a Muted top bar, so the state is not opacity alone. */
+.mf-crewcard--away { opacity: 0.5; border-top-color: var(--mf-muted); }
+.mf-crewcard--empty {
+    background-color: var(--mf-console-60);
+    border-color: var(--mf-ceramic-10);
+    border-top-width: 1px;
+    border-top-color: var(--mf-ceramic-10);
+    padding-top: 23px;
+    opacity: 1; scale: 1 1; translate: 0 0;
+    justify-content: center;
+}
 .mf-crewcard__avatar { width: 124px; height: 124px; margin-bottom: 12px; }
-.mf-crewcard__name { -unity-font-definition: var(--mf-font-body-bold); font-size: 28px; color: var(--mf-text); margin: 0 0 10px 0; padding: 0; -unity-text-align: middle-center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 196px; }
-.mf-crewcard__slot { -unity-font-definition: var(--mf-font-mono); font-size: 20px; letter-spacing: 2px; color: var(--mf-text-faint); margin: 0; padding: 0; -unity-text-align: middle-center; }
+.mf-crewcard__name { -unity-font-definition: var(--mf-font-body-bold); font-size: 28px; color: var(--mf-ceramic); margin: 0 0 10px 0; padding: 0; -unity-text-align: middle-center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 190px; }
+.mf-crewcard__slot { -unity-font-definition: var(--mf-font-mono); font-size: 24px; letter-spacing: 1px; color: var(--mf-muted); margin: 0; padding: 0; -unity-text-align: middle-center; }
 .mf-crewcard .mf-chip { align-self: center; }
-.mf-setting { margin-bottom: 20px; }
-.mf-setting__label { -unity-font-definition: var(--mf-font-body-medium); font-size: 20px; letter-spacing: 3px; color: var(--mf-text-dim); margin: 0 0 8px 0; padding: 0; }
-.mf-lobby__count { -unity-font-definition: var(--mf-font-mono-bold); font-size: 44px; color: var(--mf-text); margin: 0; padding: 0; }
+.mf-setting { margin-bottom: 14px; }
+.mf-setting__label { -unity-font-definition: var(--mf-font-body-medium); font-size: 24px; color: var(--mf-muted); margin: 0 0 6px 0; padding: 0; }
+.mf-lobby__count { -unity-font-definition: var(--mf-font-mono-bold); font-size: 44px; color: var(--mf-ceramic); margin: 0; padding: 0; }
+/* Side column: 540 px keeps five 216 px crew cards per row in the roster (two rows for ten seats). */
+.mf-lobby__side { width: 540px; flex-shrink: 0; }
+.mf-lobby__side .mf-segment__item { min-height: 52px; padding: 8px 10px; }
+.mf-lobby__side .mf-segment__item:focus { padding: 6px 8px; }
+.mf-lobby__code { font-size: 80px; letter-spacing: 8px; margin: 0; }
+.mf-lobby__footer { flex-direction: row; align-items: center; justify-content: space-between; padding-top: 18px; border-top-width: 1px; border-top-color: var(--mf-ceramic-16); }
+.mf-lobby__hint { flex-shrink: 1; margin-right: 24px; }

@@ -1,0 +1,459 @@
+{
+  "$schema": "./schema/anomaly.schema.json",
+  "design_notes": [
+    "Cards, trigger texts and responses are those of table 6.8. \"Every 3–5 votes\" is draw.min_votes_between 3 and max_votes_between 5.",
+    "The design gives no draw weight for any card. base_weight and every weight_mult in this file are chosen by the data author (game values, to be tuned with playtests).",
+    "How the weights are meant to be used: weight = base_weight × the weight_mult of every trigger that holds. A trigger without weight_mult is a gate: the card can be drawn only while it holds (test_revealed_flaw, test_skipped, payload_contract, science_payload, and the part_rule of Contamination in Clean Room). The kinds random and rare only describe the card. Core must confirm or replace this rule.",
+    "A part_rule trigger holds when a chosen part has an anomaly_weight rule for the card. The multiplier applies once, however many parts carry the rule. Cards tied to one place or one kind of hardware have a low base weight and a high multiplier (range_conflict, helium_shortage, lightning_season), so they are rare without the part.",
+    "Response effects carry a number only where the design prints one: +$4 M, +12 days, −10% budget, +2% Δv, −5 days, 5 days, +3 days, +$1 M and +2 days, 3 days, +$1 M. The rest (\"+$\", \"+days\", \"reliability −\", \"+$ overtime\", \"+mass\", \"science penalty\", \"less Δv margin\", \"scrub\") have no amount in the design and are flags.",
+    "Money is stored as an addition to cost_M and days as an addition to schedule_days.",
+    "Appendix A shows the delay of Supplier Delay as the default and the payment as the way out; the effects therefore sit on the responses, not on the card.",
+    "Launch sites refer to \"tropical storm\" and \"fog\" cards that do not exist in this table; launch_site.json maps them to weather_front."
+  ],
+  "draw": {
+    "min_votes_between": 3,
+    "max_votes_between": 5
+  },
+  "anomalies": [
+    {
+      "id": "supplier_delay",
+      "name_key": "anomaly.supplier_delay.name",
+      "trigger_key": "anomaly.supplier_delay.trigger",
+      "base_weight": 1,
+      "triggers": [
+        {
+          "kind": "part_rule",
+          "weight_mult": 2
+        }
+      ],
+      "responses": [
+        {
+          "id": "pay_to_expedite",
+          "text_key": "anomaly.supplier_delay.response.pay_to_expedite",
+          "effects": [
+            {
+              "target": "cost_M",
+              "op": "add",
+              "value": 4,
+              "scope": "mission"
+            }
+          ]
+        },
+        {
+          "id": "accept_delay",
+          "text_key": "anomaly.supplier_delay.response.accept_delay",
+          "effects": [
+            {
+              "target": "schedule_days",
+              "op": "add",
+              "value": 12,
+              "scope": "mission"
+            }
+          ]
+        },
+        {
+          "id": "switch_part",
+          "text_key": "anomaly.supplier_delay.response.switch_part",
+          "action": "swap_part"
+        }
+      ],
+      "design_notes": [
+        "The design does not say what the alternative part costs or whether the swap is a free re-vote."
+      ]
+    },
+    {
+      "id": "budget_cut",
+      "name_key": "anomaly.budget_cut.name",
+      "flavor_key": "anomaly.budget_cut.flavor",
+      "trigger_key": "anomaly.budget_cut.trigger",
+      "base_weight": 1,
+      "triggers": [
+        {
+          "kind": "campaign_mode",
+          "weight_mult": 2
+        }
+      ],
+      "effects": [
+        {
+          "target": "budget_M",
+          "op": "add_fraction",
+          "value": -0.1,
+          "scope": "mission"
+        }
+      ],
+      "responses": [
+        {
+          "id": "cut_test",
+          "text_key": "anomaly.budget_cut.response.cut_test",
+          "action": "cut_test"
+        },
+        {
+          "id": "downgrade_part",
+          "text_key": "anomaly.budget_cut.response.downgrade_part",
+          "action": "downgrade_part"
+        },
+        {
+          "id": "use_emergency_funding",
+          "text_key": "anomaly.budget_cut.response.use_emergency_funding",
+          "action": "use_emergency_funding"
+        }
+      ],
+      "design_notes": [
+        "The 10% cut applies when the card is drawn; the responses are the ways to absorb it. Emergency Funding is the PM ability of roles.json (+10% budget once). The design does not say what happens if the build still fits the reduced budget, or if the ability is already used."
+      ]
+    },
+    {
+      "id": "test_failure",
+      "name_key": "anomaly.test_failure.name",
+      "trigger_key": "anomaly.test_failure.trigger",
+      "base_weight": 3,
+      "triggers": [
+        {
+          "kind": "test_revealed_flaw"
+        }
+      ],
+      "responses": [
+        {
+          "id": "fix",
+          "text_key": "anomaly.test_failure.response.fix",
+          "flags": [
+            "adds_cost",
+            "adds_days"
+          ]
+        },
+        {
+          "id": "fly_as_is",
+          "text_key": "anomaly.test_failure.response.fly_as_is",
+          "flags": [
+            "reduces_reliability"
+          ]
+        },
+        {
+          "id": "swap_part",
+          "text_key": "anomaly.test_failure.response.swap_part",
+          "action": "swap_part"
+        }
+      ],
+      "design_notes": [
+        "The high base weight makes the card follow a revealed flaw closely. The design gives no cost, days or reliability amount; Appendix A shows one fix at $1 M."
+      ]
+    },
+    {
+      "id": "weather_front",
+      "name_key": "anomaly.weather_front.name",
+      "trigger_key": "anomaly.weather_front.trigger",
+      "base_weight": 1,
+      "triggers": [
+        {
+          "kind": "part_rule",
+          "weight_mult": 2
+        }
+      ],
+      "responses": [
+        {
+          "id": "move_launch_earlier",
+          "text_key": "anomaly.weather_front.response.move_launch_earlier",
+          "flags": [
+            "adds_overtime_cost"
+          ]
+        },
+        {
+          "id": "accept_possible_scrub",
+          "text_key": "anomaly.weather_front.response.accept_possible_scrub",
+          "flags": [
+            "scrub_risk"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "engineering_breakthrough",
+      "name_key": "anomaly.engineering_breakthrough.name",
+      "trigger_key": "anomaly.engineering_breakthrough.trigger",
+      "positive": true,
+      "base_weight": 0.25,
+      "triggers": [
+        {
+          "kind": "rare"
+        }
+      ],
+      "responses": [
+        {
+          "id": "dv_on_one_engine",
+          "text_key": "anomaly.engineering_breakthrough.response.dv_on_one_engine",
+          "effects": [
+            {
+              "target": "delta_v_m_s",
+              "op": "add_fraction",
+              "value": 0.02,
+              "scope": "one_engine"
+            }
+          ]
+        },
+        {
+          "id": "save_days",
+          "text_key": "anomaly.engineering_breakthrough.response.save_days",
+          "effects": [
+            {
+              "target": "schedule_days",
+              "op": "add",
+              "value": -5,
+              "scope": "mission"
+            }
+          ]
+        }
+      ],
+      "design_notes": [
+        "The two cells are read as a choice between two rewards, like every other row of the Response options column."
+      ]
+    },
+    {
+      "id": "range_conflict",
+      "name_key": "anomaly.range_conflict.name",
+      "trigger_key": "anomaly.range_conflict.trigger",
+      "base_weight": 0.5,
+      "triggers": [
+        {
+          "kind": "part_rule",
+          "weight_mult": 3
+        }
+      ],
+      "responses": [
+        {
+          "id": "pay_for_priority",
+          "text_key": "anomaly.range_conflict.response.pay_for_priority",
+          "flags": [
+            "adds_cost"
+          ]
+        },
+        {
+          "id": "slip_5_days",
+          "text_key": "anomaly.range_conflict.response.slip_5_days",
+          "effects": [
+            {
+              "target": "schedule_days",
+              "op": "add",
+              "value": 5,
+              "scope": "mission"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "payload_overweight",
+      "name_key": "anomaly.payload_overweight.name",
+      "trigger_key": "anomaly.payload_overweight.trigger",
+      "base_weight": 1,
+      "triggers": [
+        {
+          "kind": "payload_contract"
+        }
+      ],
+      "responses": [
+        {
+          "id": "remove_instrument",
+          "text_key": "anomaly.payload_overweight.response.remove_instrument",
+          "action": "remove_instrument"
+        },
+        {
+          "id": "accept_less_dv_margin",
+          "text_key": "anomaly.payload_overweight.response.accept_less_dv_margin",
+          "flags": [
+            "reduces_dv_margin"
+          ]
+        },
+        {
+          "id": "bigger_tank_vote",
+          "text_key": "anomaly.payload_overweight.response.bigger_tank_vote",
+          "action": "revote_category",
+          "revote_category": "tank_size"
+        }
+      ],
+      "design_notes": [
+        "The design does not define \"payload contracts\" (every contract has a payload) and gives no overweight amount. Removing an instrument is possible only where the team chose one (C1), and the design does not say which stage the tank re-vote is for."
+      ]
+    },
+    {
+      "id": "software_bug_found",
+      "name_key": "anomaly.software_bug_found.name",
+      "trigger_key": "anomaly.software_bug_found.trigger",
+      "base_weight": 2,
+      "triggers": [
+        {
+          "kind": "test_skipped",
+          "test": "software_in_the_loop"
+        }
+      ],
+      "responses": [
+        {
+          "id": "patch",
+          "text_key": "anomaly.software_bug_found.response.patch",
+          "effects": [
+            {
+              "target": "schedule_days",
+              "op": "add",
+              "value": 3,
+              "scope": "mission"
+            }
+          ]
+        },
+        {
+          "id": "fly_with_workaround",
+          "text_key": "anomaly.software_bug_found.response.fly_with_workaround",
+          "guarantees_minigame": "MG-17"
+        }
+      ],
+      "design_notes": [
+        "The guaranteed alarm minigame is MG-17 Alarm Triage, which section 10.5 says is guaranteed if this card was accepted."
+      ]
+    },
+    {
+      "id": "contamination_in_clean_room",
+      "name_key": "anomaly.contamination_in_clean_room.name",
+      "trigger_key": "anomaly.contamination_in_clean_room.trigger",
+      "base_weight": 1,
+      "triggers": [
+        {
+          "kind": "science_payload"
+        },
+        {
+          "kind": "part_rule"
+        }
+      ],
+      "responses": [
+        {
+          "id": "clean",
+          "text_key": "anomaly.contamination_in_clean_room.response.clean",
+          "effects": [
+            {
+              "target": "cost_M",
+              "op": "add",
+              "value": 1,
+              "scope": "mission"
+            },
+            {
+              "target": "schedule_days",
+              "op": "add",
+              "value": 2,
+              "scope": "mission"
+            }
+          ],
+          "minigame": "MG-05"
+        },
+        {
+          "id": "accept_science_penalty",
+          "text_key": "anomaly.contamination_in_clean_room.response.accept_science_penalty",
+          "flags": [
+            "science_penalty"
+          ]
+        }
+      ],
+      "design_notes": [
+        "The response text names the minigame instead of its ID (design: \"minigame MG-05\"). The science penalty has no amount.",
+        "\"Science payloads\" is stored twice: as the science_payload condition and as the anomaly_weight rule that parts/instrument.json gives every instrument. Both are gates here, so the instrument adds no multiplier."
+      ]
+    },
+    {
+      "id": "key_engineer_sick",
+      "name_key": "anomaly.key_engineer_sick.name",
+      "trigger_key": "anomaly.key_engineer_sick.trigger",
+      "base_weight": 1,
+      "triggers": [
+        {
+          "kind": "random"
+        }
+      ],
+      "responses": [
+        {
+          "id": "overtime",
+          "text_key": "anomaly.key_engineer_sick.response.overtime",
+          "flags": [
+            "adds_overtime_cost"
+          ]
+        },
+        {
+          "id": "slip_3_days",
+          "text_key": "anomaly.key_engineer_sick.response.slip_3_days",
+          "effects": [
+            {
+              "target": "schedule_days",
+              "op": "add",
+              "value": 3,
+              "scope": "mission"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "helium_shortage",
+      "name_key": "anomaly.helium_shortage.name",
+      "trigger_key": "anomaly.helium_shortage.trigger",
+      "base_weight": 0.5,
+      "triggers": [
+        {
+          "kind": "part_rule",
+          "weight_mult": 3
+        }
+      ],
+      "responses": [
+        {
+          "id": "pay_premium",
+          "text_key": "anomaly.helium_shortage.response.pay_premium",
+          "flags": [
+            "adds_cost"
+          ]
+        },
+        {
+          "id": "switch_pressurant",
+          "text_key": "anomaly.helium_shortage.response.switch_pressurant",
+          "action": "switch_pressurant",
+          "flags": [
+            "adds_mass"
+          ]
+        }
+      ],
+      "design_notes": [
+        "No part table says which options are pressure-fed, so no part carries an anomaly_weight rule for this card yet and it is drawn at its base weight only. Candidates: the hydrazine and bipropellant RCS, the Hypergolic Storable engine."
+      ]
+    },
+    {
+      "id": "lightning_season",
+      "name_key": "anomaly.lightning_season.name",
+      "trigger_key": "anomaly.lightning_season.trigger",
+      "base_weight": 0.25,
+      "triggers": [
+        {
+          "kind": "part_rule",
+          "weight_mult": 6
+        }
+      ],
+      "responses": [
+        {
+          "id": "accept_scrub_risk",
+          "text_key": "anomaly.lightning_season.response.accept_scrub_risk",
+          "flags": [
+            "scrub_risk"
+          ]
+        },
+        {
+          "id": "add_lightning_protection_checks",
+          "text_key": "anomaly.lightning_season.response.add_lightning_protection_checks",
+          "effects": [
+            {
+              "target": "cost_M",
+              "op": "add",
+              "value": 1,
+              "scope": "mission"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "value_types": {
+    "draw": "game_value",
+    "anomalies": "game_value"
+  }
+}

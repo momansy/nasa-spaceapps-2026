@@ -1,5 +1,13 @@
 {
   "dependencies": {
+    "com.missionforge.core": {
+      "version": "file:../../../core",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {
+        "com.unity.nuget.newtonsoft-json": "3.2.1"
+      }
+    },
     "com.unity.burst": {
       "version": "2.0.0",
       "depth": 2,
