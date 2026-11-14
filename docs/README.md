@@ -49,3 +49,7 @@ The public website contains no private credentials, but it includes a private re
 - Optional paid MCPs: never installed automatically by this website
 
 **Do not claim this is NASA's official portal.** It is a team-created guide linking to official NASA resources.
+
+## Auto-reconnect on Wi-Fi recovery
+
+The current join scripts launch the supervised worker, so a network outage does not require manually restarting the worker when connectivity returns (provided the computer is awake and its supervisor stays running). See [AUTO_RECONNECT.md](../AUTO_RECONNECT.md) for migration from old workers. A device shutdown is different: configure user-level startup if desired, with permission.
