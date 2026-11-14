@@ -1,25 +1,28 @@
 /* 3D part viewer: hologram stage shared by the WebGL model and the wireframe fallback. */
 
+/* 3D part viewer: a lit studio stage (warm key from above, navy falloff, a soft contact shadow)
+   shared by the WebGL model and the wireframe fallback. No scan lines (VISUAL_TARGET 4). */
+
 .viewer {
   position: relative;
   width: 100%;
   overflow: hidden;
   isolation: isolate;
-  border: var(--border-w) solid var(--line);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-md);
   background:
-    radial-gradient(70% 90% at 50% 62%, rgba(85, 197, 205, 0.2), transparent 70%),
-    linear-gradient(180deg, #091327, #050a16);
+    radial-gradient(55% 60% at 50% 38%, rgba(255, 226, 186, 0.16), transparent 70%),
+    radial-gradient(90% 80% at 50% 100%, rgba(23, 104, 135, 0.45), transparent 70%),
+    radial-gradient(120% 100% at 50% 0%, #1a3b55, #0b1d2e 60%, #06121e);
 }
 
 :root[data-contrast='high'] .viewer {
   background: #000;
-  border-color: var(--line-strong);
+  outline: var(--border-w) solid var(--line-strong);
 }
 
-/* Compact header of a Part Card: grows with the text scale but never eats the card. */
+/* Compact header of a Part Card: tall enough to read the hardware, never eats the card. */
 .viewer--card {
-  height: clamp(132px, 9.5rem, 24vh);
+  height: clamp(180px, 27vh, 240px);
 }
 
 .viewer--full {
@@ -61,36 +64,36 @@
   visibility: hidden;
 }
 
-/* Scan lines and corner brackets: drawn with gradients, above the canvas, below the tools. */
+/* Floor: a soft contact shadow and a faint reflective sweep under the part. */
 .viewer::before {
   content: '';
   position: absolute;
-  inset: 0;
-  z-index: 1;
+  z-index: 0;
+  left: 18%;
+  right: 18%;
+  bottom: 7%;
+  height: 16%;
+  border-radius: 50%;
   pointer-events: none;
-  background: repeating-linear-gradient(180deg, rgba(85, 197, 205, 0.05) 0 1px, transparent 1px 4px);
+  background: radial-gradient(closest-side, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.2) 60%, transparent);
 }
 
 .viewer::after {
   content: '';
   position: absolute;
-  inset: 6px;
+  inset: 0;
   z-index: 1;
   pointer-events: none;
-  --c: rgba(85, 197, 205, 0.6);
-  background:
-    linear-gradient(var(--c), var(--c)) top left / 14px 1.5px,
-    linear-gradient(var(--c), var(--c)) top left / 1.5px 14px,
-    linear-gradient(var(--c), var(--c)) top right / 14px 1.5px,
-    linear-gradient(var(--c), var(--c)) top right / 1.5px 14px,
-    linear-gradient(var(--c), var(--c)) bottom left / 14px 1.5px,
-    linear-gradient(var(--c), var(--c)) bottom left / 1.5px 14px,
-    linear-gradient(var(--c), var(--c)) bottom right / 14px 1.5px,
-    linear-gradient(var(--c), var(--c)) bottom right / 1.5px 14px;
-  background-repeat: no-repeat;
+  border-radius: inherit;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), inset 0 0 40px rgba(3, 10, 18, 0.6);
 }
 
-:root[data-contrast='high'] .viewer::before {
+.viewer__stage {
+  z-index: 1;
+}
+
+:root[data-contrast='high'] .viewer::before,
+:root[data-contrast='high'] .viewer::after {
   display: none;
 }
 
@@ -102,12 +105,12 @@
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  font-family: var(--font-mono);
-  font-size: 0.62rem;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--accent);
+  padding: 3px 9px;
+  border-radius: var(--radius-pill);
+  background: rgba(7, 21, 34, 0.7);
+  font-size: var(--fs-meta);
+  font-weight: 600;
+  color: var(--text-dim);
   pointer-events: none;
 }
 
@@ -138,9 +141,9 @@
   width: 48px;
   height: 48px;
   font-size: 16px;
-  border-radius: 12px;
-  border: var(--border-w) solid var(--line-strong);
-  background: rgba(8, 24, 38, 0.82);
+  border-radius: 50%;
+  border: var(--border-w) solid var(--glass-edge-strong);
+  background: rgba(7, 21, 34, 0.72);
   color: var(--text);
   transition:
     background-color var(--dur-fast) var(--ease),

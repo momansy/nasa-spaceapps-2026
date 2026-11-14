@@ -1,12 +1,14 @@
 // App shell: top bar, the current screen, overlays (role card, codex, settings), the paused
 // and reconnecting states, and toasts.
-import { useCallback, useEffect, useState, type ReactNode } from 'react';
+import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react';
 import { useT } from './i18n';
 import { currentScreen, isPaused, myPlayer, myRoles } from './state/selectors';
 import { useSel, useStore } from './state/store';
 import type { Screen } from './state/types';
 import { Icon, type IconName, type Tone } from './ui/Icon';
 import { CallSign, Sheet, useRemaining } from './ui/kit';
+import { Backdrop, SCENE_OF } from './ui/Backdrop';
+import { BrandMark } from './ui/Brand';
 import { JoinScreen } from './screens/JoinScreen';
 import { LobbyScreen } from './screens/LobbyScreen';
 import { RoleCardBody, RoleCardScreen } from './screens/RoleCard';
@@ -88,8 +90,10 @@ function TopBar({ onOpen }: { onOpen: (o: Overlay) => void }) {
         </>
       ) : (
         <span className="brand">
-          <Icon name="rocket" size="1.3rem" />
-          <span>MissionForge</span>
+          <BrandMark size={30} />
+          <span className="brand__word">
+            Mission<span className="brand__forge">Forge</span>
+          </span>
         </span>
       )}
       <span className="spacer" />
@@ -251,6 +255,13 @@ export function App() {
   const close = useCallback(() => setOverlay(null), []);
   const me = useSel(myPlayer);
   const kicked = useSel((s) => (s.me ? null : s.conn.closeReason));
+  // The first screen after load appears at once (no entrance animation, no backdrop fade);
+  // every later screen change animates.
+  const firstScreen = useRef(screen);
+  const [booted, setBooted] = useState(false);
+  useEffect(() => {
+    if (screen !== firstScreen.current) setBooted(true);
+  }, [screen]);
 
   // The screen under an overlay changed to something that needs the player now: close it.
   useEffect(() => {
@@ -268,6 +279,7 @@ export function App() {
 
   return (
     <div className="app" data-screen={screen} data-testid="app">
+      <Backdrop scene={SCENE_OF[screen]} still={!booted} />
       <a className="sr-only" href="#main">
         {t('ui.shell.skip')}
       </a>
@@ -276,7 +288,7 @@ export function App() {
       <PausedOverlay />
       <SpectatorBar />
       <Toasts />
-      <main id="main" className="screen-host" key={screen} data-kicked={kicked ?? undefined}>
+      <main id="main" className="screen-host" key={screen} data-kicked={kicked ?? undefined} data-first={booted ? undefined : ''}>
         <ScreenView screen={screen} />
       </main>
       {overlay === 'role' && (

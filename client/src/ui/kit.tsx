@@ -44,7 +44,9 @@ export function Countdown({ startedAtMs, endsAtMs, label, paused }: CountdownPro
         <svg viewBox="0 0 36 36" aria-hidden="true">
           <circle className="timer__track" cx="18" cy="18" r="15.5" />
         </svg>
-        <span className="timer__label">∞</span>
+        <span className="timer__label timer__inf">
+          <Icon name="clock" size="1.2rem" />
+        </span>
       </span>
     );
   }

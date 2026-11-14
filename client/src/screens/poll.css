@@ -1,25 +1,53 @@
-/* GO / NO-GO poll. */
+/* GO / NO-GO poll: Flight's call loop, over the ascent frame. */
 
 .pollcall {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding: 16px;
-  border-radius: var(--radius);
-  border: var(--border-w) solid var(--line-strong);
-  background: linear-gradient(180deg, var(--bg-2), var(--bg-1));
+  padding: 18px 16px;
+  border-radius: var(--radius-lg);
+  border: var(--border-w) solid var(--glass-edge-strong);
+  background: var(--glass);
+  box-shadow: var(--shadow-2);
+  overflow: hidden;
 }
 
+/* It is your call: lit Signal frame, a slow scanning sweep and a bigger question. */
 .pollcall--me {
   border-color: var(--accent);
-  box-shadow: var(--glow-accent);
-  animation: call-in var(--dur-slow) var(--ease-out-back) both;
+  background:
+    radial-gradient(100% 70% at 50% 0%, rgba(85, 197, 205, 0.24), transparent 70%),
+    var(--glass);
+  box-shadow: var(--glow-accent), var(--shadow-2);
+  animation: call-in var(--dur-celebrate) var(--ease-celebrate) both;
+}
+
+.pollcall--me::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(100deg, transparent 30%, rgba(143, 224, 230, 0.12) 50%, transparent 70%);
+  transform: translateX(-100%);
+  animation: call-sweep 2.4s var(--ease-in-out-sine) 400ms infinite;
+}
+
+@keyframes call-sweep {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+.pollcall--me .title {
+  font-size: var(--fs-display);
+  line-height: 1.1;
 }
 
 @keyframes call-in {
   from {
-    opacity: 0;
-    transform: scale(0.94);
+    opacity: 0.35;
+    transform: scale(0.95);
   }
   to {
     opacity: 1;
@@ -39,22 +67,33 @@
   gap: 14px;
 }
 
+/* ── The call board ── */
+
 .pollboard {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
 }
 
 .pollrow {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 10px;
-  min-height: var(--tap);
-  padding: 6px 10px;
-  border-radius: 12px;
-  border: var(--border-w) solid var(--line);
-  background: var(--bg-1);
-  animation: pop var(--dur) var(--ease) both;
+  gap: 12px;
+  min-height: max(58px, 3.6rem);
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  border: var(--border-w) solid var(--glass-edge);
+  background: var(--glass-flat);
+  animation: pop var(--dur-enter) var(--ease) both;
+}
+
+.pollrow--good {
+  background: linear-gradient(90deg, rgba(119, 214, 161, 0.14), transparent 60%), var(--glass-flat);
+}
+
+.pollrow--bad {
+  background: linear-gradient(90deg, rgba(255, 143, 143, 0.16), transparent 60%), var(--glass-flat);
 }
 
 .pollrow--now {
@@ -69,59 +108,65 @@
 }
 
 .pollrow__name {
-  font-weight: 700;
+  font-weight: 600;
   overflow-wrap: anywhere;
 }
 
 .pollrow__roles {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
-  color: var(--text-faint);
+  font-size: var(--fs-label);
+  color: var(--text-dim);
 }
+
+/* ── Result ── */
 
 .pollresult {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
-  padding: 20px 16px;
-  border-radius: 20px;
+  gap: 10px;
+  padding: 26px 16px;
+  border-radius: var(--radius-lg);
   text-align: center;
+  box-shadow: var(--shadow-2);
+}
+
+.pollresult svg {
+  width: 3.5rem;
+  height: 3.5rem;
 }
 
 .pollresult--go {
   border: var(--border-w) solid var(--good);
-  background: var(--good-soft);
+  background: radial-gradient(90% 80% at 50% 0%, rgba(119, 214, 161, 0.28), transparent 70%), var(--glass);
   color: var(--good);
+}
+
+.pollresult--go svg {
+  filter: drop-shadow(0 0 16px rgba(119, 214, 161, 0.6));
 }
 
 .pollresult--nogo {
   border: max(3px, var(--border-w)) double var(--bad);
-  background: var(--bad-soft);
+  background: radial-gradient(90% 80% at 50% 0%, rgba(255, 143, 143, 0.24), transparent 70%), var(--glass);
   color: var(--bad);
+}
+
+.pollresult .title {
+  font-size: var(--fs-display);
 }
 
 .pollresult .lede {
   color: var(--text);
 }
 
+/* GO / NO-GO: two heavy switches. GO and NO-GO are identifiers, so capitals stay. */
 .pollbar .btn {
-  font-size: 1.25rem;
-  letter-spacing: 0.08em;
+  min-height: max(68px, 4.25rem);
+  font-size: 1.375rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
 }
 
-@keyframes pop {
-  from {
-    opacity: 0;
-    transform: scale(0.94);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-.pop {
-  animation: pop var(--dur-slow) var(--ease-out-back) both;
+.pollbar .btn--selected {
+  animation: confirm-pulse 700ms var(--ease-out-cubic) 1;
 }

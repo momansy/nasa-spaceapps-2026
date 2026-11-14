@@ -1,5 +1,5 @@
 // Role card (design 14.2 screen 2): your console(s), what you do, your once-per-mission ability.
-import { useState } from 'react';
+import { useId, useState } from 'react';
 import type { RoleId } from '@protocol';
 import { getRole } from '../data/catalog';
 import { useT } from '../i18n';
@@ -60,6 +60,48 @@ function AbilityUse({ role, onDone }: { role: RoleId; onDone: () => void }) {
   );
 }
 
+/** Embroidered-style mission patch: call sign around the rim, console icon in the middle. */
+export function RolePatch({ role, size = 'lg' }: { role: RoleId; size?: 'lg' | 'sm' }) {
+  const uid = useId().replace(/[^a-zA-Z0-9_-]/g, '');
+  return (
+    <span className={`patch patch--${size}`} aria-hidden="true">
+      <svg viewBox="0 0 120 120" className="patch__svg">
+        <defs>
+          <path id={`${uid}-top`} d="M 22 60 A 38 38 0 0 1 98 60" />
+          <radialGradient id={`${uid}-field`} cx="50%" cy="35%" r="70%">
+            <stop offset="0" stopColor="#1f5878" />
+            <stop offset="0.6" stopColor="#103049" />
+            <stop offset="1" stopColor="#081a2a" />
+          </radialGradient>
+          <linearGradient id={`${uid}-rim`} x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stopColor="#fff1d6" />
+            <stop offset="0.5" stopColor="#ffce83" />
+            <stop offset="1" stopColor="#b98a45" />
+          </linearGradient>
+        </defs>
+        <circle cx="60" cy="60" r="57" fill={`url(#${uid}-rim)`} />
+        <circle cx="60" cy="60" r="53" fill={`url(#${uid}-field)`} stroke="#071522" strokeWidth="1.5" />
+        <circle cx="60" cy="60" r="31" fill="none" stroke="#55c5cd" strokeWidth="1.2" strokeDasharray="2 3" opacity="0.8" />
+        <path d="M14 76 A 48 48 0 0 0 106 76" fill="none" stroke="#e8eef0" strokeWidth="0.8" opacity="0.35" />
+        <text className="patch__text">
+          <textPath href={`#${uid}-top`} startOffset="50%" textAnchor="middle">
+            {role}
+          </textPath>
+        </text>
+        <g fill="#ffce83">
+          <path d="M40 92l1.6 3.3 3.6.5-2.6 2.5.6 3.6-3.2-1.700-3.2 1.700.6-3.6-2.6-2.5 3.6-.5z" />
+          <path d="M60 97l1.6 3.3 3.6.5-2.6 2.5.6 3.6-3.2-1.700-3.2 1.700.6-3.6-2.6-2.5 3.6-.5z" />
+          <path d="M80 92l1.6 3.3 3.6.5-2.6 2.5.6 3.6-3.2-1.700-3.2 1.700.6-3.6-2.6-2.5 3.6-.5z" />
+        </g>
+      </svg>
+      <span className="patch__icon">
+        <Icon name={ROLE_ICON[role]} size="100%" strokeWidth={1.8} />
+      </span>
+      <span className="patch__sheen" />
+    </span>
+  );
+}
+
 function OneRole({ role, canUse, index }: { role: RoleId; canUse: boolean; index: number }) {
   const t = useT();
   const def = getRole(role);
@@ -67,12 +109,10 @@ function OneRole({ role, canUse, index }: { role: RoleId; canUse: boolean; index
   const [asking, setAsking] = useState(false);
   if (!def) return null;
   return (
-    <article className="rolecard" style={{ animationDelay: `${index * 90}ms` }}>
+    <article className="rolecard" style={{ animationDelay: `${index * 160}ms` }}>
       <header className="rolecard__head">
-        <span className="rolecard__icon" aria-hidden="true">
-          <Icon name={ROLE_ICON[role]} size="1.7rem" />
-        </span>
-        <div className="grow">
+        <RolePatch role={role} />
+        <div className="rolecard__title">
           <CallSign role={role} />
           <h3 className="rolecard__name">{t(def.name_key)}</h3>
         </div>
@@ -101,8 +141,11 @@ function OneRole({ role, canUse, index }: { role: RoleId; canUse: boolean; index
       </dl>
       <div className={`rolecard__ability ${used ? 'is-used' : ''}`}>
         <div className="row row--between">
-          <span className="eyebrow">{t('ui.role.ability_once')}</span>
-          {used ? <Chip icon="check">{t('ui.role.ability_spent')}</Chip> : <Chip tone="good" icon="bolt">{t('ui.role.ability_ready')}</Chip>}
+          <span className="eyebrow rolecard__abilitytag">
+            <Icon name="bolt" size="1rem" filled />
+            {t('ui.role.ability_once')}
+          </span>
+          {used ? <Chip icon="check">{t('ui.role.ability_spent')}</Chip> : <Chip tone="good">{t('ui.role.ability_ready')}</Chip>}
         </div>
         <p className="rolecard__abilityname">{t(def.ability.name_key)}</p>
         <p className="body-sm">{t(def.ability.description_key)}</p>

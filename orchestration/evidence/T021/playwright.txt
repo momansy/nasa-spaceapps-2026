@@ -1,0 +1,133 @@
+
+Running 42 tests using 1 worker
+
+  ok  1 e2e\minigames\ascent\ascent.spec.ts:119:1 › lab smoke: MG-08 reference minigame mounts, plays and reports (11.2s)
+  ok  2 e2e\minigames\ascent\ascent.spec.ts:134:5 › MG-09 › MG-09 demo (1.1s)
+  ok  3 e2e\minigames\ascent\ascent.spec.ts:142:5 › MG-09 › MG-09 play (standard, scripted good player) (22.5s)
+  ok  4 e2e\minigames\ascent\ascent.spec.ts:157:5 › MG-09 › MG-09 one-button (8.5s)
+  x   5 e2e\minigames\ascent\ascent.spec.ts:165:5 › MG-09 › MG-09 frame rate at CPU ×4 (20.5s)
+  -   6 e2e\minigames\ascent\ascent.spec.ts:134:5 › MG-10a › MG-10a demo
+  -   7 e2e\minigames\ascent\ascent.spec.ts:142:5 › MG-10a › MG-10a play (standard, scripted good player)
+  -   8 e2e\minigames\ascent\ascent.spec.ts:157:5 › MG-10a › MG-10a one-button
+  -   9 e2e\minigames\ascent\ascent.spec.ts:165:5 › MG-10a › MG-10a frame rate at CPU ×4
+  -  10 e2e\minigames\ascent\ascent.spec.ts:134:5 › MG-07 › MG-07 demo
+  -  11 e2e\minigames\ascent\ascent.spec.ts:142:5 › MG-07 › MG-07 play (standard, scripted good player)
+  -  12 e2e\minigames\ascent\ascent.spec.ts:157:5 › MG-07 › MG-07 one-button
+  -  13 e2e\minigames\ascent\ascent.spec.ts:165:5 › MG-07 › MG-07 frame rate at CPU ×4
+  -  14 e2e\minigames\ascent\ascent.spec.ts:134:5 › MG-08b › MG-08b demo
+  -  15 e2e\minigames\ascent\ascent.spec.ts:142:5 › MG-08b › MG-08b play (standard, scripted good player)
+  -  16 e2e\minigames\ascent\ascent.spec.ts:157:5 › MG-08b › MG-08b one-button
+  -  17 e2e\minigames\ascent\ascent.spec.ts:165:5 › MG-08b › MG-08b frame rate at CPU ×4
+  -  18 e2e\minigames\ascent\ascent.spec.ts:134:5 › MG-11 › MG-11 demo
+  -  19 e2e\minigames\ascent\ascent.spec.ts:142:5 › MG-11 › MG-11 play (standard, scripted good player)
+  -  20 e2e\minigames\ascent\ascent.spec.ts:157:5 › MG-11 › MG-11 one-button
+  -  21 e2e\minigames\ascent\ascent.spec.ts:165:5 › MG-11 › MG-11 frame rate at CPU ×4
+  -  22 e2e\minigames\ascent\ascent.spec.ts:134:5 › MG-12 › MG-12 demo
+  -  23 e2e\minigames\ascent\ascent.spec.ts:142:5 › MG-12 › MG-12 play (standard, scripted good player)
+  -  24 e2e\minigames\ascent\ascent.spec.ts:157:5 › MG-12 › MG-12 one-button
+  -  25 e2e\minigames\ascent\ascent.spec.ts:165:5 › MG-12 › MG-12 frame rate at CPU ×4
+  -  26 e2e\minigames\ascent\ascent.spec.ts:199:1 › RTL, 200 % text and reduced motion
+  ok 27 e2e\minigames\orbit\orbit.spec.ts:145:1 › lab smoke with MG-08 (3.1s)
+  ok 28 e2e\minigames\orbit\orbit.spec.ts:157:5 › MG-13 › MG-13 demo, play and one-button screenshots (3.8s)
+  ok 29 e2e\minigames\orbit\orbit.spec.ts:182:5 › MG-13 › MG-13 full run: the scripted player succeeds, idle fails, never past durationMs (13.2s)
+  ok 30 e2e\minigames\orbit\orbit.spec.ts:205:5 › MG-13 › MG-13 right-to-left at 200 % text with reduced motion (1.6s)
+  ok 31 e2e\minigames\orbit\orbit.spec.ts:157:5 › MG-15 › MG-15 demo, play and one-button screenshots (6.0s)
+  ok 32 e2e\minigames\orbit\orbit.spec.ts:182:5 › MG-15 › MG-15 full run: the scripted player succeeds, idle fails, never past durationMs (13.4s)
+  ok 33 e2e\minigames\orbit\orbit.spec.ts:205:5 › MG-15 › MG-15 right-to-left at 200 % text with reduced motion (2.0s)
+  ok 34 e2e\minigames\orbit\orbit.spec.ts:157:5 › MG-21 › MG-21 demo, play and one-button screenshots (4.2s)
+  ok 35 e2e\minigames\orbit\orbit.spec.ts:182:5 › MG-21 › MG-21 full run: the scripted player succeeds, idle fails, never past durationMs (15.7s)
+  ok 36 e2e\minigames\orbit\orbit.spec.ts:205:5 › MG-21 › MG-21 right-to-left at 200 % text with reduced motion (1.8s)
+  ok 37 e2e\minigames\orbit\orbit.spec.ts:157:5 › MG-14 › MG-14 demo, play and one-button screenshots (2.1s)
+  ok 38 e2e\minigames\orbit\orbit.spec.ts:182:5 › MG-14 › MG-14 full run: the scripted player succeeds, idle fails, never past durationMs (1.2s)
+  ok 39 e2e\minigames\orbit\orbit.spec.ts:205:5 › MG-14 › MG-14 right-to-left at 200 % text with reduced motion (639ms)
+  ok 40 e2e\minigames\orbit\orbit.spec.ts:215:1 › frame rate at a ×4 CPU throttle (23.9s)
+  x  41 e2e\session.spec.ts:24:1 › full mock session on a phone (249ms)
+  x  42 e2e\session.spec.ts:243:1 › join screen right-to-left at 200 % text (331ms)
+
+
+  1) e2e\minigames\ascent\ascent.spec.ts:165:5 › MG-09 › MG-09 frame rate at CPU ×4 ────────────────
+
+    Error: expect(received).toBeGreaterThanOrEqual(expected)
+
+    Expected: >= 30
+    Received:    14.992503748126182
+
+      191 |       await cdp.send('Emulation.setCPUThrottlingRate', { rate: 1 });
+      192 |       fpsLines.push({ id: s.id, mode: 'STANDARD', fps: stats.fps, frames: stats.frames });
+    > 193 |       expect(stats.fps).toBeGreaterThanOrEqual(30);
+          |                         ^
+      194 |       expect(problems).toEqual([]);
+      195 |     });
+      196 |   });
+        at C:\Projects\NASA GAME\client\e2e\minigames\ascent\ascent.spec.ts:193:25
+
+    Error Context: test-results\minigames-ascent-ascent-MG-09-MG-09-frame-rate-at-CPU-×4\error-context.md
+
+    Error Context: test-results\minigames-ascent-ascent-MG-09-MG-09-frame-rate-at-CPU-×4\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\minigames-ascent-ascent-MG-09-MG-09-frame-rate-at-CPU-×4\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\minigames-ascent-ascent-MG-09-MG-09-frame-rate-at-CPU-×4\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) e2e\session.spec.ts:24:1 › full mock session on a phone ───────────────────────────────────────
+
+    Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:4173/?mock=1&speed=2&room=KQXM
+    Call log:
+      - navigating to "http://127.0.0.1:4173/?mock=1&speed=2&room=KQXM", waiting until "load"
+
+
+      29 |   page.on('pageerror', (e) => consoleErrors.push(String(e)));
+      30 |
+    > 31 |   await page.goto('/?mock=1&speed=2&room=KQXM');
+         |              ^
+      32 |
+      33 |   // 1. Join (room code from ?room=).
+      34 |   await expect(page.getByTestId('screen-join')).toBeVisible();
+        at C:\Projects\NASA GAME\client\e2e\session.spec.ts:31:14
+
+    Error Context: test-results\session-full-mock-session-on-a-phone\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\session-full-mock-session-on-a-phone\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\session-full-mock-session-on-a-phone\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) e2e\session.spec.ts:243:1 › join screen right-to-left at 200 % text ───────────────────────────
+
+    Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:4173/?mock=1&dir=rtl&room=KQXM
+    Call log:
+      - navigating to "http://127.0.0.1:4173/?mock=1&dir=rtl&room=KQXM", waiting until "load"
+
+
+      245 |     localStorage.setItem('mf.prefs', JSON.stringify({ textScalePct: 200 }));
+      246 |   });
+    > 247 |   await page.goto('/?mock=1&dir=rtl&room=KQXM');
+          |              ^
+      248 |   await expect(page.getByTestId('screen-join')).toBeVisible();
+      249 |   await expect(page.locator('html')).toHaveAttribute('dir', 'rtl');
+      250 |   await page.waitForTimeout(400);
+        at C:\Projects\NASA GAME\client\e2e\session.spec.ts:247:14
+
+    Error Context: test-results\session-join-screen-right-to-left-at-200-text\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\session-join-screen-right-to-left-at-200-text\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\session-join-screen-right-to-left-at-200-text\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3 failed
+    e2e\minigames\ascent\ascent.spec.ts:165:5 › MG-09 › MG-09 frame rate at CPU ×4 ─────────────────
+    e2e\session.spec.ts:24:1 › full mock session on a phone ────────────────────────────────────────
+    e2e\session.spec.ts:243:1 › join screen right-to-left at 200 % text ────────────────────────────
+  21 did not run
+  18 passed (2.8m)

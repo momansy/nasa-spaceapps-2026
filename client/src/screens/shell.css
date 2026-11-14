@@ -3,43 +3,61 @@
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-  color: var(--text);
+  gap: 10px;
+  min-width: 0;
 }
 
 .brand svg {
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5));
+}
+
+.brand__word {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.2rem;
+  letter-spacing: 0.02em;
+  color: var(--ceramic);
+  white-space: nowrap;
+}
+
+.brand__forge {
   color: var(--accent);
 }
 
+/* Room code: a recessed readout plate. */
 .roomcode {
   flex: none;
   display: inline-flex;
-  align-items: baseline;
+  align-items: center;
   gap: 6px;
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  background: rgba(3, 12, 20, 0.6);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.6), 0 0 0 var(--border-w) var(--glass-edge);
 }
 
 .roomcode__k {
-  font-family: var(--font-mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.16em;
-  color: var(--text-faint);
-  text-transform: uppercase;
+  font-size: var(--fs-meta);
+  font-weight: 600;
+  color: var(--text-dim);
 }
 
 .roomcode__v {
   font-family: var(--font-mono);
-  font-weight: 800;
-  font-size: 1.05rem;
-  letter-spacing: 0.18em;
+  font-weight: 600;
+  font-size: 1.0625rem;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  color: var(--ceramic);
+  direction: ltr;
 }
 
 .conn {
   display: inline-grid;
   place-items: center;
-  width: 1.6rem;
-  height: 1.6rem;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
 }
 
 .conn--ok {
@@ -48,6 +66,7 @@
 
 .conn--bad {
   color: var(--bad);
+  background: var(--bad-soft);
   animation: blink 1.1s steps(2, jump-none) infinite;
 }
 
@@ -60,35 +79,48 @@
 .rolebtn {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
   min-height: var(--tap);
   padding-inline: 4px;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   min-width: 0;
   overflow: hidden;
+  transition: transform var(--dur-fast) var(--ease);
 }
 
 .rolebtn__more {
-  font-size: 0.8rem;
-  font-weight: 700;
+  font-size: 0.8125rem;
   color: var(--text-dim);
+  padding: 1px 6px;
+  border-radius: var(--radius-pill);
+  background: rgba(150, 205, 228, 0.1);
 }
 
 .rolebtn:active {
-  background: var(--accent-soft);
+  transform: scale(0.96);
 }
 
 .mockbadge {
-  font-family: var(--font-mono);
-  font-size: 0.62rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--warn);
-  border: var(--border-w) dashed var(--warn);
-  border-radius: 6px;
-  padding: 0.1rem 0.4rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--fs-label);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--sunlight);
+  border: var(--border-w) solid rgba(255, 206, 131, 0.5);
+  background: rgba(255, 206, 131, 0.1);
+  border-radius: var(--radius-pill);
+  padding: 0.2rem 0.6rem;
   white-space: nowrap;
+}
+
+.mockbadge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
 }
 
 .iconbtn__wrap {
@@ -103,8 +135,9 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: var(--warn);
+  background: var(--sunlight);
   border: 2px solid var(--bg-0);
+  box-shadow: 0 0 8px var(--celebrate-glow);
 }
 
 .reconnect,
@@ -114,7 +147,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  min-height: 2.4rem;
+  min-height: 2.5rem;
   padding: 6px calc(var(--gutter) + var(--safe-right)) 6px calc(var(--gutter) + var(--safe-left));
   font-size: 0.9rem;
   font-weight: 600;
@@ -123,15 +156,15 @@
 }
 
 .reconnect {
-  background: var(--warn-soft);
+  background: linear-gradient(90deg, rgba(255, 209, 102, 0.2), rgba(255, 209, 102, 0.08));
   color: var(--warn);
-  border-bottom-color: var(--warn);
+  border-bottom: var(--border-w) dashed var(--warn);
 }
 
 .reconnect--bad {
-  background: var(--bad-soft);
+  background: linear-gradient(90deg, rgba(255, 143, 143, 0.2), rgba(255, 143, 143, 0.08));
   color: var(--bad);
-  border-bottom-color: var(--bad);
+  border-bottom: max(3px, var(--border-w)) double var(--bad);
 }
 
 .reconnect .spinner {
@@ -142,13 +175,13 @@
 }
 
 .pausebar {
-  background: var(--accent-soft);
+  background: linear-gradient(90deg, rgba(85, 197, 205, 0.2), rgba(85, 197, 205, 0.06));
   color: var(--accent-strong);
   border-bottom-color: var(--accent);
 }
 
 .spectatorbar {
-  background: var(--neutral-soft);
+  background: var(--glass-flat);
   color: var(--text-dim);
 }
 
@@ -165,12 +198,9 @@
 
 .toast__kind {
   display: block;
-  font-family: var(--font-mono);
-  font-size: 0.66rem;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--text-faint);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  color: var(--text-dim);
   margin-bottom: 2px;
 }
 
@@ -184,23 +214,30 @@
   padding: 12px 0;
 }
 
+/* Section header: label, then a hairline that fades out. */
 .section-title {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  font-family: var(--font-ui);
+  font-size: var(--fs-label);
+  font-weight: 600;
   color: var(--text-dim);
+}
+
+.section-title > svg {
+  color: var(--accent);
 }
 
 .section-title::after {
   content: '';
   flex: 1 1 auto;
   height: var(--border-w);
-  background: var(--line);
+  background: linear-gradient(90deg, var(--glass-edge-strong), transparent);
+}
+
+[dir='rtl'] .section-title::after {
+  background: linear-gradient(270deg, var(--glass-edge-strong), transparent);
 }
 
 /* At 150 % text and more the top bar keeps the essentials: role, Codex, settings. The room code
@@ -210,7 +247,18 @@
 }
 
 :root[data-text-scale='large'] .rolebtn .callsign {
+  display: inline-block;
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 9rem;
+  letter-spacing: 0.02em;
+}
+
+:root[data-text-scale='large'] .brand__word {
+  font-size: 1rem;
+}
+
+/* Large text: the mark alone carries the brand so the badge and settings never overlap it. */
+:root[data-text-scale='large'] .brand__word {
+  display: none;
 }
