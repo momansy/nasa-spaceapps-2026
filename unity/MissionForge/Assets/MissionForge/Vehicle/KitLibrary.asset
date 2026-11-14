@@ -1,0 +1,1140 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03a6d6d9f7c064b8da61e431d817e0f8, type: 3}
+  m_Name: KitLibrary
+  m_EditorClassIdentifier: MissionForge.Vehicle::MissionForge.Vehicle.KitLibrary
+  parts:
+  - id: adapter_d15_to_d37
+    family: adapter
+    prefab: {fileID: 919132149155446097, guid: 5135cb02b065d4642979bf05a6048732, type: 3}
+    lengthM: 3
+    diameterBottomM: 1.5
+    diameterTopM: 3.7
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 3}
+  - id: adapter_d37_to_d15
+    family: adapter
+    prefab: {fileID: 919132149155446097, guid: 8f3c6cd2328fd4ba9ac719cb67bbb6ea, type: 3}
+    lengthM: 3
+    diameterBottomM: 3.7
+    diameterTopM: 1.5
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 3}
+  - id: adapter_d37_to_d54
+    family: adapter
+    prefab: {fileID: 919132149155446097, guid: 9fc31ac96f6a6496492adccbbcd5ab1d, type: 3}
+    lengthM: 2.3
+    diameterBottomM: 3.7
+    diameterTopM: 5.4
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 2.3}
+  - id: adapter_d54_to_d37
+    family: adapter
+    prefab: {fileID: 919132149155446097, guid: 17d1d3c0f1ab84e468c714ca6e8e6aeb, type: 3}
+    lengthM: 2.3
+    diameterBottomM: 5.4
+    diameterTopM: 3.7
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 2.3}
+  - id: adapter_d54_to_d84
+    family: adapter
+    prefab: {fileID: 919132149155446097, guid: 136d3ac5fdb884a1e88c7aaef5320a7b, type: 3}
+    lengthM: 4.1
+    diameterBottomM: 5.4
+    diameterTopM: 8.4
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 4.1}
+  - id: adapter_d84_to_d54
+    family: adapter
+    prefab: {fileID: 919132149155446097, guid: f8133f6d7b5fa4e268378c514d98c035, type: 3}
+    lengthM: 4.1
+    diameterBottomM: 8.4
+    diameterTopM: 5.4
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 4.1}
+  - id: booster_heavy_solid
+    family: booster
+    prefab: {fileID: 919132149155446097, guid: 0dd35379b91f04647b6928c362755c90, type: 3}
+    lengthM: 45.5
+    diameterBottomM: 3.7
+    diameterTopM: 3.7
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 45.5}
+    - name: nozzle_exit
+      kitPositionM: {x: 0, y: 0, z: 0}
+    - name: gimbal_pivot
+      kitPositionM: {x: 0, y: 0, z: 3.3}
+    - name: attach_side
+      kitPositionM: {x: 0, y: 2.35, z: 37.5}
+    - name: attach_side_aft
+      kitPositionM: {x: 0, y: 2.35, z: 3.2}
+  - id: booster_small_solid
+    family: booster
+    prefab: {fileID: 919132149155446097, guid: ab851b9c6f45c456e815cd963743bb38, type: 3}
+    lengthM: 20
+    diameterBottomM: 1.6
+    diameterTopM: 1.6
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 20}
+    - name: nozzle_exit
+      kitPositionM: {x: 0, y: 0, z: 0}
+    - name: gimbal_pivot
+      kitPositionM: {x: 0, y: 0, z: 1.75}
+    - name: attach_side
+      kitPositionM: {x: 0, y: 1.02, z: 15}
+    - name: attach_side_aft
+      kitPositionM: {x: 0, y: 1.02, z: 1.6}
+  - id: eng_electric_pump_mini
+    family: engine_s1
+    prefab: {fileID: 919132149155446097, guid: 1883f2ced4de44315aa7939b52a00f08, type: 3}
+    lengthM: 0.65
+    diameterBottomM: 0.25
+    diameterTopM: 0.2
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 0.65}
+    - name: nozzle_exit
+      kitPositionM: {x: 0, y: 0, z: 0}
+    - name: gimbal_pivot
+      kitPositionM: {x: 0, y: 0, z: 0.5757}
+  - id: eng_hydrolox_high_efficiency
+    family: engine_s1
+    prefab: {fileID: 919132149155446097, guid: 39b2e7cd9caf44962950ec58050365e5, type: 3}
+    lengthM: 4.3
+    diameterBottomM: 2.4
+    diameterTopM: 1
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 4.3}
+    - name: nozzle_exit
+      kitPositionM: {x: 0, y: 0, z: 0}
+    - name: gimbal_pivot
+      kitPositionM: {x: 0, y: 0, z: 4.047}
+  - id: eng_hydrolox_vacuum
+    family: engine_s2
+    prefab: {fileID: 919132149155446097, guid: dd54dec08781a492d87ebe83f343d97f, type: 3}
+    lengthM: 2.2
+    diameterBottomM: 1.45
+    diameterTopM: 0.5
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 2.2}
+    - name: nozzle_exit
+      kitPositionM: {x: 0, y: 0, z: 0}
+    - name: gimbal_pivot
+      kitPositionM: {x: 0, y: 0, z: 2.079}
+  - id: eng_hypergolic_storable
+    family: engine_s2
+    prefab: {fileID: 919132149155446097, guid: 8522fd160b54c498187d40399ce1e159, type: 3}
+    lengthM: 3.9
+    diameterBottomM: 2.5
+    diameterTopM: 0.7
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 3.9}
+    - name: nozzle_exit
+      kitPositionM: {x: 0, y: 0, z: 0}
+    - name: gimbal_pivot
+      kitPositionM: {x: 0, y: 0, z: 3.22}
+  - id: eng_kerolox_giant
+    family: engine_s1
+    prefab: {fileID: 919132149155446097, guid: 9b0984c4e343e4e40baca568b6c68ed0, type: 3}
+    lengthM: 5.6
+    diameterBottomM: 3.7
+    diameterTopM: 1.5
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 5.6}
+    - name: nozzle_exit
+      kitPositionM: {x: 0, y: 0, z: 0}
+    - name: gimbal_pivot
+      kitPositionM: {x: 0, y: 0, z: 5.039}
+  - id: eng_kerolox_staged_combustion
+    family: engine_s1
+    prefab: {fileID: 919132149155446097, guid: dafcc292e89234963b5d93d507b3af5a, type: 3}
+    lengthM: 3.6
+    diameterBottomM: 1.45
+    diameterTopM: 1.6
+    attachPoints:
+    - name: nozzle_exit_1
+      kitPositionM: {x: 0.81, y: 0, z: 0}
+    - name: nozzle_exit_2
+      kitPositionM: {x: -0.81, y: 0, z: 0}
+    - name: gimbal_pivot_1
+      kitPositionM: {x: 0.81, y: 0, z: 3.118}
+    - name: gimbal_pivot_2
+      kitPositionM: {x: -0.81, y: 0, z: 3.118}
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 3.6}
+    - name: nozzle_exit
+      kitPositionM: {x: 0, y: 0, z: 0}
+    - name: gimbal_pivot
+      kitPositionM: {x: 0, y: 0, z: 3.118}
+  - id: eng_kerolox_vacuum
+    family: engine_s2
+    prefab: {fileID: 919132149155446097, guid: 1eac73b2aff2e46cd8b9991a13efd8c6, type: 3}
+    lengthM: 3.9
+    diameterBottomM: 3
+    diameterTopM: 0.55
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 3.9}
+    - name: nozzle_exit
+      kitPositionM: {x: 0, y: 0, z: 0}
+    - name: gimbal_pivot
+      kitPositionM: {x: 0, y: 0, z: 3.746}
+  - id: eng_kerolox_workhorse
+    family: engine_s1
+    prefab: {fileID: 919132149155446097, guid: caac1853887e04c3eb3ce56d825ee179, type: 3}
+    lengthM: 2.9
+    diameterBottomM: 0.92
+    diameterTopM: 0.55
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 2.9}
+    - name: nozzle_exit
+      kitPositionM: {x: 0, y: 0, z: 0}
+    - name: gimbal_pivot
+      kitPositionM: {x: 0, y: 0, z: 2.691}
+  - id: eng_methalox_full_flow
+    family: engine_s1
+    prefab: {fileID: 919132149155446097, guid: bb1b453619738414da3d8ac628b10fff, type: 3}
+    lengthM: 3.1
+    diameterBottomM: 1.3
+    diameterTopM: 0.8
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 3.1}
+    - name: nozzle_exit
+      kitPositionM: {x: 0, y: 0, z: 0}
+    - name: gimbal_pivot
+      kitPositionM: {x: 0, y: 0, z: 2.902}
+  - id: eng_methalox_vacuum
+    family: engine_s2
+    prefab: {fileID: 919132149155446097, guid: 7dfafe7e7f9e94960862986542d164b4, type: 3}
+    lengthM: 4.7
+    diameterBottomM: 2.5
+    diameterTopM: 0.8
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 4.7}
+    - name: nozzle_exit
+      kitPositionM: {x: 0, y: 0, z: 0}
+    - name: gimbal_pivot
+      kitPositionM: {x: 0, y: 0, z: 4.502}
+  - id: eng_solid_kick_motor
+    family: engine_s2
+    prefab: {fileID: 919132149155446097, guid: b20e1c0ff3cea4d29bec084bb605af99, type: 3}
+    lengthM: 2.03
+    diameterBottomM: 0.75
+    diameterTopM: 0.9
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 2.03}
+    - name: nozzle_exit
+      kitPositionM: {x: 0, y: 0, z: 0}
+    - name: gimbal_pivot
+      kitPositionM: {x: 0, y: 0, z: 0.86}
+  - id: fairing_large
+    family: fairing
+    prefab: {fileID: 919132149155446097, guid: 13b9d2960ecdd4f99b600f8c17df81b3, type: 3}
+    lengthM: 14.5
+    diameterBottomM: 5.4
+    diameterTopM: 0
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 14.5}
+    - name: hinge_a
+      kitPositionM: {x: 2.7, y: 0, z: 0}
+    - name: hinge_b
+      kitPositionM: {x: -2.7, y: 0, z: 0}
+  - id: fairing_reusable_large
+    family: fairing
+    prefab: {fileID: 919132149155446097, guid: 0a888dd36afbc4d50b75a2a6f2bc2b34, type: 3}
+    lengthM: 14.5
+    diameterBottomM: 5.4
+    diameterTopM: 0
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 14.5}
+    - name: hinge_a
+      kitPositionM: {x: 2.7, y: 0, z: 0}
+    - name: hinge_b
+      kitPositionM: {x: -2.7, y: 0, z: 0}
+  - id: fairing_small
+    family: fairing
+    prefab: {fileID: 919132149155446097, guid: f4cf230cef253442f9673536f6ec9c2a, type: 3}
+    lengthM: 3.6
+    diameterBottomM: 1.5
+    diameterTopM: 0
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 3.6}
+    - name: hinge_a
+      kitPositionM: {x: 0.75, y: 0, z: 0}
+    - name: hinge_b
+      kitPositionM: {x: -0.75, y: 0, z: 0}
+  - id: fairing_standard
+    family: fairing
+    prefab: {fileID: 919132149155446097, guid: 1019baaeecaba49b285ab86972021e85, type: 3}
+    lengthM: 11
+    diameterBottomM: 3.7
+    diameterTopM: 0
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 11}
+    - name: hinge_a
+      kitPositionM: {x: 1.85, y: 0, z: 0}
+    - name: hinge_b
+      kitPositionM: {x: -1.85, y: 0, z: 0}
+  - id: interstage_hot_staging_d15
+    family: interstage
+    prefab: {fileID: 919132149155446097, guid: 9001c5393f9d84f81a4c3578730347d2, type: 3}
+    lengthM: 2.9
+    diameterBottomM: 1.5
+    diameterTopM: 1.5
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 2.9}
+  - id: interstage_hot_staging_d15_to_d37
+    family: interstage
+    prefab: {fileID: 919132149155446097, guid: f8df41faadca2442a87a5d99087190d8, type: 3}
+    lengthM: 6
+    diameterBottomM: 1.5
+    diameterTopM: 3.7
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 6}
+  - id: interstage_hot_staging_d37
+    family: interstage
+    prefab: {fileID: 919132149155446097, guid: 7be43a2852dab4d66b79a83bcd763527, type: 3}
+    lengthM: 6
+    diameterBottomM: 3.7
+    diameterTopM: 3.7
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 6}
+  - id: interstage_hot_staging_d37_to_d15
+    family: interstage
+    prefab: {fileID: 919132149155446097, guid: bb6d46cd92ba94ba39ae1ef53fe04057, type: 3}
+    lengthM: 2.9
+    diameterBottomM: 3.7
+    diameterTopM: 1.5
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 2.9}
+  - id: interstage_hot_staging_d37_to_d54
+    family: interstage
+    prefab: {fileID: 919132149155446097, guid: 005e4afb4cea444b7946023a6d7509e5, type: 3}
+    lengthM: 6.4
+    diameterBottomM: 3.7
+    diameterTopM: 5.4
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 6.4}
+  - id: interstage_hot_staging_d54
+    family: interstage
+    prefab: {fileID: 919132149155446097, guid: 6f74b639fed9c4483852642c28e5b266, type: 3}
+    lengthM: 6.4
+    diameterBottomM: 5.4
+    diameterTopM: 5.4
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 6.4}
+  - id: interstage_hot_staging_d54_to_d37
+    family: interstage
+    prefab: {fileID: 919132149155446097, guid: e2a26495ea6c84177b65246845e29d9e, type: 3}
+    lengthM: 6
+    diameterBottomM: 5.4
+    diameterTopM: 3.7
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 6}
+  - id: interstage_hot_staging_d54_to_d84
+    family: interstage
+    prefab: {fileID: 919132149155446097, guid: fac7b825ef4d8460b99c0f23c3cdf330, type: 3}
+    lengthM: 7
+    diameterBottomM: 5.4
+    diameterTopM: 8.4
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 7}
+  - id: interstage_hot_staging_d84
+    family: interstage
+    prefab: {fileID: 919132149155446097, guid: e1d4c5b79ffa642bb98a1f8e0d959158, type: 3}
+    lengthM: 7
+    diameterBottomM: 8.4
+    diameterTopM: 8.4
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 7}
+  - id: interstage_hot_staging_d84_to_d54
+    family: interstage
+    prefab: {fileID: 919132149155446097, guid: fc2d8ef9b84f642da9f9f6c60c32a788, type: 3}
+    lengthM: 6.4
+    diameterBottomM: 8.4
+    diameterTopM: 5.4
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 6.4}
+  - id: interstage_pneumatic_d15
+    family: interstage
+    prefab: {fileID: 919132149155446097, guid: a63c2817b839c443ea93b5e706ae1cb0, type: 3}
+    lengthM: 2.9
+    diameterBottomM: 1.5
+    diameterTopM: 1.5
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 2.9}
+  - id: interstage_pneumatic_d15_to_d37
+    family: interstage
+    prefab: {fileID: 919132149155446097, guid: d53e7653328714804aa0872606e637fd, type: 3}
+    lengthM: 6
+    diameterBottomM: 1.5
+    diameterTopM: 3.7
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 6}
+  - id: interstage_pneumatic_d37
+    family: interstage
+    prefab: {fileID: 919132149155446097, guid: 880b1e1a017fe4f138c17a6c858418a0, type: 3}
+    lengthM: 6
+    diameterBottomM: 3.7
+    diameterTopM: 3.7
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 6}
+  - id: interstage_pneumatic_d37_to_d15
+    family: interstage
+    prefab: {fileID: 919132149155446097, guid: 15fdd0260b1b141798a9323fab46766c, type: 3}
+    lengthM: 2.9
+    diameterBottomM: 3.7
+    diameterTopM: 1.5
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 2.9}
+  - id: interstage_pneumatic_d37_to_d54
+    family: interstage
+    prefab: {fileID: 919132149155446097, guid: e5b799de18e3a4753976ba05e7e8dc15, type: 3}
+    lengthM: 6.4
+    diameterBottomM: 3.7
+    diameterTopM: 5.4
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 6.4}
+  - id: interstage_pneumatic_d54
+    family: interstage
+    prefab: {fileID: 919132149155446097, guid: a84cd76e71e2244bcbce9139a641f0dd, type: 3}
+    lengthM: 6.4
+    diameterBottomM: 5.4
+    diameterTopM: 5.4
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 6.4}
+  - id: interstage_pneumatic_d54_to_d37
+    family: interstage
+    prefab: {fileID: 919132149155446097, guid: fb1a0ff9df6f840309a459f978b6c0cd, type: 3}
+    lengthM: 6
+    diameterBottomM: 5.4
+    diameterTopM: 3.7
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 6}
+  - id: interstage_pneumatic_d54_to_d84
+    family: interstage
+    prefab: {fileID: 919132149155446097, guid: 032ac0159cfc7474aa2ce19af71a53a5, type: 3}
+    lengthM: 7
+    diameterBottomM: 5.4
+    diameterTopM: 8.4
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 7}
+  - id: interstage_pneumatic_d84
+    family: interstage
+    prefab: {fileID: 919132149155446097, guid: b3e72977a61664a17bc57d38a9363bfd, type: 3}
+    lengthM: 7
+    diameterBottomM: 8.4
+    diameterTopM: 8.4
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 7}
+  - id: interstage_pneumatic_d84_to_d54
+    family: interstage
+    prefab: {fileID: 919132149155446097, guid: a6fdce42f6fc2482b8ccaa1e050866eb, type: 3}
+    lengthM: 6.4
+    diameterBottomM: 8.4
+    diameterTopM: 5.4
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 6.4}
+  - id: interstage_pyro_d15
+    family: interstage
+    prefab: {fileID: 919132149155446097, guid: ca49f81c98d3045bc9d07bd9c54cdc24, type: 3}
+    lengthM: 2.9
+    diameterBottomM: 1.5
+    diameterTopM: 1.5
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 2.9}
+  - id: interstage_pyro_d15_to_d37
+    family: interstage
+    prefab: {fileID: 919132149155446097, guid: c4885d2eaccd940caac2b80ce86b5a51, type: 3}
+    lengthM: 6
+    diameterBottomM: 1.5
+    diameterTopM: 3.7
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 6}
+  - id: interstage_pyro_d37
+    family: interstage
+    prefab: {fileID: 919132149155446097, guid: 88a84f4ff5928478eaa99f97f08e9062, type: 3}
+    lengthM: 6
+    diameterBottomM: 3.7
+    diameterTopM: 3.7
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 6}
+  - id: interstage_pyro_d37_to_d15
+    family: interstage
+    prefab: {fileID: 919132149155446097, guid: a1398d713736c4a00873df045417319a, type: 3}
+    lengthM: 2.9
+    diameterBottomM: 3.7
+    diameterTopM: 1.5
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 2.9}
+  - id: interstage_pyro_d37_to_d54
+    family: interstage
+    prefab: {fileID: 919132149155446097, guid: a17e40104f5e2459897903289e940db2, type: 3}
+    lengthM: 6.4
+    diameterBottomM: 3.7
+    diameterTopM: 5.4
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 6.4}
+  - id: interstage_pyro_d54
+    family: interstage
+    prefab: {fileID: 919132149155446097, guid: fc0c3969c16cf4a0d9e7cbaac363c1b0, type: 3}
+    lengthM: 6.4
+    diameterBottomM: 5.4
+    diameterTopM: 5.4
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 6.4}
+  - id: interstage_pyro_d54_to_d37
+    family: interstage
+    prefab: {fileID: 919132149155446097, guid: 49f37f432a2f84443a4e696f37ba3b17, type: 3}
+    lengthM: 6
+    diameterBottomM: 5.4
+    diameterTopM: 3.7
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 6}
+  - id: interstage_pyro_d54_to_d84
+    family: interstage
+    prefab: {fileID: 919132149155446097, guid: ec97f17ddc7e24fb58876cd4bc7f86b8, type: 3}
+    lengthM: 7
+    diameterBottomM: 5.4
+    diameterTopM: 8.4
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 7}
+  - id: interstage_pyro_d84
+    family: interstage
+    prefab: {fileID: 919132149155446097, guid: 7643d6da39b9242b38b87f1d9be578f4, type: 3}
+    lengthM: 7
+    diameterBottomM: 8.4
+    diameterTopM: 8.4
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 7}
+  - id: interstage_pyro_d84_to_d54
+    family: interstage
+    prefab: {fileID: 919132149155446097, guid: 62b05962cd5de4780a73f5a7e6ad732a, type: 3}
+    lengthM: 6.4
+    diameterBottomM: 8.4
+    diameterTopM: 5.4
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 6.4}
+  - id: mount_s1_1_d15
+    family: mount_s1
+    prefab: {fileID: 919132149155446097, guid: 2b0721cdce2194dd0a8191cf82b820ba, type: 3}
+    lengthM: 0.7
+    diameterBottomM: 1.5
+    diameterTopM: 1.5
+    attachPoints:
+    - name: attach_engine_1
+      kitPositionM: {x: 0, y: 0, z: 0.25}
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 0.7}
+  - id: mount_s1_1_d37
+    family: mount_s1
+    prefab: {fileID: 919132149155446097, guid: 64366f3e45f3e4fc8a81e0287fe7eaaa, type: 3}
+    lengthM: 1.6
+    diameterBottomM: 3.7
+    diameterTopM: 3.7
+    attachPoints:
+    - name: attach_engine_1
+      kitPositionM: {x: 0, y: 0, z: 0.55}
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 1.6}
+  - id: mount_s1_1_d54
+    family: mount_s1
+    prefab: {fileID: 919132149155446097, guid: 9e61cb35003164d038c3a9f132a17169, type: 3}
+    lengthM: 2.2
+    diameterBottomM: 5.4
+    diameterTopM: 5.4
+    attachPoints:
+    - name: attach_engine_1
+      kitPositionM: {x: 0, y: 0, z: 0.75}
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 2.2}
+  - id: mount_s1_1_d84
+    family: mount_s1
+    prefab: {fileID: 919132149155446097, guid: b2a991e17a2a3419a9ef464d658e320b, type: 3}
+    lengthM: 3.2
+    diameterBottomM: 8.4
+    diameterTopM: 8.4
+    attachPoints:
+    - name: attach_engine_1
+      kitPositionM: {x: 0, y: 0, z: 1.1}
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 3.2}
+  - id: mount_s1_3_d15
+    family: mount_s1
+    prefab: {fileID: 919132149155446097, guid: 892872a42727843de9d312f290249ed7, type: 3}
+    lengthM: 0.7
+    diameterBottomM: 1.5
+    diameterTopM: 1.5
+    attachPoints:
+    - name: attach_engine_1
+      kitPositionM: {x: 0, y: 0.4125, z: 0.25}
+    - name: attach_engine_2
+      kitPositionM: {x: -0.3572, y: -0.2062, z: 0.25}
+    - name: attach_engine_3
+      kitPositionM: {x: 0.3572, y: -0.2063, z: 0.25}
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 0.7}
+  - id: mount_s1_3_d37
+    family: mount_s1
+    prefab: {fileID: 919132149155446097, guid: ef0ece351d3814812aa0e74fe2d5dd53, type: 3}
+    lengthM: 1.6
+    diameterBottomM: 3.7
+    diameterTopM: 3.7
+    attachPoints:
+    - name: attach_engine_1
+      kitPositionM: {x: 0, y: 1.0175, z: 0.55}
+    - name: attach_engine_2
+      kitPositionM: {x: -0.8812, y: -0.5087, z: 0.55}
+    - name: attach_engine_3
+      kitPositionM: {x: 0.8812, y: -0.5088, z: 0.55}
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 1.6}
+  - id: mount_s1_3_d54
+    family: mount_s1
+    prefab: {fileID: 919132149155446097, guid: 6b69485b89f534b0bb6e2334af7dd01c, type: 3}
+    lengthM: 2.2
+    diameterBottomM: 5.4
+    diameterTopM: 5.4
+    attachPoints:
+    - name: attach_engine_1
+      kitPositionM: {x: 0, y: 1.485, z: 0.75}
+    - name: attach_engine_2
+      kitPositionM: {x: -1.286, y: -0.7425, z: 0.75}
+    - name: attach_engine_3
+      kitPositionM: {x: 1.286, y: -0.7425, z: 0.75}
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 2.2}
+  - id: mount_s1_3_d84
+    family: mount_s1
+    prefab: {fileID: 919132149155446097, guid: b49c0ff165b51459d951d35d84d2c2da, type: 3}
+    lengthM: 3.2
+    diameterBottomM: 8.4
+    diameterTopM: 8.4
+    attachPoints:
+    - name: attach_engine_1
+      kitPositionM: {x: 0, y: 2.31, z: 1.1}
+    - name: attach_engine_2
+      kitPositionM: {x: -2.0005, y: -1.155, z: 1.1}
+    - name: attach_engine_3
+      kitPositionM: {x: 2.0005, y: -1.155, z: 1.1}
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 3.2}
+  - id: mount_s1_5_d15
+    family: mount_s1
+    prefab: {fileID: 919132149155446097, guid: 132bbb765e39c42f9b3f8b5281970bef, type: 3}
+    lengthM: 0.7
+    diameterBottomM: 1.5
+    diameterTopM: 1.5
+    attachPoints:
+    - name: attach_engine_1
+      kitPositionM: {x: 0, y: 0, z: 0.25}
+    - name: attach_engine_2
+      kitPositionM: {x: 0.3818, y: 0.3818, z: 0.25}
+    - name: attach_engine_3
+      kitPositionM: {x: -0.3818, y: 0.3818, z: 0.25}
+    - name: attach_engine_4
+      kitPositionM: {x: -0.3818, y: -0.3818, z: 0.25}
+    - name: attach_engine_5
+      kitPositionM: {x: 0.3818, y: -0.3818, z: 0.25}
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 0.7}
+  - id: mount_s1_5_d37
+    family: mount_s1
+    prefab: {fileID: 919132149155446097, guid: 5a8640669e0ae49e6a8c0cb8dcd8014c, type: 3}
+    lengthM: 1.6
+    diameterBottomM: 3.7
+    diameterTopM: 3.7
+    attachPoints:
+    - name: attach_engine_1
+      kitPositionM: {x: 0, y: 0, z: 0.55}
+    - name: attach_engine_2
+      kitPositionM: {x: 0.9419, y: 0.9419, z: 0.55}
+    - name: attach_engine_3
+      kitPositionM: {x: -0.9419, y: 0.9419, z: 0.55}
+    - name: attach_engine_4
+      kitPositionM: {x: -0.9419, y: -0.9419, z: 0.55}
+    - name: attach_engine_5
+      kitPositionM: {x: 0.9419, y: -0.9419, z: 0.55}
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 1.6}
+  - id: mount_s1_5_d54
+    family: mount_s1
+    prefab: {fileID: 919132149155446097, guid: 08e3ce3b20bb24b6ea0c2dfb7b0e3ccd, type: 3}
+    lengthM: 2.2
+    diameterBottomM: 5.4
+    diameterTopM: 5.4
+    attachPoints:
+    - name: attach_engine_1
+      kitPositionM: {x: 0, y: 0, z: 0.75}
+    - name: attach_engine_2
+      kitPositionM: {x: 1.3746, y: 1.3746, z: 0.75}
+    - name: attach_engine_3
+      kitPositionM: {x: -1.3746, y: 1.3746, z: 0.75}
+    - name: attach_engine_4
+      kitPositionM: {x: -1.3746, y: -1.3746, z: 0.75}
+    - name: attach_engine_5
+      kitPositionM: {x: 1.3746, y: -1.3746, z: 0.75}
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 2.2}
+  - id: mount_s1_5_d84
+    family: mount_s1
+    prefab: {fileID: 919132149155446097, guid: f3a8048a1b96e4492983cf8a9d396012, type: 3}
+    lengthM: 3.2
+    diameterBottomM: 8.4
+    diameterTopM: 8.4
+    attachPoints:
+    - name: attach_engine_1
+      kitPositionM: {x: 0, y: 0, z: 1.1}
+    - name: attach_engine_2
+      kitPositionM: {x: 2.6135, y: 2.6135, z: 1.1}
+    - name: attach_engine_3
+      kitPositionM: {x: -2.6135, y: 2.6135, z: 1.1}
+    - name: attach_engine_4
+      kitPositionM: {x: -2.6135, y: -2.6135, z: 1.1}
+    - name: attach_engine_5
+      kitPositionM: {x: 2.6135, y: -2.6135, z: 1.1}
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 3.2}
+  - id: mount_s1_9_d15
+    family: mount_s1
+    prefab: {fileID: 919132149155446097, guid: 4b447cd41ff184f85838e723f1f85e99, type: 3}
+    lengthM: 0.7
+    diameterBottomM: 1.5
+    diameterTopM: 1.5
+    attachPoints:
+    - name: attach_engine_1
+      kitPositionM: {x: 0, y: 0, z: 0.25}
+    - name: attach_engine_2
+      kitPositionM: {x: 0.54, y: 0, z: 0.25}
+    - name: attach_engine_3
+      kitPositionM: {x: 0.3818, y: 0.3818, z: 0.25}
+    - name: attach_engine_4
+      kitPositionM: {x: 0, y: 0.54, z: 0.25}
+    - name: attach_engine_5
+      kitPositionM: {x: -0.3818, y: 0.3818, z: 0.25}
+    - name: attach_engine_6
+      kitPositionM: {x: -0.54, y: 0, z: 0.25}
+    - name: attach_engine_7
+      kitPositionM: {x: -0.3818, y: -0.3818, z: 0.25}
+    - name: attach_engine_8
+      kitPositionM: {x: 0, y: -0.54, z: 0.25}
+    - name: attach_engine_9
+      kitPositionM: {x: 0.3818, y: -0.3818, z: 0.25}
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 0.7}
+  - id: mount_s1_9_d37
+    family: mount_s1
+    prefab: {fileID: 919132149155446097, guid: 752faa91750324f5ab80375959660806, type: 3}
+    lengthM: 1.6
+    diameterBottomM: 3.7
+    diameterTopM: 3.7
+    attachPoints:
+    - name: attach_engine_1
+      kitPositionM: {x: 0, y: 0, z: 0.55}
+    - name: attach_engine_2
+      kitPositionM: {x: 1.332, y: 0, z: 0.55}
+    - name: attach_engine_3
+      kitPositionM: {x: 0.9419, y: 0.9419, z: 0.55}
+    - name: attach_engine_4
+      kitPositionM: {x: 0, y: 1.332, z: 0.55}
+    - name: attach_engine_5
+      kitPositionM: {x: -0.9419, y: 0.9419, z: 0.55}
+    - name: attach_engine_6
+      kitPositionM: {x: -1.332, y: 0, z: 0.55}
+    - name: attach_engine_7
+      kitPositionM: {x: -0.9419, y: -0.9419, z: 0.55}
+    - name: attach_engine_8
+      kitPositionM: {x: 0, y: -1.332, z: 0.55}
+    - name: attach_engine_9
+      kitPositionM: {x: 0.9419, y: -0.9419, z: 0.55}
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 1.6}
+  - id: mount_s1_9_d54
+    family: mount_s1
+    prefab: {fileID: 919132149155446097, guid: 4e4e8e988d3eb4a92b4348aac14a0a28, type: 3}
+    lengthM: 2.2
+    diameterBottomM: 5.4
+    diameterTopM: 5.4
+    attachPoints:
+    - name: attach_engine_1
+      kitPositionM: {x: 0, y: 0, z: 0.75}
+    - name: attach_engine_2
+      kitPositionM: {x: 1.944, y: 0, z: 0.75}
+    - name: attach_engine_3
+      kitPositionM: {x: 1.3746, y: 1.3746, z: 0.75}
+    - name: attach_engine_4
+      kitPositionM: {x: 0, y: 1.944, z: 0.75}
+    - name: attach_engine_5
+      kitPositionM: {x: -1.3746, y: 1.3746, z: 0.75}
+    - name: attach_engine_6
+      kitPositionM: {x: -1.944, y: 0, z: 0.75}
+    - name: attach_engine_7
+      kitPositionM: {x: -1.3746, y: -1.3746, z: 0.75}
+    - name: attach_engine_8
+      kitPositionM: {x: 0, y: -1.944, z: 0.75}
+    - name: attach_engine_9
+      kitPositionM: {x: 1.3746, y: -1.3746, z: 0.75}
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 2.2}
+  - id: mount_s1_9_d84
+    family: mount_s1
+    prefab: {fileID: 919132149155446097, guid: 627f419210b1144a695242622cee8243, type: 3}
+    lengthM: 3.2
+    diameterBottomM: 8.4
+    diameterTopM: 8.4
+    attachPoints:
+    - name: attach_engine_1
+      kitPositionM: {x: 0, y: 0, z: 1.1}
+    - name: attach_engine_2
+      kitPositionM: {x: 3.15, y: 0, z: 1.1}
+    - name: attach_engine_3
+      kitPositionM: {x: 2.2274, y: 2.2274, z: 1.1}
+    - name: attach_engine_4
+      kitPositionM: {x: 0, y: 3.15, z: 1.1}
+    - name: attach_engine_5
+      kitPositionM: {x: -2.2274, y: 2.2274, z: 1.1}
+    - name: attach_engine_6
+      kitPositionM: {x: -3.15, y: 0, z: 1.1}
+    - name: attach_engine_7
+      kitPositionM: {x: -2.2274, y: -2.2274, z: 1.1}
+    - name: attach_engine_8
+      kitPositionM: {x: 0, y: -3.15, z: 1.1}
+    - name: attach_engine_9
+      kitPositionM: {x: 2.2274, y: -2.2274, z: 1.1}
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 3.2}
+  - id: mount_s2_1_d15
+    family: mount_s2
+    prefab: {fileID: 919132149155446097, guid: 7ad18bd4dcd3d430da6745a3d2cfad04, type: 3}
+    lengthM: 0.35
+    diameterBottomM: 1.28
+    diameterTopM: 1.28
+    attachPoints:
+    - name: attach_engine_1
+      kitPositionM: {x: 0, y: 0, z: 0}
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 0.35}
+  - id: mount_s2_1_d37
+    family: mount_s2
+    prefab: {fileID: 919132149155446097, guid: 3cfaeafb11c1845b0976203fa072b742, type: 3}
+    lengthM: 0.8
+    diameterBottomM: 3.216
+    diameterTopM: 3.216
+    attachPoints:
+    - name: attach_engine_1
+      kitPositionM: {x: 0, y: 0, z: 0}
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 0.8}
+  - id: mount_s2_1_d54
+    family: mount_s2
+    prefab: {fileID: 919132149155446097, guid: 807f5bdf24f424c37a8ec015ff74a797, type: 3}
+    lengthM: 1.1
+    diameterBottomM: 4.712
+    diameterTopM: 4.712
+    attachPoints:
+    - name: attach_engine_1
+      kitPositionM: {x: 0, y: 0, z: 0}
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 1.1}
+  - id: mount_s2_1_d84
+    family: mount_s2
+    prefab: {fileID: 919132149155446097, guid: d66ddc0bba5a8478f90fb8e073286958, type: 3}
+    lengthM: 1.6
+    diameterBottomM: 7.352
+    diameterTopM: 7.352
+    attachPoints:
+    - name: attach_engine_1
+      kitPositionM: {x: 0, y: 0, z: 0}
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 1.6}
+  - id: mount_s2_2_d15
+    family: mount_s2
+    prefab: {fileID: 919132149155446097, guid: 3c953563070d44e5eb866a10be8c73d7, type: 3}
+    lengthM: 0.35
+    diameterBottomM: 1.28
+    diameterTopM: 1.28
+    attachPoints:
+    - name: attach_engine_1
+      kitPositionM: {x: 0.375, y: 0, z: 0}
+    - name: attach_engine_2
+      kitPositionM: {x: -0.375, y: 0, z: 0}
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 0.35}
+  - id: mount_s2_2_d37
+    family: mount_s2
+    prefab: {fileID: 919132149155446097, guid: 09098fecc884a47a883514f8bd739c33, type: 3}
+    lengthM: 0.8
+    diameterBottomM: 3.216
+    diameterTopM: 3.216
+    attachPoints:
+    - name: attach_engine_1
+      kitPositionM: {x: 0.925, y: 0, z: 0}
+    - name: attach_engine_2
+      kitPositionM: {x: -0.925, y: 0, z: 0}
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 0.8}
+  - id: mount_s2_2_d54
+    family: mount_s2
+    prefab: {fileID: 919132149155446097, guid: 3e8508dfc99b94524bceeb48133f5ab7, type: 3}
+    lengthM: 1.1
+    diameterBottomM: 4.712
+    diameterTopM: 4.712
+    attachPoints:
+    - name: attach_engine_1
+      kitPositionM: {x: 1.35, y: 0, z: 0}
+    - name: attach_engine_2
+      kitPositionM: {x: -1.35, y: 0, z: 0}
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 1.1}
+  - id: mount_s2_2_d84
+    family: mount_s2
+    prefab: {fileID: 919132149155446097, guid: c339883c638b7482fa42504d30c9fc34, type: 3}
+    lengthM: 1.6
+    diameterBottomM: 7.352
+    diameterTopM: 7.352
+    attachPoints:
+    - name: attach_engine_1
+      kitPositionM: {x: 2.1, y: 0, z: 0}
+    - name: attach_engine_2
+      kitPositionM: {x: -2.1, y: 0, z: 0}
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 1.6}
+  - id: tank_s1_l
+    family: tank
+    prefab: {fileID: 919132149155446097, guid: 564d72b6082804d279017853b3c124ff, type: 3}
+    lengthM: 23.4
+    diameterBottomM: 5.4
+    diameterTopM: 5.4
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 23.4}
+  - id: tank_s1_l_hydrolox
+    family: tank
+    prefab: {fileID: 919132149155446097, guid: c595c3fd6df114347a128900feb2a29d, type: 3}
+    lengthM: 57.3
+    diameterBottomM: 5.4
+    diameterTopM: 5.4
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 57.3}
+  - id: tank_s1_m
+    family: tank
+    prefab: {fileID: 919132149155446097, guid: ee872010299154780bf5891498049985, type: 3}
+    lengthM: 29.6
+    diameterBottomM: 3.7
+    diameterTopM: 3.7
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 29.6}
+  - id: tank_s1_m_hydrolox
+    family: tank
+    prefab: {fileID: 919132149155446097, guid: f772b6d2838ce4fc7a7096386fdfef0e, type: 3}
+    lengthM: 39.8
+    diameterBottomM: 5.4
+    diameterTopM: 5.4
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 39.8}
+  - id: tank_s1_s
+    family: tank
+    prefab: {fileID: 919132149155446097, guid: 596f3ccb130604988848a01acc4e2b63, type: 3}
+    lengthM: 14.6
+    diameterBottomM: 3.7
+    diameterTopM: 3.7
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 14.6}
+  - id: tank_s1_s_hydrolox
+    family: tank
+    prefab: {fileID: 919132149155446097, guid: ddd6a2f13749640eabb974a20356b36e, type: 3}
+    lengthM: 35.3
+    diameterBottomM: 3.7
+    diameterTopM: 3.7
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 35.3}
+  - id: tank_s1_xl
+    family: tank
+    prefab: {fileID: 919132149155446097, guid: 8b7eb30d3d2fe4d15890cab712fc4916, type: 3}
+    lengthM: 25.8
+    diameterBottomM: 8.4
+    diameterTopM: 8.4
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 25.8}
+  - id: tank_s1_xl_hydrolox
+    family: tank
+    prefab: {fileID: 919132149155446097, guid: ed4cff7520d384e57a79d55d805b0a0b, type: 3}
+    lengthM: 59.2
+    diameterBottomM: 8.4
+    diameterTopM: 8.4
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 59.2}
+  - id: tank_s1_xs
+    family: tank
+    prefab: {fileID: 919132149155446097, guid: 9538e777d78264491a1b780842a35d4d, type: 3}
+    lengthM: 8.2
+    diameterBottomM: 1.5
+    diameterTopM: 1.5
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 8.2}
+  - id: tank_s1_xs_hydrolox
+    family: tank
+    prefab: {fileID: 919132149155446097, guid: cf6e6b8885a754ad8adddcbc5844f9bb, type: 3}
+    lengthM: 20.8
+    diameterBottomM: 1.5
+    diameterTopM: 1.5
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 20.8}
+  - id: tank_s2_l
+    family: tank
+    prefab: {fileID: 919132149155446097, guid: 8b76bed1fb4e64b6c8aae16814927f2d, type: 3}
+    lengthM: 12
+    diameterBottomM: 3.7
+    diameterTopM: 3.7
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 12}
+  - id: tank_s2_l_hydrolox
+    family: tank
+    prefab: {fileID: 919132149155446097, guid: 482667b1211204fd297daba609ff1d9b, type: 3}
+    lengthM: 16.2
+    diameterBottomM: 5.4
+    diameterTopM: 5.4
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 16.2}
+  - id: tank_s2_m
+    family: tank
+    prefab: {fileID: 919132149155446097, guid: 4e9867077cc91492eb2c3ed05c65a87a, type: 3}
+    lengthM: 7.3
+    diameterBottomM: 3.7
+    diameterTopM: 3.7
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 7.3}
+  - id: tank_s2_m_hydrolox
+    family: tank
+    prefab: {fileID: 919132149155446097, guid: 581e749b9eafc4c32aaa88b24e3d181d, type: 3}
+    lengthM: 17.6
+    diameterBottomM: 3.7
+    diameterTopM: 3.7
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 17.6}
+  - id: tank_s2_s
+    family: tank
+    prefab: {fileID: 919132149155446097, guid: 4fa940bc41a404db886cd2d718bd2c20, type: 3}
+    lengthM: 4
+    diameterBottomM: 3.7
+    diameterTopM: 3.7
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 4}
+  - id: tank_s2_s_hydrolox
+    family: tank
+    prefab: {fileID: 919132149155446097, guid: f87ba7810db1c48429a15fbbbb98cbdd, type: 3}
+    lengthM: 8.3
+    diameterBottomM: 3.7
+    diameterTopM: 3.7
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 8.3}
+  - id: tank_s2_xl
+    family: tank
+    prefab: {fileID: 919132149155446097, guid: 01dcf7cec1e7e4bab9d6b33c5c839f4f, type: 3}
+    lengthM: 13.5
+    diameterBottomM: 5.4
+    diameterTopM: 5.4
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 13.5}
+  - id: tank_s2_xl_hydrolox
+    family: tank
+    prefab: {fileID: 919132149155446097, guid: ae5a6c7df202b46018019370f2249552, type: 3}
+    lengthM: 16.7
+    diameterBottomM: 8.4
+    diameterTopM: 8.4
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 16.7}
+  - id: tank_s2_xs
+    family: tank
+    prefab: {fileID: 919132149155446097, guid: 7e8dbf929d45f41a482a6617136f4bdc, type: 3}
+    lengthM: 2.1
+    diameterBottomM: 1.5
+    diameterTopM: 1.5
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 2.1}
+  - id: tank_s2_xs_hydrolox
+    family: tank
+    prefab: {fileID: 919132149155446097, guid: 1edf3ed7e58fe45e79d78047cd923992, type: 3}
+    lengthM: 4.7
+    diameterBottomM: 1.5
+    diameterTopM: 1.5
+    attachPoints:
+    - name: attach_top
+      kitPositionM: {x: 0, y: 0, z: 4.7}
