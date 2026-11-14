@@ -1,0 +1,29 @@
+{
+  "name": "missionforge-server",
+  "version": "0.1.0",
+  "private": true,
+  "description": "MissionForge room server: rooms, roles, votes, timers, relay over WebSocket (protocol/messages.md).",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json && node tools/postbuild.mjs",
+    "start": "node dist/server/src/index.js",
+    "dev": "tsx src/index.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "simulate": "node tools/simulate.mjs"
+  },
+  "dependencies": {
+    "ajv": "^8.20.0",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "@types/ws": "^8.5.10",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0"
+  }
+}
