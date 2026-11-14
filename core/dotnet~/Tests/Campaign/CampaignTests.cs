@@ -62,7 +62,9 @@ namespace MissionForge.Core.Tests.Campaign
             Assert.Equal(10, update.State.CarriedBudgetM, 8);
             Assert.Single(update.State.Missions);
             Assert.Single(update.State.InventoryItems);
-            Assert.Single(update.MilestoneEvents);
+            Assert.Equal(2, update.MilestoneEvents.Count); // orbit and hardware recovery
+            Assert.Contains(update.MilestoneEvents, m => m.Id == "first_orbit");
+            Assert.Contains(update.MilestoneEvents, m => m.Id == "first_recovery");
             Assert.Equal("first_orbit", update.MilestoneEvents[0].Id);
             Assert.Equal("campaign_first_orbit", update.MilestoneEvents[0].CinematicId);
             Assert.Empty(a.Missions);
