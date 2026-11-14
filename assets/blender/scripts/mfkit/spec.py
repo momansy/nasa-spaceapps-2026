@@ -255,3 +255,50 @@ WORLD_VALUE_TYPES = dict(
     PAD_DECK_H=("game_value", "LC-39A class pad: deck about 12 m above grade"),
     GANTRY_OFFSET_X="game_value", GANTRY_SEGMENT_H="game_value", GANTRY_HALF="game_value",
     VEHICLE_ENVELOPE_R="game_value")
+
+
+# --------------------------------------------------------------------------- T017: capsules and heat shields
+# design 7.2.2, 7.3. d = capsule (heat-shield) diameter; ring_d = mating ring on the stack (a kit
+# diameter). Blunt-cone shape: cone half angle CAPSULE_CONE_DEG, shield sphere radius = 1.2 d
+# (Apollo CM class: 3.9 m shield, 4.7 m sphere radius). All game_value layout choices.
+CAPSULE_CONE_DEG = 33.0     # Apollo / Orion class backshell half angle, degrees
+CAPSULE_SHIELD_RC = 1.2     # shield sphere radius / diameter
+CAPSULES = {
+    "cap_compact": dict(d=3.2, ring_d=DIAMETERS["d37"], service=0.0, name="Compact capsule",
+                        twin="Gemini / Apollo class, 3.2 m"),
+    "cap_standard": dict(d=5.0, ring_d=DIAMETERS["d54"], service=0.0, name="Standard capsule",
+                         twin="Orion class, 5.0 m"),
+    "cap_deep_space": dict(d=5.0, ring_d=DIAMETERS["d54"], service=4.0, name="Deep-space capsule",
+                           twin="Orion + European Service Module class, 5.0 m, SM 4.0 m",
+                           wing_len=6.6, wing_w=2.9),
+}
+TPS_TYPES = ("avcoat_ablator", "pica_ablator", "reusable_ceramic_tiles", "inflatable_decelerator")
+TPS_INFLATED_SCALE = 1.6    # inflated decelerator diameter / capsule diameter (LOFTID class, game_value)
+
+
+# --------------------------------------------------------------------------- T017: launch escape (design 7.4)
+# Tractor tower for the 5.0 m capsules: bottom ring = capsule docking ring (2 x 0.27 x 2.5 m).
+# Orion LAS class (about 13 m); Apollo LES class for the silhouette. All game_value.
+LES_TOWER_RING_D = 1.35      # m, matches cap_standard / cap_deep_space attach_top ring
+LES_TOWER_LEN = 12.6         # m
+LES_NOZZLE_CANT_DEG = 25.0   # abort-motor nozzles canted outward, degrees
+
+
+# --------------------------------------------------------------------------- T017: Earth-observation satellite (design 7.2.1)
+# Compact insulated bus (style guide satellite), 150 kg C1 class. Frame: +Z launch axis, origin at the
+# separation ring, nadir = +Y. Wings are authored deployed along +-X. All game_value; the stowed
+# envelope must stay inside fairing_small (1.5 m diameter, see check in parts_spacecraft_evidence.py).
+SAT_RING_R = 0.47        # separation ring radius (937 mm payload adapter class, real_world_approximate)
+SAT_RING_H = 0.14        # ring height, m
+SAT_BUS = (0.62, 0.58, 0.80)   # bus x, y, z, m
+SAT_WING_PANEL_L = 0.58  # panel length along the hinge-to-tip direction, m (= bus depth so the wing folds flat)
+SAT_WING_CHORD = {"satpwr_deployable_solar_wings": 0.70, "satpwr_large_deployable_array": 1.30}   # m
+SAT_WING_PANELS = 2      # panels per wing (inner + outer accordion)
+
+
+# --------------------------------------------------------------------------- T017: Mars landers (design 7.2.3)
+# Stylised twins: Pathfinder (airbag), Phoenix / InSight (legged), Curiosity (sky crane). game_value layout.
+LANDER_AIRBAG_TETRA_EDGE = 1.5     # m, tetrahedral lander edge (Pathfinder class: 1.5 m)
+LANDER_LEGGED_DECK_D = 1.6         # m, hexagonal deck across corners
+LANDER_LEGGED_SOLAR_D = 2.1        # m, each round solar array (Phoenix class 2.1 m)
+LANDER_SKYCRANE_BRIDLE = 6.0       # m, descent stage to rover (Curiosity class 7.5 m, shortened for the card)

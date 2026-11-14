@@ -507,6 +507,345 @@
    },
    "issues": []
   },
+  "cap_compact": {
+   "id": "cap_compact",
+   "length_m": 2.8831,
+   "diameter_bottom_m": 3.7,
+   "diameter_top_m": 0.864,
+   "capsule_diameter_m": 3.2,
+   "shield_depth_m": 0.349,
+   "cone_half_angle_deg": 33.0,
+   "shield_sphere_radius_m": 3.84,
+   "mating_ring_key": "d37",
+   "twin": "Gemini / Apollo class, 3.2 m",
+   "value_types": {
+    "capsule_diameter_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "shield_depth_m": "game_value",
+    "cone_half_angle_deg": "real_world_approximate",
+    "shield_sphere_radius_m": "real_world_approximate",
+    "length_m": "game_value"
+   },
+   "family": "spacecraft_capsule",
+   "design_ref": "7.2.2",
+   "bbox_min_m": [
+    -1.85,
+    -1.85,
+    0.0
+   ],
+   "bbox_max_m": [
+    1.85,
+    1.85,
+    2.883
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      2.8831
+     ]
+    },
+    "attach_pod_1": {
+     "blender_xyz": [
+      0.9223,
+      0.9223,
+      1.2643
+     ]
+    },
+    "attach_pod_2": {
+     "blender_xyz": [
+      -0.9223,
+      0.9223,
+      1.2643
+     ]
+    },
+    "attach_pod_3": {
+     "blender_xyz": [
+      -0.9223,
+      -0.9223,
+      1.2643
+     ]
+    },
+    "attach_pod_4": {
+     "blender_xyz": [
+      0.9223,
+      -0.9223,
+      1.2643
+     ]
+    },
+    "parachute_bay": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      2.6271
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "heat_shield",
+    "hull",
+    "livery"
+   ],
+   "triangles": {
+    "lod0": 7744,
+    "lod1": 2084,
+    "phone": 7744
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/cap_compact.fbx",
+    "glb": "client/public/models/cap_compact.glb",
+    "fbx_bytes": 233404,
+    "glb_bytes": 257680,
+    "blend": "assets/blender/cap_compact.blend",
+    "blend_bytes": 251898
+   },
+   "issues": []
+  },
+  "cap_deep_space": {
+   "id": "cap_deep_space",
+   "service_module_length_m": 4.0,
+   "wing_span_m": 6.6,
+   "wing_count": 4,
+   "wings_authored": "deployed",
+   "wing_stowed_angle_deg": 90.0,
+   "wing_hinge_axis": "tangent (local Z of each wing plane)",
+   "length_m": 8.7864,
+   "diameter_bottom_m": 5.4,
+   "diameter_top_m": 1.35,
+   "capsule_diameter_m": 5.0,
+   "shield_depth_m": 0.546,
+   "cone_half_angle_deg": 33.0,
+   "shield_sphere_radius_m": 6.0,
+   "mating_ring_key": "d54",
+   "twin": "Orion + European Service Module class, 5.0 m, SM 4.0 m",
+   "value_types": {
+    "capsule_diameter_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "shield_depth_m": "game_value",
+    "cone_half_angle_deg": "real_world_approximate",
+    "shield_sphere_radius_m": "real_world_approximate",
+    "length_m": "game_value"
+   },
+   "family": "spacecraft_capsule",
+   "design_ref": "7.2.2",
+   "bbox_min_m": [
+    -6.806,
+    -6.806,
+    0.0
+   ],
+   "bbox_max_m": [
+    6.806,
+    6.806,
+    8.786
+   ],
+   "attach_points_m": {
+    "hinge_wing_1": {
+     "blender_xyz": [
+      1.9445,
+      1.9445,
+      2.55
+     ],
+     "sub": "service_module"
+    },
+    "hinge_wing_2": {
+     "blender_xyz": [
+      -1.9445,
+      1.9445,
+      2.55
+     ],
+     "sub": "service_module"
+    },
+    "hinge_wing_3": {
+     "blender_xyz": [
+      -1.9445,
+      -1.9445,
+      2.55
+     ],
+     "sub": "service_module"
+    },
+    "hinge_wing_4": {
+     "blender_xyz": [
+      1.9445,
+      -1.9445,
+      2.55
+     ],
+     "sub": "service_module"
+    },
+    "service_module_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      4.55
+     ],
+     "sub": "service_module"
+    },
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      8.7864
+     ]
+    },
+    "attach_pod_1": {
+     "blender_xyz": [
+      1.4411,
+      1.4411,
+      6.2571
+     ]
+    },
+    "attach_pod_2": {
+     "blender_xyz": [
+      -1.4411,
+      1.4411,
+      6.2571
+     ]
+    },
+    "attach_pod_3": {
+     "blender_xyz": [
+      -1.4411,
+      -1.4411,
+      6.2571
+     ]
+    },
+    "attach_pod_4": {
+     "blender_xyz": [
+      1.4411,
+      -1.4411,
+      6.2571
+     ]
+    },
+    "parachute_bay": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      8.3864
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "heat_shield",
+    "hull",
+    "livery",
+    "nozzle_hot",
+    "solar_cell"
+   ],
+   "triangles": {
+    "lod0": 9080,
+    "lod1": 2639,
+    "phone": 2639
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/cap_deep_space.fbx",
+    "glb": "client/public/models/cap_deep_space.glb",
+    "fbx_bytes": 294028,
+    "glb_bytes": 117664,
+    "blend": "assets/blender/cap_deep_space.blend",
+    "blend_bytes": 284531
+   },
+   "issues": []
+  },
+  "cap_standard": {
+   "id": "cap_standard",
+   "length_m": 4.3368,
+   "diameter_bottom_m": 5.4,
+   "diameter_top_m": 1.35,
+   "capsule_diameter_m": 5.0,
+   "shield_depth_m": 0.546,
+   "cone_half_angle_deg": 33.0,
+   "shield_sphere_radius_m": 6.0,
+   "mating_ring_key": "d54",
+   "twin": "Orion class, 5.0 m",
+   "value_types": {
+    "capsule_diameter_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "shield_depth_m": "game_value",
+    "cone_half_angle_deg": "real_world_approximate",
+    "shield_sphere_radius_m": "real_world_approximate",
+    "length_m": "game_value"
+   },
+   "family": "spacecraft_capsule",
+   "design_ref": "7.2.2",
+   "bbox_min_m": [
+    -2.7,
+    -2.7,
+    0.0
+   ],
+   "bbox_max_m": [
+    2.7,
+    2.7,
+    4.337
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      4.3368
+     ]
+    },
+    "attach_pod_1": {
+     "blender_xyz": [
+      1.4411,
+      1.4411,
+      1.8074
+     ]
+    },
+    "attach_pod_2": {
+     "blender_xyz": [
+      -1.4411,
+      1.4411,
+      1.8074
+     ]
+    },
+    "attach_pod_3": {
+     "blender_xyz": [
+      -1.4411,
+      -1.4411,
+      1.8074
+     ]
+    },
+    "attach_pod_4": {
+     "blender_xyz": [
+      1.4411,
+      -1.4411,
+      1.8074
+     ]
+    },
+    "parachute_bay": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      3.9368
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "heat_shield",
+    "hull",
+    "livery"
+   ],
+   "triangles": {
+    "lod0": 7792,
+    "lod1": 2108,
+    "phone": 7792
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/cap_standard.fbx",
+    "glb": "client/public/models/cap_standard.glb",
+    "fbx_bytes": 234172,
+    "glb_bytes": 260924,
+    "blend": "assets/blender/cap_standard.blend",
+    "blend_bytes": 253504
+   },
+   "issues": []
+  },
   "eng_electric_pump_mini": {
    "id": "eng_electric_pump_mini",
    "length_m": 0.65,
@@ -1147,7 +1486,7 @@
     "fbx_bytes": 473500,
     "glb_bytes": 145296,
     "blend": "assets/blender/eng_kerolox_workhorse.blend",
-    "blend_bytes": 470530
+    "blend_bytes": 470241
    },
    "issues": []
   },
@@ -3452,6 +3791,426 @@
    },
    "issues": []
   },
+  "lander_airbag": {
+   "id": "lander_airbag",
+   "length_m": 2.275,
+   "stack": false,
+   "ring_check": false,
+   "required_empties": [
+    "tetra_base"
+   ],
+   "max_diameter_m": 6.213,
+   "value_types": {
+    "length_m": "game_value",
+    "max_diameter_m": "game_value",
+    "tetra_edge_m": "real_world_approximate",
+    "mass_t": "game_value"
+   },
+   "tetra_edge_m": 1.5,
+   "airbag_lobe_count": 10,
+   "mass_t": 0.6,
+   "twin": "Mars Pathfinder (airbag landing)",
+   "family": "spacecraft_lander",
+   "design_ref": "7.2.3",
+   "bbox_min_m": [
+    -2.392,
+    -2.326,
+    0.0
+   ],
+   "bbox_max_m": [
+    2.392,
+    1.987,
+    2.275
+   ],
+   "attach_points_m": {
+    "tetra_base": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.55
+     ]
+    },
+    "antenna": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      2.2247
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 1584,
+    "lod1": 460,
+    "phone": 1584
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/lander_airbag.fbx",
+    "glb": "client/public/models/lander_airbag.glb",
+    "fbx_bytes": 66316,
+    "glb_bytes": 54104,
+    "blend": "assets/blender/lander_airbag.blend",
+    "blend_bytes": 109290
+   },
+   "issues": []
+  },
+  "lander_legged": {
+   "id": "lander_legged",
+   "length_m": 2.35,
+   "stack": false,
+   "ring_check": false,
+   "required_empties": [
+    "deck_centre"
+   ],
+   "max_diameter_m": 6.595,
+   "value_types": {
+    "length_m": "game_value",
+    "max_diameter_m": "game_value",
+    "deck_diameter_m": "game_value",
+    "solar_array_diameter_m": "real_world_approximate",
+    "leg_count": "real_world_approximate",
+    "mass_t": "game_value"
+   },
+   "deck_diameter_m": 1.6,
+   "solar_array_diameter_m": 2.1,
+   "leg_count": 3,
+   "mass_t": 0.8,
+   "twin": "Phoenix / InSight (propulsive landing on legs)",
+   "family": "spacecraft_lander",
+   "design_ref": "7.2.3",
+   "bbox_min_m": [
+    -3.299,
+    -1.984,
+    0.0
+   ],
+   "bbox_max_m": [
+    3.299,
+    1.48,
+    2.3
+   ],
+   "attach_points_m": {
+    "deck_centre": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      1.19
+     ]
+    },
+    "arm_base": {
+     "blender_xyz": [
+      0.0,
+      0.44,
+      1.35
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "nozzle_hot",
+    "solar_cell",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 1644,
+    "lod1": 478,
+    "phone": 1644
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/lander_legged.fbx",
+    "glb": "client/public/models/lander_legged.glb",
+    "fbx_bytes": 85452,
+    "glb_bytes": 84720,
+    "blend": "assets/blender/lander_legged.blend",
+    "blend_bytes": 126637
+   },
+   "issues": []
+  },
+  "lander_sky_crane": {
+   "id": "lander_sky_crane",
+   "length_m": 8.5,
+   "stack": false,
+   "ring_check": false,
+   "required_empties": [
+    "bridle"
+   ],
+   "max_diameter_m": 3.2,
+   "value_types": {
+    "length_m": "game_value",
+    "max_diameter_m": "game_value",
+    "bridle_length_m": "game_value",
+    "rover_mass_t": "game_value"
+   },
+   "bridle_length_m": 6.0,
+   "descent_stage_height_m": 7.8,
+   "rover_mass_t": 1.0,
+   "pose": "rover lowered on the bridle",
+   "twin": "Mars Science Laboratory / Perseverance (sky crane)",
+   "family": "spacecraft_lander",
+   "design_ref": "7.2.3",
+   "bbox_min_m": [
+    -1.486,
+    -1.486,
+    0.008
+   ],
+   "bbox_max_m": [
+    1.486,
+    1.975,
+    8.72
+   ],
+   "attach_points_m": {
+    "bridle": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      1.8
+     ],
+     "sub": "rover"
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery",
+    "nozzle_hot",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 1904,
+    "lod1": 550,
+    "phone": 1904
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/lander_sky_crane.fbx",
+    "glb": "client/public/models/lander_sky_crane.glb",
+    "fbx_bytes": 94444,
+    "glb_bytes": 94944,
+    "blend": "assets/blender/lander_sky_crane.blend",
+    "blend_bytes": 120162
+   },
+   "issues": []
+  },
+  "les_ejection_seats": {
+   "id": "les_ejection_seats",
+   "length_m": 1.77,
+   "stack": false,
+   "ring_check": false,
+   "max_diameter_m": 0.7,
+   "required_empties": [
+    "attach_base"
+   ],
+   "twin": "Gemini ejection seat class",
+   "value_types": {
+    "length_m": "game_value"
+   },
+   "family": "spacecraft_les_pod",
+   "design_ref": "7.4",
+   "bbox_min_m": [
+    -0.33,
+    -0.41,
+    0.01
+   ],
+   "bbox_max_m": [
+    0.33,
+    0.25,
+    1.77
+   ],
+   "attach_points_m": {
+    "attach_base": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.56
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery",
+    "nozzle_hot"
+   ],
+   "triangles": {
+    "lod0": 216,
+    "lod1": 194,
+    "phone": 216
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/les_ejection_seats.fbx",
+    "glb": "client/public/models/les_ejection_seats.glb",
+    "fbx_bytes": 33932,
+    "glb_bytes": 18896,
+    "blend": "assets/blender/les_ejection_seats.blend",
+    "blend_bytes": 82661
+   },
+   "issues": []
+  },
+  "les_escape_tower": {
+   "id": "les_escape_tower",
+   "length_m": 12.6,
+   "diameter_bottom_m": 1.35,
+   "diameter_top_m": 0.0,
+   "abort_motor_diameter_m": 1.2,
+   "nozzle_cant_deg": 25.0,
+   "mates_with": [
+    "cap_standard",
+    "cap_deep_space"
+   ],
+   "twin": "Orion Launch Abort System class (tractor tower)",
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "abort_motor_diameter_m": "game_value",
+    "nozzle_cant_deg": "real_world_approximate"
+   },
+   "family": "spacecraft_les_tower",
+   "design_ref": "7.4",
+   "bbox_min_m": [
+    -0.928,
+    -0.928,
+    0.0
+   ],
+   "bbox_max_m": [
+    0.928,
+    0.928,
+    12.6
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      12.6
+     ]
+    },
+    "nozzle_ring": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      3.75
+     ]
+    },
+    "jettison_motor": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      8.4
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery",
+    "nozzle_hot"
+   ],
+   "triangles": {
+    "lod0": 2888,
+    "lod1": 840,
+    "phone": 2888
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/les_escape_tower.fbx",
+    "glb": "client/public/models/les_escape_tower.glb",
+    "fbx_bytes": 109500,
+    "glb_bytes": 97508,
+    "blend": "assets/blender/les_escape_tower.blend",
+    "blend_bytes": 152526
+   },
+   "issues": []
+  },
+  "les_integrated_pusher": {
+   "id": "les_integrated_pusher",
+   "length_m": 2.807,
+   "stack": false,
+   "ring_check": false,
+   "max_diameter_m": 6.08,
+   "required_empties": [
+    "attach_pod_1",
+    "attach_pod_2",
+    "attach_pod_3",
+    "attach_pod_4"
+   ],
+   "frame": "capsule frame of cap_standard",
+   "pod_count": 4,
+   "twin": "Crew Dragon SuperDraco pods (8 engines in 4 pods)",
+   "value_types": {
+    "pod_count": "real_world_approximate",
+    "length_m": "game_value"
+   },
+   "family": "spacecraft_les_pod",
+   "design_ref": "7.4",
+   "bbox_min_m": [
+    -2.413,
+    -2.413,
+    0.819
+   ],
+   "bbox_max_m": [
+    2.413,
+    2.413,
+    2.598
+   ],
+   "attach_points_m": {
+    "attach_pod_1": {
+     "blender_xyz": [
+      1.4411,
+      1.4411,
+      1.8074
+     ]
+    },
+    "attach_pod_2": {
+     "blender_xyz": [
+      -1.4411,
+      1.4411,
+      1.8074
+     ]
+    },
+    "attach_pod_3": {
+     "blender_xyz": [
+      -1.4411,
+      -1.4411,
+      1.8074
+     ]
+    },
+    "attach_pod_4": {
+     "blender_xyz": [
+      1.4411,
+      -1.4411,
+      1.8074
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery",
+    "nozzle_hot"
+   ],
+   "triangles": {
+    "lod0": 528,
+    "lod1": 194,
+    "phone": 528
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/les_integrated_pusher.fbx",
+    "glb": "client/public/models/les_integrated_pusher.glb",
+    "fbx_bytes": 48028,
+    "glb_bytes": 29028,
+    "blend": "assets/blender/les_integrated_pusher.blend",
+    "blend_bytes": 91596
+   },
+   "issues": []
+  },
   "mount_s1_1_d15": {
    "id": "mount_s1_1_d15",
    "length_m": 0.7,
@@ -5512,6 +6271,610 @@
    },
    "issues": []
   },
+  "satpwr_body_mounted_solar_cells": {
+   "id": "satpwr_body_mounted_solar_cells",
+   "nadir_axis": "+Y",
+   "aperture_axis": [
+    0,
+    1,
+    0
+   ],
+   "antenna_axis": [
+    0,
+    1,
+    0
+   ],
+   "bus_size_m": [
+    0.62,
+    0.58,
+    0.8
+   ],
+   "twin": "Landsat-type small Earth-observation satellite (150 kg class)",
+   "power_variant": "body_mounted_cells",
+   "wings": false,
+   "length_m": 1.12,
+   "stack": false,
+   "ring_check": false,
+   "required_empties": [
+    "aperture",
+    "antenna"
+   ],
+   "max_diameter_m": 0.62,
+   "separation_ring_radius_m": 0.47,
+   "value_types": {
+    "length_m": "game_value",
+    "bus_size_m": "game_value",
+    "separation_ring_radius_m": "real_world_approximate",
+    "wing_chord_m": "game_value",
+    "wing_panel_length_m": "game_value"
+   },
+   "family": "spacecraft_sat",
+   "design_ref": "7.2.1",
+   "bbox_min_m": [
+    -0.49,
+    -0.49,
+    0.0
+   ],
+   "bbox_max_m": [
+    0.49,
+    0.54,
+    1.12
+   ],
+   "attach_points_m": {
+    "aperture": {
+     "blender_xyz": [
+      0.08,
+      0.54,
+      0.62
+     ]
+    },
+    "antenna": {
+     "blender_xyz": [
+      -0.19,
+      0.45,
+      0.31
+     ]
+    },
+    "separation_ring": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "solar_cell",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 1300,
+    "lod1": 378,
+    "phone": 1300
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/satpwr_body_mounted_solar_cells.fbx",
+    "glb": "client/public/models/satpwr_body_mounted_solar_cells.glb",
+    "fbx_bytes": 65196,
+    "glb_bytes": 65748,
+    "blend": "assets/blender/satpwr_body_mounted_solar_cells.blend",
+    "blend_bytes": 110572
+   },
+   "issues": []
+  },
+  "satpwr_deployable_solar_wings": {
+   "id": "satpwr_deployable_solar_wings",
+   "nadir_axis": "+Y",
+   "aperture_axis": [
+    0,
+    1,
+    0
+   ],
+   "antenna_axis": [
+    0,
+    1,
+    0
+   ],
+   "bus_size_m": [
+    0.62,
+    0.58,
+    0.8
+   ],
+   "twin": "Landsat-type small Earth-observation satellite (150 kg class)",
+   "power_variant": "deployable_wings",
+   "wings": true,
+   "wing_panel_count": 2,
+   "wing_panel_length_m": 0.58,
+   "wing_chord_m": 0.7,
+   "wing_span_deployed_m": 3.16,
+   "wings_authored": "deployed",
+   "wing_stowed_angle_deg": 90.0,
+   "wing_stow": {
+    "hinge_deg": {
+     "wing_l": 90.0,
+     "wing_r": -90.0
+    },
+    "fold_deg": {
+     "wing_l_outer": 180.0,
+     "wing_r_outer": -180.0
+    },
+    "axis": "+Z of hinge_wing_* / fold_wing_*"
+   },
+   "length_m": 1.12,
+   "stack": false,
+   "ring_check": false,
+   "required_empties": [
+    "aperture",
+    "antenna",
+    "hinge_wing_l",
+    "fold_wing_l",
+    "hinge_wing_r",
+    "fold_wing_r"
+   ],
+   "max_diameter_m": 3.16,
+   "separation_ring_radius_m": 0.47,
+   "value_types": {
+    "length_m": "game_value",
+    "bus_size_m": "game_value",
+    "separation_ring_radius_m": "real_world_approximate",
+    "wing_chord_m": "game_value",
+    "wing_panel_length_m": "game_value"
+   },
+   "family": "spacecraft_sat",
+   "design_ref": "7.2.1",
+   "bbox_min_m": [
+    -1.58,
+    -0.49,
+    0.0
+   ],
+   "bbox_max_m": [
+    1.58,
+    0.54,
+    1.12
+   ],
+   "attach_points_m": {
+    "aperture": {
+     "blender_xyz": [
+      0.08,
+      0.54,
+      0.62
+     ]
+    },
+    "antenna": {
+     "blender_xyz": [
+      -0.19,
+      0.45,
+      0.31
+     ]
+    },
+    "separation_ring": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "hinge_wing_l": {
+     "blender_xyz": [
+      -0.36,
+      0.26,
+      0.54
+     ],
+     "sub": "wing_l"
+    },
+    "fold_wing_l": {
+     "blender_xyz": [
+      -0.985,
+      0.26,
+      0.54
+     ],
+     "sub": "wing_l_outer"
+    },
+    "hinge_wing_r": {
+     "blender_xyz": [
+      0.36,
+      0.26,
+      0.54
+     ],
+     "sub": "wing_r"
+    },
+    "fold_wing_r": {
+     "blender_xyz": [
+      0.985,
+      0.26,
+      0.54
+     ],
+     "sub": "wing_r_outer"
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "solar_cell",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 1420,
+    "lod1": 409,
+    "phone": 1420
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/satpwr_deployable_solar_wings.fbx",
+    "glb": "client/public/models/satpwr_deployable_solar_wings.glb",
+    "fbx_bytes": 92860,
+    "glb_bytes": 78960,
+    "blend": "assets/blender/satpwr_deployable_solar_wings.blend",
+    "blend_bytes": 113451
+   },
+   "issues": []
+  },
+  "satpwr_large_deployable_array": {
+   "id": "satpwr_large_deployable_array",
+   "nadir_axis": "+Y",
+   "aperture_axis": [
+    0,
+    1,
+    0
+   ],
+   "antenna_axis": [
+    0,
+    1,
+    0
+   ],
+   "bus_size_m": [
+    0.62,
+    0.58,
+    0.8
+   ],
+   "twin": "Landsat-type small Earth-observation satellite (150 kg class)",
+   "power_variant": "large_deployable_array",
+   "wings": true,
+   "wing_panel_count": 2,
+   "wing_panel_length_m": 0.58,
+   "wing_chord_m": 1.3,
+   "wing_span_deployed_m": 3.16,
+   "wings_authored": "deployed",
+   "wing_stowed_angle_deg": 90.0,
+   "wing_stow": {
+    "hinge_deg": {
+     "wing_l": 90.0,
+     "wing_r": -90.0
+    },
+    "fold_deg": {
+     "wing_l_outer": 180.0,
+     "wing_r_outer": -180.0
+    },
+    "axis": "+Z of hinge_wing_* / fold_wing_*"
+   },
+   "length_m": 1.12,
+   "stack": false,
+   "ring_check": false,
+   "required_empties": [
+    "aperture",
+    "antenna",
+    "hinge_wing_l",
+    "fold_wing_l",
+    "hinge_wing_r",
+    "fold_wing_r"
+   ],
+   "max_diameter_m": 3.16,
+   "separation_ring_radius_m": 0.47,
+   "value_types": {
+    "length_m": "game_value",
+    "bus_size_m": "game_value",
+    "separation_ring_radius_m": "real_world_approximate",
+    "wing_chord_m": "game_value",
+    "wing_panel_length_m": "game_value"
+   },
+   "family": "spacecraft_sat",
+   "design_ref": "7.2.1",
+   "bbox_min_m": [
+    -1.58,
+    -0.49,
+    0.0
+   ],
+   "bbox_max_m": [
+    1.58,
+    0.54,
+    1.5
+   ],
+   "attach_points_m": {
+    "aperture": {
+     "blender_xyz": [
+      0.08,
+      0.54,
+      0.62
+     ]
+    },
+    "antenna": {
+     "blender_xyz": [
+      -0.19,
+      0.45,
+      0.31
+     ]
+    },
+    "separation_ring": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "hinge_wing_l": {
+     "blender_xyz": [
+      -0.36,
+      0.26,
+      0.85
+     ],
+     "sub": "wing_l"
+    },
+    "fold_wing_l": {
+     "blender_xyz": [
+      -0.985,
+      0.26,
+      0.85
+     ],
+     "sub": "wing_l_outer"
+    },
+    "hinge_wing_r": {
+     "blender_xyz": [
+      0.36,
+      0.26,
+      0.85
+     ],
+     "sub": "wing_r"
+    },
+    "fold_wing_r": {
+     "blender_xyz": [
+      0.985,
+      0.26,
+      0.85
+     ],
+     "sub": "wing_r_outer"
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "solar_cell",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 1444,
+    "lod1": 416,
+    "phone": 1444
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/satpwr_large_deployable_array.fbx",
+    "glb": "client/public/models/satpwr_large_deployable_array.glb",
+    "fbx_bytes": 93692,
+    "glb_bytes": 80516,
+    "blend": "assets/blender/satpwr_large_deployable_array.blend",
+    "blend_bytes": 114582
+   },
+   "issues": []
+  },
+  "site_equatorial_spaceport": {
+   "id": "site_equatorial_spaceport",
+   "length_m": 144.0,
+   "height_m": 25.0,
+   "stack": false,
+   "ring_check": false,
+   "required_empties": [],
+   "max_diameter_m": 144.0,
+   "value_types": {
+    "length_m": "game_value",
+    "height_m": "game_value"
+   },
+   "diorama_for": "equatorial",
+   "phone_only": true,
+   "family": "world_site_diorama",
+   "design_ref": "7.1",
+   "bbox_min_m": [
+    -74.0,
+    -74.0,
+    0.0
+   ],
+   "bbox_max_m": [
+    74.0,
+    74.0,
+    28.72
+   ],
+   "attach_points_m": {},
+   "materials": [
+    "concrete",
+    "detail_dark",
+    "engine_metal",
+    "foliage",
+    "gantry",
+    "ground",
+    "heat_shield",
+    "hull",
+    "livery",
+    "nozzle_hot",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 4880,
+    "lod1": 1420,
+    "phone": 4880
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/site_equatorial_spaceport.fbx",
+    "glb": "client/public/models/site_equatorial_spaceport.glb",
+    "fbx_bytes": 200460,
+    "glb_bytes": 258496,
+    "blend": "assets/blender/site_equatorial_spaceport.blend",
+    "blend_bytes": 227076
+   },
+   "issues": []
+  },
+  "site_inland_steppe_cosmodrome": {
+   "id": "site_inland_steppe_cosmodrome",
+   "length_m": 144.0,
+   "height_m": 25.0,
+   "stack": false,
+   "ring_check": false,
+   "required_empties": [],
+   "max_diameter_m": 144.0,
+   "value_types": {
+    "length_m": "game_value",
+    "height_m": "game_value"
+   },
+   "diorama_for": "steppe",
+   "phone_only": true,
+   "family": "world_site_diorama",
+   "design_ref": "7.1",
+   "bbox_min_m": [
+    -74.0,
+    -74.0,
+    0.0
+   ],
+   "bbox_max_m": [
+    74.0,
+    74.0,
+    28.72
+   ],
+   "attach_points_m": {},
+   "materials": [
+    "concrete",
+    "detail_dark",
+    "engine_metal",
+    "foliage",
+    "gantry",
+    "ground",
+    "hull",
+    "livery",
+    "nozzle_hot",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 5524,
+    "lod1": 1607,
+    "phone": 5524
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/site_inland_steppe_cosmodrome.fbx",
+    "glb": "client/public/models/site_inland_steppe_cosmodrome.glb",
+    "fbx_bytes": 230220,
+    "glb_bytes": 338784,
+    "blend": "assets/blender/site_inland_steppe_cosmodrome.blend",
+    "blend_bytes": 260925
+   },
+   "issues": []
+  },
+  "site_subtropical_coast": {
+   "id": "site_subtropical_coast",
+   "length_m": 144.0,
+   "height_m": 25.0,
+   "stack": false,
+   "ring_check": false,
+   "required_empties": [],
+   "max_diameter_m": 144.0,
+   "value_types": {
+    "length_m": "game_value",
+    "height_m": "game_value"
+   },
+   "diorama_for": "subtropical",
+   "phone_only": true,
+   "family": "world_site_diorama",
+   "design_ref": "7.1",
+   "bbox_min_m": [
+    -74.0,
+    -74.0,
+    0.0
+   ],
+   "bbox_max_m": [
+    74.0,
+    74.0,
+    33.08
+   ],
+   "attach_points_m": {},
+   "materials": [
+    "concrete",
+    "detail_dark",
+    "engine_metal",
+    "foliage",
+    "gantry",
+    "ground",
+    "hull",
+    "livery",
+    "nozzle_hot",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 6040,
+    "lod1": 1757,
+    "phone": 6040
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/site_subtropical_coast.fbx",
+    "glb": "client/public/models/site_subtropical_coast.glb",
+    "fbx_bytes": 241452,
+    "glb_bytes": 314832,
+    "blend": "assets/blender/site_subtropical_coast.blend",
+    "blend_bytes": 260068
+   },
+   "issues": []
+  },
+  "site_west_coast_polar_range": {
+   "id": "site_west_coast_polar_range",
+   "length_m": 144.0,
+   "height_m": 25.0,
+   "stack": false,
+   "ring_check": false,
+   "required_empties": [],
+   "max_diameter_m": 144.0,
+   "value_types": {
+    "length_m": "game_value",
+    "height_m": "game_value"
+   },
+   "diorama_for": "polar",
+   "phone_only": true,
+   "family": "world_site_diorama",
+   "design_ref": "7.1",
+   "bbox_min_m": [
+    -74.0,
+    -74.0,
+    0.0
+   ],
+   "bbox_max_m": [
+    74.0,
+    74.0,
+    28.72
+   ],
+   "attach_points_m": {},
+   "materials": [
+    "concrete",
+    "detail_dark",
+    "engine_metal",
+    "gantry",
+    "ground",
+    "hull",
+    "livery",
+    "nozzle_hot",
+    "thermal"
+   ],
+   "triangles": {
+    "lod0": 4244,
+    "lod1": 1234,
+    "phone": 4244
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/site_west_coast_polar_range.fbx",
+    "glb": "client/public/models/site_west_coast_polar_range.glb",
+    "fbx_bytes": 159804,
+    "glb_bytes": 222880,
+    "blend": "assets/blender/site_west_coast_polar_range.blend",
+    "blend_bytes": 195033
+   },
+   "issues": []
+  },
   "tank_s1_l": {
    "id": "tank_s1_l",
    "length_m": 23.4,
@@ -5706,7 +7069,7 @@
     "fbx_bytes": 359756,
     "glb_bytes": 173232,
     "blend": "assets/blender/tank_s1_m.blend",
-    "blend_bytes": 358916
+    "blend_bytes": 359568
    },
    "issues": []
   },
@@ -6832,6 +8195,1170 @@
    },
    "issues": []
   },
+  "tps_avcoat_ablator": {
+   "id": "tps_avcoat_ablator",
+   "length_m": 5.8224,
+   "diameter_bottom_m": 5.4,
+   "diameter_top_m": 1.35,
+   "capsule_diameter_m": 5.0,
+   "shield_depth_m": 0.546,
+   "cone_half_angle_deg": 33.0,
+   "shield_sphere_radius_m": 6.0,
+   "mating_ring_key": "d54",
+   "twin": "Orion class, 5.0 m",
+   "value_types": {
+    "capsule_diameter_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "shield_depth_m": "game_value",
+    "cone_half_angle_deg": "real_world_approximate",
+    "shield_sphere_radius_m": "real_world_approximate",
+    "length_m": "game_value"
+   },
+   "stack": false,
+   "ring_check": false,
+   "required_empties": [
+    "capsule_rim"
+   ],
+   "shield_type": "avcoat_ablator",
+   "card_for": "cap_standard",
+   "exploded_gap_m": 0.9,
+   "max_diameter_m": 5.0,
+   "family": "spacecraft_tps_card",
+   "design_ref": "7.3",
+   "bbox_min_m": [
+    -2.7,
+    -2.7,
+    0.023
+   ],
+   "bbox_max_m": [
+    2.7,
+    2.7,
+    5.822
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      5.8224
+     ]
+    },
+    "attach_pod_1": {
+     "blender_xyz": [
+      1.4411,
+      1.4411,
+      3.2931
+     ]
+    },
+    "attach_pod_2": {
+     "blender_xyz": [
+      -1.4411,
+      1.4411,
+      3.2931
+     ]
+    },
+    "attach_pod_3": {
+     "blender_xyz": [
+      -1.4411,
+      -1.4411,
+      3.2931
+     ]
+    },
+    "attach_pod_4": {
+     "blender_xyz": [
+      1.4411,
+      -1.4411,
+      3.2931
+     ]
+    },
+    "parachute_bay": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      5.4224
+     ]
+    },
+    "capsule_rim": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.5856
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "heat_shield",
+    "hull",
+    "livery"
+   ],
+   "triangles": {
+    "lod0": 7792,
+    "lod1": 2108,
+    "phone": 7792
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/tps_avcoat_ablator.fbx",
+    "glb": "client/public/models/tps_avcoat_ablator.glb",
+    "fbx_bytes": 244924,
+    "glb_bytes": 260148,
+    "blend": "assets/blender/tps_avcoat_ablator.blend",
+    "blend_bytes": 261942
+   },
+   "issues": []
+  },
+  "tps_avcoat_ablator__cap_compact": {
+   "id": "tps_avcoat_ablator__cap_compact",
+   "length_m": 0.3892,
+   "stack": false,
+   "ring_check": false,
+   "required_empties": [
+    "capsule_rim"
+   ],
+   "shield_type": "avcoat_ablator",
+   "shield_diameter_m": 3.2,
+   "shield_extent_diameter_m": 3.2,
+   "max_diameter_m": 3.2,
+   "depth_m": 0.3892,
+   "capsule": "cap_compact",
+   "value_types": {
+    "shield_diameter_m": "game_value",
+    "depth_m": "game_value",
+    "length_m": "game_value"
+   },
+   "family": "spacecraft_tps",
+   "design_ref": "7.3",
+   "bbox_min_m": [
+    -1.6,
+    -1.6,
+    0.021
+   ],
+   "bbox_max_m": [
+    1.6,
+    1.6,
+    0.389
+   ],
+   "attach_points_m": {
+    "capsule_rim": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.3892
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "heat_shield"
+   ],
+   "triangles": {
+    "lod0": 4320,
+    "lod1": 384,
+    "phone": 4320
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/tps_avcoat_ablator__cap_compact.fbx",
+    "glb": "client/public/models/tps_avcoat_ablator__cap_compact.glb",
+    "fbx_bytes": 115612,
+    "glb_bytes": 143320,
+    "blend": "assets/blender/tps_avcoat_ablator__cap_compact.blend",
+    "blend_bytes": 163345
+   },
+   "issues": []
+  },
+  "tps_avcoat_ablator__cap_deep_space": {
+   "id": "tps_avcoat_ablator__cap_deep_space",
+   "length_m": 0.5856,
+   "stack": false,
+   "ring_check": false,
+   "required_empties": [
+    "capsule_rim"
+   ],
+   "shield_type": "avcoat_ablator",
+   "shield_diameter_m": 5.0,
+   "shield_extent_diameter_m": 5.0,
+   "max_diameter_m": 5.0,
+   "depth_m": 0.5856,
+   "capsule": "cap_deep_space",
+   "value_types": {
+    "shield_diameter_m": "game_value",
+    "depth_m": "game_value",
+    "length_m": "game_value"
+   },
+   "family": "spacecraft_tps",
+   "design_ref": "7.3",
+   "bbox_min_m": [
+    -2.5,
+    -2.5,
+    0.023
+   ],
+   "bbox_max_m": [
+    2.5,
+    2.5,
+    0.586
+   ],
+   "attach_points_m": {
+    "capsule_rim": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.5856
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "heat_shield"
+   ],
+   "triangles": {
+    "lod0": 4320,
+    "lod1": 384,
+    "phone": 4320
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/tps_avcoat_ablator__cap_deep_space.fbx",
+    "glb": "client/public/models/tps_avcoat_ablator__cap_deep_space.glb",
+    "fbx_bytes": 116124,
+    "glb_bytes": 143216,
+    "blend": "assets/blender/tps_avcoat_ablator__cap_deep_space.blend",
+    "blend_bytes": 163146
+   },
+   "issues": []
+  },
+  "tps_avcoat_ablator__cap_standard": {
+   "id": "tps_avcoat_ablator__cap_standard",
+   "length_m": 0.5856,
+   "stack": false,
+   "ring_check": false,
+   "required_empties": [
+    "capsule_rim"
+   ],
+   "shield_type": "avcoat_ablator",
+   "shield_diameter_m": 5.0,
+   "shield_extent_diameter_m": 5.0,
+   "max_diameter_m": 5.0,
+   "depth_m": 0.5856,
+   "capsule": "cap_standard",
+   "value_types": {
+    "shield_diameter_m": "game_value",
+    "depth_m": "game_value",
+    "length_m": "game_value"
+   },
+   "family": "spacecraft_tps",
+   "design_ref": "7.3",
+   "bbox_min_m": [
+    -2.5,
+    -2.5,
+    0.023
+   ],
+   "bbox_max_m": [
+    2.5,
+    2.5,
+    0.586
+   ],
+   "attach_points_m": {
+    "capsule_rim": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.5856
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "heat_shield"
+   ],
+   "triangles": {
+    "lod0": 4320,
+    "lod1": 384,
+    "phone": 4320
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/tps_avcoat_ablator__cap_standard.fbx",
+    "glb": "client/public/models/tps_avcoat_ablator__cap_standard.glb",
+    "fbx_bytes": 116108,
+    "glb_bytes": 143208,
+    "blend": "assets/blender/tps_avcoat_ablator__cap_standard.blend",
+    "blend_bytes": 163159
+   },
+   "issues": []
+  },
+  "tps_inflatable_decelerator": {
+   "id": "tps_inflatable_decelerator",
+   "length_m": 7.1527,
+   "diameter_bottom_m": 5.4,
+   "diameter_top_m": 1.35,
+   "capsule_diameter_m": 5.0,
+   "shield_depth_m": 0.546,
+   "cone_half_angle_deg": 33.0,
+   "shield_sphere_radius_m": 6.0,
+   "mating_ring_key": "d54",
+   "twin": "Orion class, 5.0 m",
+   "value_types": {
+    "capsule_diameter_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "shield_depth_m": "game_value",
+    "cone_half_angle_deg": "real_world_approximate",
+    "shield_sphere_radius_m": "real_world_approximate",
+    "length_m": "game_value"
+   },
+   "stack": false,
+   "ring_check": false,
+   "required_empties": [
+    "capsule_rim"
+   ],
+   "shield_type": "inflatable_decelerator",
+   "card_for": "cap_standard",
+   "exploded_gap_m": 0.9,
+   "max_diameter_m": 8.0,
+   "family": "spacecraft_tps_card",
+   "design_ref": "7.3",
+   "bbox_min_m": [
+    -4.252,
+    -4.252,
+    0.04
+   ],
+   "bbox_max_m": [
+    4.252,
+    4.252,
+    7.153
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      7.1527
+     ]
+    },
+    "attach_pod_1": {
+     "blender_xyz": [
+      1.4411,
+      1.4411,
+      4.6233
+     ]
+    },
+    "attach_pod_2": {
+     "blender_xyz": [
+      -1.4411,
+      1.4411,
+      4.6233
+     ]
+    },
+    "attach_pod_3": {
+     "blender_xyz": [
+      -1.4411,
+      -1.4411,
+      4.6233
+     ]
+    },
+    "attach_pod_4": {
+     "blender_xyz": [
+      1.4411,
+      -1.4411,
+      4.6233
+     ]
+    },
+    "parachute_bay": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      6.7527
+     ]
+    },
+    "capsule_rim": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      1.9159
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "heat_shield",
+    "hull",
+    "livery"
+   ],
+   "triangles": {
+    "lod0": 6912,
+    "lod1": 2010,
+    "phone": 6912
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/tps_inflatable_decelerator.fbx",
+    "glb": "client/public/models/tps_inflatable_decelerator.glb",
+    "fbx_bytes": 218284,
+    "glb_bytes": 206776,
+    "blend": "assets/blender/tps_inflatable_decelerator.blend",
+    "blend_bytes": 251058
+   },
+   "issues": []
+  },
+  "tps_inflatable_decelerator__cap_compact": {
+   "id": "tps_inflatable_decelerator__cap_compact",
+   "length_m": 1.2406,
+   "stack": false,
+   "ring_check": false,
+   "required_empties": [
+    "capsule_rim"
+   ],
+   "shield_type": "inflatable_decelerator",
+   "shield_diameter_m": 3.2,
+   "shield_extent_diameter_m": 5.12,
+   "max_diameter_m": 5.12,
+   "depth_m": 1.2406,
+   "capsule": "cap_compact",
+   "value_types": {
+    "shield_diameter_m": "game_value",
+    "depth_m": "game_value",
+    "length_m": "game_value"
+   },
+   "family": "spacecraft_tps",
+   "design_ref": "7.3",
+   "bbox_min_m": [
+    -2.721,
+    -2.721,
+    0.04
+   ],
+   "bbox_max_m": [
+    2.721,
+    2.721,
+    1.509
+   ],
+   "attach_points_m": {
+    "capsule_rim": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      1.2406
+     ]
+    }
+   },
+   "materials": [
+    "heat_shield",
+    "hull"
+   ],
+   "triangles": {
+    "lod0": 3440,
+    "lod1": 1000,
+    "phone": 3440
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/tps_inflatable_decelerator__cap_compact.fbx",
+    "glb": "client/public/models/tps_inflatable_decelerator__cap_compact.glb",
+    "fbx_bytes": 95468,
+    "glb_bytes": 89864,
+    "blend": "assets/blender/tps_inflatable_decelerator__cap_compact.blend",
+    "blend_bytes": 152072
+   },
+   "issues": []
+  },
+  "tps_inflatable_decelerator__cap_deep_space": {
+   "id": "tps_inflatable_decelerator__cap_deep_space",
+   "length_m": 1.9159,
+   "stack": false,
+   "ring_check": false,
+   "required_empties": [
+    "capsule_rim"
+   ],
+   "shield_type": "inflatable_decelerator",
+   "shield_diameter_m": 5.0,
+   "shield_extent_diameter_m": 8.0,
+   "max_diameter_m": 8.0,
+   "depth_m": 1.9159,
+   "capsule": "cap_deep_space",
+   "value_types": {
+    "shield_diameter_m": "game_value",
+    "depth_m": "game_value",
+    "length_m": "game_value"
+   },
+   "family": "spacecraft_tps",
+   "design_ref": "7.3",
+   "bbox_min_m": [
+    -4.252,
+    -4.252,
+    0.04
+   ],
+   "bbox_max_m": [
+    4.252,
+    4.252,
+    2.336
+   ],
+   "attach_points_m": {
+    "capsule_rim": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      1.9159
+     ]
+    }
+   },
+   "materials": [
+    "heat_shield",
+    "hull"
+   ],
+   "triangles": {
+    "lod0": 3440,
+    "lod1": 1000,
+    "phone": 3440
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/tps_inflatable_decelerator__cap_deep_space.fbx",
+    "glb": "client/public/models/tps_inflatable_decelerator__cap_deep_space.glb",
+    "fbx_bytes": 95516,
+    "glb_bytes": 89812,
+    "blend": "assets/blender/tps_inflatable_decelerator__cap_deep_space.blend",
+    "blend_bytes": 152037
+   },
+   "issues": []
+  },
+  "tps_inflatable_decelerator__cap_standard": {
+   "id": "tps_inflatable_decelerator__cap_standard",
+   "length_m": 1.9159,
+   "stack": false,
+   "ring_check": false,
+   "required_empties": [
+    "capsule_rim"
+   ],
+   "shield_type": "inflatable_decelerator",
+   "shield_diameter_m": 5.0,
+   "shield_extent_diameter_m": 8.0,
+   "max_diameter_m": 8.0,
+   "depth_m": 1.9159,
+   "capsule": "cap_standard",
+   "value_types": {
+    "shield_diameter_m": "game_value",
+    "depth_m": "game_value",
+    "length_m": "game_value"
+   },
+   "family": "spacecraft_tps",
+   "design_ref": "7.3",
+   "bbox_min_m": [
+    -4.252,
+    -4.252,
+    0.04
+   ],
+   "bbox_max_m": [
+    4.252,
+    4.252,
+    2.336
+   ],
+   "attach_points_m": {
+    "capsule_rim": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      1.9159
+     ]
+    }
+   },
+   "materials": [
+    "heat_shield",
+    "hull"
+   ],
+   "triangles": {
+    "lod0": 3440,
+    "lod1": 1000,
+    "phone": 3440
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/tps_inflatable_decelerator__cap_standard.fbx",
+    "glb": "client/public/models/tps_inflatable_decelerator__cap_standard.glb",
+    "fbx_bytes": 95500,
+    "glb_bytes": 89804,
+    "blend": "assets/blender/tps_inflatable_decelerator__cap_standard.blend",
+    "blend_bytes": 151974
+   },
+   "issues": []
+  },
+  "tps_pica_ablator": {
+   "id": "tps_pica_ablator",
+   "length_m": 5.8224,
+   "diameter_bottom_m": 5.4,
+   "diameter_top_m": 1.35,
+   "capsule_diameter_m": 5.0,
+   "shield_depth_m": 0.546,
+   "cone_half_angle_deg": 33.0,
+   "shield_sphere_radius_m": 6.0,
+   "mating_ring_key": "d54",
+   "twin": "Orion class, 5.0 m",
+   "value_types": {
+    "capsule_diameter_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "shield_depth_m": "game_value",
+    "cone_half_angle_deg": "real_world_approximate",
+    "shield_sphere_radius_m": "real_world_approximate",
+    "length_m": "game_value"
+   },
+   "stack": false,
+   "ring_check": false,
+   "required_empties": [
+    "capsule_rim"
+   ],
+   "shield_type": "pica_ablator",
+   "card_for": "cap_standard",
+   "exploded_gap_m": 0.9,
+   "max_diameter_m": 5.0,
+   "family": "spacecraft_tps_card",
+   "design_ref": "7.3",
+   "bbox_min_m": [
+    -2.7,
+    -2.7,
+    0.013
+   ],
+   "bbox_max_m": [
+    2.7,
+    2.7,
+    5.822
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      5.8224
+     ]
+    },
+    "attach_pod_1": {
+     "blender_xyz": [
+      1.4411,
+      1.4411,
+      3.2931
+     ]
+    },
+    "attach_pod_2": {
+     "blender_xyz": [
+      -1.4411,
+      1.4411,
+      3.2931
+     ]
+    },
+    "attach_pod_3": {
+     "blender_xyz": [
+      -1.4411,
+      -1.4411,
+      3.2931
+     ]
+    },
+    "attach_pod_4": {
+     "blender_xyz": [
+      1.4411,
+      -1.4411,
+      3.2931
+     ]
+    },
+    "parachute_bay": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      5.4224
+     ]
+    },
+    "capsule_rim": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.5856
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "ground",
+    "heat_shield",
+    "hull",
+    "livery"
+   ],
+   "triangles": {
+    "lod0": 5008,
+    "lod1": 1456,
+    "phone": 5008
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/tps_pica_ablator.fbx",
+    "glb": "client/public/models/tps_pica_ablator.glb",
+    "fbx_bytes": 174956,
+    "glb_bytes": 166672,
+    "blend": "assets/blender/tps_pica_ablator.blend",
+    "blend_bytes": 210124
+   },
+   "issues": []
+  },
+  "tps_pica_ablator__cap_compact": {
+   "id": "tps_pica_ablator__cap_compact",
+   "length_m": 0.3892,
+   "stack": false,
+   "ring_check": false,
+   "required_empties": [
+    "capsule_rim"
+   ],
+   "shield_type": "pica_ablator",
+   "shield_diameter_m": 3.2,
+   "shield_extent_diameter_m": 3.2,
+   "max_diameter_m": 3.2,
+   "depth_m": 0.3892,
+   "capsule": "cap_compact",
+   "value_types": {
+    "shield_diameter_m": "game_value",
+    "depth_m": "game_value",
+    "length_m": "game_value"
+   },
+   "family": "spacecraft_tps",
+   "design_ref": "7.3",
+   "bbox_min_m": [
+    -1.6,
+    -1.6,
+    0.01
+   ],
+   "bbox_max_m": [
+    1.6,
+    1.6,
+    0.389
+   ],
+   "attach_points_m": {
+    "capsule_rim": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.3892
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "ground",
+    "heat_shield"
+   ],
+   "triangles": {
+    "lod0": 1536,
+    "lod1": 384,
+    "phone": 1536
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/tps_pica_ablator__cap_compact.fbx",
+    "glb": "client/public/models/tps_pica_ablator__cap_compact.glb",
+    "fbx_bytes": 57692,
+    "glb_bytes": 49828,
+    "blend": "assets/blender/tps_pica_ablator__cap_compact.blend",
+    "blend_bytes": 107286
+   },
+   "issues": []
+  },
+  "tps_pica_ablator__cap_deep_space": {
+   "id": "tps_pica_ablator__cap_deep_space",
+   "length_m": 0.5856,
+   "stack": false,
+   "ring_check": false,
+   "required_empties": [
+    "capsule_rim"
+   ],
+   "shield_type": "pica_ablator",
+   "shield_diameter_m": 5.0,
+   "shield_extent_diameter_m": 5.0,
+   "max_diameter_m": 5.0,
+   "depth_m": 0.5856,
+   "capsule": "cap_deep_space",
+   "value_types": {
+    "shield_diameter_m": "game_value",
+    "depth_m": "game_value",
+    "length_m": "game_value"
+   },
+   "family": "spacecraft_tps",
+   "design_ref": "7.3",
+   "bbox_min_m": [
+    -2.5,
+    -2.5,
+    0.013
+   ],
+   "bbox_max_m": [
+    2.5,
+    2.5,
+    0.586
+   ],
+   "attach_points_m": {
+    "capsule_rim": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.5856
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "ground",
+    "heat_shield"
+   ],
+   "triangles": {
+    "lod0": 1536,
+    "lod1": 384,
+    "phone": 1536
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/tps_pica_ablator__cap_deep_space.fbx",
+    "glb": "client/public/models/tps_pica_ablator__cap_deep_space.glb",
+    "fbx_bytes": 58108,
+    "glb_bytes": 49716,
+    "blend": "assets/blender/tps_pica_ablator__cap_deep_space.blend",
+    "blend_bytes": 107132
+   },
+   "issues": []
+  },
+  "tps_pica_ablator__cap_standard": {
+   "id": "tps_pica_ablator__cap_standard",
+   "length_m": 0.5856,
+   "stack": false,
+   "ring_check": false,
+   "required_empties": [
+    "capsule_rim"
+   ],
+   "shield_type": "pica_ablator",
+   "shield_diameter_m": 5.0,
+   "shield_extent_diameter_m": 5.0,
+   "max_diameter_m": 5.0,
+   "depth_m": 0.5856,
+   "capsule": "cap_standard",
+   "value_types": {
+    "shield_diameter_m": "game_value",
+    "depth_m": "game_value",
+    "length_m": "game_value"
+   },
+   "family": "spacecraft_tps",
+   "design_ref": "7.3",
+   "bbox_min_m": [
+    -2.5,
+    -2.5,
+    0.013
+   ],
+   "bbox_max_m": [
+    2.5,
+    2.5,
+    0.586
+   ],
+   "attach_points_m": {
+    "capsule_rim": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.5856
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "ground",
+    "heat_shield"
+   ],
+   "triangles": {
+    "lod0": 1536,
+    "lod1": 384,
+    "phone": 1536
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/tps_pica_ablator__cap_standard.fbx",
+    "glb": "client/public/models/tps_pica_ablator__cap_standard.glb",
+    "fbx_bytes": 58092,
+    "glb_bytes": 49712,
+    "blend": "assets/blender/tps_pica_ablator__cap_standard.blend",
+    "blend_bytes": 107091
+   },
+   "issues": []
+  },
+  "tps_reusable_ceramic_tiles": {
+   "id": "tps_reusable_ceramic_tiles",
+   "length_m": 5.8224,
+   "diameter_bottom_m": 5.4,
+   "diameter_top_m": 1.35,
+   "capsule_diameter_m": 5.0,
+   "shield_depth_m": 0.546,
+   "cone_half_angle_deg": 33.0,
+   "shield_sphere_radius_m": 6.0,
+   "mating_ring_key": "d54",
+   "twin": "Orion class, 5.0 m",
+   "value_types": {
+    "capsule_diameter_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "shield_depth_m": "game_value",
+    "cone_half_angle_deg": "real_world_approximate",
+    "shield_sphere_radius_m": "real_world_approximate",
+    "length_m": "game_value"
+   },
+   "stack": false,
+   "ring_check": false,
+   "required_empties": [
+    "capsule_rim"
+   ],
+   "shield_type": "reusable_ceramic_tiles",
+   "card_for": "cap_standard",
+   "exploded_gap_m": 0.9,
+   "max_diameter_m": 5.0,
+   "family": "spacecraft_tps_card",
+   "design_ref": "7.3",
+   "bbox_min_m": [
+    -2.7,
+    -2.7,
+    0.02
+   ],
+   "bbox_max_m": [
+    2.7,
+    2.7,
+    5.822
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      5.8224
+     ]
+    },
+    "attach_pod_1": {
+     "blender_xyz": [
+      1.4411,
+      1.4411,
+      3.2931
+     ]
+    },
+    "attach_pod_2": {
+     "blender_xyz": [
+      -1.4411,
+      1.4411,
+      3.2931
+     ]
+    },
+    "attach_pod_3": {
+     "blender_xyz": [
+      -1.4411,
+      -1.4411,
+      3.2931
+     ]
+    },
+    "attach_pod_4": {
+     "blender_xyz": [
+      1.4411,
+      -1.4411,
+      3.2931
+     ]
+    },
+    "parachute_bay": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      5.4224
+     ]
+    },
+    "capsule_rim": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.5856
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "heat_shield",
+    "hull",
+    "livery"
+   ],
+   "triangles": {
+    "lod0": 5272,
+    "lod1": 1532,
+    "phone": 5272
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/tps_reusable_ceramic_tiles.fbx",
+    "glb": "client/public/models/tps_reusable_ceramic_tiles.glb",
+    "fbx_bytes": 186572,
+    "glb_bytes": 181564,
+    "blend": "assets/blender/tps_reusable_ceramic_tiles.blend",
+    "blend_bytes": 217277
+   },
+   "issues": []
+  },
+  "tps_reusable_ceramic_tiles__cap_compact": {
+   "id": "tps_reusable_ceramic_tiles__cap_compact",
+   "length_m": 0.3892,
+   "stack": false,
+   "ring_check": false,
+   "required_empties": [
+    "capsule_rim"
+   ],
+   "shield_type": "reusable_ceramic_tiles",
+   "shield_diameter_m": 3.2,
+   "shield_extent_diameter_m": 3.2,
+   "max_diameter_m": 3.2,
+   "depth_m": 0.3892,
+   "capsule": "cap_compact",
+   "value_types": {
+    "shield_diameter_m": "game_value",
+    "depth_m": "game_value",
+    "length_m": "game_value"
+   },
+   "family": "spacecraft_tps",
+   "design_ref": "7.3",
+   "bbox_min_m": [
+    -1.6,
+    -1.6,
+    0.018
+   ],
+   "bbox_max_m": [
+    1.6,
+    1.6,
+    0.389
+   ],
+   "attach_points_m": {
+    "capsule_rim": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.3892
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "heat_shield"
+   ],
+   "triangles": {
+    "lod0": 1800,
+    "lod1": 384,
+    "phone": 1800
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/tps_reusable_ceramic_tiles__cap_compact.fbx",
+    "glb": "client/public/models/tps_reusable_ceramic_tiles__cap_compact.glb",
+    "fbx_bytes": 68124,
+    "glb_bytes": 64728,
+    "blend": "assets/blender/tps_reusable_ceramic_tiles__cap_compact.blend",
+    "blend_bytes": 112408
+   },
+   "issues": []
+  },
+  "tps_reusable_ceramic_tiles__cap_deep_space": {
+   "id": "tps_reusable_ceramic_tiles__cap_deep_space",
+   "length_m": 0.5856,
+   "stack": false,
+   "ring_check": false,
+   "required_empties": [
+    "capsule_rim"
+   ],
+   "shield_type": "reusable_ceramic_tiles",
+   "shield_diameter_m": 5.0,
+   "shield_extent_diameter_m": 5.0,
+   "max_diameter_m": 5.0,
+   "depth_m": 0.5856,
+   "capsule": "cap_deep_space",
+   "value_types": {
+    "shield_diameter_m": "game_value",
+    "depth_m": "game_value",
+    "length_m": "game_value"
+   },
+   "family": "spacecraft_tps",
+   "design_ref": "7.3",
+   "bbox_min_m": [
+    -2.5,
+    -2.5,
+    0.02
+   ],
+   "bbox_max_m": [
+    2.5,
+    2.5,
+    0.586
+   ],
+   "attach_points_m": {
+    "capsule_rim": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.5856
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "heat_shield"
+   ],
+   "triangles": {
+    "lod0": 1800,
+    "lod1": 384,
+    "phone": 1800
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/tps_reusable_ceramic_tiles__cap_deep_space.fbx",
+    "glb": "client/public/models/tps_reusable_ceramic_tiles__cap_deep_space.glb",
+    "fbx_bytes": 68444,
+    "glb_bytes": 64620,
+    "blend": "assets/blender/tps_reusable_ceramic_tiles__cap_deep_space.blend",
+    "blend_bytes": 112845
+   },
+   "issues": []
+  },
+  "tps_reusable_ceramic_tiles__cap_standard": {
+   "id": "tps_reusable_ceramic_tiles__cap_standard",
+   "length_m": 0.5856,
+   "stack": false,
+   "ring_check": false,
+   "required_empties": [
+    "capsule_rim"
+   ],
+   "shield_type": "reusable_ceramic_tiles",
+   "shield_diameter_m": 5.0,
+   "shield_extent_diameter_m": 5.0,
+   "max_diameter_m": 5.0,
+   "depth_m": 0.5856,
+   "capsule": "cap_standard",
+   "value_types": {
+    "shield_diameter_m": "game_value",
+    "depth_m": "game_value",
+    "length_m": "game_value"
+   },
+   "family": "spacecraft_tps",
+   "design_ref": "7.3",
+   "bbox_min_m": [
+    -2.5,
+    -2.5,
+    0.02
+   ],
+   "bbox_max_m": [
+    2.5,
+    2.5,
+    0.586
+   ],
+   "attach_points_m": {
+    "capsule_rim": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      0.5856
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "heat_shield"
+   ],
+   "triangles": {
+    "lod0": 1800,
+    "lod1": 384,
+    "phone": 1800
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/tps_reusable_ceramic_tiles__cap_standard.fbx",
+    "glb": "client/public/models/tps_reusable_ceramic_tiles__cap_standard.glb",
+    "fbx_bytes": 68428,
+    "glb_bytes": 64616,
+    "blend": "assets/blender/tps_reusable_ceramic_tiles__cap_standard.blend",
+    "blend_bytes": 112842
+   },
+   "issues": []
+  },
   "world_crane_arm": {
    "id": "world_crane_arm",
    "length_m": 12.0,
@@ -7378,6 +9905,514 @@
     "glb_bytes": 56688,
     "blend": "assets/blender/world_pad_deck.blend",
     "blend_bytes": 101150
+   },
+   "issues": []
+  },
+  "world_site_equatorial_hall": {
+   "id": "world_site_equatorial_hall",
+   "length_m": 48.0,
+   "height_m": 16.0,
+   "stack": false,
+   "ring_check": false,
+   "required_empties": [],
+   "max_diameter_m": 48.0,
+   "value_types": {
+    "length_m": "game_value",
+    "height_m": "game_value"
+   },
+   "site": "site_equatorial_spaceport",
+   "family": "world_site",
+   "design_ref": "7.1",
+   "bbox_min_m": [
+    -20.3,
+    -12.3,
+    0.0
+   ],
+   "bbox_max_m": [
+    26.0,
+    12.3,
+    16.45
+   ],
+   "attach_points_m": {},
+   "materials": [
+    "concrete",
+    "detail_dark",
+    "engine_metal",
+    "gantry",
+    "hull"
+   ],
+   "triangles": {
+    "lod0": 136,
+    "lod1": 64,
+    "phone": 136
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/world_site_equatorial_hall.fbx",
+    "glb": "client/public/models/world_site_equatorial_hall.glb",
+    "fbx_bytes": 26620,
+    "glb_bytes": 14100,
+    "blend": "assets/blender/world_site_equatorial_hall.blend",
+    "blend_bytes": 78616
+   },
+   "issues": []
+  },
+  "world_site_equatorial_palms": {
+   "id": "world_site_equatorial_palms",
+   "length_m": 28.0,
+   "height_m": 17.0,
+   "stack": false,
+   "ring_check": false,
+   "required_empties": [],
+   "max_diameter_m": 28.0,
+   "value_types": {
+    "length_m": "game_value",
+    "height_m": "game_value"
+   },
+   "site": "site_equatorial_spaceport",
+   "family": "world_site",
+   "design_ref": "7.1",
+   "bbox_min_m": [
+    -13.775,
+    -13.554,
+    0.018
+   ],
+   "bbox_max_m": [
+    14.084,
+    14.363,
+    14.508
+   ],
+   "attach_points_m": {},
+   "materials": [
+    "foliage",
+    "heat_shield"
+   ],
+   "triangles": {
+    "lod0": 816,
+    "lod1": 236,
+    "phone": 816
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/world_site_equatorial_palms.fbx",
+    "glb": "client/public/models/world_site_equatorial_palms.glb",
+    "fbx_bytes": 61308,
+    "glb_bytes": 42276,
+    "blend": "assets/blender/world_site_equatorial_palms.blend",
+    "blend_bytes": 101998
+   },
+   "issues": []
+  },
+  "world_site_equatorial_treeline": {
+   "id": "world_site_equatorial_treeline",
+   "length_m": 124.0,
+   "height_m": 14.0,
+   "stack": false,
+   "ring_check": false,
+   "required_empties": [],
+   "max_diameter_m": 124.0,
+   "value_types": {
+    "length_m": "game_value",
+    "height_m": "game_value"
+   },
+   "site": "site_equatorial_spaceport",
+   "family": "world_site",
+   "design_ref": "7.1",
+   "bbox_min_m": [
+    -64.183,
+    -6.84,
+    0.319
+   ],
+   "bbox_max_m": [
+    63.435,
+    6.986,
+    13.45
+   ],
+   "attach_points_m": {},
+   "materials": [
+    "foliage"
+   ],
+   "triangles": {
+    "lod0": 1500,
+    "lod1": 436,
+    "phone": 1500
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/world_site_equatorial_treeline.fbx",
+    "glb": "client/public/models/world_site_equatorial_treeline.glb",
+    "fbx_bytes": 66588,
+    "glb_bytes": 54772,
+    "blend": "assets/blender/world_site_equatorial_treeline.blend",
+    "blend_bytes": 117777
+   },
+   "issues": []
+  },
+  "world_site_polar_blockhouse": {
+   "id": "world_site_polar_blockhouse",
+   "length_m": 24.0,
+   "height_m": 8.0,
+   "stack": false,
+   "ring_check": false,
+   "required_empties": [],
+   "max_diameter_m": 24.0,
+   "value_types": {
+    "length_m": "game_value",
+    "height_m": "game_value"
+   },
+   "site": "site_west_coast_polar_range",
+   "family": "world_site",
+   "design_ref": "7.1",
+   "bbox_min_m": [
+    -12.0,
+    -6.45,
+    0.0
+   ],
+   "bbox_max_m": [
+    12.0,
+    11.774,
+    7.65
+   ],
+   "attach_points_m": {},
+   "materials": [
+    "concrete",
+    "detail_dark",
+    "engine_metal",
+    "ground"
+   ],
+   "triangles": {
+    "lod0": 194,
+    "lod1": 164,
+    "phone": 194
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/world_site_polar_blockhouse.fbx",
+    "glb": "client/public/models/world_site_polar_blockhouse.glb",
+    "fbx_bytes": 29212,
+    "glb_bytes": 14172,
+    "blend": "assets/blender/world_site_polar_blockhouse.blend",
+    "blend_bytes": 81277
+   },
+   "issues": []
+  },
+  "world_site_polar_cliff_hills": {
+   "id": "world_site_polar_cliff_hills",
+   "length_m": 150.0,
+   "height_m": 25.0,
+   "stack": false,
+   "ring_check": false,
+   "required_empties": [],
+   "max_diameter_m": 150.0,
+   "value_types": {
+    "length_m": "game_value",
+    "height_m": "game_value"
+   },
+   "site": "site_west_coast_polar_range",
+   "family": "world_site",
+   "design_ref": "7.1",
+   "bbox_min_m": [
+    -84.132,
+    5.707,
+    0.0
+   ],
+   "bbox_max_m": [
+    85.566,
+    45.797,
+    16.934
+   ],
+   "attach_points_m": {},
+   "materials": [
+    "concrete",
+    "ground"
+   ],
+   "triangles": {
+    "lod0": 806,
+    "lod1": 232,
+    "phone": 806
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/world_site_polar_cliff_hills.fbx",
+    "glb": "client/public/models/world_site_polar_cliff_hills.glb",
+    "fbx_bytes": 45996,
+    "glb_bytes": 29728,
+    "blend": "assets/blender/world_site_polar_cliff_hills.blend",
+    "blend_bytes": 91549
+   },
+   "issues": []
+  },
+  "world_site_steppe_drop_zone": {
+   "id": "world_site_steppe_drop_zone",
+   "length_m": 34.0,
+   "height_m": 3.8,
+   "stack": false,
+   "ring_check": false,
+   "required_empties": [],
+   "max_diameter_m": 34.0,
+   "value_types": {
+    "length_m": "game_value",
+    "height_m": "game_value"
+   },
+   "site": "site_inland_steppe_cosmodrome",
+   "family": "world_site",
+   "design_ref": "7.1",
+   "bbox_min_m": [
+    -16.85,
+    -16.85,
+    0.0
+   ],
+   "bbox_max_m": [
+    16.85,
+    16.85,
+    3.45
+   ],
+   "attach_points_m": {},
+   "materials": [
+    "engine_metal",
+    "livery"
+   ],
+   "triangles": {
+    "lod0": 632,
+    "lod1": 194,
+    "phone": 632
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/world_site_steppe_drop_zone.fbx",
+    "glb": "client/public/models/world_site_steppe_drop_zone.glb",
+    "fbx_bytes": 36540,
+    "glb_bytes": 31500,
+    "blend": "assets/blender/world_site_steppe_drop_zone.blend",
+    "blend_bytes": 88752
+   },
+   "issues": []
+  },
+  "world_site_steppe_grass": {
+   "id": "world_site_steppe_grass",
+   "length_m": 140.0,
+   "height_m": 1.6,
+   "stack": false,
+   "ring_check": false,
+   "required_empties": [],
+   "max_diameter_m": 140.0,
+   "value_types": {
+    "length_m": "game_value",
+    "height_m": "game_value"
+   },
+   "site": "site_inland_steppe_cosmodrome",
+   "family": "world_site",
+   "design_ref": "7.1",
+   "bbox_min_m": [
+    -68.587,
+    -66.715,
+    0.0
+   ],
+   "bbox_max_m": [
+    66.2,
+    69.062,
+    1.864
+   ],
+   "attach_points_m": {},
+   "materials": [
+    "foliage"
+   ],
+   "triangles": {
+    "lod0": 1212,
+    "lod1": 352,
+    "phone": 1212
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/world_site_steppe_grass.fbx",
+    "glb": "client/public/models/world_site_steppe_grass.glb",
+    "fbx_bytes": 117340,
+    "glb_bytes": 113168,
+    "blend": "assets/blender/world_site_steppe_grass.blend",
+    "blend_bytes": 145200
+   },
+   "issues": []
+  },
+  "world_site_steppe_rail_erector": {
+   "id": "world_site_steppe_rail_erector",
+   "length_m": 90.0,
+   "height_m": 6.6,
+   "stack": false,
+   "ring_check": false,
+   "required_empties": [],
+   "max_diameter_m": 90.0,
+   "value_types": {
+    "length_m": "game_value",
+    "height_m": "game_value"
+   },
+   "site": "site_inland_steppe_cosmodrome",
+   "family": "world_site",
+   "design_ref": "7.1",
+   "bbox_min_m": [
+    -3.2,
+    -45.0,
+    0.0
+   ],
+   "bbox_max_m": [
+    3.2,
+    45.0,
+    6.716
+   ],
+   "attach_points_m": {},
+   "materials": [
+    "concrete",
+    "detail_dark",
+    "engine_metal",
+    "gantry",
+    "ground",
+    "hull",
+    "livery"
+   ],
+   "triangles": {
+    "lod0": 916,
+    "lod1": 265,
+    "phone": 916
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/world_site_steppe_rail_erector.fbx",
+    "glb": "client/public/models/world_site_steppe_rail_erector.glb",
+    "fbx_bytes": 50748,
+    "glb_bytes": 66412,
+    "blend": "assets/blender/world_site_steppe_rail_erector.blend",
+    "blend_bytes": 99410
+   },
+   "issues": []
+  },
+  "world_site_subtropical_assembly": {
+   "id": "world_site_subtropical_assembly",
+   "length_m": 70.0,
+   "height_m": 57.0,
+   "stack": false,
+   "ring_check": false,
+   "required_empties": [],
+   "max_diameter_m": 70.0,
+   "value_types": {
+    "length_m": "game_value",
+    "height_m": "game_value"
+   },
+   "site": "site_subtropical_coast",
+   "family": "world_site",
+   "design_ref": "7.1",
+   "bbox_min_m": [
+    -35.0,
+    -20.3,
+    0.0
+   ],
+   "bbox_max_m": [
+    35.0,
+    38.0,
+    56.26
+   ],
+   "attach_points_m": {},
+   "materials": [
+    "concrete",
+    "detail_dark",
+    "engine_metal",
+    "gantry",
+    "hull"
+   ],
+   "triangles": {
+    "lod0": 112,
+    "lod1": 112,
+    "phone": 112
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/world_site_subtropical_assembly.fbx",
+    "glb": "client/public/models/world_site_subtropical_assembly.glb",
+    "fbx_bytes": 27260,
+    "glb_bytes": 12372,
+    "blend": "assets/blender/world_site_subtropical_assembly.blend",
+    "blend_bytes": 78178
+   },
+   "issues": []
+  },
+  "world_site_subtropical_dunes": {
+   "id": "world_site_subtropical_dunes",
+   "length_m": 100.0,
+   "height_m": 4.0,
+   "stack": false,
+   "ring_check": false,
+   "required_empties": [],
+   "max_diameter_m": 100.0,
+   "value_types": {
+    "length_m": "game_value",
+    "height_m": "game_value"
+   },
+   "site": "site_subtropical_coast",
+   "family": "world_site",
+   "design_ref": "7.1",
+   "bbox_min_m": [
+    -55.828,
+    -17.857,
+    0.0
+   ],
+   "bbox_max_m": [
+    52.1,
+    18.936,
+    3.004
+   ],
+   "attach_points_m": {},
+   "materials": [
+    "concrete",
+    "foliage"
+   ],
+   "triangles": {
+    "lod0": 948,
+    "lod1": 275,
+    "phone": 948
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/world_site_subtropical_dunes.fbx",
+    "glb": "client/public/models/world_site_subtropical_dunes.glb",
+    "fbx_bytes": 72876,
+    "glb_bytes": 56832,
+    "blend": "assets/blender/world_site_subtropical_dunes.blend",
+    "blend_bytes": 108108
+   },
+   "issues": []
+  },
+  "world_site_subtropical_water_tower": {
+   "id": "world_site_subtropical_water_tower",
+   "length_m": 10.0,
+   "height_m": 33.0,
+   "stack": false,
+   "ring_check": false,
+   "required_empties": [],
+   "max_diameter_m": 10.0,
+   "value_types": {
+    "length_m": "game_value",
+    "height_m": "game_value"
+   },
+   "site": "site_subtropical_coast",
+   "family": "world_site",
+   "design_ref": "7.1",
+   "bbox_min_m": [
+    -4.8,
+    -4.8,
+    0.0
+   ],
+   "bbox_max_m": [
+    4.8,
+    4.8,
+    32.2
+   ],
+   "attach_points_m": {},
+   "materials": [
+    "concrete",
+    "engine_metal",
+    "hull",
+    "livery"
+   ],
+   "triangles": {
+    "lod0": 808,
+    "lod1": 233,
+    "phone": 808
+   },
+   "files": {
+    "fbx": "assets/blender/export/fbx/world_site_subtropical_water_tower.fbx",
+    "glb": "client/public/models/world_site_subtropical_water_tower.glb",
+    "fbx_bytes": 45548,
+    "glb_bytes": 33080,
+    "blend": "assets/blender/world_site_subtropical_water_tower.blend",
+    "blend_bytes": 94249
    },
    "issues": []
   },

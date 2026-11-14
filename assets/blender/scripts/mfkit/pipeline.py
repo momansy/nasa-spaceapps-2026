@@ -43,7 +43,7 @@ MATERIAL_LOOK = {
     # T017 slots (style guide materials table; linear RGB, game_value art choices)
     "gantry": dict(color=(0.0056, 0.0242, 0.0513), metallic=0.20, roughness=0.62),       # Console navy #112B40
     "concrete": dict(color=(0.20, 0.205, 0.20), metallic=0.0, roughness=0.88),
-    "ground": dict(color=(0.030, 0.036, 0.034), metallic=0.0, roughness=0.95),
+    "ground": dict(color=(0.058, 0.066, 0.052), metallic=0.0, roughness=0.95),
     "foliage": dict(color=(0.040, 0.105, 0.052), metallic=0.0, roughness=0.80),
     "solar_cell": dict(color=(0.018, 0.034, 0.095), metallic=0.25, roughness=0.28),       # deep blue-black
     "heat_shield": dict(color=(0.062, 0.046, 0.038), metallic=0.0, roughness=0.84),       # charcoal brown
@@ -97,6 +97,8 @@ def part_ids(patterns=None) -> list[str]:
     return out
 
 
+# families whose parts are not stack segments (no attach_top / ring checks; meta required_empties instead)
+NON_STACK_FAMILIES = ("world_", "spacecraft_tps", "spacecraft_sat", "spacecraft_lander", "spacecraft_les_pod")
 _LOADED = False
 PART_MODULES = ["parts_engines_s1", "parts_engines_s1b", "parts_engines_s2", "parts_tanks", "parts_structures",
                 "parts_fairings", "parts_boosters", "parts_world", "parts_world_sites",
@@ -303,10 +305,10 @@ def validate(part_id: str, inst: dict) -> list[str]:
     family = meta.get("family", "")
     lod0 = inst["lod"].get(0, [])
     lo, hi = _world_bbox(lod0)
-    for key in (("length_m",) if family.startswith("world_") else ("length_m", "diameter_bottom_m", "diameter_top_m")):
+    for key in (("length_m",) if family.startswith(NON_STACK_FAMILIES) else ("length_m", "diameter_bottom_m", "diameter_top_m")):
         if key not in meta:
             issues.append(f"meta missing {key}")
-    world = family.startswith("world_")  # non-stack world parts: required empties come from meta
+    world = family.startswith(NON_STACK_FAMILIES)  # non-stack world parts: required empties come from meta
     for name in meta.get("required_empties", []):
         if name not in inst["empties"]:
             issues.append(f"missing empty {name}")
