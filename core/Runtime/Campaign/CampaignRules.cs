@@ -41,14 +41,16 @@ namespace MissionForge.Core.Campaign
             if (carryM > 0) changes.Add(new CampaignChange("budget_carry_over", budgetDeltaM: carryM));
             if (claimM > 0) changes.Add(new CampaignChange("insurance_failure_claim", budgetDeltaM: claimM));
 
-            var inventory = new List<InventoryItem>(state.InventoryItems);
+            // Recovered items already in flight retain their identity and flight counts.
+            // In-flight items not recovered this mission are lost, not duplicated in storage.
+            var inFlight = state.InventoryItems.Where(item => !item.Available).ToList();
+            var inventory = state.InventoryItems.Where(item => item.Available).ToList();
             foreach (string partId in report.RecoveredHardware)
             {
                 if (string.IsNullOrWhiteSpace(partId)) continue;
-                // Recovered hardware is supplied by the host; no speculative recovery rolls.
-                int flights = 1;
-                foreach (var owned in inventory)
-                    if (owned.PartId == partId) flights = Math.Max(flights, owned.Flights + 1);
+                var previous = inFlight.FirstOrDefault(x => x.PartId == partId);
+                int flights = previous == null ? 1 : previous.Flights + 1;
+                if (previous != null) inFlight.Remove(previous);
                 string itemId = partId + "-" + (state.Missions.Count + 1) + "-" +
                     (inventory.Count + 1);
                 inventory.Add(new InventoryItem(itemId, partId, flights, false));
@@ -75,7 +77,7 @@ namespace MissionForge.Core.Campaign
 
             var missions = new List<MissionReport>(state.Missions) { report };
             var next = state.With(reputation: nextRep, knowledgePoints: checked(state.KnowledgePoints +
-                report.KnowledgePointsEarned), carriedBudgetM: state.CarriedBudgetM + carryM + claimM,
+                report.KnowledgePointsEarned), carriedBudgetM: carryM + claimM,
                 inventoryItems: inventory, milestones: milestoneIds.OrderBy(x => x, StringComparer.Ordinal),
                 missions: missions, insured: false);
             return new CampaignUpdate(next, changes, events);
