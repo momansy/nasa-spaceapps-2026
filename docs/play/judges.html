@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>For judges | MissionForge</title>
+<link rel="icon" href="client/favicon.svg" type="image/svg+xml">
+<style>
+:root{--space:#071522;--console:#112B40;--ocean:#176887;--ceramic:#E8EEF0;--signal:#55C5CD;--sunlight:#FFCE83;--muted:#B6C7D3;--line:rgba(232,238,240,.18)}
+*{box-sizing:border-box}html{background:var(--space)}
+body{margin:0;color:var(--ceramic);font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans",Arial,sans-serif;line-height:1.55;background:var(--space)}
+a{color:var(--signal)}a:focus-visible,summary:focus-visible{outline:3px solid var(--sunlight);outline-offset:3px}
+.wrap{width:min(1040px,100% - 32px);margin:0 auto;padding:28px 0 48px}
+nav{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:14px;margin-bottom:8px}
+h1{font-size:clamp(26px,6vw,44px);font-weight:300;letter-spacing:.06em;margin:16px 0 4px}h1 b{color:var(--sunlight);font-weight:800}
+.lede{color:var(--muted);margin:0 0 24px}
+h2{font-size:clamp(20px,4.5vw,26px);margin:40px 0 8px;padding-top:16px;border-top:1px solid var(--line);font-weight:600}
+h3{font-size:18px;margin:24px 0 6px;color:var(--sunlight);font-weight:600}
+p,li{max-width:80ch}.muted{color:var(--muted)}
+.box{background:var(--console);border:1px solid var(--line);border-left:4px solid var(--signal);padding:14px 18px;margin:12px 0}
+.box.warn{border-left-color:var(--sunlight)}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);margin:10px 0 18px}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:560px}
+th,td{text-align:left;vertical-align:top;padding:8px 10px;border-bottom:1px solid var(--line)}
+th{background:var(--console);color:var(--muted);font-weight:600;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.92em;background:rgba(17,43,64,.9);padding:1px 5px}
+.tag{display:inline-block;padding:1px 8px;border:1px solid var(--line);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.tag.unv{border:2px dashed #FFD166;color:#FFD166}
+details{margin:8px 0}summary{cursor:pointer;color:var(--signal)}
+pre{white-space:pre-wrap;background:var(--console);border:1px solid var(--line);padding:12px;font-size:12px;overflow-x:auto;max-height:420px}
+.todo{background:rgba(255,209,102,.08);border:2px dashed #FFD166;padding:14px 18px;margin:12px 0}
+footer{margin-top:40px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);padding-top:14px}
+@media print{body{background:#fff;color:#000}a{color:#000}.box,th,pre,code{background:#fff;color:#000}.wrap{width:100%;padding:0}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav><a href="./">Play</a><a href="credits.html">Credits and licences</a><a href="judges.html">For judges</a></nav>
+<h1>MISSION<b>FORGE</b> &middot; For judges</h1>
+<p class="lede">The same text as <code>JUDGES.md</code> in the repository.</p>
+<p>MissionForge is a cooperative party game for 1 to 10 players who act as a space agency: they vote on every part of a rocket and spacecraft under a money and schedule budget, then fly the mission live. One big screen shows the mission; every phone is a mission-control console and a minigame controller. Mass, power, budget, instruments, orbit and communications each decide whether the mission works, and real spaceflight facts sit inside the mechanics.</p>
+<h3>Try it</h3>
+<ul><li><b>Hosted:</b> <code>&lt;URL to be added by the team owner&gt;</code> (open <code>/play/</code>). Not deployed at the time of writing.</li><li><b>Locally, one command</b> (Node 20+, Windows or macOS): <code>npm --prefix tools/demo install</code>, then <code>npm --prefix tools/demo run demo</code>. It prints the big-screen URL, the phone URL and a QR code. Phones on the same Wi-Fi join with the code shown on the big screen; no app, account or chat.</li><li><b>No network:</b> <code>/play/client/?mock=1</code> runs a scripted phone session without a server.</li></ul>
+<h3>How a session flows (25 to 40 minutes)</h3>
+<p>Lobby and room code, briefing for contract C1 Earth Watch (a 150 kg observation satellite in a 550 km Sun-synchronous orbit, 90 M game-dollar budget), 22 part votes with stats and drawbacks, a GO/NO-GO review, the flight with minigames at critical moments, then a debrief with score, facts and the assumptions behind the numbers. The audience joins by QR and sees its own &quot;Audience says&quot; bar (making it count as one vote is a protocol setting that the host lobby does not expose yet).</p>
+<h3>Challenge alignment</h3>
+<div class="tablewrap"><table><thead><tr><th>Challenge emphasis</th><th>Where it lives</th></tr></thead><tbody><tr><td>Mass</td><td>Dashboard delta-v and thrust-to-weight, tank sizing, materials</td></tr><tr><td>Power</td><td>Payload power balance, eclipse and solar-wing minigames (MG-18, MG-15)</td></tr><tr><td>Budget</td><td>Part costs, tests, anomalies, efficiency scoring</td></tr><tr><td>Instruments</td><td>Payload Bay choices, science capture (MG-21), data multiplier</td></tr><tr><td>Orbit</td><td>Launch site and inclination, contracts, flight-dynamics console</td></tr><tr><td>Communication</td><td>Comms parts, ground passes (MG-13), blackout, light-time delay</td></tr><tr><td>Meaningful decisions</td><td>Voting with stats and drawbacks, design reviews, Predict before vote</td></tr><tr><td>Education</td><td>Facts inside mechanics, Codex, debrief comparisons</td></tr></tbody></table></div>
+<h3>Physics versus game simplification</h3>
+<p>Equations and constants are in <code>GAME_DESIGN.md</code> 8.1 and 8.2. Every simplification (2D orbital plane, one exponential atmosphere, no Earth oblateness, probability rolls for failures, game-scaled costs and schedules) is listed in 8.3 and shown in the in-game Codex. Every number is tagged <b>physical</b>, <b>real-world approximate</b> or <b>game value</b> in the assumptions register (<code>GAME_DESIGN.md</code> 19) and in the <code>value_types</code> of each data entry.</p>
+<h3>Facts and AI use</h3>
+<p>The 40 facts shown to players were checked against their cited sources (task T025, <code>orchestration/evidence/T025/fact-sources.md</code>); each carries a source URL, listed with access dates on the <a href="credits.html">credits page</a>. <b>The code, data and documents were written by AI coding agents (OpenAI Codex, Anthropic Claude Code) under human direction; the images were generated with Higgsfield (GPT Image 2.6) and the briefing video with Google Gemini.</b> Details, licences and third-party credits are on the credits page. Not affiliated with or endorsed by NASA.</p>
+<h3>Repository map</h3>
+<div class="tablewrap"><table><thead><tr><th>Path</th><th>What</th></tr></thead><tbody><tr><td><code>GAME_DESIGN.md</code></td><td>The specification</td></tr><tr><td><code>core/</code></td><td>C# rules and simulation (deterministic from a seed), with tests</td></tr><tr><td><code>unity/MissionForge/</code></td><td>The big-screen host (Unity 6, WebGL build in <code>docs/play/host/</code>)</td></tr><tr><td><code>server/</code>, <code>client/</code>, <code>protocol/</code></td><td>Room server, phone web app, message definitions</td></tr><tr><td><code>data/</code>, <code>tools/</code></td><td>Game content as JSON, validators, balance search, demo tools</td></tr><tr><td><code>RELEASE.md</code>, <code>orchestration/</code></td><td>Release and judging-day runbook; task briefs and evidence</td></tr></tbody></table></div>
+<h3>Known limitations</h3>
+<ul><li>The hosted URL and hosting are not set up; the Unity host needs a server that sends <code>Content-Encoding: gzip</code> for its <code>.unityweb</code> files (see <code>RELEASE.md</code>).</li><li>The Unity host was loaded and connected in headless Chromium with software rendering; frame rate on a real laptop has not been measured by this task.</li><li>A full session is about 35 minutes with the shortest timers the host lobby offers (22 part votes of about 54 s each); this is an estimate from the timers, not a measured playtest with six people.</li><li>Costs, schedules, reliabilities and boost sizes are game values, not real figures; balance has been checked by a script, not by a large human playtest.</li><li>The room server keeps rooms in memory only: restarting it loses every room (by design: no accounts, no stored data).</li><li>Audio is limited: no recordings are bundled.</li></ul>
+<footer>Generated by <code>tools/demo/build-credits.mjs</code>. Not affiliated with or endorsed by NASA.</footer>
+</div>
+</body>
+</html>

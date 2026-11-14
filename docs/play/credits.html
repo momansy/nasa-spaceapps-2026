@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Credits | MissionForge</title>
+<link rel="icon" href="client/favicon.svg" type="image/svg+xml">
+<style>
+:root{--space:#071522;--console:#112B40;--ocean:#176887;--ceramic:#E8EEF0;--signal:#55C5CD;--sunlight:#FFCE83;--muted:#B6C7D3;--line:rgba(232,238,240,.18)}
+*{box-sizing:border-box}html{background:var(--space)}
+body{margin:0;color:var(--ceramic);font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans",Arial,sans-serif;line-height:1.55;background:var(--space)}
+a{color:var(--signal)}a:focus-visible,summary:focus-visible{outline:3px solid var(--sunlight);outline-offset:3px}
+.wrap{width:min(1040px,100% - 32px);margin:0 auto;padding:28px 0 48px}
+nav{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:14px;margin-bottom:8px}
+h1{font-size:clamp(26px,6vw,44px);font-weight:300;letter-spacing:.06em;margin:16px 0 4px}h1 b{color:var(--sunlight);font-weight:800}
+.lede{color:var(--muted);margin:0 0 24px}
+h2{font-size:clamp(20px,4.5vw,26px);margin:40px 0 8px;padding-top:16px;border-top:1px solid var(--line);font-weight:600}
+h3{font-size:18px;margin:24px 0 6px;color:var(--sunlight);font-weight:600}
+p,li{max-width:80ch}.muted{color:var(--muted)}
+.box{background:var(--console);border:1px solid var(--line);border-left:4px solid var(--signal);padding:14px 18px;margin:12px 0}
+.box.warn{border-left-color:var(--sunlight)}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);margin:10px 0 18px}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:560px}
+th,td{text-align:left;vertical-align:top;padding:8px 10px;border-bottom:1px solid var(--line)}
+th{background:var(--console);color:var(--muted);font-weight:600;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.92em;background:rgba(17,43,64,.9);padding:1px 5px}
+.tag{display:inline-block;padding:1px 8px;border:1px solid var(--line);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.tag.unv{border:2px dashed #FFD166;color:#FFD166}
+details{margin:8px 0}summary{cursor:pointer;color:var(--signal)}
+pre{white-space:pre-wrap;background:var(--console);border:1px solid var(--line);padding:12px;font-size:12px;overflow-x:auto;max-height:420px}
+.todo{background:rgba(255,209,102,.08);border:2px dashed #FFD166;padding:14px 18px;margin:12px 0}
+footer{margin-top:40px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);padding-top:14px}
+@media print{body{background:#fff;color:#000}a{color:#000}.box,th,pre,code{background:#fff;color:#000}.wrap{width:100%;padding:0}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav><a href="./">Play</a><a href="credits.html">Credits and licences</a><a href="judges.html">For judges</a></nav>
+<h1>MISSION<b>FORGE</b> &middot; Credits</h1>
+<p class="lede">AI-assistance disclosure, data sources, third-party licences and disclaimers. <a href="#team">Team</a> &middot; <a href="#ai">AI</a> &middot; <a href="#facts">Facts</a> &middot; <a href="#licences">Licences</a></p>
+
+<h2 id="ai">AI-assistance disclosure</h2>
+<div class="box warn"><p><b>The code of this project was written with AI coding agents under human direction.</b>
+Agents from OpenAI (Codex) and Anthropic (Claude Code) wrote and tested code, data files, documents and tooling in
+separate branches; the team owner assigned the tasks, reviewed and merged the results. Every task, its brief and its
+verification evidence are kept in <code>orchestration/</code> in the repository.</p></div>
+<div class="tablewrap"><table><thead><tr><th>What</th><th>Made with</th><th>Notes</th></tr></thead><tbody><tr><td>Game code (C# core, Unity host, Node room server, TypeScript phone client)</td><td>AI coding agents (Codex, Claude Code)</td><td>Tests accompany the code; simulation is deterministic from a seed.</td></tr><tr><td>Game text, data tables, codex and facts</td><td>AI coding agents, then a fact-verification pass</td><td>Each fact carries a source URL; see Data sources below.</td></tr><tr><td>Images (title, build bay, ascent, orbit, re-entry, mission control, two key-art frames)</td><td>Higgsfield <code>generate_image</code> with model <code>gpt_image_2_6</code></td><td>8 approved stills, 10 Higgsfield credits spent in total; no text, logos or watermarks by inspection.</td></tr><tr><td>Briefing video (10 s, C1 Earth Watch)</td><td>Google Gemini video export supplied by the project owner; exact model and prompt not provided</td><td>Audio removed with a lossless FFmpeg remux. Not re-encoded.</td></tr><tr><td>Audio</td><td>None bundled</td><td>No audio recordings are in the repository at the time of writing; the host only has audio hooks.</td></tr><tr><td>3D models</td><td>Blender scripts (<code>assets/blender/scripts/</code>) written by AI coding agents; FBX and GLB exports</td><td>Generic hardware, not copies of real spacecraft. Source <code>.blend</code> files are in <code>assets/blender/</code>.</td></tr></tbody></table></div>
+<h3>Media files</h3>
+<div class="tablewrap"><table><thead><tr><th>File</th><th>Tool</th><th>Model</th><th>Job id</th></tr></thead><tbody><tr><td><code>assets/media/style/frames/01-title.png</code></td><td>Higgsfield generate_image</td><td>gpt_image_2_6</td><td><code>c578d0b0-a545-455c-a719-70e5d6a637ea</code></td></tr><tr><td><code>assets/media/style/frames/04-orbit-operations.png</code></td><td>Higgsfield generate_image</td><td>gpt_image_2_6</td><td><code>c87d4db0-ada3-4cf0-9e4e-e47b0e905489</code></td></tr><tr><td><code>assets/media/style/frames/02-build-bay.png</code></td><td>Higgsfield generate_image</td><td>gpt_image_2_6</td><td><code>722adfe7-b970-4ce3-a84b-341320d09a17</code></td></tr><tr><td><code>assets/media/key-art/missionforge-16x9.png</code></td><td>Higgsfield generate_image</td><td>gpt_image_2_6</td><td><code>ba83b33e-e8a9-4601-bb1f-58ea4e22f907</code></td></tr><tr><td><code>assets/media/key-art/missionforge-1x1.png</code></td><td>Higgsfield generate_image</td><td>gpt_image_2_6</td><td><code>18335653-753e-407e-bd2b-1c29dae484cd</code></td></tr><tr><td><code>assets/media/style/frames/03-ascent.png</code></td><td>Higgsfield generate_image</td><td>gpt_image_2_6</td><td><code>0e16ce39-9ee5-4363-9faa-b40069d335a7</code></td></tr><tr><td><code>assets/media/style/frames/05-reentry.png</code></td><td>Higgsfield generate_image</td><td>gpt_image_2_6</td><td><code>815101d9-3c78-4adc-b8e8-7f15c8eee770</code></td></tr><tr><td><code>assets/media/style/frames/06-mission-control.png</code></td><td>Higgsfield generate_image</td><td>gpt_image_2_6</td><td><code>c45c310d-801e-459e-8f0f-f21cc13d19ae</code></td></tr><tr><td><code>assets/media/cinematics/c1-earth-watch-briefing.mp4</code></td><td>Google Gemini user-supplied export; exact model not provided; FFmpeg stream-copy remux</td><td>not provided</td><td>n/a</td></tr></tbody></table></div>
+<h3>Failed, lost or superseded generation attempts</h3>
+<p class="muted">From <code>GENERATION_LOG.json</code>. Some of these prompts were later generated successfully and appear in the table above.</p>
+<div class="tablewrap"><table><thead><tr><th>Prompt</th><th>Outcome</th><th>Reason</th></tr></thead><tbody><tr><td><code>build_bay</code></td><td>not submitted</td><td>ECONNRESET before job creation; balance and transactions confirmed no charge</td></tr><tr><td><code>key_art_landscape</code></td><td>lost</td><td>client timeout; credit charged at 2026-11-14T13:26:41Z, job id and output not recoverable</td></tr><tr><td><code>c1_briefing</code></td><td>not generated</td><td>cost preflight 84 credits (12 s, 720p) and 24 credits (8 s, 480p) vs 8 available; unlimited generation unavailable from Claude Code</td></tr><tr><td><code>mission_control</code></td><td>rejected</td><td>large screen showed the title-frame rocket rather than the approved observation satellite (reference bleed); otherwise clean</td></tr></tbody></table></div>
+<p class="muted">The 10-credit Higgsfield balance was the only paid generation budget; unlimited generation was not available from the coding tool. Generated-media licence terms are the provider&rsquo;s and have not been reviewed by the team; the full per-file record is in <code>assets/media/CREDITS.md</code>.</p>
+
+<h2 id="facts">Data sources: facts shown to players</h2>
+<p>Every fact has a source. &ldquo;Verified&rdquo; means checked against the cited page and, where needed, corrected to match it
+(task T025, evidence in <code>orchestration/evidence/T025/fact-sources.md</code>). Dates are the day the source was accessed (UTC).
+No fact was rejected.
+Facts marked <span class="tag unv">unverified</span> are not confirmed.</p>
+<div class="tablewrap"><table><thead><tr><th>Id</th><th>Topic</th><th>Source</th><th>URL</th><th>Accessed</th><th>Status</th></tr></thead><tbody><tr><td><code>F01</code></td><td>Units</td><td>NASA, Mars Climate Orbiter Mishap Investigation Board Phase I Report, 1999</td><td><a href="https://llis.nasa.gov/llis_lib/pdf/1009464main1_0641-mr.pdf" rel="noopener noreferrer">https://llis.nasa.gov/llis_lib/pdf/1009464main1_0641-mr.pdf</a></td><td>2026-11-14</td><td><span class="tag">verified</span></td></tr><tr><td><code>F02</code></td><td>Rocket equation</td><td>NASA Science, Basics of Space Flight, Chapter 3: Gravity &amp; Mechanics; NASA Glenn, Beginner&#39;s Guide to Aeronautics: Ideal Rocket Equation and Stages</td><td><a href="https://science.nasa.gov/learn/basics-of-space-flight/chapter3-2/" rel="noopener noreferrer">https://science.nasa.gov/learn/basics-of-space-flight/chapter3-2/</a></td><td>2026-11-14</td><td><span class="tag">verified</span></td></tr><tr><td><code>F03</code></td><td>Staging</td><td>NASA Glenn, Beginner&#39;s Guide to Rockets: Balloon Staging; NASA, Saturn I SA-8 Functional Systems Description Vol. X (SDES-64-414), 1964</td><td><a href="https://www.grc.nasa.gov/www/K-12/rocket/TRCRocket/balloon_staging.html" rel="noopener noreferrer">https://www.grc.nasa.gov/www/K-12/rocket/TRCRocket/balloon_staging.html</a></td><td>2026-11-14</td><td><span class="tag">verified</span></td></tr><tr><td><code>F04</code></td><td>Max Q</td><td>NASA/USA, Space Shuttle Day-of-Launch Trajectory Design Operations, 2011; NASA, CHANGO: Boost Stage Guidance of the Space Launch System; NASA, SpaceX CRS-6 Press Kit, 2015</td><td><a href="https://ntrs.nasa.gov/api/citations/20110003654/downloads/20110003654.pdf" rel="noopener noreferrer">https://ntrs.nasa.gov/api/citations/20110003654/downloads/20110003654.pdf</a></td><td>2026-11-14</td><td><span class="tag">verified</span></td></tr><tr><td><code>F05</code></td><td>Orbit speed</td><td>NASA Orbital Debris Program Office, Frequently Asked Questions</td><td><a href="https://orbitaldebris.jsc.nasa.gov/faq/" rel="noopener noreferrer">https://orbitaldebris.jsc.nasa.gov/faq/</a></td><td>2026-11-14</td><td><span class="tag">verified</span></td></tr><tr><td><code>F06</code></td><td>ISS gravity</td><td>NASA, What Is Microgravity? (Grades 5-8)</td><td><a href="https://www.nasa.gov/learning-resources/for-kids-and-students/what-is-microgravity-grades-5-8/" rel="noopener noreferrer">https://www.nasa.gov/learning-resources/for-kids-and-students/what-is-microgravity-grades-5-8/</a></td><td>2026-11-14</td><td><span class="tag">verified</span></td></tr><tr><td><code>F07</code></td><td>Pogo</td><td>NASA, C. Larsen, NASA Experience with Pogo in Human Spaceflight Vehicles (NTRS 20080018689), 2008; NASA, Report of Apollo 13 Review Board, 1970</td><td><a href="https://ntrs.nasa.gov/api/citations/20080018689/downloads/20080018689.pdf" rel="noopener noreferrer">https://ntrs.nasa.gov/api/citations/20080018689/downloads/20080018689.pdf</a></td><td>2026-11-14</td><td><span class="tag">verified</span></td></tr><tr><td><code>F08</code></td><td>Engine-out</td><td>NASA Office of Inspector General, Commercial Cargo: NASA&#39;s Management of COTS and ISS Commercial Resupply Contracts (IG-13-016), 2013</td><td><a href="https://oig.nasa.gov/wp-content/uploads/2024/02/ig-13-016.pdf" rel="noopener noreferrer">https://oig.nasa.gov/wp-content/uploads/2024/02/ig-13-016.pdf</a></td><td>2026-11-14</td><td><span class="tag">verified</span></td></tr><tr><td><code>F09</code></td><td>DSN</td><td>NASA Space Communications and Navigation, What is the Deep Space Network? and Where is the DSN Located?</td><td><a href="https://www.nasa.gov/directorates/somd/space-communications-navigation-program/what-is-the-deep-space-network/" rel="noopener noreferrer">https://www.nasa.gov/directorates/somd/space-communications-navigation-program/what-is-the-deep-space-network/</a></td><td>2026-11-14</td><td><span class="tag">verified</span></td></tr><tr><td><code>F10</code></td><td>Debris</td><td>NASA Orbital Debris Program Office, Frequently Asked Questions (2026)</td><td><a href="https://orbitaldebris.jsc.nasa.gov/faq/" rel="noopener noreferrer">https://orbitaldebris.jsc.nasa.gov/faq/</a></td><td>2026-11-14</td><td><span class="tag">verified</span></td></tr><tr><td><code>F11</code></td><td>Solar</td><td>NASA Goddard, Solar Irradiance Science; NASA Small Spacecraft Systems Virtual Institute, State-of-the-Art: 3.0 Power</td><td><a href="https://earth.gsfc.nasa.gov/climate/projects/solar-irradiance/science" rel="noopener noreferrer">https://earth.gsfc.nasa.gov/climate/projects/solar-irradiance/science</a></td><td>2026-11-14</td><td><span class="tag">verified</span></td></tr><tr><td><code>F12</code></td><td>Docking</td><td>NASA, STS-96 Press Kit: First Visit to an Outpost in Orbit, 1999</td><td><a href="https://www.nasa.gov/wp-content/uploads/2023/05/sts-096-press-kit.pdf" rel="noopener noreferrer">https://www.nasa.gov/wp-content/uploads/2023/05/sts-096-press-kit.pdf</a></td><td>2026-11-14</td><td><span class="tag">verified</span></td></tr><tr><td><code>F13</code></td><td>Apollo 11</td><td>NASA, Apollo 11 Lunar Surface Journal: Program Alarms; NASA History, 50 Years Ago: One Small Step, One Giant Leap, 2019</td><td><a href="https://www.nasa.gov/wp-content/uploads/static/history/alsj/a11/a11.1201-pa.html" rel="noopener noreferrer">https://www.nasa.gov/wp-content/uploads/static/history/alsj/a11/a11.1201-pa.html</a></td><td>2026-11-14</td><td><span class="tag">verified</span></td></tr><tr><td><code>F14</code></td><td>Eclipse</td><td>NASA Glenn, Raffaelle et al., Mission Applicability Assessment of Integrated Power Components and Systems (NASA/CP-2002-211831), 2002; NASA Science, Hubble Electrical Power</td><td><a href="https://ntrs.nasa.gov/api/citations/20030000609/downloads/20030000609.pdf" rel="noopener noreferrer">https://ntrs.nasa.gov/api/citations/20030000609/downloads/20030000609.pdf</a></td><td>2026-11-14</td><td><span class="tag">verified</span></td></tr><tr><td><code>F15</code></td><td>Apollo 13</td><td>NASA History, &quot;Houston, We&#39;ve Had a Problem&quot;</td><td><a href="https://www.nasa.gov/history/houston-weve-had-a-problem/" rel="noopener noreferrer">https://www.nasa.gov/history/houston-weve-had-a-problem/</a></td><td>2026-11-14</td><td><span class="tag">verified</span></td></tr><tr><td><code>F16</code></td><td>Landsat</td><td>USGS, Landsat Missions</td><td><a href="https://www.usgs.gov/landsat-missions" rel="noopener noreferrer">https://www.usgs.gov/landsat-missions</a></td><td>2026-11-14</td><td><span class="tag">verified</span></td></tr><tr><td><code>F17</code></td><td>Entry corridor</td><td>NASA JSC, Apollo 13 Guidance, Navigation, and Control Challenges (AIAA 2009-6455), 2009</td><td><a href="https://ntrs.nasa.gov/api/citations/20090026451/downloads/20090026451.pdf" rel="noopener noreferrer">https://ntrs.nasa.gov/api/citations/20090026451/downloads/20090026451.pdf</a></td><td>2026-11-14</td><td><span class="tag">verified</span></td></tr><tr><td><code>F18</code></td><td>Orion chutes</td><td>NASA, Orion Parachute Tests Prove Out Complex System for Human Deep Space Missions</td><td><a href="https://www.nasa.gov/missions/artemis/orion/orion-parachute-tests-prove-out-complex-system-for-human-deep-space-missions/" rel="noopener noreferrer">https://www.nasa.gov/missions/artemis/orion/orion-parachute-tests-prove-out-complex-system-for-human-deep-space-missions/</a></td><td>2026-11-14</td><td><span class="tag">verified</span></td></tr><tr><td><code>F19</code></td><td>Blackout</td><td>NASA JPL, Morabito, The Spacecraft Communications Blackout Problem Encountered during Passage or Entry of Planetary Atmospheres (IPN Progress Report 42-150), 2002</td><td><a href="https://ipnpr.jpl.nasa.gov/progress_report/42-150/150C.pdf" rel="noopener noreferrer">https://ipnpr.jpl.nasa.gov/progress_report/42-150/150C.pdf</a></td><td>2026-11-14</td><td><span class="tag">verified</span></td></tr><tr><td><code>F20</code></td><td>Mars delay</td><td>NASA Science, Speaking Percy&#39;s Language: How to Talk so Perseverance Will Listen</td><td><a href="https://science.nasa.gov/blog/speaking-percys-language-how-to-talk-so-perseverance-will-listen/" rel="noopener noreferrer">https://science.nasa.gov/blog/speaking-percys-language-how-to-talk-so-perseverance-will-listen/</a></td><td>2026-11-14</td><td><span class="tag">verified</span></td></tr><tr><td><code>F21</code></td><td>Genesis</td><td>NASA Science, Genesis mission page; NASA, Genesis Mishap Investigation Board Report, 2006</td><td><a href="https://science.nasa.gov/mission/genesis/" rel="noopener noreferrer">https://science.nasa.gov/mission/genesis/</a></td><td>2026-11-14</td><td><span class="tag">verified</span></td></tr><tr><td><code>F22</code></td><td>Ariane 5</td><td>ESA/CNES, Ariane 5 Flight 501 Failure: Report by the Inquiry Board, 1996</td><td><a href="https://sci.esa.int/science-e/www/object/doc.cfm?fobjectid=38888" rel="noopener noreferrer">https://sci.esa.int/science-e/www/object/doc.cfm?fobjectid=38888</a></td><td>2026-11-14</td><td><span class="tag">verified</span></td></tr><tr><td><code>F23</code></td><td>Fairings</td><td>NASA, NASA Investigative Summary: Taurus XL T8 and T9 Mission Failures, 2019</td><td><a href="https://www.nasa.gov/wp-content/uploads/2019/04/oco_glory_public_summary_update_-_for_the_web_-_04302019.pdf" rel="noopener noreferrer">https://www.nasa.gov/wp-content/uploads/2019/04/oco_glory_public_summary_update_-_for_the_web_-_04302019.pdf</a></td><td>2026-11-14</td><td><span class="tag">verified</span></td></tr><tr><td><code>F24</code></td><td>ISS inclination</td><td>NASA, Stockman, International Space Station Systems Engineering Case Study (Air Force Center for Systems Engineering); NASA Earth Observatory, Catalog of Earth Satellite Orbits</td><td><a href="https://www.nasa.gov/wp-content/uploads/2015/05/design_iss_systems_engineering_case_study.pdf" rel="noopener noreferrer">https://www.nasa.gov/wp-content/uploads/2015/05/design_iss_systems_engineering_case_study.pdf</a></td><td>2026-11-14</td><td><span class="tag">verified</span></td></tr><tr><td><code>F25</code></td><td>Hypergolics</td><td>NASA History, 60 Years Ago: First Test Firing of the Apollo Service Propulsion System, 2024</td><td><a href="https://www.nasa.gov/history/60-years-ago-first-test-firing-of-the-apollo-service-propulsion-system/" rel="noopener noreferrer">https://www.nasa.gov/history/60-years-ago-first-test-firing-of-the-apollo-service-propulsion-system/</a></td><td>2026-11-14</td><td><span class="tag">verified</span></td></tr><tr><td><code>F26</code></td><td>F-1</td><td>NASA History, Solving Combustion Instability and Saving America&#39;s First Trips to the Moon</td><td><a href="https://www.nasa.gov/history/solving-combustion-instability-and-saving-americas-first-trips-to-the-moon/" rel="noopener noreferrer">https://www.nasa.gov/history/solving-combustion-instability-and-saving-americas-first-trips-to-the-moon/</a></td><td>2026-11-14</td><td><span class="tag">verified</span></td></tr><tr><td><code>F27</code></td><td>N1</td><td>NASA History, Mir Hardware Heritage, Part 1: Soyuz</td><td><a href="https://www.nasa.gov/wp-content/uploads/static/history/SP-4225/documentation/mhh/mirhh-part1.pdf" rel="noopener noreferrer">https://www.nasa.gov/wp-content/uploads/static/history/SP-4225/documentation/mhh/mirhh-part1.pdf</a></td><td>2026-11-14</td><td><span class="tag">verified</span></td></tr><tr><td><code>F28</code></td><td>Stardust</td><td>NASA/JPL, Stardust Sample Return Press Kit, January 2006; NASA Langley, Reconstruction of the Stardust Entry, 2007</td><td><a href="https://www.jpl.nasa.gov/news/press_kits/stardust-return.pdf" rel="noopener noreferrer">https://www.jpl.nasa.gov/news/press_kits/stardust-return.pdf</a></td><td>2026-11-14</td><td><span class="tag">verified</span></td></tr><tr><td><code>F29</code></td><td>LOFTID</td><td>NASA Ames, LOFTID Inflatable Heat Shield Test A Success, Early Results Show, 2022</td><td><a href="https://www.nasa.gov/centers-and-facilities/ames/loftid-inflatable-heat-shield-test-a-success-early-results-show/" rel="noopener noreferrer">https://www.nasa.gov/centers-and-facilities/ames/loftid-inflatable-heat-shield-test-a-success-early-results-show/</a></td><td>2026-11-14</td><td><span class="tag">verified</span></td></tr><tr><td><code>F30</code></td><td>Soyuz MS-10</td><td>NASA Space Station blog, Statement on Soyuz MS-10 Launch Abort, Launch Update and Station Crew Busy With Science After Aborted Launch Ascent, October 2018</td><td><a href="https://www.nasa.gov/blogs/spacestation/2018/10/11/statement-on-soyuz-ms-10-launch-abort/" rel="noopener noreferrer">https://www.nasa.gov/blogs/spacestation/2018/10/11/statement-on-soyuz-ms-10-launch-abort/</a></td><td>2026-11-14</td><td><span class="tag">verified</span></td></tr><tr><td><code>F31</code></td><td>Apollo 12</td><td>NASA, A History of the Lightning Launch Commit Criteria and the Lightning Advisory Panel for America&#39;s Space Program (NASA/SP-2010-216283), 2010</td><td><a href="https://ntrs.nasa.gov/api/citations/20110000675/downloads/20110000675.pdf" rel="noopener noreferrer">https://ntrs.nasa.gov/api/citations/20110000675/downloads/20110000675.pdf</a></td><td>2026-11-14</td><td><span class="tag">verified</span></td></tr><tr><td><code>F32</code></td><td>Apollo 15</td><td>NASA NSSDCA, The Apollo 15 Hammer-Feather Drop</td><td><a href="https://nssdc.gsfc.nasa.gov/planetary/lunar/apollo_15_feather_drop.html" rel="noopener noreferrer">https://nssdc.gsfc.nasa.gov/planetary/lunar/apollo_15_feather_drop.html</a></td><td>2026-11-14</td><td><span class="tag">verified</span></td></tr><tr><td><code>F33</code></td><td>RTG</td><td>NASA/JPL, Mars Science Laboratory/Curiosity Fact Sheet</td><td><a href="https://mars.nasa.gov/system/internal_resources/details/original/605_MSL_Fact_Sheet.pdf" rel="noopener noreferrer">https://mars.nasa.gov/system/internal_resources/details/original/605_MSL_Fact_Sheet.pdf</a></td><td>2026-11-14</td><td><span class="tag">verified</span></td></tr><tr><td><code>F34</code></td><td>TDRS</td><td>NASA Space Communications and Navigation, History of the Networks</td><td><a href="https://www.nasa.gov/communicating-with-missions/history-of-the-networks/" rel="noopener noreferrer">https://www.nasa.gov/communicating-with-missions/history-of-the-networks/</a></td><td>2026-11-14</td><td><span class="tag">verified</span></td></tr><tr><td><code>F35</code></td><td>Laser comms</td><td>NASA, Laser Communications Relay Demonstration (LCRD) Overview; NASA/JPL, Psyche Launch Press Kit: Deep Space Optical Communications</td><td><a href="https://www.nasa.gov/directorates/stmd/tech-demo-missions-program/laser-communications-relay-demonstration-lcrd-overview/" rel="noopener noreferrer">https://www.nasa.gov/directorates/stmd/tech-demo-missions-program/laser-communications-relay-demonstration-lcrd-overview/</a></td><td>2026-11-14</td><td><span class="tag">verified</span></td></tr><tr><td><code>F36</code></td><td>Patches</td><td>NASA, Gemini V: Paving the Way for Long Duration Spaceflight; NASA History, Symbols of NASA</td><td><a href="https://www.nasa.gov/missions/gemini/gemini-v/gemini-v-paving-the-way-for-long-duration-spaceflight/" rel="noopener noreferrer">https://www.nasa.gov/missions/gemini/gemini-v/gemini-v-paving-the-way-for-long-duration-spaceflight/</a></td><td>2026-11-14</td><td><span class="tag">verified</span></td></tr><tr><td><code>F37</code></td><td>STS-51F</td><td>NASA, STS-51F mission page; NASA JSC, Henderson and Nguyen, Space Shuttle Abort Evolution (AIAA SPACE 2011)</td><td><a href="https://www.nasa.gov/mission/sts-51f/" rel="noopener noreferrer">https://www.nasa.gov/mission/sts-51f/</a></td><td>2026-11-14</td><td><span class="tag">verified</span></td></tr><tr><td><code>F38</code></td><td>TRN</td><td>NASA STMD, Impact Story: Terrain Relative Navigation; NASA/JPL, Mars 2020 Perseverance Landing Press Kit, 2021</td><td><a href="https://www.nasa.gov/directorates/stmd/impact-story-terrain-relative-navigation/" rel="noopener noreferrer">https://www.nasa.gov/directorates/stmd/impact-story-terrain-relative-navigation/</a></td><td>2026-11-14</td><td><span class="tag">verified</span></td></tr><tr><td><code>F39</code></td><td>Saturn V</td><td>NASA, What Was the Saturn V? (Grades 5-8)</td><td><a href="https://www.nasa.gov/learning-resources/for-kids-and-students/what-was-the-saturn-v-grades-5-8/" rel="noopener noreferrer">https://www.nasa.gov/learning-resources/for-kids-and-students/what-was-the-saturn-v-grades-5-8/</a></td><td>2026-11-14</td><td><span class="tag">verified</span></td></tr><tr><td><code>F40</code></td><td>Mars windows</td><td>NASA JPL, The Launch Is Approaching for NASA&#39;s Next Mars Rover, Perseverance, 2020</td><td><a href="https://www.jpl.nasa.gov/news/the-launch-is-approaching-for-nasas-next-mars-rover-perseverance/" rel="noopener noreferrer">https://www.jpl.nasa.gov/news/the-launch-is-approaching-for-nasas-next-mars-rover-perseverance/</a></td><td>2026-11-14</td><td><span class="tag">verified</span></td></tr></tbody></table></div>
+
+<h2 id="licences">Third-party licences</h2>
+<h3>Phone client and room server: production dependencies</h3>
+<p class="muted">Read from the installed <code>package.json</code> files (falling back to <code>package-lock.json</code>) of every non-development package. Includes three.js, React, ws and ajv.</p>
+<div class="tablewrap"><table><thead><tr><th>Package</th><th>Version</th><th>Licence</th><th>Used by</th></tr></thead><tbody><tr><td>js-tokens</td><td>4.0.0</td><td>MIT</td><td>client</td></tr><tr><td>loose-envify</td><td>1.4.0</td><td>MIT</td><td>client</td></tr><tr><td>react</td><td>18.3.1</td><td>MIT</td><td>client</td></tr><tr><td>react-dom</td><td>18.3.1</td><td>MIT</td><td>client</td></tr><tr><td>scheduler</td><td>0.23.2</td><td>MIT</td><td>client</td></tr><tr><td>three</td><td>0.170.0</td><td>MIT</td><td>client</td></tr><tr><td>ajv</td><td>8.20.0</td><td>MIT</td><td>server</td></tr><tr><td>fast-deep-equal</td><td>3.1.3</td><td>MIT</td><td>server</td></tr><tr><td>fast-uri</td><td>3.1.9</td><td>BSD-3-Clause</td><td>server</td></tr><tr><td>json-schema-traverse</td><td>1.0.0</td><td>MIT</td><td>server</td></tr><tr><td>require-from-string</td><td>2.0.2</td><td>MIT</td><td>server</td></tr><tr><td>ws</td><td>8.23.0</td><td>MIT</td><td>server</td></tr></tbody></table></div>
+<h3>Demo launcher (<code>tools/demo</code>, not part of the game builds)</h3>
+<div class="tablewrap"><table><thead><tr><th>Package</th><th>Version</th><th>Licence</th></tr></thead><tbody><tr><td>qrcode-terminal</td><td>0.12.0</td><td>Apache-2.0 (its vendored QRCode library is MIT)</td></tr><tr><td>ws</td><td>8.23.0</td><td>MIT</td></tr></tbody></table></div>
+<h3>Unity host</h3>
+<p>Built with Unity 6000.6.9f1. The WebGL player and runtime are &copy; Unity Technologies and used under the Unity
+terms that apply to the team&rsquo;s plan; the runtime notice is part of the Unity build. Packages from
+<code>unity/MissionForge/Packages/manifest.json</code> (listed by name and version; each is licensed by its publisher, see its package documentation):</p>
+<div class="tablewrap"><table><thead><tr><th>Package</th><th>Version</th><th>Note</th></tr></thead><tbody><tr><td>com.missionforge.core</td><td>local (this repository)</td><td>MissionForge.Core, project code</td></tr><tr><td>com.unity.cinemachine</td><td>3.1.7</td><td>Unity package</td></tr><tr><td>com.unity.inputsystem</td><td>1.20.1</td><td>Unity package</td></tr><tr><td>com.unity.nuget.newtonsoft-json</td><td>3.2.1</td><td>Newtonsoft.Json, MIT</td></tr><tr><td>com.unity.pipeline</td><td>1.0.0</td><td>Unity package</td></tr><tr><td>com.unity.render-pipelines.universal</td><td>17.6.0</td><td>Unity package</td></tr><tr><td>com.unity.test-framework</td><td>1.6.0</td><td>Unity package</td></tr><tr><td>com.unity.ugui</td><td>2.6.0</td><td>Unity package</td></tr><tr><td>36 built-in <code>com.unity.modules.*</code></td><td>1.0.0</td><td>Part of the Unity engine</td></tr></tbody></table></div>
+<h3>Textures, imagery and bundled code in the Unity host</h3>
+<p class="muted">From <code>unity/MissionForge/THIRD_PARTY.md</code>. NASA imagery is surface data only; no NASA logo or insignia is used as branding.</p>
+<div class="tablewrap"><table><thead><tr><th>Asset</th><th>Path</th><th>Source</th><th>Licence</th></tr></thead><tbody><tr><td>Earth day map (Blue Marble Next Generation, December, topography + bathymetry), resized to 4096×2048</td><td><code>Assets/MissionForge/Art/Textures/Earth/earth_day_4k.jpg</code></td><td>NASA Earth Observatory / Visible Earth, <code>world.topo.bathy.200412.3x5400x2700.jpg</code> from <a href="https://assets.science.nasa.gov/content/dam/science/esd/eo/images/bmng/bmng-topography-bathymetry/december/" rel="noopener noreferrer">https://assets.science.nasa.gov/content/dam/science/esd/eo/images/bmng/bmng-topography-bathymetry/december/</a></td><td>Public domain (NASA)</td></tr><tr><td>Earth night lights (Black Marble 2012, 0.1°), resized to 2048×1024</td><td><code>.../earth_night_2k.jpg</code></td><td>NASA Earth Observatory, <code>BlackMarble_2012_01deg.jpg</code> (image record 144875)</td><td>Public domain (NASA)</td></tr><tr><td>Bathymetry (GEBCO 08 via Blue Marble Next Generation), resized to 2048×1024, used as the ocean mask</td><td><code>.../earth_ocean_2k.jpg</code></td><td>NASA Earth Observatory, <code>gebco_08_rev_bath_5400x2700.jpg</code></td><td>Public domain (NASA / GEBCO)</td></tr><tr><td>Cloud map 2048×1024</td><td><code>.../earth_clouds_2k.jpg</code></td><td>Solar System Scope, <a href="https://www.solarsystemscope.com/textures/" rel="noopener noreferrer">https://www.solarsystemscope.com/textures/</a> (<code>2k_earth_clouds.jpg</code>, derived from NASA data)</td><td>CC BY 4.0</td></tr><tr><td>Oxanium 500/700/800 (Latin subset)</td><td><code>Assets/MissionForge/UI/Fonts/oxanium-*.ttf</code></td><td>Fontsource build of Oxanium by Severin Meyer</td><td>SIL OFL 1.1 (<code>Oxanium-OFL.txt</code>)</td></tr><tr><td>IBM Plex Sans 400/500/600 (Latin subset), IBM Plex Mono Regular/SemiBold</td><td><code>Assets/MissionForge/UI/Fonts/</code></td><td>Fontsource / Google Fonts builds of IBM Plex</td><td>SIL OFL 1.1 (<code>IBMPlex-OFL.txt</code>)</td></tr><tr><td>QrCodeGenerator 2.0.5</td><td><code>Assets/MissionForge/ThirdParty/QrCodeGenerator/</code></td><td><a href="https://github.com/manuelbl/QrCodeGenerator" rel="noopener noreferrer">https://github.com/manuelbl/QrCodeGenerator</a> (NuGet)</td><td>MIT</td></tr></tbody></table></div>
+<h3>Assets in the phone client</h3>
+<p class="muted">From <code>client/THIRD_PARTY_NOTICES.md</code>.</p>
+<div class="tablewrap"><table><thead><tr><th>Asset</th><th>Files</th><th>Licence</th><th>Source</th></tr></thead><tbody><tr><td>Oxanium (display face, weight 700)</td><td><code>src/assets/fonts/oxanium-700.woff</code></td><td>SIL Open Font License 1.1, full text in <code>src/assets/fonts/Oxanium-OFL.txt</code></td><td>Copied from <code>unity/MissionForge/Assets/MissionForge/UI/Fonts/oxanium-700.ttf</code> (the host UI&#39;s copy)</td></tr><tr><td>IBM Plex Sans 400 and 600</td><td><code>src/assets/fonts/plex-sans-400.woff</code>, <code>plex-sans-600.woff</code></td><td>SIL Open Font License 1.1, full text in <code>src/assets/fonts/IBMPlex-OFL.txt</code> (&quot;Plex&quot; is a Reserved Font Name; the files keep their original family name and are only subset and re-wrapped, which the OFL permits for unmodified glyph data)</td><td>From <code>unity/.../UI/Fonts/ibm-plex-sans-*.ttf</code></td></tr><tr><td>IBM Plex Mono 600 (room codes only)</td><td><code>src/assets/fonts/plex-mono-600.woff</code></td><td>SIL Open Font License 1.1, <code>src/assets/fonts/IBMPlex-OFL.txt</code></td><td>From <code>unity/.../UI/Fonts/IBMPlexMono-SemiBold.ttf</code></td></tr></tbody></table></div>
+<h3>Core library (C#)</h3>
+<p>MissionForge.Core uses Newtonsoft.Json 13.0.3 (MIT). Its tests use xunit (Apache-2.0) and are not shipped.</p>
+<h3>Fonts</h3>
+<div class="tablewrap"><table><thead><tr><th>Font</th><th>Files</th><th>Licence</th><th>Copyright</th></tr></thead><tbody><tr><td>IBM Plex Sans, IBM Plex Mono</td><td><code>ibm-plex-sans-400/500/600.ttf</code>, <code>IBMPlexMono-Regular/SemiBold.ttf</code></td><td>SIL Open Font License 1.1</td><td>Copyright © 2017 IBM Corp. with Reserved Font Name &quot;Plex&quot;</td></tr><tr><td>Oxanium</td><td><code>oxanium-500/700/800.ttf</code></td><td>SIL Open Font License 1.1</td><td>Copyright 2019 The Oxanium Project Authors (https://github.com/sevmeyer/oxanium)</td></tr></tbody></table></div>
+<details><summary>IBM Plex: SIL OFL 1.1 full text</summary><pre>Copyright © 2017 IBM Corp. with Reserved Font Name &quot;Plex&quot;
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+
+This license is copied below, and is also available with a FAQ at: http://scripts.sil.org/OFL
+
+
+-----------------------------------------------------------
+SIL OPEN FONT LICENSE Version 1.1 - 26 February 2007
+-----------------------------------------------------------
+
+PREAMBLE
+The goals of the Open Font License (OFL) are to stimulate worldwide
+development of collaborative font projects, to support the font creation
+efforts of academic and linguistic communities, and to provide a free and
+open framework in which fonts may be shared and improved in partnership
+with others.
+
+The OFL allows the licensed fonts to be used, studied, modified and
+redistributed freely as long as they are not sold by themselves. The
+fonts, including any derivative works, can be bundled, embedded, 
+redistributed and/or sold with any software provided that any reserved
+names are not used by derivative works. The fonts and derivatives,
+however, cannot be released under any other type of license. The
+requirement for fonts to remain under this license does not apply
+to any document created using the fonts or their derivatives.
+
+DEFINITIONS
+&quot;Font Software&quot; refers to the set of files released by the Copyright
+Holder(s) under this license and clearly marked as such. This may
+include source files, build scripts and documentation.
+
+&quot;Reserved Font Name&quot; refers to any names specified as such after the
+copyright statement(s).
+
+&quot;Original Version&quot; refers to the collection of Font Software components as
+distributed by the Copyright Holder(s).
+
+&quot;Modified Version&quot; refers to any derivative made by adding to, deleting,
+or substituting -- in part or in whole -- any of the components of the
+Original Version, by changing formats or by porting the Font Software to a
+new environment.
+
+&quot;Author&quot; refers to any designer, engineer, programmer, technical
+writer or other person who contributed to the Font Software.
+
+PERMISSION &amp; CONDITIONS
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of the Font Software, to use, study, copy, merge, embed, modify,
+redistribute, and sell modified and unmodified copies of the Font
+Software, subject to the following conditions:
+
+1) Neither the Font Software nor any of its individual components,
+in Original or Modified Versions, may be sold by itself.
+
+2) Original or Modified Versions of the Font Software may be bundled,
+redistributed and/or sold with any software, provided that each copy
+contains the above copyright notice and this license. These can be
+included either as stand-alone text files, human-readable headers or
+in the appropriate machine-readable metadata fields within text or
+binary files as long as those fields can be easily viewed by the user.
+
+3) No Modified Version of the Font Software may use the Reserved Font
+Name(s) unless explicit written permission is granted by the corresponding
+Copyright Holder. This restriction only applies to the primary font name as
+presented to the users.
+
+4) The name(s) of the Copyright Holder(s) or the Author(s) of the Font
+Software shall not be used to promote, endorse or advertise any
+Modified Version, except to acknowledge the contribution(s) of the
+Copyright Holder(s) and the Author(s) or with their explicit written
+permission.
+
+5) The Font Software, modified or unmodified, in part or in whole,
+must be distributed entirely under this license, and must not be
+distributed under any other license. The requirement for fonts to
+remain under this license does not apply to any document created
+using the Font Software.
+
+TERMINATION
+This license becomes null and void if any of the above conditions are
+not met.
+
+DISCLAIMER
+THE FONT SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT
+OF COPYRIGHT, PATENT, TRADEMARK, OR OTHER RIGHT. IN NO EVENT SHALL THE
+COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL
+DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
+OTHER DEALINGS IN THE FONT SOFTWARE.
+</pre></details>
+<details><summary>Oxanium: SIL OFL 1.1 full text</summary><pre>Copyright 2019 The Oxanium Project Authors (https://github.com/sevmeyer/oxanium)
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+This license is copied below, and is also available with a FAQ at:
+https://scripts.sil.org/OFL
+
+
+-----------------------------------------------------------
+SIL OPEN FONT LICENSE Version 1.1 - 26 February 2007
+-----------------------------------------------------------
+
+PREAMBLE
+The goals of the Open Font License (OFL) are to stimulate worldwide
+development of collaborative font projects, to support the font creation
+efforts of academic and linguistic communities, and to provide a free and
+open framework in which fonts may be shared and improved in partnership
+with others.
+
+The OFL allows the licensed fonts to be used, studied, modified and
+redistributed freely as long as they are not sold by themselves. The
+fonts, including any derivative works, can be bundled, embedded,
+redistributed and/or sold with any software provided that any reserved
+names are not used by derivative works. The fonts and derivatives,
+however, cannot be released under any other type of license. The
+requirement for fonts to remain under this license does not apply
+to any document created using the fonts or their derivatives.
+
+DEFINITIONS
+&quot;Font Software&quot; refers to the set of files released by the Copyright
+Holder(s) under this license and clearly marked as such. This may
+include source files, build scripts and documentation.
+
+&quot;Reserved Font Name&quot; refers to any names specified as such after the
+copyright statement(s).
+
+&quot;Original Version&quot; refers to the collection of Font Software components as
+distributed by the Copyright Holder(s).
+
+&quot;Modified Version&quot; refers to any derivative made by adding to, deleting,
+or substituting -- in part or in whole -- any of the components of the
+Original Version, by changing formats or by porting the Font Software to a
+new environment.
+
+&quot;Author&quot; refers to any designer, engineer, programmer, technical
+writer or other person who contributed to the Font Software.
+
+PERMISSION &amp; CONDITIONS
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of the Font Software, to use, study, copy, merge, embed, modify,
+redistribute, and sell modified and unmodified copies of the Font
+Software, subject to the following conditions:
+
+1) Neither the Font Software nor any of its individual components,
+in Original or Modified Versions, may be sold by itself.
+
+2) Original or Modified Versions of the Font Software may be bundled,
+redistributed and/or sold with any software, provided that each copy
+contains the above copyright notice and this license. These can be
+included either as stand-alone text files, human-readable headers or
+in the appropriate machine-readable metadata fields within text or
+binary files as long as those fields can be easily viewed by the user.
+
+3) No Modified Version of the Font Software may use the Reserved Font
+Name(s) unless explicit written permission is granted by the corresponding
+Copyright Holder. This restriction only applies to the primary font name as
+presented to the users.
+
+4) The name(s) of the Copyright Holder(s) or the Author(s) of the Font
+Software shall not be used to promote, endorse or advertise any
+Modified Version, except to acknowledge the contribution(s) of the
+Copyright Holder(s) and the Author(s) or with their explicit written
+permission.
+
+5) The Font Software, modified or unmodified, in part or in whole,
+must be distributed entirely under this license, and must not be
+distributed under any other license. The requirement for fonts to
+remain under this license does not apply to any document created
+using the Font Software.
+
+TERMINATION
+This license becomes null and void if any of the above conditions are
+not met.
+
+DISCLAIMER
+THE FONT SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT
+OF COPYRIGHT, PATENT, TRADEMARK, OR OTHER RIGHT. IN NO EVENT SHALL THE
+COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL
+DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
+OTHER DEALINGS IN THE FONT SOFTWARE.
+</pre></details>
+<p class="muted">The phone client ships subset WOFF copies of the same fonts, no web fonts are loaded from a CDN. The three.js, React, ws and ajv licences are MIT; the full texts ship in each package&rsquo;s <code>LICENSE</code> file.</p>
+
+<h2 id="disclaimers">Disclaimers</h2>
+<div class="box">
+<ul>
+<li>MissionForge is an unofficial educational game made for the NASA Space Apps Challenge. It is <b>not affiliated with or endorsed by NASA</b>.</li>
+<li>NASA names and logos are not used as branding. In-game hardware names are generic and each part carries a &ldquo;real-world twin&rdquo; line that says which real hardware it is loosely modelled on.</li>
+<li>Numbers are tagged <b>physical</b> (textbook physics or SI constants), <b>real-world approximate</b> (rounded public figures) or <b>game value</b> (a balance choice, not a measurement). The assumptions register is section 19 of <code>GAME_DESIGN.md</code>.</li>
+<li>Real accidents appear only as sourced lessons, never as jokes or as plain gameplay failures.</li>
+<li>The game collects no accounts, no free-text chat and no trackers; room state lives in server memory only.</li>
+</ul>
+</div>
+
+<h2 id="team">Team</h2>
+<div class="todo"><p><b>TEAM OWNER: fill in this block before publishing.</b>
+Names, roles and (optionally) links of the people who directed the project. This page does not list anyone automatically.</p>
+<p class="muted">Copy <code>tools/demo/team.example.json</code> to <code>tools/demo/team.json</code>, list the people to credit, then run <code>node tools/demo/build-credits.mjs</code>.</p></div>
+<footer>Generated by <code>tools/demo/build-credits.mjs</code>. Not affiliated with or endorsed by NASA.</footer>
+</div>
+</body>
+</html>
