@@ -1,6 +1,7 @@
 # T014 — Core campaign and modes evidence
 
-**Status:** compiles and passes: `dotnet test core/dotnet~` 376/376 (347 before T014, 29 Campaign). See `dotnet-test.txt`.
+**Status:** PASS on merged T014 plus verification fixes: Release suite 378/378;
+Campaign subset 31/31. See `dotnet-test.txt`.
 **Source:** GAME_DESIGN.md §13, T014 task brief and protocol GameMode.
 **Scope:** core/Runtime/Campaign/, core/dotnet~/Tests/Campaign/, orchestration/evidence/T014/.
 
@@ -28,14 +29,28 @@
   parts), so tech-tree and mode pool IDs must exist in the shipped data; `Achievements.BuiltIn` exposes the built-in
   copy and `BuiltInAchievementsMatchDataFile` keeps it identical to `data/achievements.json`; new test
   `WearAccumulatesOverSeveralFlightsAndRefurbishmentResetsIt` covers wear over three reuses (1%, 2%, 3%) and the reset.
-- `static-checks.json` below is the PR author's pre-compile record and is superseded by `dotnet-test.txt`.
-- Code and xUnit tests committed on separate feature branch.
-- Static catalog review found invalid Daily/Heritage pool part IDs; these were corrected and a new catalog-integrity regression test was added.
-- `dotnet test core/dotnet~`: **NOT RUN** — no .NET SDK installed in this isolated environment, and network access is unavailable for installing the .NET 8 SDK or NuGet packages.
-- Attempted an isolated GitHub Actions validation on `ci/t014-validation-20261114` at https://github.com/momansy/nasa-spaceapps-2026/actions/runs/43602277544 ; GitHub reported `startup_failure` and **zero jobs**. This was a workflow startup failure, **not** a C# test result.
-- No result has been fabricated. Review and execute the test command before merge; save actual stdout/stderr to `orchestration/evidence/T014/dotnet-test.txt`.
-- Spot-check API compatibility against `core/Runtime/Build/BuildState.cs`, `core/Runtime/Random/SeededRandom.cs`, `core/Runtime/Data/GameCatalog.cs`, and `data/achievements.json`.
+- Final post-merge command: `dotnet test core/dotnet~ --configuration Release` using
+  .NET SDK 8.0.428. Result: **378 passed, 0 failed, 0 skipped, exit code 0**.
+- Campaign-only Release result: **31 passed, 0 failed, 0 skipped, exit code 0**.
+- Exact final stdout and environment details are in `dotnet-test.txt`; the earlier
+  `static-checks.json` is retained only as historical pre-compile evidence.
+- Static catalog review found invalid Daily/Heritage pool part IDs; these were corrected
+  and the executed catalog-integrity regression now passes against shipped data.
+- Compatibility was verified against current `BuildState`, `Vehicle`,
+  `BudgetScheduleModel`, `SeededRandom`, `GameCatalog`, protocol GameMode tokens and
+  `data/achievements.json`.
 - Campaign Core has no file I/O, system clock, Unity dependency or `System.Random` usage. The tests can read fixture JSON from disk.
+
+## Post-merge bugs found and fixed
+- Recovered in-flight hardware now retains its stable physical `ItemId` as well as its
+  accumulated flight count.
+- Supplier-trust discounts now use `BudgetScheduleModel.PartCostM`, including actual
+  engine quantities and slot multipliers; the previous code discounted one catalog unit.
+- Campaign saves now reject null or duplicate inventory identities before operations can
+  become ambiguous.
+- Blank recovery entries no longer create a false first-recovery milestone.
+- Regression tests cover every fix. An independent reviewer found the final two edge
+  cases, verified their corrections, and reported no remaining actionable findings.
 
 ## Decisions (all proposed numeric values are `game_value`)
 - Reputation: success +8, partial +3, failure −8, on time +2, late −3; clamp to [0,100].
@@ -81,4 +96,5 @@ Localizable string keys: for each tech `campaign.tech.<id>.name` and `campaign.t
 - Team owner/orchestrator should check game-balance constants and Heritage presets before approving.
 
 ## Next
-Run `dotnet test core/dotnet~ --configuration Release` with .NET 8, fix any failures, record real results, and request an independent T014 review before merging.
+Review and merge the small post-merge verification-fix PR. Host Campaign Hub wiring and
+game-balance approval remain separate integration/design work.

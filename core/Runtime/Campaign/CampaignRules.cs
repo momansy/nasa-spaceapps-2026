@@ -45,13 +45,14 @@ namespace MissionForge.Core.Campaign
             // In-flight items not recovered this mission are lost, not duplicated in storage.
             var inFlight = state.InventoryItems.Where(item => !item.Available).ToList();
             var inventory = state.InventoryItems.Where(item => item.Available).ToList();
-            foreach (string partId in report.RecoveredHardware)
+            var validRecoveries = report.RecoveredHardware.Where(partId =>
+                !string.IsNullOrWhiteSpace(partId)).ToArray();
+            foreach (string partId in validRecoveries)
             {
-                if (string.IsNullOrWhiteSpace(partId)) continue;
                 var previous = inFlight.FirstOrDefault(x => x.PartId == partId);
                 int flights = previous == null ? 1 : previous.Flights + 1;
                 if (previous != null) inFlight.Remove(previous);
-                string itemId = partId + "-" + (state.Missions.Count + 1) + "-" +
+                string itemId = previous?.ItemId ?? partId + "-" + (state.Missions.Count + 1) + "-" +
                     (inventory.Count + 1);
                 inventory.Add(new InventoryItem(itemId, partId, flights, false));
                 changes.Add(new CampaignChange("hardware_recovered:" + partId));
@@ -61,7 +62,7 @@ namespace MissionForge.Core.Campaign
             var events = new List<CampaignMilestone>();
             var objectiveSet = new HashSet<string>(report.MetObjectives, StringComparer.Ordinal);
             bool reachedOrbit = objectiveSet.Contains("orbit") || objectiveSet.Contains("stable_orbit");
-            bool recovered = report.RecoveredHardware.Count > 0 || objectiveSet.Contains("recovery");
+            bool recovered = validRecoveries.Length > 0 || objectiveSet.Contains("recovery");
             bool crew = objectiveSet.Contains("crew") || objectiveSet.Contains("crew_safe") ||
                 objectiveSet.Contains("crew_landed");
             bool lunar = objectiveSet.Contains("lunar_flyby") ||
@@ -143,9 +144,10 @@ namespace MissionForge.Core.Campaign
                 build == null ? nameof(build) : catalog == null ? nameof(catalog) : nameof(state));
             const string flag = "campaign_supplier_trust_applied";
             if (build.HasFlag(flag)) return build;
+            var vehicle = new Vehicle(build, catalog);
             double costM = 0;
             foreach (var chosen in build.Choices)
-                costM += catalog.Part(chosen.Value).CostM;
+                costM += BudgetScheduleModel.PartCostM(vehicle, chosen.Key, catalog.Part(chosen.Value));
             double discountM = costM * SupplierDiscountFraction(state);
             var adjusted = discountM > 0 ? build.WithLedger(new LedgerEntry(LedgerKind.Budget,
                 "campaign_supplier_trust", -discountM, 0)) : build;
