@@ -1,0 +1,41 @@
+{
+  "name": "com.unity.splines",
+  "displayName": "Splines",
+  "version": "2.9.2",
+  "unity": "2022.3",
+  "description": "Work with curves and paths. Use the Splines package to generate objects and behaviors along paths, create trajectories, and draw shapes.",
+  "dependencies": {
+    "com.unity.settings-manager": "1.0.3",
+    "com.unity.mathematics": "1.2.1",
+    "com.unity.modules.imgui": "1.0.0"
+  },
+  "samples": [
+    {
+      "displayName": "Spline Examples (requires Shader Graph package)",
+      "description": "Example code and scenes files showing how to use Splines.",
+      "path": "Samples~/SplineExamples"
+    }
+  ],
+  "keywords": [
+    "spline",
+    "curve",
+    "path"
+  ],
+  "category": "Tool",
+  "relatedPackages": {
+    "com.unity.splines.tests": "2.9.2"
+  },
+  "_upm": {
+    "changelog": "### Fixed\n\n- [UUM-156597] Fixed the `SplineContainer` Inspector flickering when the same container is shown in multiple Inspector windows.\n- [UUM-158683] Fixed a non-uniformly scaled `SplineContainer` evaluating the wrong spline in world space after its transform changed.\n- [UUM-158910] Fixed the `SplineFactory.CreateRoundedSquare` documentation to state that `radius` is the size of the square's edges.\n- [UUM-158892] Fixed the `SplineUtility.EvaluateNurbs` documentation to state that `t` is a ratio between 0 and 1 along the knot vector's range.\n- [UUM-158682] Fixed `CurveUtility.CalculateLength` and `CurveUtility.GetNearestPoint` returning 0 and Infinity when `resolution` is 1.\n- [UUM-158684] Fixed `SplineUtility.EvaluateCurvature` and `CurveUtility.EvaluateCurvature` returning NaN on straight curves.\n- [UUM-158692] Fixed `SplineUtility.ReverseFlow` changing the spline's shape in a scaled `SplineContainer`.\n- [UUM-158673] Fixed `SplineUtility.JoinSplinesOnKnots` not throwing an `ArgumentException` when the knots cannot be joined.\n- [UUM-158694] Fixed `SplineUtility.FitSplineToPoints` exceeding the error threshold when the first knot points along world Z.\n- [UUM-158674] Fixed `SplineUtility.SplitSplineOnKnot` leaving a partial spline when the spline or knot index equals `Count`.\n- [UUM-158681] Fixed `SplineUtility.SetPivot` moving knots when the `SplineContainer` is rotated, scaled or has several splines.\n- [UUM-158699] Fixed `SplineAnimate` logging an unsupported alignment mode message on every update when its alignment mode is set to World Space.\n- [UUM-158696] Fixed `SplineData.RemoveDataPoint` removing the first data point and returning true when no data point exists at the given index.\n- [UUM-158693] Fixed `BezierKnot.Transform` returning an incorrect knot rotation when the matrix combines a rotation with a scale other than 1.\n- [UUM-158672] Fixed `SplineData.ConvertPathUnit` and `SplineData.Evaluate` with a different `PathIndexUnit` moving indices beyond one revolution of a closed spline into the first revolution.\n- [UUM-158679] Fixed the `SplineData.AddDataPointWithDefaultValue` and `SplineDataHandles.DataPointHandles` documentation to state that a new data point takes the value of the data point before it.\n- [UUM-158893] Fixed the `BezierCurve` linear curve constructor swapping its inner control points."
+  },
+  "upmCi": {
+    "footprint": "616a54f2543f8d9e5951634d297ffbf51e0cfcc7"
+  },
+  "documentationUrl": "https://docs.unity3d.com/Packages/com.unity.splines@2.9/manual/index.html",
+  "repository": {
+    "url": "https://github.cds.internal.unity3d.com/unity/com.unity.splines.git",
+    "type": "git",
+    "revision": "9d65c21e11dfec56e84484af9fa6f0d6e62e7086"
+  },
+  "_fingerprint": "c3dd4719f1eeb7b5e5368b51b18e07bb323eedf4"
+}

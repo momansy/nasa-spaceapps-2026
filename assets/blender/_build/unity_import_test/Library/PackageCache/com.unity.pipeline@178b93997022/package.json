@@ -1,0 +1,35 @@
+{
+  "name": "com.unity.pipeline",
+  "displayName": "Unity Pipeline",
+  "version": "1.0.0",
+  "unity": "6000.0",
+  "category": "Pipeline",
+  "description": "This package allows application (cli, agent or other) to connect to the editor or a running game and execute commands (build, run_tests, play/pause, methodreload)",
+  "keywords": [
+    "pipeline",
+    "connected",
+    "authoring",
+    "methodreload"
+  ],
+  "dependencies": {
+    "com.unity.test-framework": "1.1.33",
+    "com.unity.modules.jsonserialize": "1.0.0",
+    "com.unity.nuget.newtonsoft-json": "3.0.2",
+    "com.unity.nuget.mono-cecil": "1.11.6",
+    "com.unity.modules.uielements": "1.0.0",
+    "com.unity.modules.screencapture": "1.0.0"
+  },
+  "relatedPackages": {
+    "com.unity.pipeline.tests": "0.0.0"
+  },
+  "repository": {
+    "revision": "ce87150fe76742893213dac8aa3fac1a3fadf577",
+    "type": "git",
+    "url": "https://github.cds.internal.unity3d.com/unity/com.unity.pipeline.git"
+  },
+  "documentationUrl": "https://docs.unity3d.com/Packages/com.unity.pipeline@1.0/manual/index.html",
+  "_upm": {
+    "changelog": "### Changed\n\n- First stable release. The package is no longer in pre-release.\n- `script eval` returns the eval's value as the result, such as `\"pong\"` for `return \"pong\";`, instead of an object with `output`, `diagnostics`, `success` and `result`. This holds for `--result-only`, `--format json`, piped output, `unity job wait` on a detached eval, and `unity run --command \"script eval\" --json`. Detect a failed eval by its exit code, 6, not by a `success` field."
+  },
+  "_fingerprint": "178b93997022dac70383e98be82e92f4cd42de6b"
+}
