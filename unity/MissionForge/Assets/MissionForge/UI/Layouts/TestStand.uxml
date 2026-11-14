@@ -1,0 +1,204 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement name="screen" class="mf-screen">
+        <ui:VisualElement name="kicker" class="mfs-kicker">
+            <ui:VisualElement class="mfs-kicker__group">
+                <ui:VisualElement class="mfs-kicker__rule" />
+                <ui:Label class="mf-h3" text="PHASE D · INTEGRATION &amp; TEST" />
+                <ui:Label class="mf-caption mfs-kicker__note" text="TESTING NARROWS THE UNKNOWN" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <ui:VisualElement name="teststand-body" class="mf-row mf-grow">
+            <ui:VisualElement name="teststand-left" class="mf-col mfs-teststand__list mf-gap-right">
+                <ui:VisualElement name="test-list-panel" class="mf-panel mf-grow">
+                    <ui:VisualElement class="mf-panel__header">
+                        <ui:Label class="mf-panel__title" text="TEST CAMPAIGN" />
+                        <ui:Label class="mf-panel__tag" text="6.6 TESTS" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="test-list" class="mf-panel__body">
+                        <ui:VisualElement class="mfs-table__head">
+                            <ui:Label class="mfs-th mfs-col--grow" text="TEST" />
+                            <ui:Label class="mfs-th mfs-col--xs mfs-right" text="COST $M" />
+                            <ui:Label class="mfs-th mfs-col--xs mfs-right" text="DAYS" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="test-component-qualification" class="mfs-table__row">
+                            <ui:VisualElement class="mfs-mark mfs-mark--idle mfs-mark--lead" />
+                            <ui:Label class="mfs-td mfs-col--grow" text="Component qualification" />
+                            <ui:Label name="test-component-qualification-cost" class="mf-num mf-num--small mfs-col--xs mfs-right" text="—" />
+                            <ui:Label name="test-component-qualification-days" class="mf-num mf-num--small mfs-col--xs mfs-right" text="—" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="test-engine-hot-fire" class="mfs-table__row">
+                            <ui:VisualElement class="mfs-mark mfs-mark--idle mfs-mark--lead" />
+                            <ui:Label class="mfs-td mfs-col--grow" text="Engine hot-fire" />
+                            <ui:Label name="test-engine-hot-fire-cost" class="mf-num mf-num--small mfs-col--xs mfs-right" text="—" />
+                            <ui:Label name="test-engine-hot-fire-days" class="mf-num mf-num--small mfs-col--xs mfs-right" text="—" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="test-static-fire" class="mfs-table__row">
+                            <ui:VisualElement class="mfs-mark mfs-mark--idle mfs-mark--lead" />
+                            <ui:Label class="mfs-td mfs-col--grow" text="Static fire" />
+                            <ui:Label name="test-static-fire-cost" class="mf-num mf-num--small mfs-col--xs mfs-right" text="—" />
+                            <ui:Label name="test-static-fire-days" class="mf-num mf-num--small mfs-col--xs mfs-right" text="—" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="test-wet-dress-rehearsal" class="mfs-table__row">
+                            <ui:VisualElement class="mfs-mark mfs-mark--idle mfs-mark--lead" />
+                            <ui:Label class="mfs-td mfs-col--grow" text="Wet dress rehearsal" />
+                            <ui:Label name="test-wet-dress-rehearsal-cost" class="mf-num mf-num--small mfs-col--xs mfs-right" text="—" />
+                            <ui:Label name="test-wet-dress-rehearsal-days" class="mf-num mf-num--small mfs-col--xs mfs-right" text="—" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="test-vibration" class="mfs-table__row">
+                            <ui:VisualElement class="mfs-mark mfs-mark--idle mfs-mark--lead" />
+                            <ui:Label class="mfs-td mfs-col--grow" text="Vibration (shake) test" />
+                            <ui:Label name="test-vibration-cost" class="mf-num mf-num--small mfs-col--xs mfs-right" text="—" />
+                            <ui:Label name="test-vibration-days" class="mf-num mf-num--small mfs-col--xs mfs-right" text="—" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="test-thermal-vacuum" class="mfs-table__row">
+                            <ui:VisualElement class="mfs-mark mfs-mark--idle mfs-mark--lead" />
+                            <ui:Label class="mfs-td mfs-col--grow" text="Thermal-vacuum test" />
+                            <ui:Label name="test-thermal-vacuum-cost" class="mf-num mf-num--small mfs-col--xs mfs-right" text="—" />
+                            <ui:Label name="test-thermal-vacuum-days" class="mf-num mf-num--small mfs-col--xs mfs-right" text="—" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="test-drop" class="mfs-table__row">
+                            <ui:VisualElement class="mfs-mark mfs-mark--idle mfs-mark--lead" />
+                            <ui:Label class="mfs-td mfs-col--grow" text="Drop test" />
+                            <ui:Label name="test-drop-cost" class="mf-num mf-num--small mfs-col--xs mfs-right" text="—" />
+                            <ui:Label name="test-drop-days" class="mf-num mf-num--small mfs-col--xs mfs-right" text="—" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="test-arc-jet" class="mfs-table__row">
+                            <ui:VisualElement class="mfs-mark mfs-mark--idle mfs-mark--lead" />
+                            <ui:Label class="mfs-td mfs-col--grow" text="Arc-jet test" />
+                            <ui:Label name="test-arc-jet-cost" class="mf-num mf-num--small mfs-col--xs mfs-right" text="—" />
+                            <ui:Label name="test-arc-jet-days" class="mf-num mf-num--small mfs-col--xs mfs-right" text="—" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="test-software-in-the-loop" class="mfs-table__row">
+                            <ui:VisualElement class="mfs-mark mfs-mark--idle mfs-mark--lead" />
+                            <ui:Label class="mfs-td mfs-col--grow" text="Software-in-the-loop" />
+                            <ui:Label name="test-software-in-the-loop-cost" class="mf-num mf-num--small mfs-col--xs mfs-right" text="—" />
+                            <ui:Label name="test-software-in-the-loop-days" class="mf-num mf-num--small mfs-col--xs mfs-right" text="—" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="test-pogo-suppression" class="mfs-table__row mfs-table__row--last">
+                            <ui:VisualElement class="mfs-mark mfs-mark--idle mfs-mark--lead" />
+                            <ui:Label class="mfs-td mfs-col--grow" text="Pogo suppression test" />
+                            <ui:Label name="test-pogo-suppression-cost" class="mf-num mf-num--small mfs-col--xs mfs-right" text="—" />
+                            <ui:Label name="test-pogo-suppression-days" class="mf-num mf-num--small mfs-col--xs mfs-right" text="—" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <ui:VisualElement name="teststand-actions" class="mfs-actions">
+                    <ui:Button name="btn-skip-test" class="mf-btn mf-btn--ghost" text="SKIP" />
+                    <ui:Button name="btn-run-test" class="mf-btn mf-btn--primary" text="RUN TEST" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <ui:VisualElement name="teststand-centre" class="mf-col mf-grow mf-gap-right">
+                <ui:VisualElement name="test-viewport" class="mfs-viewport" picking-mode="Ignore">
+                    <ui:VisualElement class="mfs-viewport__corner mfs-viewport__corner--tl" picking-mode="Ignore" />
+                    <ui:VisualElement class="mfs-viewport__corner mfs-viewport__corner--tr" picking-mode="Ignore" />
+                    <ui:VisualElement class="mfs-viewport__corner mfs-viewport__corner--bl" picking-mode="Ignore" />
+                    <ui:VisualElement class="mfs-viewport__corner mfs-viewport__corner--br" picking-mode="Ignore" />
+                    <ui:Label class="mfs-viewport__tag" text="TEST ANIMATION · LIVE 3D" picking-mode="Ignore" />
+                </ui:VisualElement>
+
+                <ui:VisualElement name="test-vote-panel" class="mf-panel mfs-teststand__dock">
+                    <ui:VisualElement class="mf-panel__header">
+                        <ui:Label class="mf-panel__title" text="TEST OR SKIP" />
+                        <ui:Label class="mf-panel__tag" text="4.2 QUICK VOTE" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="mf-panel__body mf-row">
+                        <ui:VisualElement name="tally-test" class="mfs-tally">
+                            <ui:VisualElement class="mfs-tally__head">
+                                <ui:Label class="mf-caption" text="TEST" />
+                                <ui:VisualElement class="mfs-tally__count">
+                                    <ui:Label name="tally-test-votes" class="mf-num mf-num--small" text="—" />
+                                    <ui:Label class="mf-unit" text="votes" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                            <ui:VisualElement class="mfs-tally__track">
+                                <ui:VisualElement name="tally-test-fill" class="mfs-tally__fill" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement name="tally-skip" class="mfs-tally mfs-tally--last">
+                            <ui:VisualElement class="mfs-tally__head">
+                                <ui:Label class="mf-caption" text="SKIP" />
+                                <ui:VisualElement class="mfs-tally__count">
+                                    <ui:Label name="tally-skip-votes" class="mf-num mf-num--small" text="—" />
+                                    <ui:Label class="mf-unit" text="votes" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                            <ui:VisualElement class="mfs-tally__track">
+                                <ui:VisualElement name="tally-skip-fill" class="mfs-tally__fill" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="mfs-readout mfs-readout--auto mfs-readout--divided">
+                            <ui:Label class="mf-caption" text="TIMER" />
+                            <ui:VisualElement class="mfs-readout__value">
+                                <ui:Label name="vote-timer" class="mf-num" text="—" />
+                                <ui:Label class="mf-unit" text="s" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <ui:VisualElement name="teststand-side" class="mf-col mfs-teststand__side">
+                <ui:VisualElement name="test-result-panel" class="mf-panel mf-panel--raised mf-grow">
+                    <ui:VisualElement class="mf-panel__header">
+                        <ui:Label class="mf-panel__title" text="TEST RESULT" />
+                        <ui:Label class="mf-panel__tag" text="6.6 RESULT" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="mf-panel__body">
+                        <ui:Label class="mf-caption" text="TEST UNDER WAY" />
+                        <ui:Label name="test-name" class="mf-body" text="—" />
+                        <ui:Label class="mf-caption mfs-gap-top-sm" text="VERDICT" />
+                        <ui:Label name="test-verdict" class="mf-h1" text="—" />
+                        <ui:VisualElement name="test-legend" class="mfs-legend mfs-gap-top-sm">
+                            <ui:VisualElement class="mf-chip mf-chip--good mfs-chip-gap">
+                                <ui:VisualElement class="mfs-mark mfs-mark--good" />
+                                <ui:Label class="mf-chip__label" text="NOMINAL" />
+                            </ui:VisualElement>
+                            <ui:VisualElement class="mf-chip mf-chip--bad mfs-chip-gap">
+                                <ui:VisualElement class="mfs-mark mfs-mark--bad" />
+                                <ui:Label class="mf-chip__label" text="FLAW REVEALED" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement name="test-findings" class="mf-region">
+                            <ui:VisualElement class="mf-skeleton mf-skeleton--long" />
+                            <ui:Label class="mf-region__label" text="What the test revealed · fix cost and days · minigame bonus" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <ui:VisualElement name="reliability-panel" class="mf-panel mf-gap-top mfs-fixed">
+                    <ui:VisualElement class="mf-panel__header">
+                        <ui:Label class="mf-panel__title" text="RELIABILITY BAND" />
+                        <ui:Label class="mf-panel__tag" text="6.5 UNCERTAINTY" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="mf-panel__body">
+                        <ui:VisualElement class="mfs-metric">
+                            <ui:Label class="mfs-metric__name" text="ESTIMATE" />
+                            <ui:VisualElement class="mfs-metric__value">
+                                <ui:Label name="reliability-estimate" class="mf-num mf-num--small" text="—" />
+                                <ui:Label class="mf-unit" text="%" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="mfs-metric">
+                            <ui:Label class="mfs-metric__name" text="BAND" />
+                            <ui:VisualElement class="mfs-metric__value">
+                                <ui:Label class="mf-unit mfs-unit--prefix" text="±" />
+                                <ui:Label name="reliability-band-value" class="mf-num mf-num--small" text="—" />
+                                <ui:Label class="mf-unit" text="%" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="mfs-metric mfs-metric--last mfs-gap-bottom-sm">
+                            <ui:Label class="mfs-metric__name" text="MATURITY" />
+                            <ui:Label name="reliability-maturity" class="mfs-metric__text" text="—" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="reliability-band" class="mf-region">
+                            <ui:Label class="mf-region__label" text="Estimate with ± band · narrows after a test" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

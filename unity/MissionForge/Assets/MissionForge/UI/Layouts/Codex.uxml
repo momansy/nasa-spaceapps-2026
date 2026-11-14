@@ -1,0 +1,151 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement name="screen" class="mf-screen">
+        <ui:VisualElement name="scrim" class="mfs-scrim" />
+
+        <ui:VisualElement name="kicker" class="mfs-kicker">
+            <ui:VisualElement class="mfs-kicker__group">
+                <ui:VisualElement class="mfs-kicker__rule" />
+                <ui:Label class="mf-h3" text="COLLECTED ENTRIES" />
+                <ui:Label class="mf-caption mfs-kicker__note" text="UNLOCKED BY PARTS AND EVENTS" />
+            </ui:VisualElement>
+            <ui:VisualElement name="units" class="mfs-codex__units">
+                <ui:Label class="mf-caption" text="UNITS" />
+                <ui:VisualElement name="units-toggle" class="mf-segment mfs-codex__units-toggle">
+                    <ui:Button name="units-si" class="mf-segment__item mf-segment__item--on" text="SI" />
+                    <ui:Button name="units-imperial" class="mf-segment__item" text="Imperial" />
+                </ui:VisualElement>
+                <ui:Button name="btn-back" class="mf-btn mf-btn--ghost" text="BACK" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <ui:VisualElement name="codex-body" class="mf-row mf-grow">
+            <ui:VisualElement name="category-rail" class="mf-panel mfs-codex__rail mf-gap-right">
+                <ui:VisualElement class="mf-panel__header">
+                    <ui:Label class="mf-panel__title" text="CATEGORIES" />
+                    <ui:Label class="mf-panel__tag" text="12.2 CODEX" />
+                </ui:VisualElement>
+                <ui:VisualElement class="mf-panel__body">
+                    <ui:VisualElement name="category-list" class="mfs-fixed">
+                        <ui:Label name="category-parts" class="mfs-rail__item" text="PARTS" />
+                        <ui:Label name="category-physics" class="mfs-rail__item" text="PHYSICS" />
+                        <ui:Label name="category-missions" class="mfs-rail__item" text="MISSIONS" />
+                        <ui:Label name="category-lessons" class="mfs-rail__item" text="LESSONS LEARNED" />
+                        <ui:Label name="category-milestones" class="mfs-rail__item" text="MILESTONES" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="mfs-metric mfs-metric--last mfs-gap-top-sm mfs-gap-bottom-sm">
+                        <ui:Label class="mfs-metric__name" text="UNLOCKED" />
+                        <ui:VisualElement class="mfs-metric__value">
+                            <ui:Label name="codex-unlocked-count" class="mf-num mf-num--small" text="—" />
+                            <ui:Label class="mf-unit" text="entries" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="units-note" class="mf-region">
+                        <ui:Label class="mf-region__label" text="SI units by default · imperial is a display option, with the unit mix-up lesson" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <ui:VisualElement name="entry-list-panel" class="mf-panel mfs-codex__list mf-gap-right">
+                <ui:VisualElement class="mf-panel__header">
+                    <ui:Label class="mf-panel__title" text="ENTRIES" />
+                    <ui:Label class="mf-panel__tag" text="UNLOCKED BY PLAY" />
+                </ui:VisualElement>
+                <ui:VisualElement class="mf-panel__body">
+                    <ui:ScrollView name="entry-list" class="mfs-codex__list-scroll">
+                        <ui:VisualElement class="mfs-entry">
+                            <ui:VisualElement class="mfs-entry__thumb" />
+                            <ui:VisualElement class="mfs-entry__lines">
+                                <ui:VisualElement class="mf-skeleton mf-skeleton--long" />
+                                <ui:VisualElement class="mf-skeleton mf-skeleton--short mfs-skeleton--inline" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="mfs-entry">
+                            <ui:VisualElement class="mfs-entry__thumb" />
+                            <ui:VisualElement class="mfs-entry__lines">
+                                <ui:VisualElement class="mf-skeleton mf-skeleton--mid" />
+                                <ui:VisualElement class="mf-skeleton mf-skeleton--short mfs-skeleton--inline" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="mfs-entry">
+                            <ui:VisualElement class="mfs-entry__thumb" />
+                            <ui:VisualElement class="mfs-entry__lines">
+                                <ui:VisualElement class="mf-skeleton mf-skeleton--long" />
+                                <ui:VisualElement class="mf-skeleton mf-skeleton--short mfs-skeleton--inline" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="mfs-entry">
+                            <ui:VisualElement class="mfs-entry__thumb" />
+                            <ui:VisualElement class="mfs-entry__lines">
+                                <ui:VisualElement class="mf-skeleton mf-skeleton--mid" />
+                                <ui:VisualElement class="mf-skeleton mf-skeleton--short mfs-skeleton--inline" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="mfs-entry">
+                            <ui:VisualElement class="mfs-entry__thumb" />
+                            <ui:VisualElement class="mfs-entry__lines">
+                                <ui:VisualElement class="mf-skeleton mf-skeleton--long" />
+                                <ui:VisualElement class="mf-skeleton mf-skeleton--short mfs-skeleton--inline" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="mfs-entry">
+                            <ui:VisualElement class="mfs-entry__thumb" />
+                            <ui:VisualElement class="mfs-entry__lines">
+                                <ui:VisualElement class="mf-skeleton mf-skeleton--mid" />
+                                <ui:VisualElement class="mf-skeleton mf-skeleton--short mfs-skeleton--inline" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:ScrollView>
+                    <ui:VisualElement name="entry-list-note" class="mf-region mfs-region--tight mfs-region--fixed">
+                        <ui:Label class="mf-region__label" text="Illustration · entry title · where it was unlocked" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <ui:VisualElement name="entry-detail" class="mf-panel mf-panel--raised mf-grow">
+                <ui:VisualElement class="mf-panel__header">
+                    <ui:Label class="mf-panel__title" text="ENTRY" />
+                    <ui:Label class="mf-panel__tag" text="12.1 SOURCED" />
+                </ui:VisualElement>
+                <ui:VisualElement class="mf-panel__body">
+                    <ui:VisualElement class="mfs-codex__detail-head">
+                        <ui:VisualElement name="entry-illustration" class="mf-region mfs-region--fixed mfs-codex__illustration">
+                            <ui:Label class="mf-region__label" text="Illustration" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="mfs-codex__title">
+                            <ui:VisualElement name="entry-category" class="mf-chip mf-chip--muted mfs-gap-bottom-sm">
+                                <ui:Label name="entry-category-label" class="mf-chip__label" text="CATEGORY —" />
+                            </ui:VisualElement>
+                            <ui:Label class="mf-caption" text="ENTRY" />
+                            <ui:Label name="entry-title" class="mf-h1" text="—" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+
+                    <ui:VisualElement name="entry-body" class="mf-region">
+                        <ui:VisualElement class="mf-skeleton mf-skeleton--long" />
+                        <ui:VisualElement class="mf-skeleton mf-skeleton--long" />
+                        <ui:VisualElement class="mf-skeleton mf-skeleton--mid" />
+                        <ui:Label class="mf-region__label" text="Entry text: a short fact up front, deeper reading below" />
+                    </ui:VisualElement>
+
+                    <ui:VisualElement class="mfs-codex__notes">
+                        <ui:VisualElement name="entry-real-world" class="mf-region mf-gap-right">
+                            <ui:Label class="mf-region__label" text="Real-world parallel" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="entry-simplification" class="mf-region">
+                            <ui:Label class="mf-region__label" text="What the game simplifies" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+
+                    <ui:VisualElement class="mfs-metric">
+                        <ui:Label class="mfs-metric__name" text="SOURCE" />
+                        <ui:Label name="entry-source" class="mfs-metric__text" text="—" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="mfs-metric mfs-metric--last">
+                        <ui:Label class="mfs-metric__name" text="VERIFICATION" />
+                        <ui:Label name="entry-verification" class="mfs-metric__text" text="—" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

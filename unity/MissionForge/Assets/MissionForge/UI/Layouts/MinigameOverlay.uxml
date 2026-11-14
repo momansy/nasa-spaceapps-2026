@@ -1,0 +1,90 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement name="screen" class="mf-screen" picking-mode="Ignore">
+        <ui:VisualElement name="minigame-frame" class="mf-grow mf-center" picking-mode="Ignore">
+            <ui:VisualElement name="minigame-card" class="mf-panel mf-panel--raised mfs-minigame__card">
+                <ui:VisualElement class="mf-panel__header">
+                    <ui:Label class="mf-panel__title" text="MINIGAME" />
+                    <ui:Label class="mf-panel__tag" text="10.1 EVERYONE PLAYS" />
+                </ui:VisualElement>
+
+                <ui:VisualElement name="minigame-head" class="mfs-minigame__head">
+                    <ui:VisualElement class="mf-grow">
+                        <ui:Label class="mf-caption" text="CHALLENGE" />
+                        <ui:Label name="minigame-name" class="mf-h1" text="—" />
+                        <ui:VisualElement class="mfs-minigame__chips">
+                            <ui:VisualElement name="minigame-type" class="mf-chip mf-chip--muted mfs-gap-right-sm">
+                                <ui:Label name="minigame-type-label" class="mf-chip__label" text="TYPE —" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="minigame-bullet-time" class="mf-chip mf-chip--forge">
+                                <ui:Label class="mf-chip__label" text="BULLET-TIME" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement class="mfs-readout mfs-readout--auto">
+                        <ui:Label class="mf-caption" text="TIME LEFT" />
+                        <ui:VisualElement class="mfs-readout__value mfs-readout__value--xl">
+                            <ui:Label name="minigame-timer" class="mf-num mfs-num--xl" text="—" />
+                            <ui:Label class="mf-unit" text="s" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <ui:VisualElement name="minigame-body" class="mfs-minigame__body">
+                    <ui:VisualElement name="minigame-instructions" class="mf-region">
+                        <ui:VisualElement class="mf-skeleton mf-skeleton--long" />
+                        <ui:VisualElement class="mf-skeleton mf-skeleton--mid" />
+                        <ui:Label class="mf-region__label" text="One-sentence instruction · three-second looping demo" />
+                    </ui:VisualElement>
+
+                    <ui:VisualElement name="tier-ladder" class="mfs-minigame__ladder">
+                        <ui:VisualElement name="tier-platinum" class="mfs-tier">
+                            <ui:Label class="mfs-tier__name" text="PLATINUM" />
+                            <ui:Label class="mfs-tier__rule" text="EVERYONE PERFECT" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="tier-gold" class="mfs-tier">
+                            <ui:Label class="mfs-tier__name" text="GOLD" />
+                            <ui:Label class="mfs-tier__rule" text="EVERYONE" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="tier-silver" class="mfs-tier">
+                            <ui:Label class="mfs-tier__name" text="SILVER" />
+                            <ui:Label class="mfs-tier__rule" text="TWO IN THREE" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="tier-bronze" class="mfs-tier mfs-tier--last">
+                            <ui:Label class="mfs-tier__name" text="BRONZE" />
+                            <ui:Label class="mfs-tier__rule" text="ONE IN THREE" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <ui:VisualElement name="team-progress" class="mfs-tally mfs-tally--block mfs-minigame__progress">
+                    <ui:VisualElement class="mfs-tally__head">
+                        <ui:Label class="mf-caption" text="TEAM PROGRESS" />
+                        <ui:VisualElement class="mfs-tally__count">
+                            <ui:Label name="team-progress-done" class="mf-num mf-num--small" text="—" />
+                            <ui:Label class="mf-unit" text="of" />
+                            <ui:Label name="team-progress-total" class="mf-num mf-num--small mfs-gap-left-sm" text="—" />
+                            <ui:Label class="mf-unit" text="players" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement class="mfs-tally__track">
+                        <ui:VisualElement name="team-progress-fill" class="mfs-tally__fill" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <ui:VisualElement name="minigame-result" class="mf-region mfs-region--fixed">
+                    <ui:VisualElement class="mfs-minigame__result mfs-gap-bottom-sm">
+                        <ui:VisualElement class="mfs-minigame__result-slot">
+                            <ui:Label class="mf-caption" text="TIER REACHED" />
+                            <ui:Label name="result-tier" class="mf-h2" text="—" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="mf-grow">
+                            <ui:Label class="mf-caption" text="BOOST" />
+                            <ui:Label name="result-boost" class="mf-body" text="—" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:Label name="result-fact" class="mf-region__label" text="Result: tier reached · boost granted · one-line fact" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

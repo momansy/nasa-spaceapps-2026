@@ -1,0 +1,63 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:mf="MissionForge.UI">
+    <ui:VisualElement name="screen" class="mf-screen">
+        <ui:VisualElement class="mf-row mf-grow">
+            <ui:VisualElement name="crew-panel" class="mf-panel mf-grow mf-gap-right">
+                <ui:VisualElement class="mf-panel__header">
+                    <ui:Label text="MISSION CONTROL CREW" class="mf-panel__title" />
+                    <ui:VisualElement class="mf-row mf-align-end">
+                        <ui:Label name="crew-count" text="0" class="mf-lobby__count" />
+                        <ui:Label text="/ 10 crew" class="mf-unit" style="margin-bottom: 8px;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="crew-grid" class="mf-crewgrid" />
+                <ui:VisualElement class="mf-grow" />
+                <ui:VisualElement class="mf-row mf-align-center mf-between">
+                    <ui:Label name="lobby-hint" text="Waiting for the first crew member to join." class="mf-body mf-body--dim" />
+                    <ui:Button name="btn-start" text="START BRIEFING" class="mf-btn mf-btn--primary" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <ui:VisualElement class="mf-col" style="width: 520px;">
+                <ui:VisualElement name="join-panel" class="mf-panel mf-panel--raised mf-gap-bottom">
+                    <ui:VisualElement class="mf-panel__header">
+                        <ui:Label text="JOIN THIS MISSION" class="mf-panel__title" />
+                        <ui:Label text="3.1 JOIN" class="mf-panel__tag" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="mf-row mf-align-center">
+                        <ui:VisualElement class="mf-qr mf-gap-right" style="width: 188px; height: 188px; padding: 10px;">
+                            <ui:VisualElement name="qr-image" class="mf-qr__image" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="mf-col mf-grow">
+                            <ui:Label text="ROOM CODE" class="mf-caption" />
+                            <ui:Label name="lobby-code" text="----" class="mf-roomcode__value" style="font-size: 72px; margin: 0;" />
+                            <ui:Label name="join-url" text="" class="mf-joinurl" style="font-size: 18px;" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <ui:VisualElement name="settings-panel" class="mf-panel mf-grow">
+                    <ui:VisualElement class="mf-panel__header">
+                        <ui:Label text="MISSION SETTINGS" class="mf-panel__title" />
+                        <ui:Label text="HOST" class="mf-panel__tag" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="mf-setting">
+                        <ui:Label text="ROLE ASSIGNMENT" class="mf-setting__label" />
+                        <ui:VisualElement name="seg-role-mode" class="mf-segment" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="mf-setting">
+                        <ui:Label text="ASSIST LEVEL" class="mf-setting__label" />
+                        <ui:VisualElement name="seg-assist" class="mf-segment" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="mf-setting">
+                        <ui:Label text="VOTE TIMER (SECONDS)" class="mf-setting__label" />
+                        <ui:VisualElement name="seg-vote-timer" class="mf-segment" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="mf-setting">
+                        <ui:Label text="VOTE TALLIES" class="mf-setting__label" />
+                        <ui:VisualElement name="seg-tallies" class="mf-segment" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

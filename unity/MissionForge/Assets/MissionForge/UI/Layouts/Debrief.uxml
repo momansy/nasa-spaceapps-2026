@@ -1,0 +1,242 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement name="screen" class="mf-screen">
+        <ui:VisualElement name="kicker" class="mfs-kicker">
+            <ui:VisualElement class="mfs-kicker__group">
+                <ui:VisualElement class="mfs-kicker__rule" />
+                <ui:Label class="mf-h3" text="PHASE F · CLOSEOUT" />
+                <ui:Label class="mf-caption mfs-kicker__note" text="WHAT HAPPENED, AND WHAT WE LEARNED" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <ui:VisualElement name="debrief-body" class="mf-row mf-grow">
+            <ui:VisualElement name="debrief-left" class="mf-col mfs-debrief__col mf-gap-right">
+                <ui:VisualElement name="grade-panel" class="mf-panel mf-panel--raised mf-grow">
+                    <ui:VisualElement class="mf-panel__header">
+                        <ui:Label class="mf-panel__title" text="MISSION GRADE" />
+                        <ui:Label class="mf-panel__tag" text="11.4 GRADES" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="mf-panel__body">
+                        <ui:VisualElement class="mfs-debrief__grade-row">
+                            <ui:Label name="grade-letter" class="mfs-grade" text="—" />
+                            <ui:VisualElement class="mf-grow">
+                                <ui:Label class="mf-caption" text="MISSION SCORE" />
+                                <ui:VisualElement class="mfs-readout__value mfs-readout__value--xl">
+                                    <ui:Label name="score-total" class="mf-num mfs-num--xl" text="—" />
+                                    <ui:Label class="mf-unit" text="pts" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:Label name="grade-title" class="mfs-grade__title" text="—" />
+
+                        <ui:VisualElement name="grade-ladder" class="mfs-fixed mfs-gap-bottom-sm">
+                            <ui:VisualElement name="grade-s" class="mfs-gradeline">
+                                <ui:Label class="mfs-gradeline__letter" text="S" />
+                                <ui:Label class="mfs-gradeline__title" text="Flawless Mission" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="grade-a" class="mfs-gradeline">
+                                <ui:Label class="mfs-gradeline__letter" text="A" />
+                                <ui:Label class="mfs-gradeline__title" text="Mission Accomplished" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="grade-b" class="mfs-gradeline">
+                                <ui:Label class="mfs-gradeline__letter" text="B" />
+                                <ui:Label class="mfs-gradeline__title" text="Solid Engineering" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="grade-c" class="mfs-gradeline">
+                                <ui:Label class="mfs-gradeline__letter" text="C" />
+                                <ui:Label class="mfs-gradeline__title" text="We Learned A Lot" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="grade-d" class="mfs-gradeline">
+                                <ui:Label class="mfs-gradeline__letter" text="D" />
+                                <ui:Label class="mfs-gradeline__title" text="Back to the Drawing Board" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+
+                        <ui:VisualElement name="comparison" class="mf-region">
+                            <ui:Label class="mf-region__label" text="Your rocket vs. a real one: mass · ∆v · cost class" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <ui:VisualElement name="debrief-actions" class="mfs-actions">
+                    <ui:Button name="btn-replay" class="mf-btn mf-btn--ghost" text="REPLAY" />
+                    <ui:Button name="btn-continue" class="mf-btn mf-btn--primary" text="CONTINUE" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <ui:VisualElement name="debrief-centre" class="mf-col mf-grow mf-gap-right">
+                <ui:VisualElement name="breakdown-panel" class="mf-panel mfs-fixed">
+                    <ui:VisualElement class="mf-panel__header">
+                        <ui:Label class="mf-panel__title" text="SCORE BREAKDOWN" />
+                        <ui:Label class="mf-panel__tag" text="11.3 SCORING" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="score-breakdown" class="mf-panel__body">
+                        <ui:VisualElement class="mfs-score-row">
+                            <ui:Label class="mfs-td" text="Objective points" />
+                            <ui:VisualElement class="mfs-metric__value">
+                                <ui:Label name="score-objectives" class="mf-num mf-num--small" text="—" />
+                                <ui:Label class="mf-unit" text="pts" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="mfs-score-row">
+                            <ui:Label class="mfs-td" text="Efficiency" />
+                            <ui:VisualElement class="mfs-metric__value">
+                                <ui:Label name="score-efficiency" class="mf-num mf-num--small" text="—" />
+                                <ui:Label class="mf-unit" text="pts" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="mfs-score-row">
+                            <ui:Label class="mfs-td" text="Safety &amp; recovery" />
+                            <ui:VisualElement class="mfs-metric__value">
+                                <ui:Label name="score-safety" class="mf-num mf-num--small" text="—" />
+                                <ui:Label class="mf-unit" text="pts" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="mfs-score-row">
+                            <ui:Label class="mfs-td" text="Science / data" />
+                            <ui:VisualElement class="mfs-metric__value">
+                                <ui:Label name="score-science" class="mf-num mf-num--small" text="—" />
+                                <ui:Label class="mf-unit" text="pts" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="mfs-score-row">
+                            <ui:Label class="mfs-td" text="Teamwork" />
+                            <ui:VisualElement class="mfs-metric__value">
+                                <ui:Label name="score-teamwork" class="mf-num mf-num--small" text="—" />
+                                <ui:Label class="mf-unit" text="pts" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="mfs-score-row">
+                            <ui:Label class="mfs-td" text="Knowledge" />
+                            <ui:VisualElement class="mfs-metric__value">
+                                <ui:Label name="score-knowledge" class="mf-num mf-num--small" text="—" />
+                                <ui:Label class="mf-unit" text="pts" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="mfs-score-row">
+                            <ui:Label class="mfs-td" text="Difficulty multiplier" />
+                            <ui:VisualElement class="mfs-metric__value">
+                                <ui:Label class="mf-unit mfs-unit--prefix" text="×" />
+                                <ui:Label name="score-difficulty" class="mf-num mf-num--small" text="—" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="mfs-score-row">
+                            <ui:Label class="mfs-td" text="Score boosts" />
+                            <ui:VisualElement class="mfs-metric__value">
+                                <ui:Label class="mf-unit mfs-unit--prefix" text="×" />
+                                <ui:Label name="score-boosts" class="mf-num mf-num--small" text="—" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="mfs-score-row mfs-score-row--total">
+                            <ui:Label class="mf-h3" text="MISSION SCORE" />
+                            <ui:VisualElement class="mfs-readout__value">
+                                <ui:Label name="score-total-line" class="mf-num" text="—" />
+                                <ui:Label class="mf-unit" text="pts" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <ui:VisualElement name="timeline-panel" class="mf-panel mf-gap-top mf-grow">
+                    <ui:VisualElement class="mf-panel__header">
+                        <ui:Label class="mf-panel__title" text="MISSION TIMELINE" />
+                        <ui:Label class="mf-panel__tag" text="9.1 PHASES" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="mf-panel__body">
+                        <ui:VisualElement name="timeline-phases" class="mfs-ticks mfs-gap-bottom-sm">
+                            <ui:Label name="timeline-f1" class="mfs-tick" text="F1" />
+                            <ui:Label name="timeline-f2" class="mfs-tick" text="F2" />
+                            <ui:Label name="timeline-f3" class="mfs-tick" text="F3" />
+                            <ui:Label name="timeline-f4" class="mfs-tick" text="F4" />
+                            <ui:Label name="timeline-f5" class="mfs-tick" text="F5" />
+                            <ui:Label name="timeline-f6" class="mfs-tick" text="F6" />
+                            <ui:Label name="timeline-f7" class="mfs-tick" text="F7" />
+                            <ui:Label name="timeline-f8" class="mfs-tick" text="F8" />
+                            <ui:Label name="timeline-f9" class="mfs-tick" text="F9" />
+                            <ui:Label name="timeline-f10" class="mfs-tick" text="F10" />
+                            <ui:Label name="timeline-f11" class="mfs-tick" text="F11" />
+                            <ui:Label name="timeline-f12" class="mfs-tick" text="F12" />
+                            <ui:Label name="timeline-f13" class="mfs-tick mfs-tick--last" text="F13" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="timeline" class="mf-region">
+                            <ui:Label class="mf-region__label" text="Key moments: minigame tiers · anomalies · Good Calls · replay marker" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <ui:VisualElement name="debrief-right" class="mf-col mfs-debrief__col">
+                <ui:VisualElement name="awards-panel" class="mf-panel mfs-fixed">
+                    <ui:VisualElement class="mf-panel__header">
+                        <ui:Label class="mf-panel__title" text="AWARDS" />
+                        <ui:Label class="mf-panel__tag" text="11.5 RECOGNITION" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="mf-panel__body">
+                        <ui:VisualElement name="award-list" class="mfs-awards">
+                            <ui:VisualElement name="award-best-callout" class="mfs-award">
+                                <ui:VisualElement class="mfs-mark mfs-mark--idle" />
+                                <ui:Label class="mfs-award__name" text="Best Callout" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="award-budget-hawk" class="mfs-award">
+                                <ui:VisualElement class="mfs-mark mfs-mark--idle" />
+                                <ui:Label class="mfs-award__name" text="Budget Hawk" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="award-fact-finder" class="mfs-award">
+                                <ui:VisualElement class="mfs-mark mfs-mark--idle" />
+                                <ui:Label class="mfs-award__name" text="Fact Finder" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="award-steady-hands" class="mfs-award">
+                                <ui:VisualElement class="mfs-mark mfs-mark--idle" />
+                                <ui:Label class="mfs-award__name" text="Steady Hands" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="award-team-player" class="mfs-award">
+                                <ui:VisualElement class="mfs-mark mfs-mark--idle" />
+                                <ui:Label class="mfs-award__name" text="Team Player" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="award-veto-visionary" class="mfs-award">
+                                <ui:VisualElement class="mfs-mark mfs-mark--idle" />
+                                <ui:Label class="mfs-award__name" text="Veto Visionary" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="award-rocket-scientist" class="mfs-award">
+                                <ui:VisualElement class="mfs-mark mfs-mark--idle" />
+                                <ui:Label class="mfs-award__name" text="Rocket Scientist" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="award-calm-under-pressure" class="mfs-award">
+                                <ui:VisualElement class="mfs-mark mfs-mark--idle" />
+                                <ui:Label class="mfs-award__name" text="Calm Under Pressure" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement name="award-winners" class="mf-region mfs-region--tight">
+                            <ui:Label class="mf-region__label" text="Every player gets an award: avatar + award" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <ui:VisualElement name="facts-panel" class="mf-panel mf-gap-top mfs-fixed">
+                    <ui:VisualElement class="mf-panel__header">
+                        <ui:Label class="mf-panel__title" text="FACTS COLLECTED" />
+                        <ui:Label class="mf-panel__tag" text="12.2 CODEX" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="mf-panel__body">
+                        <ui:VisualElement name="facts-collected" class="mf-region mfs-region--tight">
+                            <ui:Label class="mf-region__label" text="New Codex entries unlocked this mission" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <ui:VisualElement name="investigation-panel" class="mf-panel mf-gap-top mf-grow">
+                    <ui:VisualElement class="mf-panel__header">
+                        <ui:Label class="mf-panel__title" text="INVESTIGATION" />
+                        <ui:Label class="mf-panel__tag" text="9.9 FAIL FORWARD" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="mf-panel__body">
+                        <ui:VisualElement name="investigation" class="mf-region">
+                            <ui:VisualElement class="mf-skeleton mf-skeleton--long" />
+                            <ui:VisualElement class="mf-skeleton mf-skeleton--mid" />
+                            <ui:Label class="mf-region__label" text="Root cause from the telemetry clues · Lessons Learned card" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -1,0 +1,143 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement name="screen" class="mf-screen">
+        <ui:VisualElement name="kicker" class="mfs-kicker">
+            <ui:VisualElement class="mfs-kicker__group">
+                <ui:VisualElement class="mfs-kicker__rule" />
+                <ui:Label class="mf-h3" text="F1 · PROPELLANT LOADING &amp; COUNTDOWN" />
+                <ui:Label class="mf-caption mfs-kicker__note" text="ALL CONSOLES MONITOR" />
+            </ui:VisualElement>
+            <ui:Button name="btn-hold" class="mf-btn mf-btn--ghost" text="HOLD" />
+        </ui:VisualElement>
+
+        <ui:VisualElement name="countdown-body" class="mf-row mf-grow">
+            <ui:VisualElement name="countdown-side" class="mf-col mfs-countdown__side mf-gap-right">
+                <ui:VisualElement name="clock-panel" class="mf-panel mf-panel--raised mfs-fixed">
+                    <ui:VisualElement class="mf-panel__header">
+                        <ui:Label class="mf-panel__title" text="COUNTDOWN CLOCK" />
+                        <ui:Label class="mf-panel__tag" text="9.1 F1" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="mf-panel__body">
+                        <ui:VisualElement class="mfs-countdown__clock-head">
+                            <ui:Label class="mf-caption" text="T-MINUS" />
+                            <ui:Label class="mf-unit" text="min : s" />
+                        </ui:VisualElement>
+                        <ui:Label name="countdown-clock" class="mf-num mfs-clock" text="—" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <ui:VisualElement name="sequence-panel" class="mf-panel mf-gap-top mfs-fixed">
+                    <ui:VisualElement class="mf-panel__header">
+                        <ui:Label class="mf-panel__title" text="COUNTDOWN SEQUENCE" />
+                        <ui:Label class="mf-panel__tag" text="9.1 F0 – F2" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="countdown-sequence" class="mf-panel__body">
+                        <ui:VisualElement name="sequence-f0" class="mfs-check">
+                            <ui:VisualElement class="mfs-mark mfs-mark--idle mfs-mark--lead" />
+                            <ui:Label class="mfs-check__text" text="F0  Rollout &amp; pad" />
+                            <ui:Label name="sequence-f0-status" class="mfs-check__status" text="—" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="sequence-f1" class="mfs-check">
+                            <ui:VisualElement class="mfs-mark mfs-mark--idle mfs-mark--lead" />
+                            <ui:Label class="mfs-check__text" text="F1  Propellant loading &amp; poll" />
+                            <ui:Label name="sequence-f1-status" class="mfs-check__status" text="—" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="sequence-f2" class="mfs-check">
+                            <ui:VisualElement class="mfs-mark mfs-mark--idle mfs-mark--lead" />
+                            <ui:Label class="mfs-check__text" text="F2  Ignition &amp; lift-off" />
+                            <ui:Label name="sequence-f2-status" class="mfs-check__status" text="—" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <ui:VisualElement name="notice-panel" class="mf-panel mf-gap-top mf-grow">
+                    <ui:VisualElement class="mf-panel__header">
+                        <ui:Label class="mf-panel__title" text="HOLD / ABORT" />
+                        <ui:Label class="mf-panel__tag" text="9.8 ABORT MODES" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="mf-panel__body">
+                        <ui:VisualElement name="countdown-notice" class="mf-region">
+                            <ui:Label class="mf-region__label" text="Hold or pad-abort notice · resume call" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <ui:VisualElement name="countdown-main" class="mf-col mf-grow">
+                <ui:VisualElement name="pad-viewport" class="mfs-viewport" picking-mode="Ignore">
+                    <ui:VisualElement class="mfs-viewport__corner mfs-viewport__corner--tl" picking-mode="Ignore" />
+                    <ui:VisualElement class="mfs-viewport__corner mfs-viewport__corner--tr" picking-mode="Ignore" />
+                    <ui:VisualElement class="mfs-viewport__corner mfs-viewport__corner--bl" picking-mode="Ignore" />
+                    <ui:VisualElement class="mfs-viewport__corner mfs-viewport__corner--br" picking-mode="Ignore" />
+                    <ui:Label class="mfs-viewport__tag" text="PAD CAMERA · LIVE 3D" picking-mode="Ignore" />
+                </ui:VisualElement>
+
+                <ui:VisualElement name="status-row" class="mfs-countdown__status">
+                    <ui:VisualElement name="weather-panel" class="mf-panel mfs-countdown__status-panel mf-gap-right">
+                        <ui:VisualElement class="mf-panel__header">
+                            <ui:Label class="mf-panel__title" text="WEATHER" />
+                            <ui:Label class="mf-panel__tag" text="F0" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="mf-panel__body">
+                            <ui:VisualElement class="mfs-metric">
+                                <ui:Label class="mfs-metric__name" text="STATUS" />
+                                <ui:Label name="weather-status" class="mfs-metric__text" text="—" />
+                            </ui:VisualElement>
+                            <ui:VisualElement class="mfs-metric mfs-metric--last">
+                                <ui:Label class="mfs-metric__name" text="WIND" />
+                                <ui:VisualElement class="mfs-metric__value">
+                                    <ui:Label name="weather-wind" class="mf-num mf-num--small" text="—" />
+                                    <ui:Label class="mf-unit" text="m/s" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+
+                    <ui:VisualElement name="range-panel" class="mf-panel mfs-countdown__status-panel mf-gap-right">
+                        <ui:VisualElement class="mf-panel__header">
+                            <ui:Label class="mf-panel__title" text="RANGE" />
+                            <ui:Label class="mf-panel__tag" text="F0" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="mf-panel__body">
+                            <ui:VisualElement class="mfs-metric">
+                                <ui:Label class="mfs-metric__name" text="STATUS" />
+                                <ui:Label name="range-status" class="mfs-metric__text" text="—" />
+                            </ui:VisualElement>
+                            <ui:VisualElement class="mfs-metric mfs-metric--last">
+                                <ui:Label class="mfs-metric__name" text="WINDOW" />
+                                <ui:VisualElement class="mfs-metric__value">
+                                    <ui:Label name="range-window" class="mf-num mf-num--small" text="—" />
+                                    <ui:Label class="mf-unit" text="s" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+
+                    <ui:VisualElement name="propellant-panel" class="mf-panel mfs-countdown__propellant">
+                        <ui:VisualElement class="mf-panel__header">
+                            <ui:Label class="mf-panel__title" text="PROPELLANT" />
+                            <ui:Label class="mf-panel__tag" text="MG-08b" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="mf-panel__body mfs-stats mfs-stats--compact">
+                            <ui:VisualElement name="propellant-oxidizer" class="mf-statbar">
+                                <ui:Label class="mf-statbar__label" text="Oxidizer" />
+                                <ui:VisualElement class="mf-statbar__track">
+                                    <ui:VisualElement name="propellant-oxidizer-fill" class="mf-statbar__fill" />
+                                </ui:VisualElement>
+                                <ui:Label name="propellant-oxidizer-value" class="mf-statbar__value mf-num" text="—" />
+                                <ui:Label class="mf-unit" text="%" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="propellant-fuel" class="mf-statbar">
+                                <ui:Label class="mf-statbar__label" text="Fuel" />
+                                <ui:VisualElement class="mf-statbar__track">
+                                    <ui:VisualElement name="propellant-fuel-fill" class="mf-statbar__fill" />
+                                </ui:VisualElement>
+                                <ui:Label name="propellant-fuel-value" class="mf-statbar__value mf-num" text="—" />
+                                <ui:Label class="mf-unit" text="%" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

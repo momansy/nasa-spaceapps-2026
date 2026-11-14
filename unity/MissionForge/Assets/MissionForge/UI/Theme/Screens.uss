@@ -1,0 +1,623 @@
+/* MissionForge host screens: screen-specific layout classes (prefix mfs-).
+   Companion to MissionForgeTheme.uss, which owns colour, type and the mf- components.
+   Reference canvas 1920x1080; a screen's content box is 1808 x 900 (below the 104 px top bar).
+   Nothing here is smaller than 18 px. Rules that must beat a theme class on the same element
+   are written with a `.mf-screen` ancestor (or as a child selector) so they win on specificity,
+   whatever order the two sheets are loaded in.
+
+   Font note: the Greek capital delta (U+0394) is not in any bundled font. Delta-v is written
+   with the increment sign (U+2206), which only the two IBM Plex Mono files carry, so every
+   label that shows it uses a mono class (mfs-metric__name, mfs-th, mfs-check__text,
+   mf-region__label, mf-panel__tag, or a stat label inside .mfs-stats). */
+
+/* ---------- shared: spacing ---------- */
+.mfs-fixed { flex-shrink: 0; }
+.mf-screen .mfs-gap-right-sm { margin-right: 12px; }
+.mf-screen .mfs-gap-bottom-sm { margin-bottom: 12px; }
+.mf-screen .mfs-gap-top-sm { margin-top: 12px; }
+.mf-screen .mfs-gap-left-sm { margin-left: 8px; }
+
+/* Small mono note under a chip or heading. */
+.mfs-note {
+    -unity-font-definition: var(--mf-font-mono);
+    font-size: 18px;
+    letter-spacing: 1px;
+    color: var(--mf-text-faint);
+    margin: 8px 0 0 0; padding: 0;
+}
+
+/* ---------- shared: kicker row (short subtitle under the top bar) ---------- */
+.mfs-kicker {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+    min-height: 42px;
+    margin-bottom: 18px;
+}
+.mfs-kicker__group { flex-direction: row; align-items: center; }
+.mfs-kicker__rule { width: 44px; height: 4px; background-color: var(--mf-forge); margin-right: 18px; }
+.mf-screen .mfs-kicker__note { margin-left: 24px; }
+
+/* ---------- shared: transparent 3D viewport ---------- */
+/* No background on purpose: the live 3D scene shows through. */
+.mfs-viewport { flex-grow: 1; }
+.mfs-viewport__corner { position: absolute; width: 36px; height: 36px; border-color: var(--mf-line-strong); }
+.mfs-viewport__corner--tl { left: 0; top: 0; border-left-width: 2px; border-top-width: 2px; }
+.mfs-viewport__corner--tr { right: 0; top: 0; border-right-width: 2px; border-top-width: 2px; }
+.mfs-viewport__corner--bl { left: 0; bottom: 0; border-left-width: 2px; border-bottom-width: 2px; }
+.mfs-viewport__corner--br { right: 0; bottom: 0; border-right-width: 2px; border-bottom-width: 2px; }
+.mfs-viewport__tag {
+    position: absolute; left: 18px; top: 14px;
+    -unity-font-definition: var(--mf-font-mono);
+    font-size: 18px;
+    letter-spacing: 2px;
+    color: var(--mf-text-dim);
+    margin: 0; padding: 0;
+}
+
+/* Veil behind overlay screens that sit on top of another screen (Codex, Settings).
+   Starts below the 104 px top bar so the bar keeps its own look. */
+.mfs-scrim { position: absolute; left: 0; top: 104px; right: 0; bottom: 0; background-color: rgba(4, 7, 14, 0.90); }
+
+/* ---------- shared: numbers ---------- */
+.mf-screen .mfs-num--lg { font-size: 56px; }
+.mf-screen .mfs-num--xl { font-size: 72px; }
+.mf-screen .mfs-unit--prefix { margin-left: 0; margin-right: 8px; }
+
+/* Caption above, value + unit below. */
+.mfs-readout { flex-grow: 1; flex-basis: 0; }
+.mfs-readout--auto { flex-grow: 0; flex-basis: auto; }
+.mfs-readout--divided { padding-left: 22px; margin-left: 22px; border-left-width: 1px; border-left-color: var(--mf-line); }
+.mfs-readout__value { flex-direction: row; align-items: flex-end; margin-top: 2px; }
+.mfs-readout__value > .mf-unit { margin-bottom: 6px; }
+.mfs-readout__value--xl > .mf-unit { margin-bottom: 12px; font-size: 26px; }
+
+/* Name on the left, value + unit on the right. */
+.mfs-metric {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 50px;
+    border-bottom-width: 1px;
+    border-bottom-color: rgba(138, 180, 255, 0.12);
+}
+.mfs-metric--last { border-bottom-width: 0; }
+.mfs-metric--big { min-height: 60px; }
+.mfs-metric__name {
+    -unity-font-definition: var(--mf-font-mono);
+    font-size: 22px;
+    color: var(--mf-text-dim);
+    margin: 0; padding: 0;
+}
+.mfs-metric__value { flex-direction: row; align-items: flex-end; flex-shrink: 0; }
+.mfs-metric__value > .mf-unit { margin-bottom: 2px; }
+.mfs-metric--big > .mfs-metric__value > .mf-unit { margin-bottom: 6px; }
+.mfs-metric__text {
+    -unity-font-definition: var(--mf-font-body-medium);
+    font-size: 24px;
+    color: var(--mf-text);
+    margin: 0; padding: 0;
+    -unity-text-align: middle-right;
+}
+
+/* Stat bars with a separate unit column: label | track | value | unit. */
+.mfs-stats .mf-statbar { margin-bottom: 6px; }
+.mfs-stats .mf-statbar__label { width: 200px; -unity-font-definition: var(--mf-font-mono); font-size: 22px; }
+.mfs-stats .mf-statbar__value { width: 96px; }
+.mfs-stats .mf-unit { width: 84px; }
+.mfs-stats--compact .mf-statbar__label { width: 112px; }
+.mfs-stats--compact .mf-statbar__value { width: 70px; }
+.mfs-stats--compact .mf-unit { width: 64px; }
+
+/* Titled group inside a panel. */
+.mfs-group { margin-bottom: 14px; }
+.mfs-group__title {
+    -unity-font-definition: var(--mf-font-display-medium);
+    font-size: 20px;
+    letter-spacing: 4px;
+    color: var(--mf-text);
+    margin: 0 0 10px 0;
+    padding: 0 0 0 12px;
+    border-left-width: 3px;
+    border-left-color: var(--mf-forge);
+}
+
+/* ---------- shared: tables ---------- */
+.mfs-table__head {
+    flex-direction: row;
+    align-items: center;
+    flex-shrink: 0;
+    padding-bottom: 10px;
+    margin-bottom: 4px;
+    border-bottom-width: 1px;
+    border-bottom-color: var(--mf-line-strong);
+}
+.mfs-table__row {
+    flex-direction: row;
+    align-items: center;
+    flex-grow: 1;
+    min-height: 44px;
+    border-bottom-width: 1px;
+    border-bottom-color: rgba(138, 180, 255, 0.10);
+}
+.mfs-table__row--last { border-bottom-width: 0; }
+.mfs-th {
+    -unity-font-definition: var(--mf-font-mono);
+    font-size: 18px;
+    letter-spacing: 2px;
+    color: var(--mf-text-faint);
+    margin: 0; padding: 0;
+}
+.mfs-td {
+    -unity-font-definition: var(--mf-font-body-medium);
+    font-size: 24px;
+    color: var(--mf-text);
+    margin: 0; padding: 0;
+}
+.mfs-col--grow { flex-grow: 1; flex-basis: 0; }
+.mfs-col--xs { width: 96px; flex-shrink: 0; }
+.mfs-col--sm { width: 136px; flex-shrink: 0; }
+.mfs-col--md { width: 190px; flex-shrink: 0; }
+.mfs-col--lg { width: 260px; flex-shrink: 0; }
+.mfs-right { -unity-text-align: middle-right; }
+
+/* ---------- shared: region and skeleton variants ---------- */
+.mf-screen .mfs-region--tight { padding: 10px 14px; }
+.mf-screen .mfs-region--fixed { flex-grow: 0; flex-shrink: 0; }
+.mf-screen .mfs-skeleton--inline { margin-bottom: 0; }
+
+/* ---------- shared: tile (a card inside a panel) ---------- */
+.mfs-tile {
+    background-color: rgba(18, 28, 48, 0.62);
+    border-width: 1px;
+    border-color: var(--mf-line);
+    border-left-width: 3px;
+    border-left-color: var(--mf-line-strong);
+    border-radius: 3px 14px 3px 3px;
+    padding: 14px 18px;
+}
+
+/* ---------- shared: status marks (shape carries the status, not colour alone) ---------- */
+.mfs-mark { width: 14px; height: 14px; flex-shrink: 0; }
+.mfs-mark--good { background-color: var(--mf-good); border-radius: 7px; }
+.mfs-mark--warn { border-width: 3px; border-color: var(--mf-warn); rotate: 45deg; }
+.mfs-mark--bad { height: 6px; background-color: var(--mf-bad); }
+.mfs-mark--idle { border-width: 2px; border-color: var(--mf-text-faint); border-radius: 7px; }
+.mfs-mark--lead { margin-right: 14px; }
+.mfs-chip-gap { margin-right: 8px; margin-bottom: 8px; }
+.mfs-legend { flex-direction: row; flex-wrap: wrap; flex-shrink: 0; }
+.mfs-legend .mf-chip__label { font-size: 18px; letter-spacing: 1px; }
+
+/* ---------- shared: vote option slot ---------- */
+.mfs-option {
+    flex-direction: row;
+    align-items: center;
+    flex-shrink: 0;
+    padding: 8px 14px;
+    margin-bottom: 8px;
+    background-color: rgba(18, 28, 48, 0.62);
+    border-width: 1px;
+    border-color: var(--mf-line);
+    border-radius: 3px 12px 3px 12px;
+    transition-property: border-color, background-color;
+    transition-duration: 0.2s;
+}
+.mfs-option--leading { border-color: var(--mf-forge); background-color: var(--mf-forge-soft); }
+.mfs-option__key {
+    width: 40px; height: 40px;
+    -unity-font-definition: var(--mf-font-mono-bold);
+    font-size: 24px;
+    color: var(--mf-accent);
+    -unity-text-align: middle-center;
+    border-width: 1px;
+    border-color: var(--mf-line-strong);
+    border-radius: 4px;
+    margin: 0 16px 0 0;
+    padding: 0;
+    flex-shrink: 0;
+}
+.mfs-option__body { flex-grow: 1; justify-content: center; }
+.mfs-option__votes { flex-direction: row; align-items: flex-end; flex-shrink: 0; margin-left: 12px; }
+
+/* ---------- shared: horizontal vote tally ---------- */
+.mfs-tally { flex-grow: 1; flex-basis: 0; margin-right: 28px; }
+.mfs-tally--last { margin-right: 0; }
+/* A tally stacked in a column (not sharing a row): natural height, no trailing gap. */
+.mfs-tally--block { flex-grow: 0; flex-basis: auto; flex-shrink: 0; margin-right: 0; }
+.mfs-tally__head { flex-direction: row; align-items: flex-end; justify-content: space-between; }
+.mfs-tally__count { flex-direction: row; align-items: flex-end; }
+.mfs-tally__track { height: 16px; margin-top: 8px; background-color: rgba(138, 180, 255, 0.12); border-radius: 3px; overflow: hidden; }
+.mfs-tally__fill {
+    height: 100%;
+    background-color: var(--mf-accent);
+    border-radius: 3px;
+    transition-property: width;
+    transition-duration: 0.45s;
+    transition-timing-function: ease-out-cubic;
+}
+
+/* ---------- shared: tick strip (vote order, flight phases) ---------- */
+.mfs-ticks { flex-direction: row; flex-shrink: 0; }
+.mfs-tick {
+    flex-grow: 1; flex-basis: 0;
+    height: 36px;
+    margin: 0 3px 0 0;
+    padding: 0;
+    -unity-font-definition: var(--mf-font-mono);
+    font-size: 18px;
+    color: var(--mf-text-faint);
+    -unity-text-align: middle-center;
+    background-color: rgba(138, 180, 255, 0.07);
+    border-bottom-width: 3px;
+    border-bottom-color: rgba(138, 180, 255, 0.22);
+}
+.mfs-tick--last { margin-right: 0; }
+.mfs-tick--done { color: var(--mf-text-dim); border-bottom-color: rgba(53, 208, 165, 0.55); }
+.mfs-tick--current { color: var(--mf-text); background-color: var(--mf-forge-soft); border-bottom-color: var(--mf-forge); }
+
+/* ---------- shared: columns, strips, actions ---------- */
+.mfs-half { flex-grow: 1; flex-basis: 0; }
+.mfs-half--first { margin-right: 28px; }
+.mfs-strip { flex-direction: row; flex-shrink: 0; margin-top: 24px; }
+.mfs-strip__actions { width: 360px; flex-shrink: 0; margin-left: 24px; justify-content: center; }
+.mfs-strip__actions > .mf-btn { margin-bottom: 14px; }
+.mfs-actions { flex-direction: row; align-items: center; justify-content: flex-end; flex-shrink: 0; margin-top: 24px; }
+.mfs-actions > .mf-btn { margin-left: 16px; }
+.mfs-timer-panel { width: 280px; flex-shrink: 0; }
+
+/* ---------- shared: automatic-check row ---------- */
+.mfs-check {
+    flex-direction: row;
+    align-items: center;
+    flex-grow: 1;
+    min-height: 44px;
+    border-bottom-width: 1px;
+    border-bottom-color: rgba(138, 180, 255, 0.10);
+}
+.mfs-check__text {
+    flex-grow: 1;
+    -unity-font-definition: var(--mf-font-mono);
+    font-size: 22px;
+    color: var(--mf-text);
+    margin: 0; padding: 0;
+}
+.mfs-check__status {
+    width: 90px;
+    flex-shrink: 0;
+    -unity-font-definition: var(--mf-font-mono-bold);
+    font-size: 22px;
+    color: var(--mf-text-dim);
+    -unity-text-align: middle-right;
+    margin: 0; padding: 0;
+}
+
+/* ====================================================================
+   Briefing
+   ==================================================================== */
+.mfs-briefing__side { width: 740px; flex-shrink: 0; }
+.mfs-briefing__dock { flex-direction: row; flex-shrink: 0; margin-top: 24px; }
+.mfs-briefing__contract { width: 420px; flex-shrink: 0; }
+.mfs-objective { flex-direction: row; flex-grow: 1; margin-bottom: 10px; }
+.mfs-objective--last { margin-bottom: 0; }
+.mfs-objective__kind { width: 190px; flex-shrink: 0; justify-content: center; }
+
+/* ====================================================================
+   Contract Vote
+   ==================================================================== */
+.mfs-contract-card { flex-grow: 1; flex-basis: 0; }
+.mf-screen .mfs-contract-card__title { margin-bottom: 12px; }
+.mfs-contract-card__facts { flex-direction: row; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.mfs-contract-card__grid { flex-direction: row; margin-bottom: 14px; }
+
+/* ====================================================================
+   Build Bay
+   ==================================================================== */
+.mfs-buildbay__dashboard { width: 600px; flex-shrink: 0; }
+.mfs-buildbay__hero { flex-direction: row; flex-shrink: 0; margin-bottom: 14px; }
+.mfs-buildbay__tracker { flex-direction: row; align-items: center; flex-shrink: 0; min-height: 44px; margin-bottom: 16px; }
+.mfs-buildbay__objective { flex-direction: row; align-items: center; flex-grow: 1; flex-basis: 0; margin-left: 18px; overflow: hidden; }
+.mfs-buildbay__vote { width: 480px; flex-shrink: 0; }
+.mfs-buildbay__vote-head { flex-direction: row; align-items: flex-end; justify-content: space-between; flex-shrink: 0; margin-bottom: 12px; }
+.mfs-buildbay__bottom { flex-direction: row; flex-shrink: 0; height: 210px; margin-top: 20px; }
+.mfs-buildbay__meters { width: 460px; flex-shrink: 0; }
+
+/* ====================================================================
+   Test Stand
+   ==================================================================== */
+.mfs-teststand__list { width: 600px; flex-shrink: 0; }
+.mfs-teststand__side { width: 470px; flex-shrink: 0; }
+.mfs-teststand__dock { flex-shrink: 0; margin-top: 24px; }
+
+/* ====================================================================
+   Design Review
+   ==================================================================== */
+.mfs-review__checklist { width: 620px; flex-shrink: 0; }
+.mfs-review__counts { flex-direction: row; flex-shrink: 0; margin-bottom: 18px; }
+.mfs-review__count { flex-grow: 1; flex-basis: 0; flex-direction: row; align-items: center; justify-content: space-between; margin-right: 16px; }
+.mfs-review__count--last { margin-right: 0; }
+
+/* ====================================================================
+   Flight Readiness Review
+   ==================================================================== */
+.mfs-frr__summary { width: 500px; flex-shrink: 0; }
+.mfs-frr__grid { flex-grow: 1; flex-basis: 0; }
+.mfs-frr__grid-row { flex-direction: row; flex-grow: 1; margin-bottom: 12px; }
+.mfs-frr__grid-row--last { margin-bottom: 0; }
+.mfs-poll {
+    flex-grow: 1; flex-basis: 0;
+    justify-content: space-between;
+    margin-right: 12px;
+    padding: 12px 18px;
+    background-color: rgba(18, 28, 48, 0.62);
+    border-width: 1px;
+    border-color: var(--mf-line);
+    border-top-width: 3px;
+    border-top-color: var(--mf-line-strong);
+    border-radius: 3px 14px 3px 14px;
+    transition-property: border-color, background-color;
+    transition-duration: 0.25s;
+}
+.mfs-poll--last { margin-right: 0; }
+.mfs-poll--lead { padding: 20px 22px; border-top-color: var(--mf-forge); }
+.mfs-poll.mfs-frr__lead { width: 300px; flex-grow: 0; flex-basis: auto; flex-shrink: 0; margin-right: 16px; }
+.mfs-poll--go { border-color: var(--mf-good); background-color: var(--mf-good-soft); }
+.mfs-poll--nogo { border-color: var(--mf-bad); background-color: var(--mf-bad-soft); }
+.mfs-poll__role {
+    -unity-font-definition: var(--mf-font-mono);
+    font-size: 18px;
+    letter-spacing: 1px;
+    color: var(--mf-text-dim);
+    margin: 0; padding: 0;
+}
+.mfs-poll__status {
+    -unity-font-definition: var(--mf-font-display);
+    font-size: 30px;
+    letter-spacing: 4px;
+    color: var(--mf-text);
+    margin: 0; padding: 0;
+}
+.mf-screen .mfs-poll__status--lead { font-size: 56px; }
+
+/* ====================================================================
+   Countdown
+   ==================================================================== */
+.mfs-countdown__side { width: 660px; flex-shrink: 0; }
+.mfs-countdown__clock-head { flex-direction: row; align-items: center; justify-content: space-between; }
+.mf-screen .mfs-clock { font-size: 160px; letter-spacing: 2px; color: var(--mf-forge-hot); -unity-text-align: middle-left; }
+.mfs-countdown__status { flex-direction: row; flex-shrink: 0; height: 215px; margin-top: 24px; }
+.mfs-countdown__status-panel { flex-grow: 1; flex-basis: 0; }
+.mfs-countdown__propellant { width: 440px; flex-shrink: 0; }
+
+/* ====================================================================
+   Flight (HUD docked over a full-frame viewport)
+   ==================================================================== */
+.mfs-flight__frame { flex-grow: 1; }
+.mfs-flight__left { position: absolute; left: 0; top: 0; width: 430px; }
+.mfs-flight__right { position: absolute; right: 0; top: 0; width: 400px; }
+.mfs-flight__centre { position: absolute; left: 454px; right: 424px; top: 0; }
+.mfs-flight__bottom { position: absolute; left: 454px; right: 424px; bottom: 0; flex-direction: row; justify-content: center; }
+.mf-screen .mfs-hud { padding: 16px 20px 18px 20px; margin-bottom: 16px; }
+.mfs-hud .mf-panel__header { margin-bottom: 10px; padding-bottom: 10px; }
+.mf-screen .mfs-hud--last { margin-bottom: 0; }
+.mfs-flight__clock { flex-direction: row; align-items: flex-end; margin-top: 4px; }
+.mfs-flight__clock > .mf-unit { margin-bottom: 6px; }
+.mfs-flight__map { height: 190px; }
+.mfs-banner {
+    flex-direction: row;
+    align-items: center;
+    padding: 12px 20px;
+    background-color: var(--mf-glass-raised);
+    border-width: 1px;
+    border-color: var(--mf-forge);
+    border-left-width: 5px;
+    border-radius: 3px 14px 3px 14px;
+}
+.mf-screen .mfs-banner__text { flex-grow: 1; flex-basis: 0; margin-left: 16px; }
+.mfs-banner__timer { flex-direction: row; align-items: flex-end; flex-shrink: 0; margin-left: 16px; }
+.mfs-flight__attitude { width: 640px; }
+.mfs-flight__attitude-body { flex-direction: row; align-items: center; }
+.mfs-navball {
+    width: 150px; height: 150px;
+    flex-shrink: 0;
+    margin-right: 22px;
+    border-radius: 75px;
+    border-width: 2px;
+    border-color: var(--mf-line-strong);
+    background-color: rgba(4, 7, 14, 0.55);
+    align-items: center;
+    justify-content: center;
+}
+.mfs-navball__horizon { position: absolute; left: 14px; right: 14px; top: 72px; height: 2px; background-color: var(--mf-line-strong); }
+.mfs-navball__marker { width: 18px; height: 18px; border-radius: 9px; border-width: 2px; border-color: var(--mf-forge); }
+.mfs-flight__attitude-readouts { flex-grow: 1; flex-basis: 0; }
+.mfs-throttle-col { align-items: center; flex-shrink: 0; margin-left: 22px; }
+.mfs-throttle {
+    width: 34px; height: 104px;
+    margin-bottom: 6px;
+    justify-content: flex-end;
+    background-color: rgba(138, 180, 255, 0.12);
+    border-radius: 3px;
+    overflow: hidden;
+}
+.mfs-throttle__fill {
+    background-color: var(--mf-forge);
+    transition-property: height;
+    transition-duration: 0.2s;
+}
+
+/* ====================================================================
+   Minigame Overlay
+   ==================================================================== */
+.mfs-minigame__card { width: 1120px; }
+.mfs-minigame__head { flex-direction: row; align-items: flex-end; justify-content: space-between; margin-bottom: 20px; }
+.mfs-minigame__chips { flex-direction: row; align-items: center; margin-top: 10px; }
+.mfs-minigame__body { flex-direction: row; height: 250px; margin-bottom: 20px; }
+.mfs-minigame__ladder { width: 400px; flex-shrink: 0; margin-left: 24px; }
+.mfs-tier {
+    flex-direction: row;
+    align-items: center;
+    flex-grow: 1;
+    margin-bottom: 8px;
+    padding: 0 16px;
+    background-color: rgba(18, 28, 48, 0.62);
+    border-width: 1px;
+    border-color: var(--mf-line);
+    border-left-width: 4px;
+    border-left-color: var(--mf-line-strong);
+    border-radius: 3px 12px 3px 3px;
+    transition-property: border-color, background-color;
+    transition-duration: 0.25s;
+}
+.mfs-tier--last { margin-bottom: 0; }
+.mfs-tier--reached { border-color: var(--mf-forge); background-color: var(--mf-forge-soft); }
+.mfs-tier__name {
+    flex-grow: 1;
+    -unity-font-definition: var(--mf-font-display);
+    font-size: 24px;
+    letter-spacing: 4px;
+    color: var(--mf-text);
+    margin: 0; padding: 0;
+}
+.mfs-tier__rule {
+    -unity-font-definition: var(--mf-font-mono);
+    font-size: 18px;
+    letter-spacing: 1px;
+    color: var(--mf-text-dim);
+    margin: 0; padding: 0;
+}
+.mfs-minigame__progress { margin-bottom: 20px; }
+.mfs-minigame__result { flex-direction: row; }
+.mfs-minigame__result-slot { width: 300px; flex-shrink: 0; margin-right: 24px; }
+
+/* ====================================================================
+   Orbit Map
+   ==================================================================== */
+.mfs-orbit__side { width: 520px; flex-shrink: 0; }
+.mfs-orbit__dock { flex-shrink: 0; margin-top: 24px; }
+.mfs-orbit__elements-row { flex-direction: row; margin-bottom: 12px; }
+.mfs-orbit__warp { flex-direction: row; align-items: flex-end; margin-right: 24px; }
+
+/* ====================================================================
+   Debrief
+   ==================================================================== */
+.mfs-debrief__col { width: 520px; flex-shrink: 0; }
+.mfs-debrief__grade-row { flex-direction: row; align-items: center; flex-shrink: 0; }
+.mfs-grade {
+    width: 180px;
+    flex-shrink: 0;
+    -unity-font-definition: var(--mf-font-display-heavy);
+    font-size: 170px;
+    color: var(--mf-forge);
+    -unity-text-align: middle-center;
+    margin: 0 18px 0 0; padding: 0;
+}
+.mfs-grade__title {
+    -unity-font-definition: var(--mf-font-display);
+    font-size: 26px;
+    letter-spacing: 3px;
+    color: var(--mf-text);
+    white-space: normal;
+    margin: 4px 0 18px 0; padding: 0;
+}
+.mfs-gradeline { flex-direction: row; align-items: center; min-height: 36px; }
+.mfs-gradeline--on { background-color: var(--mf-forge-soft); }
+.mfs-gradeline__letter {
+    width: 44px;
+    flex-shrink: 0;
+    -unity-font-definition: var(--mf-font-mono-bold);
+    font-size: 24px;
+    color: var(--mf-accent);
+    margin: 0; padding: 0;
+}
+.mfs-gradeline__title {
+    -unity-font-definition: var(--mf-font-body);
+    font-size: 22px;
+    color: var(--mf-text-dim);
+    margin: 0; padding: 0;
+}
+.mfs-score-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 44px;
+    border-bottom-width: 1px;
+    border-bottom-color: rgba(138, 180, 255, 0.12);
+}
+.mfs-score-row--total { min-height: 66px; border-bottom-width: 0; border-top-width: 2px; border-top-color: var(--mf-forge); margin-top: 6px; }
+.mfs-awards { flex-direction: row; flex-wrap: wrap; flex-shrink: 0; margin-bottom: 10px; }
+.mfs-award { flex-direction: row; align-items: center; width: 50%; min-height: 40px; }
+.mfs-award__name {
+    -unity-font-definition: var(--mf-font-body-medium);
+    font-size: 22px;
+    color: var(--mf-text);
+    margin: 0 0 0 12px; padding: 0;
+}
+
+/* ====================================================================
+   Codex
+   ==================================================================== */
+.mfs-codex__rail { width: 340px; flex-shrink: 0; }
+.mfs-codex__list { width: 520px; flex-shrink: 0; }
+.mfs-codex__units { flex-direction: row; align-items: center; }
+.mfs-codex__units-toggle { width: 260px; margin: 0 24px 0 16px; }
+.mfs-rail__item {
+    -unity-font-definition: var(--mf-font-display-medium);
+    font-size: 24px;
+    letter-spacing: 3px;
+    color: var(--mf-text-dim);
+    margin: 0 0 8px 0;
+    padding: 14px 16px;
+    border-left-width: 3px;
+    border-left-color: var(--mf-line);
+    background-color: rgba(18, 28, 48, 0.45);
+}
+.mfs-rail__item--on { color: var(--mf-text); border-left-color: var(--mf-forge); background-color: var(--mf-forge-soft); }
+.mfs-entry {
+    flex-direction: row;
+    align-items: center;
+    flex-shrink: 0;
+    min-height: 84px;
+    padding: 10px 0;
+    border-bottom-width: 1px;
+    border-bottom-color: rgba(138, 180, 255, 0.10);
+}
+.mfs-entry__thumb { width: 64px; height: 64px; flex-shrink: 0; margin-right: 18px; border-radius: 4px; background-color: rgba(138, 180, 255, 0.10); }
+.mfs-entry__lines { flex-grow: 1; flex-basis: 0; }
+.mfs-codex__list-scroll { flex-grow: 1; margin-bottom: 12px; }
+.mfs-codex__detail-head { flex-direction: row; flex-shrink: 0; margin-bottom: 18px; }
+.mfs-codex__illustration { width: 340px; height: 230px; margin-right: 24px; }
+.mfs-codex__title { flex-grow: 1; flex-basis: 0; justify-content: flex-end; }
+.mfs-codex__notes { flex-direction: row; flex-shrink: 0; height: 130px; margin: 14px 0; }
+
+/* ====================================================================
+   Campaign Hub
+   ==================================================================== */
+.mfs-hub__side { width: 520px; flex-shrink: 0; }
+.mfs-hub__lower { flex-direction: row; flex-shrink: 0; height: 290px; margin-top: 24px; }
+.mfs-hub__inventory { width: 420px; flex-shrink: 0; }
+.mfs-hub__offers { flex-direction: row; flex-grow: 1; }
+.mfs-hub__offer { flex-grow: 1; flex-basis: 0; margin-right: 16px; }
+.mfs-hub__offer > .mf-region { margin-top: 12px; }
+.mfs-hub__locked { width: 250px; }
+.mfs-hub__agency { flex-direction: row; align-items: center; flex-shrink: 0; margin: 12px 0 16px 0; }
+.mfs-hub__logo { width: 120px; height: 120px; margin-right: 20px; }
+.mfs-hub__milestones { flex-direction: row; flex-wrap: wrap; flex-shrink: 0; margin-bottom: 12px; }
+
+/* ====================================================================
+   Settings
+   ==================================================================== */
+.mfs-settings__columns { flex-direction: row; }
+.mfs-settings__side { width: 520px; flex-shrink: 0; }
+.mfs-setting-row { flex-direction: row; align-items: center; margin-bottom: 10px; }
+.mfs-setting-row__label {
+    width: 250px;
+    flex-shrink: 0;
+    -unity-font-definition: var(--mf-font-body-medium);
+    font-size: 22px;
+    color: var(--mf-text-dim);
+    white-space: normal;
+    margin: 0; padding: 0;
+}
+.mfs-setting-row--narrow > .mfs-setting-row__label { width: 156px; }
+.mfs-setting-row > .mf-segment { flex-grow: 1; flex-basis: 0; }

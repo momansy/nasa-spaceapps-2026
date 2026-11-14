@@ -1,0 +1,224 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement name="screen" class="mf-screen">
+        <ui:VisualElement name="kicker" class="mfs-kicker">
+            <ui:VisualElement class="mfs-kicker__group">
+                <ui:VisualElement class="mfs-kicker__rule" />
+                <ui:Label class="mf-h3" text="PHASE D · GO / NO-GO POLL" />
+                <ui:Label class="mf-caption mfs-kicker__note" text="FLIGHT CALLS EACH CONSOLE IN TURN" />
+            </ui:VisualElement>
+            <ui:VisualElement name="poll-legend" class="mfs-kicker__group">
+                <ui:VisualElement class="mf-chip mf-chip--good mfs-gap-right-sm">
+                    <ui:VisualElement class="mfs-mark mfs-mark--good" />
+                    <ui:Label class="mf-chip__label" text="GO" />
+                </ui:VisualElement>
+                <ui:VisualElement class="mf-chip mf-chip--bad mfs-gap-right-sm">
+                    <ui:VisualElement class="mfs-mark mfs-mark--bad" />
+                    <ui:Label class="mf-chip__label" text="NO-GO" />
+                </ui:VisualElement>
+                <ui:VisualElement class="mf-chip mf-chip--muted">
+                    <ui:VisualElement class="mfs-mark mfs-mark--idle" />
+                    <ui:Label class="mf-chip__label" text="WAITING" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <ui:VisualElement name="frr-body" class="mf-row mf-grow">
+            <ui:VisualElement name="poll-board" class="mf-panel mf-panel--raised mf-grow mf-gap-right">
+                <ui:VisualElement class="mf-panel__header">
+                    <ui:Label class="mf-panel__title" text="CONSOLE POLL" />
+                    <ui:Label class="mf-panel__tag" text="3.3 ROLES · 6.9 FRR" />
+                </ui:VisualElement>
+                <ui:VisualElement class="mf-panel__body mf-row">
+                    <ui:VisualElement name="poll-flight" class="mfs-poll mfs-poll--lead mfs-frr__lead">
+                        <ui:VisualElement>
+                            <ui:Label class="mf-h1" text="FLIGHT" />
+                            <ui:Label class="mfs-poll__role" text="FLIGHT DIRECTOR" />
+                            <ui:Label class="mfs-poll__role mfs-gap-top-sm" text="CALLS THE POLL" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="poll-progress" class="mf-region mfs-region--tight mfs-gap-top-sm mfs-gap-bottom-sm">
+                            <ui:Label class="mf-region__label" text="Console being called · player on that console" />
+                        </ui:VisualElement>
+                        <ui:Label name="poll-flight-status" class="mfs-poll__status mfs-poll__status--lead" text="—" />
+                    </ui:VisualElement>
+
+                    <ui:VisualElement name="poll-grid" class="mfs-frr__grid">
+                        <ui:VisualElement class="mfs-frr__grid-row">
+                            <ui:VisualElement name="poll-booster" class="mfs-poll">
+                                <ui:VisualElement>
+                                    <ui:Label class="mf-h2" text="BOOSTER" />
+                                    <ui:Label class="mfs-poll__role" text="PROPULSION" />
+                                </ui:VisualElement>
+                                <ui:Label name="poll-booster-status" class="mfs-poll__status" text="—" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="poll-struct" class="mfs-poll">
+                                <ui:VisualElement>
+                                    <ui:Label class="mf-h2" text="STRUCT" />
+                                    <ui:Label class="mfs-poll__role" text="STRUCTURES" />
+                                </ui:VisualElement>
+                                <ui:Label name="poll-struct-status" class="mfs-poll__status" text="—" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="poll-guido" class="mfs-poll mfs-poll--last">
+                                <ui:VisualElement>
+                                    <ui:Label class="mf-h2" text="GUIDO" />
+                                    <ui:Label class="mfs-poll__role" text="GUIDANCE" />
+                                </ui:VisualElement>
+                                <ui:Label name="poll-guido-status" class="mfs-poll__status" text="—" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="mfs-frr__grid-row">
+                            <ui:VisualElement name="poll-fido" class="mfs-poll">
+                                <ui:VisualElement>
+                                    <ui:Label class="mf-h2" text="FIDO" />
+                                    <ui:Label class="mfs-poll__role" text="FLIGHT DYNAMICS" />
+                                </ui:VisualElement>
+                                <ui:Label name="poll-fido-status" class="mfs-poll__status" text="—" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="poll-eecom" class="mfs-poll">
+                                <ui:VisualElement>
+                                    <ui:Label class="mf-h2" text="EECOM" />
+                                    <ui:Label class="mfs-poll__role" text="POWER &amp; LIFE SUPPORT" />
+                                </ui:VisualElement>
+                                <ui:Label name="poll-eecom-status" class="mfs-poll__status" text="—" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="poll-inco" class="mfs-poll mfs-poll--last">
+                                <ui:VisualElement>
+                                    <ui:Label class="mf-h2" text="INCO" />
+                                    <ui:Label class="mfs-poll__role" text="COMMUNICATIONS" />
+                                </ui:VisualElement>
+                                <ui:Label name="poll-inco-status" class="mfs-poll__status" text="—" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="mfs-frr__grid-row mfs-frr__grid-row--last">
+                            <ui:VisualElement name="poll-payload" class="mfs-poll">
+                                <ui:VisualElement>
+                                    <ui:Label class="mf-h2" text="PAYLOAD" />
+                                    <ui:Label class="mfs-poll__role" text="PAYLOAD &amp; SCIENCE" />
+                                </ui:VisualElement>
+                                <ui:Label name="poll-payload-status" class="mfs-poll__status" text="—" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="poll-retro" class="mfs-poll">
+                                <ui:VisualElement>
+                                    <ui:Label class="mf-h2" text="RETRO" />
+                                    <ui:Label class="mfs-poll__role" text="REENTRY &amp; RECOVERY" />
+                                </ui:VisualElement>
+                                <ui:Label name="poll-retro-status" class="mfs-poll__status" text="—" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="poll-pm" class="mfs-poll mfs-poll--last">
+                                <ui:VisualElement>
+                                    <ui:Label class="mf-h2" text="PM" />
+                                    <ui:Label class="mfs-poll__role" text="PROGRAM MANAGER" />
+                                </ui:VisualElement>
+                                <ui:Label name="poll-pm-status" class="mfs-poll__status" text="—" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <ui:VisualElement name="readiness-panel" class="mf-panel mfs-frr__summary">
+                <ui:VisualElement class="mf-panel__header">
+                    <ui:Label class="mf-panel__title" text="READINESS SUMMARY" />
+                    <ui:Label class="mf-panel__tag" text="6.3 READINESS" />
+                </ui:VisualElement>
+                <ui:VisualElement class="mf-panel__body">
+                    <ui:VisualElement class="mf-row mfs-gap-bottom-sm mfs-fixed">
+                        <ui:VisualElement class="mfs-readout">
+                            <ui:Label class="mf-caption" text="EST. SUCCESS" />
+                            <ui:VisualElement class="mfs-readout__value mfs-readout__value--xl">
+                                <ui:Label name="readiness-success" class="mf-num mfs-num--lg" text="—" />
+                                <ui:Label class="mf-unit" text="%" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="mfs-readout mfs-readout--auto mfs-readout--divided">
+                            <ui:Label class="mf-caption" text="UNCERTAINTY" />
+                            <ui:VisualElement class="mfs-readout__value mfs-readout__value--xl">
+                                <ui:Label class="mf-unit mfs-unit--prefix" text="±" />
+                                <ui:Label name="readiness-success-band" class="mf-num mfs-num--lg" text="—" />
+                                <ui:Label class="mf-unit" text="%" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement class="mfs-metric">
+                        <ui:Label class="mfs-metric__name" text="∆v MARGIN" />
+                        <ui:VisualElement class="mfs-metric__value">
+                            <ui:Label name="readiness-delta-v-margin" class="mf-num mf-num--small" text="—" />
+                            <ui:Label class="mf-unit" text="%" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement class="mfs-metric">
+                        <ui:Label class="mfs-metric__name" text="LIFT-OFF TWR" />
+                        <ui:VisualElement class="mfs-metric__value">
+                            <ui:Label name="readiness-liftoff-twr" class="mf-num mf-num--small" text="—" />
+                            <ui:Label class="mf-unit" text="–" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement class="mfs-metric">
+                        <ui:Label class="mfs-metric__name" text="BUDGET LEFT" />
+                        <ui:VisualElement class="mfs-metric__value">
+                            <ui:Label name="readiness-budget-left" class="mf-num mf-num--small" text="—" />
+                            <ui:Label class="mf-unit" text="$M" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement class="mfs-metric">
+                        <ui:Label class="mfs-metric__name" text="SCHEDULE MARGIN" />
+                        <ui:VisualElement class="mfs-metric__value">
+                            <ui:Label name="readiness-schedule-margin" class="mf-num mf-num--small" text="—" />
+                            <ui:Label class="mf-unit" text="days" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement class="mfs-metric mfs-metric--last mfs-gap-bottom-sm">
+                        <ui:Label class="mfs-metric__name" text="OPEN ISSUES" />
+                        <ui:VisualElement class="mfs-metric__value">
+                            <ui:Label name="readiness-open-issues" class="mf-num mf-num--small" text="—" />
+                            <ui:Label class="mf-unit" text="issues" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="readiness-warnings" class="mf-region">
+                        <ui:Label class="mf-region__label" text="Warnings and unresolved issues, seen first by FLIGHT" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <ui:VisualElement name="decision-strip" class="mfs-strip">
+            <ui:VisualElement name="decision-panel" class="mf-panel mf-grow">
+                <ui:VisualElement class="mf-panel__header">
+                    <ui:Label class="mf-panel__title" text="FINAL DECISION" />
+                    <ui:Label class="mf-panel__tag" text="6.9 GO / NO-GO" />
+                </ui:VisualElement>
+                <ui:VisualElement class="mf-panel__body mf-row mf-align-center">
+                    <ui:VisualElement class="mfs-readout mfs-readout--auto">
+                        <ui:Label class="mf-caption" text="GO" />
+                        <ui:VisualElement class="mfs-readout__value">
+                            <ui:Label name="decision-go-count" class="mf-num" text="—" />
+                            <ui:Label class="mf-unit" text="consoles" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement class="mfs-readout mfs-readout--auto mfs-readout--divided">
+                        <ui:Label class="mf-caption" text="NO-GO" />
+                        <ui:VisualElement class="mfs-readout__value">
+                            <ui:Label name="decision-nogo-count" class="mf-num" text="—" />
+                            <ui:Label class="mf-unit" text="consoles" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement class="mfs-readout mfs-readout--auto mfs-readout--divided">
+                        <ui:Label class="mf-caption" text="POLL ROUND" />
+                        <ui:VisualElement class="mfs-readout__value">
+                            <ui:Label name="decision-poll-round" class="mf-num" text="—" />
+                            <ui:Label class="mf-unit" text="of 2" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement class="mfs-readout mfs-readout--divided">
+                        <ui:Label class="mf-caption" text="DECISION" />
+                        <ui:Label name="final-decision" class="mf-h1" text="—" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <ui:VisualElement name="decision-actions" class="mfs-strip__actions">
+                <ui:Button name="btn-start-poll" class="mf-btn mf-btn--primary" text="START POLL" />
+                <ui:Button name="btn-continue" class="mf-btn mf-btn--ghost" text="CONTINUE" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

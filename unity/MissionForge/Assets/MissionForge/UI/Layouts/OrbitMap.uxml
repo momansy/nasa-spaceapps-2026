@@ -1,0 +1,120 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement name="screen" class="mf-screen">
+        <ui:VisualElement name="kicker" class="mfs-kicker">
+            <ui:VisualElement class="mfs-kicker__group">
+                <ui:VisualElement class="mfs-kicker__rule" />
+                <ui:Label class="mf-h3" text="PHASE E · ORBITAL OPERATIONS" />
+                <ui:Label class="mf-caption mfs-kicker__note" text="WHERE WE ARE AND WHERE WE ARE GOING" />
+            </ui:VisualElement>
+            <ui:VisualElement class="mfs-kicker__group">
+                <ui:VisualElement name="time-warp" class="mfs-orbit__warp">
+                    <ui:Label class="mfs-metric__name mfs-gap-right-sm" text="TIME WARP" />
+                    <ui:Label class="mf-unit mfs-unit--prefix" text="×" />
+                    <ui:Label name="time-warp-value" class="mf-num mf-num--small" text="—" />
+                </ui:VisualElement>
+                <ui:Button name="btn-flight-view" class="mf-btn mf-btn--ghost" text="FLIGHT VIEW" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <ui:VisualElement name="orbit-body" class="mf-row mf-grow">
+            <ui:VisualElement name="orbit-main" class="mf-col mf-grow mf-gap-right">
+                <ui:VisualElement name="map-viewport" class="mfs-viewport" picking-mode="Ignore">
+                    <ui:VisualElement class="mfs-viewport__corner mfs-viewport__corner--tl" picking-mode="Ignore" />
+                    <ui:VisualElement class="mfs-viewport__corner mfs-viewport__corner--tr" picking-mode="Ignore" />
+                    <ui:VisualElement class="mfs-viewport__corner mfs-viewport__corner--bl" picking-mode="Ignore" />
+                    <ui:VisualElement class="mfs-viewport__corner mfs-viewport__corner--br" picking-mode="Ignore" />
+                    <ui:Label class="mfs-viewport__tag" text="ORBIT MAP · LIVE 3D" picking-mode="Ignore" />
+                </ui:VisualElement>
+
+                <ui:VisualElement name="maneuver-panel" class="mf-panel mfs-orbit__dock">
+                    <ui:VisualElement class="mf-panel__header">
+                        <ui:Label class="mf-panel__title" text="MANEUVERS" />
+                        <ui:Label class="mf-panel__tag" text="9.1 F8 – F9 BURNS" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="mf-panel__body">
+                        <ui:VisualElement class="mfs-table__head">
+                            <ui:Label class="mfs-th mfs-col--grow" text="MANEUVER" />
+                            <ui:Label class="mfs-th mfs-col--md mfs-right" text="BURN IN s" />
+                            <ui:Label class="mfs-th mfs-col--md mfs-right" text="∆v m/s" />
+                            <ui:Label class="mfs-th mfs-col--md mfs-right" text="BURN TIME s" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="maneuver-list" class="mf-region mfs-region--tight">
+                            <ui:VisualElement class="mf-skeleton mf-skeleton--long" />
+                            <ui:Label class="mf-region__label" text="Planned burns for this contract · suggested maneuver nodes" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <ui:VisualElement name="orbit-side" class="mf-col mfs-orbit__side">
+                <ui:VisualElement name="elements-panel" class="mf-panel mf-panel--raised mfs-fixed">
+                    <ui:VisualElement class="mf-panel__header">
+                        <ui:Label class="mf-panel__title" text="ORBITAL ELEMENTS" />
+                        <ui:Label class="mf-panel__tag" text="9.6 ORBIT" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="mf-panel__body">
+                        <ui:VisualElement class="mfs-orbit__elements-row">
+                            <ui:VisualElement class="mfs-readout">
+                                <ui:Label class="mf-caption" text="APOAPSIS" />
+                                <ui:VisualElement class="mfs-readout__value mfs-readout__value--xl">
+                                    <ui:Label name="orbit-apoapsis" class="mf-num mfs-num--lg" text="—" />
+                                    <ui:Label class="mf-unit" text="km" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                            <ui:VisualElement class="mfs-readout mfs-readout--divided">
+                                <ui:Label class="mf-caption" text="PERIAPSIS" />
+                                <ui:VisualElement class="mfs-readout__value mfs-readout__value--xl">
+                                    <ui:Label name="orbit-periapsis" class="mf-num mfs-num--lg" text="—" />
+                                    <ui:Label class="mf-unit" text="km" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="mfs-orbit__elements-row">
+                            <ui:VisualElement class="mfs-readout">
+                                <ui:Label class="mf-caption" text="INCLINATION" />
+                                <ui:VisualElement class="mfs-readout__value mfs-readout__value--xl">
+                                    <ui:Label name="orbit-inclination" class="mf-num mfs-num--lg" text="—" />
+                                    <ui:Label class="mf-unit" text="°" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                            <ui:VisualElement class="mfs-readout mfs-readout--divided">
+                                <ui:Label class="mf-caption" text="PERIOD" />
+                                <ui:VisualElement class="mfs-readout__value mfs-readout__value--xl">
+                                    <ui:Label name="orbit-period" class="mf-num mfs-num--lg" text="—" />
+                                    <ui:Label class="mf-unit" text="min" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <ui:VisualElement name="passes-panel" class="mf-panel mf-gap-top mf-grow">
+                    <ui:VisualElement class="mf-panel__header">
+                        <ui:Label class="mf-panel__title" text="GROUND STATION PASSES" />
+                        <ui:Label class="mf-panel__tag" text="MG-13" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="mf-panel__body">
+                        <ui:VisualElement class="mfs-metric mfs-gap-bottom-sm">
+                            <ui:Label class="mfs-metric__name" text="NEXT PASS IN" />
+                            <ui:VisualElement class="mfs-metric__value">
+                                <ui:Label name="next-pass-in" class="mf-num mf-num--small" text="—" />
+                                <ui:Label class="mf-unit" text="s" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="mfs-table__head">
+                            <ui:Label class="mfs-th mfs-col--grow" text="STATION" />
+                            <ui:Label class="mfs-th mfs-col--sm mfs-right" text="STARTS IN s" />
+                            <ui:Label class="mfs-th mfs-col--xs mfs-right" text="DATA GB" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="pass-list" class="mf-region">
+                            <ui:VisualElement class="mf-skeleton mf-skeleton--long" />
+                            <ui:VisualElement class="mf-skeleton mf-skeleton--mid" />
+                            <ui:VisualElement class="mf-skeleton mf-skeleton--long" />
+                            <ui:Label class="mf-region__label" text="Upcoming passes · signal strength while in view" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
