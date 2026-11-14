@@ -1,0 +1,201 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement name="screen" class="mf-screen">
+        <ui:VisualElement name="kicker" class="mfs-kicker">
+            <ui:VisualElement class="mfs-kicker__group">
+                <ui:VisualElement class="mfs-kicker__rule" />
+                <ui:Label class="mf-h3" text="GATE REVIEW" />
+                <ui:Label class="mf-caption mfs-kicker__note" text="AUTOMATIC CHECKS, THEN THE CREW DECIDES" />
+            </ui:VisualElement>
+            <ui:VisualElement name="review-gate" class="mfs-kicker__group">
+                <ui:VisualElement name="review-pdr" class="mf-chip mf-chip--muted mfs-gap-right-sm">
+                    <ui:Label class="mf-chip__label" text="PDR · PHASE B" />
+                </ui:VisualElement>
+                <ui:VisualElement name="review-cdr" class="mf-chip mf-chip--muted">
+                    <ui:Label class="mf-chip__label" text="CDR · PHASE C" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <ui:VisualElement name="review-body" class="mf-row mf-grow">
+            <ui:VisualElement name="checklist-panel" class="mf-panel mfs-review__checklist mf-gap-right">
+                <ui:VisualElement class="mf-panel__header">
+                    <ui:Label class="mf-panel__title" text="REVIEW CHECKLIST" />
+                    <ui:Label class="mf-panel__tag" text="6.11 AUTO-CHECKS" />
+                </ui:VisualElement>
+                <ui:VisualElement name="checklist" class="mf-panel__body">
+                    <ui:Label class="mfs-group__title" text="PDR · PROPULSION" />
+                    <ui:VisualElement name="check-liftoff-twr" class="mfs-check">
+                        <ui:VisualElement class="mfs-mark mfs-mark--idle mfs-mark--lead" />
+                        <ui:Label class="mfs-check__text" text="Lift-off TWR above one" />
+                        <ui:Label name="check-liftoff-twr-status" class="mfs-check__status" text="—" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="check-delta-v" class="mfs-check">
+                        <ui:VisualElement class="mfs-mark mfs-mark--idle mfs-mark--lead" />
+                        <ui:Label class="mfs-check__text" text="Total ∆v meets requirement" />
+                        <ui:Label name="check-delta-v-status" class="mfs-check__status" text="—" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="check-restarts" class="mfs-check">
+                        <ui:VisualElement class="mfs-mark mfs-mark--idle mfs-mark--lead" />
+                        <ui:Label class="mfs-check__text" text="Engine restarts cover burns" />
+                        <ui:Label name="check-restarts-status" class="mfs-check__status" text="—" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="check-boil-off" class="mfs-check mfs-gap-bottom-sm">
+                        <ui:VisualElement class="mfs-mark mfs-mark--idle mfs-mark--lead" />
+                        <ui:Label class="mfs-check__text" text="Boil-off handled for coasts" />
+                        <ui:Label name="check-boil-off-status" class="mfs-check__status" text="—" />
+                    </ui:VisualElement>
+
+                    <ui:Label class="mfs-group__title" text="CDR · SUBSYSTEMS" />
+                    <ui:VisualElement name="check-launch-escape" class="mfs-check">
+                        <ui:VisualElement class="mfs-mark mfs-mark--idle mfs-mark--lead" />
+                        <ui:Label class="mfs-check__text" text="Crew launch escape fitted" />
+                        <ui:Label name="check-launch-escape-status" class="mfs-check__status" text="—" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="check-heat-shield" class="mfs-check">
+                        <ui:VisualElement class="mfs-mark mfs-mark--idle mfs-mark--lead" />
+                        <ui:Label class="mfs-check__text" text="Heat shield fitted" />
+                        <ui:Label name="check-heat-shield-status" class="mfs-check__status" text="—" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="check-entry-speed" class="mfs-check">
+                        <ui:VisualElement class="mfs-mark mfs-mark--idle mfs-mark--lead" />
+                        <ui:Label class="mfs-check__text" text="Shield rated for entry speed" />
+                        <ui:Label name="check-entry-speed-status" class="mfs-check__status" text="—" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="check-fairing-fit" class="mfs-check">
+                        <ui:VisualElement class="mfs-mark mfs-mark--idle mfs-mark--lead" />
+                        <ui:Label class="mfs-check__text" text="Payload fits the fairing" />
+                        <ui:Label name="check-fairing-fit-status" class="mfs-check__status" text="—" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="check-eclipse-power" class="mfs-check">
+                        <ui:VisualElement class="mfs-mark mfs-mark--idle mfs-mark--lead" />
+                        <ui:Label class="mfs-check__text" text="Power positive in eclipse" />
+                        <ui:Label name="check-eclipse-power-status" class="mfs-check__status" text="—" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="check-downlink" class="mfs-check mfs-gap-bottom-sm">
+                        <ui:VisualElement class="mfs-mark mfs-mark--idle mfs-mark--lead" />
+                        <ui:Label class="mfs-check__text" text="Downlink covers the data" />
+                        <ui:Label name="check-downlink-status" class="mfs-check__status" text="—" />
+                    </ui:VisualElement>
+
+                    <ui:VisualElement name="checklist-note" class="mf-region mfs-region--fixed">
+                        <ui:Label class="mf-region__label" text="Each check resolves to pass or an issue · checks that do not apply to this contract are hidden" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <ui:VisualElement name="review-main" class="mf-col mf-grow">
+                <ui:VisualElement name="issues-panel" class="mf-panel mf-panel--raised mf-grow">
+                    <ui:VisualElement class="mf-panel__header">
+                        <ui:Label class="mf-panel__title" text="OPEN ISSUES" />
+                        <ui:Label class="mf-panel__tag" text="6.9 SEVERITY" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="mf-panel__body">
+                        <ui:VisualElement name="issue-counts" class="mfs-review__counts">
+                            <ui:VisualElement name="issue-count-blocker" class="mfs-tile mfs-review__count">
+                                <ui:VisualElement>
+                                    <ui:VisualElement class="mf-chip mf-chip--bad">
+                                        <ui:VisualElement class="mfs-mark mfs-mark--bad" />
+                                        <ui:Label class="mf-chip__label" text="BLOCKER" />
+                                    </ui:VisualElement>
+                                    <ui:Label class="mfs-note" text="CAN'T FLY" />
+                                </ui:VisualElement>
+                                <ui:VisualElement class="mfs-metric__value">
+                                    <ui:Label name="issue-count-blocker-value" class="mf-num" text="—" />
+                                    <ui:Label class="mf-unit" text="issues" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                            <ui:VisualElement name="issue-count-major" class="mfs-tile mfs-review__count">
+                                <ui:VisualElement>
+                                    <ui:VisualElement class="mf-chip mf-chip--warn">
+                                        <ui:VisualElement class="mfs-mark mfs-mark--warn" />
+                                        <ui:Label class="mf-chip__label" text="MAJOR" />
+                                    </ui:VisualElement>
+                                    <ui:Label class="mfs-note" text="HIGH RISK" />
+                                </ui:VisualElement>
+                                <ui:VisualElement class="mfs-metric__value">
+                                    <ui:Label name="issue-count-major-value" class="mf-num" text="—" />
+                                    <ui:Label class="mf-unit" text="issues" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                            <ui:VisualElement name="issue-count-minor" class="mfs-tile mfs-review__count mfs-review__count--last">
+                                <ui:VisualElement>
+                                    <ui:VisualElement class="mf-chip mf-chip--muted">
+                                        <ui:VisualElement class="mfs-mark mfs-mark--idle" />
+                                        <ui:Label class="mf-chip__label" text="MINOR" />
+                                    </ui:VisualElement>
+                                    <ui:Label class="mfs-note" text="WORTH KNOWING" />
+                                </ui:VisualElement>
+                                <ui:VisualElement class="mfs-metric__value">
+                                    <ui:Label name="issue-count-minor-value" class="mf-num" text="—" />
+                                    <ui:Label class="mf-unit" text="issues" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+
+                        <ui:VisualElement class="mfs-table__head">
+                            <ui:Label class="mfs-th mfs-col--md" text="SEVERITY" />
+                            <ui:Label class="mfs-th mfs-col--grow" text="ISSUE" />
+                            <ui:Label class="mfs-th mfs-col--lg" text="CATEGORY" />
+                            <ui:Label class="mfs-th mfs-col--sm mfs-right" text="FIX $M" />
+                            <ui:Label class="mfs-th mfs-col--sm mfs-right" text="FIX DAYS" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="issue-list" class="mf-region">
+                            <ui:VisualElement class="mf-skeleton mf-skeleton--long" />
+                            <ui:VisualElement class="mf-skeleton mf-skeleton--mid" />
+                            <ui:VisualElement class="mf-skeleton mf-skeleton--long" />
+                            <ui:VisualElement class="mf-skeleton mf-skeleton--short" />
+                            <ui:Label class="mf-region__label" text="Issues from the automatic checks, worst first, each with the one-line explanation shown to players · a rework reopens one category for a re-vote at a cost in days and a re-integration fee" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <ui:VisualElement name="review-strip" class="mfs-strip">
+                    <ui:VisualElement name="review-vote-panel" class="mf-panel mf-grow">
+                        <ui:VisualElement class="mf-panel__header">
+                            <ui:Label class="mf-panel__title" text="REVIEW DECISION" />
+                            <ui:Label class="mf-panel__tag" text="6.9 PASS / REWORK" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="mf-panel__body mf-row">
+                            <ui:VisualElement name="tally-pass" class="mfs-tally">
+                                <ui:VisualElement class="mfs-tally__head">
+                                    <ui:Label class="mf-caption" text="PASS" />
+                                    <ui:VisualElement class="mfs-tally__count">
+                                        <ui:Label name="tally-pass-votes" class="mf-num mf-num--small" text="—" />
+                                        <ui:Label class="mf-unit" text="votes" />
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                                <ui:VisualElement class="mfs-tally__track">
+                                    <ui:VisualElement name="tally-pass-fill" class="mfs-tally__fill" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                            <ui:VisualElement name="tally-rework" class="mfs-tally mfs-tally--last">
+                                <ui:VisualElement class="mfs-tally__head">
+                                    <ui:Label class="mf-caption" text="REWORK" />
+                                    <ui:VisualElement class="mfs-tally__count">
+                                        <ui:Label name="tally-rework-votes" class="mf-num mf-num--small" text="—" />
+                                        <ui:Label class="mf-unit" text="votes" />
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                                <ui:VisualElement class="mfs-tally__track">
+                                    <ui:VisualElement name="tally-rework-fill" class="mfs-tally__fill" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                            <ui:VisualElement class="mfs-readout mfs-readout--auto mfs-readout--divided">
+                                <ui:Label class="mf-caption" text="TIMER" />
+                                <ui:VisualElement class="mfs-readout__value">
+                                    <ui:Label name="vote-timer" class="mf-num" text="—" />
+                                    <ui:Label class="mf-unit" text="s" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+
+                    <ui:VisualElement name="review-actions" class="mfs-strip__actions">
+                        <ui:Button name="btn-start-vote" class="mf-btn mf-btn--primary" text="START VOTE" />
+                        <ui:Button name="btn-continue" class="mf-btn mf-btn--ghost" text="CONTINUE" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

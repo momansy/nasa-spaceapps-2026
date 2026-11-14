@@ -1,0 +1,300 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement name="screen" class="mf-screen">
+        <ui:VisualElement name="buildbay-body" class="mf-row mf-grow">
+
+            <ui:VisualElement name="dashboard" class="mf-panel mf-panel--raised mfs-buildbay__dashboard mf-gap-right">
+                <ui:VisualElement class="mf-panel__header">
+                    <ui:Label class="mf-panel__title" text="READINESS DASHBOARD" />
+                    <ui:Label class="mf-panel__tag" text="6.3 READINESS" />
+                </ui:VisualElement>
+                <ui:VisualElement class="mf-panel__body">
+                    <ui:VisualElement name="dashboard-hero" class="mfs-buildbay__hero">
+                        <ui:VisualElement class="mfs-readout">
+                            <ui:Label class="mf-caption" text="EST. MISSION SUCCESS" />
+                            <ui:VisualElement class="mfs-readout__value mfs-readout__value--xl">
+                                <ui:Label name="metric-success-value" class="mf-num mfs-num--lg" text="—" />
+                                <ui:Label class="mf-unit" text="%" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="mfs-readout mfs-readout--auto mfs-readout--divided">
+                            <ui:Label class="mf-caption" text="UNCERTAINTY" />
+                            <ui:VisualElement class="mfs-readout__value mfs-readout__value--xl">
+                                <ui:Label class="mf-unit mfs-unit--prefix" text="±" />
+                                <ui:Label name="metric-success-band" class="mf-num mfs-num--lg" text="—" />
+                                <ui:Label class="mf-unit" text="%" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+
+                    <ui:VisualElement name="dashboard-legend" class="mfs-legend">
+                        <ui:VisualElement class="mf-chip mf-chip--good mfs-chip-gap">
+                            <ui:VisualElement class="mfs-mark mfs-mark--good" />
+                            <ui:Label class="mf-chip__label" text="MEETS REQUIREMENT" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="mf-chip mf-chip--warn mfs-chip-gap">
+                            <ui:VisualElement class="mfs-mark mfs-mark--warn" />
+                            <ui:Label class="mf-chip__label" text="MARGINAL" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="mf-chip mf-chip--bad mfs-chip-gap">
+                            <ui:VisualElement class="mfs-mark mfs-mark--bad" />
+                            <ui:Label class="mf-chip__label" text="FAILS" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+
+                    <ui:VisualElement name="dashboard-vehicle" class="mfs-group mfs-stats mfs-gap-top-sm">
+                        <ui:Label class="mfs-group__title" text="VEHICLE" />
+                        <ui:VisualElement name="metric-delta-v" class="mf-statbar">
+                            <ui:Label class="mf-statbar__label" text="Total ∆v" />
+                            <ui:VisualElement class="mf-statbar__track">
+                                <ui:VisualElement name="metric-delta-v-fill" class="mf-statbar__fill" />
+                            </ui:VisualElement>
+                            <ui:Label name="metric-delta-v-value" class="mf-statbar__value mf-num" text="—" />
+                            <ui:Label class="mf-unit" text="m/s" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="metric-liftoff-twr" class="mf-statbar">
+                            <ui:Label class="mf-statbar__label" text="Lift-off TWR" />
+                            <ui:VisualElement class="mf-statbar__track">
+                                <ui:VisualElement name="metric-liftoff-twr-fill" class="mf-statbar__fill" />
+                            </ui:VisualElement>
+                            <ui:Label name="metric-liftoff-twr-value" class="mf-statbar__value mf-num" text="—" />
+                            <ui:Label class="mf-unit" text="–" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="metric-upper-twr" class="mf-statbar">
+                            <ui:Label class="mf-statbar__label" text="Upper stage TWR" />
+                            <ui:VisualElement class="mf-statbar__track">
+                                <ui:VisualElement name="metric-upper-twr-fill" class="mf-statbar__fill" />
+                            </ui:VisualElement>
+                            <ui:Label name="metric-upper-twr-value" class="mf-statbar__value mf-num" text="—" />
+                            <ui:Label class="mf-unit" text="–" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="metric-mass" class="mf-statbar">
+                            <ui:Label class="mf-statbar__label" text="Total mass" />
+                            <ui:VisualElement class="mf-statbar__track">
+                                <ui:VisualElement name="metric-mass-fill" class="mf-statbar__fill" />
+                            </ui:VisualElement>
+                            <ui:Label name="metric-mass-value" class="mf-statbar__value mf-num" text="—" />
+                            <ui:Label class="mf-unit" text="t" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="metric-cost" class="mf-statbar">
+                            <ui:Label class="mf-statbar__label" text="Cost" />
+                            <ui:VisualElement class="mf-statbar__track">
+                                <ui:VisualElement name="metric-cost-fill" class="mf-statbar__fill" />
+                            </ui:VisualElement>
+                            <ui:Label name="metric-cost-value" class="mf-statbar__value mf-num" text="—" />
+                            <ui:Label class="mf-unit" text="$M" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="metric-schedule" class="mf-statbar">
+                            <ui:Label class="mf-statbar__label" text="Schedule" />
+                            <ui:VisualElement class="mf-statbar__track">
+                                <ui:VisualElement name="metric-schedule-fill" class="mf-statbar__fill" />
+                            </ui:VisualElement>
+                            <ui:Label name="metric-schedule-value" class="mf-statbar__value mf-num" text="—" />
+                            <ui:Label class="mf-unit" text="days" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+
+                    <ui:VisualElement name="dashboard-spacecraft" class="mfs-group mfs-stats">
+                        <ui:Label class="mfs-group__title" text="SPACECRAFT &amp; ENTRY" />
+                        <ui:VisualElement name="metric-power" class="mf-statbar">
+                            <ui:Label class="mf-statbar__label" text="Power balance" />
+                            <ui:VisualElement class="mf-statbar__track">
+                                <ui:VisualElement name="metric-power-fill" class="mf-statbar__fill" />
+                            </ui:VisualElement>
+                            <ui:Label name="metric-power-value" class="mf-statbar__value mf-num" text="—" />
+                            <ui:Label class="mf-unit" text="W" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="metric-data" class="mf-statbar">
+                            <ui:Label class="mf-statbar__label" text="Data budget" />
+                            <ui:VisualElement class="mf-statbar__track">
+                                <ui:VisualElement name="metric-data-fill" class="mf-statbar__fill" />
+                            </ui:VisualElement>
+                            <ui:Label name="metric-data-value" class="mf-statbar__value mf-num" text="—" />
+                            <ui:Label class="mf-unit" text="GB/day" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="metric-entry-speed" class="mf-statbar">
+                            <ui:Label class="mf-statbar__label" text="Entry rating" />
+                            <ui:VisualElement class="mf-statbar__track">
+                                <ui:VisualElement name="metric-entry-speed-fill" class="mf-statbar__fill" />
+                            </ui:VisualElement>
+                            <ui:Label name="metric-entry-speed-value" class="mf-statbar__value mf-num" text="—" />
+                            <ui:Label class="mf-unit" text="km/s" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="metric-stability" class="mf-statbar">
+                            <ui:Label class="mf-statbar__label" text="Stability" />
+                            <ui:VisualElement class="mf-statbar__track">
+                                <ui:VisualElement name="metric-stability-fill" class="mf-statbar__fill" />
+                            </ui:VisualElement>
+                            <ui:Label name="metric-stability-value" class="mf-statbar__value mf-num" text="—" />
+                            <ui:Label class="mf-unit" text="–" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+
+                    <ui:VisualElement name="dashboard-preview" class="mf-region">
+                        <ui:Label class="mf-region__label" text="Preview delta for the leading option · warnings" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <ui:VisualElement name="buildbay-main" class="mf-col mf-grow">
+                <ui:VisualElement name="phase-tracker" class="mfs-buildbay__tracker">
+                    <ui:Label class="mf-caption mfs-gap-right-sm" text="PHASE" />
+                    <ui:VisualElement name="phase-a" class="mf-chip mf-chip--muted mfs-gap-right-sm">
+                        <ui:Label class="mf-chip__label" text="A" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="phase-b" class="mf-chip mf-chip--muted mfs-gap-right-sm">
+                        <ui:Label class="mf-chip__label" text="B · PDR" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="phase-c" class="mf-chip mf-chip--muted mfs-gap-right-sm">
+                        <ui:Label class="mf-chip__label" text="C · CDR" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="phase-d" class="mf-chip mf-chip--muted">
+                        <ui:Label class="mf-chip__label" text="D · FRR" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="objectives" class="mfs-buildbay__objective">
+                        <ui:Label class="mf-caption mfs-gap-right-sm" text="OBJECTIVE" />
+                        <ui:Label name="objective-primary" class="mf-body" text="—" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <ui:VisualElement name="buildbay-centre" class="mf-row mf-grow">
+                    <ui:VisualElement name="rocket-viewport" class="mfs-viewport mf-gap-right" picking-mode="Ignore">
+                        <ui:VisualElement class="mfs-viewport__corner mfs-viewport__corner--tl" picking-mode="Ignore" />
+                        <ui:VisualElement class="mfs-viewport__corner mfs-viewport__corner--tr" picking-mode="Ignore" />
+                        <ui:VisualElement class="mfs-viewport__corner mfs-viewport__corner--bl" picking-mode="Ignore" />
+                        <ui:VisualElement class="mfs-viewport__corner mfs-viewport__corner--br" picking-mode="Ignore" />
+                        <ui:Label class="mfs-viewport__tag" text="ROCKET ON THE PAD · LIVE 3D" picking-mode="Ignore" />
+                    </ui:VisualElement>
+
+                    <ui:VisualElement name="vote-panel" class="mf-panel mfs-buildbay__vote">
+                        <ui:VisualElement class="mf-panel__header">
+                            <ui:Label class="mf-panel__title" text="CURRENT VOTE" />
+                            <ui:Label class="mf-panel__tag" text="4.1 VOTE ROUND" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="mf-panel__body">
+                            <ui:VisualElement class="mfs-buildbay__vote-head">
+                                <ui:VisualElement class="mf-grow">
+                                    <ui:Label class="mf-caption" text="CATEGORY" />
+                                    <ui:Label name="vote-category" class="mf-h2" text="—" />
+                                </ui:VisualElement>
+                                <ui:VisualElement class="mfs-readout__value mfs-readout__value--xl">
+                                    <ui:Label name="vote-timer" class="mf-num mfs-num--lg" text="—" />
+                                    <ui:Label class="mf-unit" text="s" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                            <ui:VisualElement name="vote-reason" class="mf-region mfs-region--fixed mfs-gap-bottom-sm">
+                                <ui:Label class="mf-region__label" text="Why this category matters" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="vote-options">
+                                <ui:VisualElement name="vote-option-1" class="mfs-option">
+                                    <ui:Label class="mfs-option__key" text="A" />
+                                    <ui:VisualElement class="mfs-option__body">
+                                        <ui:VisualElement class="mf-skeleton mf-skeleton--long mfs-skeleton--inline" />
+                                    </ui:VisualElement>
+                                    <ui:VisualElement class="mfs-option__votes">
+                                        <ui:Label name="vote-option-1-votes" class="mf-num mf-num--small" text="—" />
+                                        <ui:Label class="mf-unit" text="votes" />
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                                <ui:VisualElement name="vote-option-2" class="mfs-option">
+                                    <ui:Label class="mfs-option__key" text="B" />
+                                    <ui:VisualElement class="mfs-option__body">
+                                        <ui:VisualElement class="mf-skeleton mf-skeleton--mid mfs-skeleton--inline" />
+                                    </ui:VisualElement>
+                                    <ui:VisualElement class="mfs-option__votes">
+                                        <ui:Label name="vote-option-2-votes" class="mf-num mf-num--small" text="—" />
+                                        <ui:Label class="mf-unit" text="votes" />
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                                <ui:VisualElement name="vote-option-3" class="mfs-option">
+                                    <ui:Label class="mfs-option__key" text="C" />
+                                    <ui:VisualElement class="mfs-option__body">
+                                        <ui:VisualElement class="mf-skeleton mf-skeleton--long mfs-skeleton--inline" />
+                                    </ui:VisualElement>
+                                    <ui:VisualElement class="mfs-option__votes">
+                                        <ui:Label name="vote-option-3-votes" class="mf-num mf-num--small" text="—" />
+                                        <ui:Label class="mf-unit" text="votes" />
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                                <ui:VisualElement name="vote-option-4" class="mfs-option">
+                                    <ui:Label class="mfs-option__key" text="D" />
+                                    <ui:VisualElement class="mfs-option__body">
+                                        <ui:VisualElement class="mf-skeleton mf-skeleton--mid mfs-skeleton--inline" />
+                                    </ui:VisualElement>
+                                    <ui:VisualElement class="mfs-option__votes">
+                                        <ui:Label name="vote-option-4-votes" class="mf-num mf-num--small" text="—" />
+                                        <ui:Label class="mf-unit" text="votes" />
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                            <ui:VisualElement name="vote-feed" class="mf-region">
+                                <ui:Label class="mf-region__label" text="Role tags · pings · vetoes" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <ui:VisualElement name="buildbay-bottom" class="mfs-buildbay__bottom">
+                    <ui:VisualElement name="timeline" class="mf-panel mf-grow mf-gap-right">
+                        <ui:VisualElement class="mf-panel__header">
+                            <ui:Label class="mf-panel__title" text="INTEGRATION TIMELINE" />
+                            <ui:Label class="mf-panel__tag" text="6.2 VOTE ORDER" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="mf-panel__body">
+                            <ui:VisualElement name="vote-order" class="mfs-ticks mfs-gap-bottom-sm">
+                                <ui:Label name="vote-step-1" class="mfs-tick" text="1" />
+                                <ui:Label name="vote-step-2" class="mfs-tick" text="2" />
+                                <ui:Label name="vote-step-3" class="mfs-tick" text="3" />
+                                <ui:Label name="vote-step-4" class="mfs-tick" text="4" />
+                                <ui:Label name="vote-step-5" class="mfs-tick" text="5" />
+                                <ui:Label name="vote-step-6" class="mfs-tick" text="6" />
+                                <ui:Label name="vote-step-7" class="mfs-tick" text="7" />
+                                <ui:Label name="vote-step-8" class="mfs-tick" text="8" />
+                                <ui:Label name="vote-step-9" class="mfs-tick" text="9" />
+                                <ui:Label name="vote-step-10" class="mfs-tick" text="10" />
+                                <ui:Label name="vote-step-11" class="mfs-tick" text="11" />
+                                <ui:Label name="vote-step-12" class="mfs-tick" text="12" />
+                                <ui:Label name="vote-step-13" class="mfs-tick" text="13" />
+                                <ui:Label name="vote-step-14" class="mfs-tick" text="14" />
+                                <ui:Label name="vote-step-15" class="mfs-tick" text="15" />
+                                <ui:Label name="vote-step-16" class="mfs-tick" text="16" />
+                                <ui:Label name="vote-step-17" class="mfs-tick" text="17" />
+                                <ui:Label name="vote-step-18" class="mfs-tick" text="18" />
+                                <ui:Label name="vote-step-19" class="mfs-tick" text="19" />
+                                <ui:Label name="vote-step-20" class="mfs-tick" text="20" />
+                                <ui:Label name="vote-step-21" class="mfs-tick mfs-tick--last" text="21" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="timeline-gantt" class="mf-region mfs-region--tight">
+                                <ui:Label class="mf-region__label" text="Schedule Gantt · critical path highlighted" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+
+                    <ui:VisualElement name="meters" class="mf-panel mfs-buildbay__meters">
+                        <ui:VisualElement class="mf-panel__header">
+                            <ui:Label class="mf-panel__title" text="BUDGET &amp; SCHEDULE" />
+                            <ui:Label class="mf-panel__tag" text="6.4 LEFT" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="mf-panel__body mfs-stats mfs-stats--compact">
+                            <ui:VisualElement name="meter-budget" class="mf-statbar">
+                                <ui:Label class="mf-statbar__label" text="Budget" />
+                                <ui:VisualElement class="mf-statbar__track">
+                                    <ui:VisualElement name="meter-budget-fill" class="mf-statbar__fill" />
+                                </ui:VisualElement>
+                                <ui:Label name="meter-budget-value" class="mf-statbar__value mf-num" text="—" />
+                                <ui:Label class="mf-unit" text="$M" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="meter-schedule" class="mf-statbar">
+                                <ui:Label class="mf-statbar__label" text="Schedule" />
+                                <ui:VisualElement class="mf-statbar__track">
+                                    <ui:VisualElement name="meter-schedule-fill" class="mf-statbar__fill" />
+                                </ui:VisualElement>
+                                <ui:Label name="meter-schedule-value" class="mf-statbar__value mf-num" text="—" />
+                                <ui:Label class="mf-unit" text="days" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

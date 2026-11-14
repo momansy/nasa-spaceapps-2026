@@ -1,0 +1,240 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement name="screen" class="mf-screen">
+        <ui:VisualElement name="scrim" class="mfs-scrim" />
+
+        <ui:VisualElement name="kicker" class="mfs-kicker">
+            <ui:VisualElement class="mfs-kicker__group">
+                <ui:VisualElement class="mfs-kicker__rule" />
+                <ui:Label class="mf-h3" text="HOST OPTIONS" />
+                <ui:Label class="mf-caption mfs-kicker__note" text="APPLIES TO THIS ROOM" />
+            </ui:VisualElement>
+            <ui:Button name="btn-back" class="mf-btn mf-btn--ghost" text="BACK" />
+        </ui:VisualElement>
+
+        <ui:VisualElement name="settings-body" class="mf-row mf-grow">
+            <ui:VisualElement name="accessibility-panel" class="mf-panel mf-panel--raised mf-grow mf-gap-right">
+                <ui:VisualElement class="mf-panel__header">
+                    <ui:Label class="mf-panel__title" text="ACCESSIBILITY" />
+                    <ui:Label class="mf-panel__tag" text="16 ACCESSIBILITY" />
+                </ui:VisualElement>
+                <ui:VisualElement class="mf-panel__body">
+                    <ui:VisualElement class="mfs-settings__columns">
+                        <ui:VisualElement class="mfs-half mfs-half--first">
+                            <ui:VisualElement name="group-visual" class="mfs-group">
+                                <ui:Label class="mfs-group__title" text="VISUAL" />
+                                <ui:VisualElement class="mfs-setting-row">
+                                    <ui:Label class="mfs-setting-row__label" text="Colour-blind patterns" />
+                                    <ui:VisualElement name="opt-colorblind-patterns" class="mf-segment">
+                                        <ui:Button name="opt-colorblind-patterns-off" class="mf-segment__item" text="Off" />
+                                        <ui:Button name="opt-colorblind-patterns-on" class="mf-segment__item mf-segment__item--on" text="On" />
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                                <ui:VisualElement class="mfs-setting-row">
+                                    <ui:Label class="mfs-setting-row__label" text="Text size" />
+                                    <ui:VisualElement name="opt-text-size" class="mf-segment">
+                                        <ui:Button name="opt-text-size-100" class="mf-segment__item mf-segment__item--on" text="100%" />
+                                        <ui:Button name="opt-text-size-150" class="mf-segment__item" text="150%" />
+                                        <ui:Button name="opt-text-size-200" class="mf-segment__item" text="200%" />
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                                <ui:VisualElement class="mfs-setting-row">
+                                    <ui:Label class="mfs-setting-row__label" text="High contrast" />
+                                    <ui:VisualElement name="opt-high-contrast" class="mf-segment">
+                                        <ui:Button name="opt-high-contrast-off" class="mf-segment__item mf-segment__item--on" text="Off" />
+                                        <ui:Button name="opt-high-contrast-on" class="mf-segment__item" text="On" />
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+
+                            <ui:VisualElement name="group-motion" class="mfs-group">
+                                <ui:Label class="mfs-group__title" text="MOTION" />
+                                <ui:VisualElement class="mfs-setting-row">
+                                    <ui:Label class="mfs-setting-row__label" text="Reduced motion" />
+                                    <ui:VisualElement name="opt-reduced-motion" class="mf-segment">
+                                        <ui:Button name="opt-reduced-motion-off" class="mf-segment__item mf-segment__item--on" text="Off" />
+                                        <ui:Button name="opt-reduced-motion-on" class="mf-segment__item" text="On" />
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+
+                            <ui:VisualElement name="group-hearing" class="mfs-group">
+                                <ui:Label class="mfs-group__title" text="HEARING" />
+                                <ui:VisualElement class="mfs-setting-row">
+                                    <ui:Label class="mfs-setting-row__label" text="Subtitles" />
+                                    <ui:VisualElement name="opt-subtitles" class="mf-segment">
+                                        <ui:Button name="opt-subtitles-off" class="mf-segment__item" text="Off" />
+                                        <ui:Button name="opt-subtitles-on" class="mf-segment__item mf-segment__item--on" text="On" />
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                                <ui:VisualElement class="mfs-setting-row">
+                                    <ui:Label class="mfs-setting-row__label" text="Visual cues for audio" />
+                                    <ui:VisualElement name="opt-visual-cues" class="mf-segment">
+                                        <ui:Button name="opt-visual-cues-off" class="mf-segment__item" text="Off" />
+                                        <ui:Button name="opt-visual-cues-on" class="mf-segment__item mf-segment__item--on" text="On" />
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+
+                        <ui:VisualElement class="mfs-half">
+                            <ui:VisualElement name="group-motor" class="mfs-group">
+                                <ui:Label class="mfs-group__title" text="MOTOR" />
+                                <ui:VisualElement class="mfs-setting-row">
+                                    <ui:Label class="mfs-setting-row__label" text="Relaxed timing" />
+                                    <ui:VisualElement name="opt-relaxed-timing" class="mf-segment">
+                                        <ui:Button name="opt-relaxed-timing-off" class="mf-segment__item mf-segment__item--on" text="Off" />
+                                        <ui:Button name="opt-relaxed-timing-on" class="mf-segment__item" text="On" />
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                                <ui:VisualElement class="mfs-setting-row">
+                                    <ui:Label class="mfs-setting-row__label" text="One-button minigames" />
+                                    <ui:VisualElement name="opt-one-button" class="mf-segment">
+                                        <ui:Button name="opt-one-button-off" class="mf-segment__item mf-segment__item--on" text="Off" />
+                                        <ui:Button name="opt-one-button-on" class="mf-segment__item" text="On" />
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                                <ui:VisualElement class="mfs-setting-row">
+                                    <ui:Label class="mfs-setting-row__label" text="Hold-to-press" />
+                                    <ui:VisualElement name="opt-hold-to-press" class="mf-segment">
+                                        <ui:Button name="opt-hold-to-press-hold" class="mf-segment__item mf-segment__item--on" text="Hold" />
+                                        <ui:Button name="opt-hold-to-press-toggle" class="mf-segment__item" text="Toggle" />
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+
+                            <ui:VisualElement name="group-cognitive" class="mfs-group">
+                                <ui:Label class="mfs-group__title" text="COGNITIVE" />
+                                <ui:VisualElement class="mfs-setting-row">
+                                    <ui:Label class="mfs-setting-row__label" text="Beginner tooltips" />
+                                    <ui:VisualElement name="opt-beginner-tooltips" class="mf-segment">
+                                        <ui:Button name="opt-beginner-tooltips-off" class="mf-segment__item mf-segment__item--on" text="Off" />
+                                        <ui:Button name="opt-beginner-tooltips-on" class="mf-segment__item" text="On" />
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                                <ui:VisualElement class="mfs-setting-row">
+                                    <ui:Label class="mfs-setting-row__label" text="Vote timers" />
+                                    <ui:VisualElement name="opt-vote-timers" class="mf-segment">
+                                        <ui:Button name="opt-vote-timers-standard" class="mf-segment__item mf-segment__item--on" text="Standard" />
+                                        <ui:Button name="opt-vote-timers-slower" class="mf-segment__item" text="Slower" />
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                                <ui:VisualElement class="mfs-setting-row">
+                                    <ui:Label class="mfs-setting-row__label" text="Phase summaries" />
+                                    <ui:VisualElement name="opt-phase-summaries" class="mf-segment">
+                                        <ui:Button name="opt-phase-summaries-off" class="mf-segment__item mf-segment__item--on" text="Off" />
+                                        <ui:Button name="opt-phase-summaries-on" class="mf-segment__item" text="On" />
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+
+                    <ui:VisualElement name="group-language" class="mfs-group">
+                        <ui:Label class="mfs-group__title" text="LANGUAGE" />
+                        <ui:VisualElement class="mfs-setting-row">
+                            <ui:Label class="mfs-setting-row__label" text="Language" />
+                            <ui:VisualElement name="opt-language" class="mf-segment">
+                                <ui:Button name="opt-language-english" class="mf-segment__item mf-segment__item--on" text="English" />
+                                <ui:Button name="opt-language-arabic" class="mf-segment__item" text="Arabic" />
+                                <ui:Button name="opt-language-spanish" class="mf-segment__item" text="Spanish" />
+                                <ui:Button name="opt-language-french" class="mf-segment__item" text="French" />
+                                <ui:Button name="opt-language-hindi" class="mf-segment__item" text="Hindi" />
+                                <ui:Button name="opt-language-portuguese" class="mf-segment__item" text="Portuguese" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+
+                    <ui:VisualElement name="accessibility-note" class="mf-region">
+                        <ui:Label class="mf-region__label" text="One-line explanation of the highlighted option · changes apply at once on the host and on every phone" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <ui:VisualElement name="settings-side" class="mf-col mfs-settings__side">
+                <ui:VisualElement name="audio-panel" class="mf-panel mfs-fixed">
+                    <ui:VisualElement class="mf-panel__header">
+                        <ui:Label class="mf-panel__title" text="AUDIO" />
+                        <ui:Label class="mf-panel__tag" text="15 AUDIO" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="mf-panel__body">
+                        <ui:VisualElement name="group-audio" class="mfs-stats mfs-stats--compact mfs-gap-bottom-sm">
+                            <ui:VisualElement name="volume-master" class="mf-statbar">
+                                <ui:Label class="mf-statbar__label" text="Master" />
+                                <ui:VisualElement class="mf-statbar__track">
+                                    <ui:VisualElement name="volume-master-fill" class="mf-statbar__fill" />
+                                </ui:VisualElement>
+                                <ui:Label name="volume-master-value" class="mf-statbar__value mf-num" text="—" />
+                                <ui:Label class="mf-unit" text="%" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="volume-music" class="mf-statbar">
+                                <ui:Label class="mf-statbar__label" text="Music" />
+                                <ui:VisualElement class="mf-statbar__track">
+                                    <ui:VisualElement name="volume-music-fill" class="mf-statbar__fill" />
+                                </ui:VisualElement>
+                                <ui:Label name="volume-music-value" class="mf-statbar__value mf-num" text="—" />
+                                <ui:Label class="mf-unit" text="%" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="volume-voice" class="mf-statbar">
+                                <ui:Label class="mf-statbar__label" text="Voice" />
+                                <ui:VisualElement class="mf-statbar__track">
+                                    <ui:VisualElement name="volume-voice-fill" class="mf-statbar__fill" />
+                                </ui:VisualElement>
+                                <ui:Label name="volume-voice-value" class="mf-statbar__value mf-num" text="—" />
+                                <ui:Label class="mf-unit" text="%" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="volume-effects" class="mf-statbar">
+                                <ui:Label class="mf-statbar__label" text="Effects" />
+                                <ui:VisualElement class="mf-statbar__track">
+                                    <ui:VisualElement name="volume-effects-fill" class="mf-statbar__fill" />
+                                </ui:VisualElement>
+                                <ui:Label name="volume-effects-value" class="mf-statbar__value mf-num" text="—" />
+                                <ui:Label class="mf-unit" text="%" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="mfs-setting-row mfs-setting-row--narrow">
+                            <ui:Label class="mfs-setting-row__label" text="Phone haptics" />
+                            <ui:VisualElement name="opt-haptics" class="mf-segment">
+                                <ui:Button name="opt-haptics-off" class="mf-segment__item" text="Off" />
+                                <ui:Button name="opt-haptics-on" class="mf-segment__item mf-segment__item--on" text="On" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <ui:VisualElement name="display-panel" class="mf-panel mf-gap-top mf-grow">
+                    <ui:VisualElement class="mf-panel__header">
+                        <ui:Label class="mf-panel__title" text="DISPLAY" />
+                        <ui:Label class="mf-panel__tag" text="HOST SCREEN" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="group-display" class="mf-panel__body">
+                        <ui:VisualElement class="mfs-setting-row mfs-setting-row--narrow">
+                            <ui:Label class="mfs-setting-row__label" text="Display mode" />
+                            <ui:VisualElement name="opt-display-mode" class="mf-segment">
+                                <ui:Button name="opt-display-mode-windowed" class="mf-segment__item" text="Windowed" />
+                                <ui:Button name="opt-display-mode-fullscreen" class="mf-segment__item mf-segment__item--on" text="Fullscreen" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="mfs-setting-row mfs-setting-row--narrow">
+                            <ui:Label class="mfs-setting-row__label" text="Quality" />
+                            <ui:VisualElement name="opt-quality" class="mf-segment">
+                                <ui:Button name="opt-quality-low" class="mf-segment__item" text="Low" />
+                                <ui:Button name="opt-quality-medium" class="mf-segment__item" text="Medium" />
+                                <ui:Button name="opt-quality-high" class="mf-segment__item mf-segment__item--on" text="High" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="mfs-setting-row mfs-setting-row--narrow mfs-gap-bottom-sm">
+                            <ui:Label class="mfs-setting-row__label" text="Vote tallies" />
+                            <ui:VisualElement name="opt-vote-tallies" class="mf-segment">
+                                <ui:Button name="opt-vote-tallies-open" class="mf-segment__item mf-segment__item--on" text="Open" />
+                                <ui:Button name="opt-vote-tallies-hidden" class="mf-segment__item" text="Hidden" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement name="display-note" class="mf-region">
+                            <ui:Label class="mf-region__label" text="Host display resolution" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

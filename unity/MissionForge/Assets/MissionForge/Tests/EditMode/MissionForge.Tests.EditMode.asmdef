@@ -1,0 +1,22 @@
+{
+    "name": "MissionForge.Tests.EditMode",
+    "rootNamespace": "MissionForge.Tests",
+    "references": [
+        "MissionForge.App",
+        "MissionForge.UI",
+        "MissionForge.Net",
+        "MissionForge.Data",
+        "MissionForge.Data.Editor",
+        "MissionForge.Editor",
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner"
+    ],
+    "includePlatforms": [ "Editor" ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [ "nunit.framework.dll", "Newtonsoft.Json.dll", "QrCodeGenerator.dll" ],
+    "autoReferenced": false,
+    "defineConstraints": [ "UNITY_INCLUDE_TESTS" ],
+    "noEngineReferences": false
+}

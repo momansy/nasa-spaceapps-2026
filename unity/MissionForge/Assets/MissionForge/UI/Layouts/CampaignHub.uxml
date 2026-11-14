@@ -1,0 +1,241 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement name="screen" class="mf-screen">
+        <ui:VisualElement name="kicker" class="mfs-kicker">
+            <ui:VisualElement class="mfs-kicker__group">
+                <ui:VisualElement class="mfs-kicker__rule" />
+                <ui:Label class="mf-h3" text="AGENCY CAMPAIGN" />
+                <ui:Label class="mf-caption mfs-kicker__note" text="PICK THE NEXT CONTRACT, GROW THE AGENCY" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <ui:VisualElement name="hub-body" class="mf-row mf-grow">
+            <ui:VisualElement name="hub-main" class="mf-col mf-grow mf-gap-right">
+                <ui:VisualElement name="contracts-board" class="mf-panel mf-panel--raised mf-grow">
+                    <ui:VisualElement class="mf-panel__header">
+                        <ui:Label class="mf-panel__title" text="CONTRACTS BOARD" />
+                        <ui:Label class="mf-panel__tag" text="13.2 OFFERS THIS TURN" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="mf-panel__body">
+                        <ui:VisualElement name="contract-offers" class="mfs-hub__offers">
+                            <ui:VisualElement name="offer-1" class="mfs-tile mfs-hub__offer">
+                                <ui:Label class="mf-caption" text="OFFER A" />
+                                <ui:Label name="offer-1-name" class="mf-h2 mfs-gap-bottom-sm" text="—" />
+                                <ui:VisualElement class="mfs-metric">
+                                    <ui:Label class="mfs-metric__name" text="DESTINATION" />
+                                    <ui:Label name="offer-1-destination" class="mfs-metric__text" text="—" />
+                                </ui:VisualElement>
+                                <ui:VisualElement class="mfs-metric">
+                                    <ui:Label class="mfs-metric__name" text="BUDGET" />
+                                    <ui:VisualElement class="mfs-metric__value">
+                                        <ui:Label name="offer-1-budget" class="mf-num mf-num--small" text="—" />
+                                        <ui:Label class="mf-unit" text="$M" />
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                                <ui:VisualElement class="mfs-metric">
+                                    <ui:Label class="mfs-metric__name" text="SCHEDULE" />
+                                    <ui:VisualElement class="mfs-metric__value">
+                                        <ui:Label name="offer-1-schedule" class="mf-num mf-num--small" text="—" />
+                                        <ui:Label class="mf-unit" text="days" />
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                                <ui:VisualElement class="mfs-metric mfs-metric--last">
+                                    <ui:Label class="mfs-metric__name" text="REPUTATION" />
+                                    <ui:VisualElement class="mfs-metric__value">
+                                        <ui:Label name="offer-1-reputation" class="mf-num mf-num--small" text="—" />
+                                        <ui:Label class="mf-unit" text="rep" />
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                                <ui:VisualElement name="offer-1-objectives" class="mf-region">
+                                    <ui:Label class="mf-region__label" text="Objectives · special rule" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+
+                            <ui:VisualElement name="offer-2" class="mfs-tile mfs-hub__offer">
+                                <ui:Label class="mf-caption" text="OFFER B" />
+                                <ui:Label name="offer-2-name" class="mf-h2 mfs-gap-bottom-sm" text="—" />
+                                <ui:VisualElement class="mfs-metric">
+                                    <ui:Label class="mfs-metric__name" text="DESTINATION" />
+                                    <ui:Label name="offer-2-destination" class="mfs-metric__text" text="—" />
+                                </ui:VisualElement>
+                                <ui:VisualElement class="mfs-metric">
+                                    <ui:Label class="mfs-metric__name" text="BUDGET" />
+                                    <ui:VisualElement class="mfs-metric__value">
+                                        <ui:Label name="offer-2-budget" class="mf-num mf-num--small" text="—" />
+                                        <ui:Label class="mf-unit" text="$M" />
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                                <ui:VisualElement class="mfs-metric">
+                                    <ui:Label class="mfs-metric__name" text="SCHEDULE" />
+                                    <ui:VisualElement class="mfs-metric__value">
+                                        <ui:Label name="offer-2-schedule" class="mf-num mf-num--small" text="—" />
+                                        <ui:Label class="mf-unit" text="days" />
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                                <ui:VisualElement class="mfs-metric mfs-metric--last">
+                                    <ui:Label class="mfs-metric__name" text="REPUTATION" />
+                                    <ui:VisualElement class="mfs-metric__value">
+                                        <ui:Label name="offer-2-reputation" class="mf-num mf-num--small" text="—" />
+                                        <ui:Label class="mf-unit" text="rep" />
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                                <ui:VisualElement name="offer-2-objectives" class="mf-region">
+                                    <ui:Label class="mf-region__label" text="Objectives · special rule" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+
+                            <ui:VisualElement name="offer-3" class="mfs-tile mfs-hub__offer">
+                                <ui:Label class="mf-caption" text="OFFER C" />
+                                <ui:Label name="offer-3-name" class="mf-h2 mfs-gap-bottom-sm" text="—" />
+                                <ui:VisualElement class="mfs-metric">
+                                    <ui:Label class="mfs-metric__name" text="DESTINATION" />
+                                    <ui:Label name="offer-3-destination" class="mfs-metric__text" text="—" />
+                                </ui:VisualElement>
+                                <ui:VisualElement class="mfs-metric">
+                                    <ui:Label class="mfs-metric__name" text="BUDGET" />
+                                    <ui:VisualElement class="mfs-metric__value">
+                                        <ui:Label name="offer-3-budget" class="mf-num mf-num--small" text="—" />
+                                        <ui:Label class="mf-unit" text="$M" />
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                                <ui:VisualElement class="mfs-metric">
+                                    <ui:Label class="mfs-metric__name" text="SCHEDULE" />
+                                    <ui:VisualElement class="mfs-metric__value">
+                                        <ui:Label name="offer-3-schedule" class="mf-num mf-num--small" text="—" />
+                                        <ui:Label class="mf-unit" text="days" />
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                                <ui:VisualElement class="mfs-metric mfs-metric--last">
+                                    <ui:Label class="mfs-metric__name" text="REPUTATION" />
+                                    <ui:VisualElement class="mfs-metric__value">
+                                        <ui:Label name="offer-3-reputation" class="mf-num mf-num--small" text="—" />
+                                        <ui:Label class="mf-unit" text="rep" />
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                                <ui:VisualElement name="offer-3-objectives" class="mf-region">
+                                    <ui:Label class="mf-region__label" text="Objectives · special rule" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+
+                            <ui:VisualElement name="locked-contracts" class="mf-region mfs-region--fixed mfs-hub__locked">
+                                <ui:VisualElement class="mf-skeleton mf-skeleton--long" />
+                                <ui:VisualElement class="mf-skeleton mf-skeleton--mid" />
+                                <ui:VisualElement class="mf-skeleton mf-skeleton--long" />
+                                <ui:Label class="mf-region__label" text="Locked contracts · unlock with reputation" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <ui:VisualElement name="hub-lower" class="mfs-hub__lower">
+                    <ui:VisualElement name="tech-tree-panel" class="mf-panel mf-grow mf-gap-right">
+                        <ui:VisualElement class="mf-panel__header">
+                            <ui:Label class="mf-panel__title" text="TECH TREE" />
+                            <ui:Label class="mf-panel__tag" text="13.2 KNOWLEDGE POINTS" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="mf-panel__body">
+                            <ui:VisualElement class="mfs-metric mfs-gap-bottom-sm">
+                                <ui:Label class="mfs-metric__name" text="KNOWLEDGE POINTS" />
+                                <ui:VisualElement class="mfs-metric__value">
+                                    <ui:Label name="knowledge-points" class="mf-num mf-num--small" text="—" />
+                                    <ui:Label class="mf-unit" text="KP" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                            <ui:VisualElement name="tech-tree" class="mf-region">
+                                <ui:Label class="mf-region__label" text="Tech nodes · each shows the real technology it stands for" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+
+                    <ui:VisualElement name="inventory-panel" class="mf-panel mfs-hub__inventory">
+                        <ui:VisualElement class="mf-panel__header">
+                            <ui:Label class="mf-panel__title" text="INVENTORY" />
+                            <ui:Label class="mf-panel__tag" text="13.2 REUSE" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="mf-panel__body">
+                            <ui:VisualElement name="inventory" class="mf-region">
+                                <ui:VisualElement class="mf-skeleton mf-skeleton--long" />
+                                <ui:VisualElement class="mf-skeleton mf-skeleton--mid" />
+                                <ui:Label class="mf-region__label" text="Recovered boosters, fairings and capsules · wear" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <ui:VisualElement name="hub-side" class="mf-col mfs-hub__side">
+                <ui:VisualElement name="agency-hall" class="mf-panel mf-grow">
+                    <ui:VisualElement class="mf-panel__header">
+                        <ui:Label class="mf-panel__title" text="AGENCY HALL" />
+                        <ui:Label class="mf-panel__tag" text="13.2 REPUTATION" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="mf-panel__body">
+                        <ui:VisualElement class="mfs-hub__agency">
+                            <ui:VisualElement name="agency-logo" class="mf-region mfs-region--fixed mfs-region--tight mfs-hub__logo">
+                                <ui:Label class="mf-region__label" text="Logo" />
+                            </ui:VisualElement>
+                            <ui:VisualElement class="mf-grow">
+                                <ui:Label class="mf-caption" text="AGENCY" />
+                                <ui:Label name="agency-name" class="mf-h2" text="—" />
+                                <ui:Label class="mf-caption mfs-gap-top-sm" text="HOME LAUNCH SITE" />
+                                <ui:Label name="agency-home-site" class="mf-body" text="—" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+
+                        <ui:VisualElement name="reputation" class="mfs-tally mfs-tally--block mfs-gap-bottom-sm">
+                            <ui:VisualElement class="mfs-tally__head">
+                                <ui:Label class="mf-caption" text="REPUTATION" />
+                                <ui:VisualElement class="mfs-tally__count">
+                                    <ui:Label name="reputation-value" class="mf-num mf-num--small" text="—" />
+                                    <ui:Label class="mf-unit" text="rep" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                            <ui:VisualElement class="mfs-tally__track">
+                                <ui:VisualElement name="reputation-fill" class="mfs-tally__fill" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+
+                        <ui:VisualElement class="mfs-metric mfs-metric--last mfs-gap-bottom-sm">
+                            <ui:Label class="mfs-metric__name" text="BUDGET CARRY-OVER" />
+                            <ui:VisualElement class="mfs-metric__value">
+                                <ui:Label name="budget-carry-over" class="mf-num mf-num--small" text="—" />
+                                <ui:Label class="mf-unit" text="$M" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+
+                        <ui:Label class="mfs-group__title" text="MILESTONES" />
+                        <ui:VisualElement name="milestones" class="mfs-hub__milestones">
+                            <ui:VisualElement name="milestone-first-orbit" class="mfs-award">
+                                <ui:VisualElement class="mfs-mark mfs-mark--idle" />
+                                <ui:Label class="mfs-award__name" text="First orbit" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="milestone-first-recovery" class="mfs-award">
+                                <ui:VisualElement class="mfs-mark mfs-mark--idle" />
+                                <ui:Label class="mfs-award__name" text="First recovery" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="milestone-first-crew" class="mfs-award">
+                                <ui:VisualElement class="mfs-mark mfs-mark--idle" />
+                                <ui:Label class="mfs-award__name" text="First crew" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="milestone-first-lunar-flyby" class="mfs-award">
+                                <ui:VisualElement class="mfs-mark mfs-mark--idle" />
+                                <ui:Label class="mfs-award__name" text="First lunar flyby" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="milestone-first-mars-landing" class="mfs-award">
+                                <ui:VisualElement class="mfs-mark mfs-mark--idle" />
+                                <ui:Label class="mfs-award__name" text="First Mars landing" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+
+                        <ui:VisualElement name="mission-patches" class="mf-region">
+                            <ui:Label class="mf-region__label" text="Mission patches collected" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <ui:VisualElement name="hub-actions" class="mfs-actions">
+                    <ui:Button name="btn-start-vote" class="mf-btn mf-btn--primary" text="START VOTE" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

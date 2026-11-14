@@ -1,0 +1,154 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement name="screen" class="mf-screen">
+        <ui:VisualElement name="kicker" class="mfs-kicker">
+            <ui:VisualElement class="mfs-kicker__group">
+                <ui:VisualElement class="mfs-kicker__rule" />
+                <ui:Label class="mf-h3" text="PRE-PHASE A · CONCEPT STUDIES" />
+                <ui:Label class="mf-caption mfs-kicker__note" text="CAPCOM BRIEFS THE CREW ON THE CONTRACT" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <ui:VisualElement name="briefing-body" class="mf-row mf-grow">
+            <ui:VisualElement name="briefing-stage" class="mf-col mf-grow mf-gap-right">
+                <ui:VisualElement name="briefing-viewport" class="mfs-viewport" picking-mode="Ignore">
+                    <ui:VisualElement class="mfs-viewport__corner mfs-viewport__corner--tl" picking-mode="Ignore" />
+                    <ui:VisualElement class="mfs-viewport__corner mfs-viewport__corner--tr" picking-mode="Ignore" />
+                    <ui:VisualElement class="mfs-viewport__corner mfs-viewport__corner--bl" picking-mode="Ignore" />
+                    <ui:VisualElement class="mfs-viewport__corner mfs-viewport__corner--br" picking-mode="Ignore" />
+                    <ui:Label class="mfs-viewport__tag" text="CONTRACT ANIMATION · LIVE 3D" picking-mode="Ignore" />
+                </ui:VisualElement>
+
+                <ui:VisualElement name="briefing-dock" class="mfs-briefing__dock">
+                    <ui:VisualElement name="contract-panel" class="mf-panel mfs-briefing__contract mf-gap-right">
+                        <ui:VisualElement class="mf-panel__header">
+                            <ui:Label class="mf-panel__title" text="CONTRACT" />
+                            <ui:Label class="mf-panel__tag" text="5.1 CONTRACT" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="mf-panel__body">
+                            <ui:Label class="mf-caption" text="MISSION" />
+                            <ui:Label name="contract-name" class="mf-h2" text="—" />
+                            <ui:VisualElement class="mfs-metric mfs-metric--last mfs-gap-top-sm">
+                                <ui:Label class="mfs-metric__name" text="DESTINATION" />
+                                <ui:Label name="contract-destination" class="mfs-metric__text" text="—" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+
+                    <ui:VisualElement name="capcom-panel" class="mf-panel mf-grow">
+                        <ui:VisualElement class="mf-panel__header">
+                            <ui:Label class="mf-panel__title" text="CAPCOM BRIEFING" />
+                            <ui:Label class="mf-panel__tag" text="2.2 BRIEFING" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="mf-panel__body">
+                            <ui:VisualElement name="capcom-line" class="mf-region">
+                                <ui:VisualElement class="mf-skeleton mf-skeleton--long" />
+                                <ui:VisualElement class="mf-skeleton mf-skeleton--mid" />
+                                <ui:Label class="mf-region__label" text="CAPCOM briefing line, one sentence at a time · always subtitled" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <ui:VisualElement name="briefing-side" class="mf-col mfs-briefing__side">
+                <ui:VisualElement name="objectives-panel" class="mf-panel mf-panel--raised mf-grow">
+                    <ui:VisualElement class="mf-panel__header">
+                        <ui:Label class="mf-panel__title" text="OBJECTIVES" />
+                        <ui:Label class="mf-panel__tag" text="5.2 OBJECTIVES" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="mf-panel__body">
+                        <ui:VisualElement class="mfs-objective">
+                            <ui:VisualElement class="mfs-objective__kind">
+                                <ui:VisualElement class="mf-chip mf-chip--forge">
+                                    <ui:Label class="mf-chip__label" text="PRIMARY" />
+                                </ui:VisualElement>
+                                <ui:Label class="mfs-note" text="REQUIRED" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="objective-primary" class="mf-region">
+                                <ui:VisualElement class="mf-skeleton mf-skeleton--long" />
+                                <ui:Label class="mf-region__label" text="Required for mission success" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="mfs-objective">
+                            <ui:VisualElement class="mfs-objective__kind">
+                                <ui:VisualElement class="mf-chip">
+                                    <ui:Label class="mf-chip__label" text="SECONDARY" />
+                                </ui:VisualElement>
+                                <ui:Label class="mfs-note" text="BONUS POINTS" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="objective-secondary" class="mf-region">
+                                <ui:VisualElement class="mf-skeleton mf-skeleton--long" />
+                                <ui:VisualElement class="mf-skeleton mf-skeleton--mid" />
+                                <ui:Label class="mf-region__label" text="Two or three bonus objectives" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="mfs-objective">
+                            <ui:VisualElement class="mfs-objective__kind">
+                                <ui:VisualElement class="mf-chip">
+                                    <ui:Label class="mf-chip__label" text="STRETCH" />
+                                </ui:VisualElement>
+                                <ui:Label class="mfs-note" text="HARD BONUS" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="objective-stretch" class="mf-region">
+                                <ui:VisualElement class="mf-skeleton mf-skeleton--mid" />
+                                <ui:Label class="mf-region__label" text="One hard bonus objective" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="mfs-objective mfs-objective--last">
+                            <ui:VisualElement class="mfs-objective__kind">
+                                <ui:VisualElement class="mf-chip mf-chip--muted">
+                                    <ui:Label class="mf-chip__label" text="SAFETY" />
+                                </ui:VisualElement>
+                                <ui:Label class="mfs-note" text="CREWED ONLY" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="objective-safety" class="mf-region">
+                                <ui:Label class="mf-region__label" text="Crew returns safely" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <ui:VisualElement name="constraints-panel" class="mf-panel mf-gap-top mfs-fixed">
+                    <ui:VisualElement class="mf-panel__header">
+                        <ui:Label class="mf-panel__title" text="CONSTRAINTS" />
+                        <ui:Label class="mf-panel__tag" text="5.1 LIMITS" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="mf-panel__body mf-row">
+                        <ui:VisualElement class="mfs-readout">
+                            <ui:Label class="mf-caption" text="BUDGET" />
+                            <ui:VisualElement class="mfs-readout__value">
+                                <ui:Label name="constraint-budget" class="mf-num" text="—" />
+                                <ui:Label class="mf-unit" text="$M" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="mfs-readout mfs-readout--divided">
+                            <ui:Label class="mf-caption" text="DEADLINE" />
+                            <ui:VisualElement class="mfs-readout__value">
+                                <ui:Label name="constraint-deadline" class="mf-num" text="—" />
+                                <ui:Label class="mf-unit" text="days" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="mfs-readout mfs-readout--divided">
+                            <ui:Label class="mf-caption" text="PAYLOAD" />
+                            <ui:VisualElement class="mfs-readout__value">
+                                <ui:Label name="constraint-payload-mass" class="mf-num" text="—" />
+                                <ui:Label class="mf-unit" text="t" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="mfs-readout mfs-readout--divided">
+                            <ui:Label class="mf-caption" text="ORBIT" />
+                            <ui:VisualElement class="mfs-readout__value">
+                                <ui:Label name="constraint-target-orbit" class="mf-num" text="—" />
+                                <ui:Label class="mf-unit" text="km" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <ui:VisualElement name="briefing-actions" class="mfs-actions">
+                    <ui:Button name="btn-continue" class="mf-btn mf-btn--primary" text="CONTINUE" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

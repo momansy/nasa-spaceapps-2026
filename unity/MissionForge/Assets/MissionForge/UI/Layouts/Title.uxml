@@ -1,0 +1,58 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:mf="MissionForge.UI">
+    <ui:VisualElement name="screen" class="mf-screen mf-screen--bare" picking-mode="Ignore">
+        <ui:VisualElement name="title-left" class="mf-title__left" picking-mode="Ignore">
+            <mf:LogoMark name="logo" />
+            <ui:VisualElement class="mf-title__wordmark-row" picking-mode="Ignore">
+                <ui:Label text="MISSION" class="mf-title__mission" />
+                <ui:Label text="FORGE" class="mf-title__forge" />
+            </ui:VisualElement>
+            <ui:VisualElement class="mf-title__rule" />
+            <ui:Label text="DESIGN IT.  BUILD IT.  FLY IT." class="mf-title__tagline" />
+            <ui:Label text="One big screen. Every phone a mission-control console. Vote on real engineering trade-offs, then fly the rocket your team built." class="mf-title__pitch" />
+            <ui:VisualElement class="mf-title__actions">
+                <ui:Button name="btn-new-mission" text="NEW MISSION" class="mf-btn mf-btn--primary mf-gap-right" />
+                <ui:Button name="btn-codex" text="CODEX" class="mf-btn mf-btn--ghost mf-gap-right" />
+                <ui:Button name="btn-settings" text="SETTINGS" class="mf-btn mf-btn--ghost" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <ui:VisualElement name="room-panel" class="mf-panel mf-panel--raised mf-roompanel">
+            <ui:VisualElement class="mf-panel__header">
+                <ui:Label text="MISSION ROOM OPEN" class="mf-panel__title" />
+                <ui:Label name="room-status" text="WAITING FOR CREW" class="mf-panel__tag" />
+            </ui:VisualElement>
+            <ui:Label text="ROOM CODE" class="mf-caption" />
+            <ui:VisualElement name="code-cells" class="mf-codecells">
+                <ui:VisualElement class="mf-codecell"><ui:Label name="code-0" text="" class="mf-codecell__char" /></ui:VisualElement>
+                <ui:VisualElement class="mf-codecell"><ui:Label name="code-1" text="" class="mf-codecell__char" /></ui:VisualElement>
+                <ui:VisualElement class="mf-codecell"><ui:Label name="code-2" text="" class="mf-codecell__char" /></ui:VisualElement>
+                <ui:VisualElement class="mf-codecell"><ui:Label name="code-3" text="" class="mf-codecell__char" /></ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement class="mf-row mf-align-center">
+                <ui:VisualElement class="mf-qr mf-gap-right">
+                    <ui:VisualElement name="qr-image" class="mf-qr__image" />
+                </ui:VisualElement>
+                <ui:VisualElement class="mf-col mf-grow">
+                    <ui:Label text="SCAN TO JOIN" class="mf-h3" />
+                    <ui:Label text="or open the join page on your phone and enter the code." class="mf-body mf-body--dim" style="margin-top: 8px;" />
+                    <ui:Label name="join-url" text="" class="mf-joinurl" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement class="mf-row mf-align-center mf-between mf-gap-top">
+                <ui:VisualElement class="mf-row mf-align-end">
+                    <ui:Label name="joined-count" text="0" class="mf-lobby__count" />
+                    <ui:Label text="crew joined" class="mf-unit" style="margin-bottom: 8px;" />
+                </ui:VisualElement>
+                <ui:Button name="btn-open-lobby" text="OPEN LOBBY" class="mf-btn" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <ui:VisualElement class="mf-title__footer" picking-mode="Ignore">
+            <ui:VisualElement name="server-chip" class="mf-chip mf-chip--muted" style="align-self: center;">
+                <mf:MfIcon name="server-icon" kind="signal" />
+                <ui:Label name="server-label" text="ROOM SERVER: CONNECTING" class="mf-chip__label" />
+            </ui:VisualElement>
+            <ui:Label name="credit" text="Earth imagery: NASA Visible Earth (Blue Marble, Black Marble). Clouds: Solar System Scope, CC BY 4.0." class="mf-title__credit" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
