@@ -1,66 +1,65 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:mf="MissionForge.UI">
-    <!-- Title frame (STYLE_GUIDE "Shot direction: Title"): live logo in the upper-left 45% x 35% safe region,
-         quiet navy above-left, rocket silhouette on the right (kept clear), Earth low. Actions bottom-left.
-         The room panel stays hidden until C# adds the mf-roompanel shown modifier class. -->
-    <ui:VisualElement name="screen" class="mf-screen mf-screen--bare" picking-mode="Ignore">
-        <ui:VisualElement name="title-brand" class="mf-title__brand" picking-mode="Ignore">
+    <!-- Title (reference frame 01, STYLE_GUIDE "Shot direction: Title"). The logo lockup sits in the reserved upper-left
+         45 % x 35 % (inside the 5 % safe margin); the right ~24 % stays clear for the lit vehicle; actions anchor
+         bottom-left; server status and the imagery credit use the meta style on a scrim. Elements named here are bound
+         by App/Screens/TitleScreen.cs (names unchanged from T008 except qr-image, which keeps its name). -->
+    <ui:VisualElement name="screen" class="mf-screen mf-screen--bare mf-title" picking-mode="Ignore">
+        <ui:VisualElement name="title-brand" class="mf-title__brand mf-motion" picking-mode="Ignore">
             <ui:VisualElement class="mf-title__lockup" picking-mode="Ignore">
-                <mf:LogoMark name="logo" />
+                <mf:LogoMark name="logo" class="mf-title__mark" />
                 <ui:VisualElement class="mf-title__wordmark" picking-mode="Ignore">
-                    <ui:Label text="MISSION" class="mf-title__mission" />
-                    <ui:Label text="FORGE" class="mf-title__forge" />
+                    <ui:Label text="Mission" class="mf-title__word" />
+                    <ui:Label text="Forge" class="mf-title__word mf-title__word--forge" />
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement class="mf-title__rule" picking-mode="Ignore" />
             <ui:Label text="Design it. Build it. Fly it." class="mf-title__tagline" />
         </ui:VisualElement>
 
-        <ui:VisualElement name="title-left" class="mf-title__left" picking-mode="Ignore">
+        <ui:VisualElement name="title-left" class="mf-title__left mf-motion" picking-mode="Ignore">
             <ui:Label text="One big screen. Every phone a mission-control console. Vote on real engineering trade-offs, then fly the rocket your team built." class="mf-body mf-title__pitch" />
             <ui:VisualElement name="title-actions" class="mf-title__actions" picking-mode="Ignore">
-                <ui:Button name="btn-new-mission" text="New mission" class="mf-btn mf-btn--primary mf-gap-right" />
-                <ui:Button name="btn-codex" text="Codex" class="mf-btn mf-btn--ghost mf-gap-right" />
-                <ui:Button name="btn-settings" text="Settings" class="mf-btn mf-btn--ghost" />
+                <ui:Button name="btn-new-mission" text="New mission" class="mf-btn mf-btn--primary mf-btn--l" />
+                <ui:Button name="btn-codex" text="Codex" class="mf-btn mf-btn--secondary mf-btn--l" />
+                <ui:Button name="btn-settings" text="Settings" class="mf-btn mf-btn--ghost mf-btn--l" />
             </ui:VisualElement>
         </ui:VisualElement>
 
-        <ui:VisualElement name="room-panel" class="mf-panel mf-panel--raised mf-roompanel">
+        <mf:MfGlassPanel name="room-panel" class="mf-glass mf-roompanel">
             <ui:VisualElement class="mf-panel__header">
                 <ui:Label text="Mission room open" class="mf-panel__title" />
                 <ui:Label name="room-status" text="Waiting for crew" class="mf-panel__tag" />
             </ui:VisualElement>
-            <ui:Label text="Room code" class="mf-caption" />
-            <ui:VisualElement name="code-cells" class="mf-codecells">
-                <ui:VisualElement class="mf-codecell"><ui:Label name="code-0" text="" class="mf-codecell__char" /></ui:VisualElement>
-                <ui:VisualElement class="mf-codecell"><ui:Label name="code-1" text="" class="mf-codecell__char" /></ui:VisualElement>
-                <ui:VisualElement class="mf-codecell"><ui:Label name="code-2" text="" class="mf-codecell__char" /></ui:VisualElement>
-                <ui:VisualElement class="mf-codecell"><ui:Label name="code-3" text="" class="mf-codecell__char" /></ui:VisualElement>
-            </ui:VisualElement>
-            <ui:VisualElement class="mf-row mf-align-center">
-                <ui:VisualElement class="mf-qr mf-gap-right">
-                    <ui:VisualElement name="qr-image" class="mf-qr__image" />
+            <ui:VisualElement class="mf-join">
+                <ui:VisualElement class="mf-qrcard">
+                    <ui:VisualElement name="qr-image" class="mf-qrcard__image" />
                 </ui:VisualElement>
-                <ui:VisualElement class="mf-col mf-grow">
-                    <ui:Label text="Scan to join" class="mf-h3" />
-                    <ui:Label text="Or open the join page on your phone and enter the code." class="mf-caption mf-roompanel__hint" />
+                <ui:VisualElement class="mf-join__text">
+                    <ui:Label text="Room code" class="mf-label" />
+                    <ui:VisualElement name="code-cells" class="mf-title__code" picking-mode="Ignore">
+                        <ui:Label name="code-0" text="" class="mf-roomcode-big" />
+                        <ui:Label name="code-1" text="" class="mf-roomcode-big" />
+                        <ui:Label name="code-2" text="" class="mf-roomcode-big" />
+                        <ui:Label name="code-3" text="" class="mf-roomcode-big" />
+                    </ui:VisualElement>
+                    <ui:Label text="Scan to join, or open the join page and type the code." class="mf-label mf-roompanel__hint" />
+                    <ui:Label name="join-url" text="" class="mf-joinurl" />
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:Label name="join-url" text="" class="mf-joinurl mf-joinurl--small" />
-            <ui:VisualElement class="mf-row mf-align-center mf-between mf-gap-top">
-                <ui:VisualElement class="mf-row mf-align-end">
-                    <ui:Label name="joined-count" text="0" class="mf-lobby__count" />
-                    <ui:Label text="crew joined" class="mf-unit mf-roompanel__unit" />
+            <ui:VisualElement class="mf-roompanel__footer">
+                <ui:VisualElement class="mf-roompanel__count" picking-mode="Ignore">
+                    <ui:Label name="joined-count" text="0" class="mf-kpi" />
+                    <ui:Label text="crew joined" class="mf-label mf-roompanel__unit" />
                 </ui:VisualElement>
-                <ui:Button name="btn-open-lobby" text="Open lobby" class="mf-btn" />
+                <ui:Button name="btn-open-lobby" text="Open lobby" class="mf-btn mf-btn--secondary" />
             </ui:VisualElement>
-        </ui:VisualElement>
+        </mf:MfGlassPanel>
 
         <ui:VisualElement class="mf-title__footer" picking-mode="Ignore">
             <ui:VisualElement name="server-chip" class="mf-chip mf-chip--muted mf-title__server">
-                <mf:MfIcon name="server-icon" kind="signal" />
-                <ui:Label name="server-label" text="ROOM SERVER: CONNECTING" class="mf-chip__label" />
+                <mf:MfIcon name="server-icon" kind="signal" class="mf-icon--24" />
+                <ui:Label name="server-label" text="Room server: connecting" class="mf-chip__label" />
             </ui:VisualElement>
-            <ui:Label name="credit" text="Earth imagery: NASA Visible Earth (Blue Marble, Black Marble). Clouds: Solar System Scope, CC BY 4.0." class="mf-title__credit" />
+            <ui:Label name="credit" text="Earth imagery: NASA Visible Earth (Blue Marble, Black Marble). Clouds: Solar System Scope, CC BY 4.0." class="mf-meta mf-scrim-text mf-title__credit" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

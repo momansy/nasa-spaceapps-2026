@@ -36,6 +36,18 @@ namespace MissionForge.App
                 yield break;
             }
             yield return new WaitUntil(() => flow.Current != null && !flow.IsBusy);
+            // T031 evidence: -mfCreateRoom opens a room first so the Lobby shows real crew from the (stub) server.
+            if (Array.IndexOf(Environment.GetCommandLineArgs(), "-mfCreateRoom") >= 0)
+            {
+                AppRoot app = FindAnyObjectByType<AppRoot>();
+                if (app != null && app.Room != null && app.Room.Client != null)
+                {
+                    app.Room.ConnectIfNeeded();
+                    app.Room.Client.CreateRoom();
+                    float until = Time.realtimeSinceStartup + 8f;
+                    yield return new WaitUntil(() => !string.IsNullOrEmpty(app.Room.Client.RoomCode) || Time.realtimeSinceStartup > until);
+                }
+            }
             GamePhase[] order = { GamePhase.Title, GamePhase.Lobby, GamePhase.Briefing, GamePhase.ContractVote, GamePhase.Build };
             int targetIndex = Array.IndexOf(order, target);
             for (int i = 1; i <= targetIndex; i++)

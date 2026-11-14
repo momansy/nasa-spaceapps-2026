@@ -1,65 +1,69 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:mf="MissionForge.UI">
-    <!-- Lobby: crew roster (avatar badge + name + role chip per seat, built by LobbyScreen.cs into crew-grid),
-         start control with its enabled/disabled state, room code + QR always visible, host settings. -->
-    <ui:VisualElement name="screen" class="mf-screen">
-        <ui:VisualElement class="mf-row mf-grow">
-            <ui:VisualElement name="crew-panel" class="mf-panel mf-grow mf-gap-right">
+    <!-- Lobby: glass panels over the orbit scene. Crew roster of MfSeatCards (built by App/Screens/LobbyScreen.cs into
+         crew-grid; seats enter with motion as players join), the join panel (large tabular room code + QR on a white
+         card), host settings as segmented controls, and the start action with its enabled/disabled state. The crew panel body and the side column are ScrollViews whose
+         content fills the viewport (Lobby.uss), so 100 % text lays out as before and 200 % text scrolls instead of overlapping. -->
+    <ui:VisualElement name="screen" class="mf-screen mf-lobby">
+        <ui:VisualElement class="mf-lobby__row">
+            <mf:MfGlassPanel name="crew-panel" class="mf-glass mf-lobby__crew">
+                <ui:ScrollView name="crew-scroll" mode="Vertical" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Auto" class="mf-lobby__scroll">
                 <ui:VisualElement class="mf-panel__header">
                     <ui:Label text="Mission control crew" class="mf-panel__title" />
-                    <ui:VisualElement class="mf-row mf-align-end">
-                        <ui:Label name="crew-count" text="0" class="mf-lobby__count" />
-                        <ui:Label text="/ 10 crew" class="mf-unit mf-roompanel__unit" />
+                    <ui:VisualElement class="mf-lobby__tally" picking-mode="Ignore">
+                        <ui:Label name="crew-count" text="0" class="mf-kpi" />
+                        <ui:Label text="of 10 seats filled" class="mf-label mf-lobby__tally-unit" />
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="crew-grid" class="mf-crewgrid" />
+                <ui:VisualElement name="crew-grid" class="mf-lobby__grid" />
                 <ui:VisualElement class="mf-grow" />
                 <ui:VisualElement name="lobby-footer" class="mf-lobby__footer">
-                    <ui:Label name="lobby-hint" text="Waiting for the first crew member to join." class="mf-body mf-body--dim mf-lobby__hint" />
-                    <ui:Button name="btn-start" text="Start briefing" class="mf-btn mf-btn--primary" />
-                </ui:VisualElement>
-            </ui:VisualElement>
-
-            <ui:VisualElement name="lobby-side" class="mf-col mf-lobby__side">
-                <ui:VisualElement name="join-panel" class="mf-panel mf-panel--raised mf-gap-bottom">
-                    <ui:VisualElement class="mf-panel__header">
-                        <ui:Label text="Join this mission" class="mf-panel__title" />
-                        <ui:Label text="Scan or type" class="mf-panel__tag" />
+                    <ui:VisualElement class="mf-lobby__hintrow" picking-mode="Ignore">
+                        <mf:MfIcon name="lobby-hint-icon" kind="users" class="mf-icon--32 mf-lobby__hint-icon" />
+                        <ui:Label name="lobby-hint" text="Waiting for the first crew member to join." class="mf-body mf-lobby__hint" />
                     </ui:VisualElement>
-                    <ui:VisualElement class="mf-row mf-align-center">
-                        <ui:VisualElement class="mf-qr mf-qr--compact mf-gap-right">
-                            <ui:VisualElement name="qr-image" class="mf-qr__image" />
+                    <ui:Button name="btn-start" text="Start briefing" class="mf-btn mf-btn--primary mf-btn--l" />
+                </ui:VisualElement>
+                </ui:ScrollView>
+            </mf:MfGlassPanel>
+
+            <ui:ScrollView name="lobby-side" mode="Vertical" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Auto" class="mf-lobby__side mf-lobby__scroll">
+                <mf:MfGlassPanel name="join-panel" class="mf-glass mf-lobby__join">
+                    <ui:VisualElement class="mf-join">
+                        <ui:VisualElement class="mf-qrcard mf-qrcard--s">
+                            <ui:VisualElement name="qr-image" class="mf-qrcard__image" />
                         </ui:VisualElement>
-                        <ui:VisualElement class="mf-col mf-grow">
-                            <ui:Label text="Room code" class="mf-caption" />
-                            <ui:Label name="lobby-code" text="----" class="mf-roomcode__value mf-lobby__code" />
+                        <ui:VisualElement class="mf-join__text">
+                            <ui:Label text="Join this mission" class="mf-h3" />
+                            <ui:Label name="lobby-code" text="Opening room…" class="mf-roomcode-big mf-roomcode-big--empty" />
+                            <ui:Label text="Scan, or type the code on the join page." class="mf-label" />
+                            <ui:Label name="join-url" text="" class="mf-joinurl" />
                         </ui:VisualElement>
                     </ui:VisualElement>
-                    <ui:Label name="join-url" text="" class="mf-joinurl mf-joinurl--small" />
-                </ui:VisualElement>
+                </mf:MfGlassPanel>
 
-                <ui:VisualElement name="settings-panel" class="mf-panel mf-grow">
+                <mf:MfGlassPanel name="settings-panel" class="mf-glass mf-lobby__settings">
                     <ui:VisualElement class="mf-panel__header">
                         <ui:Label text="Mission settings" class="mf-panel__title" />
-                        <ui:Label text="HOST" class="mf-panel__tag" />
+                        <ui:Label text="Host only" class="mf-panel__tag" />
                     </ui:VisualElement>
                     <ui:VisualElement class="mf-setting">
                         <ui:Label text="Role assignment" class="mf-setting__label" />
-                        <ui:VisualElement name="seg-role-mode" class="mf-segment" />
+                        <ui:VisualElement name="seg-role-mode" class="mf-segmented" />
                     </ui:VisualElement>
                     <ui:VisualElement class="mf-setting">
                         <ui:Label text="Assist level" class="mf-setting__label" />
-                        <ui:VisualElement name="seg-assist" class="mf-segment" />
+                        <ui:VisualElement name="seg-assist" class="mf-segmented" />
                     </ui:VisualElement>
                     <ui:VisualElement class="mf-setting">
                         <ui:Label text="Vote timer" class="mf-setting__label" />
-                        <ui:VisualElement name="seg-vote-timer" class="mf-segment" />
+                        <ui:VisualElement name="seg-vote-timer" class="mf-segmented" />
                     </ui:VisualElement>
-                    <ui:VisualElement class="mf-setting">
+                    <ui:VisualElement class="mf-setting mf-setting--last">
                         <ui:Label text="Vote tallies" class="mf-setting__label" />
-                        <ui:VisualElement name="seg-tallies" class="mf-segment" />
+                        <ui:VisualElement name="seg-tallies" class="mf-segmented" />
                     </ui:VisualElement>
-                </ui:VisualElement>
-            </ui:VisualElement>
+                </mf:MfGlassPanel>
+            </ui:ScrollView>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

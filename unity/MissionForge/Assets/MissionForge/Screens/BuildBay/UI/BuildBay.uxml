@@ -1,26 +1,30 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:mf="MissionForge.UI" xmlns:bb="MissionForge.Screens.BuildBay">
     <Style src="BuildBay.uss" />
-    <!-- T015 Build Bay. Regions (STYLE_GUIDE safe regions): dashboard = left outer 24 %, vote = right outer 24 %,
-         rocket inside the middle 52 %, timeline + budget along the bottom, contract + phase tracker along the top.
-         Every player-visible string is set from data/strings/en.buildbay.json by BuildBayScreen; text below is empty. -->
+    <!-- Build Bay (reference frame 02), re-skinned with the T031 design system. Glass panels in the outer 24 % columns
+         (readiness dashboard left, vote right); the middle 52 % stays the lit pad scene with only the contract line,
+         the phase stepper, the tool chips and the timeline + budget strip along its bottom edge.
+         Every player-visible string is set from data/strings/en.buildbay.json by the views; text below is empty. -->
     <ui:VisualElement name="screen" class="mf-screen bb-screen" picking-mode="Ignore">
         <ui:VisualElement name="bb-row" class="bb-row" picking-mode="Ignore">
 
-            <ui:VisualElement name="bb-dashboard" class="bb-side bb-panel bb-panel--dashboard">
+            <mf:MfGlassPanel name="bb-dashboard" class="mf-glass bb-side bb-panel bb-panel--dashboard">
                 <ui:VisualElement class="bb-panel__head">
                     <ui:Label name="dashboard-title" class="bb-panel__title" />
                     <ui:Label name="dashboard-subtitle" class="bb-panel__sub" />
                 </ui:VisualElement>
                 <ui:ScrollView name="metrics" class="bb-metrics" vertical-scroller-visibility="Hidden" horizontal-scroller-visibility="Hidden" />
-            </ui:VisualElement>
+            </mf:MfGlassPanel>
 
             <ui:VisualElement name="bb-centre" class="bb-centre" picking-mode="Ignore">
-                <ui:VisualElement name="bb-top" class="bb-top">
-                    <ui:VisualElement name="objectives" class="bb-objectives">
-                        <ui:Label name="contract-name" class="bb-objectives__name" />
+                <ui:VisualElement name="bb-top" class="bb-top" picking-mode="Ignore">
+                    <ui:VisualElement name="objectives" class="bb-objectives" picking-mode="Ignore">
+                        <ui:VisualElement class="bb-objectives__head" picking-mode="Ignore">
+                            <ui:Label name="contract-id" class="mf-tag bb-objectives__id" />
+                            <ui:Label name="contract-name" class="bb-objectives__name" />
+                        </ui:VisualElement>
                         <ui:Label name="objective-primary" class="bb-objectives__text" />
                     </ui:VisualElement>
-                    <ui:VisualElement name="phase-tracker" class="bb-phases" />
+                    <mf:MfPhaseStepper name="phase-tracker" class="bb-phases" />
                 </ui:VisualElement>
 
                 <ui:VisualElement name="bb-stage" class="bb-stage" picking-mode="Ignore">
@@ -31,41 +35,41 @@
                     </ui:VisualElement>
                     <ui:VisualElement name="tools" class="bb-tools" />
                     <ui:VisualElement name="rehearsal" class="bb-rehearsal bb-hidden" picking-mode="Ignore">
-                        <ui:Label name="rehearsal-title" class="bb-rehearsal__title" />
+                        <ui:Label name="rehearsal-title" class="mf-tag bb-rehearsal__title" />
                         <ui:Label name="rehearsal-detail" class="bb-rehearsal__detail" />
                     </ui:VisualElement>
                 </ui:VisualElement>
 
-                <ui:VisualElement name="bb-bottom" class="bb-bottom bb-panel">
+                <mf:MfGlassPanel name="bb-bottom" class="mf-glass bb-bottom bb-panel">
                     <ui:VisualElement class="bb-bottom__head">
                         <ui:Label name="timeline-title" class="bb-panel__title bb-panel__title--small" />
-                        <ui:VisualElement name="timeline-legend" class="bb-legend" />
+                        <ui:VisualElement name="timeline-legend" class="mf-legend" />
                     </ui:VisualElement>
-                    <bb:GanttView name="gantt" class="bb-gantt" />
+                    <mf:MfGanttChart name="gantt" class="bb-gantt" />
+                    <mf:MfEmptyState name="timeline-empty" icon="calendar-clock" class="bb-hidden" />
                     <ui:VisualElement name="budget" class="bb-budget">
                         <ui:Label name="budget-title" class="bb-budget__title" />
-                        <bb:BudgetBarView name="budget-bar" class="bb-budget__bar" />
+                        <mf:MfMetricBar name="budget-bar" class="bb-budget__bar mf-metricbar--compact" />
                         <ui:Label name="budget-text" class="bb-budget__text" />
                     </ui:VisualElement>
-                </ui:VisualElement>
+                </mf:MfGlassPanel>
             </ui:VisualElement>
 
-            <ui:VisualElement name="bb-vote" class="bb-side bb-panel bb-panel--vote">
+            <mf:MfGlassPanel name="bb-vote" class="mf-glass bb-side bb-panel bb-panel--vote">
                 <ui:VisualElement class="bb-panel__head bb-vote__head">
                     <ui:VisualElement class="bb-vote__titles">
                         <ui:Label name="vote-round" class="bb-panel__sub" />
                         <ui:Label name="vote-category" class="bb-panel__title" />
                     </ui:VisualElement>
-                    <ui:VisualElement name="vote-timer" class="bb-timer">
-                        <ui:Label name="vote-timer-value" class="bb-timer__value" />
-                        <ui:Label name="vote-timer-unit" class="bb-timer__unit" />
-                    </ui:VisualElement>
+                    <mf:MfRadialGauge name="vote-timer" class="mf-gauge--s bb-timer bb-hidden" />
                 </ui:VisualElement>
-                <ui:VisualElement name="vote-stage-strip" class="bb-stages" />
+                <mf:MfPhaseStepper name="vote-stage-strip" class="bb-stages" />
                 <ui:Label name="vote-note" class="bb-vote__note" />
+                <mf:MfTallyBar name="vote-tally" class="bb-tally" />
+                <mf:MfEmptyState name="vote-idle" class="bb-hidden" />
                 <ui:ScrollView name="vote-options" class="bb-options" vertical-scroller-visibility="Hidden" horizontal-scroller-visibility="Hidden" />
                 <ui:VisualElement name="vote-feed" class="bb-feed" />
-            </ui:VisualElement>
+            </mf:MfGlassPanel>
 
         </ui:VisualElement>
     </ui:VisualElement>

@@ -1,0 +1,83 @@
+/* Top navigation (persistent chrome) and the phase stepper. Steps show done / current / locked with an icon shape
+   (check, filled dot on a Ceramic plate, lock) plus weight, so state never depends on colour or underline alone. */
+
+.mf-topbar {
+    position: absolute; left: 0; top: 0; right: 0;
+    height: 112px;
+    flex-direction: row;
+    align-items: center;
+    padding: 0 var(--mf-sp-safe-x) 0 var(--mf-sp-7);
+    background-color: var(--mf-space-80);
+    border-bottom-width: 1px;
+    border-bottom-color: var(--mf-ceramic-10);
+    opacity: 0;
+    translate: 0 -24px;
+    transition-property: opacity, translate;
+    transition-duration: var(--mf-dur-enter);
+    transition-timing-function: ease-out-cubic;
+}
+.mf-topbar--shown { opacity: 1; translate: 0 0; }
+.mf-topbar__title {
+    -unity-font-definition: var(--mf-font-display);
+    font-size: var(--mf-fs-h2);
+    color: var(--mf-ceramic);
+    margin: 0 0 0 var(--mf-sp-5);
+    padding: 0;
+    flex-shrink: 0;
+}
+.mf-roomcode { flex-direction: row; align-items: center; flex-shrink: 0; margin-right: var(--mf-sp-5); }
+.mf-roomcode__label { -unity-font-definition: var(--mf-font-body-medium); font-size: var(--mf-fs-label); color: var(--mf-muted); margin: 0 var(--mf-sp-3) 0 0; padding: 0; }
+.mf-roomcode__value { -unity-font-definition: var(--mf-font-mono-bold); font-size: 40px; letter-spacing: 4px; color: var(--mf-ceramic); margin: 0; padding: 0; }
+/* No room yet: a muted word instead of dash placeholders. */
+.mf-roomcode__value--empty { -unity-font-definition: var(--mf-font-body-medium); font-size: var(--mf-fs-label); letter-spacing: 0; color: var(--mf-muted); }
+.mf-topbar__conn { align-self: center; flex-shrink: 0; }
+.mf-rtl .mf-topbar, .mf-rtl .mf-roomcode { flex-direction: row-reverse; }
+.mf-rtl .mf-topbar { padding: 0 var(--mf-sp-7) 0 var(--mf-sp-safe-x); }
+.mf-rtl .mf-topbar__title { margin: 0 var(--mf-sp-5) 0 0; }
+.mf-rtl .mf-roomcode { margin-right: 0; margin-left: var(--mf-sp-5); }
+.mf-rtl .mf-roomcode__label { margin: 0 0 0 var(--mf-sp-3); }
+
+/* ---------- stepper ---------- */
+.mf-stepper { flex-direction: row; align-items: center; flex-grow: 1; flex-shrink: 1; justify-content: center; overflow: hidden; margin: 0 var(--mf-sp-5) 0 var(--mf-sp-5); }
+.mf-stepper__rail { width: 16px; height: 2px; background-color: var(--mf-ceramic-16); flex-shrink: 1; }
+.mf-step {
+    flex-direction: row;
+    align-items: center;
+    height: 40px;
+    padding: 0 var(--mf-sp-3) 0 var(--mf-sp-2);
+    border-radius: 20px; /* half the height (UI Toolkit clamps radii per axis; 999 px draws an ellipse) */
+    border-width: 1px;
+    border-color: var(--mf-space-0);
+    flex-shrink: 0;
+    transition-property: background-color, border-color;
+    transition-duration: var(--mf-dur-state);
+}
+.mf-step__icon { width: 22px; height: 22px; margin-right: 6px; }
+.mf-step__label { -unity-font-definition: var(--mf-font-body-medium); font-size: var(--mf-fs-meta); color: var(--mf-muted); margin: 0; padding: 0; white-space: nowrap; }
+.mf-step--done .mf-step__label { color: var(--mf-ceramic); }
+.mf-step--done { border-color: var(--mf-meets-56); }
+.mf-step--current { background-color: var(--mf-ceramic); border-color: var(--mf-ceramic); }
+.mf-step--current .mf-step__label { color: var(--mf-space); -unity-font-definition: var(--mf-font-body-bold); }
+.mf-step--locked { opacity: 0.8; }
+.mf-stepper--compact .mf-step--locked .mf-step__label, .mf-stepper--compact .mf-step--done .mf-step__label { display: none; }
+.mf-stepper--compact .mf-step--locked .mf-step__icon, .mf-stepper--compact .mf-step--done .mf-step__icon { margin-right: 0; }
+.mf-rtl .mf-stepper, .mf-rtl .mf-step { flex-direction: row-reverse; }
+.mf-rtl .mf-step__icon { margin-right: 0; margin-left: 6px; }
+/* 200 % text: the top bar gets a second band for the stepper, so every step keeps its label (no icon-only steps);
+   the band wraps onto a further line if the labels still do not fit. The first row (logo, title, room, connection)
+   stays centred in the top 120 px. Screens pad below the 196 px bar (.mf-text-200 .mf-screen in MissionForgeTheme.uss). */
+.mf-text-200 .mf-topbar { height: 196px; padding-bottom: 76px; }
+.mf-text-200 .mf-topbar .mf-stepper {
+    position: absolute; left: var(--mf-sp-safe-x); right: var(--mf-sp-safe-x); bottom: 12px;
+    margin: 0; flex-wrap: wrap; overflow: visible; justify-content: center;
+}
+.mf-text-200 .mf-step { height: auto; min-height: 40px; padding-top: 4px; padding-bottom: 4px; }
+.mf-text-200 .mf-topbar .mf-step { margin-bottom: 4px; }
+.mf-text-200 .mf-topbar .mf-step__icon { width: 32px; height: 32px; }
+
+/* High contrast: an opaque bar with a strong boundary; locked steps are not dimmed (the lock shape carries the state). */
+.mf-hc .mf-topbar { background-color: var(--mf-space); border-bottom-width: 2px; border-bottom-color: var(--mf-ceramic-56); }
+.mf-hc .mf-step--locked { opacity: 1; }
+.mf-hc .mf-step__label, .mf-hc .mf-roomcode__label { color: var(--mf-ceramic); }
+.mf-hc .mf-step--current .mf-step__label { color: var(--mf-space); }
+.mf-hc .mf-stepper__rail { background-color: var(--mf-ceramic-56); }

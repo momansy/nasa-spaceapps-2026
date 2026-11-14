@@ -1,29 +1,40 @@
 using System.Collections.Generic;
+using System.Globalization;
 using MissionForge.Core.Build;
 using MissionForge.UI;
 using UnityEngine.UIElements;
 
 namespace MissionForge.Screens.BuildBay
 {
-    /// <summary>Binds the eleven <see cref="MetricRow"/>s to the dashboard panel. Rows are created once and updated in place.</summary>
+    /// <summary>
+    /// Binds the eleven <see cref="MetricRow"/>s to the dashboard panel with design-system metric rows (T031): status icon
+    /// shape, name, status word, tabular value with its unit at 70 %, and an <see cref="MfMetricBar"/> with the
+    /// requirement marker and the "if chosen" ghost. A pending metric shows a designed waiting state instead of a dash.
+    /// Rows are created once and updated in place.
+    /// </summary>
     public sealed class DashboardView
     {
         private sealed class RowElements
         {
             public VisualElement Root;
             public MfIcon Icon;
-            public Label Name, Value, Unit, Word, Detail, Delta;
-            public VisualElement Fill, Band;
+            public Label Name, Word, Value, Pending, Detail, Ghost;
+            public MfMetricBar Bar;
+            /// <summary>Last value string shown and its number, for the KPI count-up (T031 motion).</summary>
+            public string LastValue;
+            public double LastNumber;
+            public IVisualElementScheduledItem Count;
         }
 
         private static readonly string[] StatusClasses =
         {
-            "bb-status--pending", "bb-status--info", "bb-status--meets", "bb-status--marginal", "bb-status--fails",
+            "mf-metric--pending", "mf-metric--info", "mf-metric--meets", "mf-metric--marginal", "mf-metric--fails",
         };
 
         private readonly VisualElement _container;
         private readonly UiText _text;
         private readonly Dictionary<string, RowElements> _rows = new Dictionary<string, RowElements>();
+        private bool _rtl;
 
         public DashboardView(VisualElement screen, UiText text)
         {
@@ -32,61 +43,52 @@ namespace MissionForge.Screens.BuildBay
             screen.Q<Label>("dashboard-subtitle").text = text.Get("ui.buildbay.dashboard.subtitle");
             _container = screen.Q<VisualElement>("metrics");
             _container.Clear();
+            if (_container is ScrollView scroll) MfScrollFade.Attach(scroll);
             foreach (string id in DashboardViewModel.MetricIds) _rows[id] = CreateRow(id);
         }
 
         /// <summary>Shows <paramref name="metrics"/> with the "if chosen" delta of the leading option, when there is one.</summary>
-        public void Show(DashboardMetrics metrics, DashboardDelta leadingDelta)
+        public void Show(DashboardMetrics metrics, DashboardDelta leadingDelta, bool rtl = false)
         {
+            _rtl = rtl;
             foreach (MetricRow row in DashboardViewModel.Build(metrics, _text, leadingDelta)) Apply(row);
         }
 
         private RowElements CreateRow(string id)
         {
             var r = new RowElements { Root = new VisualElement { name = "metric-" + id } };
-            r.Root.AddToClassList("bb-metric");
-            var line1 = new VisualElement();
-            line1.AddToClassList("bb-metric__line");
-            var glyph = new VisualElement();
-            glyph.AddToClassList("bb-glyph");
+            r.Root.AddToClassList("mf-metric");
+            var line = new VisualElement();
+            line.AddToClassList("mf-metric__line");
             r.Icon = new MfIcon();
-            r.Icon.AddToClassList("bb-glyph__icon");
-            glyph.Add(r.Icon);
+            r.Icon.AddToClassList("mf-metric__icon");
             r.Name = new Label();
-            r.Name.AddToClassList("bb-metric__name");
-            r.Value = new Label();
-            r.Value.AddToClassList("bb-metric__value");
-            r.Unit = new Label();
-            r.Unit.AddToClassList("bb-unit");
-            line1.Add(glyph);
-            line1.Add(r.Name);
-            line1.Add(r.Value);
-            line1.Add(r.Unit);
-
-            var line2 = new VisualElement();
-            line2.AddToClassList("bb-metric__line");
+            r.Name.AddToClassList("mf-metric__name");
             r.Word = new Label();
-            r.Word.AddToClassList("bb-metric__word");
+            r.Word.AddToClassList("mf-metric__word");
+            r.Value = new Label { enableRichText = true };
+            r.Value.AddToClassList("mf-metric__value");
+            r.Pending = new Label();
+            r.Pending.AddToClassList("mf-metric__pending");
+            line.Add(r.Icon);
+            line.Add(r.Name);
+            line.Add(r.Value);
+            line.Add(r.Pending);
+            r.Bar = new MfMetricBar();
+            r.Bar.AddToClassList("mf-metric__bar");
+            r.Bar.AddToClassList(MfMetricBar.CompactClass);
+            var detailLine = new VisualElement();
+            detailLine.AddToClassList("mf-metric__detail-line");
             r.Detail = new Label();
-            r.Detail.AddToClassList("bb-metric__detail");
-            r.Delta = new Label();
-            r.Delta.AddToClassList("bb-delta");
-            line2.Add(r.Word);
-            line2.Add(r.Detail);
-            line2.Add(r.Delta);
-
-            var bar = new VisualElement();
-            bar.AddToClassList("bb-metric__bar");
-            r.Fill = new VisualElement();
-            r.Fill.AddToClassList("bb-metric__fill");
-            bar.Add(r.Fill);
-            r.Band = new VisualElement();
-            r.Band.AddToClassList("bb-metric__band");
-            bar.Add(r.Band);
-
-            r.Root.Add(line1);
-            r.Root.Add(line2);
-            r.Root.Add(bar);
+            r.Detail.AddToClassList("mf-metric__detail");
+            r.Ghost = new Label();
+            r.Ghost.AddToClassList("mf-metric__ghost");
+            detailLine.Add(r.Word);
+            detailLine.Add(r.Detail);
+            detailLine.Add(r.Ghost);
+            r.Root.Add(line);
+            r.Root.Add(r.Bar);
+            r.Root.Add(detailLine);
             _container.Add(r.Root);
             return r;
         }
@@ -94,46 +96,82 @@ namespace MissionForge.Screens.BuildBay
         private void Apply(MetricRow row)
         {
             if (!_rows.TryGetValue(row.Id, out RowElements r)) return;
+            MfStatus status = ToStatus(row.Status);
+            bool pending = row.Status == MetricStatus.Pending || row.Value == "—";
             r.Name.text = row.Name;
-            r.Value.text = row.Value;
-            r.Unit.text = row.Unit;
-            r.Detail.text = row.Detail;
-            r.Word.text = _text.Get(DashboardViewModel.StatusKey(row.Status));
+            r.Word.text = row.Status == MetricStatus.Info ? "" : _text.Get(DashboardViewModel.StatusKey(row.Status));
+            r.Word.style.display = row.Status == MetricStatus.Info || pending ? DisplayStyle.None : DisplayStyle.Flex;
+            ShowValue(r, pending ? null : row.Value, row.Unit);
+            r.Value.style.display = pending ? DisplayStyle.None : DisplayStyle.Flex;
+            // A designed empty state (VISUAL_TARGET 3.1): the localised reason, never a dash.
+            r.Pending.text = pending ? row.Detail : "";
+            r.Pending.style.display = pending ? DisplayStyle.Flex : DisplayStyle.None;
             foreach (string c in StatusClasses) r.Root.RemoveFromClassList(c);
             r.Root.AddToClassList(StatusClasses[(int)row.Status]);
-            r.Icon.kind = IconFor(row.Status);
-            r.Icon.Tint = TintFor(row.Status);
-            r.Fill.style.width = Length.Percent(row.Fill * 100f);
-            bool band = row.BandLow >= 0f && row.BandHigh > row.BandLow;
-            r.Band.EnableInClassList("bb-hidden", !band);
-            if (band)
-            {
-                r.Band.style.left = Length.Percent(row.BandLow * 100f);
-                r.Band.style.width = Length.Percent((row.BandHigh - row.BandLow) * 100f);
-            }
-            r.Delta.text = row.Delta ?? "";
-            r.Delta.EnableInClassList("bb-hidden", row.Delta == null);
-            r.Delta.EnableInClassList("bb-delta--good", row.DeltaSign > 0);
-            r.Delta.EnableInClassList("bb-delta--bad", row.DeltaSign < 0);
-            r.Delta.EnableInClassList("bb-delta--neutral", row.DeltaSign == 0);
+            // Empty state: the reason on its own line under the name, and no grey stand-in bar (VISUAL_TARGET 3.1).
+            r.Root.EnableInClassList("mf-metric--empty", pending);
+            r.Icon.kind = pending ? "hourglass" : MfStatusBadge.IconFor(status);
+            r.Icon.Tint = MfDraw.StatusColour(status);
+            r.Detail.text = pending ? "" : row.Detail;
+            r.Ghost.text = row.Delta != null ? MfText.TrueMinus(row.Delta) : "";
+            r.Ghost.style.display = row.Delta != null ? DisplayStyle.Flex : DisplayStyle.None;
+            r.Bar.Set(row.Fill, pending ? MfStatus.Pending : status, row.Requirement, null, row.Ghost, null, row.BandLow, row.BandHigh, _rtl);
+            r.Bar.style.display = pending ? DisplayStyle.None : DisplayStyle.Flex; // no grey stand-in bar in the empty state
         }
 
-        public static string IconFor(MetricStatus s) => s switch
+        /// <summary>
+        /// Sets the KPI value. A changed plain number counts up from the previous one (from 0 the first time) on the
+        /// count token with ease-out-quart; reduced motion jumps straight to it (MfMotion.CountUp). Other values are set.
+        /// </summary>
+        private static void ShowValue(RowElements r, string value, string unit)
         {
-            MetricStatus.Meets => "check",
-            MetricStatus.Marginal => "warn",
-            MetricStatus.Fails => "cross",
-            MetricStatus.Info => "dot",
-            _ => "ring",
+            if (value == r.LastValue) return;
+            r.Count?.Pause();
+            r.Count = null;
+            r.LastValue = value;
+            if (value == null) { r.Value.text = ""; return; }
+            if (!TryNumber(value, out double to, out int decimals, out bool grouped, out bool plus))
+            {
+                r.Value.text = MfText.WithUnit(value, unit);
+                return;
+            }
+            double from = r.LastNumber;
+            r.LastNumber = to;
+            r.Count = MfMotion.CountUp(r.Value, from, to, x =>
+            {
+                // The last frame shows Core's exact string; the frames before it use the same decimals and grouping.
+                if (System.Math.Abs(x - to) < 1e-9) return MfText.WithUnit(value, unit);
+                string n = x.ToString((grouped ? "N" : "F") + decimals, CultureInfo.InvariantCulture);
+                return MfText.WithUnit((plus && x > 0 ? "+" : "") + n, unit);
+            });
+        }
+
+        /// <summary>Parses "9,718", "1.20", "-3.5" or "+12" (invariant); anything else ("$6.0 M", "LEO") is not a plain number.</summary>
+        public static bool TryNumber(string value, out double number, out int decimals, out bool grouped, out bool plus)
+        {
+            number = 0; decimals = 0; grouped = false; plus = false;
+            if (string.IsNullOrEmpty(value)) return false;
+            foreach (char c in value) if (!(char.IsDigit(c) || c == ',' || c == '.' || c == '-' || c == '+' || c == '\u2212')) return false;
+            string clean = value.Replace("\u2212", "-");
+            plus = clean.StartsWith("+");
+            grouped = clean.Contains(",");
+            int dot = clean.IndexOf('.');
+            decimals = dot < 0 ? 0 : clean.Length - dot - 1;
+            return double.TryParse(clean.Replace(",", ""), NumberStyles.AllowLeadingSign | NumberStyles.AllowDecimalPoint,
+                CultureInfo.InvariantCulture, out number);
+        }
+
+        public static MfStatus ToStatus(MetricStatus s) => s switch
+        {
+            MetricStatus.Meets => MfStatus.Meets,
+            MetricStatus.Marginal => MfStatus.Marginal,
+            MetricStatus.Fails => MfStatus.Fails,
+            MetricStatus.Info => MfStatus.Info,
+            _ => MfStatus.Pending,
         };
 
-        public static UnityEngine.Color TintFor(MetricStatus s) => s switch
-        {
-            MetricStatus.Meets => MfPalette.Meets,
-            MetricStatus.Marginal => MfPalette.Marginal,
-            MetricStatus.Fails => MfPalette.Fails,
-            MetricStatus.Info => MfPalette.Signal,
-            _ => MfPalette.Muted,
-        };
+        public static string IconFor(MetricStatus s) => MfStatusBadge.IconFor(ToStatus(s));
+
+        public static UnityEngine.Color TintFor(MetricStatus s) => MfDraw.StatusColour(ToStatus(s));
     }
 }

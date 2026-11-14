@@ -63,6 +63,13 @@ namespace MissionForge.Screens.BuildBay
             screen.EnableInClassList("bb-text-200", Text200);
             screen.EnableInClassList("bb-hc", HighContrast);
             screen.EnableInClassList("bb-reduced-motion", ReducedMotion);
+            // T031 design-system modes (UI/DESIGN_SYSTEM.md): the same switches under the shared mf-* names.
+            screen.EnableInClassList("mf-rtl", RightToLeft);
+            screen.EnableInClassList("mf-text-200", Text200);
+            screen.EnableInClassList("mf-hc", HighContrast);
+            screen.EnableInClassList(MissionForge.UI.MfMotion.ReducedClass, ReducedMotion);
+            MissionForge.UI.MfMotion.Reduced = ReducedMotion;
+            MissionForge.UI.MfGlassPanel.ForceOpaque = HighContrast;
         }
     }
 }

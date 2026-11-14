@@ -12,20 +12,19 @@ namespace MissionForge.App
     public sealed class ChromeController : MonoBehaviour
     {
         private const string TopbarShownClass = "mf-topbar--shown";
-        private const string StepClass = "mf-step";
-        private const string StepDoneClass = "mf-step--done";
-        private const string StepCurrentClass = "mf-step--current";
+        private const string HiddenClass = "mf-hidden";
 
         [SerializeField] private UIDocument document;
         [SerializeField] private RoomClientBehaviour room;
 
         private VisualElement _topbar;
         private VisualElement _veil;
-        private VisualElement _stepper;
+        private MfPhaseStepper _stepper;
         private VisualElement _connChip;
         private MfIcon _connIcon;
         private Label _connLabel;
         private Label _title;
+        private VisualElement _roomBlock;
         private Label _roomCode;
         private float _veilFrom;
         private float _veilTo;
@@ -40,20 +39,17 @@ namespace MissionForge.App
             root.pickingMode = PickingMode.Ignore;
             _topbar = root.Q<VisualElement>("topbar");
             _veil = root.Q<VisualElement>("veil");
-            _stepper = root.Q<VisualElement>("stepper");
+            _stepper = root.Q<MfPhaseStepper>("stepper");
             _connChip = root.Q<VisualElement>("conn-chip");
             _connIcon = root.Q<MfIcon>("conn-icon");
             _connLabel = root.Q<Label>("conn-label");
             _title = root.Q<Label>("screen-title");
+            _roomBlock = root.Q<VisualElement>("room");
             _roomCode = root.Q<Label>("room-code");
 
-            _stepper.Clear();
-            foreach (GamePhase phase in GamePhaseMachine.MainLine)
-            {
-                var step = new Label(GamePhaseMachine.StepLabel(phase)) { name = "step-" + phase };
-                step.AddToClassList(StepClass);
-                _stepper.Add(step);
-            }
+            var labels = new System.Collections.Generic.List<string>();
+            foreach (GamePhase phase in GamePhaseMachine.MainLine) labels.Add(SentenceCase(GamePhaseMachine.StepLabel(phase)));
+            _stepper.SetSteps(labels);
         }
 
         /// <summary>Updates the bar for a screen. The Title screen is full-bleed, so the bar hides there.</summary>
@@ -63,13 +59,7 @@ namespace MissionForge.App
             _topbar.EnableInClassList(TopbarShownClass, info.Id != ScreenId.Title);
             _title.text = info.Title;
 
-            int currentIndex = System.Array.IndexOf(GamePhaseMachine.MainLine, phase);
-            for (int i = 0; i < _stepper.childCount; i++)
-            {
-                VisualElement step = _stepper[i];
-                step.EnableInClassList(StepDoneClass, currentIndex >= 0 && i < currentIndex);
-                step.EnableInClassList(StepCurrentClass, i == currentIndex);
-            }
+            _stepper.SetCurrent(System.Array.IndexOf(GamePhaseMachine.MainLine, phase));
         }
 
         /// <summary>Fades the black veil away over <paramref name="seconds"/>.</summary>
@@ -79,6 +69,13 @@ namespace MissionForge.App
             _veilTo = 0f;
             _veilDuration = Mathf.Max(seconds, 0.01f);
             _veilElapsed = 0f;
+        }
+
+        /// <summary>Phase step labels arrive in capitals ("COUNTDOWN"); identifiers of 3 letters or fewer (FRR) stay caps.</summary>
+        private static string SentenceCase(string label)
+        {
+            if (string.IsNullOrEmpty(label) || label.Length <= 3) return label;
+            return label.Substring(0, 1).ToUpperInvariant() + label.Substring(1).ToLowerInvariant();
         }
 
         private void Update()
@@ -102,15 +99,17 @@ namespace MissionForge.App
         {
             if (room == null || room.Client == null || _connLabel == null) return;
             RoomClient client = room.Client;
-            string code = string.IsNullOrEmpty(client.RoomCode) ? "----" : client.RoomCode;
+            string code = client.RoomCode ?? string.Empty;
             if (code != _shownCode)
             {
                 _shownCode = code;
+                // No room yet: hide the whole block rather than show a placeholder word.
                 _roomCode.text = code;
+                _roomBlock.EnableInClassList(HiddenClass, code.Length == 0);
             }
             if (client.State == _shownState) return;
             _shownState = client.State;
-            ConnectionVisual.Apply(_connChip, _connIcon, _connLabel, client.State, "LIVE", "CONNECTING", "RECONNECTING", "OFFLINE");
+            ConnectionVisual.Apply(_connChip, _connIcon, _connLabel, client.State, "LIVE", "Connecting", "Reconnecting", "Offline");
         }
     }
 

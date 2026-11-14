@@ -95,6 +95,7 @@ namespace MissionForge.Screens.BuildBay
             if (stage != null) stage.Bind(this);
             BindDirector();
             Refresh();
+            EnterPanels();
             Ready?.Invoke();
 #if !UNITY_WEBGL && (UNITY_EDITOR || MF_REHEARSAL)
             BuildBayEvidence.Attach(this);
@@ -111,7 +112,7 @@ namespace MissionForge.Screens.BuildBay
         public void Refresh()
         {
             if (Session == null) return;
-            _dashboard.Show(Session.Metrics, LeadingDelta);
+            _dashboard.Show(Session.Metrics, LeadingDelta, _a11y.RightToLeft);
             _topBar.Show(Session);
             _timeline.Show(Session, LeadingDelta?.CostM ?? 0, _a11y.RightToLeft);
         }
@@ -120,6 +121,19 @@ namespace MissionForge.Screens.BuildBay
         {
             LeadingDelta = null;
             Refresh();
+        }
+
+        /// <summary>T031 motion: the four regions enter on the enter token with a 40 ms stagger (reduced motion: fade only).</summary>
+        private void EnterPanels()
+        {
+            string[] regions = { "bb-dashboard", "bb-top", "bb-bottom", "bb-vote" };
+            for (int i = 0; i < regions.Length; i++)
+            {
+                VisualElement region = Screen.Q<VisualElement>(regions[i]);
+                if (region == null) continue;
+                region.AddToClassList("mf-motion");
+                MissionForge.UI.MfMotion.Enter(region, i);
+            }
         }
 
         private void ApplyAccessibility()

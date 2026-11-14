@@ -1,0 +1,109 @@
+/* Data-visualisation components (VISUAL_TARGET 3.1): metric bar, radial gauge / timer ring, Gantt, tally, key/value,
+   and the metric row layout used by dashboards. Patterns and shapes are drawn in C# (MfDraw); this sheet sizes them
+   and styles their labels. Status is never hue alone: fill pattern + icon shape + word. */
+
+/* ---------- metric bar: 12 px bar + marker; labels under the marker / beside the ghost ---------- */
+.mf-metricbar { height: 30px; flex-shrink: 0; }
+.mf-metricbar--compact { height: 20px; }
+.mf-metricbar__req, .mf-metricbar__ghost { position: absolute; top: 14px; margin: 0; padding: 0; -unity-font-definition: var(--mf-font-body-medium); font-size: var(--mf-fs-meta); white-space: nowrap; }
+.mf-metricbar__req { color: var(--mf-ceramic); }
+.mf-metricbar__ghost { top: -20px; color: var(--mf-signal); -unity-font-definition: var(--mf-font-body-bold); }
+
+/* ---------- metric row (dashboard): icon + name + value / status word + bar ---------- */
+.mf-metric { flex-shrink: 0; padding: 4px 0 4px 0; border-bottom-width: 1px; border-bottom-color: var(--mf-ceramic-06); }
+.mf-metric__line { flex-direction: row; align-items: center; }
+.mf-metric__icon { width: 26px; height: 26px; margin-right: var(--mf-sp-2); flex-shrink: 0; }
+.mf-metric__name { -unity-font-definition: var(--mf-font-body-medium); font-size: var(--mf-fs-label); color: var(--mf-ceramic); flex-grow: 1; flex-shrink: 1; margin: 0; padding: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mf-metric__word { -unity-font-definition: var(--mf-font-body-bold); font-size: var(--mf-fs-label); margin: 0 var(--mf-sp-2) 0 0; padding: 0; flex-shrink: 0; }
+.mf-metric__value { -unity-font-definition: var(--mf-font-body-bold); font-size: 30px; color: var(--mf-ceramic); margin: 0; padding: 0; flex-shrink: 0; -unity-text-align: middle-right; }
+.mf-metric__pending { -unity-font-definition: var(--mf-font-body-medium); font-size: var(--mf-fs-label); color: var(--mf-muted); margin: 0; padding: 0; flex-shrink: 0; }
+.mf-metric__bar { margin-top: 2px; }
+/* Empty state: the localised reason wraps under the name; no stand-in bar is drawn. */
+.mf-metric--empty .mf-metric__line { flex-wrap: wrap; }
+.mf-metric--empty .mf-metric__pending { flex-basis: 100%; flex-shrink: 1; margin: 0 0 4px 34px; white-space: normal; }
+.mf-metric--empty .mf-metric__bar { display: none; }
+.mf-rtl .mf-metric--empty .mf-metric__pending { margin: 0 34px 4px 0; -unity-text-align: middle-right; }
+.mf-metric__detail-line { flex-direction: row; align-items: flex-start; }
+/* Detail lines wrap rather than ellipsise: a cut unit ("0.0 GB/…") hides the number's meaning. */
+.mf-metric__detail { -unity-font-definition: var(--mf-font-body); font-size: var(--mf-fs-meta); color: var(--mf-muted); flex-grow: 1; flex-shrink: 1; margin: 0; padding: 0; white-space: normal; }
+.mf-metric__ghost { -unity-font-definition: var(--mf-font-body-bold); font-size: var(--mf-fs-meta); color: var(--mf-signal); margin: 0 0 0 var(--mf-sp-2); padding: 0; flex-shrink: 0; }
+.mf-rtl .mf-metric__detail-line { flex-direction: row-reverse; }
+.mf-rtl .mf-metric__ghost { margin: 0 var(--mf-sp-2) 0 0; }
+.mf-text-200 .mf-metric__detail-line { flex-wrap: wrap; }
+.mf-text-200 .mf-metric__detail { white-space: normal; flex-basis: 100%; }
+.mf-metric--meets .mf-metric__word { color: var(--mf-meets); }
+.mf-metric--marginal .mf-metric__word { color: var(--mf-marginal); }
+.mf-metric--fails .mf-metric__word { color: var(--mf-fails); }
+.mf-metric--pending .mf-metric__word, .mf-metric--info .mf-metric__word { color: var(--mf-muted); }
+.mf-rtl .mf-metric__line { flex-direction: row-reverse; }
+.mf-rtl .mf-metric__icon { margin-right: 0; margin-left: var(--mf-sp-2); }
+.mf-rtl .mf-metric__word { margin: 0 0 0 var(--mf-sp-3); }
+.mf-text-200 .mf-metric__line { flex-wrap: wrap; }
+.mf-text-200 .mf-metric__name { white-space: normal; flex-basis: 80%; }
+.mf-text-200 .mf-metric__value { font-size: 56px; }
+
+/* ---------- radial gauge / timer ring ---------- */
+.mf-gauge { width: 160px; height: 160px; align-items: center; justify-content: center; flex-shrink: 0; }
+.mf-gauge--s { width: 112px; height: 112px; }
+.mf-gauge__value { -unity-font-definition: var(--mf-font-body-bold); font-size: var(--mf-fs-kpi); color: var(--mf-ceramic); margin: 0; padding: 0; -unity-text-align: middle-center; }
+.mf-gauge--s .mf-gauge__value { font-size: 44px; }
+.mf-gauge__caption { -unity-font-definition: var(--mf-font-body-medium); font-size: var(--mf-fs-meta); color: var(--mf-muted); margin: -6px 0 0 0; padding: 0; -unity-text-align: middle-center; }
+.mf-gauge__glyph { position: absolute; width: 26px; height: 26px; }
+.mf-gauge--s .mf-gauge__glyph { width: 22px; height: 22px; }
+.mf-gauge__threshold { position: absolute; -unity-font-definition: var(--mf-font-body-bold); font-size: 16px; color: var(--mf-ceramic); margin: 0; padding: 0; white-space: nowrap; }
+.mf-gauge--fails .mf-gauge__value { color: var(--mf-fails); }
+.mf-gauge--pulse { scale: 1.06 1.06; }
+.mf-gauge--pulse-idle { scale: 1 1; }
+
+/* ---------- Gantt ---------- */
+.mf-gantt { flex-shrink: 0; margin-bottom: var(--mf-sp-5); }
+.mf-gantt__row { position: absolute; height: 32px; -unity-font-definition: var(--mf-font-body-medium); font-size: var(--mf-fs-label); color: var(--mf-muted); -unity-text-align: middle-left; margin: 0; padding: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mf-rtl .mf-gantt__row { -unity-text-align: middle-right; }
+.mf-gantt__bar { position: absolute; height: 32px; -unity-font-definition: var(--mf-font-body-bold); font-size: var(--mf-fs-meta); color: var(--mf-ceramic); -unity-text-align: middle-left; margin: 0; padding: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mf-gantt__bar--critical { color: var(--mf-space); }
+.mf-gantt__deadline { position: absolute; -unity-font-definition: var(--mf-font-body-bold); font-size: var(--mf-fs-meta); color: var(--mf-fails); margin: 0; padding: 0; white-space: nowrap; }
+.mf-gantt__bar--outside { color: var(--mf-ceramic); -unity-font-definition: var(--mf-font-body-medium); }
+.mf-gantt__tick { position: absolute; -unity-font-definition: var(--mf-font-body-medium); font-size: 16px; color: var(--mf-muted); margin: 0; padding: 0; white-space: nowrap; }
+.mf-hc .mf-gantt__tick { color: var(--mf-ceramic); }
+.mf-text-200 .mf-gantt__tick { font-size: 32px; }
+.mf-gantt__now { position: absolute; -unity-font-definition: var(--mf-font-body-bold); font-size: var(--mf-fs-meta); color: var(--mf-ceramic); margin: 0; padding: 0; white-space: nowrap; }
+
+/* Legend for a chart: swatch + label, patterns match the chart. */
+.mf-legend { flex-direction: row; align-items: center; flex-wrap: wrap; }
+.mf-legend__item { flex-direction: row; align-items: center; margin-left: var(--mf-sp-5); }
+.mf-legend__swatch { width: 28px; height: 16px; border-radius: 4px; margin-right: var(--mf-sp-2); }
+.mf-legend__text { -unity-font-definition: var(--mf-font-body-medium); font-size: var(--mf-fs-meta); color: var(--mf-muted); margin: 0; padding: 0; }
+.mf-rtl .mf-legend, .mf-rtl .mf-legend__item { flex-direction: row-reverse; }
+
+/* ---------- tally ---------- */
+.mf-tally { flex-direction: row; height: 40px; border-radius: var(--mf-radius-control); background-color: var(--mf-ceramic-06); overflow: hidden; }
+.mf-tally__seg { flex-direction: row; align-items: center; padding: 0 var(--mf-sp-2) 0 var(--mf-sp-2); margin-right: 2px; min-width: 56px; transition-property: flex-grow; transition-duration: var(--mf-dur-count); transition-timing-function: ease-out-cubic; }
+.mf-tally__seg--lead { border-top-width: 3px; border-top-color: var(--mf-ceramic); }
+.mf-tally__letter { -unity-font-definition: var(--mf-font-body-bold); font-size: 22px; color: var(--mf-space); background-color: var(--mf-ceramic); border-radius: 6px; width: 28px; height: 28px; -unity-text-align: middle-center; margin: 0 var(--mf-sp-2) 0 0; padding: 0; flex-shrink: 0; }
+.mf-tally__dots { flex-direction: row; flex-wrap: wrap; overflow: hidden; flex-shrink: 1; }
+.mf-tally__dot { width: 10px; height: 10px; border-radius: 5px; background-color: var(--mf-space); margin: 2px 4px 2px 0; }
+.mf-tally__empty { position: absolute; left: var(--mf-sp-4); top: 0; bottom: 0; -unity-font-definition: var(--mf-font-body-medium); font-size: var(--mf-fs-label); color: var(--mf-muted); -unity-text-align: middle-left; margin: 0; padding: 0; }
+.mf-rtl .mf-tally { flex-direction: row-reverse; }
+
+/* ---------- key / value with unit ---------- */
+.mf-kv { flex-direction: row; align-items: center; justify-content: space-between; padding: var(--mf-sp-2) 0 var(--mf-sp-2) 0; border-bottom-width: 1px; border-bottom-color: var(--mf-ceramic-06); }
+.mf-kv__key { -unity-font-definition: var(--mf-font-body-medium); font-size: var(--mf-fs-label); color: var(--mf-muted); margin: 0; padding: 0; flex-shrink: 1; }
+.mf-kv__value { -unity-font-definition: var(--mf-font-body-bold); font-size: var(--mf-fs-body); color: var(--mf-ceramic); margin: 0 0 0 var(--mf-sp-4); padding: 0; flex-shrink: 0; }
+.mf-rtl .mf-kv { flex-direction: row-reverse; }
+
+/* ---------- legacy stat bar (screens owned by later tasks) mapped onto the bar tokens ---------- */
+.mf-statbar { flex-direction: row; align-items: center; margin-bottom: var(--mf-sp-3); }
+.mf-statbar__label { width: 190px; -unity-font-definition: var(--mf-font-body-medium); font-size: var(--mf-fs-label); color: var(--mf-muted); margin: 0; padding: 0; }
+.mf-statbar__value { width: 230px; -unity-font-definition: var(--mf-font-body-bold); font-size: 28px; color: var(--mf-ceramic); margin: 0; padding: 0; -unity-text-align: middle-right; }
+.mf-statbar__track { flex-grow: 1; height: var(--mf-bar-height); margin: 0 var(--mf-sp-4) 0 var(--mf-sp-4); background-color: var(--mf-ceramic-10); border-radius: var(--mf-bar-radius); overflow: hidden; }
+.mf-statbar__fill { height: 100%; background-color: var(--mf-signal); border-radius: var(--mf-bar-radius); transition-property: width; transition-duration: var(--mf-dur-count); transition-timing-function: ease-out-cubic; }
+.mf-statbar--good .mf-statbar__fill { background-color: var(--mf-meets); }
+.mf-statbar--warn .mf-statbar__fill { background-color: var(--mf-marginal); }
+.mf-statbar--bad .mf-statbar__fill { background-color: var(--mf-fails); }
+.mf-statbar--warn .mf-statbar__track { border-left-width: 4px; border-left-color: var(--mf-marginal); }
+.mf-statbar--bad .mf-statbar__track { border-width: 2px; border-color: var(--mf-fails); }
+
+/* ---------- high contrast: muted chart text goes full strength ---------- */
+.mf-hc .mf-gantt__row, .mf-hc .mf-legend__text, .mf-hc .mf-kv__key, .mf-hc .mf-metric__detail, .mf-hc .mf-metric__pending,
+.mf-hc .mf-tally__empty, .mf-hc .mf-gauge__caption, .mf-hc .mf-gauge__threshold, .mf-hc .mf-statbar__label { color: var(--mf-ceramic); }
+.mf-hc .mf-kv, .mf-hc .mf-metric { border-bottom-color: var(--mf-ceramic-32); }
