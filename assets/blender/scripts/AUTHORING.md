@@ -46,3 +46,42 @@ Views: 3q, side, front, back3q, low, under, top, high. `--lod 1` shows LOD1. Out
 done when it prints no ISSUE line, the render looks like release-quality stylised realism
 (clean silhouette, believable engineering detail, no z-fighting, no inside-out faces, no
 floating pieces) and LOD1 still reads as the same part.
+
+## T017 additions: world and spacecraft parts
+
+Modules: `parts_world.py` (pad and gantry), `parts_world_sites.py` (site props, phone dioramas),
+`parts_spacecraft_capsules.py` (capsules, heat shields), `parts_spacecraft_les.py`,
+`parts_spacecraft_sat.py`, `parts_spacecraft_landers.py`. Evidence helpers (not part modules):
+`parts_world_render.py` (gantry beside a vehicle), `parts_spacecraft_evidence.py` (capsule x shield sheet,
+satellite stowed/deployed and the fairing-fit report).
+
+### New material slots (appended after `detail_dark`; Unity maps them by name)
+
+| Slot | Look (style guide recipe, linear RGB, game_value) | Use |
+|---|---|---|
+| `gantry` | Console navy `#112B40`, metallic 0.20, roughness 0.62 | tower steel, launch mount |
+| `concrete` | neutral grey 0.20, metallic 0, roughness 0.88 | decks, trench, buildings' roofs, dunes, cliff rock |
+| `ground` | dark olive-grey (0.058, 0.066, 0.052), roughness 0.95 | diorama ground, hills, rail bed |
+| `foliage` | deep green (0.040, 0.105, 0.052), roughness 0.80 | palms, treeline, grass |
+| `solar_cell` | blue-black (0.018, 0.034, 0.095), metallic 0.25, roughness 0.28 | solar panels, cell strings |
+| `heat_shield` | charcoal brown (0.062, 0.046, 0.038), roughness 0.84 | TPS dish, inflatable cover, palm trunks |
+
+Insulation blankets reuse `thermal`; seams and tile mosaics use `detail_dark`.
+
+### Non-stack parts
+
+`pipeline.NON_STACK_FAMILIES` lists the family prefixes (`world_`, `spacecraft_tps`, `spacecraft_sat`,
+`spacecraft_lander`, `spacecraft_les_pod`) that are not stack segments: `validate()` skips the `attach_top`
+and mating-ring checks for them and instead requires every name in `meta["required_empties"]`. Their
+meta carries `stack=False`, `ring_check=False`, `length_m` and `max_diameter_m`. Capsules and the escape
+tower are normal stack parts (bottom ring = a kit diameter, `attach_top` at `length_m`).
+
+### Frames
+
+- Pad parts: origin at ground level under the vehicle axis (deck top at `spec.PAD_DECK_H`). Gantry parts:
+  origin at ground level under the tower axis, which stands `spec.GANTRY_OFFSET_X` along +X; arms reach -X.
+- Capsules: origin at the centre of the bottom mating ring, +Z up; sub-objects `heatshield` and (deep space)
+  `service_module`. Shield parts `tps_<type>__<cap id>`: origin at the shield apex, rim plane at
+  `meta.depth_m`, empty `capsule_rim`. Phone cards `tps_<type>` show `cap_standard` exploded above the shield.
+- Satellite: origin at the separation ring, +Z launch axis, nadir +Y. Stowed pose is in `meta.wing_stow`.
+- Landers: origin on the ground under the lander axis; the sky crane is authored with the rover lowered.
