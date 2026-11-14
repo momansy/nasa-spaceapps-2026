@@ -43,6 +43,10 @@
 .mf-rtl .mf-lobby__hintrow { margin-right: 0; margin-left: var(--mf-sp-5); }
 .mf-rtl .mf-lobby__hint-icon { margin-right: 0; margin-left: var(--mf-sp-3); }
 .mf-rtl .mf-lobby__tally-unit { margin: 0 var(--mf-sp-2) 8px 0; }
+/* RTL: every heading, the room code and the setting labels align right, and the setting blocks hug the right edge. */
+.mf-rtl .mf-lobby .mf-panel__title, .mf-rtl .mf-lobby .mf-roomcode-big, .mf-rtl .mf-lobby .mf-setting__label,
+.mf-rtl .mf-lobby .mf-joinurl, .mf-rtl .mf-lobby .mf-kpi { -unity-text-align: upper-right; }
+.mf-rtl .mf-lobby__join .mf-join__text, .mf-rtl .mf-lobby__settings .mf-setting { align-items: flex-end; }
 
 /* ---------- 200 % text: rows wrap, three seat columns, the panels scroll ---------- */
 .mf-text-200 .mf-lobby__side { width: 760px; }

@@ -19,6 +19,10 @@ namespace MissionForge.Screens.BuildBay
         private static readonly string[] StageOrder = { "REVEAL", "PREDICT", "INSPECT", "VOTE", "RUNOFF", "TIEBREAK_TRIVIA", "TIEBREAK_PICK", "RESULT" };
         /// <summary>Seconds left at which the timer turns urgent (shape: it also grows; colour is not alone). game_value.</summary>
         private const int UrgentSeconds = 5;
+        /// <summary>No-break space between a number and its unit so "30 days" never wraps apart (VISUAL_TARGET 3.1).</summary>
+        private const string Nbsp = "\u00A0";
+        /// <summary>Feed lines shown under the options (newest first). game_value.</summary>
+        private const int FeedLines = 3;
 
         private readonly UiText _text;
         private readonly BuildBayScreen _screen;
@@ -31,6 +35,7 @@ namespace MissionForge.Screens.BuildBay
         private string _timerStage;
         private int _timerTotal;
         private VoteRoundModel _model;
+        private string _enteredRound, _celebrated;
         private IBayVoteChannel _channel;
 
         public VotePanelView(VisualElement screen, UiText text, BuildBayScreen owner)
@@ -87,7 +92,7 @@ namespace MissionForge.Screens.BuildBay
             bool urgent = left.Value <= UrgentSeconds && (_model.Stage == "VOTE" || _model.Stage == "RUNOFF");
             _timer.Set((float)left.Value / _timerTotal, urgent ? MfStatus.Fails : MfStatus.Info,
                 left.Value.ToString(System.Globalization.CultureInfo.InvariantCulture), _text.Get("ui.buildbay.unit.s"),
-                (float)UrgentSeconds / _timerTotal);
+                (float)UrgentSeconds / _timerTotal, UrgentSeconds + Nbsp + _text.Get("ui.buildbay.unit.s"));
             _timer.EnableInClassList("bb-timer--urgent", urgent);
             MfMotion.Pulse(_timer, urgent);
         }
@@ -174,7 +179,24 @@ namespace MissionForge.Screens.BuildBay
             _options.Clear();
             int max = 0;
             foreach (OptionState o in _model.Options) if (o.Count.HasValue) max = Math.Max(max, o.Count.Value);
-            for (int i = 0; i < _model.Options.Count; i++) _options.Add(Card(_model.Options[i], Letters[Math.Min(i, Letters.Length - 1)], max));
+            // Motion (T031): cards enter with the 40 ms stagger once per round (not on every tally update), and the winning
+            // card celebrates once when the result lands. Reduced motion: a fade, no movement or scale.
+            string roundKey = _model.Kind + "|" + _model.SubjectId + "|" + _model.Options.Count;
+            bool newRound = roundKey != _enteredRound;
+            _enteredRound = roundKey;
+            for (int i = 0; i < _model.Options.Count; i++)
+            {
+                OptionState o = _model.Options[i];
+                VisualElement card = Card(o, Letters[Math.Min(i, Letters.Length - 1)], max);
+                _options.Add(card);
+                if (newRound) MfMotion.Enter(card, i);
+                string winKey = roundKey + "|" + o.Id;
+                if (_model.WinnerId == o.Id && winKey != _celebrated)
+                {
+                    _celebrated = winKey;
+                    MfMotion.Celebrate(card);
+                }
+            }
         }
 
         private VisualElement Card(OptionState o, string letter, int maxCount)
@@ -214,7 +236,7 @@ namespace MissionForge.Screens.BuildBay
             if (part != null && part.Maturity != Maturity.Proven) badges.Add(Badge("marginal", _text.Get("ui.buildbay.vote.hidden_risk"), "bb-badge--risk"));
             if (o.OverBudgetByM > 0) badges.Add(Badge("fails", _text.Format("ui.buildbay.vote.over_budget", DashboardViewModel.Money(o.OverBudgetByM)), "bb-badge--bad"));
             if (o.WillNotFly) badges.Add(Badge(o.FixExists ? "marginal" : "fails", _text.Get(o.FixExists ? "ui.buildbay.vote.fix_exists" : "ui.buildbay.vote.will_not_fly"), o.FixExists ? "bb-badge--warn" : "bb-badge--bad"));
-            if (o.OverScheduleByDays > 0) badges.Add(Badge("marginal", _text.Format("ui.buildbay.vote.late", UiText.Number(o.OverScheduleByDays, 0) + "\u2009" + _text.Get("ui.buildbay.unit.days")), "bb-badge--warn"));
+            if (o.OverScheduleByDays > 0) badges.Add(Badge("marginal", _text.Format("ui.buildbay.vote.late", UiText.Number(o.OverScheduleByDays, 0) + Nbsp + _text.Get("ui.buildbay.unit.days")), "bb-badge--warn"));
             foreach (TagItem t in o.Tags)
             {
                 string who = t.Role != null && _text.Has("role." + t.Role + ".name") ? _text.Get("role." + t.Role + ".name") : _channel?.PlayerName(t.PlayerId) ?? t.PlayerId;
@@ -254,16 +276,16 @@ namespace MissionForge.Screens.BuildBay
         {
             var bits = new List<string>();
             double? thrust = p.Stats.ThrustSlN ?? p.Stats.ThrustVacN;
-            if (thrust.HasValue) bits.Add(UiText.Number(thrust.Value / 1000.0, 0) + " " + _text.Get("ui.buildbay.unit.kn"));
+            if (thrust.HasValue) bits.Add(UiText.Number(thrust.Value / 1000.0, 0) + Nbsp + _text.Get("ui.buildbay.unit.kn"));
             double? isp = p.Stats.IspVacS;
-            if (isp.HasValue) bits.Add(UiText.Number(isp.Value, 0) + " " + _text.Get("ui.buildbay.unit.s"));
-            if (p.MassKg > 0) bits.Add(UiText.Number(p.MassKg / 1000.0, p.MassKg < 10000 ? 2 : 1) + " " + _text.Get("ui.buildbay.unit.t"));
+            if (isp.HasValue) bits.Add(UiText.Number(isp.Value, 0) + Nbsp + _text.Get("ui.buildbay.unit.s"));
+            if (p.MassKg > 0) bits.Add(UiText.Number(p.MassKg / 1000.0, p.MassKg < 10000 ? 2 : 1) + Nbsp + _text.Get("ui.buildbay.unit.t"));
             if (p.CostM > 0) bits.Add(DashboardViewModel.Money(p.CostM));
-            if (p.LeadDays > 0) bits.Add(UiText.Number(p.LeadDays, 0) + " " + _text.Get("ui.buildbay.unit.days"));
+            if (p.LeadDays > 0) bits.Add(UiText.Number(p.LeadDays, 0) + Nbsp + _text.Get("ui.buildbay.unit.days"));
             if (p.Reliability.HasValue)
             {
                 double band = BuildConstants.BandHalfWidth(p.Maturity) * 100; // Core's maturity band half-width
-                bits.Add(UiText.Number(p.Reliability.Value * 100, 1) + " % ±" + UiText.Number(band, 0) + " %");
+                bits.Add(UiText.Number(p.Reliability.Value * 100, 1) + Nbsp + "%" + Nbsp + "±" + UiText.Number(band, 0) + Nbsp + "%");
             }
             return string.Join(" · ", bits);
         }
@@ -282,14 +304,16 @@ namespace MissionForge.Screens.BuildBay
         private string Arrow(double delta, int decimals, string nameKey, string unitKey)
         {
             if (Math.Round(delta, decimals) == 0) return null;
-            return (delta > 0 ? "↑" : "↓") + " " + _text.Get(nameKey) + " " + UiText.Signed(delta, decimals) + " " + _text.Get(unitKey);
+            return (delta > 0 ? "↑" : "↓") + " " + _text.Get(nameKey) + " " + UiText.Signed(delta, decimals) + Nbsp + _text.Get(unitKey);
         }
 
         private void Feed()
         {
             _feed.Clear();
-            foreach (FeedItem f in _model.Feed)
+            // Newest three only (the model keeps newest first): lines wrap in full instead of being ellipsised.
+            for (int n = 0; n < Math.Min(FeedLines, _model.Feed.Count); n++)
             {
+                FeedItem f = _model.Feed[n];
                 string who = _channel?.PlayerName(f.PlayerId) ?? f.PlayerId;
                 string target = f.OptionId != null && _screen.Session.Catalog.Parts.TryGetValue(f.OptionId, out PartDef p) ? " › " + p.Name : "";
                 string line;

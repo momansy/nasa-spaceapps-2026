@@ -152,7 +152,7 @@ namespace MissionForge.UI
             col.Add(Label("Label 24, the minimum a player must read", "mf-label"));
             col.Add(Label("Meta 20, ticks and table heads only", "mf-meta"));
             col.Add(Label("ROOM QK7P", "mf-code"));
-            col.Add(Label("Tabular 1111 / 8888 / " + MfText.Signed(-42.5, 1), "mf-body"));
+            col.Add(Label("1111 / 8888 / " + MfText.Signed(-42.5, 1), "mf-body"));
 
             col.Add(Heading("Icons", top: 16));
             var grid = Row(wrap: true);
@@ -275,13 +275,18 @@ namespace MissionForge.UI
             gauges.style.marginTop = 4;
             var g1 = new MfRadialGauge();
             g1.AddToClassList("mf-gauge--s");
-            g1.Set(0.74f, MfStatus.Meets, "74", "%", 0.6f);
+            g1.Set(0.74f, MfStatus.Meets, "74", "%", 0.6f, "60\u00A0%");
             var g2 = new MfRadialGauge();
             g2.AddToClassList("mf-gauge--s");
-            g2.Set(0.4f, MfStatus.Marginal, "1.1", "TWR", 0.5f);
+            g2.Set(0.4f, MfStatus.Marginal, "1.1", "TWR", 0.5f, "1.2");
             var g3 = new MfRadialGauge();
             g3.AddToClassList("mf-gauge--s");
-            g3.Set(0.2f, MfStatus.Fails, "4", "s", 0.25f);
+            g3.Set(0.2f, MfStatus.Fails, "4", "s", 0.25f, "5\u00A0s");
+            // Head room for the threshold labels (their ticks point up or up-left here; see ThresholdLabelOutset).
+            foreach (MfRadialGauge g in new[] { g1, g2, g3 })
+            {
+                g.style.marginTop = 22; g.style.marginBottom = 4;
+            }
             gauges.Add(g1); gauges.Add(g2); gauges.Add(g3);
             col.Add(gauges);
 
@@ -323,7 +328,7 @@ namespace MissionForge.UI
             glass.AddToClassList("mf-glass");
             glass.style.paddingLeft = glass.style.paddingRight = glass.style.paddingTop = glass.style.paddingBottom = 20;
             glass.Add(Label("Glass panel e2", "mf-h3"));
-            glass.Add(Label("Blur + Console 76\u00A0%", "mf-label"));
+            glass.Add(Label("Blur + Console 92\u00A0%", "mf-label"));
             var inner = new VisualElement();
             inner.AddToClassList("mf-card");
             inner.AddToClassList("mf-card--flat");

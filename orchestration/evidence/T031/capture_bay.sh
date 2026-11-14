@@ -11,7 +11,7 @@ run() { # outdir only extra...
   "$BAY" $W -mfBayShots $out -mfBayOnly $only "$@" -logFile $L/${out:t}.log >/dev/null 2>&1
   echo "${out:t} exit=$? -> $(ls $out 2>/dev/null | tr '\n' ' ')"
 }
-B=/tmp/t031/r2/bb
+B=/tmp/t031/r7/bb
 run $B-idle 01-idle,02-beauty,09-complete -mfBayVotes 9
 run $B-vote 03-vote,04-assembly -mfBayVotes 4 -mfRehearsalPace 0.6
 run $B-hc 01-idle -mfBayVotes 9 -mfHighContrast

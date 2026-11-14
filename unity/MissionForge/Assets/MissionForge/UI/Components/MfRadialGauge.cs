@@ -21,6 +21,7 @@ namespace MissionForge.UI
         private readonly Label _valueLabel;
         private readonly Label _captionLabel;
         private readonly MfIcon _endIcon;
+        private readonly Label _thresholdLabel;
 
         public MfRadialGauge()
         {
@@ -34,6 +35,10 @@ namespace MissionForge.UI
             _endIcon.AddToClassList("mf-gauge__glyph");
             Add(_valueLabel);
             Add(_captionLabel);
+            _thresholdLabel = new Label { pickingMode = PickingMode.Ignore };
+            _thresholdLabel.AddToClassList("mf-gauge__threshold");
+            _thresholdLabel.style.display = DisplayStyle.None;
+            Add(_thresholdLabel);
             Add(_endIcon);
             generateVisualContent += Draw;
             RegisterCallback<GeometryChangedEvent>(_ => PlaceGlyph());
@@ -45,10 +50,16 @@ namespace MissionForge.UI
         [UxmlAttribute] public string text { get => _valueLabel.text; set => _valueLabel.text = value; }
         [UxmlAttribute] public string caption { get => _captionLabel.text; set { _captionLabel.text = value; _captionLabel.style.display = string.IsNullOrEmpty(value) ? DisplayStyle.None : DisplayStyle.Flex; } }
 
-        public void Set(float value01, MfStatus s, string valueText, string captionText, float threshold01 = -1f)
+        /// <summary>Label for the threshold tick (for example "5 s"); shown just outside the ring at the tick.</summary>
+        [UxmlAttribute] public string thresholdText { get => _thresholdLabel.text; set { _thresholdLabel.text = value; PlaceGlyph(); MarkDirtyRepaint(); } }
+
+        private bool HasThreshold => _threshold > TickEndMargin && _threshold < 1f - TickEndMargin;
+
+        public void Set(float value01, MfStatus s, string valueText, string captionText, float threshold01 = -1f, string thresholdLabel = null)
         {
             _value = Mathf.Clamp01(value01);
             _threshold = threshold01;
+            if (thresholdLabel != null) _thresholdLabel.text = thresholdLabel;
             text = valueText;
             caption = captionText;
             status = s;
@@ -83,7 +94,20 @@ namespace MissionForge.UI
             float s = _endIcon.resolvedStyle.width > 0 ? _endIcon.resolvedStyle.width : 26f;
             _endIcon.style.left = at.x - s * 0.5f;
             _endIcon.style.top = at.y - s * 0.5f;
+            // Threshold label: just outside the ring, on the tick's own radius, centred on it (the caption keeps the
+            // bottom gap). It may extend up to ThresholdLabelOutset px past the box: hosts leave that margin.
+            bool showLabel = HasThreshold && !string.IsNullOrEmpty(_thresholdLabel.text);
+            _thresholdLabel.style.display = showLabel ? DisplayStyle.Flex : DisplayStyle.None;
+            if (!showLabel) return;
+            float deg = StartDeg + SweepDeg * _threshold;
+            Vector2 labelAt = Polar(r.center, Radius(r) + Stroke * 0.5f + TickOverhang + 12f, deg);
+            _thresholdLabel.style.left = labelAt.x;
+            _thresholdLabel.style.top = labelAt.y;
+            _thresholdLabel.style.translate = new Translate(Length.Percent(-50), Length.Percent(-50));
         }
+
+        /// <summary>How far the threshold label can reach past the gauge box (px); hosts keep this much margin around it.</summary>
+        public const float ThresholdLabelOutset = 28f;
 
         private void Draw(MeshGenerationContext ctx)
         {
@@ -110,9 +134,19 @@ namespace MissionForge.UI
 
             // Threshold tick: a notch across the stroke only (a Space keyline, then Ceramic), so it never reaches the number
             // inside or floats outside the ring. Ticks at the very ends of the track would read as a stray mark: skipped.
-            if (_threshold > TickEndMargin && _threshold < 1f - TickEndMargin)
+            if (HasThreshold)
             {
                 float deg = StartDeg + SweepDeg * _threshold;
+                // The zone below the threshold gets a Ceramic-24 % keyline inside the track so the tick, the zone and its
+                // label read as one mark even when the status glyph sits near the tick.
+                p.strokeColor = MfPalette.WithAlpha(MfPalette.Ceramic, 0.24f);
+                p.lineWidth = 3f;
+                p.lineCap = LineCap.Butt;
+                p.BeginPath();
+                p.Arc(c, radius - Stroke * 0.5f - 4f, StartDeg, deg);
+                p.Stroke();
+                p.lineCap = LineCap.Round;
+                p.lineWidth = Stroke;
                 Vector2 inner = Polar(c, radius - Stroke * 0.5f - TickOverhang, deg);
                 Vector2 outer = Polar(c, radius + Stroke * 0.5f + TickOverhang, deg);
                 MfDraw.Line(p, inner, outer, MfPalette.Space, 6f);

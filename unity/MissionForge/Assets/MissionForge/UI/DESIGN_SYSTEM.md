@@ -87,9 +87,9 @@ Every number in this system is a `game_value` art or layout choice, not a physic
 | Text field | `TextField.mf-textfield` (`--invalid`) + `.mf-field__label/__error` | default, hover, focus, invalid |
 | Card / panel | `MfCard`, `.mf-card` (`--interactive`, `--selected`, `--flat`), `.mf-panel` + header classes | |
 | Seat / avatar card | `MfSeatCard.SetPlayer(...)` / `SetEmpty(waitingText)` | occupied, away, designed empty |
-| Metric bar | `MfMetricBar.Set(value01, status, requirement01, reqText, ghost01, ghostText, band…)` | Meets solid, Marginal hatch, Fails cross-hatch, requirement marker, "if chosen" ghost |
-| Radial gauge / timer ring | `MfRadialGauge.Set(value01, status, text, caption, threshold01)` | 270° arc, threshold tick, status glyph at the arc end; `MfMotion.Pulse` in the last 5 s |
-| Gantt | `MfGanttChart.Set(rows, bars, axisDays, launchReady, deadline, …)` | Critical path (solid, Sunlight outline, chevrons), slack dotted, deadline line, now marker |
+| Metric bar | `MfMetricBar.Set(value01, status, requirement01, reqText, ghost01, ghostText, band…)` | Meets solid, Marginal hatch, Fails cross-hatch, requirement marker, "if chosen" ghost. A Marginal or Fails zero still draws a short patterned stub (never a bare grey track). `mf-metricbar--compact` keeps the marker and its cap inside its own box (give it 16 px for a 12 px bar). |
+| Radial gauge / timer ring | `MfRadialGauge.Set(value01, status, text, caption, threshold01, thresholdLabel)` | 270° arc, threshold tick plus its label (just outside the ring at the tick: leave `MfRadialGauge.ThresholdLabelOutset` px of margin on that side), status glyph at the arc end; `MfMotion.Pulse` in the last 5 s |
+| Gantt | `MfGanttChart.Set(rows, bars, axisDays, launchReady, deadline, deadlineText, nowDay, nowText, tickDays, rtl, axisUnit)` | Critical path (solid, Sunlight outline, chevrons that start after the bar label), slack dotted, labelled deadline, labelled "now" marker, day labels under the ticks (the last carries `axisUnit`; labels that would touch are dropped). Short bars carry their name after the bar end when the track there is empty. Rows, the deadline band and the axis scale with the label font (200 % text). |
 | Tally bar | `MfTallyBar.Set(segments)` | Letter badge and voter dots per option, empty message |
 | Phase stepper / top navigation | `MfPhaseStepper.SetSteps/SetCurrent/SetState` | done (check), current (plate), locked (lock) |
 | Toast, modal, tooltip | `MfOverlays.Toast/Modal/Close/Explain` | enter, exit |

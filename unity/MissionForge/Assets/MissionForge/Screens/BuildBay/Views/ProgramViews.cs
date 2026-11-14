@@ -92,7 +92,7 @@ namespace MissionForge.Screens.BuildBay
             var bars = new List<MfGanttBar>(model.Bars.Count);
             foreach (GanttBar g in model.Bars) bars.Add(new MfGanttBar(g.Lane, g.StartDay, g.EndDay, g.Critical, g.Label, g.Kind == StepKind.Test));
             _gantt.Set(model.LaneNames, bars, model.AxisDays, model.TotalDays, model.DeadlineDays, deadline,
-                0, null, TimelineViewModel.TickDays, rtl);
+                0, _text.Get("ui.buildbay.timeline.now"), TimelineViewModel.TickDays, rtl, days);
 
             _legend.Clear();
             _legend.Add(LegendItem(_text.Get("ui.buildbay.timeline.critical"), "mf-legend__swatch--critical"));

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Globalization;
 using MissionForge.Core.Build;
 using MissionForge.UI;
 using UnityEngine.UIElements;
@@ -19,6 +20,10 @@ namespace MissionForge.Screens.BuildBay
             public MfIcon Icon;
             public Label Name, Word, Value, Pending, Detail, Ghost;
             public MfMetricBar Bar;
+            /// <summary>Last value string shown and its number, for the KPI count-up (T031 motion).</summary>
+            public string LastValue;
+            public double LastNumber;
+            public IVisualElementScheduledItem Count;
         }
 
         private static readonly string[] StatusClasses =
@@ -96,7 +101,7 @@ namespace MissionForge.Screens.BuildBay
             r.Name.text = row.Name;
             r.Word.text = row.Status == MetricStatus.Info ? "" : _text.Get(DashboardViewModel.StatusKey(row.Status));
             r.Word.style.display = row.Status == MetricStatus.Info || pending ? DisplayStyle.None : DisplayStyle.Flex;
-            r.Value.text = pending ? "" : MfText.WithUnit(row.Value, row.Unit);
+            ShowValue(r, pending ? null : row.Value, row.Unit);
             r.Value.style.display = pending ? DisplayStyle.None : DisplayStyle.Flex;
             // A designed empty state (VISUAL_TARGET 3.1): the localised reason, never a dash.
             r.Pending.text = pending ? row.Detail : "";
@@ -112,6 +117,48 @@ namespace MissionForge.Screens.BuildBay
             r.Ghost.style.display = row.Delta != null ? DisplayStyle.Flex : DisplayStyle.None;
             r.Bar.Set(row.Fill, pending ? MfStatus.Pending : status, row.Requirement, null, row.Ghost, null, row.BandLow, row.BandHigh, _rtl);
             r.Bar.style.display = pending ? DisplayStyle.None : DisplayStyle.Flex; // no grey stand-in bar in the empty state
+        }
+
+        /// <summary>
+        /// Sets the KPI value. A changed plain number counts up from the previous one (from 0 the first time) on the
+        /// count token with ease-out-quart; reduced motion jumps straight to it (MfMotion.CountUp). Other values are set.
+        /// </summary>
+        private static void ShowValue(RowElements r, string value, string unit)
+        {
+            if (value == r.LastValue) return;
+            r.Count?.Pause();
+            r.Count = null;
+            r.LastValue = value;
+            if (value == null) { r.Value.text = ""; return; }
+            if (!TryNumber(value, out double to, out int decimals, out bool grouped, out bool plus))
+            {
+                r.Value.text = MfText.WithUnit(value, unit);
+                return;
+            }
+            double from = r.LastNumber;
+            r.LastNumber = to;
+            r.Count = MfMotion.CountUp(r.Value, from, to, x =>
+            {
+                // The last frame shows Core's exact string; the frames before it use the same decimals and grouping.
+                if (System.Math.Abs(x - to) < 1e-9) return MfText.WithUnit(value, unit);
+                string n = x.ToString((grouped ? "N" : "F") + decimals, CultureInfo.InvariantCulture);
+                return MfText.WithUnit((plus && x > 0 ? "+" : "") + n, unit);
+            });
+        }
+
+        /// <summary>Parses "9,718", "1.20", "-3.5" or "+12" (invariant); anything else ("$6.0 M", "LEO") is not a plain number.</summary>
+        public static bool TryNumber(string value, out double number, out int decimals, out bool grouped, out bool plus)
+        {
+            number = 0; decimals = 0; grouped = false; plus = false;
+            if (string.IsNullOrEmpty(value)) return false;
+            foreach (char c in value) if (!(char.IsDigit(c) || c == ',' || c == '.' || c == '-' || c == '+' || c == '\u2212')) return false;
+            string clean = value.Replace("\u2212", "-");
+            plus = clean.StartsWith("+");
+            grouped = clean.Contains(",");
+            int dot = clean.IndexOf('.');
+            decimals = dot < 0 ? 0 : clean.Length - dot - 1;
+            return double.TryParse(clean.Replace(",", ""), NumberStyles.AllowLeadingSign | NumberStyles.AllowDecimalPoint,
+                CultureInfo.InvariantCulture, out number);
         }
 
         public static MfStatus ToStatus(MetricStatus s) => s switch

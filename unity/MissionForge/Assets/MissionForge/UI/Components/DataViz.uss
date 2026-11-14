@@ -23,8 +23,9 @@
 .mf-metric--empty .mf-metric__pending { flex-basis: 100%; flex-shrink: 1; margin: 0 0 4px 34px; white-space: normal; }
 .mf-metric--empty .mf-metric__bar { display: none; }
 .mf-rtl .mf-metric--empty .mf-metric__pending { margin: 0 34px 4px 0; -unity-text-align: middle-right; }
-.mf-metric__detail-line { flex-direction: row; align-items: center; }
-.mf-metric__detail { -unity-font-definition: var(--mf-font-body); font-size: var(--mf-fs-meta); color: var(--mf-muted); flex-grow: 1; flex-shrink: 1; margin: 0; padding: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mf-metric__detail-line { flex-direction: row; align-items: flex-start; }
+/* Detail lines wrap rather than ellipsise: a cut unit ("0.0 GB/…") hides the number's meaning. */
+.mf-metric__detail { -unity-font-definition: var(--mf-font-body); font-size: var(--mf-fs-meta); color: var(--mf-muted); flex-grow: 1; flex-shrink: 1; margin: 0; padding: 0; white-space: normal; }
 .mf-metric__ghost { -unity-font-definition: var(--mf-font-body-bold); font-size: var(--mf-fs-meta); color: var(--mf-signal); margin: 0 0 0 var(--mf-sp-2); padding: 0; flex-shrink: 0; }
 .mf-rtl .mf-metric__detail-line { flex-direction: row-reverse; }
 .mf-rtl .mf-metric__ghost { margin: 0 var(--mf-sp-2) 0 0; }
@@ -49,6 +50,7 @@
 .mf-gauge__caption { -unity-font-definition: var(--mf-font-body-medium); font-size: var(--mf-fs-meta); color: var(--mf-muted); margin: -6px 0 0 0; padding: 0; -unity-text-align: middle-center; }
 .mf-gauge__glyph { position: absolute; width: 26px; height: 26px; }
 .mf-gauge--s .mf-gauge__glyph { width: 22px; height: 22px; }
+.mf-gauge__threshold { position: absolute; -unity-font-definition: var(--mf-font-body-bold); font-size: 16px; color: var(--mf-ceramic); margin: 0; padding: 0; white-space: nowrap; }
 .mf-gauge--fails .mf-gauge__value { color: var(--mf-fails); }
 .mf-gauge--pulse { scale: 1.06 1.06; }
 .mf-gauge--pulse-idle { scale: 1 1; }
@@ -60,7 +62,11 @@
 .mf-gantt__bar { position: absolute; height: 32px; -unity-font-definition: var(--mf-font-body-bold); font-size: var(--mf-fs-meta); color: var(--mf-ceramic); -unity-text-align: middle-left; margin: 0; padding: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .mf-gantt__bar--critical { color: var(--mf-space); }
 .mf-gantt__deadline { position: absolute; -unity-font-definition: var(--mf-font-body-bold); font-size: var(--mf-fs-meta); color: var(--mf-fails); margin: 0; padding: 0; white-space: nowrap; }
-.mf-gantt__now { position: absolute; -unity-font-definition: var(--mf-font-body-medium); font-size: var(--mf-fs-meta); color: var(--mf-ceramic); margin: 0; padding: 0; white-space: nowrap; }
+.mf-gantt__bar--outside { color: var(--mf-ceramic); -unity-font-definition: var(--mf-font-body-medium); }
+.mf-gantt__tick { position: absolute; -unity-font-definition: var(--mf-font-body-medium); font-size: 16px; color: var(--mf-muted); margin: 0; padding: 0; white-space: nowrap; }
+.mf-hc .mf-gantt__tick { color: var(--mf-ceramic); }
+.mf-text-200 .mf-gantt__tick { font-size: 32px; }
+.mf-gantt__now { position: absolute; -unity-font-definition: var(--mf-font-body-bold); font-size: var(--mf-fs-meta); color: var(--mf-ceramic); margin: 0; padding: 0; white-space: nowrap; }
 
 /* Legend for a chart: swatch + label, patterns match the chart. */
 .mf-legend { flex-direction: row; align-items: center; flex-wrap: wrap; }
@@ -99,5 +105,5 @@
 
 /* ---------- high contrast: muted chart text goes full strength ---------- */
 .mf-hc .mf-gantt__row, .mf-hc .mf-legend__text, .mf-hc .mf-kv__key, .mf-hc .mf-metric__detail, .mf-hc .mf-metric__pending,
-.mf-hc .mf-tally__empty, .mf-hc .mf-gauge__caption, .mf-hc .mf-statbar__label { color: var(--mf-ceramic); }
+.mf-hc .mf-tally__empty, .mf-hc .mf-gauge__caption, .mf-hc .mf-gauge__threshold, .mf-hc .mf-statbar__label { color: var(--mf-ceramic); }
 .mf-hc .mf-kv, .mf-hc .mf-metric { border-bottom-color: var(--mf-ceramic-32); }

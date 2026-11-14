@@ -14,7 +14,11 @@ namespace MissionForge.UI
     {
         /// <summary>Bar geometry in px (tokens.json dataviz, game_value).</summary>
         private const float BarHeight = 12f, BarRadius = 6f, MarkerWidth = 2f, CapSize = 7f;
-        private float BarTop => ClassListContains(CompactClass) ? 5f : 9f;
+        /// <summary>
+        /// Compact bars sit at the bottom of their own box so the marker and its cap stay inside it and never run into
+        /// the detail line below (RUBRIC U6); regular bars keep a 9 px top for the label above the cap.
+        /// </summary>
+        private float BarTop => ClassListContains(CompactClass) ? Mathf.Max(0f, contentRect.height - BarHeight) : 9f;
         /// <summary>Compact rows (dense dashboards) draw labels elsewhere and keep only the bar, marker and ghost.</summary>
         public const string CompactClass = "mf-metricbar--compact";
 
@@ -84,8 +88,10 @@ namespace MissionForge.UI
             {
                 float x = X(_requirement, r);
                 bool rightSide = (x - r.xMin) < r.width * 0.55f;
-                _requirementLabel.style.left = rightSide ? x + 6f : StyleKeyword.Auto;
-                _requirementLabel.style.right = rightSide ? StyleKeyword.Auto : (r.xMax - x) + 6f;
+                // Clear of the cap's half-width (CapSize * 0.6) plus a 4 px gap, so the text never touches the triangle.
+                float gap = CapSize * 0.6f + 4f;
+                _requirementLabel.style.left = rightSide ? x + gap : StyleKeyword.Auto;
+                _requirementLabel.style.right = rightSide ? StyleKeyword.Auto : (r.xMax - x) + gap;
                 _requirementLabel.EnableInClassList("mf-metricbar__req--left", !rightSide);
             }
             if (HasGhost)
@@ -106,9 +112,12 @@ namespace MissionForge.UI
             MfDraw.FillRoundedRect(p, track, BarRadius, MfPalette.WithAlpha(MfPalette.Ceramic, 0.10f));
 
             Color colour = MfDraw.StatusColour(_status);
-            if (_status != MfStatus.Pending && _value > 0f)
+            // A real zero against a requirement still draws a one-radius stub in the status pattern, so a Marginal or
+            // Fails row never shows the bare grey track that reads as a stand-in bar (VISUAL_TARGET 3.1).
+            bool zeroStub = _value <= 0f && (_status == MfStatus.Marginal || _status == MfStatus.Fails);
+            if (_status != MfStatus.Pending && (_value > 0f || zeroStub))
             {
-                float w = Mathf.Max(BarHeight, _value * r.width);
+                float w = Mathf.Max(BarHeight * (zeroStub ? 1.5f : 1f), _value * r.width);
                 var fill = new Rect(_rtl ? r.xMax - w : r.xMin, BarTop, w, BarHeight);
                 MfDraw.StatusFill(p, fill, BarRadius, _status == MfStatus.Info ? MfStatus.Meets : _status,
                     _status == MfStatus.Info ? MfPalette.WithAlpha(MfPalette.Signal, 0.7f) : colour);
@@ -141,9 +150,18 @@ namespace MissionForge.UI
             if (HasRequirement)
             {
                 float x = X(_requirement, r);
-                MfDraw.Line(p, new Vector2(x, BarTop - 6f), new Vector2(x, BarTop + BarHeight + 4f), MfPalette.Ceramic, MarkerWidth);
-                if (ClassListContains(CompactClass)) MfDraw.Triangle(p, new Vector2(x, BarTop - 1f), 6f, 1f, MfPalette.Ceramic);
-                else MfDraw.Triangle(p, new Vector2(x, BarTop + BarHeight + 4f), CapSize, -1f, MfPalette.Ceramic);
+                if (ClassListContains(CompactClass))
+                {
+                    // Inside the box: the line spans it top to bottom and the cap points down onto the bar.
+                    float cap = Mathf.Clamp(BarTop, 3f, 6f);
+                    MfDraw.Line(p, new Vector2(x, 0f), new Vector2(x, r.height), MfPalette.Ceramic, MarkerWidth);
+                    MfDraw.Triangle(p, new Vector2(x, cap), cap, 1f, MfPalette.Ceramic);
+                }
+                else
+                {
+                    MfDraw.Line(p, new Vector2(x, BarTop - 6f), new Vector2(x, BarTop + BarHeight + 4f), MfPalette.Ceramic, MarkerWidth);
+                    MfDraw.Triangle(p, new Vector2(x, BarTop + BarHeight + 4f), CapSize, -1f, MfPalette.Ceramic);
+                }
             }
         }
     }

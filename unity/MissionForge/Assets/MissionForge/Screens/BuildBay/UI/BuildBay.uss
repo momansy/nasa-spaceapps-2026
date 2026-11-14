@@ -28,7 +28,7 @@
 .bb-panel--dashboard .bb-panel__head { margin-bottom: var(--mf-sp-1); }
 .bb-metrics .mf-metric { padding: 1px 0 2px 0; }
 .bb-metrics .mf-metric__value { font-size: 28px; }
-.bb-metrics .mf-metricbar--compact { height: 12px; }
+.bb-metrics .mf-metricbar--compact { height: 16px; } /* 4 px cap headroom above the 12 px bar; the marker stays inside */
 .bb-metrics .mf-metric__bar { margin-top: 0; }
 /* Waiting rows: the reason sits right of the name when it fits, and wraps under it only when it does not. */
 .bb-metrics .mf-metric--empty .mf-metric__name { flex-grow: 0; }
@@ -116,15 +116,18 @@
 .bb-vote__titles { flex-shrink: 1; flex-grow: 1; }
 .bb-vote__titles .bb-panel__title { font-size: 40px; }
 .mf-rtl .bb-vote__head { flex-direction: row-reverse; }
-.bb-timer { margin-left: var(--mf-sp-3); }
+/* Room for the timer's threshold label, which sits just outside the ring at its tick (MfRadialGauge.ThresholdLabelOutset). */
+.bb-timer { margin-left: 28px; margin-right: 4px; }
 .bb-stages { justify-content: flex-start; flex-grow: 0; flex-wrap: wrap; margin: var(--mf-sp-2) 0 var(--mf-sp-2) 0; overflow: visible; }
 .bb-stages .mf-step { height: 36px; margin-bottom: 4px; }
-/* Narrow column: finished stages keep their check shape but drop the word, so the strip stays on one line. */
-.bb-stages .mf-step { padding: 0 var(--mf-sp-2) 0 4px; }
-.bb-stages .mf-step__icon { width: 18px; height: 18px; margin-right: 4px; }
-/* No connectors in the narrow vote column: the four stages fit on one line and nothing dangles at a wrap. */
+/* Narrow column (384 px inside the panel): tighter pills so the usual four stages (Reveal, Inspect, Vote, Result:
+   about 350 px) sit on one line with every label kept (status language: shape + colour + label + border). */
+.bb-stages .mf-step { padding: 0 6px 0 4px; }
+.bb-stages .mf-step__icon { width: 16px; height: 16px; margin-right: 3px; }
+/* No connectors in the narrow vote column: nothing dangles if a longer plan (Predict, Runoff) does wrap. */
 .bb-stages .mf-stepper__rail { display: none; }
-.bb-stages .mf-step { margin-right: 4px; }
+.bb-stages .mf-step { margin-right: 2px; }
+.mf-rtl .bb-stages .mf-step__icon { margin-right: 0; margin-left: 3px; }
 .bb-vote__note { -unity-font-definition: var(--mf-font-body-medium); font-size: var(--mf-fs-label); color: var(--mf-muted); white-space: normal; margin: 0 0 var(--mf-sp-2) 0; padding: 0; }
 .bb-tally { margin-bottom: var(--mf-sp-3); flex-shrink: 0; }
 .bb-options { flex-grow: 1; flex-shrink: 1; overflow: hidden; }
@@ -136,8 +139,8 @@
     padding: var(--mf-sp-3) var(--mf-sp-3) var(--mf-sp-3) var(--mf-sp-3);
     background-color: var(--mf-space-40);
     border-width: 1px; border-color: var(--mf-ceramic-10); border-radius: var(--mf-radius-card);
-    transition-property: border-color, background-color, translate;
-    transition-duration: var(--mf-dur-state);
+    transition-property: border-color, background-color, translate, opacity;
+    transition-duration: var(--mf-dur-state), var(--mf-dur-state), var(--mf-dur-enter), var(--mf-dur-enter);
     transition-timing-function: ease-out-cubic;
 }
 .bb-card--leading { border-width: 3px; border-color: var(--mf-signal); padding: 10px; }
@@ -174,12 +177,13 @@
 .bb-delta--neutral { color: var(--mf-ceramic); border-color: var(--mf-ceramic-32); }
 .bb-card .bb-card__row .bb-card__line { margin: 0 6px 4px 0; }
 
-.bb-feed { flex-shrink: 0; max-height: 104px; overflow: hidden; border-top-width: 1px; border-top-color: var(--mf-ceramic-10); padding-top: var(--mf-sp-2); }
-.bb-feed__item { flex-direction: row; align-items: center; margin-bottom: 2px; flex-shrink: 0; }
+.bb-feed { flex-shrink: 0; overflow: hidden; border-top-width: 1px; border-top-color: var(--mf-ceramic-10); padding-top: var(--mf-sp-2); }
+.bb-feed__item { flex-direction: row; align-items: flex-start; margin-bottom: 2px; flex-shrink: 0; }
 .bb-feed__icon { width: 20px; height: 20px; margin-right: var(--mf-sp-2); color: var(--mf-signal); flex-shrink: 0; }
 .bb-feed__item--veto .bb-feed__icon { color: var(--mf-fails); }
 .bb-feed__item--tag .bb-feed__icon { color: var(--mf-sunlight); }
-.bb-feed__text { -unity-font-definition: var(--mf-font-body); font-size: var(--mf-fs-meta); color: var(--mf-ceramic); margin: 0; padding: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex-shrink: 1; }
+/* Feed lines wrap (never ellipsised); the view keeps only the newest three, and the option list above scrolls. */
+.bb-feed__text { -unity-font-definition: var(--mf-font-body); font-size: var(--mf-fs-meta); color: var(--mf-ceramic); margin: 0; padding: 0; white-space: normal; flex-shrink: 1; }
 .mf-rtl .bb-feed__item { flex-direction: row-reverse; }
 
 /* ---------- high contrast: opaque Console panels, no imagery behind text ---------- */
@@ -205,7 +209,7 @@
 .mf-text-200 .bb-vote__titles .bb-panel__title { font-size: 72px; }
 /* Fixed px sizes above do not scale with the token doubling: double them here. */
 .mf-text-200 .bb-metrics .mf-metric__value { font-size: 56px; }
-.mf-text-200 .bb-metrics .mf-metricbar--compact { height: 16px; }
+.mf-text-200 .bb-metrics .mf-metricbar--compact { height: 20px; }
 .mf-text-200 .bb-card__key { width: 60px; height: 60px; }
 .mf-text-200 .bb-card__count { font-size: 64px; }
 /* Waiting rows stack name over reason (a wrapping row-reverse line collapsed the reason to one letter per line). */
@@ -240,4 +244,8 @@
    and in the lobby notice). Nothing overlaps or clips. */
 .mf-text-200 .bb-objectives__text, .mf-text-200 .bb-rehearsal__detail { display: none; }
 .mf-text-200 .bb-rehearsal .bb-rehearsal__title { margin: 0; }
+/* Run 4: with the timeline rows growing to fit 200 % labels, the stage is only tall enough for the tool row, so the
+   rehearsal tag (shown only in rehearsal/demo sessions, never in a live room) is hidden at 200 % rather than overlapping
+   the tools. The rehearsal state is still stated in the lobby notice. */
+.mf-text-200 .bb-rehearsal { display: none; }
 .mf-text-200 .bb-rehearsal, .mf-rtl.mf-text-200 .bb-rehearsal { left: auto; right: auto; align-self: center; }

@@ -53,6 +53,8 @@
 /* 200 % text: the text column stays left of x = 1290 (the vehicle starts at about x = 1440 in the 1920 frame). */
 .mf-text-200 .mf-title__left { width: 1100px; bottom: 200px; }
 .mf-text-200 .mf-title__pitch { width: 1000px; }
+/* 200 % text reaches the bright atmospheric limb: the pitch and actions sit on a Space-80 % scrim (never bare imagery). */
+.mf-text-200 .mf-title__left { background-color: var(--mf-space-80); border-radius: var(--mf-radius-panel); padding: var(--mf-sp-5) var(--mf-sp-6) var(--mf-sp-5) var(--mf-sp-6); left: 72px; }
 .mf-text-200 .mf-title__actions { flex-wrap: wrap; }
 /* The wordmark is the logo (a brand mark, like an image): it keeps its size so the lockup stays in its reserved
    region; the tagline and every other text still double. */

@@ -338,18 +338,20 @@ namespace MissionForge.Editor.DesignSystem
         /// smoothness 0.95) darken by 70 % and mirror the sky and sun. The darkening also offsets the ground material
         /// reflecting the brighter HDRI sky. game_values.
         /// </summary>
+        // Run 4 (RUBRIC M8): the run-3 sheet read as open water (40 % coverage of 22 m puddles). Concrete apron now:
+        // 20 % coverage of ~11 m puddles with tighter edges, less damp darkening and a duller damp film. game_values.
         private static Material EnsureWetSheenMaterial()
         {
             Material m = LoadOrCreateMaterial(WetSheenMaterialPath, WetSheenShaderName);
             m.SetColor("_BaseColor", new Color(0.015f, 0.03f, 0.055f, 1f));
-            m.SetFloat("_DampDarken", 0.6f);
-            m.SetFloat("_PuddleDarken", 0.7f);
-            m.SetFloat("_DampSmoothness", 0.35f);
+            m.SetFloat("_DampDarken", 0.5f);
+            m.SetFloat("_PuddleDarken", 0.6f);
+            m.SetFloat("_DampSmoothness", 0.28f);
             m.SetFloat("_PuddleSmoothness", 0.95f);
-            m.SetFloat("_PuddleScale", 22f);
-            m.SetFloat("_PuddleCoverage", 0.4f);
-            m.SetFloat("_PuddleSoftness", 0.12f);
-            m.SetFloat("_DampSpecular", 0.25f);
+            m.SetFloat("_PuddleScale", 11f);
+            m.SetFloat("_PuddleCoverage", 0.2f);
+            m.SetFloat("_PuddleSoftness", 0.08f);
+            m.SetFloat("_DampSpecular", 0.15f);
             m.SetFloat("_SpecularBoost", 1f);
             m.SetFloat("_FadeStart", 120f);
             m.SetFloat("_FadeEnd", 450f);

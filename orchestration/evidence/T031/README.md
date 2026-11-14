@@ -51,6 +51,23 @@ animations run during the window).
   (`OSXUniversal` or `WebGL`), and clear `Library/PlayerDataCache` after switching. Every capture here was checked for
   magenta (none).
 
+## Run 4 (2026-11-15): fixes from the run-3 rubric, full recapture
+
+All players were rebuilt (`-buildTarget OSXUniversal`) and every capture, composite and the specimen were retaken with
+the same scripts (`capture.sh`, `capture_bay.sh` now writes to `/tmp/t031/r7`, `compose.py`). `measure_contrast.py`
+needs Pillow 11 (`get_flattened_data`); with Pillow 10 run it with `Image.Image.get_flattened_data` aliased to
+`getdata` (that is how the run-4 table was produced). The WebGL fps numbers above were **not** re-measured in run 4:
+run 4 changed only UI layout and the wet-ground material values (no new passes or shaders).
+
+| Rubric item | Change (paths under `unity/MissionForge/Assets/MissionForge/`) |
+|---|---|
+| U2, U10 | Vote-stage pills tightened so Reveal, Inspect, Vote and Result sit on one line (`Screens/BuildBay/UI/BuildBay.uss`). |
+| U6 | Marginal/Fails zero values draw a patterned stub; the compact requirement marker stays inside its box and no longer runs through the detail line (`UI/Components/MfMetricBar.cs`). The timer ring has a labelled threshold tick and a threshold zone (`MfRadialGauge.cs`). The Gantt has day labels under the ticks, a labelled "Today" marker, names for short bars and chevrons that start after the bar label (`MfGanttChart.cs`). |
+| U10 | No-break spaces between numbers and units on vote cards ("30 days" never splits); feed lines and metric detail lines wrap instead of ellipsising; the feed shows the newest three. Specimen captions corrected (Console 92 %). |
+| U7 | Build Bay motion: the four regions enter with the 40 ms stagger, option cards enter once per round, the winning card plays `MfMotion.Celebrate`, Readiness KPI values count up (`BuildBayScreen.cs`, `Views/VotePanelView.cs`, `Views/DashboardView.cs`; `KpiCountUpTests`). Reduced motion keeps these as fades or jumps. |
+| U9 | 200 % text: status, chip and button icons scale; the Gantt rows, label band and axis scale with the text; the Title pitch sits on a Space-80 % scrim; the rehearsal-only tag is hidden at 200 % so it no longer covers the tools. RTL: Lobby headings, room code and setting labels align right. |
+| M8 | Wet ground reads as a damp apron, not open water: puddle coverage 40 % → 20 %, puddle scale 22 → 11 m, damp darkening 0.6 → 0.5 (`Art/Lighting/MF_WetSheen.mat`, `Editor/DesignSystem/LightingFoundation.Rigs.cs`). |
+
 ## Other files
 
 - `contrast.md`: WCAG contrast measured on the captured frames (`measure_contrast.py`, boxes in `contrast_regions.json`), with the verdict for each failing cell.
