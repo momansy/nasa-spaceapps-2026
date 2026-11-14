@@ -196,6 +196,23 @@ namespace MissionForge.Core.Tests.Campaign
         }
 
         [Fact]
+        public void OneBuildSlotCannotClaimTwoRecoveredHardwareRefunds()
+        {
+            var state = Start().With(inventoryItems: new[]
+            {
+                new InventoryItem("tank-a", "tank_s", 1, false),
+                new InventoryItem("tank-b", "tank_s", 2, false)
+            });
+            var inv = new Inventory(state);
+            var catalog = DesignFixture.Catalog();
+            var build = BuildState.New("C1", 42).WithChoice(Slots.FirstStageTank, "tank_s");
+            var once = inv.ApplyReuse(build, catalog, "tank-a");
+            Assert.Throws<InvalidOperationException>(() =>
+                inv.ApplyReuse(once, catalog, "tank-b"));
+            Assert.Single(once.Ledger);
+        }
+
+        [Fact]
         public void MilestonesNeverRepeat()
         {
             var r = Report(contract: "C6", objectives: new[] { "orbit", "lunar_flyby", "crew_safe" },
