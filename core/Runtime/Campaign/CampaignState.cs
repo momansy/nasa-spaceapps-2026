@@ -64,10 +64,12 @@ namespace MissionForge.Core.Campaign
         public int Flights { get; }
         /// <summary>True when the hardware was refurbished since its last flight.</summary>
         public bool Refurbished { get; }
+        /// <summary>True while hardware is available; false while installed on an active mission.</summary>
+        public bool Available { get; }
 
         /// <summary>Creates an inventory entry with validated flight count.</summary>
         [JsonConstructor]
-        public InventoryItem(string itemId, string partId, int flights, bool refurbished)
+        public InventoryItem(string itemId, string partId, int flights, bool refurbished, bool available = true)
         {
             if (string.IsNullOrWhiteSpace(itemId) || string.IsNullOrWhiteSpace(partId))
                 throw new ArgumentException("Inventory IDs must not be blank.");
@@ -76,11 +78,13 @@ namespace MissionForge.Core.Campaign
             PartId = partId;
             Flights = flights;
             Refurbished = refurbished;
+            Available = available;
         }
 
-        /// <summary>Returns a copy after another flight, or after refurbishment.</summary>
-        public InventoryItem With(int? flights = null, bool? refurbished = null) =>
-            new InventoryItem(ItemId, PartId, flights ?? Flights, refurbished ?? Refurbished);
+        /// <summary>Returns a copy after another flight, refurbishment, or installation.</summary>
+        public InventoryItem With(int? flights = null, bool? refurbished = null, bool? available = null) =>
+            new InventoryItem(ItemId, PartId, flights ?? Flights, refurbished ?? Refurbished,
+                available ?? Available);
     }
 
     /// <summary>Host-supplied debrief, with SI-aligned game financial units ($M) and days.</summary>
