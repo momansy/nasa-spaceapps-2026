@@ -1,0 +1,374 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "boost.schema.json",
+  "title": "MissionForge completion tiers and boosts",
+  "description": "Tiers and boosts.",
+  "x-data-files": [
+    "boosts.json"
+  ],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Optional relative path to the JSON Schema of this file, for editor support. Loaders ignore it."
+    },
+    "design_notes": {
+      "$ref": "common.schema.json#/$defs/design_notes",
+      "description": "Designer-facing notes about ambiguities or decisions. Never shown to players and never localised."
+    },
+    "below_bronze": {
+      "type": "object",
+      "description": "Outcome when the completion fraction is below the Bronze threshold.",
+      "additionalProperties": false,
+      "properties": {
+        "reward_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the outcome text."
+        },
+        "cosmetic_min_successes": {
+          "type": "integer",
+          "description": "Number of individual successes that still earns the cosmetic effect.",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "reward_key",
+        "cosmetic_min_successes"
+      ]
+    },
+    "tiers": {
+      "type": "array",
+      "description": "Tiers from lowest to highest. Completion fraction f = players who succeeded / active players; solo play uses the performance score with the same thresholds.",
+      "items": {
+        "type": "object",
+        "description": "One tier.",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "$ref": "common.schema.json#/$defs/tier",
+            "description": "Tier ID."
+          },
+          "name_key": {
+            "$ref": "common.schema.json#/$defs/string_key",
+            "description": "String key of the tier name."
+          },
+          "min_fraction": {
+            "type": "number",
+            "description": "Lowest completion fraction that earns the tier.",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "requires_all_perfect": {
+            "type": "boolean",
+            "description": "True if every player must also score \"perfect\"."
+          },
+          "boost_tier": {
+            "type": "string",
+            "description": "Column of the boost table this tier pays out.",
+            "enum": [
+              "bronze",
+              "silver",
+              "gold"
+            ]
+          },
+          "reward_key": {
+            "$ref": "common.schema.json#/$defs/string_key",
+            "description": "String key of the Boost column text of design section 10.3."
+          }
+        },
+        "required": [
+          "id",
+          "name_key",
+          "min_fraction",
+          "requires_all_perfect",
+          "boost_tier",
+          "reward_key"
+        ]
+      },
+      "minItems": 1
+    },
+    "boosts": {
+      "type": "array",
+      "description": "Boost catalog in design-table order.",
+      "items": {
+        "$ref": "#/$defs/boost"
+      },
+      "minItems": 1
+    },
+    "value_types": {
+      "type": "object",
+      "description": "Provenance tags.",
+      "additionalProperties": false,
+      "properties": {
+        "below_bronze": {
+          "$ref": "common.schema.json#/$defs/value_type",
+          "description": "Tag of below_bronze."
+        },
+        "tiers": {
+          "$ref": "common.schema.json#/$defs/value_type",
+          "description": "Tag of the tier thresholds."
+        },
+        "boosts": {
+          "$ref": "common.schema.json#/$defs/value_type",
+          "description": "Tag of the boost magnitudes and caps."
+        }
+      },
+      "required": [
+        "below_bronze",
+        "tiers",
+        "boosts"
+      ]
+    }
+  },
+  "required": [
+    "below_bronze",
+    "tiers",
+    "boosts",
+    "value_types"
+  ],
+  "x-value-groups": [
+    "below_bronze",
+    "tiers",
+    "boosts"
+  ],
+  "$defs": {
+    "boost": {
+      "type": "object",
+      "description": "One boost. Same-type boosts stack additively up to the cap (design section 11.1).",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/snake_id",
+          "description": "Unique boost ID, for example dv_bonus.",
+          "x-id": "boost"
+        },
+        "name_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the boost name."
+        },
+        "subtitle_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the parenthetical after the name in the design table."
+        },
+        "kind": {
+          "type": "string",
+          "description": "effect = numeric change to a metric (target and op required); shield = Reliability Shield tokens held and consumed on use.",
+          "enum": [
+            "effect",
+            "shield"
+          ]
+        },
+        "target": {
+          "$ref": "common.schema.json#/$defs/effect/properties/target",
+          "description": "Metric the boost changes (kind effect). See the effect definition for units."
+        },
+        "op": {
+          "$ref": "common.schema.json#/$defs/effect/properties/op",
+          "description": "How tier values apply to the target (kind effect). See the effect definition."
+        },
+        "tiers": {
+          "type": "object",
+          "description": "Value per tier column.",
+          "additionalProperties": false,
+          "properties": {
+            "bronze": {
+              "description": "Bronze column.",
+              "oneOf": [
+                {
+                  "type": "null",
+                  "description": "No boost at this tier."
+                },
+                {
+                  "type": "object",
+                  "description": "Boost granted at this tier: either a numeric value or a shield.",
+                  "additionalProperties": false,
+                  "properties": {
+                    "value": {
+                      "type": "number",
+                      "description": "Magnitude in the unit implied by the boost target and op."
+                    },
+                    "shield": {
+                      "type": "string",
+                      "description": "Reliability Shield behaviour: reroll_next_failure or negate_next_failure.",
+                      "enum": [
+                        "reroll_next_failure",
+                        "negate_next_failure"
+                      ]
+                    },
+                    "text_key": {
+                      "$ref": "common.schema.json#/$defs/string_key",
+                      "description": "String key of the tier text, for tiers that are not a plain number."
+                    }
+                  },
+                  "required": [],
+                  "minProperties": 1
+                }
+              ]
+            },
+            "silver": {
+              "description": "Silver column.",
+              "oneOf": [
+                {
+                  "type": "null",
+                  "description": "No boost at this tier."
+                },
+                {
+                  "type": "object",
+                  "description": "Boost granted at this tier: either a numeric value or a shield.",
+                  "additionalProperties": false,
+                  "properties": {
+                    "value": {
+                      "type": "number",
+                      "description": "Magnitude in the unit implied by the boost target and op."
+                    },
+                    "shield": {
+                      "type": "string",
+                      "description": "Reliability Shield behaviour: reroll_next_failure or negate_next_failure.",
+                      "enum": [
+                        "reroll_next_failure",
+                        "negate_next_failure"
+                      ]
+                    },
+                    "text_key": {
+                      "$ref": "common.schema.json#/$defs/string_key",
+                      "description": "String key of the tier text, for tiers that are not a plain number."
+                    }
+                  },
+                  "required": [],
+                  "minProperties": 1
+                }
+              ]
+            },
+            "gold": {
+              "description": "Gold column.",
+              "oneOf": [
+                {
+                  "type": "null",
+                  "description": "No boost at this tier."
+                },
+                {
+                  "type": "object",
+                  "description": "Boost granted at this tier: either a numeric value or a shield.",
+                  "additionalProperties": false,
+                  "properties": {
+                    "value": {
+                      "type": "number",
+                      "description": "Magnitude in the unit implied by the boost target and op."
+                    },
+                    "shield": {
+                      "type": "string",
+                      "description": "Reliability Shield behaviour: reroll_next_failure or negate_next_failure.",
+                      "enum": [
+                        "reroll_next_failure",
+                        "negate_next_failure"
+                      ]
+                    },
+                    "text_key": {
+                      "$ref": "common.schema.json#/$defs/string_key",
+                      "description": "String key of the tier text, for tiers that are not a plain number."
+                    }
+                  },
+                  "required": [],
+                  "minProperties": 1
+                }
+              ]
+            }
+          },
+          "required": [
+            "bronze",
+            "silver",
+            "gold"
+          ]
+        },
+        "cap": {
+          "description": "Cap per mission column; null when the table shows none.",
+          "oneOf": [
+            {
+              "type": "null",
+              "description": "No cap."
+            },
+            {
+              "type": "object",
+              "description": "The cap.",
+              "additionalProperties": false,
+              "properties": {
+                "value": {
+                  "type": "number",
+                  "description": "Cap in the same unit as the tier values (shields: number of shields)."
+                },
+                "kind": {
+                  "type": "string",
+                  "description": "total_per_mission = limit on the stacked total over a mission; held_at_once = limit on tokens held at one time; meter_max = upper end of the meter the boost fills.",
+                  "enum": [
+                    "total_per_mission",
+                    "held_at_once",
+                    "meter_max"
+                  ]
+                }
+              },
+              "required": [
+                "value",
+                "kind"
+              ]
+            }
+          ]
+        },
+        "phase": {
+          "type": "string",
+          "description": "When the boost can be earned and applied: any, or build only.",
+          "enum": [
+            "any",
+            "build"
+          ]
+        },
+        "crewed_only": {
+          "type": "boolean",
+          "description": "True if the boost exists only on crewed contracts."
+        },
+        "scope": {
+          "type": "string",
+          "description": "mission = applies to the mission total; segment = applies to the score of the current segment.",
+          "enum": [
+            "mission",
+            "segment"
+          ]
+        },
+        "design_notes": {
+          "$ref": "common.schema.json#/$defs/design_notes",
+          "description": "Designer-facing notes about ambiguities or decisions. Never shown to players and never localised."
+        }
+      },
+      "required": [
+        "id",
+        "name_key",
+        "kind",
+        "tiers",
+        "cap",
+        "phase",
+        "crewed_only",
+        "scope"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "effect"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "required": [
+              "target",
+              "op"
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

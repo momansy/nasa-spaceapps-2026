@@ -1,0 +1,180 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "role.schema.json",
+  "title": "MissionForge Mission Control roles",
+  "description": "The role catalog.",
+  "x-data-files": [
+    "roles.json"
+  ],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Optional relative path to the JSON Schema of this file, for editor support. Loaders ignore it."
+    },
+    "design_notes": {
+      "$ref": "common.schema.json#/$defs/design_notes",
+      "description": "Designer-facing notes about ambiguities or decisions. Never shown to players and never localised."
+    },
+    "assignment_modes": {
+      "type": "array",
+      "description": "Role assignment options offered to the host.",
+      "items": {
+        "type": "string",
+        "description": "One assignment mode.",
+        "enum": [
+          "random",
+          "player_pick",
+          "vote"
+        ]
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "default_assignment_mode": {
+      "type": "string",
+      "description": "Assignment mode used unless the host changes it.",
+      "enum": [
+        "random",
+        "player_pick",
+        "vote"
+      ]
+    },
+    "merge_order": {
+      "type": "array",
+      "description": "Default role merging for fewer than ten players: the first pair merges first.",
+      "items": {
+        "type": "array",
+        "description": "Roles merged onto one player.",
+        "items": {
+          "$ref": "common.schema.json#/$defs/role_ref"
+        },
+        "minItems": 2,
+        "uniqueItems": true
+      },
+      "minItems": 1
+    },
+    "roles": {
+      "type": "array",
+      "description": "Roles in design-table order.",
+      "items": {
+        "$ref": "#/$defs/role"
+      },
+      "minItems": 1
+    },
+    "value_types": {
+      "type": "object",
+      "description": "Provenance tags.",
+      "additionalProperties": false,
+      "properties": {
+        "roles": {
+          "$ref": "common.schema.json#/$defs/value_type",
+          "description": "Tag of all ability magnitudes in roles."
+        }
+      },
+      "required": [
+        "roles"
+      ]
+    }
+  },
+  "required": [
+    "assignment_modes",
+    "default_assignment_mode",
+    "merge_order",
+    "roles",
+    "value_types"
+  ],
+  "x-value-groups": [
+    "roles"
+  ],
+  "$defs": {
+    "role": {
+      "type": "object",
+      "description": "One Mission Control role.",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/role_id",
+          "description": "Unique role ID (console call sign).",
+          "x-id": "role"
+        },
+        "name_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the long role name."
+        },
+        "origin_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the Real-world origin column."
+        },
+        "insight_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the Insight during Build column."
+        },
+        "console_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the Flight console column."
+        },
+        "categories": {
+          "type": "array",
+          "description": "Part categories in the role area, where the role may tag options Recommended or Concern. Omit until the design assigns them.",
+          "items": {
+            "$ref": "common.schema.json#/$defs/part_category"
+          },
+          "uniqueItems": true
+        },
+        "ability": {
+          "type": "object",
+          "description": "Once-per-mission ability.",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "$ref": "common.schema.json#/$defs/snake_id",
+              "description": "Ability ID, for example hot_fire_discount."
+            },
+            "name_key": {
+              "$ref": "common.schema.json#/$defs/string_key",
+              "description": "String key of the ability name."
+            },
+            "description_key": {
+              "$ref": "common.schema.json#/$defs/string_key",
+              "description": "String key of the ability description."
+            },
+            "effects": {
+              "type": "array",
+              "description": "Numeric effects of the ability.",
+              "items": {
+                "$ref": "common.schema.json#/$defs/effect"
+              }
+            },
+            "flags": {
+              "type": "array",
+              "description": "Qualitative effects with no number in the design.",
+              "items": {
+                "$ref": "common.schema.json#/$defs/flag"
+              },
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "id",
+            "name_key",
+            "description_key"
+          ]
+        },
+        "design_notes": {
+          "$ref": "common.schema.json#/$defs/design_notes",
+          "description": "Designer-facing notes about ambiguities or decisions. Never shown to players and never localised."
+        }
+      },
+      "required": [
+        "id",
+        "name_key",
+        "origin_key",
+        "insight_key",
+        "console_key",
+        "ability"
+      ]
+    }
+  }
+}

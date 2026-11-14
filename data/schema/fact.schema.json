@@ -1,0 +1,144 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "fact.schema.json",
+  "title": "MissionForge fact bank",
+  "description": "The fact bank.",
+  "x-data-files": [
+    "facts.json"
+  ],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Optional relative path to the JSON Schema of this file, for editor support. Loaders ignore it."
+    },
+    "design_notes": {
+      "$ref": "common.schema.json#/$defs/design_notes",
+      "description": "Designer-facing notes about ambiguities or decisions. Never shown to players and never localised."
+    },
+    "facts": {
+      "type": "array",
+      "description": "Facts in ID order.",
+      "items": {
+        "$ref": "#/$defs/fact"
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "facts"
+  ],
+  "$defs": {
+    "fact": {
+      "type": "object",
+      "description": "One fact.",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/fact_id",
+          "description": "Unique fact ID.",
+          "x-id": "fact"
+        },
+        "topic_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the topic."
+        },
+        "text_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the on-screen fact, 25 words or fewer (design section 12.1)."
+        },
+        "detail_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the longer Codex text."
+        },
+        "used_in": {
+          "type": "object",
+          "description": "Where the design uses the fact (the Used in column).",
+          "additionalProperties": false,
+          "properties": {
+            "minigames": {
+              "type": "array",
+              "description": "Minigames that show the fact.",
+              "items": {
+                "$ref": "common.schema.json#/$defs/minigame_ref"
+              },
+              "uniqueItems": true
+            },
+            "contracts": {
+              "type": "array",
+              "description": "Contracts that show the fact.",
+              "items": {
+                "$ref": "common.schema.json#/$defs/contract_ref"
+              },
+              "uniqueItems": true
+            },
+            "flight_phases": {
+              "type": "array",
+              "description": "Flight phases that show the fact.",
+              "items": {
+                "$ref": "common.schema.json#/$defs/flight_phase"
+              },
+              "uniqueItems": true
+            },
+            "part_categories": {
+              "type": "array",
+              "description": "Part categories whose cards show the fact.",
+              "items": {
+                "$ref": "common.schema.json#/$defs/part_category"
+              },
+              "uniqueItems": true
+            },
+            "channels": {
+              "type": "array",
+              "description": "Other delivery channels.",
+              "items": {
+                "type": "string",
+                "description": "One channel.",
+                "enum": [
+                  "dashboard",
+                  "myth_or_fact",
+                  "failure_model",
+                  "rocket_preview",
+                  "abort_modes",
+                  "codex"
+                ]
+              },
+              "uniqueItems": true
+            }
+          },
+          "required": []
+        },
+        "source_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the source citation."
+        },
+        "source_url": {
+          "type": "string",
+          "description": "Link to the source.",
+          "format": "uri"
+        },
+        "status": {
+          "type": "string",
+          "description": "Verification status. The design column \"Verify\" is stored as unverified.",
+          "enum": [
+            "unverified",
+            "verified",
+            "rejected"
+          ]
+        },
+        "design_notes": {
+          "$ref": "common.schema.json#/$defs/design_notes",
+          "description": "Designer-facing notes about ambiguities or decisions. Never shown to players and never localised."
+        }
+      },
+      "required": [
+        "id",
+        "topic_key",
+        "text_key",
+        "source_key",
+        "status"
+      ]
+    }
+  }
+}

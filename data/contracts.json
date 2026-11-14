@@ -1,0 +1,515 @@
+{
+  "$schema": "./schema/contract.schema.json",
+  "design_notes": [
+    "Vote lists follow the annotations of section 6.2: step 2 uses the Payload Bay sub-votes that section 7.2 defines for the contract, step 3 applies to capsule contracts, step 4 to crewed contracts, step 5 to non-capsule contracts, steps 6 to 21 to every contract. Step 18 is two votes (aerodynamic control, RCS).",
+    "A vote lists options only where the design enumerates them for the contract (tank sizes in 7.9, the C1 Payload Bay tables in 7.2.1). Every other vote takes its options from the contracts list of the parts."
+  ],
+  "contracts": [
+    {
+      "id": "C0",
+      "name_key": "contract.C0.name",
+      "tutorial": true,
+      "inspired_by_key": "contract.C0.inspired_by",
+      "destination": {
+        "type": "suborbital",
+        "description_key": "contract.C0.destination",
+        "apogee_min_km": 100
+      },
+      "payload": {
+        "kind": "science_package",
+        "description_key": "contract.C0.payload",
+        "mass_kg": 100,
+        "count": 1
+      },
+      "delta_v_required_km_s": 2,
+      "budget_M": 25,
+      "schedule_days": 60,
+      "special_rule_keys": [
+        "contract.C0.special_rule.1"
+      ],
+      "requirements": {
+        "crewed": false,
+        "payload_returns": true,
+        "payload_recovery": "parachute"
+      },
+      "objectives": {
+        "primary": {
+          "id": "reach_space_and_recover",
+          "text_key": "contract.C0.objective.primary",
+          "criteria": [
+            {
+              "metric": "apogee_km",
+              "op": "gte",
+              "value": 100
+            },
+            {
+              "metric": "payload_recovered",
+              "op": "is_true"
+            }
+          ]
+        },
+        "secondary": [
+          {
+            "id": "under_budget",
+            "text_key": "contract.C0.objective.secondary.1",
+            "criteria": [
+              {
+                "metric": "budget_remaining_M",
+                "op": "gte",
+                "value": 0
+              }
+            ]
+          },
+          {
+            "id": "science_80_percent",
+            "text_key": "contract.C0.objective.secondary.2",
+            "criteria": [
+              {
+                "metric": "science_captured_fraction",
+                "op": "gte",
+                "value": 0.8
+              }
+            ]
+          }
+        ],
+        "stretch": {
+          "id": "all_minigames_gold",
+          "text_key": "contract.C0.objective.stretch",
+          "criteria": [
+            {
+              "metric": "all_minigames_gold",
+              "op": "is_true"
+            }
+          ]
+        }
+      },
+      "votes": [
+        {
+          "step": 1,
+          "id": "launch_site",
+          "category": "launch_site",
+          "name_key": "vote.launch_site.name"
+        },
+        {
+          "step": 5,
+          "id": "fairing",
+          "category": "fairing",
+          "name_key": "vote.fairing.name"
+        },
+        {
+          "step": 6,
+          "id": "upper_stage_engine",
+          "category": "upper_stage_engine",
+          "name_key": "vote.upper_stage_engine.name"
+        },
+        {
+          "step": 7,
+          "id": "upper_stage_engine_count",
+          "category": "engine_count",
+          "stage": "upper",
+          "name_key": "vote.upper_stage_engine_count.name"
+        },
+        {
+          "step": 8,
+          "id": "upper_stage_tank_size",
+          "category": "tank_size",
+          "stage": "upper",
+          "name_key": "vote.upper_stage_tank_size.name",
+          "options": [
+            "tank_xs",
+            "tank_s"
+          ]
+        },
+        {
+          "step": 9,
+          "id": "separation_system",
+          "category": "separation_system",
+          "name_key": "vote.separation_system.name"
+        },
+        {
+          "step": 10,
+          "id": "first_stage_engine",
+          "category": "first_stage_engine",
+          "name_key": "vote.first_stage_engine.name"
+        },
+        {
+          "step": 11,
+          "id": "first_stage_engine_count",
+          "category": "engine_count",
+          "stage": "first",
+          "name_key": "vote.first_stage_engine_count.name"
+        },
+        {
+          "step": 12,
+          "id": "first_stage_tank_size",
+          "category": "tank_size",
+          "stage": "first",
+          "name_key": "vote.first_stage_tank_size.name",
+          "options": [
+            "tank_xs",
+            "tank_s"
+          ]
+        },
+        {
+          "step": 13,
+          "id": "structural_material",
+          "category": "structural_material",
+          "name_key": "vote.structural_material.name"
+        },
+        {
+          "step": 14,
+          "id": "strap_on_booster",
+          "category": "strap_on_booster",
+          "name_key": "vote.strap_on_booster.name"
+        },
+        {
+          "step": 15,
+          "id": "booster_recovery",
+          "category": "booster_recovery",
+          "name_key": "vote.booster_recovery.name"
+        },
+        {
+          "step": 16,
+          "id": "avionics",
+          "category": "avionics",
+          "name_key": "vote.avionics.name"
+        },
+        {
+          "step": 17,
+          "id": "navigation_sensor",
+          "category": "navigation_sensor",
+          "name_key": "vote.navigation_sensor.name"
+        },
+        {
+          "step": 18,
+          "id": "aero_control",
+          "category": "aero_control",
+          "name_key": "vote.aero_control.name"
+        },
+        {
+          "step": 18,
+          "id": "rcs",
+          "category": "rcs",
+          "name_key": "vote.rcs.name"
+        },
+        {
+          "step": 19,
+          "id": "power_system",
+          "category": "power_system",
+          "name_key": "vote.power_system.name"
+        },
+        {
+          "step": 20,
+          "id": "communications",
+          "category": "communications",
+          "name_key": "vote.communications.name"
+        },
+        {
+          "step": 21,
+          "id": "mission_assurance",
+          "category": "mission_assurance",
+          "name_key": "vote.mission_assurance.name"
+        }
+      ],
+      "value_types": {
+        "destination": "real_world_approximate",
+        "payload": "game_value",
+        "delta_v_required_km_s": "real_world_approximate",
+        "budget_M": "game_value",
+        "schedule_days": "game_value",
+        "objectives": "game_value"
+      },
+      "design_notes": [
+        "The design gives C0 only its row in table 5.1. The primary objective is composed from the Destination and Special rules cells. The secondary and stretch objectives are the generic examples of section 5.2, chosen to satisfy its structure (2 to 3 secondary, 1 stretch); they need confirmation by the design owner.",
+        "Payload mass 0.1 t is stored as 100 kg.",
+        "Section 6.2 gives no vote for the mandatory parachute recovery of a non-capsule payload (step 3 is for capsule contracts), and section 7.2 defines no Payload Bay sub-votes for C0. The requirement is recorded in requirements.payload_recovery; how it is satisfied in the build is an open design question. requirements.payload_returns is true, so the heat-shield rule of 6.11 would fire as written; the design does not say whether a suborbital return needs a shield.",
+        "By the 6.2 annotations C0 has 19 votes, which is long for a tutorial; the design does not shorten it."
+      ]
+    },
+    {
+      "id": "C1",
+      "name_key": "contract.C1.name",
+      "tutorial": false,
+      "inspired_by_key": "contract.C1.inspired_by",
+      "destination": {
+        "type": "sun_synchronous_orbit",
+        "description_key": "contract.C1.destination",
+        "altitude_km": 550,
+        "inclination_deg": 97.6
+      },
+      "payload": {
+        "kind": "satellite",
+        "description_key": "contract.C1.payload",
+        "mass_kg": 150,
+        "count": 1,
+        "designed_by_team": true
+      },
+      "delta_v_required_km_s": 9.7,
+      "budget_M": 90,
+      "schedule_days": 180,
+      "special_rule_keys": [
+        "contract.C1.special_rule.1",
+        "contract.C1.special_rule.2"
+      ],
+      "requirements": {
+        "crewed": false,
+        "payload_bay_design": true,
+        "science_scoring": true
+      },
+      "params": {
+        "science_targets_total": 15
+      },
+      "objectives": {
+        "primary": {
+          "id": "reach_sso_power_positive",
+          "text_key": "contract.C1.objective.primary",
+          "criteria": [
+            {
+              "metric": "orbit_altitude_km",
+              "op": "within",
+              "value": 550,
+              "tolerance": 25
+            },
+            {
+              "metric": "inclination_deg",
+              "op": "within",
+              "value": 97.6,
+              "tolerance": 0.2
+            },
+            {
+              "metric": "payload_power_balance_W",
+              "op": "gt",
+              "value": 0
+            }
+          ]
+        },
+        "secondary": [
+          {
+            "id": "science_targets_10",
+            "text_key": "contract.C1.objective.secondary.1",
+            "criteria": [
+              {
+                "metric": "science_targets_captured",
+                "op": "gte",
+                "value": 10
+              }
+            ]
+          },
+          {
+            "id": "downlink_8_gb",
+            "text_key": "contract.C1.objective.secondary.2",
+            "criteria": [
+              {
+                "metric": "data_downlinked_GB",
+                "op": "gte",
+                "value": 8
+              }
+            ]
+          },
+          {
+            "id": "under_budget",
+            "text_key": "contract.C1.objective.secondary.3",
+            "criteria": [
+              {
+                "metric": "budget_remaining_M",
+                "op": "gte",
+                "value": 0
+              }
+            ]
+          }
+        ],
+        "stretch": {
+          "id": "science_targets_all",
+          "text_key": "contract.C1.objective.stretch",
+          "criteria": [
+            {
+              "metric": "science_targets_captured",
+              "op": "gte",
+              "value": 15
+            }
+          ]
+        }
+      },
+      "votes": [
+        {
+          "step": 1,
+          "id": "launch_site",
+          "category": "launch_site",
+          "name_key": "vote.launch_site.name"
+        },
+        {
+          "step": 2,
+          "id": "instrument",
+          "category": "instrument",
+          "name_key": "vote.instrument.name",
+          "options": [
+            "inst_wide_field_optical_camera",
+            "inst_multispectral_imager",
+            "inst_thermal_infrared_camera",
+            "inst_synthetic_aperture_radar"
+          ]
+        },
+        {
+          "step": 2,
+          "id": "satellite_power",
+          "category": "satellite_power",
+          "name_key": "vote.satellite_power.name",
+          "options": [
+            "satpwr_body_mounted_solar_cells",
+            "satpwr_deployable_solar_wings",
+            "satpwr_large_deployable_array"
+          ]
+        },
+        {
+          "step": 2,
+          "id": "attitude_control",
+          "category": "attitude_control",
+          "name_key": "vote.attitude_control.name",
+          "options": [
+            "adcs_magnetorquers_only",
+            "adcs_reaction_wheels",
+            "adcs_reaction_wheels_star_tracker"
+          ]
+        },
+        {
+          "step": 5,
+          "id": "fairing",
+          "category": "fairing",
+          "name_key": "vote.fairing.name"
+        },
+        {
+          "step": 6,
+          "id": "upper_stage_engine",
+          "category": "upper_stage_engine",
+          "name_key": "vote.upper_stage_engine.name"
+        },
+        {
+          "step": 7,
+          "id": "upper_stage_engine_count",
+          "category": "engine_count",
+          "stage": "upper",
+          "name_key": "vote.upper_stage_engine_count.name"
+        },
+        {
+          "step": 8,
+          "id": "upper_stage_tank_size",
+          "category": "tank_size",
+          "stage": "upper",
+          "name_key": "vote.upper_stage_tank_size.name",
+          "options": [
+            "tank_xs",
+            "tank_s",
+            "tank_m"
+          ]
+        },
+        {
+          "step": 9,
+          "id": "separation_system",
+          "category": "separation_system",
+          "name_key": "vote.separation_system.name"
+        },
+        {
+          "step": 10,
+          "id": "first_stage_engine",
+          "category": "first_stage_engine",
+          "name_key": "vote.first_stage_engine.name"
+        },
+        {
+          "step": 11,
+          "id": "first_stage_engine_count",
+          "category": "engine_count",
+          "stage": "first",
+          "name_key": "vote.first_stage_engine_count.name"
+        },
+        {
+          "step": 12,
+          "id": "first_stage_tank_size",
+          "category": "tank_size",
+          "stage": "first",
+          "name_key": "vote.first_stage_tank_size.name",
+          "options": [
+            "tank_xs",
+            "tank_s",
+            "tank_m"
+          ]
+        },
+        {
+          "step": 13,
+          "id": "structural_material",
+          "category": "structural_material",
+          "name_key": "vote.structural_material.name"
+        },
+        {
+          "step": 14,
+          "id": "strap_on_booster",
+          "category": "strap_on_booster",
+          "name_key": "vote.strap_on_booster.name"
+        },
+        {
+          "step": 15,
+          "id": "booster_recovery",
+          "category": "booster_recovery",
+          "name_key": "vote.booster_recovery.name"
+        },
+        {
+          "step": 16,
+          "id": "avionics",
+          "category": "avionics",
+          "name_key": "vote.avionics.name"
+        },
+        {
+          "step": 17,
+          "id": "navigation_sensor",
+          "category": "navigation_sensor",
+          "name_key": "vote.navigation_sensor.name"
+        },
+        {
+          "step": 18,
+          "id": "aero_control",
+          "category": "aero_control",
+          "name_key": "vote.aero_control.name"
+        },
+        {
+          "step": 18,
+          "id": "rcs",
+          "category": "rcs",
+          "name_key": "vote.rcs.name"
+        },
+        {
+          "step": 19,
+          "id": "power_system",
+          "category": "power_system",
+          "name_key": "vote.power_system.name"
+        },
+        {
+          "step": 20,
+          "id": "communications",
+          "category": "communications",
+          "name_key": "vote.communications.name"
+        },
+        {
+          "step": 21,
+          "id": "mission_assurance",
+          "category": "mission_assurance",
+          "name_key": "vote.mission_assurance.name"
+        }
+      ],
+      "value_types": {
+        "destination": "real_world_approximate",
+        "payload": "game_value",
+        "delta_v_required_km_s": "real_world_approximate",
+        "budget_M": "game_value",
+        "schedule_days": "game_value",
+        "objectives": "game_value",
+        "params": "game_value"
+      },
+      "design_notes": [
+        "Objectives are those of section 5.3. The inclination target is the ~97.6° of table 5.1 with the ±0.2° tolerance of 5.3.",
+        "By the 6.2 annotations C1 has 22 votes; section 2.2 expects 14 to 20 per build. The design does not say which votes C1 drops.",
+        "The satellite communications and power-storage choices reuse sections 7.16 and 7.17 (note under 7.2.1), so they are the power_system and communications votes of steps 19 and 20, not extra Payload Bay sub-votes. Appendix A shows three Payload Bay votes.",
+        "The 150 kg payload is the game value of table 5.1; the masses of the voted satellite components (7.2.1) add up to far less, and the design does not say how the two relate.",
+        "Appendix A shows these options offered in C1: West Coast Polar Range; Kerolox Vacuum and Hydrolox Vacuum; Electric-Pump Mini and Kerolox Workhorse; 3 and 9 first-stage engines; S and M tanks."
+      ]
+    }
+  ]
+}

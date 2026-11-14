@@ -1,0 +1,228 @@
+{
+  "$schema": "./schema/role.schema.json",
+  "design_notes": [
+    "The design does not map roles to part categories, so no role lists categories yet.",
+    "Ability magnitudes are stored as effects where the design gives a number; \"+N%\" on a quantity is a relative change (add_fraction), \"halves\" and \"doubles\" are multipliers. Abilities without a number carry flags only.",
+    "Merging below five players is shown only by example in Appendix A (four players: the fourth holds EECOM+INCO+PAYLOAD+RETRO)."
+  ],
+  "assignment_modes": [
+    "random",
+    "player_pick",
+    "vote"
+  ],
+  "default_assignment_mode": "random",
+  "merge_order": [
+    [
+      "FLIGHT",
+      "PM"
+    ],
+    [
+      "BOOSTER",
+      "STRUCT"
+    ],
+    [
+      "GUIDO",
+      "FIDO"
+    ],
+    [
+      "EECOM",
+      "INCO"
+    ],
+    [
+      "PAYLOAD",
+      "RETRO"
+    ]
+  ],
+  "roles": [
+    {
+      "id": "FLIGHT",
+      "name_key": "role.FLIGHT.name",
+      "origin_key": "role.FLIGHT.origin",
+      "insight_key": "role.FLIGHT.insight",
+      "console_key": "role.FLIGHT.console",
+      "ability": {
+        "id": "decision_time",
+        "name_key": "role.FLIGHT.ability.name",
+        "description_key": "role.FLIGHT.ability.description",
+        "flags": [
+          "ends_stalled_vote",
+          "breaks_ties"
+        ]
+      }
+    },
+    {
+      "id": "BOOSTER",
+      "name_key": "role.BOOSTER.name",
+      "origin_key": "role.BOOSTER.origin",
+      "insight_key": "role.BOOSTER.insight",
+      "console_key": "role.BOOSTER.console",
+      "ability": {
+        "id": "hot_fire_discount",
+        "name_key": "role.BOOSTER.ability.name",
+        "description_key": "role.BOOSTER.ability.description",
+        "effects": [
+          {
+            "target": "test_cost_M",
+            "op": "add_fraction",
+            "value": -0.5,
+            "scope": "next_engine_test"
+          }
+        ]
+      }
+    },
+    {
+      "id": "STRUCT",
+      "name_key": "role.STRUCT.name",
+      "origin_key": "role.STRUCT.origin",
+      "insight_key": "role.STRUCT.insight",
+      "console_key": "role.STRUCT.console",
+      "ability": {
+        "id": "reinforce",
+        "name_key": "role.STRUCT.ability.name",
+        "description_key": "role.STRUCT.ability.description",
+        "effects": [
+          {
+            "target": "load_margin",
+            "op": "add_fraction",
+            "value": 0.1,
+            "scope": "one_stage"
+          }
+        ]
+      }
+    },
+    {
+      "id": "GUIDO",
+      "name_key": "role.GUIDO.name",
+      "origin_key": "role.GUIDO.origin",
+      "insight_key": "role.GUIDO.insight",
+      "console_key": "role.GUIDO.console",
+      "ability": {
+        "id": "course_correct",
+        "name_key": "role.GUIDO.ability.name",
+        "description_key": "role.GUIDO.ability.description",
+        "effects": [
+          {
+            "target": "insertion_error_km",
+            "op": "mul",
+            "value": 0.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "FIDO",
+      "name_key": "role.FIDO.name",
+      "origin_key": "role.FIDO.origin",
+      "insight_key": "role.FIDO.insight",
+      "console_key": "role.FIDO.console",
+      "ability": {
+        "id": "window_extension",
+        "name_key": "role.FIDO.ability.name",
+        "description_key": "role.FIDO.ability.description",
+        "effects": [
+          {
+            "target": "launch_window_min",
+            "op": "add",
+            "value": 5
+          }
+        ]
+      }
+    },
+    {
+      "id": "EECOM",
+      "name_key": "role.EECOM.name",
+      "origin_key": "role.EECOM.origin",
+      "insight_key": "role.EECOM.insight",
+      "console_key": "role.EECOM.console",
+      "ability": {
+        "id": "load_shed",
+        "name_key": "role.EECOM.ability.name",
+        "description_key": "role.EECOM.ability.description",
+        "flags": [
+          "prevents_one_brownout"
+        ]
+      }
+    },
+    {
+      "id": "INCO",
+      "name_key": "role.INCO.name",
+      "origin_key": "role.INCO.origin",
+      "insight_key": "role.INCO.insight",
+      "console_key": "role.INCO.console",
+      "ability": {
+        "id": "priority_pass",
+        "name_key": "role.INCO.ability.name",
+        "description_key": "role.INCO.ability.description",
+        "effects": [
+          {
+            "target": "data_GB",
+            "op": "mul",
+            "value": 2,
+            "scope": "one_ground_pass"
+          }
+        ]
+      }
+    },
+    {
+      "id": "PAYLOAD",
+      "name_key": "role.PAYLOAD.name",
+      "origin_key": "role.PAYLOAD.origin",
+      "insight_key": "role.PAYLOAD.insight",
+      "console_key": "role.PAYLOAD.console",
+      "ability": {
+        "id": "golden_hour",
+        "name_key": "role.PAYLOAD.ability.name",
+        "description_key": "role.PAYLOAD.ability.description",
+        "effects": [
+          {
+            "target": "science_value",
+            "op": "mul",
+            "value": 2,
+            "scope": "one_science_capture"
+          }
+        ]
+      }
+    },
+    {
+      "id": "RETRO",
+      "name_key": "role.RETRO.name",
+      "origin_key": "role.RETRO.origin",
+      "insight_key": "role.RETRO.insight",
+      "console_key": "role.RETRO.console",
+      "ability": {
+        "id": "recovery_fleet",
+        "name_key": "role.RETRO.ability.name",
+        "description_key": "role.RETRO.ability.description",
+        "flags": [
+          "shrinks_landing_ellipse",
+          "guaranteed_recovery"
+        ]
+      }
+    },
+    {
+      "id": "PM",
+      "name_key": "role.PM.name",
+      "origin_key": "role.PM.origin",
+      "insight_key": "role.PM.insight",
+      "console_key": "role.PM.console",
+      "ability": {
+        "id": "emergency_funding",
+        "name_key": "role.PM.ability.name",
+        "description_key": "role.PM.ability.description",
+        "effects": [
+          {
+            "target": "budget_M",
+            "op": "add_fraction",
+            "value": 0.1
+          }
+        ],
+        "flags": [
+          "costs_reputation_in_campaign"
+        ]
+      }
+    }
+  ],
+  "value_types": {
+    "roles": "game_value"
+  }
+}

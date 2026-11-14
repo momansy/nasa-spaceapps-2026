@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "achievement.schema.json",
+  "title": "MissionForge achievements",
+  "description": "The achievement list.",
+  "x-data-files": [
+    "achievements.json"
+  ],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Optional relative path to the JSON Schema of this file, for editor support. Loaders ignore it."
+    },
+    "design_notes": {
+      "$ref": "common.schema.json#/$defs/design_notes",
+      "description": "Designer-facing notes about ambiguities or decisions. Never shown to players and never localised."
+    },
+    "achievements": {
+      "type": "array",
+      "description": "Achievements in design order.",
+      "items": {
+        "$ref": "#/$defs/achievement"
+      },
+      "minItems": 1
+    },
+    "value_types": {
+      "type": "object",
+      "description": "Provenance tags.",
+      "additionalProperties": false,
+      "properties": {
+        "achievements": {
+          "$ref": "common.schema.json#/$defs/value_type",
+          "description": "Tag of all thresholds in achievements."
+        }
+      },
+      "required": [
+        "achievements"
+      ]
+    }
+  },
+  "required": [
+    "achievements",
+    "value_types"
+  ],
+  "x-value-groups": [
+    "achievements"
+  ],
+  "$defs": {
+    "achievement": {
+      "type": "object",
+      "description": "One achievement.",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/snake_id",
+          "description": "Unique achievement ID, for example penny_pincher.",
+          "x-id": "achievement"
+        },
+        "name_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the achievement name."
+        },
+        "description_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the unlock description."
+        },
+        "scope": {
+          "type": "string",
+          "description": "mission = judged on one mission; career = counted across missions.",
+          "enum": [
+            "mission",
+            "career"
+          ]
+        },
+        "criteria": {
+          "type": "array",
+          "description": "Conditions that must all hold.",
+          "items": {
+            "$ref": "common.schema.json#/$defs/criterion"
+          },
+          "minItems": 1
+        },
+        "design_notes": {
+          "$ref": "common.schema.json#/$defs/design_notes",
+          "description": "Designer-facing notes about ambiguities or decisions. Never shown to players and never localised."
+        }
+      },
+      "required": [
+        "id",
+        "name_key",
+        "description_key",
+        "scope",
+        "criteria"
+      ]
+    }
+  }
+}

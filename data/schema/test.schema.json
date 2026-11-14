@@ -1,0 +1,174 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "test.schema.json",
+  "title": "MissionForge testing campaign",
+  "description": "The test catalog.",
+  "x-data-files": [
+    "tests.json"
+  ],
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Optional relative path to the JSON Schema of this file, for editor support. Loaders ignore it."
+    },
+    "design_notes": {
+      "$ref": "common.schema.json#/$defs/design_notes",
+      "description": "Designer-facing notes about ambiguities or decisions. Never shown to players and never localised."
+    },
+    "tests": {
+      "type": "array",
+      "description": "Tests in design-table order.",
+      "items": {
+        "$ref": "#/$defs/test"
+      },
+      "minItems": 1
+    },
+    "value_types": {
+      "type": "object",
+      "description": "Provenance tags.",
+      "additionalProperties": false,
+      "properties": {
+        "tests": {
+          "$ref": "common.schema.json#/$defs/value_type",
+          "description": "Tag of all costs, days and effects in tests."
+        }
+      },
+      "required": [
+        "tests"
+      ]
+    }
+  },
+  "required": [
+    "tests",
+    "value_types"
+  ],
+  "x-value-groups": [
+    "tests"
+  ],
+  "$defs": {
+    "test": {
+      "type": "object",
+      "description": "One optional test.",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/snake_id",
+          "description": "Unique test ID, for example engine_hot_fire.",
+          "x-id": "test"
+        },
+        "name_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the test name."
+        },
+        "applies_to_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the Applies to column."
+        },
+        "applies_to_scope": {
+          "type": "string",
+          "description": "What the test is run on.",
+          "enum": [
+            "any_part",
+            "engine",
+            "stage",
+            "first_stage",
+            "vehicle",
+            "payload",
+            "spacecraft",
+            "avionics",
+            "parachutes",
+            "heat_shield"
+          ]
+        },
+        "applies_to_categories": {
+          "type": "array",
+          "description": "Part categories whose chosen option the test can be attached to.",
+          "items": {
+            "$ref": "common.schema.json#/$defs/part_category"
+          },
+          "uniqueItems": true
+        },
+        "cost_fraction_of_part": {
+          "type": "number",
+          "description": "Cost as a fraction of the tested part cost (0.05 = 5%).",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "cost_M": {
+          "type": "number",
+          "description": "Fixed cost in game $M.",
+          "minimum": 0
+        },
+        "cost_min_M": {
+          "type": "number",
+          "description": "Lower end of a cost range in game $M.",
+          "minimum": 0
+        },
+        "cost_max_M": {
+          "type": "number",
+          "description": "Upper end of a cost range in game $M.",
+          "minimum": 0
+        },
+        "days": {
+          "type": "number",
+          "description": "Days the test adds to the schedule.",
+          "minimum": 0
+        },
+        "reveals_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the Reveals / improves column."
+        },
+        "reveals_failure_modes": {
+          "type": "array",
+          "description": "Failure modes whose hidden flaw the test can reveal.",
+          "items": {
+            "$ref": "common.schema.json#/$defs/failure_mode"
+          },
+          "uniqueItems": true
+        },
+        "effects": {
+          "type": "array",
+          "description": "Numeric effects of running the test, for example narrowing the uncertainty band by 50%.",
+          "items": {
+            "$ref": "common.schema.json#/$defs/effect"
+          }
+        },
+        "flags": {
+          "type": "array",
+          "description": "Qualitative effects with no number in the design.",
+          "items": {
+            "$ref": "common.schema.json#/$defs/flag"
+          },
+          "uniqueItems": true
+        },
+        "basis_key": {
+          "$ref": "common.schema.json#/$defs/string_key",
+          "description": "String key of the Real-world basis column."
+        },
+        "minigames": {
+          "type": "array",
+          "description": "Build-phase minigames the test can trigger.",
+          "items": {
+            "$ref": "common.schema.json#/$defs/minigame_ref"
+          },
+          "uniqueItems": true
+        },
+        "design_notes": {
+          "$ref": "common.schema.json#/$defs/design_notes",
+          "description": "Designer-facing notes about ambiguities or decisions. Never shown to players and never localised."
+        }
+      },
+      "required": [
+        "id",
+        "name_key",
+        "applies_to_key",
+        "applies_to_scope",
+        "days",
+        "reveals_key",
+        "basis_key"
+      ]
+    }
+  }
+}
