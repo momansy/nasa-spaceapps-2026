@@ -595,6 +595,30 @@ def changed_files(repo_path):
     return sorted(set(changed + new))
 
 
+JUNK_DIRS = {"library", "temp", "logs", "obj", "bin", "build", "builds", "node_modules",
+             "_build", "__pycache__", ".vs", ".vscode", ".idea", "usersettings", ".gradle",
+             "dist", "coverage", "test-results", "playwright-report"}
+JUNK_NAMES = {".ds_store", "thumbs.db", "desktop.ini"}
+MAX_PUBLISH_FILES = 3000
+MAX_FILE_BYTES = 49 * 1024 * 1024
+
+
+def junk_path(name):
+    """True for build outputs and caches. docs/ (published builds) is never junk."""
+    parts = [p.lower() for p in name.replace("\\", "/").split("/")]
+    if parts[0] == "docs":
+        return False
+    return (parts[-1] in JUNK_NAMES or parts[-1].endswith((".blend1", ".tmp"))
+            or any(p in JUNK_DIRS for p in parts[:-1]))
+
+
+def oversized(path):
+    try:
+        return path.is_file() and path.stat().st_size > MAX_FILE_BYTES
+    except OSError:
+        return False
+
+
 def stash_leftovers(repo_path, label):
     """Park uncommitted files in a named git stash (nothing is deleted)."""
     if git(repo_path, "status", "--porcelain"):
@@ -651,6 +675,14 @@ def publish_branch(repo_path, branch, issue, agent, draft=False, lenient=False):
     if invalid and not lenient:
         raise RuntimeError(f"Disallowed file changes: {', '.join(invalid)}")
     files = [p for p in files if p not in invalid]
+    if lenient:
+        # Build outputs and caches never belong in a commit, even when a cut-off run left
+        # them in the working tree; neither do files over GitHub's size limit.
+        files = [p for p in files if not junk_path(p)
+                 and not oversized(Path(repo_path) / p)]
+        if len(files) > MAX_PUBLISH_FILES:
+            raise RuntimeError(f"{len(files)} files changed (limit {MAX_PUBLISH_FILES}); "
+                               "not publishing. Add build outputs to .gitignore.")
     if files:
         for start in range(0, len(files), 50):
             git(repo_path, "add", "--", *files[start:start + 50], timeout=600)

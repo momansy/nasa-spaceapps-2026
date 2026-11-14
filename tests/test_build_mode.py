@@ -215,6 +215,25 @@ class TestBuildFlow(unittest.TestCase):
                                   capture_output=True, text=True, check=True).stdout
         self.assertNotIn("agentmesh", branches)
 
+    def test_build_outputs_are_never_published(self):
+        number = self.task("kingrma")
+
+        def messy(provider, prompt, cwd, mode, **_):
+            Path(cwd, "assets", "blender", "_build", "preview").mkdir(parents=True)
+            Path(cwd, "assets", "blender", "_build", "preview", "x.png").write_text("png", encoding="utf-8")
+            Path(cwd, "unity", "Scratch", "Library").mkdir(parents=True)
+            Path(cwd, "unity", "Scratch", "Library", "cache.bin").write_text("c", encoding="utf-8")
+            Path(cwd, "game.txt").write_text("real work\n", encoding="utf-8")
+            return {"summary": "done", "status": "done", "handoffs": []}
+
+        with patch.object(mesh, "run_agent", side_effect=messy):
+            mesh.handle_one(self.gh, "sara", "mock", str(self.work), "build", options=self.options)
+        files = subprocess.run(["git", "ls-tree", "-r", "--name-only", f"agentmesh/sara/issue-{number}"],
+                               cwd=self.remote, capture_output=True, text=True, check=True).stdout.split()
+        self.assertEqual([f for f in files if f != "README.md"], ["game.txt"])
+        self.assertFalse(mesh.junk_path("docs/play/host/Build/game.wasm"))
+        self.assertTrue(mesh.junk_path("client/node_modules/x/index.js"))
+
     def test_task_can_set_model_and_effort(self):
         self.assertEqual(mesh.task_overrides("Do it\nmesh-model: claude-sonnet-5-5\nmesh-effort: High\n"),
                          {"model": "claude-sonnet-5-5", "effort": "high"})
