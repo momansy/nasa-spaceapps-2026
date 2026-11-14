@@ -1,11 +1,11 @@
 {
-  "checked_at": "2026-11-14T10:59:03.870Z",
+  "checked_at": "2026-11-14T14:38:41.786Z",
   "node": "v24.16.0",
   "scope": "Preproduction checks only; no image decoding or video inspection possible without media.",
   "checks": [
     {
       "name": "Nine explicit generation requests, no outputs claimed",
-      "pass": true
+      "pass": false
     },
     {
       "name": "Unique planned paths",
@@ -85,33 +85,33 @@
   "authoredFileSizes": [
     {
       "path": "assets/media/style/STYLE_GUIDE.md",
-      "bytes": 13527
+      "bytes": 13636
     },
     {
       "path": "assets/media/style/PROMPT_PACK.json",
-      "bytes": 15972
+      "bytes": 16328
     },
     {
       "path": "assets/media/CREDITS.md",
-      "bytes": 5249
+      "bytes": 7161
     },
     {
       "path": "orchestration/evidence/T005/README.md",
-      "bytes": 5717
+      "bytes": 6357
     },
     {
       "path": "orchestration/evidence/T005/verify-preproduction.mjs",
-      "bytes": 4239
+      "bytes": 4281
     }
   ],
   "media": [
     {
       "path": "assets/media/style/frames/01-title.png",
-      "exists": false
+      "exists": true
     },
     {
       "path": "assets/media/style/frames/02-build-bay.png",
-      "exists": false
+      "exists": true
     },
     {
       "path": "assets/media/style/frames/03-ascent.png",
@@ -127,7 +127,7 @@
     },
     {
       "path": "assets/media/style/frames/06-mission-control.png",
-      "exists": false
+      "exists": true
     },
     {
       "path": "assets/media/key-art/missionforge-16x9.png",
@@ -143,7 +143,7 @@
     }
   ],
   "contactSheetExists": false,
-  "preproduction_pass": true,
+  "preproduction_pass": false,
   "media_acceptance_pass": false,
-  "blocker": "Higgsfield estimate_image_cost and generate_image rejected before submission: MCP tool call requires approval, but approval policy is never"
+  "blocker": null
 }

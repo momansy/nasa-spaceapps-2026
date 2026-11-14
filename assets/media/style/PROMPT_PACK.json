@@ -4,13 +4,14 @@
   "status": "in_progress",
   "generated_files": [
     "assets/media/style/frames/01-title.png",
+    "assets/media/style/frames/02-build-bay.png",
     "assets/media/style/frames/06-mission-control.png"
   ],
   "authorization": "Whole available Higgsfield balance approved in task. Covered unlimited configurations selected to preserve credits; no trial activation or purchase.",
   "initial_balance_credits": 10,
   "initial_unlimited_available": true,
   "unlimited_expires_at": "2026-11-16T22:23:50Z",
-  "blocker": "Higgsfield estimate_image_cost and generate_image rejected before submission: MCP tool call requires approval, but approval policy is never",
+  "blocker": null,
   "numeric_semantics": {
     "requested_image_dimensions": {
       "unit": "px",
@@ -63,7 +64,7 @@
       "order": 2,
       "id": "build_bay",
       "path": "assets/media/style/frames/02-build-bay.png",
-      "status": "waiting_job_1701e2f5-18de-47ff-bdc4-2a4b4aa8c5cf",
+      "status": "completed_job_1701e2f5-18de-47ff-bdc4-2a4b4aa8c5cf",
       "reference_policy": "Use approved title frame as style-only reference; preserve this scene.",
       "params": {
         "model": "gpt_image_2_6",
@@ -80,7 +81,7 @@
       "order": 3,
       "id": "ascent",
       "path": "assets/media/style/frames/03-ascent.png",
-      "status": "not_submitted",
+      "status": "waiting_job_63e12049-0e68-4316-a1b1-db57fa7817b7",
       "reference_policy": "Use approved title frame as style-only reference; preserve this scene.",
       "params": {
         "model": "gpt_image_2_6",
