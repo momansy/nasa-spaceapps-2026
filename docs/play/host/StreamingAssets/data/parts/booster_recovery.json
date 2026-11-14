@@ -1,0 +1,202 @@
+{
+  "$schema": "../schema/part.schema.json",
+  "category": "booster_recovery",
+  "name_key": "category.booster_recovery.name",
+  "intro_key": "category.booster_recovery.intro",
+  "design_section": "7.18",
+  "design_notes": [
+    "The \"Fact\" column is stored in twin.",
+    "\"Δv cost\" is a relative modifier on delta_v_m_s, copied as printed (−15% is −0.15; Expendable is 0). The design does not say whether the percentage is of the whole vehicle or of the first stage; scope vehicle is the reading used here.",
+    "\"Cost effect\" is a refund fraction that applies only if the booster is recovered in flight (condition recovered). It is scoped to the first stage; the design does not name the cost it is a fraction of.",
+    "\"(campaign: refurbish)\" on the parachute option has no number: it is the note of the refund modifier and a flag. \"(boostback + landing reserve)\" is the note of the RTLS Δv modifier.",
+    "\"Ship cost $1 M\" (drone ship) is stored as cost_M 1.",
+    "\"Needs grid fins & legs\" (RTLS): grid fins are a requires_part rule; no part in the catalog offers landing legs, so legs are a flag. Section 7.15 says grid fins are \"required for propulsive booster return\", so the drone-ship option carries the same requires_part rule although its own row does not repeat it.",
+    "MG-24 Hoverslam is enabled by the two propulsive options (sentence under the table). The second half of that sentence is the category intro.",
+    "Parachute + splashdown carries parachute_failure with the drop test as mitigation (8.4: \"No drop test\"; the drop test of 6.6 applies to parachutes).",
+    "\"Weather-dependent\" (drone ship) is a flag: Weather Front in 6.8 is weighted by coastal launch sites, not by this option.",
+    "No option is restricted to a contract. C8 requires the booster to land; that belongs to the contract requirements. Expendable has no model path: it adds no hardware."
+  ],
+  "parts": [
+    {
+      "id": "brec_expendable",
+      "category": "booster_recovery",
+      "name_key": "part.brec_expendable.name",
+      "twin": "part.brec_expendable.twin",
+      "strengths": [
+        "part.brec_expendable.strength.1"
+      ],
+      "drawbacks": [
+        "part.brec_expendable.drawback.1"
+      ],
+      "stats": {},
+      "game": {},
+      "modifiers": [
+        {
+          "target": "delta_v_m_s",
+          "op": "add_fraction",
+          "value": 0,
+          "scope": "vehicle"
+        }
+      ],
+      "value_types": {
+        "modifiers": "game_value"
+      }
+    },
+    {
+      "id": "brec_parachute_splashdown",
+      "category": "booster_recovery",
+      "name_key": "part.brec_parachute_splashdown.name",
+      "twin": "part.brec_parachute_splashdown.twin",
+      "strengths": [
+        "part.brec_parachute_splashdown.strength.1"
+      ],
+      "drawbacks": [
+        "part.brec_parachute_splashdown.drawback.1"
+      ],
+      "model": "models/brec_parachute_splashdown.glb",
+      "stats": {},
+      "game": {},
+      "modifiers": [
+        {
+          "target": "delta_v_m_s",
+          "op": "add_fraction",
+          "value": -0.02,
+          "scope": "vehicle"
+        },
+        {
+          "target": "cost_refund_fraction",
+          "op": "add",
+          "value": 0.2,
+          "scope": "first_stage",
+          "condition": "recovered",
+          "note_key": "part.brec_parachute_splashdown.modifier.2.note"
+        }
+      ],
+      "rules": [
+        {
+          "kind": "flag",
+          "flag": "salt_water_damage"
+        },
+        {
+          "kind": "flag",
+          "flag": "refurbish_in_campaign"
+        },
+        {
+          "kind": "test_mitigates_failure_mode",
+          "failure_mode": "parachute_failure",
+          "test": "drop_test"
+        }
+      ],
+      "failure_modes": [
+        "parachute_failure"
+      ],
+      "value_types": {
+        "modifiers": "game_value"
+      }
+    },
+    {
+      "id": "brec_propulsive_rtls",
+      "category": "booster_recovery",
+      "name_key": "part.brec_propulsive_rtls.name",
+      "twin": "part.brec_propulsive_rtls.twin",
+      "strengths": [
+        "part.brec_propulsive_rtls.strength.1"
+      ],
+      "drawbacks": [
+        "part.brec_propulsive_rtls.drawback.1",
+        "part.brec_propulsive_rtls.drawback.2"
+      ],
+      "model": "models/brec_propulsive_rtls.glb",
+      "stats": {},
+      "game": {},
+      "modifiers": [
+        {
+          "target": "delta_v_m_s",
+          "op": "add_fraction",
+          "value": -0.15,
+          "scope": "vehicle",
+          "note_key": "part.brec_propulsive_rtls.modifier.1.note"
+        },
+        {
+          "target": "cost_refund_fraction",
+          "op": "add",
+          "value": 0.6,
+          "scope": "first_stage",
+          "condition": "recovered"
+        }
+      ],
+      "rules": [
+        {
+          "kind": "requires_part",
+          "part": "aero_grid_fins"
+        },
+        {
+          "kind": "flag",
+          "flag": "needs_landing_legs"
+        },
+        {
+          "kind": "flag",
+          "flag": "fast_reuse"
+        },
+        {
+          "kind": "enables_minigame",
+          "minigame": "MG-24"
+        }
+      ],
+      "value_types": {
+        "modifiers": "game_value"
+      }
+    },
+    {
+      "id": "brec_propulsive_drone_ship",
+      "category": "booster_recovery",
+      "name_key": "part.brec_propulsive_drone_ship.name",
+      "twin": "part.brec_propulsive_drone_ship.twin",
+      "strengths": [
+        "part.brec_propulsive_drone_ship.strength.1"
+      ],
+      "drawbacks": [
+        "part.brec_propulsive_drone_ship.drawback.1",
+        "part.brec_propulsive_drone_ship.drawback.2"
+      ],
+      "model": "models/brec_propulsive_drone_ship.glb",
+      "stats": {},
+      "game": {
+        "cost_M": 1
+      },
+      "modifiers": [
+        {
+          "target": "delta_v_m_s",
+          "op": "add_fraction",
+          "value": -0.08,
+          "scope": "vehicle"
+        },
+        {
+          "target": "cost_refund_fraction",
+          "op": "add",
+          "value": 0.55,
+          "scope": "first_stage",
+          "condition": "recovered"
+        }
+      ],
+      "rules": [
+        {
+          "kind": "requires_part",
+          "part": "aero_grid_fins"
+        },
+        {
+          "kind": "flag",
+          "flag": "weather_dependent_landing"
+        },
+        {
+          "kind": "enables_minigame",
+          "minigame": "MG-24"
+        }
+      ],
+      "value_types": {
+        "game": "game_value",
+        "modifiers": "game_value"
+      }
+    }
+  ]
+}

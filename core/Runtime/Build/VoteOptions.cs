@@ -5,116 +5,6 @@ using MissionForge.Core.Data;
 
 namespace MissionForge.Core.Build
 {
-    /// <summary>Result of the "a later vote can fix it" search (design 4.2).</summary>
-    public sealed class FixCheck
-    {
-        internal FixCheck(bool exists, bool inconclusive, int evaluations, BuildState? example)
-        {
-            Exists = exists;
-            Inconclusive = inconclusive;
-            Evaluations = evaluations;
-            Example = example;
-        }
-
-        /// <summary>Some choice of the remaining votes removes every Blocker (true when the search was inconclusive).</summary>
-        public bool Exists { get; }
-        /// <summary>The search hit its evaluation cap before deciding; <see cref="Exists"/> is then optimistically true.</summary>
-        public bool Inconclusive { get; }
-        /// <summary>Number of complete builds evaluated.</summary>
-        public int Evaluations { get; }
-        /// <summary>A completed build without Blockers, when one was found (useful for the AI Flight Director hint).</summary>
-        public BuildState? Example { get; }
-    }
-
-    /// <summary>Searches whether the remaining votes can still make the vehicle flyable (design 4.2).</summary>
-    public static class FixSearch
-    {
-        private static readonly HashSet<string> Coupled = new HashSet<string>(Slots.PropulsionGroup)
-        {
-            Slots.Fairing, Slots.LaunchEscape, Slots.HeatShield, Slots.AeroControl,
-            Slots.PayloadInstrument, Slots.PayloadPower, Slots.PayloadAttitude, Slots.Capsule,
-            Slots.LifeSupport, Slots.Lander, Slots.CapsuleRecovery, Slots.LaunchSite,
-        };
-
-        /// <summary>
-        /// True when some assignment of the contract's still-undecided votes yields a build with no Blocker.
-        /// Votes that only add mass (avionics, comms, power…) are filled with their lightest option, which is
-        /// never worse for Δv and TWR; the rest are searched depth-first with a cap of
-        /// <paramref name="maxEvaluations"/> complete builds.
-        /// </summary>
-        public static FixCheck Run(BuildState build, GameCatalog catalog, int maxEvaluations = BuildConstants.FixSearchMaxEvaluations)
-        {
-            var contract = catalog.Contract(build.ContractId);
-            var search = new List<(string slot, IReadOnlyList<PartDef> options)>();
-            var b = build;
-            foreach (var vote in VoteOptions.VotesFor(contract))
-            {
-                if (build.Has(vote.Slot)) continue;
-                var options = new List<PartDef>();
-                foreach (var id in vote.OptionIds)
-                {
-                    var p = catalog.Part(id);
-                    if (p.OfferedFor(contract.Id)) options.Add(p);
-                }
-                if (options.Count == 0) continue;
-                if (Coupled.Contains(vote.Slot))
-                {
-                    search.Add((vote.Slot, Order(options)));
-                }
-                else
-                {
-                    var lightest = options[0];
-                    foreach (var o in options) if (o.MassKg < lightest.MassKg) lightest = o;
-                    b = b.WithChoice(vote.Slot, lightest.Id);
-                }
-            }
-
-            int evals = 0;
-            BuildState? found = null;
-            bool capped = false;
-            bool Dfs(BuildState s, int i)
-            {
-                if (evals >= maxEvaluations) { capped = true; return false; }
-                if (i == search.Count)
-                {
-                    evals++;
-                    var v = new Vehicle(s, catalog);
-                    var issues = Validator.Validate(v, Dashboard.ComputeFlightCore(v), catalog, ValidationMode.Complete);
-                    if (!Validator.HasBlocker(issues)) { found = s; return true; }
-                    return false;
-                }
-                foreach (var o in search[i].options)
-                {
-                    if (Dfs(s.WithChoice(search[i].slot, o.Id), i + 1)) return true;
-                    if (capped) return false;
-                }
-                return false;
-            }
-
-            var ok = Dfs(b, 0);
-            return new FixCheck(ok || capped, capped && !ok, evals, found);
-        }
-
-        /// <summary>Tries the most capable options first: more thrust, more engines, then lighter.</summary>
-        private static IReadOnlyList<PartDef> Order(List<PartDef> options)
-        {
-            var sorted = new List<PartDef>(options);
-            sorted.Sort((x, y) =>
-            {
-                var tx = (x.Stats.ThrustSlN ?? x.Stats.ThrustVacN ?? 0) * (x.Stats.Count ?? 1);
-                var ty = (y.Stats.ThrustSlN ?? y.Stats.ThrustVacN ?? 0) * (y.Stats.Count ?? 1);
-                var c = ty.CompareTo(tx);
-                if (c != 0) return c;
-                // Engine-count options carry no thrust of their own: rank them by the count itself.
-                c = (y.Stats.Count ?? 1).CompareTo(x.Stats.Count ?? 1);
-                if (c != 0) return c;
-                c = x.MassKg.CompareTo(y.MassKg);
-                return c != 0 ? c : string.CompareOrdinal(x.Id, y.Id);
-            });
-            return sorted;
-        }
-    }
-
     /// <summary>One option of a vote round as shown on Part Cards (design 4.2, 14.3).</summary>
     public sealed class VoteOption
     {
@@ -211,11 +101,23 @@ namespace MissionForge.Core.Build
             {
                 var p = catalog.Part(id);
                 if (!p.OfferedFor(contract.Id)) continue;
+                if (!vote.AcceptsStage(p)) continue;
                 if (!Applicable(build, catalog, p)) continue;
                 result.Add(p);
                 if (result.Count == MaxOptions) break;
             }
             return result;
+        }
+
+        /// <summary>
+        /// Build-dependent applicability of a part for a vote slot: <see cref="Applicable(BuildState, GameCatalog, PartDef)"/> plus the stage
+        /// check of <see cref="ContractVote.AcceptsStage"/> (engine-count parts belong to one stage).
+        /// </summary>
+        public static bool Applicable(BuildState build, GameCatalog catalog, string slot, PartDef p)
+        {
+            var vote = catalog.Contract(build.ContractId).VoteFor(slot);
+            if (vote != null && !vote.AcceptsStage(p)) return false;
+            return Applicable(build, catalog, p);
         }
 
         /// <summary>Build-dependent applicability (e.g. liquid side boosters need a first stage; escape only when crewed).</summary>
@@ -261,10 +163,14 @@ namespace MissionForge.Core.Build
 
         /// <summary>
         /// Resolves a vote: records the winning part, counts the vote, and, when the option is over budget,
-        /// uses Emergency Funding (+10% of the contract budget). Throws if the option cannot win.
+        /// uses Emergency Funding (+10% of the contract budget). Throws <see cref="InvalidOperationException"/> if the option cannot win and
+        /// <see cref="ArgumentException"/> when an engine-count part of the other stage is committed.
         /// </summary>
         public static BuildState Commit(BuildState build, GameCatalog catalog, string slot, string partId)
         {
+            var voteDef = catalog.Contract(build.ContractId).VoteFor(slot);
+            if (voteDef != null && catalog.Parts.TryGetValue(partId, out var candidate) && !voteDef.AcceptsStage(candidate))
+                throw new ArgumentException($"Part '{partId}' (stage '{candidate.Stats.Stage ?? "none"}') does not belong to vote '{slot}' (stage '{voteDef.Stage}').", nameof(partId));
             var options = For(build, catalog, slot);
             VoteOption? chosen = null;
             foreach (var o in options) if (o.Part.Id == partId) chosen = o;

@@ -1,0 +1,108 @@
+{
+  "$schema": "../schema/part.schema.json",
+  "category": "attitude_control",
+  "name_key": "category.attitude_control.name",
+  "design_section": "7.2.1",
+  "design_notes": [
+    "Listed for C1, C2 and C5 for the same reason as satellite power: the table sits under \"7.2.1 Satellite contracts (C1, C2, C5)\" and names no single contract.",
+    "The table has no Strengths, Cost or Twin column. \"Expensive\" (reaction wheels + star tracker) has no number, so no cost_M is stored.",
+    "Pointing accuracy \"~5°\", \"~0.1°\", \"~0.01°\" is stored without the tilde. Stats are tagged game_value: the design states no provenance for them.",
+    "The qualitative drawbacks are flags: too_imprecise_for_high_res_imaging, slow_slew, wheel_saturation, star_tracker_sun_blinding. The design does not say which instrument counts as high-resolution, so there is no incompatible_with_part rule.",
+    "Section 6.7 mentions single, dual or triple reaction-wheel configurations; the table offers none."
+  ],
+  "parts": [
+    {
+      "id": "adcs_magnetorquers_only",
+      "category": "attitude_control",
+      "name_key": "part.adcs_magnetorquers_only.name",
+      "strengths": [],
+      "drawbacks": [
+        "part.adcs_magnetorquers_only.drawback.1",
+        "part.adcs_magnetorquers_only.drawback.2"
+      ],
+      "contracts": [
+        "C1",
+        "C2",
+        "C5"
+      ],
+      "model": "models/adcs_magnetorquers_only.glb",
+      "stats": {
+        "pointing_accuracy_deg": 5,
+        "mass_kg": 1
+      },
+      "game": {},
+      "rules": [
+        {
+          "kind": "flag",
+          "flag": "too_imprecise_for_high_res_imaging"
+        },
+        {
+          "kind": "flag",
+          "flag": "slow_slew"
+        }
+      ],
+      "value_types": {
+        "stats": "game_value"
+      }
+    },
+    {
+      "id": "adcs_reaction_wheels",
+      "category": "attitude_control",
+      "name_key": "part.adcs_reaction_wheels.name",
+      "strengths": [],
+      "drawbacks": [
+        "part.adcs_reaction_wheels.drawback.1"
+      ],
+      "contracts": [
+        "C1",
+        "C2",
+        "C5"
+      ],
+      "model": "models/adcs_reaction_wheels.glb",
+      "stats": {
+        "pointing_accuracy_deg": 0.1,
+        "mass_kg": 6
+      },
+      "game": {},
+      "rules": [
+        {
+          "kind": "flag",
+          "flag": "wheel_saturation"
+        }
+      ],
+      "value_types": {
+        "stats": "game_value"
+      }
+    },
+    {
+      "id": "adcs_reaction_wheels_star_tracker",
+      "category": "attitude_control",
+      "name_key": "part.adcs_reaction_wheels_star_tracker.name",
+      "strengths": [],
+      "drawbacks": [
+        "part.adcs_reaction_wheels_star_tracker.drawback.1",
+        "part.adcs_reaction_wheels_star_tracker.drawback.2"
+      ],
+      "contracts": [
+        "C1",
+        "C2",
+        "C5"
+      ],
+      "model": "models/adcs_reaction_wheels_star_tracker.glb",
+      "stats": {
+        "pointing_accuracy_deg": 0.01,
+        "mass_kg": 9
+      },
+      "game": {},
+      "rules": [
+        {
+          "kind": "flag",
+          "flag": "star_tracker_sun_blinding"
+        }
+      ],
+      "value_types": {
+        "stats": "game_value"
+      }
+    }
+  ]
+}

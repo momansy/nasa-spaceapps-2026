@@ -1,0 +1,684 @@
+/* Personal results and awards. */
+
+/* ───────────── hero ───────────── */
+
+.db-hero {
+  --grade: var(--accent);
+  --grade-glow: rgba(85, 197, 205, 0.2);
+  position: relative;
+  /* The scroll column is a flex container: never let the hero shrink to fit. */
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 18px 14px 20px;
+  text-align: center;
+  border-radius: var(--radius);
+  border: var(--border-w) solid var(--line);
+  background:
+    radial-gradient(90% 70% at 50% 38%, var(--grade-glow), transparent 70%),
+    linear-gradient(180deg, rgba(23, 58, 85, 0.6), rgba(11, 29, 46, 0.9));
+  overflow: hidden;
+}
+
+:root[data-contrast='high'] .db-hero {
+  background: var(--bg-1);
+  border-color: var(--grade);
+}
+
+.db-hero[data-grade='S'] {
+  --grade: var(--tier-platinum);
+  --grade-glow: rgba(185, 243, 255, 0.22);
+}
+
+.db-hero[data-grade='A'] {
+  --grade: var(--tier-gold);
+  --grade-glow: rgba(255, 209, 102, 0.22);
+}
+
+.db-hero[data-grade='B'] {
+  --grade: var(--tier-silver);
+  --grade-glow: rgba(213, 222, 236, 0.16);
+}
+
+.db-hero[data-grade='C'] {
+  --grade: var(--tier-bronze);
+  --grade-glow: rgba(224, 160, 112, 0.18);
+}
+
+.db-hero[data-grade='D'] {
+  --grade: var(--tier-none);
+  --grade-glow: rgba(182, 199, 211, 0.14);
+}
+
+.db-hero__contract {
+  font-weight: 700;
+  font-size: 1.05rem;
+  overflow-wrap: anywhere;
+}
+
+.db-hero__chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.db-grade {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 7rem;
+  height: 7rem;
+  min-width: 104px;
+  min-height: 104px;
+  margin-block: 8px 2px;
+  animation: db-grade-in 700ms var(--ease-out-back) 150ms both;
+}
+
+.db-grade svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.db-grade__ring {
+  fill: none;
+  stroke: var(--grade);
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 8px var(--grade));
+}
+
+:root[data-contrast='high'] .db-grade__ring {
+  filter: none;
+  stroke-width: 4;
+}
+
+.db-grade__core {
+  fill: rgba(5, 16, 26, 0.82);
+  stroke: var(--grade);
+  stroke-width: 1;
+  stroke-opacity: 0.5;
+  stroke-linejoin: round;
+}
+
+.db-grade__letter {
+  position: relative;
+  font-family: var(--font-mono);
+  font-weight: 800;
+  font-size: 3.5rem;
+  line-height: 1;
+  color: var(--grade);
+}
+
+@keyframes db-grade-in {
+  from {
+    opacity: 0;
+    transform: scale(0.5) rotate(-18deg);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.db-hero__title {
+  max-width: 100%;
+  /* Never wider than the card, even at 200 % text. */
+  font-size: min(1.6rem, 11vw);
+  overflow-wrap: break-word;
+}
+
+.db-score {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0 8px;
+  line-height: 1.05;
+}
+
+.db-score__value {
+  font-size: min(2.6rem, 17vw);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  /* Reserve the final width so the count-up never shifts the layout. */
+  min-width: 5ch;
+  text-align: end;
+}
+
+.db-score__unit {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+/* ───────────── my awards ───────────── */
+
+.db-award {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: var(--radius);
+  border: var(--border-w) solid var(--tier-gold);
+  background:
+    linear-gradient(100deg, rgba(255, 209, 102, 0.16), rgba(255, 209, 102, 0.03) 60%),
+    var(--bg-1);
+  animation: db-award-in 520ms var(--ease-out-back) both;
+}
+
+:root[data-contrast='high'] .db-award {
+  background: var(--bg-1);
+}
+
+@keyframes db-award-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.db-award__medal {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  min-width: 48px;
+  min-height: 48px;
+  border-radius: 50%;
+  border: 2px solid var(--tier-gold);
+  background: radial-gradient(circle at 35% 30%, rgba(255, 209, 102, 0.35), rgba(5, 16, 26, 0.6) 70%);
+  color: var(--tier-gold);
+}
+
+.db-award__name {
+  display: block;
+  font-weight: 800;
+  font-size: 1.1rem;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.db-award__desc {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.88rem;
+  color: var(--text-dim);
+}
+
+.db-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+  gap: 8px;
+}
+
+.db-stat {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  column-gap: 8px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: var(--border-w) solid var(--line);
+  background: var(--bg-1);
+  min-width: 0;
+}
+
+.db-stat__value {
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.db-stat__label {
+  grid-column: 1 / -1;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  overflow-wrap: anywhere;
+}
+
+/* ───────────── breakdown ───────────── */
+
+.db-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.db-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 8px;
+}
+
+.db-line__icon {
+  color: var(--text-faint);
+}
+
+.db-line__label {
+  flex: 1 1 auto;
+  min-width: min-content;
+  font-size: 0.94rem;
+}
+
+.db-line__value {
+  /* Drops to its own line, still end-aligned, when the label needs the width. */
+  margin-inline-start: auto;
+  font-weight: 700;
+}
+
+.db-line__bar {
+  flex: 0 0 100%;
+}
+
+.db-line__bar .bar {
+  height: 0.4rem;
+  min-height: 6px;
+}
+
+.db-sum {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+}
+
+.db-sum dd {
+  margin: 0;
+}
+
+.db-sum__total {
+  margin-top: 4px;
+  padding-top: 8px;
+  border-top: var(--border-w) dashed var(--line-strong);
+}
+
+.db-sum__total .kv__k {
+  color: var(--text);
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.db-sum__total .kv__v {
+  font-size: 1.25rem;
+  color: var(--accent-strong);
+}
+
+/* ───────────── objectives ───────────── */
+
+.db-objective {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: var(--border-w) solid var(--line);
+  background: var(--bg-1);
+}
+
+.db-objective--met {
+  border-color: var(--good);
+  background: linear-gradient(0deg, var(--good-soft), var(--good-soft)), var(--bg-1);
+}
+
+.db-objective--missed {
+  border-style: dashed;
+}
+
+.db-objective__mark {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  min-width: 28px;
+  min-height: 28px;
+  border-radius: 50%;
+}
+
+.db-objective--met .db-objective__mark {
+  background: var(--good);
+  color: var(--good-ink);
+}
+
+.db-objective--missed .db-objective__mark {
+  border: var(--border-w) solid var(--line-strong);
+  color: var(--text-faint);
+}
+
+.db-objective__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0 10px;
+}
+
+.db-objective__kind {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.db-objective--met .db-objective__kind {
+  color: var(--good);
+}
+
+.db-objective__text {
+  display: block;
+  font-size: 0.94rem;
+  overflow-wrap: break-word;
+}
+
+.db-objective--missed .db-objective__text {
+  color: var(--text-dim);
+}
+
+.db-objective__pts {
+  font-weight: 700;
+}
+
+.db-objective--missed .db-objective__pts {
+  color: var(--text-faint);
+}
+
+/* ───────────── crew ───────────── */
+
+.db-crew {
+  padding-block: 4px;
+}
+
+.db-crew__row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding-block: 10px;
+}
+
+.db-crew__row + .db-crew__row {
+  border-top: var(--border-w) solid var(--line);
+}
+
+.db-crew__who {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 6px;
+}
+
+.db-crew__name {
+  font-weight: 700;
+  overflow-wrap: anywhere;
+  margin-inline-end: 2px;
+}
+
+.db-crew__awards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.db-crew__award {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  border: var(--border-w) solid var(--tier-gold);
+  background: rgba(255, 209, 102, 0.1);
+  color: var(--tier-gold);
+  font-size: 0.82rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+/* ───────────── what we learned ───────────── */
+
+.db-lesson {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px;
+  border-radius: var(--radius);
+  border: var(--border-w) solid var(--accent);
+  background: var(--accent-soft);
+}
+
+.db-lesson__icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 12px;
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.db-lesson__title {
+  font-weight: 800;
+  font-size: 1.05rem;
+  margin-block: 2px 4px;
+}
+
+.db-count {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  color: var(--text-dim);
+  font-size: 0.92rem;
+  margin-bottom: 10px;
+}
+
+.db-count__n {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1;
+}
+
+.db-facts {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.db-fact {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.db-fact__icon {
+  color: var(--warn);
+  margin-top: 0.2rem;
+}
+
+.db-fact__text {
+  display: block;
+  font-size: 0.94rem;
+}
+
+.db-fact__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 10px;
+  margin-top: 2px;
+  font-size: 0.74rem;
+  color: var(--text-faint);
+}
+
+.db-fact__pending {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.db-footnote {
+  margin-top: 10px;
+  font-size: 0.78rem;
+  color: var(--text-faint);
+}
+
+.db-codex__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.db-codex__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0.2rem 0.6rem;
+  border-radius: 8px;
+  border: var(--border-w) solid var(--line-strong);
+  background: var(--bg-0);
+  font-size: 0.84rem;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.db-codex__item svg {
+  color: var(--accent);
+}
+
+.db-codex__item--more {
+  border-style: dashed;
+  color: var(--text-dim);
+}
+
+/* ───────────── comparison ───────────── */
+
+.db-compare__metric {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 6px;
+}
+
+.db-compare__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 3px 10px;
+  margin-bottom: 8px;
+}
+
+.db-compare__who {
+  flex: 1 1 auto;
+  min-width: min-content;
+  font-size: 0.9rem;
+  font-weight: 650;
+}
+
+.db-compare__row--twin .db-compare__who {
+  color: var(--text-dim);
+  font-weight: 500;
+}
+
+.db-compare__value {
+  margin-inline-start: auto;
+  font-weight: 700;
+}
+
+.db-compare__bar {
+  flex: 0 0 100%;
+}
+
+/* ───────────── next step and waiting ───────────── */
+
+.db-next {
+  align-items: center;
+}
+
+.db-tally {
+  display: grid;
+  place-items: center;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  border: 2px solid var(--line-strong);
+  color: var(--accent);
+  background: radial-gradient(circle, var(--accent-soft), transparent 70%);
+  animation: db-tally 2.2s ease-in-out infinite;
+}
+
+@keyframes db-tally {
+  50% {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 10px rgba(85, 197, 205, 0.06), 0 0 30px rgba(85, 197, 205, 0.25);
+  }
+}
+
+.db-skeleton {
+  width: 100%;
+  max-width: 18rem;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.db-skeleton li {
+  height: 0.7rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--line) 20%, var(--line-strong) 50%, var(--line) 80%);
+  background-size: 200% 100%;
+  animation: db-shimmer 1.6s linear infinite;
+}
+
+.db-skeleton li:nth-child(2) {
+  width: 78%;
+  animation-delay: 0.15s;
+}
+
+.db-skeleton li:nth-child(3) {
+  width: 56%;
+  animation-delay: 0.3s;
+}
+
+@keyframes db-shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+.stack > .db-footnote {
+  margin-top: 0;
+}
+
+/* Numbers keep their left-to-right order (sign, digits, unit) inside right-to-left layouts. */
+.db-hero .num,
+.db-stat__value,
+.db-line__value,
+.db-sum .num,
+.db-objective__pts,
+.db-count__n,
+.db-compare__value {
+  direction: ltr;
+  unicode-bidi: isolate;
+}

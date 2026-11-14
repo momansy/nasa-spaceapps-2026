@@ -1,94 +1,97 @@
 # MissionForge stub room server
 
-A small in-memory WebSocket room server for developing and testing the Unity host screen
-(`Assets/MissionForge/Net`). It is a **provisional stand-in** until the real `server/` and the
-formal `protocol/messages.md` land; when they do, this folder can be deleted.
+A small in-memory WebSocket room server for developing and testing the Unity host
+(`Assets/MissionForge/Net`) without the real `server/` or any phones. It speaks the wire contract
+in [`protocol/`](../../../../protocol/README.md) (protocol version 1): it loads
+`protocol/schema/*.schema.json` and `MESSAGE_META` from `protocol/ts/messages.ts` at start-up, so
+message types, allowed senders, routing and payload validation come straight from the contract.
 
 - Zero npm dependencies: the RFC 6455 handshake and framing are implemented on `node:http` and
   `node:crypto` (`lib/websocket.mjs`).
 - Requires Node.js 22 or newer (the smoke test uses the built-in `WebSocket` client).
-- Development only: no TLS, no authentication, no persistence, and it listens on all network
-  interfaces by default so phones on the same Wi-Fi can reach it. Do not expose it to the internet.
+- Development only: no TLS, no rate limits, no profanity filter, no persistence, and it listens on
+  all network interfaces by default so phones on the same Wi-Fi can reach it. Do not expose it to
+  the internet.
 
 The folder name ends in `~`, so Unity ignores it (no import, no `.meta` files).
 
 ## Run
 
 ```sh
-node server.mjs                       # ws://localhost:8787
-node server.mjs --port 0              # pick a free port
-node server.mjs --simulate-players 6  # fake players join every new room (lobby demo)
-node smoke.mjs                        # self-test; prints PASS/FAIL lines, exit code 1 on failure
+node server.mjs                        # ws://localhost:8787
+node server.mjs --port 0               # pick a free port
+node server.mjs --bots 3               # 3 fake players join every new room (lobby demo, no phones)
+MISSIONFORGE_STUB_BOTS=3 node server.mjs   # same, from the environment
+node smoke.mjs                         # self-test; prints PASS/FAIL lines, exit code 1 on failure
 ```
 
 | Option | Default | Meaning |
 |---|---|---|
 | `--port <n>` | `8787` | TCP port; `0` picks a free one |
 | `--host <addr>` | all interfaces | Bind address (use `127.0.0.1` to stay local) |
-| `--simulate-players <n>` | `0` | Fake players that join each new room one by one |
-| `--simulate-interval-ms <n>` | `1500` | Delay between simulated joins |
-| `--simulate-roles <n>` | `4` | How many of the simulated players get a role (the rest stay unassigned) |
+| `--bots <n>` | `0` (or `MISSIONFORGE_STUB_BOTS`) | Fake players (0–10) that join each new room one by one |
+| `--bot-interval-ms <n>` | `1500` | Delay between bot joins |
+| `--client-url <url>` | `http://localhost:5173/` | Phone client base URL used for `room.created.joinUrl` / `spectateUrl` |
+| `--slot-hold-ms <n>` | `180000` | How long a dropped player keeps the seat |
+| `--room-hold-ms <n>` | `600000` | How long a room survives without its host |
+| `--idle-timeout-ms <n>` | `15000` | Close connections silent for this long (`bye` IDLE_TIMEOUT) |
+| `--protocol-dir <path>` | `<repo>/protocol` | Where the contract lives (also `MISSIONFORGE_PROTOCOL_DIR`) |
+
+`--simulate-players` and `--simulate-interval-ms` still work as aliases of `--bots` and
+`--bot-interval-ms`.
 
 Once it accepts connections the server prints `LISTENING <port>` on stdout; tests read that line
 to learn the port. `GET /health` returns `{"ok":true,"rooms":<count>}`.
 
-Simulated players are called Nova, Orion, Vega, Lyra, Altair, Juno, Kepler, Halley, Ceres and
-Rigel, with avatars `astro_01` to `astro_10`.
+Bots are players without a socket (always `connected: true`) called Nova, Orion, Vega, Lyra,
+Altair, Juno, Kepler, Halley, Ceres and Rigel, with avatars `{suitId: suit_orange…, patchId:
+patch_comet…}`. Each join broadcasts `room.state` and `roles.state`, exactly like a phone join.
 
-## Protocol (provisional)
+## What is implemented
 
-JSON text frames with the envelope `{"t":"<type>","seq":<int>,"d":{...}}`. `seq` is a per-sender
-counter; the server does not check it. Every name below lives in **one place per side**:
+Everything a lobby needs, following `protocol/messages.md`:
 
-- C#: `Assets/MissionForge/Net/ProtocolNames.cs` (source of truth)
-- stub: `lib/protocol.mjs` (keep in sync by hand)
+- **Connection:** `hello` / `hello.ok` (HOST and PHONE limits), `clock.ping` / `clock.pong`,
+  `error`, `bye` (close code = `bye.closeCode`), hello timeout (5 s), join timeout (30 s), idle
+  timeout.
+- **Common validation** (§12.1) in order: frame size, envelope (`envelope.schema.json`), `seq`
+  strictly increasing per connection, `hello` first and once, known type, allowed sender
+  (FORBIDDEN / NOT_IN_ROOM / ALREADY_IN_ROOM), payload schema with unknown fields ignored
+  (BAD_PAYLOAD + `field`), PAUSED for pause-blocked types.
+- **Rooms:** `room.create` / `room.created` + snapshot (`settings.state`, `room.state`,
+  `roles.state`, `game.paused` if paused, sticky host messages for phones, `snapshot.end`),
+  `room.join` / `room.joined` (nickname normalisation, NICK_TAKEN with suggestion, lowest free
+  slot, pending spectators for LATE_JOIN / ROOM_FULL), `room.resume` / `room.resumed` (REPLACED,
+  TOKEN_INVALID, FORBIDDEN on token kind), `room.leave`, `room.kick`, `room.close`,
+  `room.promoted` at a new mission, slot hold and room hold timers.
+- **Settings:** `settings.set` / `settings.state`, SETTING_LOCKED outside LOBBY.
+- **Roles:** group table by player count, `roles.pick`, `roles.vote`, `roles.lock`, `roles.set`,
+  `roles.rotate`, auto-lock when leaving LOBBY, rebalancing on leave and late arrival.
+- **Phase:** `phase.set` transition graph and field combinations (INVALID_TRANSITION), new-mission
+  reset when `missionSeq` increases.
+- **Pause:** `game.pause` / `game.resume`, host disconnect pause with `roomExpiresAtMs`, frozen
+  slot-hold countdowns.
+- **Relays:** every `host → server → client` type is validated and forwarded by
+  `MESSAGE_META.to` (sticky ones are replayed in snapshots); every `client → server → host` type
+  arrives at the host inside `relay`.
 
-| Direction | Type | Payload `d` | Server reaction |
-|---|---|---|---|
-| host → server | `room.create` | `{ "client":"host", "version":1 }` | `room.created`, then `room.state` |
-| server → host | `room.created` | `{ "code":"ABCD", "hostToken":"<opaque>" }` (`joinUrl` is optional and not sent by the stub) | |
-| host → server | `room.resume` | `{ "code", "hostToken" }` | `room.state`, or `error` `room_not_found` / `invalid_token` |
-| player → server | `room.join` | `{ "code", "nickname", "avatar" }` | `room.joined`, then `room.state` to everyone |
-| server → player | `room.joined` | `{ "playerId", "token" }` | |
-| host → server | `room.settings` | partial settings object | `room.state` to everyone |
-| host → server | `phase.set` | `{ "phase":"BRIEFING" }` | `room.state` to everyone |
-| server → all | `room.state` | `{ "code", "phase", "players":[...], "settings":{...} }` | sent on every change |
-| either → server | `ping` | `{ "t": <client ms> }` | `pong` with the same `t` |
-| server → client | `error` | `{ "code", "message" }` | |
-
-Player entry: `{ "id":"p1", "nickname":"Nova", "avatar":"astro_03", "role":"FLIGHT"|null, "connected":true, "spectator":false }`.
-
-Settings: `{ "roleMode":"random"|"pick"|"vote", "assist":"cadet"|"engineer"|"flight_director", "voteTimerS":30, "hiddenTallies":false }`.
-
-Error codes: `bad_envelope`, `unknown_type`, `room_not_found`, `invalid_token`, `invalid_nickname`,
-`invalid_settings`, `invalid_phase`, `not_host`, `server_full`.
-
-### Stub behaviour worth knowing
-
-- Room codes are 4 letters from `ABCDEFGHJKMNPQRSTUVWXYZ` (no I, O or L). Codes in `room.join`
-  and `room.resume` are case-insensitive.
-- Roles are handed out in the design document's order (FLIGHT, BOOSTER, STRUCT, GUIDO, FIDO,
-  EECOM, INCO, PAYLOAD, RETRO, PM): each joining player gets the first role nobody holds. The
-  `roleMode` setting is stored and broadcast but does not change this.
-- At most 10 players; later joiners are added with `"spectator":true` and no role.
-- When a player's socket drops, the player stays in the list with `"connected":false`. There is
-  no player rejoin yet: joining again creates a new player.
-- When the host's socket drops, the room is kept so `room.resume` works. A resume from a new
-  connection closes the previous host connection with close code 4000.
-- Nicknames are trimmed and must be 1–16 characters; an unusable avatar id becomes `astro_01`.
-- `voteTimerS` must be an integer from 5 to 300; unknown settings keys are rejected.
-- `phase.set` accepts any `UPPER_SNAKE_CASE` name; the stub does not know the real phase list.
-- Rooms live until the process exits (at most 200).
+Not simulated: votes, polls, abilities and the outcome log (`snapshot.end.lastOutcomeSeq` is
+always 0). Those messages are validated and then ignored (logged once on stderr).
 
 ## Files
 
 | File | Purpose |
 |---|---|
 | `server.mjs` | CLI, HTTP listener, wiring |
+| `lib/contract.mjs` | Loads `protocol/` (schemas, `MESSAGE_META`) and validates payloads |
+| `lib/validation.mjs` | Common validation of every received frame (§12.1) |
+| `lib/rooms.mjs` | Room hub: sessions, rooms, handlers, timers, bots |
+| `lib/roles.mjs` | Role groups, lobby assignment and rebalancing (§5) |
+| `lib/rules.mjs` | Pure rules: phase field combinations, nicknames, routing, payloads |
+| `lib/protocol.mjs` | Constants the stub's own logic needs (codes, defaults, tables) |
 | `lib/websocket.mjs` | WebSocket handshake, frame parser/encoder, connection |
-| `lib/rooms.mjs` | Rooms, players, message handlers, player simulation |
-| `lib/protocol.mjs` | Message names, error codes, roles, limits |
-| `smoke.mjs` | End-to-end self-test of all of the above |
+| `smoke.mjs` | End-to-end self-test; validates every frame both ways against `protocol/schema` |
 
 The Unity EditMode test `StubServerIntegrationTests` starts this server with `--port 0` and runs
-the real C# client against it.
+the real C# client against it (set `MISSIONFORGE_STUB_SERVER` to the `server.mjs` path to
+override discovery).

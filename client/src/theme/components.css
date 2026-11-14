@@ -1,0 +1,880 @@
+/* Shared components. Screen-specific styles live next to each screen. */
+
+/* ───────────── Panels ───────────── */
+
+.panel {
+  position: relative;
+  background: linear-gradient(180deg, rgba(23, 58, 85, 0.55), rgba(14, 34, 52, 0.8));
+  border: var(--border-w) solid var(--line);
+  border-radius: var(--radius);
+  padding: 14px;
+  box-shadow: var(--shadow-1);
+}
+
+:root[data-contrast='high'] .panel {
+  background: var(--bg-1);
+}
+
+.panel--flat {
+  background: var(--bg-1);
+  box-shadow: none;
+}
+
+.panel--accent {
+  border-color: rgba(85, 197, 205, 0.55);
+}
+
+.panel__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.rule {
+  height: var(--border-w);
+  background: var(--line);
+  border: 0;
+  margin: 0;
+}
+
+/* ───────────── Buttons ───────────── */
+
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: var(--tap);
+  min-width: var(--tap);
+  padding: 0.55rem 1.1rem;
+  border-radius: 14px;
+  border: var(--border-w) solid var(--line-strong);
+  background: linear-gradient(180deg, #18405e, #112b40);
+  color: var(--text);
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+  text-align: center;
+  line-height: 1.15;
+  user-select: none;
+  -webkit-user-select: none;
+  transition:
+    transform var(--dur-fast) var(--ease),
+    background-color var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease),
+    box-shadow var(--dur-fast) var(--ease),
+    opacity var(--dur-fast) var(--ease);
+}
+
+:root[data-contrast='high'] .btn {
+  background: var(--bg-2);
+}
+
+.btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.btn:disabled,
+.btn[aria-disabled='true'] {
+  opacity: 0.45;
+}
+
+.btn--block {
+  display: flex;
+  width: 100%;
+}
+
+.btn--grow {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.btn--lg {
+  min-height: max(56px, 3.5rem);
+  font-size: 1.1rem;
+  border-radius: 16px;
+}
+
+.btn--primary {
+  background: linear-gradient(180deg, #86dee4, #45b3bc);
+  border-color: #b8eff2;
+  color: var(--accent-ink);
+  box-shadow: 0 6px 22px rgba(85, 197, 205, 0.28);
+}
+
+:root[data-contrast='high'] .btn--primary {
+  background: var(--accent);
+  color: #000;
+}
+
+.btn--good {
+  background: linear-gradient(180deg, #97e6ba, #5bc48a);
+  border-color: #c6f3da;
+  color: var(--good-ink);
+  box-shadow: 0 6px 22px rgba(119, 214, 161, 0.25);
+}
+
+.btn--bad {
+  background: linear-gradient(180deg, #ffa8a8, #ef7474);
+  border-color: #ffd4d4;
+  color: var(--bad-ink);
+  box-shadow: 0 6px 22px rgba(255, 143, 143, 0.25);
+}
+
+.btn--warn {
+  background: linear-gradient(180deg, #ffd983, #f3b63a);
+  border-color: #ffe9b8;
+  color: var(--warn-ink);
+}
+
+:root[data-contrast='high'] .btn--good {
+  background: var(--good);
+  color: #000;
+}
+
+:root[data-contrast='high'] .btn--bad {
+  background: var(--bad);
+  color: #000;
+}
+
+:root[data-contrast='high'] .btn--warn {
+  background: var(--warn);
+  color: #000;
+}
+
+.btn--ghost {
+  background: transparent;
+  border-color: var(--line);
+  color: var(--text-dim);
+  font-weight: 600;
+}
+
+.btn--outline-bad {
+  background: var(--bad-soft);
+  border-color: var(--bad);
+  color: var(--bad);
+}
+
+.btn--selected {
+  border-color: var(--accent);
+  box-shadow: var(--glow-accent);
+}
+
+.btn--sm {
+  font-size: 0.86rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: 12px;
+}
+
+.iconbtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--tap);
+  height: var(--tap);
+  border-radius: 12px;
+  color: var(--text-dim);
+  transition:
+    background-color var(--dur-fast) var(--ease),
+    color var(--dur-fast) var(--ease);
+}
+
+.iconbtn:active {
+  background: var(--accent-soft);
+  color: var(--text);
+}
+
+/* ───────────── Status chips (colour + icon, never colour alone) ───────────── */
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 1.7rem;
+  padding: 0.12rem 0.6rem;
+  border-radius: 999px;
+  border: var(--border-w) solid var(--line-strong);
+  background: var(--neutral-soft);
+  color: var(--text);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.chip--wrap {
+  white-space: normal;
+}
+
+.chip {
+  max-width: 100%;
+}
+
+.chip > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.chip--good {
+  border-color: var(--good);
+  background: var(--good-soft);
+  color: var(--good);
+}
+
+.chip--warn {
+  border-color: var(--warn);
+  background: var(--warn-soft);
+  color: var(--warn);
+}
+
+.chip--bad {
+  border-color: var(--bad);
+  background: var(--bad-soft);
+  color: var(--bad);
+}
+
+.chip--accent {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+}
+
+.chip--solid-bad {
+  border-color: var(--bad);
+  background: var(--bad);
+  color: var(--bad-ink);
+}
+
+.chip--solid-good {
+  border-color: var(--good);
+  background: var(--good);
+  color: var(--good-ink);
+}
+
+.tone-good {
+  color: var(--good);
+}
+
+.tone-warn {
+  color: var(--warn);
+}
+
+.tone-bad {
+  color: var(--bad);
+}
+
+.tone-neutral {
+  color: var(--text-dim);
+}
+
+.tone-accent {
+  color: var(--accent);
+}
+
+/* ───────────── Bars with patterns ───────────── */
+
+.bar {
+  position: relative;
+  height: 0.6rem;
+  min-height: 8px;
+  border-radius: 999px;
+  background: rgba(182, 199, 211, 0.2);
+  border: var(--border-w) solid var(--line);
+  overflow: hidden;
+}
+
+.bar__fill {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: 0;
+  border-radius: 999px;
+  background: var(--accent);
+  transition: width var(--dur-slow) var(--ease);
+}
+
+.bar__fill--good {
+  background: var(--good);
+}
+
+/* Amber = dotted, red = hatched, so the state survives without colour. */
+.bar__fill--warn {
+  background:
+    radial-gradient(circle at 3px 50%, rgba(0, 0, 0, 0.45) 1.4px, transparent 1.8px) 0 0 / 7px 100%,
+    var(--warn);
+}
+
+.bar__fill--bad {
+  background:
+    repeating-linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0 3px, transparent 3px 7px),
+    var(--bad);
+}
+
+.bar__fill--neutral {
+  background: var(--neutral);
+}
+
+/* ───────────── Countdown ring ───────────── */
+
+.timer {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  min-width: 44px;
+  min-height: 44px;
+  flex: none;
+}
+
+.timer svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.timer__track {
+  fill: none;
+  stroke: var(--line);
+  stroke-width: 3;
+}
+
+.timer__arc {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 3;
+  stroke-linecap: round;
+  transition: stroke var(--dur) linear;
+}
+
+.timer--warn .timer__arc {
+  stroke: var(--warn);
+}
+
+.timer--bad .timer__arc {
+  stroke: var(--bad);
+  stroke-dasharray: 4 3;
+}
+
+.timer__label {
+  position: relative;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.timer__unit {
+  font-size: 0.6em;
+  color: var(--text-dim);
+  margin-inline-start: 1px;
+}
+
+.timerbar {
+  height: 4px;
+  background: var(--line);
+  overflow: hidden;
+}
+
+.timerbar__fill {
+  height: 100%;
+  background: var(--accent);
+  transform-origin: left center;
+}
+
+[dir='rtl'] .timerbar__fill {
+  transform-origin: right center;
+}
+
+/* ───────────── Avatar ───────────── */
+
+.avatar {
+  position: relative;
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  min-width: 40px;
+  min-height: 40px;
+}
+
+.avatar svg {
+  width: 100%;
+  height: 100%;
+}
+
+.avatar--lg {
+  width: 6rem;
+  height: 6rem;
+}
+
+.avatar--sm {
+  width: 2rem;
+  height: 2rem;
+  min-width: 28px;
+  min-height: 28px;
+}
+
+.avatar--off {
+  opacity: 0.4;
+  filter: grayscale(1);
+}
+
+/* ───────────── Bottom sheet & dialog ───────────── */
+
+.scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  background: rgba(2, 4, 10, 0.72);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  animation: fade-in var(--dur) var(--ease) both;
+}
+
+.scrim--center {
+  justify-content: center;
+  padding: 20px;
+}
+
+.sheet {
+  max-height: 88%;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-1);
+  border: var(--border-w) solid var(--line-strong);
+  border-bottom: 0;
+  border-radius: 22px 22px 0 0;
+  padding-bottom: var(--safe-bottom);
+  animation: sheet-up var(--dur) var(--ease) both;
+  box-shadow: 0 -18px 60px rgba(0, 0, 0, 0.6);
+}
+
+.sheet--full {
+  height: 100%;
+  max-height: 100%;
+  border-radius: 0;
+  border: 0;
+  padding-top: var(--safe-top);
+}
+
+.sheet__head {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 6px 6px var(--gutter);
+  min-height: var(--tap);
+  border-bottom: var(--border-w) solid var(--line);
+}
+
+[dir='rtl'] .sheet__head {
+  padding: 6px var(--gutter) 6px 6px;
+}
+
+.sheet__body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: var(--gutter);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  scrollbar-width: none;
+}
+
+.sheet__body::-webkit-scrollbar {
+  display: none;
+}
+
+.dialog {
+  background: var(--bg-1);
+  border: var(--border-w) solid var(--line-strong);
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  animation: pop-in var(--dur) var(--ease-out-back) both;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.7);
+}
+
+.dialog--bad {
+  border-color: var(--bad);
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes sheet-up {
+  from {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+@keyframes pop-in {
+  from {
+    transform: scale(0.92);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+/* ───────────── Toasts / notices ───────────── */
+
+.toasts {
+  /* In the flow under the top bar: a notice never covers the screen's own header. */
+  position: relative;
+  flex: none;
+  z-index: 4;
+  padding-top: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding-inline: 12px;
+  pointer-events: none;
+}
+
+.toast {
+  pointer-events: auto;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  width: 100%;
+  max-width: 440px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  border: var(--border-w) solid var(--line-strong);
+  background: rgba(14, 34, 52, 0.96);
+  box-shadow: 0 10px 34px rgba(0, 0, 0, 0.55);
+  font-size: 0.92rem;
+  animation: toast-in var(--dur) var(--ease-out-back) both;
+}
+
+.toast--good {
+  border-color: var(--good);
+}
+
+.toast--warn {
+  border-color: var(--warn);
+}
+
+.toast--bad {
+  border-color: var(--bad);
+}
+
+.toast--accent {
+  border-color: var(--accent);
+}
+
+@keyframes toast-in {
+  from {
+    transform: translateY(-14px) scale(0.96);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+/* ───────────── Form controls ───────────── */
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field__label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.input {
+  width: 100%;
+  min-height: var(--tap);
+  padding: 0.5rem 0.9rem;
+  border-radius: 14px;
+  border: var(--border-w) solid var(--line-strong);
+  background: rgba(5, 16, 26, 0.7);
+  color: var(--text);
+  font-size: 1.05rem;
+  font-weight: 600;
+  appearance: none;
+  -webkit-appearance: none;
+  transition:
+    border-color var(--dur-fast) var(--ease),
+    box-shadow var(--dur-fast) var(--ease);
+}
+
+.input::placeholder {
+  color: var(--text-faint);
+  font-weight: 500;
+}
+
+.input:focus,
+.input:focus-visible {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: var(--glow-accent);
+}
+
+.input--bad {
+  border-color: var(--bad);
+}
+
+.field__hint {
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  min-height: 1.2em;
+}
+
+.field__hint--bad {
+  color: var(--bad);
+}
+
+/* Toggle switch: a real button with role="switch"; state shown by position, icon and text. */
+.switch {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: var(--tap);
+  padding: 6px 0;
+  text-align: start;
+}
+
+.switch__text {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.switch__title {
+  font-weight: 650;
+}
+
+.switch__desc {
+  font-size: 0.84rem;
+  color: var(--text-dim);
+}
+
+.switch__track {
+  position: relative;
+  flex: none;
+  width: 52px;
+  height: 30px;
+  border-radius: 999px;
+  border: var(--border-w) solid var(--line-strong);
+  background: var(--bg-0);
+  transition:
+    background-color var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease);
+}
+
+.switch__thumb {
+  position: absolute;
+  top: 50%;
+  inset-inline-start: 3px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--text-dim);
+  color: var(--bg-0);
+  display: grid;
+  place-items: center;
+  transform: translateY(-50%);
+  transition:
+    inset-inline-start var(--dur-fast) var(--ease),
+    background-color var(--dur-fast) var(--ease);
+}
+
+.switch[aria-checked='true'] .switch__track {
+  background: var(--good-soft);
+  border-color: var(--good);
+}
+
+.switch[aria-checked='true'] .switch__thumb {
+  inset-inline-start: calc(100% - 25px);
+  background: var(--good);
+  color: var(--good-ink);
+}
+
+/* Segmented control */
+.segmented {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 14px;
+  border: var(--border-w) solid var(--line);
+  background: var(--bg-0);
+}
+
+.segmented__opt {
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: calc(var(--tap) - 8px);
+  padding: 0.25rem 0.4rem;
+  border-radius: 10px;
+  border: var(--border-w) solid transparent;
+  color: var(--text-dim);
+  font-weight: 650;
+  font-size: 0.92rem;
+  text-align: center;
+  transition:
+    background-color var(--dur-fast) var(--ease),
+    color var(--dur-fast) var(--ease);
+}
+
+.segmented__opt[aria-pressed='true'],
+.segmented__opt[aria-checked='true'] {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+/* ───────────── Misc ───────────── */
+
+.kv {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.kv__k {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+}
+
+.kv__v {
+  font-weight: 700;
+  text-align: end;
+}
+
+.pulse-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--good);
+  box-shadow: 0 0 0 0 rgba(119, 214, 161, 0.6);
+  animation: pulse 1.8s ease-out infinite;
+  flex: none;
+}
+
+@keyframes pulse {
+  to {
+    box-shadow: 0 0 0 10px rgba(119, 214, 161, 0);
+  }
+}
+
+.spinner {
+  width: 1.4rem;
+  height: 1.4rem;
+  border-radius: 50%;
+  border: 3px solid var(--line);
+  border-top-color: var(--accent);
+  animation: spin 0.9s linear infinite;
+  flex: none;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.callsign {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.1rem 0.5rem;
+  border-radius: 6px;
+  border: var(--border-w) solid var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+.callsign--plain {
+  border-color: var(--line-strong);
+  background: transparent;
+  color: var(--text-dim);
+}
+
+.banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: var(--border-w) solid var(--line-strong);
+  background: var(--neutral-soft);
+  font-size: 0.92rem;
+}
+
+.banner--bad {
+  border-color: var(--bad);
+  background: var(--bad-soft);
+}
+
+.banner--warn {
+  border-color: var(--warn);
+  background: var(--warn-soft);
+}
+
+.banner--good {
+  border-color: var(--good);
+  background: var(--good-soft);
+}
+
+.banner--accent {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+/* Status border treatments (STYLE_GUIDE): Meets solid, Marginal dashed, Fails double. The
+   double border needs at least 3 px to show as two lines. */
+.chip--warn,
+.banner--warn {
+  border-style: dashed;
+}
+.chip--bad,
+.banner--bad {
+  border-style: double;
+  border-width: max(3px, var(--border-w));
+}

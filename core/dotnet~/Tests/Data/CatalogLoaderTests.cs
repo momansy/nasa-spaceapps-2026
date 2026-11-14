@@ -41,7 +41,7 @@ namespace MissionForge.Core.Tests.Data
             Assert.Equal(97.6, c1.InclinationDeg);
             Assert.False(c1.Crewed);
             Assert.True(c1.Science);
-            Assert.NotEmpty(catalog.Warnings);
+            Assert.Empty(catalog.Warnings); // T003 has delivered every part file: a lenient load of the real data has no missing-part warnings
             Assert.True(catalog.Strings.Count > 0);
         }
 
@@ -109,7 +109,7 @@ namespace MissionForge.Core.Tests.Data
             Assert.Equal(6.0, c.Part("strap_2_small_solid").CostM);                      // $6 M each
             Assert.True(c.Part("strap_2_liquid_side").HasTag("mirror_first_stage"));
             Assert.Equal(3, c.Part("avi_triple_redundant_commercial").Stats.Redundancy);
-            Assert.True(c.Part("aero_fins").HasTag("fins"));
+            Assert.True(c.Part("aero_fins").HasTag("atmospheric_stability_bonus")); // real data flag (the fixture used "fins")
             Assert.Equal("aero_grid_fins", c.Part("brec_propulsive_rtls").Rules.Single(r => r.Kind == "requires_part").Parts[0]);
         }
 

@@ -43,6 +43,19 @@ namespace MissionForge.Net
             }
         }
 
+        /// <summary>
+        /// The join link (and QR content) of the current room: <c>room.created.joinUrl</c>, or a
+        /// link built from the configured template when the server sent none. Null without a room.
+        /// </summary>
+        public string CurrentJoinUrl
+        {
+            get
+            {
+                RoomClient client = Client;
+                return string.IsNullOrEmpty(client.RoomCode) ? null : BuildJoinUrl(client.RoomCode, client.JoinUrl);
+            }
+        }
+
         /// <summary>Builds the link players open to join the room.</summary>
         /// <param name="code">Room code.</param>
         /// <param name="serverJoinUrl">Join URL from <c>room.created</c>; wins when not empty.</param>
@@ -89,7 +102,7 @@ namespace MissionForge.Net
         {
             // Seeded per run so several hosts do not retry in lockstep.
             var backoff = new BackoffPolicy(seed: Environment.TickCount);
-            var client = new RoomClient(WebSocketTransportFactory.Create, backoff);
+            var client = new RoomClient(WebSocketTransportFactory.Create, backoff, Application.version);
             client.ProtocolError += OnProtocolError;
             client.TransportError += OnTransportError;
             return client;

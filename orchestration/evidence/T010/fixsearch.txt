@@ -1,0 +1,22 @@
+EQUIV C0 random builds: compared=120 withoutFix=29
+EQUIV C1 random builds: compared=120 withoutFix=33
+EQUIV C0 from empty: compared=71 skipped(old search capped)=0
+NOFIX C2/fairing/fairing_small: 0 evaluations
+NOFIX C2/upper_stage_engine/eng_solid_kick_motor: 0 evaluations
+NOFIX C5/fairing/fairing_small: 0 evaluations
+NOFIX C5/upper_stage_engine/eng_solid_kick_motor: 0 evaluations
+NOFIX C7/fairing/fairing_small: 0 evaluations
+NOFIX C7/fairing/fairing_standard: 0 evaluations
+NOFIX C8/fairing/fairing_small: 0 evaluations
+NOFIX C8/fairing/fairing_standard: 0 evaluations
+NOFIX C8/aero_control/aero_gimbal_only: 0 evaluations
+NOFIX C8/aero_control/aero_fins: 0 evaluations
+FIXSEARCH searches=689 worstEvaluations=462 (C6/upper_stage_engine/eng_solid_kick_motor) worstMs=51.2 totalMs=2881 exists=679 inconclusive=0
+EQUIV C1 from empty: compared=82 skipped(old search capped)=1
+
+# Baseline of the old exhaustive search (FixSearch.RunExhaustive, cap 200,000), measured on the same machine
+# C1/instrument/inst_synthetic_aperture_radar: exhaustive evals=200000 capped=True 6843 ms | pruned evals=12 exists=True 9.0 ms
+# C8/avionics/avi_commercial_single:           exhaustive evals=200000 capped=True 6276 ms | pruned evals=12 exists=True 1.9 ms
+# C2/fairing/fairing_small:                    exhaustive evals=200000 capped=True 7213 ms | pruned evals=0 exists=False 0.3 ms
+# (the old search could not decide any of the three: it hit the cap and answered an optimistic true)
+# Pruned search over all 689 (contract, vote, option) from an empty build: worst 462 evaluations, worst 36-51 ms, whole sweep 1.3-2.9 s.

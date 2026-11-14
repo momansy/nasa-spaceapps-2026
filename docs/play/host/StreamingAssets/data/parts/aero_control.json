@@ -1,0 +1,99 @@
+{
+  "$schema": "../schema/part.schema.json",
+  "category": "aero_control",
+  "name_key": "category.aero_control.name",
+  "design_section": "7.15",
+  "design_notes": [
+    "The table has an \"Effect\" column instead of Strengths; its cells are stored as strengths. The \"Fact\" column is stored in twin.",
+    "Option names keep the \"+\" of the table: fins and grid fins are added to the engine gimbal, which every vehicle has.",
+    "Only grid fins have a number ($2 M). \"+stability in atmosphere\", \"+drag\" and \"+mass\" are flags; the design gives no mass or drag figure.",
+    "\"Required for propulsive booster return\" is enforced from the other side: both propulsive options of booster_recovery carry requires_part aero_grid_fins. Booster recovery is voted at step 15 and steering at step 18, so Core has to force or pre-select grid fins once a propulsive recovery is chosen.",
+    "No option is restricted to a contract. Engine gimbal only has no model path: it adds no hardware to the rocket."
+  ],
+  "parts": [
+    {
+      "id": "aero_gimbal_only",
+      "category": "aero_control",
+      "name_key": "part.aero_gimbal_only.name",
+      "twin": "part.aero_gimbal_only.twin",
+      "strengths": [
+        "part.aero_gimbal_only.strength.1"
+      ],
+      "drawbacks": [
+        "part.aero_gimbal_only.drawback.1"
+      ],
+      "stats": {},
+      "game": {},
+      "rules": [
+        {
+          "kind": "flag",
+          "flag": "no_booster_return_steering"
+        }
+      ],
+      "value_types": {}
+    },
+    {
+      "id": "aero_fins",
+      "category": "aero_control",
+      "name_key": "part.aero_fins.name",
+      "twin": "part.aero_fins.twin",
+      "strengths": [
+        "part.aero_fins.strength.1"
+      ],
+      "drawbacks": [
+        "part.aero_fins.drawback.1",
+        "part.aero_fins.drawback.2"
+      ],
+      "model": "models/aero_fins.glb",
+      "stats": {},
+      "game": {},
+      "rules": [
+        {
+          "kind": "flag",
+          "flag": "atmospheric_stability_bonus"
+        },
+        {
+          "kind": "flag",
+          "flag": "adds_drag"
+        },
+        {
+          "kind": "flag",
+          "flag": "adds_mass"
+        }
+      ],
+      "value_types": {}
+    },
+    {
+      "id": "aero_grid_fins",
+      "category": "aero_control",
+      "name_key": "part.aero_grid_fins.name",
+      "twin": "part.aero_grid_fins.twin",
+      "strengths": [
+        "part.aero_grid_fins.strength.1",
+        "part.aero_grid_fins.strength.2"
+      ],
+      "drawbacks": [
+        "part.aero_grid_fins.drawback.1",
+        "part.aero_grid_fins.drawback.2"
+      ],
+      "model": "models/aero_grid_fins.glb",
+      "stats": {},
+      "game": {
+        "cost_M": 2
+      },
+      "rules": [
+        {
+          "kind": "flag",
+          "flag": "steers_during_descent"
+        },
+        {
+          "kind": "flag",
+          "flag": "adds_mass"
+        }
+      ],
+      "value_types": {
+        "game": "game_value"
+      }
+    }
+  ]
+}

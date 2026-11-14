@@ -23,6 +23,7 @@ namespace MissionForge.Tests.Net
 
         private const string ListeningPrefix = "LISTENING ";
         private const string PhoneNickname = "Nova";
+        private const string PhoneSuit = "suit_orange";
         private const int ServerStartTimeoutMs = 10000;
         private const int ProcessExitTimeoutMs = 5000;
         private const int PollIntervalMs = 10;
@@ -84,31 +85,41 @@ namespace MissionForge.Tests.Net
             _client.Connect("ws://127.0.0.1:" + port);
             WaitUntil(() => _client.State == ConnectionState.Connected, "host to connect", faults);
 
-            // Host creates a room.
+            // Host creates a room; the snapshot (settings.state, room.state, roles.state, snapshot.end) follows.
             _client.CreateRoom();
-            WaitUntil(() => created != null && lastState != null, "room.created and the first room.state", faults);
+            WaitUntil(() => created != null && lastState != null && !_client.IsReceivingSnapshot, "room.created and its snapshot", faults);
             string codePattern = "^[" + ProtocolNames.RoomCodeAlphabet + "]{" + ProtocolNames.RoomCodeLength + "}$";
-            Assert.IsTrue(Regex.IsMatch(created.Code, codePattern), "unexpected room code \"" + created.Code + "\"");
-            Assert.AreEqual(created.Code, _client.RoomCode);
-            Assert.AreEqual(created.Code, lastState.Code);
+            Assert.IsTrue(Regex.IsMatch(created.Room, codePattern), "unexpected room code \"" + created.Room + "\"");
+            Assert.AreEqual(created.Room, _client.RoomCode);
+            Assert.AreEqual(created.Room, lastState.Room);
+            StringAssert.EndsWith("?room=" + created.Room, _client.JoinUrl);
             Assert.AreEqual(0, lastState.Players.Count);
+            Assert.IsNotNull(_client.LastSettings);
+            Assert.IsNotNull(_client.LastRolesState);
 
-            // A phone joins through a second, raw WebSocket.
-            string joinFrame = EnvelopeCodec.Encode(ProtocolNames.Messages.RoomJoin, 1, new Newtonsoft.Json.Linq.JObject
+            // A phone joins through a second, raw WebSocket: hello, then room.join.
+            string helloFrame = EnvelopeCodec.Encode(ProtocolNames.Messages.Hello, 1, new HelloDto
             {
-                { ProtocolNames.Fields.Code, created.Code },
-                { ProtocolNames.Fields.Nickname, PhoneNickname },
-                { ProtocolNames.Fields.Avatar, "astro_03" },
+                Client = ProtocolNames.ClientKinds.Phone,
+                AppVersion = "test",
             });
-            Task<ClientWebSocket> joining = Task.Run(() => JoinAsPhoneAsync(port, joinFrame));
-            WaitUntil(() => joining.IsCompleted, "the phone to connect and send room.join", faults);
+            string joinFrame = EnvelopeCodec.Encode(ProtocolNames.Messages.RoomJoin, 2, new Newtonsoft.Json.Linq.JObject
+            {
+                { ProtocolNames.Fields.Room, created.Room },
+                { ProtocolNames.Fields.As, ProtocolNames.ConnKinds.Player },
+                { ProtocolNames.Fields.Nickname, PhoneNickname },
+                { ProtocolNames.Fields.Avatar, Newtonsoft.Json.Linq.JObject.FromObject(new AvatarDto { SuitId = PhoneSuit, PatchId = "patch_comet" }) },
+            });
+            Task<ClientWebSocket> joining = Task.Run(() => JoinAsPhoneAsync(port, helloFrame, joinFrame));
+            WaitUntil(() => joining.IsCompleted, "the phone to connect and send hello + room.join", faults);
             Assert.IsNull(joining.Exception, "phone failed: " + joining.Exception);
             _phone = joining.Result;
 
             WaitUntil(() => HasPlayer(lastState, PhoneNickname), "room.state containing the phone's nickname", faults);
-            PlayerDto player = lastState.Players.Find(p => p.Nickname == PhoneNickname);
+            PlayerInfoDto player = lastState.Players.Find(p => p.Nickname == PhoneNickname);
             Assert.IsTrue(player.Connected);
-            Assert.AreEqual("astro_03", player.Avatar);
+            Assert.AreEqual(1, player.Slot);
+            Assert.AreEqual(PhoneSuit, player.Avatar.SuitId);
             Assert.AreEqual(ConnectionState.Connected, _client.State);
             Assert.AreEqual(0, faults.Length, "unexpected faults before the server was killed:\n" + faults);
 
@@ -116,7 +127,7 @@ namespace MissionForge.Tests.Net
             KillServer();
             WaitUntil(() => _client.State == ConnectionState.Reconnecting, "the host to enter Reconnecting", faults);
             Assert.GreaterOrEqual(_client.ReconnectAttempts, 1);
-            Assert.AreEqual(created.Code, _client.RoomCode, "the room is remembered for room.resume");
+            Assert.AreEqual(created.Room, _client.RoomCode, "the room is remembered for room.resume");
         }
 
         private static bool HasPlayer(RoomStateDto state, string nickname)
@@ -137,7 +148,7 @@ namespace MissionForge.Tests.Net
             Assert.IsTrue(condition(), "Timed out waiting for " + description + ". State: " + _client.State + ". Faults:\n" + faults);
         }
 
-        private static async Task<ClientWebSocket> JoinAsPhoneAsync(int port, string joinFrame)
+        private static async Task<ClientWebSocket> JoinAsPhoneAsync(int port, params string[] frames)
         {
             var socket = new ClientWebSocket();
             try
@@ -145,8 +156,11 @@ namespace MissionForge.Tests.Net
                 using (var timeout = new CancellationTokenSource(StepTimeout))
                 {
                     await socket.ConnectAsync(new Uri("ws://127.0.0.1:" + port), timeout.Token).ConfigureAwait(false);
-                    byte[] bytes = Encoding.UTF8.GetBytes(joinFrame);
-                    await socket.SendAsync(new ArraySegment<byte>(bytes), WebSocketMessageType.Text, true, timeout.Token).ConfigureAwait(false);
+                    foreach (string frame in frames)
+                    {
+                        byte[] bytes = Encoding.UTF8.GetBytes(frame);
+                        await socket.SendAsync(new ArraySegment<byte>(bytes), WebSocketMessageType.Text, true, timeout.Token).ConfigureAwait(false);
+                    }
                 }
 
                 return socket;

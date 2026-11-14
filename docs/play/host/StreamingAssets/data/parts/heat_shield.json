@@ -1,0 +1,190 @@
+{
+  "$schema": "../schema/part.schema.json",
+  "category": "heat_shield",
+  "name_key": "category.heat_shield.name",
+  "design_section": "7.3",
+  "design_notes": [
+    "Vote step 3 of 6.2 is \"Payload return (capsule contracts: heat shield, recovery)\", so every shield lists C3, C4 and C6. Shields rated below the entry speed of a contract stay on offer: rule 6.11 \"Heat shield rating < contract entry speed\" is a Major issue, not an exclusion. The design gives no heat-shield vote for C0 (parachute recovery) or C7 (aeroshell).",
+    "Max entry speed \"~11+ km/s\" is stored as 11, \"~12+ km/s\" as 12, \"~8 km/s\" as 8. The remarks \"(lunar return)\" and \"(LEO only)\" are covered by the strength and drawback texts.",
+    "mass_t is \"per 9 t capsule\" (reference_capsule_mass_t 9); the design does not say how it scales for the 6 t and 10 t capsules.",
+    "value_types: section 6.3 calls the entry speed rating real-world approximate; mass has no stated provenance and is tagged game_value.",
+    "AVCOAT \"long manufacture (+15 lead days)\" is stored as game.lead_days 15, read like the \"+20 days\" of the Equatorial Spaceport: the option's own lead time against the other shields, which have none. Lead times run in parallel, so it only matters when it is the longest. If the designer meant 15 days on top of the vehicle lead time, it should become a lead_days modifier instead.",
+    "Maturity is set only for the inflatable decelerator, whose drawback is \"New tech (wide uncertainty)\". The table has no Rel. / Maturity column, so no shield has a reliability and \"Proven\" (AVCOAT) stays a strength text.",
+    "heat_shield_burn_through (8.4) is listed for every shield. 8.4 names a rated shield and MG-22 as mitigations, not a test, so only PICA carries a test rule: its table row recommends the arc-jet test.",
+    "Tiles: \"Reuse cuts campaign costs\" and \"inspection days after each flight\" have no numbers: flags reuse_cuts_campaign_costs and inspection_days_after_each_flight. \"Not lunar-rated\" is the 8 km/s rating."
+  ],
+  "parts": [
+    {
+      "id": "tps_avcoat_ablator",
+      "category": "heat_shield",
+      "name_key": "part.tps_avcoat_ablator.name",
+      "twin": "part.tps_avcoat_ablator.twin",
+      "strengths": [
+        "part.tps_avcoat_ablator.strength.1",
+        "part.tps_avcoat_ablator.strength.2"
+      ],
+      "drawbacks": [
+        "part.tps_avcoat_ablator.drawback.1",
+        "part.tps_avcoat_ablator.drawback.2",
+        "part.tps_avcoat_ablator.drawback.3"
+      ],
+      "contracts": [
+        "C3",
+        "C4",
+        "C6"
+      ],
+      "model": "models/tps_avcoat_ablator.glb",
+      "stats": {
+        "max_entry_speed_km_s": 11,
+        "mass_t": 1.4,
+        "reference_capsule_mass_t": 9,
+        "reusable": "no"
+      },
+      "game": {
+        "cost_M": 12,
+        "lead_days": 15
+      },
+      "failure_modes": [
+        "heat_shield_burn_through"
+      ],
+      "value_types": {
+        "stats": "game_value",
+        "stats.max_entry_speed_km_s": "real_world_approximate",
+        "game": "game_value"
+      }
+    },
+    {
+      "id": "tps_pica_ablator",
+      "category": "heat_shield",
+      "name_key": "part.tps_pica_ablator.name",
+      "twin": "part.tps_pica_ablator.twin",
+      "strengths": [
+        "part.tps_pica_ablator.strength.1",
+        "part.tps_pica_ablator.strength.2"
+      ],
+      "drawbacks": [
+        "part.tps_pica_ablator.drawback.1",
+        "part.tps_pica_ablator.drawback.2"
+      ],
+      "facts": [
+        "F28"
+      ],
+      "contracts": [
+        "C3",
+        "C4",
+        "C6"
+      ],
+      "model": "models/tps_pica_ablator.glb",
+      "stats": {
+        "max_entry_speed_km_s": 12,
+        "mass_t": 0.9,
+        "reference_capsule_mass_t": 9,
+        "reusable": "partially"
+      },
+      "game": {
+        "cost_M": 10
+      },
+      "rules": [
+        {
+          "kind": "recommends_test",
+          "test": "arc_jet_test"
+        }
+      ],
+      "failure_modes": [
+        "heat_shield_burn_through"
+      ],
+      "value_types": {
+        "stats": "game_value",
+        "stats.max_entry_speed_km_s": "real_world_approximate",
+        "game": "game_value"
+      }
+    },
+    {
+      "id": "tps_reusable_ceramic_tiles",
+      "category": "heat_shield",
+      "name_key": "part.tps_reusable_ceramic_tiles.name",
+      "twin": "part.tps_reusable_ceramic_tiles.twin",
+      "strengths": [
+        "part.tps_reusable_ceramic_tiles.strength.1"
+      ],
+      "drawbacks": [
+        "part.tps_reusable_ceramic_tiles.drawback.1",
+        "part.tps_reusable_ceramic_tiles.drawback.2",
+        "part.tps_reusable_ceramic_tiles.drawback.3"
+      ],
+      "contracts": [
+        "C3",
+        "C4",
+        "C6"
+      ],
+      "model": "models/tps_reusable_ceramic_tiles.glb",
+      "stats": {
+        "max_entry_speed_km_s": 8,
+        "mass_t": 1.1,
+        "reference_capsule_mass_t": 9,
+        "reusable": "yes"
+      },
+      "game": {
+        "cost_M": 16
+      },
+      "rules": [
+        {
+          "kind": "flag",
+          "flag": "reuse_cuts_campaign_costs"
+        },
+        {
+          "kind": "flag",
+          "flag": "inspection_days_after_each_flight"
+        }
+      ],
+      "failure_modes": [
+        "heat_shield_burn_through"
+      ],
+      "value_types": {
+        "stats": "game_value",
+        "stats.max_entry_speed_km_s": "real_world_approximate",
+        "game": "game_value"
+      }
+    },
+    {
+      "id": "tps_inflatable_decelerator",
+      "category": "heat_shield",
+      "name_key": "part.tps_inflatable_decelerator.name",
+      "twin": "part.tps_inflatable_decelerator.twin",
+      "strengths": [
+        "part.tps_inflatable_decelerator.strength.1",
+        "part.tps_inflatable_decelerator.strength.2"
+      ],
+      "drawbacks": [
+        "part.tps_inflatable_decelerator.drawback.1"
+      ],
+      "facts": [
+        "F29"
+      ],
+      "contracts": [
+        "C3",
+        "C4",
+        "C6"
+      ],
+      "model": "models/tps_inflatable_decelerator.glb",
+      "stats": {
+        "max_entry_speed_km_s": 8,
+        "mass_t": 0.5,
+        "reference_capsule_mass_t": 9,
+        "reusable": "partially"
+      },
+      "game": {
+        "cost_M": 8,
+        "maturity": "new"
+      },
+      "failure_modes": [
+        "heat_shield_burn_through"
+      ],
+      "value_types": {
+        "stats": "game_value",
+        "stats.max_entry_speed_km_s": "real_world_approximate",
+        "game": "game_value"
+      }
+    }
+  ]
+}

@@ -16,7 +16,8 @@ namespace MissionForge.Net
 
         /// <summary>
         /// Converts a payload into <typeparamref name="T"/>. Unknown fields and JSON nulls are
-        /// ignored and missing fields keep the DTO defaults. Wrongly typed fields fail the read.
+        /// ignored and missing fields keep the DTO defaults (messages.md 2: receivers must ignore
+        /// unknown fields). Wrongly typed fields fail the read.
         /// </summary>
         /// <returns>True when <paramref name="dto"/> was produced; otherwise <paramref name="error"/> says why not.</returns>
         public static bool TryRead<T>(JObject data, out T dto, out string error) where T : class
@@ -47,10 +48,10 @@ namespace MissionForge.Net
                 return false;
             }
 
-            var roomState = dto as RoomStateDto;
-            if (roomState != null)
+            var normalizable = dto as INormalizable;
+            if (normalizable != null)
             {
-                roomState.Normalize();
+                normalizable.Normalize();
             }
 
             return true;

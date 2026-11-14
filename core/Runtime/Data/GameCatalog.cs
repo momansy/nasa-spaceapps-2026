@@ -138,7 +138,7 @@ namespace MissionForge.Core.Data
                         // Data lists no options: the parts of the category offered for this contract (data README).
                         var ids = new List<string>();
                         foreach (var p in _partOrder)
-                            if (p.Category == v.Category && p.OfferedFor(c.Id) && (v.Stage == null || p.Stats.Stage == null || p.Stats.Stage == v.Stage))
+                            if (p.Category == v.Category && p.OfferedFor(c.Id) && v.AcceptsStage(p) && (v.Stage == null || p.Stats.Stage == null || p.Stats.Stage == v.Stage))
                                 ids.Add(p.Id);
                         v.OptionIds = ids;
                         v.ExplicitOptions = false;

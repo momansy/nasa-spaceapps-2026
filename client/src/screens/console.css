@@ -1,0 +1,770 @@
+/* Flight console: header strip, gauges with limit zones, alerts, callouts, blackout static. */
+
+.console__scroll {
+  gap: 12px;
+}
+
+/* Numbers with units keep their order in right-to-left layouts ("43 / 100", "28.4 kPa"). */
+.console .num,
+.console .gauge__value,
+.console .gauge__scale span,
+.console .hud__stat dd {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+/* ───────────── header strip ───────────── */
+
+.hud {
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.hud__top {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+}
+
+.hud__clockwrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.hud__clock {
+  font-size: 1.9rem;
+  font-weight: 750;
+  line-height: 1.05;
+  letter-spacing: 0.02em;
+}
+
+.hud--countdown .hud__clock {
+  font-size: 3rem;
+  color: var(--accent-strong);
+}
+
+.hud__phase {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  padding-bottom: 3px;
+}
+
+.hud__phasename {
+  font-weight: 650;
+  font-size: 0.92rem;
+  color: var(--text-dim);
+  overflow-wrap: anywhere;
+}
+
+.hud__stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(4.4rem, 1fr));
+  gap: 8px;
+}
+
+.hud__stat {
+  padding: 6px 8px;
+  border-radius: var(--radius-sm);
+  border: var(--border-w) solid var(--line);
+  background: rgba(5, 16, 26, 0.5);
+  min-width: 0;
+}
+
+.hud__stat dt {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.hud__stat dd {
+  font-size: 1.15rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.hud__warp {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  border: var(--border-w) solid var(--warn);
+  background: var(--warn-soft);
+  color: var(--warn);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.hud__warp--slow {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+}
+
+/* ───────────── team strip ───────────── */
+
+.teamstrip {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.teamstrip__sync {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.teamstrip__value {
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.teamstrip__boosts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* ───────────── console tabs ───────────── */
+
+.consoletabs__tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+}
+
+.consoletabs__tab[aria-selected='true'] {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+.consoletabs__tab--alert {
+  border-color: var(--bad);
+  color: var(--bad);
+  animation: tab-alert 0.9s steps(2, jump-none) infinite;
+}
+
+.consoletabs__alert {
+  display: inline-grid;
+  color: var(--bad);
+}
+
+@keyframes tab-alert {
+  50% {
+    background: var(--bad-soft);
+  }
+}
+
+.consolehead {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.consolehead__name {
+  font-weight: 650;
+  color: var(--text-dim);
+  font-size: 0.92rem;
+  overflow-wrap: anywhere;
+}
+
+/* ───────────── gauges ───────────── */
+
+.gauges {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(9.6rem, 100%), 1fr));
+  gap: 8px;
+}
+
+.gauge {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+  padding: 9px 10px 8px;
+  border-radius: 12px;
+  border: var(--border-w) solid var(--line);
+  background: linear-gradient(180deg, rgba(23, 58, 85, 0.5), rgba(11, 29, 46, 0.85));
+  transition: border-color var(--dur) var(--ease);
+}
+
+:root[data-contrast='high'] .gauge {
+  background: var(--bg-1);
+}
+
+.gauge--near {
+  border-color: var(--warn);
+}
+
+/* Out of limits: red border plus a hatched corner, so it reads without colour. */
+.gauge--low,
+.gauge--high {
+  border-color: var(--bad);
+  background:
+    repeating-linear-gradient(135deg, rgba(255, 143, 143, 0.16) 0 4px, transparent 4px 9px),
+    linear-gradient(180deg, rgba(60, 22, 18, 0.7), rgba(22, 10, 12, 0.9));
+}
+
+.gauge__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 6px;
+  min-height: 1.1rem;
+}
+
+.gauge__label {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  overflow-wrap: anywhere;
+}
+
+.gauge__flag {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.gauge__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 1.75rem;
+}
+
+.gauge__value {
+  font-size: 1.3rem;
+  font-weight: 750;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.gauge__value--word {
+  flex: 1 1 auto;
+  font-size: 1.05rem;
+  white-space: normal;
+}
+
+.gauge__spark {
+  flex: 0 1 3.6rem;
+  width: 3.6rem;
+  min-width: 2rem;
+  height: 1.5rem;
+  overflow: visible;
+}
+
+.gauge__sparkline {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.gauge--near .gauge__sparkline {
+  stroke: var(--warn);
+}
+
+.gauge--low .gauge__sparkline,
+.gauge--high .gauge__sparkline {
+  stroke: var(--bad);
+}
+
+.gauge__sparklimit {
+  stroke: var(--bad);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+  opacity: 0.7;
+  vector-effect: non-scaling-stroke;
+}
+
+.gauge__track {
+  position: relative;
+  height: 0.62rem;
+  min-height: 9px;
+  border-radius: 999px;
+  border: var(--border-w) solid var(--line-strong);
+  background: rgba(182, 199, 211, 0.16);
+  overflow: hidden;
+}
+
+/* Limit strip under the track: hatched stretches are out of limits (pattern, not only red). */
+.gauge__limits {
+  position: relative;
+  height: 5px;
+  margin-top: -2px;
+  border-radius: 2px;
+  background: rgba(182, 199, 211, 0.14);
+  overflow: hidden;
+}
+
+.gauge__zone {
+  position: absolute;
+  inset-block: 0;
+  background: repeating-linear-gradient(135deg, var(--bad) 0 2.5px, transparent 2.5px 5px);
+}
+
+.gauge__fill {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  background: var(--accent);
+  opacity: 0.55;
+  transition: width 110ms linear;
+}
+
+.gauge--near .gauge__fill {
+  background: var(--warn);
+}
+
+.gauge--low .gauge__fill,
+.gauge--high .gauge__fill {
+  background: var(--bad);
+  opacity: 0.7;
+}
+
+.gauge__needle {
+  position: absolute;
+  inset-block: -1px;
+  width: 3px;
+  margin-inline-start: -1.5px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: inset-inline-start 110ms linear;
+}
+
+.gauge__scale {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--text-faint);
+  white-space: nowrap;
+}
+
+.lamps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.lamp {
+  display: inline-grid;
+  place-items: center;
+  width: 1.15rem;
+  height: 1.15rem;
+  border-radius: 50%;
+  border: var(--border-w) solid var(--line-strong);
+}
+
+.lamp--on.lamp--good {
+  background: var(--good);
+  border-color: var(--good);
+  color: var(--good-ink);
+}
+
+.lamp--on.lamp--bad {
+  background: var(--warn);
+  border-color: var(--warn);
+  color: var(--warn-ink);
+}
+
+.lamp--off {
+  color: var(--bad);
+  border-color: var(--bad);
+  border-style: dashed;
+}
+
+.flaglamp {
+  display: inline-grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  flex: none;
+  border-radius: 50%;
+  border: var(--border-w) solid var(--line-strong);
+  color: var(--text-faint);
+}
+
+.flaglamp--good {
+  border-color: var(--good);
+  background: var(--good-soft);
+  color: var(--good);
+}
+
+.flaglamp--warn {
+  border-color: var(--warn);
+  background: var(--warn-soft);
+  color: var(--warn);
+}
+
+/* ───────────── alerts ───────────── */
+
+.alerts {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.alert {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  border-radius: var(--radius);
+  border: 2px solid var(--warn);
+  background:
+    repeating-linear-gradient(135deg, rgba(255, 209, 102, 0.1) 0 8px, transparent 8px 16px),
+    rgba(40, 30, 6, 0.92);
+  color: var(--text);
+  animation: alert-in var(--dur) var(--ease-out-back) both;
+}
+
+.alert--bad {
+  border-color: var(--bad);
+  background:
+    repeating-linear-gradient(135deg, rgba(255, 143, 143, 0.12) 0 8px, transparent 8px 16px),
+    rgba(48, 14, 8, 0.92);
+}
+
+.alert--good {
+  border-color: var(--good);
+  background: rgba(6, 40, 32, 0.92);
+}
+
+:root[data-contrast='high'] .alert {
+  background: #000;
+}
+
+.alert--live {
+  animation:
+    alert-in var(--dur) var(--ease-out-back) both,
+    alert-pulse 1s ease-in-out 0.3s infinite;
+}
+
+@keyframes alert-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes alert-pulse {
+  50% {
+    box-shadow: 0 0 0 4px rgba(255, 209, 102, 0.22);
+  }
+}
+
+.alert__head {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  color: var(--warn);
+}
+
+.alert--bad .alert__head {
+  color: var(--bad);
+}
+
+.alert--good .alert__head {
+  color: var(--good);
+}
+
+.alert__sev {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.alert__left {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.alert__what {
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  overflow-wrap: anywhere;
+}
+
+.alert__bar {
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  overflow: hidden;
+}
+
+.alert__barfill {
+  height: 100%;
+  background: var(--warn);
+  transform-origin: left center;
+}
+
+[dir='rtl'] .alert__barfill {
+  transform-origin: right center;
+}
+
+.alert--bad .alert__barfill {
+  background: var(--bad);
+}
+
+.alert__status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  min-height: 1.6rem;
+}
+
+.alert__status .spinner {
+  width: 1.1rem;
+  height: 1.1rem;
+  border-width: 2px;
+}
+
+.alert .btn--ghost {
+  align-self: flex-start;
+  color: var(--text);
+  border-color: var(--line-strong);
+}
+
+/* ───────────── callouts and requests ───────────── */
+
+.callouts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(9rem, 100%), 1fr));
+  gap: 8px;
+  max-height: 46%;
+  overflow-y: auto;
+}
+
+.callout {
+  min-width: 0;
+  min-height: max(48px, 2.4rem);
+  padding: 0.4rem 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.callout--wanted {
+  grid-column: 1 / -1;
+  font-size: 0.95rem;
+  animation: wanted 0.9s ease-in-out infinite;
+}
+
+@keyframes wanted {
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+.callout--done {
+  border-color: var(--good);
+  color: var(--good);
+  background: var(--good-soft);
+  box-shadow: none;
+}
+
+.requests {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(9rem, 100%), 1fr));
+  gap: 8px;
+}
+
+.request {
+  justify-content: flex-start;
+  min-width: 0;
+  padding: 0.45rem 0.8rem;
+  font-size: 0.92rem;
+  font-weight: 650;
+  text-align: start;
+  background: transparent;
+  border-color: var(--line-strong);
+}
+
+.request__text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.request__sent {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--good);
+}
+
+.request--sent {
+  border-color: var(--good);
+  color: var(--good);
+  background: var(--good-soft);
+}
+
+/* ───────────── flight log ───────────── */
+
+.events {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.event {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  align-items: baseline;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: var(--radius-sm);
+  font-size: 0.88rem;
+  color: var(--text-dim);
+}
+
+.event--new {
+  background: var(--neutral-soft);
+  color: var(--text);
+  animation: event-in var(--dur) var(--ease) both;
+}
+
+.event__icon {
+  align-self: center;
+  display: inline-grid;
+}
+
+.event__time {
+  font-size: 0.78rem;
+  color: var(--text-faint);
+}
+
+.event__text {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+@keyframes event-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ───────────── blackout ───────────── */
+
+.blackout {
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #04060b;
+  padding: 24px calc(var(--gutter) + var(--safe-right)) calc(24px + var(--safe-bottom)) calc(var(--gutter) + var(--safe-left));
+}
+
+.blackout__noise {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+  opacity: 0.9;
+}
+
+/* Scan lines and a vignette over the noise keep the text readable. */
+.blackout__veil {
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0 2px, transparent 2px 4px),
+    radial-gradient(95% 75% at 50% 50%, rgba(4, 6, 11, 0.15), rgba(4, 6, 11, 0.7));
+}
+
+.blackout__card {
+  position: relative;
+  width: 100%;
+  max-width: 22rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 22px 18px;
+  text-align: center;
+  border-radius: var(--radius);
+  border: var(--border-w) solid var(--line-strong);
+  background: rgba(5, 16, 26, 0.88);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+.blackout__icon {
+  display: inline-grid;
+  place-items: center;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  border: var(--border-w) dashed var(--warn);
+  color: var(--warn);
+  background: var(--warn-soft);
+}
+
+.blackout__eta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  margin-top: 4px;
+}
+
+.blackout__time {
+  font-size: 2.2rem;
+  font-weight: 750;
+  line-height: 1.1;
+}

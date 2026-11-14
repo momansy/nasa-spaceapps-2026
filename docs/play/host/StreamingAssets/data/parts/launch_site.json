@@ -1,0 +1,171 @@
+{
+  "$schema": "../schema/part.schema.json",
+  "category": "launch_site",
+  "name_key": "category.launch_site.name",
+  "intro_key": "category.launch_site.intro",
+  "design_section": "7.1",
+  "facts": [
+    "F24"
+  ],
+  "design_notes": [
+    "Equatorial Spaceport: the drawback \"Remote logistics: +$10 M, +20 days\" is read as the explanation of its table cost ($18 M) and lead (20 days), not as an extra charge on top; no modifier is added, to avoid counting it twice.",
+    "min_inclination_deg is filled only where the design states a number (Equatorial 5, Inland Steppe 46).",
+    "Anomaly weights: section 6.8 raises Weather Front for coastal sites, Lightning Season for the subtropical coast site and Range Conflict for busy sites. \"Tropical storm anomaly cards\" (Equatorial) and \"Fog delays\" (West Coast) have no card of their own in 6.8 and are mapped to weather_front. No weight multiplier is given by the design.",
+    "Inland Steppe \"+$ range fee\" has no amount in the design; it is carried as the flag stages_fall_on_land."
+  ],
+  "parts": [
+    {
+      "id": "site_equatorial_spaceport",
+      "category": "launch_site",
+      "name_key": "part.site_equatorial_spaceport.name",
+      "twin": "part.site_equatorial_spaceport.twin",
+      "strengths": [
+        "part.site_equatorial_spaceport.strength.1",
+        "part.site_equatorial_spaceport.strength.2"
+      ],
+      "drawbacks": [
+        "part.site_equatorial_spaceport.drawback.1",
+        "part.site_equatorial_spaceport.drawback.2"
+      ],
+      "model": "models/site_equatorial_spaceport.glb",
+      "stats": {
+        "latitude_deg": 5,
+        "eastward_boost_m_s": 463,
+        "min_inclination_deg": 5
+      },
+      "game": {
+        "cost_M": 18,
+        "lead_days": 20
+      },
+      "rules": [
+        {
+          "kind": "anomaly_weight",
+          "anomaly": "weather_front"
+        }
+      ],
+      "value_types": {
+        "stats": "real_world_approximate",
+        "stats.eastward_boost_m_s": "physical",
+        "game": "game_value"
+      }
+    },
+    {
+      "id": "site_subtropical_coast",
+      "category": "launch_site",
+      "name_key": "part.site_subtropical_coast.name",
+      "twin": "part.site_subtropical_coast.twin",
+      "strengths": [
+        "part.site_subtropical_coast.strength.1",
+        "part.site_subtropical_coast.strength.2"
+      ],
+      "drawbacks": [
+        "part.site_subtropical_coast.drawback.1",
+        "part.site_subtropical_coast.drawback.2"
+      ],
+      "model": "models/site_subtropical_coast.glb",
+      "stats": {
+        "latitude_deg": 28.5,
+        "eastward_boost_m_s": 409
+      },
+      "game": {
+        "cost_M": 10,
+        "lead_days": 5
+      },
+      "rules": [
+        {
+          "kind": "anomaly_weight",
+          "anomaly": "lightning_season"
+        },
+        {
+          "kind": "anomaly_weight",
+          "anomaly": "weather_front"
+        },
+        {
+          "kind": "anomaly_weight",
+          "anomaly": "range_conflict"
+        }
+      ],
+      "value_types": {
+        "stats": "real_world_approximate",
+        "stats.eastward_boost_m_s": "physical",
+        "game": "game_value"
+      }
+    },
+    {
+      "id": "site_west_coast_polar_range",
+      "category": "launch_site",
+      "name_key": "part.site_west_coast_polar_range.name",
+      "twin": "part.site_west_coast_polar_range.twin",
+      "strengths": [
+        "part.site_west_coast_polar_range.strength.1"
+      ],
+      "drawbacks": [
+        "part.site_west_coast_polar_range.drawback.1",
+        "part.site_west_coast_polar_range.drawback.2"
+      ],
+      "model": "models/site_west_coast_polar_range.glb",
+      "stats": {
+        "latitude_deg": 34.7,
+        "eastward_boost_m_s": 382
+      },
+      "game": {
+        "cost_M": 9,
+        "lead_days": 5
+      },
+      "rules": [
+        {
+          "kind": "flag",
+          "flag": "no_eastward_launch"
+        },
+        {
+          "kind": "anomaly_weight",
+          "anomaly": "weather_front"
+        }
+      ],
+      "value_types": {
+        "stats": "real_world_approximate",
+        "stats.eastward_boost_m_s": "physical",
+        "game": "game_value"
+      }
+    },
+    {
+      "id": "site_inland_steppe_cosmodrome",
+      "category": "launch_site",
+      "name_key": "part.site_inland_steppe_cosmodrome.name",
+      "twin": "part.site_inland_steppe_cosmodrome.twin",
+      "strengths": [
+        "part.site_inland_steppe_cosmodrome.strength.1",
+        "part.site_inland_steppe_cosmodrome.strength.2",
+        "part.site_inland_steppe_cosmodrome.strength.3"
+      ],
+      "drawbacks": [
+        "part.site_inland_steppe_cosmodrome.drawback.1",
+        "part.site_inland_steppe_cosmodrome.drawback.2"
+      ],
+      "facts": [
+        "F24"
+      ],
+      "model": "models/site_inland_steppe_cosmodrome.glb",
+      "stats": {
+        "latitude_deg": 46,
+        "eastward_boost_m_s": 323,
+        "min_inclination_deg": 46
+      },
+      "game": {
+        "cost_M": 6,
+        "lead_days": 3
+      },
+      "rules": [
+        {
+          "kind": "flag",
+          "flag": "stages_fall_on_land"
+        }
+      ],
+      "value_types": {
+        "stats": "real_world_approximate",
+        "stats.eastward_boost_m_s": "physical",
+        "game": "game_value"
+      }
+    }
+  ]
+}
