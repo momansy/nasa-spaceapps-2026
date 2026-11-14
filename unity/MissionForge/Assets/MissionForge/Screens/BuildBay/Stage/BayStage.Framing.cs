@@ -4,27 +4,38 @@ using UnityEngine;
 namespace MissionForge.Screens.BuildBay
 {
     /// <summary>
-    /// Vantage framing: the camera keeps the whole vehicle and the top of the tower inside the middle 52 % of the
-    /// width and between the top strip and the timeline (STYLE_GUIDE safe regions), moving smoothly as the vehicle
-    /// grows (reduced motion: it cuts). Pixel bands are game_value layout numbers at the 1080 p reference.
+    /// Camera direction (T034 step 5). The Cinemachine vantage is posed every frame by <see cref="BayFraming"/> so the
+    /// vehicle stack spans about 54 % of the screen height in the free column between the side panels, at every stage
+    /// of assembly: the framed height and width are eased (a dolly as the stack grows), a slow idle orbit sweeps the
+    /// azimuth, a short punch-in plays when a part lands, and the compare, exploded and scale views widen the frame.
+    /// Reduced motion: no orbit and no punch-in, and every reframe is a cut. Numbers are game_value art direction.
     /// </summary>
     public sealed partial class BayStage
     {
-        /// <summary>Top of the free band below the contract strip, px from the top at 1080 p.</summary>
-        public const float BandTopPx = 250f;
-        /// <summary>Bottom of the free band above the timeline, px from the top at 1080 p.</summary>
-        public const float BandBottomPx = 800f;
-        /// <summary>Minimum framed height so a short stack still shows the pad and tower, m.</summary>
-        public const float MinFramedHeightM = 46f;
         /// <summary>Azimuth of the vantage around the vehicle, degrees (0 = from −Z). A slight three-quarter view.</summary>
         public const float VantageAzimuthDeg = -14f;
+        /// <summary>Smallest framed height, m, so a one-part stack is not an extreme close-up of a bell.</summary>
+        public const float MinFramedHeightM = 12f;
+        /// <summary>Framed height with nothing on the pad yet, m: the mount, the lower tower and the crane hook.</summary>
+        public const float EmptyPadFramedHeightM = 42f;
+        /// <summary>Idle orbit: ± sweep around the vantage azimuth, degrees, and its period, s.</summary>
+        public const float OrbitAmplitudeDeg = 7f, OrbitPeriodS = 70f;
+        /// <summary>Punch-in when a part lands: distance factor at the peak, and in / hold / out times, s.</summary>
+        public const float PunchDepth = 0.84f, PunchInS = 0.45f, PunchHoldS = 0.7f, PunchOutS = 1.6f;
+        /// <summary>Easing rate of the framed height and width (dolly), 1/s.</summary>
+        public const float DollyRate = 2.0f;
+        /// <summary>Compare view band: below the contract card (its rig tags stay clear of it) and above the stat table (≈ 540 px). game_value.</summary>
+        public const float CompareTopFrac = 300f / 1080f, CompareBottomFrac = 525f / 1080f;
+        /// <summary>Scale view band bottom: high enough that the deck, the 1.75 m person and its label clear the timeline. game_value.</summary>
+        public const float ScaleBottomFrac = 690f / 1080f;
 
         [SerializeField] private LaunchPadRig pad;
 
-        private Vector3 _camTargetPos;
-        private Quaternion _camTargetRot;
-        private bool _hasCamTarget;
         private float _extraWidthM;
+        private float _assemblyHeadroomM;
+        private float _shownHeightM = -1f, _shownHalfWidthM, _shownCentreX;
+        private float _orbitClock;
+        private float _punchClock = -1f;
 
         public LaunchPadRig Pad => pad;
 
@@ -63,51 +74,129 @@ namespace MissionForge.Screens.BuildBay
             return Mathf.Max(0.75f, Mathf.Max(b.extents.x, b.extents.z));
         }
 
-        /// <summary>Computes the vantage pose for the current rig; <paramref name="instant"/> cuts instead of easing.</summary>
+        /// <summary>Starts the landing punch-in (no-op in reduced motion).</summary>
+        private void PunchIn()
+        {
+            if (!_a11y.ReducedMotion) _punchClock = 0f;
+        }
+
+        /// <summary>Re-targets the framing; <paramref name="instant"/> (or reduced motion) cuts instead of easing.</summary>
         public void Frame(bool instant)
         {
-            if (_screen == null || _screen.Vantage == null || vehicleMount == null) return;
-            float length = Rig != null ? Rig.LengthM : 0f;
-            float ground = transform.position.y + LaunchPadRig.DeckTopM;
-            float top = Mathf.Max(vehicleMount.position.y + length + 3f, pad != null ? pad.TowerTopY + 18f : 0f);
-            top = Mathf.Max(top, ground + _extraHeightM + 4f);
-            float height = Mathf.Max(top - ground, MinFramedHeightM);
-            float fov = _screen.Vantage.Lens.FieldOfView;
-            float bandPx = BandBottomPx - BandTopPx;
-            float pxPerM = bandPx / height;
-            float tanHalf = Mathf.Tan(fov * 0.5f * Mathf.Deg2Rad);
-            float distance = 1080f / (pxPerM * 2f * tanHalf);
-            // Horizontal: the middle 52 % of 1920 px must hold the vehicle (and the compare twin).
-            float aspect = 16f / 9f;
-            float halfWidthM = 0.26f * 1080f * aspect / pxPerM;
-            float neededHalfWidth = 12f + _extraWidthM * 0.5f;
-            if (neededHalfWidth > halfWidthM) distance *= neededHalfWidth / halfWidthM;
-
-            float bandCentrePx = (BandTopPx + BandBottomPx) * 0.5f;
-            float pxPerMAtDistance = 1080f / (2f * distance * tanHalf);
-            float centreY = ground + height * 0.5f + (bandCentrePx - 540f) / pxPerMAtDistance;
-            Vector3 axis = vehicleMount.position + Vector3.right * (_extraWidthM * 0.5f);
-            Quaternion yaw = Quaternion.Euler(0f, VantageAzimuthDeg, 0f);
-            Vector3 back = yaw * Vector3.back;
-            float camY = ground + height * 0.32f;
-            _camTargetPos = new Vector3(axis.x, camY, axis.z) + back * distance;
-            Vector3 lookAt = new Vector3(axis.x, centreY, axis.z);
-            _camTargetRot = Quaternion.LookRotation(lookAt - _camTargetPos, Vector3.up);
-            _hasCamTarget = true;
             if (instant || _a11y.ReducedMotion)
             {
-                _screen.Vantage.transform.SetPositionAndRotation(_camTargetPos, _camTargetRot);
+                _shownHeightM = TargetHeightM();
+                _shownHalfWidthM = TargetHalfWidthM();
+                _shownCentreX = TargetCentreXM();
+                ApplyPose();
             }
+        }
+
+        /// <summary>Framed height above the mount: the stack (stretched when exploded), headroom for a part being lowered, the scale references.</summary>
+        private float TargetHeightM()
+        {
+            float length = Rig != null ? Rig.LengthM : 0f;
+            if (_compareA != null || _compareB != null)
+            {
+                length = Mathf.Max(_compareA != null ? _compareA.LengthM : 0f, _compareB != null ? _compareB.LengthM : 0f);
+            }
+            else if (Rig != null && _exploded)
+            {
+                // Frame the fully exploded stack straight away so the dolly and the explosion move together.
+                int groups = 0;
+                foreach (Transform g in GroupsBottomUp(Rig)) if (g.name != "Boosters") groups++;
+                length *= 1f + ExplodeGapFraction * Mathf.Max(0, groups - 1);
+            }
+            if (length < 1f && _extraHeightM <= 0f) return EmptyPadFramedHeightM;
+            float h = length + _assemblyHeadroomM;
+            if (_extraHeightM > 0f && vehicleMount != null)
+            {
+                float deck = transform.position.y + LaunchPadRig.DeckTopM;
+                h = Mathf.Max(h, deck + _extraHeightM - vehicleMount.position.y + 2f);
+            }
+            return Mathf.Max(h, MinFramedHeightM);
+        }
+
+        /// <summary>
+        /// Half width to keep in the column, m. Compare: both candidates sit at ± half the extra width around the axis.
+        /// Scale view: the references stand on +X out to about the extra width / 2, so the frame centres between them.
+        /// </summary>
+        private float TargetHalfWidthM()
+        {
+            float own = Mathf.Max(RigRadius() + 3f, 8f);
+            return own + _extraWidthM * (ScaleViewOn ? 0.25f : 0.5f);
+        }
+
+        /// <summary>Horizontal frame centre on +X from the vehicle axis, m.</summary>
+        private float TargetCentreXM() => ScaleViewOn ? Mathf.Max(0f, _extraWidthM * 0.25f - 4f) : 0f;
+
+        private bool ScaleViewOn => _scaleRefs.Count > 0;
+
+        private void ApplyPose()
+        {
+            if (_screen == null || _screen.Vantage == null || vehicleMount == null || _shownHeightM <= 0f) return;
+            float azimuth = VantageAzimuthDeg;
+            float scale = 1f;
+            if (!_a11y.ReducedMotion)
+            {
+                azimuth += OrbitAmplitudeDeg * Mathf.Sin(2f * Mathf.PI * _orbitClock / OrbitPeriodS);
+                scale = Mathf.Lerp(1f, PunchDepth, PunchEnvelope(_punchClock));
+            }
+            Vector3 basePoint = vehicleMount.position + Vector3.right * _shownCentreX;
+            var shot = new BayShot(basePoint, _shownHeightM, _shownHalfWidthM, azimuth);
+            float aspect = _screen.Vantage.Lens.Aspect > 0.1f ? _screen.Vantage.Lens.Aspect : 16f / 9f;
+            BayFrameLayout layout = BayFraming.DefaultLayout(_screen.Vantage.Lens.FieldOfView, aspect);
+            if (_compareA != null || _compareB != null)
+            {
+                // The compare stat table covers the lower middle of the screen: both candidates sit above it.
+                layout = new BayFrameLayout(CompareTopFrac, CompareBottomFrac, layout.HalfColumnFrac, layout.EyeFrac, layout.VerticalFovDeg, layout.Aspect);
+            }
+            else if (ScaleViewOn)
+            {
+                layout = new BayFrameLayout(layout.TopFrac, ScaleBottomFrac, layout.HalfColumnFrac, layout.EyeFrac, layout.VerticalFovDeg, layout.Aspect);
+            }
+            Pose pose = BayFraming.Solve(shot, layout, scale);
+            _screen.Vantage.transform.SetPositionAndRotation(pose.position, pose.rotation);
+        }
+
+        /// <summary>0 → 1 → 0 over the punch-in; 0 when idle.</summary>
+        public static float PunchEnvelope(float t)
+        {
+            if (t < 0f) return 0f;
+            if (t < PunchInS) return Mathf.SmoothStep(0f, 1f, t / PunchInS);
+            t -= PunchInS;
+            if (t < PunchHoldS) return 1f;
+            t -= PunchHoldS;
+            return t < PunchOutS ? Mathf.SmoothStep(1f, 0f, t / PunchOutS) : 0f;
         }
 
         private void LateUpdate()
         {
-            if (!_hasCamTarget || _screen == null || _screen.Vantage == null) return;
-            Transform t = _screen.Vantage.transform;
-            float k = 1f - Mathf.Exp(-Time.unscaledDeltaTime * 2.2f);
-            t.SetPositionAndRotation(Vector3.Lerp(t.position, _camTargetPos, k), Quaternion.Slerp(t.rotation, _camTargetRot, k));
             TickAssembly();
             TickTools();
+            if (_screen == null || _screen.Vantage == null) return;
+            float dt = Time.unscaledDeltaTime;
+            if (_a11y.ReducedMotion)
+            {
+                _shownHeightM = TargetHeightM();
+                _shownHalfWidthM = TargetHalfWidthM();
+                _shownCentreX = TargetCentreXM();
+            }
+            else
+            {
+                float k = 1f - Mathf.Exp(-dt * DollyRate);
+                if (_shownHeightM <= 0f) _shownHeightM = TargetHeightM();
+                _shownHeightM = Mathf.Lerp(_shownHeightM, TargetHeightM(), k);
+                _shownHalfWidthM = Mathf.Lerp(_shownHalfWidthM, TargetHalfWidthM(), k);
+                _shownCentreX = Mathf.Lerp(_shownCentreX, TargetCentreXM(), k);
+                _orbitClock += dt;
+                if (_punchClock >= 0f)
+                {
+                    _punchClock += dt;
+                    if (_punchClock > PunchInS + PunchHoldS + PunchOutS) _punchClock = -1f;
+                }
+            }
+            ApplyPose();
         }
     }
 }

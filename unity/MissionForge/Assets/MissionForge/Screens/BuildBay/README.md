@@ -67,3 +67,28 @@ the flags above.
 
 **MissionForge ▸ Build Bay ▸ Build macOS Evidence Player / Build WebGL** write to the git-ignored
 `unity/MissionForge/Builds/`. Evidence and measurements: `orchestration/evidence/T015/`.
+
+## Environment and camera (T034)
+
+- **Camera** (`Cameras/BayFraming.cs`, `Stage/BayStage.Framing.cs`): the Cinemachine `Vantage` is posed every frame by
+  `BayFraming.Solve` so the stack spans 200–760 px of 1080 (52 %) centred in the free column (512–1408 px). It eases
+  as the stack grows, sweeps ±7° over 70 s when idle, eases out while the crane lowers a top part and punches in to
+  84 % distance when a part lands. Compare (300–525 px, above the stat table), scale (200–690 px, centred between the
+  vehicle and the Saturn V outline) and exploded (frames the fully exploded stack) have their own bands. Empty pad:
+  42 m framed; minimum 12 m. Reduced motion: no orbit or punch-in, every reframe is a cut. Tests: `BayFramingTests`.
+- **Assembly feel** (`Stage/BayStage.Atmosphere.cs`): a 3400 K work light flickers at the joint during the weld, and
+  each tank on the stack gets a boil-off steam vent (game_value cue, not a simulated rate). Steam and the work light
+  are off in reduced motion; steam is off on Low quality.
+- **Quality toggle** (`Stage/BayQuality.cs`, `BayQualityGroup.cs`): `-mfBayQuality low` / `?mfBayQuality=low` / **Q**.
+  Low = 85 % render scale, 160 m shadows, no floodlight cones, glows, soot, steam or distant silhouettes.
+- **Haze** (`Stage/BayEnvironment.cs`): fog and ambient are re-applied when the active scene changes, so the bay keeps
+  its haze when the Shell becomes active after the bay (evidence and WebGL players).
+- **Dressing** (`Editor/BayDressing*.cs`, menu **MissionForge ▸ Build Bay ▸ Apply Environment Dressing (T034)**, batch
+  `BayDressingBuilder.Run`): rebuilds `Bay/Dressing` in `MF_BuildBay.unity` and overrides the `MF_LaunchPad` instance
+  (the prefab asset is untouched): CC0 ambientCG concrete on the deck (box-projected metric UVs), gravel verge, scrub
+  and sand terrain, sea with a horizon lift into the haze, T017 launch mount (`world_pad_deck` on `world_flame_trench`)
+  in place of the T015 table, T017 site silhouettes, flood cones and glows, tower work lamps, crew figures, apron paint
+  and soot, the bay haze colour and a framing volume (`Art/Environment/LaunchPad/MF_Volume_BayFrame.asset`: vignette
+  0.18, saturation −8, priority 2.5 over T031's profiles). Re-run it after `BuildBaySceneBuilder` and T031's
+  `LightingFoundation.ApplyToScenes`. Textures: `Art/Environment/LaunchPad/Source/prepare_textures.py`; licences in
+  `unity/MissionForge/THIRD_PARTY.md`. Evidence and measurements: `orchestration/evidence/T034/`.
