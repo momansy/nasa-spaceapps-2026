@@ -132,7 +132,8 @@ namespace MissionForge.Core.Campaign
                         (string?)criterion["minigame"] ?? ""));
                 }
                 var contracts = row["contracts"] is JArray cs ?
-                    cs.Select(x => (string)x).ToArray() : Array.Empty<string>();
+                    cs.Select(x => (string?)x ?? throw new ArgumentException(
+                        "Achievement contract must be a string: " + id)).ToArray() : Array.Empty<string>();
                 defs.Add(new AchievementDefinition(id, scope, criteria, contracts,
                     (string?)row["assist_level"] ?? ""));
             }

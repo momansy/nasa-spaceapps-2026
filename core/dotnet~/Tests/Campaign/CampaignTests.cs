@@ -4,9 +4,11 @@ using System.IO;
 using System.Linq;
 using MissionForge.Core.Build;
 using MissionForge.Core.Campaign;
+using MissionForge.Core.Data;
 using MissionForge.Core.Tests.Data;
 using Newtonsoft.Json.Linq;
 using Xunit;
+using CampaignEngine = MissionForge.Core.Campaign.Campaign;
 
 namespace MissionForge.Core.Tests.Campaign
 {
@@ -14,7 +16,7 @@ namespace MissionForge.Core.Tests.Campaign
     {
         private static MissionReport Report(MissionOutcome result = MissionOutcome.Success,
             string contract = "C1", bool onTime = true,
-            IEnumerable<string> objectives = null, IEnumerable<string> recovered = null,
+            IEnumerable<string>? objectives = null, IEnumerable<string>? recovered = null,
             int earnedKp = 12, double remainingM = 40, double initialM = 100) =>
             new MissionReport(contract, "CAMPAIGN", result, 900, "A", remainingM,
                 initialM, onTime ? 2 : -3, onTime, earnedKp,
@@ -34,7 +36,7 @@ namespace MissionForge.Core.Tests.Campaign
             var loaded = CampaignState.FromJson(json);
             Assert.Equal(json, loaded.ToJson());
             Assert.Equal(35, loaded.Reputation);
-            Assert.Equal(1, loaded.InventoryItems.Count);
+            Assert.Single(loaded.InventoryItems);
             Assert.True(loaded.Insured);
             Assert.Equal(0, Start().Reputation); // operations do not mutate previous state
         }
@@ -56,7 +58,7 @@ namespace MissionForge.Core.Tests.Campaign
         {
             // Success +8, on time +2 => 10. $40M leftover × 0.25 => $10M carried.
             var a = Start();
-            var update = Campaign.Record(a, Report(objectives: new[] { "orbit" }, recovered: new[] { "fairing_small" }));
+            var update = CampaignEngine.Record(a, Report(objectives: new[] { "orbit" }, recovered: new[] { "fairing_small" }));
             Assert.Equal(10, update.State.Reputation);
             Assert.Equal(12, update.State.KnowledgePoints);
             Assert.Equal(10, update.State.CarriedBudgetM, 8);
@@ -77,8 +79,8 @@ namespace MissionForge.Core.Tests.Campaign
         {
             // Failure -8 plus late -3 clamps reputation to zero.
             // Insurance recovers min(8, 100×0.20) = $8M and expires.
-            var a = Campaign.EnableInsurance(Start().With(reputation: 5));
-            var update = Campaign.Record(a, Report(MissionOutcome.Failure, onTime: false, remainingM: 0));
+            var a = CampaignEngine.EnableInsurance(Start().With(reputation: 5));
+            var update = CampaignEngine.Record(a, Report(MissionOutcome.Failure, onTime: false, remainingM: 0));
             Assert.Equal(0, update.State.Reputation);
             Assert.Equal(8, update.State.CarriedBudgetM, 8);
             Assert.False(update.State.Insured);
@@ -92,8 +94,8 @@ namespace MissionForge.Core.Tests.Campaign
             var s = Start().With(reputation: 30);
             var report = Report(MissionOutcome.Partial, onTime: false, remainingM: 0);
             // +3 -3 = 0.
-            var a = Campaign.Record(s, report);
-            var b = Campaign.Record(s, report);
+            var a = CampaignEngine.Record(s, report);
+            var b = CampaignEngine.Record(s, report);
             Assert.Equal(30, a.State.Reputation);
             Assert.Equal(a.State.ToJson(), b.State.ToJson());
         }
@@ -116,29 +118,29 @@ namespace MissionForge.Core.Tests.Campaign
         public void TechTree_BuyWithEnoughKpAndRejectMissingRequirements()
         {
             var baseState = Start().With(knowledgePoints: 40);
-            Assert.False(Campaign.IsPartAvailable(baseState, "comm_laser"));
-            var researched = Campaign.PurchaseTech(baseState, "laser_comms");
+            Assert.False(CampaignEngine.IsPartAvailable(baseState, "comm_laser"));
+            var researched = CampaignEngine.PurchaseTech(baseState, "laser_comms");
             Assert.Equal(28, researched.KnowledgePoints);
-            Assert.True(Campaign.IsPartAvailable(researched, "comm_laser"));
+            Assert.True(CampaignEngine.IsPartAvailable(researched, "comm_laser"));
             Assert.Equal(40, baseState.KnowledgePoints);
-            Assert.Throws<InvalidOperationException>(() => Campaign.PurchaseTech(baseState, "hiad"));
-            Assert.Throws<InvalidOperationException>(() => Campaign.PurchaseTech(researched, "laser_comms"));
-            Assert.Throws<InvalidOperationException>(() => Campaign.PurchaseTech(Start(), "methalox"));
+            Assert.Throws<InvalidOperationException>(() => CampaignEngine.PurchaseTech(baseState, "hiad"));
+            Assert.Throws<InvalidOperationException>(() => CampaignEngine.PurchaseTech(researched, "laser_comms"));
+            Assert.Throws<InvalidOperationException>(() => CampaignEngine.PurchaseTech(Start(), "methalox"));
             Assert.Equal("campaign.tech.methalox.real_tech", TechTree.Nodes[0].RealTechKey);
         }
 
         [Fact]
         public void CampaignBudgetInsuranceAndSupplierTrust_AddLedgerLinesOnlyOnce()
         {
-            var state = Campaign.EnableInsurance(Start().With(reputation: 50, carriedBudgetM: 10));
+            var state = CampaignEngine.EnableInsurance(Start().With(reputation: 50, carriedBudgetM: 10));
             var build = BuildState.New("C1", 1).WithChoice("first_stage_engine", "eng_kerolox_workhorse");
             var catalog = DesignFixture.Catalog();
-            build = Campaign.ApplyCarryOver(build, state);
-            build = Campaign.ApplyCarryOver(build, state);
-            build = Campaign.ApplyInsurance(build, state);
-            build = Campaign.ApplyInsurance(build, state);
-            build = Campaign.ApplySupplierTrust(build, catalog, state);
-            build = Campaign.ApplySupplierTrust(build, catalog, state);
+            build = CampaignEngine.ApplyCarryOver(build, state);
+            build = CampaignEngine.ApplyCarryOver(build, state);
+            build = CampaignEngine.ApplyInsurance(build, state);
+            build = CampaignEngine.ApplyInsurance(build, state);
+            build = CampaignEngine.ApplySupplierTrust(build, catalog, state);
+            build = CampaignEngine.ApplySupplierTrust(build, catalog, state);
             Assert.Equal(3, build.Ledger.Count);
             Assert.Equal(10, build.Ledger[0].BudgetDeltaM, 8);
             Assert.Equal(CampaignConstants.InsurancePremiumM, build.Ledger[1].CostM, 8);
@@ -168,7 +170,7 @@ namespace MissionForge.Core.Tests.Campaign
             var inFlight = inventory.Consume(item.ItemId);
             Assert.Empty(new Inventory(inFlight).Items);
             Assert.False(inFlight.InventoryItems[0].Available);
-            var recovered = Campaign.Record(inFlight,
+            var recovered = CampaignEngine.Record(inFlight,
                 Report(recovered: new[] { item.PartId }));
             Assert.Single(recovered.State.InventoryItems);
             Assert.Equal(4, recovered.State.InventoryItems[0].Flights); // prior 3 + this flight
@@ -217,9 +219,9 @@ namespace MissionForge.Core.Tests.Campaign
         {
             var r = Report(contract: "C6", objectives: new[] { "orbit", "lunar_flyby", "crew_safe" },
                 recovered: new[] { "fairing_small" });
-            var first = Campaign.Record(Start(), r);
+            var first = CampaignEngine.Record(Start(), r);
             Assert.Equal(4, first.MilestoneEvents.Count);
-            var second = Campaign.Record(first.State, r);
+            var second = CampaignEngine.Record(first.State, r);
             Assert.Empty(second.MilestoneEvents);
             Assert.Equal(4, second.State.Milestones.Count);
         }
