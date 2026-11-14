@@ -247,7 +247,16 @@ namespace MissionForge.Core.Campaign
             CarriedBudgetM = carriedBudgetM;
             UnlockedParts = Frozen(unlockedParts);
             PurchasedTech = Frozen(purchasedTech);
-            InventoryItems = Frozen(inventoryItems);
+            var frozenInventory = Frozen(inventoryItems);
+            var itemIds = new HashSet<string>(StringComparer.Ordinal);
+            foreach (var item in frozenInventory)
+            {
+                if (item == null)
+                    throw new ArgumentException("Inventory items must not be null.", nameof(inventoryItems));
+                if (!itemIds.Add(item.ItemId))
+                    throw new ArgumentException("Duplicate inventory item ID: " + item.ItemId, nameof(inventoryItems));
+            }
+            InventoryItems = frozenInventory;
             Milestones = Frozen(milestones);
             Missions = Frozen(missions);
             Achievements = Frozen(achievements);

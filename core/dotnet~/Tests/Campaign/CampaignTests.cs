@@ -56,6 +56,22 @@ namespace MissionForge.Core.Tests.Campaign
         }
 
         [Fact]
+        public void DuplicateInventoryIdentityAndBlankRecoveryAreRejectedOrIgnored()
+        {
+            var duplicate = new[]
+            {
+                new InventoryItem("serial-1", "fairing_small", 1, false),
+                new InventoryItem("serial-1", "fairing_standard", 2, false)
+            };
+            Assert.Contains("Duplicate inventory item ID", Assert.Throws<ArgumentException>(
+                () => Start().With(inventoryItems: duplicate)).Message);
+
+            var update = Campaign.Record(Start(), Report(recovered: new[] { "", "  " }));
+            Assert.Empty(update.State.InventoryItems);
+            Assert.DoesNotContain(update.MilestoneEvents, milestone => milestone.Id == "first_recovery");
+        }
+
+        [Fact]
         public void Record_SuccessOnTime_ReputationKnowledgeCarryAndMilestone()
         {
             // Success +8, on time +2 => 10. $40M leftover × 0.25 => $10M carried.
@@ -175,8 +191,29 @@ namespace MissionForge.Core.Tests.Campaign
             var recovered = Campaign.Record(inFlight,
                 Report(recovered: new[] { item.PartId }));
             Assert.Single(recovered.State.InventoryItems);
+            Assert.Equal(item.ItemId, recovered.State.InventoryItems[0].ItemId);
             Assert.Equal(4, recovered.State.InventoryItems[0].Flights); // prior 3 + this flight
             Assert.True(recovered.State.InventoryItems[0].Available);
+        }
+
+        [Fact]
+        public void SupplierTrustUsesActualEngineQuantityAndRecoveryKeepsPhysicalIdentity()
+        {
+            var catalog = DesignFixture.Catalog();
+            var state = Start().With(reputation: 50, inventoryItems: new[]
+            {
+                new InventoryItem("booster-serial-7", "eng_kerolox_workhorse", 2, false, false)
+            });
+            var build = BuildState.New("C1", 18)
+                .WithChoice(Slots.FirstStageEngine, "eng_kerolox_workhorse")
+                .WithChoice(Slots.FirstStageEngineCount, "engcount_first_3");
+            var discounted = Campaign.ApplySupplierTrust(build, catalog, state);
+            Assert.Equal(-0.18, discounted.Ledger.Single().CostM, 8); // $1.2M × 3 × 5%
+
+            var recovered = Campaign.Record(state,
+                Report(recovered: new[] { "eng_kerolox_workhorse" }));
+            Assert.Equal("booster-serial-7", recovered.State.InventoryItems.Single().ItemId);
+            Assert.Equal(3, recovered.State.InventoryItems.Single().Flights);
         }
 
         [Fact]
