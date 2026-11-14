@@ -16,7 +16,8 @@ function nf(opts: Intl.NumberFormatOptions): Intl.NumberFormat {
   let f = cache.get(key);
   if (!f) {
     try {
-      f = new Intl.NumberFormat(locale, opts);
+      // Western digits in every language, so numbers match the digits written inside the translated strings.
+      f = new Intl.NumberFormat(locale.includes('-u-') ? locale : `${locale}-u-nu-latn`, opts);
     } catch {
       f = new Intl.NumberFormat('en', opts);
     }
