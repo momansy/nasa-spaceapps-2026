@@ -1,0 +1,141 @@
+{
+  "$schema": "../schema/part.schema.json",
+  "category": "tank_size",
+  "name_key": "category.tank_size.name",
+  "intro_key": "category.tank_size.intro",
+  "design_section": "7.9",
+  "category_params": {
+    "structural_ratio_by_propellant": {
+      "RP1_LOX": 0.05,
+      "LH2_LOX": 0.1,
+      "CH4_LOX": 0.06,
+      "A50_N2O4": 0.06
+    },
+    "value_type": "game_value"
+  },
+  "design_notes": [
+    "One entry serves both stage votes: first_stage_propellant_t and upper_stage_propellant_t are the two capacity columns.",
+    "contracts are the \"Shown for contracts\" column: XS \"C0, C1 small builds\", S \"C0–C2, C8\", M \"C1–C5, C8\", L \"C3–C8\", XL \"C5–C7\". The design does not define \"small builds\"; XS is listed for C0 and C1.",
+    "The table has no strengths, drawbacks, cost, lead time or twin. Tank cost is not given anywhere, which leaves the cost multiplier of 7.10 without a base (open question 11 in data/README.md).",
+    "category_params holds the structural ratios (kerolox 0.05, methalox 0.06, hypergolic 0.06, hydrolox 0.10), game values from real ranges per section 19. No ratio is given for solid propellant: the Solid Kick Motor carries a fixed load and ignores this vote.",
+    "The failure model (8.4) ties pogo to a \"long first stage\", but the design does not say which sizes count as long, so no tank carries pogo_oscillation or the pogo suppression test."
+  ],
+  "parts": [
+    {
+      "id": "tank_xs",
+      "category": "tank_size",
+      "name_key": "part.tank_xs.name",
+      "strengths": [],
+      "drawbacks": [],
+      "contracts": [
+        "C0",
+        "C1"
+      ],
+      "model": "models/tank_xs.glb",
+      "stats": {
+        "size": "XS",
+        "first_stage_propellant_t": 12,
+        "upper_stage_propellant_t": 2.5
+      },
+      "game": {},
+      "value_types": {
+        "stats": "game_value"
+      }
+    },
+    {
+      "id": "tank_s",
+      "category": "tank_size",
+      "name_key": "part.tank_s.name",
+      "strengths": [],
+      "drawbacks": [],
+      "contracts": [
+        "C0",
+        "C1",
+        "C2",
+        "C8"
+      ],
+      "model": "models/tank_s.glb",
+      "stats": {
+        "size": "S",
+        "first_stage_propellant_t": 120,
+        "upper_stage_propellant_t": 25
+      },
+      "game": {},
+      "value_types": {
+        "stats": "game_value"
+      }
+    },
+    {
+      "id": "tank_m",
+      "category": "tank_size",
+      "name_key": "part.tank_m.name",
+      "strengths": [],
+      "drawbacks": [],
+      "contracts": [
+        "C1",
+        "C2",
+        "C3",
+        "C4",
+        "C5",
+        "C8"
+      ],
+      "model": "models/tank_m.glb",
+      "stats": {
+        "size": "M",
+        "first_stage_propellant_t": 280,
+        "upper_stage_propellant_t": 60
+      },
+      "game": {},
+      "value_types": {
+        "stats": "game_value"
+      }
+    },
+    {
+      "id": "tank_l",
+      "category": "tank_size",
+      "name_key": "part.tank_l.name",
+      "strengths": [],
+      "drawbacks": [],
+      "contracts": [
+        "C3",
+        "C4",
+        "C5",
+        "C6",
+        "C7",
+        "C8"
+      ],
+      "model": "models/tank_l.glb",
+      "stats": {
+        "size": "L",
+        "first_stage_propellant_t": 420,
+        "upper_stage_propellant_t": 110
+      },
+      "game": {},
+      "value_types": {
+        "stats": "game_value"
+      }
+    },
+    {
+      "id": "tank_xl",
+      "category": "tank_size",
+      "name_key": "part.tank_xl.name",
+      "strengths": [],
+      "drawbacks": [],
+      "contracts": [
+        "C5",
+        "C6",
+        "C7"
+      ],
+      "model": "models/tank_xl.glb",
+      "stats": {
+        "size": "XL",
+        "first_stage_propellant_t": 1000,
+        "upper_stage_propellant_t": 250
+      },
+      "game": {},
+      "value_types": {
+        "stats": "game_value"
+      }
+    }
+  ]
+}

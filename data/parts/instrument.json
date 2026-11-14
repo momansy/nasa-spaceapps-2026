@@ -1,0 +1,213 @@
+{
+  "$schema": "../schema/part.schema.json",
+  "category": "instrument",
+  "name_key": "category.instrument.name",
+  "design_section": "7.2.1",
+  "design_notes": [
+    "The table is headed \"Instrument (C1 Earth Watch)\", so every option lists C1 only.",
+    "The table has no Strengths column. The remarks in the Science value cell (\"wildfires, ice\"; \"sees through clouds, at night\") are carried as strengths; the other two options have none.",
+    "power_duty is set only for the radar (\"300 W during imaging\"). The other three cells give a bare wattage; the suggested loader default is continuous. requires_cooling is set only where the Power cell says \"needs cooling\".",
+    "sees_through_clouds and works_at_night are set only where the design states them: false for the wide-field camera (its drawback), true for the radar (its Science value cell).",
+    "No provenance is stated for instrument mass, power and data figures; table 5.1 calls the payload a game value and 7.17 calls data rates game values, so stats are tagged game_value.",
+    "Rules shared by all four: MG-05 Clean Room runs at \"science payload integration\", MG-21 Science Capture is the instrument at work (it treats radar differently), and section 6.8 weights Contamination in Clean Room towards science payloads. No weight multiplier is given.",
+    "facts: F16 (Landsat) is stated in the multispectral row and is the fact of MG-21, which every instrument enables, so all four carry it.",
+    "\"High data volume needs a strong radio\" (multispectral) names no radio; it is enforced by the data-budget rule of 6.11 through data_GB_per_day, so there is no requires_part rule.",
+    "The table gives no lead time, integration days or reliability."
+  ],
+  "parts": [
+    {
+      "id": "inst_wide_field_optical_camera",
+      "category": "instrument",
+      "name_key": "part.inst_wide_field_optical_camera.name",
+      "twin": "part.inst_wide_field_optical_camera.twin",
+      "strengths": [],
+      "drawbacks": [
+        "part.inst_wide_field_optical_camera.drawback.1"
+      ],
+      "facts": [
+        "F16"
+      ],
+      "contracts": [
+        "C1"
+      ],
+      "model": "models/inst_wide_field_optical_camera.glb",
+      "stats": {
+        "mass_kg": 8,
+        "power_W": 15,
+        "data_GB_per_day": 4,
+        "science_stars": 2,
+        "sees_through_clouds": false,
+        "works_at_night": false
+      },
+      "game": {
+        "cost_M": 3
+      },
+      "rules": [
+        {
+          "kind": "enables_minigame",
+          "minigame": "MG-05"
+        },
+        {
+          "kind": "enables_minigame",
+          "minigame": "MG-21"
+        },
+        {
+          "kind": "anomaly_weight",
+          "anomaly": "contamination_in_clean_room"
+        }
+      ],
+      "value_types": {
+        "stats": "game_value",
+        "game": "game_value"
+      }
+    },
+    {
+      "id": "inst_multispectral_imager",
+      "category": "instrument",
+      "name_key": "part.inst_multispectral_imager.name",
+      "twin": "part.inst_multispectral_imager.twin",
+      "strengths": [],
+      "drawbacks": [
+        "part.inst_multispectral_imager.drawback.1"
+      ],
+      "facts": [
+        "F16"
+      ],
+      "contracts": [
+        "C1"
+      ],
+      "model": "models/inst_multispectral_imager.glb",
+      "stats": {
+        "mass_kg": 15,
+        "power_W": 30,
+        "data_GB_per_day": 10,
+        "science_stars": 4
+      },
+      "game": {
+        "cost_M": 8
+      },
+      "rules": [
+        {
+          "kind": "enables_minigame",
+          "minigame": "MG-05"
+        },
+        {
+          "kind": "enables_minigame",
+          "minigame": "MG-21"
+        },
+        {
+          "kind": "anomaly_weight",
+          "anomaly": "contamination_in_clean_room"
+        }
+      ],
+      "value_types": {
+        "stats": "game_value",
+        "game": "game_value"
+      }
+    },
+    {
+      "id": "inst_thermal_infrared_camera",
+      "category": "instrument",
+      "name_key": "part.inst_thermal_infrared_camera.name",
+      "twin": "part.inst_thermal_infrared_camera.twin",
+      "strengths": [
+        "part.inst_thermal_infrared_camera.strength.1"
+      ],
+      "drawbacks": [
+        "part.inst_thermal_infrared_camera.drawback.1"
+      ],
+      "facts": [
+        "F16"
+      ],
+      "contracts": [
+        "C1"
+      ],
+      "model": "models/inst_thermal_infrared_camera.glb",
+      "stats": {
+        "mass_kg": 18,
+        "power_W": 40,
+        "requires_cooling": true,
+        "data_GB_per_day": 6,
+        "science_stars": 3
+      },
+      "game": {
+        "cost_M": 10
+      },
+      "rules": [
+        {
+          "kind": "enables_minigame",
+          "minigame": "MG-05"
+        },
+        {
+          "kind": "enables_minigame",
+          "minigame": "MG-21"
+        },
+        {
+          "kind": "anomaly_weight",
+          "anomaly": "contamination_in_clean_room"
+        },
+        {
+          "kind": "flag",
+          "flag": "thermal_penalty"
+        }
+      ],
+      "value_types": {
+        "stats": "game_value",
+        "game": "game_value"
+      },
+      "design_notes": [
+        "The \"thermal penalty\" has no number in the design; it is the flag thermal_penalty."
+      ]
+    },
+    {
+      "id": "inst_synthetic_aperture_radar",
+      "category": "instrument",
+      "name_key": "part.inst_synthetic_aperture_radar.name",
+      "twin": "part.inst_synthetic_aperture_radar.twin",
+      "strengths": [
+        "part.inst_synthetic_aperture_radar.strength.1"
+      ],
+      "drawbacks": [
+        "part.inst_synthetic_aperture_radar.drawback.1",
+        "part.inst_synthetic_aperture_radar.drawback.2"
+      ],
+      "facts": [
+        "F16"
+      ],
+      "contracts": [
+        "C1"
+      ],
+      "model": "models/inst_synthetic_aperture_radar.glb",
+      "stats": {
+        "mass_kg": 45,
+        "power_W": 300,
+        "power_duty": "during_imaging",
+        "data_GB_per_day": 25,
+        "science_stars": 5,
+        "sees_through_clouds": true,
+        "works_at_night": true
+      },
+      "game": {
+        "cost_M": 20
+      },
+      "rules": [
+        {
+          "kind": "enables_minigame",
+          "minigame": "MG-05"
+        },
+        {
+          "kind": "enables_minigame",
+          "minigame": "MG-21"
+        },
+        {
+          "kind": "anomaly_weight",
+          "anomaly": "contamination_in_clean_room"
+        }
+      ],
+      "value_types": {
+        "stats": "game_value",
+        "game": "game_value"
+      }
+    }
+  ]
+}

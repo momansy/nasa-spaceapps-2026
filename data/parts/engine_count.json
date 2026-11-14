@@ -1,0 +1,226 @@
+{
+  "$schema": "../schema/part.schema.json",
+  "category": "engine_count",
+  "name_key": "category.engine_count.name",
+  "intro_key": "category.engine_count.intro",
+  "design_section": "7.6",
+  "facts": [
+    "F27"
+  ],
+  "design_notes": [
+    "The table covers the first stage. For the upper stage the design says only \"1 or 2 engines\": the two upper options have no engine-out column, no reliability modifier and no integration days. The sentence under the table gives the 2-engine option its strength and drawback; the 1-engine upper option has none.",
+    "Reliability modifier: \"−0.3%\" is stored as reliability add −0.003 on the stage, which is percentage points (open question 9 in data/README.md). \"+0\" is stored as an add of 0. The word \"complexity\" printed with −0.3% is the note of that modifier.",
+    "Integration: \"+3 days\" is game.integ_days 3. \"Fast\" (1 engine) is a strength text with no integ_days.",
+    "engine_out_capability maps the Engine-out capable? column: No no, \"Partial (if TWR allows)\" partial, \"Yes, usually\" usually, Yes yes. engine_out_bonus is none, standard (\"engine-out bonus\") or strong (\"strong engine-out bonus\"); the bonus has no number in the design.",
+    "Every multi-engine option enables MG-12 Engine-Out Rebalance (\"if an engine fails in a cluster\") and carries its fact F08. F27 (N1) is the line under the table and is kept at category level.",
+    "\"Heavier thrust structure\" (5 engines) has no mass: flag heavier_thrust_structure.",
+    "No contracts list: the design restricts no engine count (Appendix A shows 3 and 9 first-stage engines offered in C1). No model path: an engine count is not a model of its own."
+  ],
+  "parts": [
+    {
+      "id": "engcount_first_1",
+      "category": "engine_count",
+      "name_key": "part.engcount_first_1.name",
+      "strengths": [
+        "part.engcount_first_1.strength.1"
+      ],
+      "drawbacks": [
+        "part.engcount_first_1.drawback.1"
+      ],
+      "stats": {
+        "stage": "first",
+        "engine_count": 1,
+        "engine_out_capability": "no",
+        "engine_out_bonus": "none"
+      },
+      "game": {},
+      "modifiers": [
+        {
+          "target": "reliability",
+          "op": "add",
+          "value": 0,
+          "scope": "stage"
+        }
+      ],
+      "value_types": {
+        "stats": "game_value",
+        "modifiers": "game_value"
+      }
+    },
+    {
+      "id": "engcount_first_3",
+      "category": "engine_count",
+      "name_key": "part.engcount_first_3.name",
+      "strengths": [
+        "part.engcount_first_3.strength.1"
+      ],
+      "drawbacks": [
+        "part.engcount_first_3.drawback.1"
+      ],
+      "facts": [
+        "F08"
+      ],
+      "stats": {
+        "stage": "first",
+        "engine_count": 3,
+        "engine_out_capability": "partial",
+        "engine_out_bonus": "standard"
+      },
+      "game": {
+        "integ_days": 3
+      },
+      "modifiers": [
+        {
+          "target": "reliability",
+          "op": "add",
+          "value": -0.003,
+          "scope": "stage",
+          "note_key": "part.engcount_first_3.modifier.1.note"
+        }
+      ],
+      "rules": [
+        {
+          "kind": "enables_minigame",
+          "minigame": "MG-12"
+        }
+      ],
+      "value_types": {
+        "stats": "game_value",
+        "game": "game_value",
+        "modifiers": "game_value"
+      }
+    },
+    {
+      "id": "engcount_first_5",
+      "category": "engine_count",
+      "name_key": "part.engcount_first_5.name",
+      "strengths": [
+        "part.engcount_first_5.strength.1"
+      ],
+      "drawbacks": [
+        "part.engcount_first_5.drawback.1"
+      ],
+      "facts": [
+        "F08"
+      ],
+      "stats": {
+        "stage": "first",
+        "engine_count": 5,
+        "engine_out_capability": "usually",
+        "engine_out_bonus": "standard"
+      },
+      "game": {
+        "integ_days": 5
+      },
+      "modifiers": [
+        {
+          "target": "reliability",
+          "op": "add",
+          "value": -0.006,
+          "scope": "stage"
+        }
+      ],
+      "rules": [
+        {
+          "kind": "enables_minigame",
+          "minigame": "MG-12"
+        },
+        {
+          "kind": "flag",
+          "flag": "heavier_thrust_structure"
+        }
+      ],
+      "value_types": {
+        "stats": "game_value",
+        "game": "game_value",
+        "modifiers": "game_value"
+      }
+    },
+    {
+      "id": "engcount_first_9",
+      "category": "engine_count",
+      "name_key": "part.engcount_first_9.name",
+      "strengths": [
+        "part.engcount_first_9.strength.1"
+      ],
+      "drawbacks": [
+        "part.engcount_first_9.drawback.1",
+        "part.engcount_first_9.drawback.2"
+      ],
+      "facts": [
+        "F08"
+      ],
+      "stats": {
+        "stage": "first",
+        "engine_count": 9,
+        "engine_out_capability": "yes",
+        "engine_out_bonus": "strong"
+      },
+      "game": {
+        "integ_days": 8
+      },
+      "modifiers": [
+        {
+          "target": "reliability",
+          "op": "add",
+          "value": -0.01,
+          "scope": "stage"
+        }
+      ],
+      "rules": [
+        {
+          "kind": "enables_minigame",
+          "minigame": "MG-12"
+        }
+      ],
+      "value_types": {
+        "stats": "game_value",
+        "game": "game_value",
+        "modifiers": "game_value"
+      }
+    },
+    {
+      "id": "engcount_upper_1",
+      "category": "engine_count",
+      "name_key": "part.engcount_upper_1.name",
+      "strengths": [],
+      "drawbacks": [],
+      "stats": {
+        "stage": "upper",
+        "engine_count": 1
+      },
+      "game": {},
+      "value_types": {
+        "stats": "game_value"
+      }
+    },
+    {
+      "id": "engcount_upper_2",
+      "category": "engine_count",
+      "name_key": "part.engcount_upper_2.name",
+      "strengths": [
+        "part.engcount_upper_2.strength.1"
+      ],
+      "drawbacks": [
+        "part.engcount_upper_2.drawback.1"
+      ],
+      "facts": [
+        "F08"
+      ],
+      "stats": {
+        "stage": "upper",
+        "engine_count": 2
+      },
+      "game": {},
+      "rules": [
+        {
+          "kind": "enables_minigame",
+          "minigame": "MG-12"
+        }
+      ],
+      "value_types": {
+        "stats": "game_value"
+      }
+    }
+  ]
+}
