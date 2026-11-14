@@ -6,53 +6,96 @@ namespace MissionForge.Balance.Tests;
 
 public sealed class ReducedC1SearchTests
 {
-    private static readonly string[] Coupled =
+    /// <summary>
+    /// With the first two offered options of every vote, the pruned depth-first search must find exactly the
+    /// valid builds that a brute-force walk over every combination (no pruning) finds.
+    /// </summary>
+    [Theory]
+    [InlineData("C1")]
+    [InlineData("C3")]
+    public void Reduced_pruned_search_matches_brute_force(string contractId)
     {
-        Slots.LaunchSite, Slots.Capsule, Slots.Lander, Slots.HeatShield, Slots.LaunchEscape,
-        Slots.Fairing, Slots.UpperStageEngine, Slots.UpperStageEngineCount, Slots.UpperStageTank,
-        Slots.StageSeparation, Slots.FirstStageEngine, Slots.FirstStageEngineCount, Slots.FirstStageTank,
-        Slots.StructuralMaterial, Slots.StrapOnBoosters, Slots.BoosterRecovery,
-    };
+        var catalog = TestCatalog.Load();
+        var contract = catalog.Contract(contractId);
+        var engine = new SearchEngine(catalog, 10_000_000, 1, optionLimit: 2);
+        var searched = engine.Search(contract);
+
+        var brute = new SearchEngine(catalog, 10_000_000, 1, optionLimit: 2);
+        var (leaves, evaluated, valid, cheapestCost) = BruteForce(contract, brute);
+
+        Assert.False(searched.Capped);
+        Assert.Equal(0, searched.SampledStrata);
+        Assert.Equal(valid, searched.Valid);
+        Assert.True(valid > 0, "the reduced option set should still contain valid builds");
+        Assert.True(searched.Evaluated <= evaluated, "pruning never evaluates more builds than brute force");
+        Assert.True(searched.LeavesVisited < leaves, "pruning should remove at least one branch");
+        Assert.NotNull(searched.Cheapest);
+        Assert.Equal(cheapestCost, searched.Cheapest!.CostM, 9);
+    }
 
     [Fact]
-    public void Reduced_C1_search_valid_count_matches_brute_force()
+    public void Search_is_deterministic()
     {
-        var catalog = LoadCatalog();
+        var catalog = TestCatalog.Load();
         var contract = catalog.Contract("C1");
-        var searched = new SearchEngine(catalog, 100, 1, optionLimit: 1).Search(contract);
-        var bruteValid = BruteForceSingleOption(contract, catalog);
+        var a = new SearchEngine(catalog, 4000, 7).Search(contract);
+        var b = new SearchEngine(catalog, 4000, 7).Search(contract);
+        BalanceAnalysis.Analyze(a);
+        BalanceAnalysis.Analyze(b);
 
-        Assert.Equal(bruteValid, searched.Valid);
-        Assert.False(searched.Capped);
+        Assert.True(a.Capped);
+        Assert.Equal(a.Evaluated, b.Evaluated);
+        Assert.Equal(a.Valid, b.Valid);
+        Assert.Equal(a.ArchitectureBest.Select(x => x.Signature), b.ArchitectureBest.Select(x => x.Signature));
+        Assert.True(a.Evaluated <= 4000);
     }
 
-    private static int BruteForceSingleOption(ContractDef contract, GameCatalog catalog)
+    private static (int Leaves, int Evaluated, int Valid, double CheapestCost) BruteForce(ContractDef contract, SearchEngine engine)
     {
-        var votes = VoteOptions.VotesFor(contract);
-        var build = BuildState.New(contract.Id, 1);
-        foreach (var slot in Coupled.Where(slot => votes.Any(vote => vote.Slot == slot)))
+        var coupled = engine.CoupledSlots(contract);
+        int leaves = 0, evaluated = 0, valid = 0;
+        var cheapest = double.MaxValue;
+
+        void Count(BuildState build)
         {
-            var option = VoteOptions.Offered(build, catalog, slot).FirstOrDefault();
-            if (option == null) return 0;
-            build = build.WithChoice(slot, option.Id);
-        }
-        foreach (var vote in votes)
-        {
-            if (build.Has(vote.Slot)) continue;
-            var option = VoteOptions.Offered(build, catalog, vote.Slot).FirstOrDefault();
-            if (option == null) return 0;
-            build = build.WithChoice(vote.Slot, option.Id);
+            if (!engine.IsValid(build, out var metrics, out _)) return;
+            valid++;
+            cheapest = Math.Min(cheapest, metrics.CostM);
         }
 
-        var metrics = Dashboard.Compute(build, catalog);
-        var valid = !Validator.HasBlocker(Validator.Validate(build, catalog, ValidationMode.Complete))
-                    && metrics.Budget.RemainingM >= -1e-9
-                    && metrics.Budget.TotalDays <= metrics.Budget.DeadlineDays + 1e-9;
-        return valid ? 1 : 0;
+        void Walk(BuildState build, int depth)
+        {
+            if (depth == coupled.Count)
+            {
+                leaves++;
+                var cheap = engine.Fill(build, reliable: false);
+                var reliable = engine.Fill(build, reliable: true);
+                var same = cheap.Choices.All(kv => reliable.Choice(kv.Key) == kv.Value);
+                evaluated++;
+                Count(cheap);
+                if (!same)
+                {
+                    evaluated++;
+                    Count(reliable);
+                }
+                return;
+            }
+            foreach (var part in engine.OfferedOptions(build, coupled[depth]))
+                Walk(build.WithChoice(coupled[depth], part.Id), depth + 1);
+        }
+
+        Walk(BuildState.New(contract.Id, 1), 0);
+        return (leaves, evaluated, valid, cheapest);
     }
+}
 
-    private static GameCatalog LoadCatalog()
+internal static class TestCatalog
+{
+    private static GameCatalog? _catalog;
+
+    public static GameCatalog Load()
     {
+        if (_catalog != null) return _catalog;
         var root = Directory.GetCurrentDirectory();
         while (!File.Exists(Path.Combine(root, "data", "contracts.json")))
         {
@@ -61,9 +104,11 @@ public sealed class ReducedC1SearchTests
         }
         var data = Path.Combine(root, "data");
         var files = Directory.EnumerateFiles(data, "*.json", SearchOption.AllDirectories)
-            .Where(file => !Path.GetRelativePath(data, file).Replace('\\', '/').StartsWith("schema/", StringComparison.Ordinal))
-            .OrderBy(file => file, StringComparer.Ordinal)
-            .ToDictionary(file => Path.GetRelativePath(data, file).Replace('\\', '/'), File.ReadAllText, StringComparer.Ordinal);
-        return CatalogLoader.Load(files);
+            .Select(file => (File: file, Relative: Path.GetRelativePath(data, file).Replace('\\', '/')))
+            .Where(item => !item.Relative.StartsWith("schema/", StringComparison.Ordinal))
+            .OrderBy(item => item.Relative, StringComparer.Ordinal)
+            .ToDictionary(item => item.Relative, item => File.ReadAllText(item.File), StringComparer.Ordinal);
+        _catalog = CatalogLoader.Load(files);
+        return _catalog;
     }
 }

@@ -2,7 +2,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net8.0</TargetFramework>
-    <LangVersion>9.0</LangVersion>
+    <LangVersion>12.0</LangVersion>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -11,6 +11,7 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="../../core/dotnet~/MissionForge.Core.csproj" />
+    <InternalsVisibleTo Include="MissionForge.Balance.Tests" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Tests/**/*.cs" />
