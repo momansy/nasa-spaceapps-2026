@@ -176,6 +176,26 @@ namespace MissionForge.Core.Tests.Campaign
         }
 
         [Fact]
+        public void ReusedTankCannotSilentlyAffectTwoStageSlots()
+        {
+            var state = Start().With(inventoryItems: new[]
+            {
+                new InventoryItem("tank-recovered", "tank_s", 1, false)
+            });
+            var inventory = new Inventory(state);
+            var build = BuildState.New("C1", 9)
+                .WithChoice(Slots.FirstStageTank, "tank_s")
+                .WithChoice(Slots.UpperStageTank, "tank_s");
+            var catalog = DesignFixture.Catalog();
+            Assert.Throws<InvalidOperationException>(() =>
+                inventory.ApplyReuse(build, catalog, "tank-recovered"));
+            var adjusted = inventory.ApplyReuse(build, catalog, "tank-recovered", Slots.FirstStageTank);
+            Assert.Equal(-0.01, adjusted.Condition(Slots.FirstStageTank).ReliabilityDelta, 8);
+            Assert.Equal(0, adjusted.Condition(Slots.UpperStageTank).ReliabilityDelta, 8);
+            Assert.Single(adjusted.Ledger);
+        }
+
+        [Fact]
         public void MilestonesNeverRepeat()
         {
             var r = Report(contract: "C6", objectives: new[] { "orbit", "lunar_flyby", "crew_safe" },
