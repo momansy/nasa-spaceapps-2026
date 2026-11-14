@@ -50,10 +50,14 @@ python3 mesh_supervisor.py --agent "$AGENT_ID" --provider claude --mode build --
 
 | Worker | `--model` | `--capabilities` | `--mcp` |
 |---|---|---|---|
-| `yousuf-amek`, `cyrex04` | `claude-fable-5-2` | `unity,blender,art3d` | your Unity and Blender server names |
+| `yousuf-amek` | `claude-fable-5-2` | `unity,blender,art3d` | your Unity and Blender server names |
+| `cyrex04` | `claude-sonnet-5-5` | `unity,blender,art3d` | your Unity and Blender server names |
+| `ahmed-saeed-amek` | `claude-opus-5-5` | `coding,qa` | leave out |
+| `mohammed-alainieh` | `claude-sonnet-5-5` | `coding,qa,media` | your Higgsfield server name |
 | `momansy` (Codex) | leave out (`--provider codex`) | `media,higgsfield` | not used by Codex |
-| `mohammed-alainieh` | `claude-opus-5-5` | `coding,qa,media` | your Higgsfield server name |
-| everyone else | `claude-opus-5-5` | `coding,qa` | leave out |
+
+`--model` is the worker's default. The orchestrator can set the model for a single task
+by putting `mesh-model: <model>` (and `mesh-effort: <level>`) on a line of the task.
 
 - **MCP server names:** run `claude mcp list` and use the names it prints, separated by
   commas, with spaces replaced by `_` (for example `unity,blender` or `claude_ai_Higgsfield`).
@@ -85,3 +89,21 @@ workers that show `mode=build`.
 
 If your worker restarts in the middle of a task, that task is marked blocked for the
 orchestrator to retry. It is not run twice automatically.
+
+## Changing a setting or restarting in the middle of a task
+
+You can stop and restart your worker at any time, including while a task is running:
+
+1. Ctrl+C in the worker window.
+2. Update the worker program without touching your task files:
+   `git fetch origin` then `git checkout origin/main -- mesh.py mesh_supervisor.py`
+3. Run the same start command with the changed value (for example a different `--model`).
+   Do not run `git pull` here: the checkout is on a task branch.
+
+The interrupted task is marked blocked and the files it produced stay where they are.
+When the orchestrator requeues it, the agent continues from those files. The same happens
+when a run is cut off by a usage limit: the partial work is pushed as a draft pull request
+and the retry continues from it.
+
+Your Claude Code must be recent enough for the model you choose; run `claude update` if a
+task fails with "does not support this model".

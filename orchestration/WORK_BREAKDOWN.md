@@ -59,6 +59,22 @@ Updated: 2026-11-14 (build start).
 | `ahmed-saeed-amek` | Claude Opus 5.5, high | — | B1 (T002) |
 | `kingrma` | orchestrator, local subagents | browser | protocol and data schemas, A (T003), review, merge, verification |
 
+**Usage allowance (team owner, 2026-11-14):** `yousuf-amek` is on a $125 plan; every other
+worker, including `cyrex04`, is on a $20 plan. Routing rule:
+
+- Large, long or critical-path tasks go to `yousuf-amek`.
+- $20 workers get small bounded tasks (one screen, one minigame, one data file, one
+  module), told to finish and verify one piece before starting the next and to use at most
+  one subagent, for the final review.
+- When a $20 worker hits its limit the worker publishes the partial work as a draft pull
+  request; the orchestrator merges what is usable and reroutes the rest.
+
+Two workers have Higgsfield (`momansy` and `mohammed-alainieh`); the whole balance on both
+accounts is approved for the game. Whichever of the two enters build mode first takes the
+art direction task (T005), because the style guide feeds the 3D work. Media is then split:
+one account produces stills (key art, codex illustrations, part card art), the other
+produces video (briefing and milestone cinematics), both following `STYLE_GUIDE.md`.
+
 Two workers have Unity. To avoid scene merge conflicts, a Unity task owns specific scene
 and prefab folders, and only one task at a time may change `ProjectSettings/` and
 `Packages/`.

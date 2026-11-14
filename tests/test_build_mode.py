@@ -209,6 +209,65 @@ class TestBuildFlow(unittest.TestCase):
                                   capture_output=True, text=True, check=True).stdout
         self.assertNotIn("agentmesh", branches)
 
+    def test_task_can_set_model_and_effort(self):
+        self.assertEqual(mesh.task_overrides("Do it\nmesh-model: claude-sonnet-5-5\nmesh-effort: High\n"),
+                         {"model": "claude-sonnet-5-5", "effort": "high"})
+        self.assertEqual(mesh.task_overrides("mesh-model: bad model; rm -rf"), {})
+        issue = self.gh.send("human", "sara", "Build it", "Make it\nmesh-model: claude-sonnet-5-5")
+        self.gh.issues[issue["number"]]["user"] = {"login": "kingrma"}
+        seen = {}
+
+        def agent(provider, prompt, cwd, mode, options=None, **_):
+            seen.update(options)
+            return {"summary": "ok", "status": "done", "handoffs": []}
+
+        with patch.object(mesh, "run_agent", side_effect=agent):
+            mesh.handle_one(self.gh, "sara", "mock", str(self.work), "build", options=self.options)
+        self.assertEqual(seen["model"], "claude-sonnet-5-5")
+        self.assertIn("claude-sonnet-5-5", self.comments(issue["number"]))
+
+    def test_retry_resumes_published_partial_work(self):
+        number = self.task("kingrma")
+
+        def cut_off(provider, prompt, cwd, mode, **_):
+            Path(cwd, "step1.txt").write_text("one\n", encoding="utf-8")
+            raise RuntimeError("usage limit reached")
+
+        def finish(provider, prompt, cwd, mode, **_):
+            self.assertTrue(Path(cwd, "step1.txt").exists(), "partial work must be present on retry")
+            Path(cwd, "step2.txt").write_text("two\n", encoding="utf-8")
+            return {"summary": "finished", "status": "done", "handoffs": []}
+
+        with patch.object(mesh, "run_agent", side_effect=cut_off):
+            mesh.handle_one(self.gh, "sara", "mock", str(self.work), "build", options=self.options)
+        self.assertIn("mesh:blocked", self.labels(number))
+        # Another task ran in between, so the checkout left the first task's branch.
+        run(self.work, "checkout", "main")
+        self.gh.transition(number, "blocked", "queued")
+        with patch.object(mesh, "run_agent", side_effect=finish):
+            mesh.handle_one(self.gh, "sara", "mock", str(self.work), "build", options=self.options)
+        self.assertIn("mesh:done", self.labels(number))
+        files = subprocess.run(["git", "ls-tree", "-r", "--name-only", f"agentmesh/sara/issue-{number}"],
+                               cwd=self.remote, capture_output=True, text=True, check=True).stdout.split()
+        self.assertIn("step1.txt", files)
+        self.assertIn("step2.txt", files)
+
+    def test_restart_mid_task_keeps_working_tree(self):
+        number = self.task("kingrma")
+        branch = f"agentmesh/sara/issue-{number}"
+        run(self.work, "checkout", "-b", branch)
+        Path(self.work, "unsaved.txt").write_text("in progress\n", encoding="utf-8")
+
+        def finish(provider, prompt, cwd, mode, **_):
+            self.assertTrue(Path(cwd, "unsaved.txt").exists())
+            return {"summary": "finished", "status": "done", "handoffs": []}
+
+        with patch.object(mesh, "run_agent", side_effect=finish):
+            mesh.handle_one(self.gh, "sara", "mock", str(self.work), "build", options=self.options)
+        files = subprocess.run(["git", "ls-tree", "-r", "--name-only", branch], cwd=self.remote,
+                               capture_output=True, text=True, check=True).stdout.split()
+        self.assertIn("unsaved.txt", files)
+
     def test_restart_flags_interrupted_task(self):
         number = self.task("kingrma")
         self.gh.transition(number, "queued", "running")
