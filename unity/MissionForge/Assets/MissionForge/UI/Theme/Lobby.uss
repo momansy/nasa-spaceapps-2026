@@ -22,14 +22,39 @@
 .mf-lobby__join .mf-roomcode-big { font-size: 88px; margin: -4px 0 -4px 0; }
 .mf-lobby__settings .mf-setting--last { margin-bottom: 0; }
 
+/* Scroll regions (crew panel body, side column): the content container fills the viewport and never shrinks, so at
+   100 % text it lays out exactly like a plain column (the footer stays pinned by .mf-grow) and the scroller stays hidden;
+   when 200 % text makes the content taller than the panel it scrolls instead of overlapping. */
+.mf-lobby__crew > .mf-lobby__scroll { flex-grow: 1; }
+.mf-lobby__scroll .unity-scroll-view__content-container { flex-grow: 1; flex-shrink: 0; }
+/* Nothing inside a scroll region shrinks below its content (that is what made rows overlap at 200 %). */
+.mf-lobby__crew .mf-panel__header, .mf-lobby__grid, .mf-lobby__footer, .mf-lobby__join, .mf-lobby__settings,
+.mf-lobby__settings .mf-setting, .mf-lobby__settings .mf-segmented, .mf-lobby .mf-panel__title, .mf-lobby__tally { flex-shrink: 0; }
+/* The scroller (only shown when the content is taller than the panel): a slim Ceramic thumb, no arrow buttons. */
+.mf-lobby__scroll .unity-scroller--vertical { width: 12px; min-width: 12px; margin-left: var(--mf-sp-4); border-width: 0; background-color: var(--mf-space-0); }
+.mf-lobby__scroll .unity-scroller--vertical .unity-scroller__low-button,
+.mf-lobby__scroll .unity-scroller--vertical .unity-scroller__high-button { display: none; }
+.mf-lobby__scroll .unity-scroller--vertical .unity-base-slider__tracker { background-color: var(--mf-ceramic-06); border-width: 0; border-radius: 6px; }
+.mf-lobby__scroll .unity-scroller--vertical .unity-base-slider__dragger { background-color: var(--mf-ceramic-32); border-width: 0; border-radius: 6px; width: 12px; left: 0; }
+.mf-lobby__scroll .unity-scroller--vertical .unity-base-slider__dragger-border { display: none; }
+
 .mf-rtl .mf-lobby__row, .mf-rtl .mf-lobby__footer, .mf-rtl .mf-lobby__hintrow, .mf-rtl .mf-lobby__tally { flex-direction: row-reverse; }
 .mf-rtl .mf-lobby__crew { margin-right: 0; margin-left: var(--mf-sp-gutter); }
-.mf-text-200 .mf-lobby__side { width: 700px; }
+.mf-rtl .mf-lobby__hintrow { margin-right: 0; margin-left: var(--mf-sp-5); }
+.mf-rtl .mf-lobby__hint-icon { margin-right: 0; margin-left: var(--mf-sp-3); }
+.mf-rtl .mf-lobby__tally-unit { margin: 0 var(--mf-sp-2) 8px 0; }
+
+/* ---------- 200 % text: rows wrap, three seat columns, the panels scroll ---------- */
+.mf-text-200 .mf-lobby__side { width: 760px; }
+.mf-text-200 .mf-lobby__crew { padding: var(--mf-sp-5); }
+.mf-text-200 .mf-lobby__tally { flex-basis: 100%; margin-top: var(--mf-sp-2); }
+.mf-text-200 .mf-lobby__grid { flex-grow: 0; }
+.mf-text-200 .mf-lobby__grid > .mf-seat { width: 32%; height: auto; min-height: 300px; margin-bottom: var(--mf-sp-4); }
 .mf-text-200 .mf-lobby__footer { flex-wrap: wrap; }
 .mf-text-200 .mf-lobby__hintrow { flex-basis: 100%; margin: 0 0 var(--mf-sp-4) 0; }
-.mf-text-200 .mf-lobby__tally { flex-basis: 100%; margin-top: var(--mf-sp-2); }
 .mf-text-200 .mf-lobby__join .mf-join { flex-direction: column; align-items: flex-start; }
+.mf-rtl.mf-text-200 .mf-lobby__join .mf-join, .mf-rtl .mf-text-200 .mf-lobby__join .mf-join, .mf-text-200 .mf-rtl .mf-lobby__join .mf-join { align-items: flex-end; }
 .mf-text-200 .mf-lobby__join .mf-join__text { margin: var(--mf-sp-4) 0 0 0; }
-.mf-text-200 .mf-lobby__side { width: 760px; }
+.mf-text-200 .mf-lobby__settings .mf-setting { margin-bottom: var(--mf-sp-4); }
 .mf-text-200 .mf-segmented { flex-wrap: wrap; }
-.mf-text-200 .mf-segmented__item { flex-basis: auto; height: 80px; }
+.mf-text-200 .mf-segmented__item { height: auto; min-height: 72px; padding-top: 4px; padding-bottom: 4px; }

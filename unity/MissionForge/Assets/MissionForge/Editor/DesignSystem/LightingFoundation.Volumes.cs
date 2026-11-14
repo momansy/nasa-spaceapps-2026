@@ -94,7 +94,8 @@ namespace MissionForge.Editor.DesignSystem
         private static void BuildDusk(VolumeProfile p)
         {
             string n = p.name + ".";
-            Set(GetOrAdd<WhiteBalance>(p).temperature, 12f, n + "WhiteBalance.temperature (warm dusk)");
+            // +12 (T015) neutralised the HDRI sky blue; +8 keeps the dusk warmth on whites and a blue upper sky.
+            Set(GetOrAdd<WhiteBalance>(p).temperature, 8f, n + "WhiteBalance.temperature (warm dusk)");
             // T015 graded the bay +0.35 EV with a 2.4 key; the rig trims the key to 2.2 and adds +0.2 EV here, about
             // 0.3 EV less overall, so the sun side of the #E8EEF0 hull stays below clipping after the warm balance.
             Set(GetOrAdd<ColorAdjustments>(p).postExposure, 0.2f, n + "ColorAdjustments.postExposure");
@@ -104,7 +105,9 @@ namespace MissionForge.Editor.DesignSystem
         private static void BuildOrbit(VolumeProfile p)
         {
             string n = p.name + ".";
-            Set(GetOrAdd<WhiteBalance>(p).temperature, -4f, n + "WhiteBalance.temperature (cool orbit)");
+            // Was −4 (cool): with the cool Earth fill it pushed the ceramic-white title shell to blue-grey. A slight warm
+            // balance keeps whites white; the space navy comes from the sky and the split toning, not from the balance.
+            Set(GetOrAdd<WhiteBalance>(p).temperature, 2f, n + "WhiteBalance.temperature (neutral-warm orbit)");
             Set(GetOrAdd<ColorAdjustments>(p).contrast, 12f, n + "ColorAdjustments.contrast (global +8, slightly higher)");
             EditorUtility.SetDirty(p);
         }

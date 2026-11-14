@@ -1,10 +1,12 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:mf="MissionForge.UI">
     <!-- Lobby: glass panels over the orbit scene. Crew roster of MfSeatCards (built by App/Screens/LobbyScreen.cs into
          crew-grid; seats enter with motion as players join), the join panel (large tabular room code + QR on a white
-         card), host settings as segmented controls, and the start action with its enabled/disabled state. -->
+         card), host settings as segmented controls, and the start action with its enabled/disabled state. The crew panel body and the side column are ScrollViews whose
+         content fills the viewport (Lobby.uss), so 100 % text lays out as before and 200 % text scrolls instead of overlapping. -->
     <ui:VisualElement name="screen" class="mf-screen mf-lobby">
         <ui:VisualElement class="mf-lobby__row">
             <mf:MfGlassPanel name="crew-panel" class="mf-glass mf-lobby__crew">
+                <ui:ScrollView name="crew-scroll" mode="Vertical" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Auto" class="mf-lobby__scroll">
                 <ui:VisualElement class="mf-panel__header">
                     <ui:Label text="Mission control crew" class="mf-panel__title" />
                     <ui:VisualElement class="mf-lobby__tally" picking-mode="Ignore">
@@ -21,9 +23,10 @@
                     </ui:VisualElement>
                     <ui:Button name="btn-start" text="Start briefing" class="mf-btn mf-btn--primary mf-btn--l" />
                 </ui:VisualElement>
+                </ui:ScrollView>
             </mf:MfGlassPanel>
 
-            <ui:VisualElement name="lobby-side" class="mf-lobby__side">
+            <ui:ScrollView name="lobby-side" mode="Vertical" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Auto" class="mf-lobby__side mf-lobby__scroll">
                 <mf:MfGlassPanel name="join-panel" class="mf-glass mf-lobby__join">
                     <ui:VisualElement class="mf-join">
                         <ui:VisualElement class="mf-qrcard mf-qrcard--s">
@@ -60,7 +63,7 @@
                         <ui:VisualElement name="seg-tallies" class="mf-segmented" />
                     </ui:VisualElement>
                 </mf:MfGlassPanel>
-            </ui:VisualElement>
+            </ui:ScrollView>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

@@ -39,10 +39,15 @@ namespace MissionForge.UI
         private readonly List<MfGanttBar> _bars = new List<MfGanttBar>();
         private readonly List<string> _rows = new List<string>();
         private readonly VisualElement _labels = new VisualElement { pickingMode = PickingMode.Ignore };
+        /// <summary>Hidden row-name label kept in the tree so its font is resolved when row names are measured.</summary>
+        private readonly Label _probe = new Label { pickingMode = PickingMode.Ignore };
         private double _axisDays = 1, _deadline = -1, _launchReady = -1, _now = -1, _tickDays = 30;
         private string _deadlineText = "", _nowText = "";
-        private const float NowLabelClearance = 220f;
-        private const float NowLabelLineOffset = 28f;
+        /// <summary>Band above the rows for the deadline label (px, game_value); the label never meets bars, slack or "now".</summary>
+        private const float DeadlineBand = 30f;
+        /// <summary>Gap between the row-name column and the plot; the row names never take more than this share of the width.</summary>
+        private const float GutterGap = 12f, MaxGutterShare = 0.45f;
+        private float _gutter = 200f;
         private bool _rtl;
 
         public MfGanttChart()
@@ -51,12 +56,22 @@ namespace MissionForge.UI
             pickingMode = PickingMode.Ignore;
             _labels.AddToClassList("mf-fill");
             Add(_labels);
+            _probe.AddToClassList("mf-gantt__row");
+            _probe.style.visibility = Visibility.Hidden;
+            _probe.style.width = StyleKeyword.Auto;
+            Add(_probe);
             generateVisualContent += Draw;
             RegisterCallback<GeometryChangedEvent>(_ => Relabel());
         }
 
-        /// <summary>Width of the row-name gutter in px; USS can override with --mf-gantt-gutter (default 200).</summary>
+        /// <summary>
+        /// Minimum width of the row-name gutter in px (default 200). The gutter widens to fit the longest row name (up to
+        /// 45 % of the chart) so names are never truncated.
+        /// </summary>
         public float Gutter { get; set; } = 200f;
+
+        private bool HasDeadlineLabel => _deadline >= 0 && !string.IsNullOrEmpty(_deadlineText);
+        private float Top => HasDeadlineLabel ? DeadlineBand : 0f;
 
         public void Set(IReadOnlyList<string> rowNames, IReadOnlyList<MfGanttBar> bars, double axisDays, double launchReadyDay,
             double deadlineDay, string deadlineText, double nowDay = -1, string nowText = null, double tickDays = 30, bool rtl = false)
@@ -73,7 +88,7 @@ namespace MissionForge.UI
             _nowText = nowText ?? "";
             _tickDays = tickDays <= 0 ? 30 : tickDays;
             _rtl = rtl;
-            style.minHeight = _rows.Count * (RowHeight + RowGap) + AxisHeight;
+            style.minHeight = Top + _rows.Count * (RowHeight + RowGap) + AxisHeight;
             Relabel();
             MarkDirtyRepaint();
         }
@@ -83,8 +98,8 @@ namespace MissionForge.UI
             get
             {
                 Rect r = contentRect;
-                float w = Mathf.Max(10f, r.width - Gutter);
-                return new Rect(_rtl ? r.xMin : r.xMin + Gutter, r.yMin, w, r.height);
+                float w = Mathf.Max(10f, r.width - _gutter);
+                return new Rect(_rtl ? r.xMin : r.xMin + _gutter, r.yMin, w, r.height);
             }
         }
 
@@ -95,7 +110,7 @@ namespace MissionForge.UI
             return _rtl ? p.xMax - f * p.width : p.xMin + f * p.width;
         }
 
-        private static float RowY(int row) => row * (RowHeight + RowGap);
+        private float RowY(int row) => Top + row * (RowHeight + RowGap);
 
         private void Draw(MeshGenerationContext ctx)
         {
@@ -145,14 +160,15 @@ namespace MissionForge.UI
             if (_now >= 0)
             {
                 float x = X(_now);
-                MfDraw.Line(p, new Vector2(x, -4f), new Vector2(x, bottom + 4f), MfPalette.Ceramic, 2f);
-                MfDraw.Triangle(p, new Vector2(x, 2f), 8f, 1f, MfPalette.Ceramic);
+                MfDraw.Line(p, new Vector2(x, Top - 4f), new Vector2(x, bottom + 4f), MfPalette.Ceramic, 2f);
+                MfDraw.Triangle(p, new Vector2(x, Top + 2f), 8f, 1f, MfPalette.Ceramic);
             }
 
             if (_deadline >= 0)
             {
+                // The deadline line rises into the label band so its label (drawn above the rows) stays attached.
                 float x = X(_deadline);
-                MfDraw.Line(p, new Vector2(x, -6f), new Vector2(x, bottom + 12f), MfPalette.Fails, 3f);
+                MfDraw.Line(p, new Vector2(x, HasDeadlineLabel ? 2f : -6f), new Vector2(x, bottom + 12f), MfPalette.Fails, 3f);
             }
         }
 
@@ -203,14 +219,23 @@ namespace MissionForge.UI
             _labels.Clear();
             Rect r = contentRect;
             if (r.width < 40f) return;
+            var names = new List<Label>(_rows.Count);
+            float widest = 0f;
             for (int row = 0; row < _rows.Count; row++)
             {
                 var name = new Label(_rows[row]) { pickingMode = PickingMode.Ignore };
                 name.AddToClassList("mf-gantt__row");
+                _labels.Add(name);
+                names.Add(name);
+                widest = Mathf.Max(widest, MeasuredWidth(_rows[row]));
+            }
+            _gutter = Mathf.Max(Gutter, Mathf.Min(widest + GutterGap, r.width * MaxGutterShare));
+            for (int row = 0; row < names.Count; row++)
+            {
+                Label name = names[row];
                 name.style.top = RowY(row);
                 if (_rtl) name.style.right = 0; else name.style.left = 0;
-                name.style.width = Gutter - 12f;
-                _labels.Add(name);
+                name.style.width = _gutter - GutterGap;
             }
             foreach (MfGanttBar b in _bars)
             {
@@ -225,14 +250,16 @@ namespace MissionForge.UI
                 label.style.maxWidth = w - 16f;
                 _labels.Add(label);
             }
-            if (_deadline >= 0 && !string.IsNullOrEmpty(_deadlineText))
+            if (HasDeadlineLabel)
             {
+                // Above the rows, beside the top of the deadline line, on the side with more room: it can never meet
+                // the bars, the slack outline or the "now" label (which sits under the axis).
                 var dl = new Label(_deadlineText) { pickingMode = PickingMode.Ignore };
                 dl.AddToClassList("mf-gantt__deadline");
                 float x = X(_deadline);
-                bool leftSide = !_rtl ? x > Plot.xMin + Plot.width * 0.5f : x > Plot.xMin + Plot.width * 0.5f;
-                if (leftSide) dl.style.right = r.width - x + 8f; else dl.style.left = x + 8f;
-                dl.style.top = RowY(_rows.Count) - RowGap + 6f;
+                bool labelLeftOfLine = x > Plot.xMin + Plot.width * 0.5f;
+                if (labelLeftOfLine) dl.style.right = r.width - x + 8f; else dl.style.left = x + 8f;
+                dl.style.top = 0f;
                 _labels.Add(dl);
             }
             if (_now >= 0 && !string.IsNullOrEmpty(_nowText))
@@ -240,12 +267,18 @@ namespace MissionForge.UI
                 var now = new Label(_nowText) { pickingMode = PickingMode.Ignore };
                 now.AddToClassList("mf-gantt__now");
                 now.style.left = X(_now) + 8f;
-                // Both labels sit on the axis line; when the markers are close, drop "now" one text line lower so
-                // the two never overlap (game_value spacing: 220 px clearance, 28 px line).
-                bool crowded = _deadline >= 0 && !string.IsNullOrEmpty(_deadlineText) && Mathf.Abs(X(_now) - X(_deadline)) < NowLabelClearance;
-                now.style.top = RowY(_rows.Count) - RowGap + 6f + (crowded ? NowLabelLineOffset : 0f);
+                now.style.top = RowY(_rows.Count) - RowGap + 6f;
                 _labels.Add(now);
             }
+            MarkDirtyRepaint();
+        }
+
+        /// <summary>Single-line width of a row name in the resolved row font.</summary>
+        private float MeasuredWidth(string text)
+        {
+            if (string.IsNullOrEmpty(text)) return 0f;
+            Vector2 size = _probe.MeasureTextSize(text, 0f, MeasureMode.Undefined, 0f, MeasureMode.Undefined);
+            return float.IsNaN(size.x) ? 0f : Mathf.Ceil(size.x);
         }
     }
 }

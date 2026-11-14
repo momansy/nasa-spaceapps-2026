@@ -119,7 +119,13 @@ namespace MissionForge.Editor.DesignSystem
                 Log(target.SceneName + ": rig Key Light " + (keyEnabled ? "enabled" : "disabled (MF_Shell 'Sun' is the runtime orbit key)"));
             }
 
-            if (target.DuskEnvironment) ApplyDuskEnvironment(target.SceneName, key);
+            if (target.DuskEnvironment)
+            {
+                ApplyDuskEnvironment(target.SceneName, key);
+                HideEnvironmentSkyDomes(scene, rig.transform);
+                TunePadPracticals(scene, rig.transform);
+                FitWetSheen(scene, rig);
+            }
             else LogEnvironmentKept(target.SceneName);
 
             EditorSceneManager.MarkSceneDirty(scene);
@@ -232,6 +238,136 @@ namespace MissionForge.Editor.DesignSystem
             Warn(sceneName + ": MF_Shell stays the active scene at runtime and BayEnvironment switches ambient to its trilight " +
                  "colours, so this HDRI skybox and ambient only drive the editor view and the probe bake until BayEnvironment " +
                  "adopts the skybox (see Art/Lighting/README.md).");
+        }
+
+        /// <summary>Shader of T015's gradient sky dome (MF_LaunchPad/DuskSky, Art/Environment, read-only for T031).</summary>
+        private const string EnvironmentSkyShader = "MissionForge/DuskSky";
+
+        /// <summary>
+        /// The rig's HDRI Sky Dome replaces the environment's procedural gradient dome. That dome lives in an
+        /// Art/Environment prefab, so it is switched off with a scene-level prefab-instance override (m_IsActive), never
+        /// by editing the prefab. It drew at a real 2400 m depth and hid any sky behind it.
+        /// </summary>
+        private static void HideEnvironmentSkyDomes(Scene scene, Transform rig)
+        {
+            foreach (GameObject go in AllObjects(scene))
+            {
+                if (go.transform.IsChildOf(rig) || !go.TryGetComponent(out MeshRenderer r)) continue;
+                Material m = r.sharedMaterial;
+                if (m == null || m.shader == null || m.shader.name != EnvironmentSkyShader) continue;
+                if (!go.activeSelf)
+                {
+                    Log(scene.name + ": environment sky dome '" + PathOf(go.transform) + "' already hidden");
+                    continue;
+                }
+                go.SetActive(false);
+                if (PrefabUtility.IsPartOfPrefabInstance(go)) PrefabUtility.RecordPrefabInstancePropertyModifications(go);
+                Log(scene.name + ": hid environment sky dome '" + PathOf(go.transform) + "' (scene override; the rig Sky Dome replaces it)");
+            }
+        }
+
+        /// <summary>Name of the launch pad floodlight spots (LaunchPadPrefabBuilder.AddFloodlight, T015).</summary>
+        private const string PadFloodName = "Flood";
+        /// <summary>
+        /// Light budget: URP Forward (WebGL tier) shades at most 4 additional lights per object. The dusk rig has two
+        /// additional directionals (fill, rim), so two floodlights stay on: the two nearest the bay camera, whose pools
+        /// read best. The third keeps its lamp head but its Light is disabled.
+        /// </summary>
+        private const int MaxPadFloods = 2;
+        /// <summary>Floodlight look: sodium-warm 3400 K, steep aim (15° off vertical, towards the pad) for a pool. game_values.</summary>
+        private const float FloodKelvin = 3400f;
+        private const float FloodIntensity = 1400f;
+        private const float FloodRange = 60f;
+        private const float FloodOuterAngle = 92f;
+        private const float FloodInnerAngle = 38f;
+        private const float FloodTiltFromVerticalDeg = 15f;
+
+        /// <summary>
+        /// Re-aims T015's pad floodlights (scene overrides on the MF_LaunchPad instance) from almost horizontal, where
+        /// they washed the front of the vehicle flat, to steep warm pools on the deck and apron.
+        /// </summary>
+        private static void TunePadPracticals(Scene scene, Transform rig)
+        {
+            List<Light> floods = AllObjects(scene)
+                .Where(g => g.name == PadFloodName && !g.transform.IsChildOf(rig))
+                .Select(g => g.GetComponent<Light>())
+                .Where(l => l != null && l.type == LightType.Spot)
+                .ToList();
+            if (floods.Count == 0)
+            {
+                Warn(scene.name + ": no pad floodlights named '" + PadFloodName + "' found; no light pools");
+                return;
+            }
+            Vector3 padCentre = rig.position;
+            // Bay camera direction (BayStage vantage) as seen from the pad: lights nearer the camera rank first.
+            Vector3 towardCamera = Quaternion.Euler(0f, BayVantageYawDeg, 0f) * Vector3.back;
+            List<Light> ranked = floods.OrderByDescending(l => Vector3.Dot(l.transform.position - padCentre, towardCamera)).ToList();
+            for (int i = 0; i < ranked.Count; i++)
+            {
+                Light l = ranked[i];
+                bool keep = i < MaxPadFloods;
+                l.enabled = keep;
+                if (keep)
+                {
+                    l.useColorTemperature = true;
+                    l.colorTemperature = FloodKelvin;
+                    l.color = Color.white;
+                    l.intensity = FloodIntensity;
+                    l.range = FloodRange;
+                    l.spotAngle = FloodOuterAngle;
+                    l.innerSpotAngle = FloodInnerAngle;
+                    l.shadows = LightShadows.None;
+                    Vector3 inward = padCentre - l.transform.position;
+                    inward.y = 0f;
+                    inward = inward.sqrMagnitude > 1e-4f ? inward.normalized : Vector3.forward;
+                    float tilt = FloodTiltFromVerticalDeg * Mathf.Deg2Rad;
+                    Vector3 aim = Vector3.down * Mathf.Cos(tilt) + inward * Mathf.Sin(tilt);
+                    l.transform.rotation = Quaternion.LookRotation(aim, inward);
+                }
+                if (PrefabUtility.IsPartOfPrefabInstance(l))
+                {
+                    PrefabUtility.RecordPrefabInstancePropertyModifications(l);
+                    PrefabUtility.RecordPrefabInstancePropertyModifications(l.transform);
+                }
+                Log(scene.name + ": pad floodlight '" + PathOf(l.transform) + "' at " + l.transform.position.ToString("F1") +
+                    (keep ? " -> " + FloodKelvin + " K, " + FloodIntensity + ", pool aim" : " -> Light disabled (light budget)"));
+            }
+        }
+
+        /// <summary>Ground object of the launch site (MF_LaunchPad/Site/site_ground, T015).</summary>
+        private const string SiteGroundName = "site_ground";
+
+        /// <summary>Lifts the rig's Wet Sheen to the top of the site ground (plus WetSheenLift) and logs its flatness.</summary>
+        private static void FitWetSheen(Scene scene, GameObject rig)
+        {
+            Transform sheen = rig.transform.Find(WetSheenName);
+            if (sheen == null)
+            {
+                Warn(scene.name + ": rig has no '" + WetSheenName + "'; run Build Rigs");
+                return;
+            }
+            Renderer ground = AllObjects(scene)
+                .Where(g => g.name == SiteGroundName && !g.transform.IsChildOf(rig.transform))
+                .SelectMany(g => g.GetComponentsInChildren<Renderer>(true))
+                .OrderByDescending(r => r.bounds.size.x * r.bounds.size.z)
+                .FirstOrDefault();
+            float top = rig.transform.position.y;
+            if (ground != null)
+            {
+                Bounds b = ground.bounds;
+                top = b.max.y;
+                Log(scene.name + ": site ground bounds " + b.min.ToString("F2") + " .. " + b.max.ToString("F2") +
+                    "; the sheen sits on its top face");
+            }
+            else
+            {
+                Warn(scene.name + ": no '" + SiteGroundName + "' renderer; sheen stays at the rig origin + " + WetSheenLift + " m");
+            }
+            Vector3 p = sheen.position;
+            p.y = top + WetSheenLift;
+            sheen.position = p;
+            PrefabUtility.RecordPrefabInstancePropertyModifications(sheen);
+            Log(scene.name + ": wet sheen at y = " + p.y.ToString("F3"));
         }
 
         private static void LogEnvironmentKept(string sceneName)

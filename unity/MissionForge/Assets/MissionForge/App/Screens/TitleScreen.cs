@@ -156,7 +156,10 @@ namespace MissionForge.App.Screens
                 _codeCells[i].text = i < code.Length ? code[i].ToString() : string.Empty;
             }
             string joinUrl = App.Room.BuildJoinUrl(code, serverJoinUrl);
-            _joinUrl.text = joinUrl;
+            // The QR keeps the full URL; the panel shows only a public host (a localhost dev URL is never shown).
+            string host = JoinUrlDisplay.PublicHost(joinUrl);
+            _joinUrl.text = host;
+            _joinUrl.style.display = host.Length == 0 ? DisplayStyle.None : DisplayStyle.Flex;
             if (_qrTexture != null) Destroy(_qrTexture);
             _qrTexture = QrCodeTexture.Create(joinUrl, QrDark, QrLight);
             _qrImage.style.backgroundImage = new StyleBackground(_qrTexture);

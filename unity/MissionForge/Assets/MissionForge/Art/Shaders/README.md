@@ -91,3 +91,13 @@ That is about the bandwidth of one single-tap full-screen 1080p pass (2.07 Mpx).
 
 The T031 budget is **≤ 1.5 ms at 1080p on WebGL**. A measured number with the machine,
 browser, and glass on and off will be added here (evidence in `orchestration/evidence/T031/`).
+
+## Lighting-rig shaders (M8)
+
+Both are placed by `Editor/DesignSystem/LightingFoundation.Rigs.cs` in `MF_Rig_DuskPad`; values and reasons are in
+`Art/Lighting/README.md`.
+
+| Shader | File | What it does |
+|---|---|---|
+| `MissionForge/HdriSkyDome` | `MF_HdriSkyDome.shader` | Inside-out sphere that shows a latitude-longitude HDRI by camera-relative direction (Skybox/Panoramic rotation convention). Depth is written just inside the far plane, so the MF_Shell skybox drawn later fails its depth test and scenery is never clipped. Dusk grade in the material: zenith multiplier, horizon band toward `_SunDir`, below-horizon colour, haze toward the fog colour, radiance clamp. Queue Geometry+500, one texture fetch. |
+| `MissionForge/WetSheen` | `MF_WetSheen.shader` | Transparent sheet just above the ground (Blend One OneMinusSrcAlpha, ZWrite Off, Offset −1 −1). URP `UniversalFragmentPBR` with `_ALPHAPREMULTIPLY_ON`: diffuse is alpha-weighted, specular is not, so it darkens the ground and mirrors the probe, sun and practicals. Hash-based value-noise puddles in world XZ, radial and fog fade. Forward and Forward+ keywords as `MF_KitLit`. |

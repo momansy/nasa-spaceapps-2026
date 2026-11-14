@@ -48,6 +48,7 @@
 .mf-gauge--s .mf-gauge__value { font-size: 44px; }
 .mf-gauge__caption { -unity-font-definition: var(--mf-font-body-medium); font-size: var(--mf-fs-meta); color: var(--mf-muted); margin: -6px 0 0 0; padding: 0; -unity-text-align: middle-center; }
 .mf-gauge__glyph { position: absolute; width: 26px; height: 26px; }
+.mf-gauge--s .mf-gauge__glyph { width: 22px; height: 22px; }
 .mf-gauge--fails .mf-gauge__value { color: var(--mf-fails); }
 .mf-gauge--pulse { scale: 1.06 1.06; }
 .mf-gauge--pulse-idle { scale: 1 1; }
@@ -95,3 +96,8 @@
 .mf-statbar--bad .mf-statbar__fill { background-color: var(--mf-fails); }
 .mf-statbar--warn .mf-statbar__track { border-left-width: 4px; border-left-color: var(--mf-marginal); }
 .mf-statbar--bad .mf-statbar__track { border-width: 2px; border-color: var(--mf-fails); }
+
+/* ---------- high contrast: muted chart text goes full strength ---------- */
+.mf-hc .mf-gantt__row, .mf-hc .mf-legend__text, .mf-hc .mf-kv__key, .mf-hc .mf-metric__detail, .mf-hc .mf-metric__pending,
+.mf-hc .mf-tally__empty, .mf-hc .mf-gauge__caption, .mf-hc .mf-statbar__label { color: var(--mf-ceramic); }
+.mf-hc .mf-kv, .mf-hc .mf-metric { border-bottom-color: var(--mf-ceramic-32); }

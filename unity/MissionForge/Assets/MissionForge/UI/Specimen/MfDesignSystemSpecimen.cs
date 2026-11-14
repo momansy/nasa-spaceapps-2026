@@ -19,9 +19,14 @@ namespace MissionForge.UI
     public sealed class MfDesignSystemSpecimen : MonoBehaviour
     {
         private VisualElement _root;
+        /// <summary>Earth shader sun direction (world space, towards the sun): the backdrop's day side faces the camera.</summary>
+        private static readonly int SunDirId = Shader.PropertyToID("_MF_SunDir");
+        private static readonly Vector4 BackdropSunDir = new Vector4(-0.55f, 0.35f, -0.76f, 0f);
 
         private void OnEnable()
         {
+            // Without a sun the Earth backdrop renders night-side city lights, which read as stray orange specks.
+            Shader.SetGlobalVector(SunDirId, BackdropSunDir);
             _root = GetComponent<UIDocument>().rootVisualElement;
             _root.Clear();
             var page = new VisualElement { name = "specimen" };
@@ -73,7 +78,8 @@ namespace MissionForge.UI
             })
             {
                 var cell = new VisualElement();
-                cell.style.width = 80; cell.style.marginRight = 4; cell.style.marginBottom = 6;
+                // Three per row so every token name ("periwinkle") fits on one line.
+                cell.style.width = 108; cell.style.marginRight = 4; cell.style.marginBottom = 6;
                 var chip = new VisualElement();
                 chip.style.height = 36; chip.style.backgroundColor = c;
                 SetRadius(chip, 8);
@@ -108,12 +114,18 @@ namespace MissionForge.UI
             col.Add(radii);
 
             col.Add(Meta("Elevation e1-e4 (9-slice shadows)"));
+            // A lit plate stands in for the scene so the shadows (darker than Space) read; radii follow each level's surface.
             var elev = Row();
+            elev.style.backgroundColor = MfPalette.WithAlpha(MfPalette.Ocean, 0.55f);
+            elev.style.paddingLeft = 16; elev.style.paddingRight = 4; elev.style.paddingTop = 14; elev.style.paddingBottom = 30;
+            SetRadius(elev, 16);
             for (int e = 1; e <= 4; e++)
             {
                 var card = new VisualElement();
                 card.AddToClassList("mf-card");
-                card.style.width = 72; card.style.height = 64; card.style.marginRight = 14; card.style.marginTop = 8;
+                card.style.width = 64; card.style.height = 56; card.style.marginRight = 16;
+                card.style.backgroundColor = MfPalette.Console;
+                SetRadius(card, e == 2 || e == 3 ? 24 : 16);
                 card.style.paddingLeft = 0; card.style.paddingRight = 0; card.style.paddingTop = 0; card.style.paddingBottom = 0;
                 card.style.alignItems = Align.Center; card.style.justifyContent = Justify.Center;
                 MfElevation.Attach(card, e);
@@ -294,7 +306,7 @@ namespace MissionForge.UI
             col.Add(empty);
 
             var stepper = new MfPhaseStepper();
-            stepper.SetSteps(new[] { "Concept", "PDR", "CDR", "FRR" });
+            stepper.SetSteps(new[] { "Concept", "PDR", "CDR" }); // three steps (done, current, locked) fit the 344 px column
             stepper.SetCurrent(1);
             stepper.style.marginTop = 12;
             stepper.style.marginLeft = 0;
@@ -311,7 +323,7 @@ namespace MissionForge.UI
             glass.AddToClassList("mf-glass");
             glass.style.paddingLeft = glass.style.paddingRight = glass.style.paddingTop = glass.style.paddingBottom = 20;
             glass.Add(Label("Glass panel e2", "mf-h3"));
-            glass.Add(Label("Blurred scene + Console 76 %", "mf-label"));
+            glass.Add(Label("Blur + Console 76\u00A0%", "mf-label"));
             var inner = new VisualElement();
             inner.AddToClassList("mf-card");
             inner.AddToClassList("mf-card--flat");
@@ -328,7 +340,7 @@ namespace MissionForge.UI
             s2.SetEmpty("Waiting for crew");
             foreach (MfSeatCard s in new[] { s1, s2 })
             {
-                s.style.width = 160; s.style.height = 230; s.style.marginRight = 12;
+                s.style.width = 160; s.style.marginRight = 12;
                 seats.Add(s);
             }
             col.Add(seats);

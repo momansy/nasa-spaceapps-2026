@@ -12,8 +12,7 @@ namespace MissionForge.App
     public sealed class ChromeController : MonoBehaviour
     {
         private const string TopbarShownClass = "mf-topbar--shown";
-        private const string RoomEmptyClass = "mf-roomcode__value--empty";
-        private const string RoomEmptyText = "Not open";
+        private const string HiddenClass = "mf-hidden";
 
         [SerializeField] private UIDocument document;
         [SerializeField] private RoomClientBehaviour room;
@@ -25,6 +24,7 @@ namespace MissionForge.App
         private MfIcon _connIcon;
         private Label _connLabel;
         private Label _title;
+        private VisualElement _roomBlock;
         private Label _roomCode;
         private float _veilFrom;
         private float _veilTo;
@@ -44,6 +44,7 @@ namespace MissionForge.App
             _connIcon = root.Q<MfIcon>("conn-icon");
             _connLabel = root.Q<Label>("conn-label");
             _title = root.Q<Label>("screen-title");
+            _roomBlock = root.Q<VisualElement>("room");
             _roomCode = root.Q<Label>("room-code");
 
             var labels = new System.Collections.Generic.List<string>();
@@ -102,9 +103,9 @@ namespace MissionForge.App
             if (code != _shownCode)
             {
                 _shownCode = code;
-                bool empty = code.Length == 0;
-                _roomCode.text = empty ? RoomEmptyText : code;
-                _roomCode.EnableInClassList(RoomEmptyClass, empty);
+                // No room yet: hide the whole block rather than show a placeholder word.
+                _roomCode.text = code;
+                _roomBlock.EnableInClassList(HiddenClass, code.Length == 0);
             }
             if (client.State == _shownState) return;
             _shownState = client.State;

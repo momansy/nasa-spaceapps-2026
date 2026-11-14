@@ -5,7 +5,7 @@
    Modes: .mf-rtl (panels swap), .mf-text-200 (token sizes double, rows wrap, panels scroll), .mf-hc (opaque surfaces,
    no imagery behind text), .mf-reduced-motion. The legacy bb-* mode classes stay for T015 code. */
 
-.bb-screen { padding: 128px 48px 32px 48px; }
+.bb-screen { padding: 116px 48px 24px 48px; }
 .bb-hidden { display: none; }
 
 /* ---------- regions ---------- */
@@ -13,7 +13,7 @@
 .mf-rtl .bb-row { flex-direction: row-reverse; }
 .bb-side { width: 440px; flex-shrink: 0; }
 .bb-centre { flex-grow: 1; flex-direction: column; margin: 0 var(--mf-sp-gutter) 0 var(--mf-sp-gutter); }
-.bb-panel { padding: var(--mf-sp-5) 28px var(--mf-sp-4) 28px; }
+.bb-panel { padding: 20px 28px var(--mf-sp-3) 28px; }
 .bb-panel__head { margin-bottom: var(--mf-sp-2); flex-shrink: 0; }
 .bb-panel__title { -unity-font-definition: var(--mf-font-display); font-size: var(--mf-fs-h2); color: var(--mf-ceramic); margin: 0; padding: 0; white-space: normal; }
 .bb-panel__title--small { font-size: 30px; }
@@ -22,17 +22,31 @@
 
 /* ---------- dashboard ---------- */
 .bb-metrics { flex-grow: 1; overflow: hidden; }
+/* Dense readiness rows (11 metrics in one 1080 p column): value at 28 px, a 12 px bar, status word + detail line.
+   If a state still overflows, MfScrollFade fades the last row out with a "more below" chevron (no hard slice). */
+.bb-panel--dashboard .bb-panel__title { font-size: var(--mf-fs-h3); }
+.bb-panel--dashboard .bb-panel__head { margin-bottom: var(--mf-sp-1); }
+.bb-metrics .mf-metric { padding: 1px 0 2px 0; }
+.bb-metrics .mf-metric__value { font-size: 28px; }
+.bb-metrics .mf-metricbar--compact { height: 12px; }
+.bb-metrics .mf-metric__bar { margin-top: 0; }
+/* Waiting rows: the reason sits right of the name when it fits, and wraps under it only when it does not. */
+.bb-metrics .mf-metric--empty .mf-metric__name { flex-grow: 0; }
+.bb-metrics .mf-metric--empty .mf-metric__pending { flex-basis: auto; flex-grow: 1; flex-shrink: 0; white-space: nowrap; margin: 0 0 0 var(--mf-sp-3); -unity-text-align: middle-right; }
+.mf-text-200 .bb-metrics .mf-metric--empty .mf-metric__pending { white-space: normal; flex-shrink: 1; flex-basis: 100%; margin: 0 0 4px 34px; -unity-text-align: middle-left; }
+.mf-rtl .bb-metrics .mf-metric--empty .mf-metric__pending { margin: 0 var(--mf-sp-3) 0 0; -unity-text-align: middle-left; }
+.mf-scrollfade__icon { position: absolute; bottom: 2px; left: 50%; width: 28px; height: 28px; margin-left: -14px; color: var(--mf-ceramic-56); }
 
-/* ---------- top: contract + phase stepper (small glass-free chips over the scene, on a scrim) ---------- */
+/* ---------- top: contract + phase stepper (small glass-free chips over the scene, on a Space 92 % scrim) ---------- */
 .bb-top { flex-direction: row; align-items: flex-start; justify-content: space-between; margin-bottom: var(--mf-sp-3); }
 .mf-rtl .bb-top { flex-direction: row-reverse; }
-.bb-objectives { flex-shrink: 1; flex-grow: 0; max-width: 46%; background-color: var(--mf-space-80); border-radius: var(--mf-radius-card); padding: var(--mf-sp-3) var(--mf-sp-4) var(--mf-sp-3) var(--mf-sp-4); }
+.bb-objectives { flex-shrink: 1; flex-grow: 0; max-width: 46%; background-color: var(--mf-space-92); border-radius: var(--mf-radius-card); padding: var(--mf-sp-3) var(--mf-sp-4) var(--mf-sp-3) var(--mf-sp-4); }
 .bb-objectives__head { flex-direction: row; align-items: center; }
 .mf-rtl .bb-objectives__head { flex-direction: row-reverse; }
 .bb-objectives__id { margin-right: var(--mf-sp-2); color: var(--mf-space); background-color: var(--mf-sunlight); }
 .bb-objectives__name { -unity-font-definition: var(--mf-font-display); font-size: 28px; color: var(--mf-ceramic); margin: 0; padding: 0; flex-shrink: 1; white-space: normal; }
 .bb-objectives__text { -unity-font-definition: var(--mf-font-body); font-size: var(--mf-fs-meta); color: var(--mf-muted); margin: var(--mf-sp-1) 0 0 0; padding: 0; white-space: normal; }
-.bb-phases { flex-grow: 0; margin: 0; padding: 4px; border-radius: 24px; background-color: var(--mf-space-80); }
+.bb-phases { flex-grow: 0; margin: 0; padding: 4px; border-radius: 24px; background-color: var(--mf-space-92); }
 
 /* ---------- stage (3D pad shows through) ---------- */
 .bb-stage { flex-grow: 1; }
@@ -44,7 +58,7 @@
     height: 48px;
     margin-bottom: var(--mf-sp-2);
     padding: 0 var(--mf-sp-2) 0 var(--mf-sp-3);
-    background-color: var(--mf-space-80);
+    background-color: var(--mf-space-92);
     border-width: 1px; border-color: var(--mf-ceramic-16); border-radius: 24px;
     transition-property: background-color, border-color;
     transition-duration: var(--mf-dur-micro);
@@ -52,7 +66,7 @@
 .bb-tool__icon { width: 24px; height: 24px; color: var(--mf-ceramic); margin-right: var(--mf-sp-2); }
 .bb-tool__label { -unity-font-definition: var(--mf-font-body-medium); font-size: var(--mf-fs-label); color: var(--mf-ceramic); margin: 0 var(--mf-sp-2) 0 0; padding: 0; }
 /* Keyboard hint (a real shortcut, not an icon stand-in). */
-.bb-tool__key { -unity-font-definition: var(--mf-font-body-bold); font-size: var(--mf-fs-meta); color: var(--mf-muted); border-width: 1px; border-color: var(--mf-ceramic-32); border-radius: 6px; width: 30px; height: 30px; -unity-text-align: middle-center; margin: 0; padding: 0; }
+.bb-tool__key { -unity-font-definition: var(--mf-font-body-bold); font-size: var(--mf-fs-meta); color: var(--mf-ceramic); border-width: 1px; border-color: var(--mf-ceramic-32); border-radius: 6px; width: 30px; height: 30px; -unity-text-align: middle-center; margin: 0; padding: 0; }
 .bb-tool:hover { border-color: var(--mf-ceramic-56); background-color: var(--mf-console); }
 .bb-tool:focus { border-width: 3px; border-color: var(--mf-signal); padding: 0 6px 0 10px; }
 .bb-tool--on { background-color: var(--mf-ceramic); border-color: var(--mf-ceramic); }
@@ -61,7 +75,7 @@
 .bb-tool--on .bb-tool__key { color: var(--mf-space); border-color: var(--mf-space); }
 .mf-rtl .bb-tool { flex-direction: row-reverse; }
 
-.bb-rehearsal { position: absolute; left: 0; top: 0; flex-direction: row; align-items: center; background-color: var(--mf-space-80); padding: var(--mf-sp-2) var(--mf-sp-3) var(--mf-sp-2) var(--mf-sp-2); border-radius: 24px; }
+.bb-rehearsal { position: absolute; left: 0; top: 0; flex-direction: row; align-items: center; background-color: var(--mf-space-92); padding: var(--mf-sp-2) var(--mf-sp-3) var(--mf-sp-2) var(--mf-sp-2); border-radius: 24px; }
 .mf-rtl .bb-rehearsal { left: auto; right: 0; flex-direction: row-reverse; }
 .bb-rehearsal__title { color: var(--mf-space); background-color: var(--mf-sunlight); letter-spacing: 1px; margin-right: var(--mf-sp-2); }
 .bb-rehearsal__detail { -unity-font-definition: var(--mf-font-body-medium); font-size: var(--mf-fs-meta); color: var(--mf-ceramic); margin: 0; padding: 0; }
@@ -69,12 +83,12 @@
 /* Leader-line labels over the 3D view (exploded, scale, stability). */
 .bb-tag { position: absolute; flex-direction: row; align-items: center; }
 .bb-tag__line { width: 56px; height: 2px; background-color: var(--mf-ceramic-56); }
-.bb-tag__text { -unity-font-definition: var(--mf-font-body-medium); font-size: var(--mf-fs-label); color: var(--mf-ceramic); background-color: var(--mf-space-80); padding: 2px var(--mf-sp-2) 2px var(--mf-sp-2); margin: 0; border-radius: 6px; border-left-width: 3px; border-left-color: var(--mf-signal); }
+.bb-tag__text { -unity-font-definition: var(--mf-font-body-medium); font-size: var(--mf-fs-label); color: var(--mf-ceramic); background-color: var(--mf-space-92); padding: 2px var(--mf-sp-2) 2px var(--mf-sp-2); margin: 0; border-radius: 6px; border-left-width: 3px; border-left-color: var(--mf-signal); }
 .bb-tag--left { flex-direction: row-reverse; }
 .bb-tag--com .bb-tag__text { border-left-color: var(--mf-sunlight); }
 .bb-tag--cop .bb-tag__text { border-left-color: var(--mf-signal); }
 
-.bb-note { position: absolute; left: 0; top: 64px; max-width: 50%; background-color: var(--mf-space-80); padding: var(--mf-sp-3) var(--mf-sp-4) var(--mf-sp-3) var(--mf-sp-4); border-radius: var(--mf-radius-card); }
+.bb-note { position: absolute; left: 0; top: 64px; max-width: 50%; background-color: var(--mf-space-92); padding: var(--mf-sp-3) var(--mf-sp-4) var(--mf-sp-3) var(--mf-sp-4); border-radius: var(--mf-radius-card); }
 .bb-note__text { -unity-font-definition: var(--mf-font-body); font-size: var(--mf-fs-label); color: var(--mf-ceramic); white-space: normal; margin: 0; padding: 0; }
 
 .bb-compare { position: absolute; left: 4%; right: 4%; bottom: var(--mf-sp-2); background-color: var(--mf-console); border-width: 1px; border-color: var(--mf-ceramic-16); border-radius: var(--mf-radius-card); padding: var(--mf-sp-3) var(--mf-sp-4) var(--mf-sp-3) var(--mf-sp-4); }
@@ -84,7 +98,7 @@
 .bb-compare__cell--name { -unity-text-align: middle-left; color: var(--mf-muted); }
 
 /* ---------- bottom: timeline + budget (glass strip along the bottom of the centre column) ---------- */
-.bb-bottom { flex-shrink: 0; padding: var(--mf-sp-4) var(--mf-sp-5) var(--mf-sp-4) var(--mf-sp-5); }
+.bb-bottom { flex-shrink: 0; padding: var(--mf-sp-3) var(--mf-sp-5) var(--mf-sp-3) var(--mf-sp-5); }
 .bb-bottom__head { flex-direction: row; justify-content: space-between; align-items: center; margin-bottom: var(--mf-sp-3); }
 .mf-rtl .bb-bottom__head, .mf-rtl .bb-budget { flex-direction: row-reverse; }
 .bb-gantt { margin-bottom: var(--mf-sp-2); }
@@ -105,12 +119,12 @@
 .bb-timer { margin-left: var(--mf-sp-3); }
 .bb-stages { justify-content: flex-start; flex-grow: 0; flex-wrap: wrap; margin: var(--mf-sp-2) 0 var(--mf-sp-2) 0; overflow: visible; }
 .bb-stages .mf-step { height: 36px; margin-bottom: 4px; }
-.bb-stages .mf-stepper__rail { width: 10px; }
 /* Narrow column: finished stages keep their check shape but drop the word, so the strip stays on one line. */
-.bb-stages .mf-step { padding: 0 var(--mf-sp-2) 0 6px; }
-.bb-stages .mf-step--done .mf-step__label { display: none; }
-.bb-stages .mf-step--done .mf-step__icon { margin-right: 0; }
-.bb-stages .mf-stepper__rail { width: 8px; }
+.bb-stages .mf-step { padding: 0 var(--mf-sp-2) 0 4px; }
+.bb-stages .mf-step__icon { width: 18px; height: 18px; margin-right: 4px; }
+/* No connectors in the narrow vote column: the four stages fit on one line and nothing dangles at a wrap. */
+.bb-stages .mf-stepper__rail { display: none; }
+.bb-stages .mf-step { margin-right: 4px; }
 .bb-vote__note { -unity-font-definition: var(--mf-font-body-medium); font-size: var(--mf-fs-label); color: var(--mf-muted); white-space: normal; margin: 0 0 var(--mf-sp-2) 0; padding: 0; }
 .bb-tally { margin-bottom: var(--mf-sp-3); flex-shrink: 0; }
 .bb-options { flex-grow: 1; flex-shrink: 1; overflow: hidden; }
@@ -127,7 +141,8 @@
     transition-timing-function: ease-out-cubic;
 }
 .bb-card--leading { border-width: 3px; border-color: var(--mf-signal); padding: 10px; }
-.bb-card--winner { border-width: 3px; border-color: var(--mf-sunlight); background-color: var(--mf-sunlight-16); padding: 10px; }
+/* Winner: Sunlight border + award icon; no Sunlight fill (in linear blending it lifted the card to 4.3:1 under Ceramic). */
+.bb-card--winner { border-width: 3px; border-color: var(--mf-sunlight); padding: 10px; }
 .bb-card--vetoed { opacity: 0.55; }
 .bb-card--out { opacity: 0.6; }
 .bb-card--vetoed .bb-card__name { color: var(--mf-muted); }
@@ -135,15 +150,15 @@
 .bb-card__head { flex-direction: row; align-items: center; }
 .mf-rtl .bb-card__head, .mf-rtl .bb-card__row { flex-direction: row-reverse; }
 .bb-card__key { -unity-font-definition: var(--mf-font-body-bold); font-size: var(--mf-fs-label); color: var(--mf-space); background-color: var(--mf-ceramic); border-radius: var(--mf-radius-control); width: 36px; height: 36px; -unity-text-align: middle-center; margin: 0 var(--mf-sp-3) 0 0; padding: 0; flex-shrink: 0; }
-.bb-card__name { -unity-font-definition: var(--mf-font-body-bold); font-size: 28px; color: var(--mf-ceramic); flex-grow: 1; flex-shrink: 1; margin: 0; padding: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bb-card__name { -unity-font-definition: var(--mf-font-body-bold); font-size: 28px; color: var(--mf-ceramic); flex-grow: 1; flex-shrink: 1; margin: 0; padding: 0; white-space: normal; }
 .bb-card__count { -unity-font-definition: var(--mf-font-body-bold); font-size: 36px; color: var(--mf-ceramic); margin: 0 0 0 var(--mf-sp-2); padding: 0; }
 .bb-card__state { width: 28px; height: 28px; margin-left: var(--mf-sp-2); }
-.bb-card__line { -unity-font-definition: var(--mf-font-body-medium); font-size: var(--mf-fs-meta); color: var(--mf-muted); margin: var(--mf-sp-1) 0 0 0; padding: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.bb-card__drawback { -unity-font-definition: var(--mf-font-body); font-size: var(--mf-fs-meta); color: var(--mf-ceramic); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin: var(--mf-sp-1) 0 0 0; padding: 2px var(--mf-sp-2) 2px var(--mf-sp-2); border-left-width: 3px; border-left-color: var(--mf-fails); background-color: var(--mf-fails-16); border-radius: 4px; }
+.bb-card__line { -unity-font-definition: var(--mf-font-body-medium); font-size: var(--mf-fs-meta); color: var(--mf-muted); margin: var(--mf-sp-1) 0 0 0; padding: 0; white-space: normal; }
+.bb-card__drawback { -unity-font-definition: var(--mf-font-body); font-size: var(--mf-fs-meta); color: var(--mf-ceramic); white-space: normal; margin: var(--mf-sp-1) 0 0 0; padding: 2px var(--mf-sp-2) 2px var(--mf-sp-2); border-left-width: 3px; border-left-color: var(--mf-ceramic-32); background-color: var(--mf-space-40); border-radius: 4px; }
 .bb-card__row { flex-direction: row; flex-wrap: wrap; align-items: center; margin-top: var(--mf-sp-1); }
-.bb-card__badge { flex-direction: row; align-items: center; height: 30px; padding: 0 var(--mf-sp-2) 0 6px; margin: 0 6px 4px 0; border-radius: 6px; border-width: 2px; }
+.bb-card__badge { flex-direction: row; align-items: center; min-height: 30px; max-width: 100%; flex-shrink: 1; padding: 0 var(--mf-sp-2) 0 6px; margin: 0 6px 4px 0; border-radius: 6px; border-width: 2px; }
 .bb-card__badge-icon { width: 20px; height: 20px; margin-right: 6px; }
-.bb-card__badge-text { -unity-font-definition: var(--mf-font-body-bold); font-size: var(--mf-fs-meta); margin: 0; padding: 0; }
+.bb-card__badge-text { -unity-font-definition: var(--mf-font-body-bold); font-size: var(--mf-fs-meta); margin: 0; padding: 2px 0 2px 0; white-space: normal; flex-shrink: 1; }
 .bb-badge--risk, .bb-badge--concern { border-color: var(--mf-marginal); border-left-width: 6px; border-radius: 2px; }
 .bb-badge--risk .bb-card__badge-text, .bb-badge--concern .bb-card__badge-text, .bb-badge--risk .bb-card__badge-icon, .bb-badge--concern .bb-card__badge-icon { color: var(--mf-marginal); }
 .bb-badge--bad { border-color: var(--mf-fails); border-width: 3px; background-color: var(--mf-fails-16); }
@@ -153,8 +168,9 @@
 .bb-badge--tag { border-color: var(--mf-ceramic-32); background-color: var(--mf-ocean); border-width: 1px; }
 .bb-badge--tag .bb-card__badge-text, .bb-badge--tag .bb-card__badge-icon { color: var(--mf-ceramic); }
 .bb-delta { -unity-font-definition: var(--mf-font-body-bold); font-size: var(--mf-fs-meta); margin: 0 6px 4px 0; padding: 2px 6px 2px 6px; border-radius: 6px; border-width: 1px; }
-.bb-delta--good { color: var(--mf-meets); border-color: var(--mf-meets-56); background-color: var(--mf-meets-16); }
-.bb-delta--bad { color: var(--mf-fails); border-color: var(--mf-fails); background-color: var(--mf-fails-16); border-width: 2px; }
+/* "If chosen" deltas are ghost previews (VISUAL_TARGET 3.1: Signal ghost), not status: Signal outline, arrow gives direction. */
+.bb-delta--good { color: var(--mf-signal); border-color: var(--mf-signal-56); background-color: rgba(0, 0, 0, 0); }
+.bb-delta--bad { color: var(--mf-signal); border-color: var(--mf-signal-56); background-color: rgba(0, 0, 0, 0); }
 .bb-delta--neutral { color: var(--mf-ceramic); border-color: var(--mf-ceramic-32); }
 .bb-card .bb-card__row .bb-card__line { margin: 0 6px 4px 0; }
 
@@ -182,9 +198,46 @@
 .mf-text-200 .bb-card__name, .mf-text-200 .bb-card__line, .mf-text-200 .bb-card__drawback, .mf-text-200 .bb-feed__text { white-space: normal; }
 .mf-text-200 .bb-card__name { flex-basis: 70%; }
 .mf-text-200 .bb-bottom__head, .mf-text-200 .bb-budget { flex-wrap: wrap; }
-.mf-text-200 .bb-feed { max-height: 220px; }
 .mf-text-200 .bb-tool__label { display: none; }
 .mf-text-200 .bb-objectives__name { font-size: 56px; }
 .mf-text-200 .bb-panel__title--small { font-size: 60px; }
 .mf-text-200 .bb-card__name { font-size: 56px; }
 .mf-text-200 .bb-vote__titles .bb-panel__title { font-size: 72px; }
+/* Fixed px sizes above do not scale with the token doubling: double them here. */
+.mf-text-200 .bb-metrics .mf-metric__value { font-size: 56px; }
+.mf-text-200 .bb-metrics .mf-metricbar--compact { height: 16px; }
+.mf-text-200 .bb-card__key { width: 60px; height: 60px; }
+.mf-text-200 .bb-card__count { font-size: 64px; }
+/* Waiting rows stack name over reason (a wrapping row-reverse line collapsed the reason to one letter per line). */
+.mf-text-200 .bb-metrics .mf-metric--empty .mf-metric__line { flex-direction: column; align-items: flex-start; }
+.mf-rtl.mf-text-200 .bb-metrics .mf-metric--empty .mf-metric__line { align-items: flex-end; }
+.mf-text-200 .bb-metrics .mf-metric--empty .mf-metric__pending,
+.mf-rtl.mf-text-200 .bb-metrics .mf-metric--empty .mf-metric__pending { flex-basis: auto; flex-grow: 0; flex-shrink: 1; white-space: normal; margin: 0; }
+.mf-text-200 .bb-metrics .mf-metric--empty .mf-metric__name { flex-basis: auto; }
+/* Tools: icon + shortcut key at double size (labels hidden to keep the middle column for the pad). */
+.mf-text-200 .bb-tool { height: 72px; border-radius: 36px; padding: 0 var(--mf-sp-2) 0 var(--mf-sp-3); }
+.mf-text-200 .bb-tool__icon { width: 40px; height: 40px; }
+.mf-text-200 .bb-tool__key { width: 56px; height: 56px; border-radius: 10px; }
+.mf-rtl .bb-tool__icon { margin-right: 0; margin-left: var(--mf-sp-2); }
+/* Rehearsal banner wraps inside the stage instead of running off its edge. */
+.bb-rehearsal { max-width: 100%; }
+.bb-rehearsal__detail { white-space: normal; flex-shrink: 1; }
+.mf-text-200 .bb-rehearsal, .mf-rtl.mf-text-200 .bb-rehearsal { left: 0; right: 0; }
+/* 200 %: tools become one row along the bottom of the stage, under the rehearsal banner. */
+.mf-text-200 .bb-tools, .mf-rtl.mf-text-200 .bb-tools { top: auto; bottom: 0; left: 0; right: 0; flex-direction: row; justify-content: center; align-items: center; }
+.mf-text-200 .bb-tool { height: 64px; margin: 0 var(--mf-sp-2) 0 var(--mf-sp-2); flex-shrink: 0; }
+/* 200 %: the feed gives its room to the option cards (the screen already pads below the 196 px top bar). */
+.mf-text-200 .bb-feed { display: none; }
+/* Phase strips keep every label at 200 % and wrap onto more rows. */
+.mf-text-200 .bb-phases .mf-step__label, .mf-text-200 .bb-stages .mf-step__label { display: flex; }
+.mf-text-200 .bb-phases { flex-wrap: wrap; border-radius: var(--mf-radius-card); }
+.mf-text-200 .bb-stages .mf-step { height: auto; min-height: 56px; }
+.mf-text-200 .bb-stages .mf-step__icon, .mf-text-200 .bb-phases .mf-step__icon { width: 32px; height: 32px; }
+/* The mode classes sit on the screen element itself: pad below the 196 px 200 % top bar. */
+.mf-text-200.bb-screen { padding-top: 212px; }
+/* 200 %: the centre column cannot hold the objective paragraph, the banner sentence, the tools and the pad at double
+   size, so the contract card keeps its id + name and the banner keeps its tag (both texts are on the Briefing screen
+   and in the lobby notice). Nothing overlaps or clips. */
+.mf-text-200 .bb-objectives__text, .mf-text-200 .bb-rehearsal__detail { display: none; }
+.mf-text-200 .bb-rehearsal .bb-rehearsal__title { margin: 0; }
+.mf-text-200 .bb-rehearsal, .mf-rtl.mf-text-200 .bb-rehearsal { left: auto; right: auto; align-self: center; }

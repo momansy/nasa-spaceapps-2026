@@ -62,7 +62,7 @@ Every number in this system is a `game_value` art or layout choice, not a physic
 |---|---|
 | e0 | The 3D scene |
 | e1 card | `.mf-card`, or `MfCard` (adds the 9-slice shadow): Console 88 %, 1 px Ceramic-10 % border, radius 16 |
-| e2 glass | `MfGlassPanel` + `.mf-glass`: blurred scene copy, Console 76 % tint, 1 px Ceramic-16 % top highlight, radius 24 |
+| e2 glass | `MfGlassPanel` + `.mf-glass`: blurred scene copy, Console 92 % tint (linear blend; reads like 72 % sRGB), 1 px Ceramic-16 % top highlight, radius 24 |
 | e3 modal | `MfOverlays.Modal`: Space-92 % scrim and a panel with the e3 shadow |
 | e4 toast | `MfOverlays.Toast` (bottom-right stack), tooltip / explain popover `MfOverlays.Explain` |
 
@@ -95,6 +95,7 @@ Every number in this system is a `game_value` art or layout choice, not a physic
 | Toast, modal, tooltip | `MfOverlays.Toast/Modal/Close/Explain` | enter, exit |
 | Skeleton, empty state | `MfSkeleton`, `MfEmptyState { text, icon }` | Never show "—", "_" or grey stand-in bars |
 | Key/value row | `MfKeyValue.Set(key, value, unit)` | |
+| Overflow fade | `MfScrollFade.Attach(scrollView)` | hidden when the list fits; otherwise a 64 px transparent-to-surface fade with a chevron-down over the last row (colour `--mf-fade-colour`) |
 
 Status is never shown by hue alone. Always combine colour, shape (`MfIcon` kinds `meets`/`marginal`/`fails`), a word
 and a border or pattern.
@@ -108,6 +109,11 @@ UI Toolkit pitfalls found while building these (keep to the workarounds):
 - **Buttons with icons.** A `Button` (a `TextElement`) that has child elements is sized from its children, not its
   text, so it collapses to its padding and clips the label. Always add icons with `MfButtons.WithIcon`, which keeps a
   measured `min-width`; for any other child added to a button, call `MfButtons.FitToText`.
+- **Dense lists never slice through text.** A `ScrollView` list that can outgrow its panel at 100 % or 200 % gets
+  `MfScrollFade.Attach`, so the cut reads as "more below" (the Build Bay readiness list and vote options use it).
+- **Glass needs its shader referenced.** `MfBlurredSceneFeature` serialises `m_Shader` in each renderer asset
+  (`PC_Renderer`, `Mobile_Renderer`). With an empty reference the player strips the Hidden blur shader, the feature
+  never runs, and every glass panel silently stays opaque (the T031 run 2 bug).
 - **Empty metric rows** carry `.mf-metric--empty`: the localised reason sits under the name and no bar is drawn.
 
 ## Icons
@@ -126,7 +132,11 @@ C#:
 
 - `MfMotion.Enter(element, index)`: 40 ms stagger, capped at 8 items.
 - `MfMotion.Exit`.
-- `MfMotion.CountUp(label, from, to, format)`: ease-out-quart over 1 s.
+- `MfMotion.CountUp(label, from, to, format)`: ease-out-quart over 1 s (the Lobby seat KPI uses it).
+- `MfMotion.Celebrate(element)`: 480 ms ease-out-back with the overshoot clamped to 6 % (`MfMotion.EaseOutBack`).
+- USS has no quartic curve and its ease-out-back overshoots about 10 %, so `.mf-motion-count` uses ease-out-cubic (the
+  closest USS curve to ease-out-quart: at most 0.105 off, mean 0.050) and `.mf-motion-celebrate` uses ease-out-cubic
+  (TokenUssGenerator.UssCurve). Count-ups that must be exact use `MfMotion.CountUp`.
 - `MfMotion.Pulse(element, active)`: 1600 ms sine, timer warning only.
 
 Reduced motion (`MfMotion.Reduced`, the `.mf-reduced-motion` root class) turns movement into a fade of 150 ms or
@@ -137,8 +147,12 @@ less, removes the pulse, and makes count-ups jump straight to the value.
 `MfAccessibility.Set(rtl, text200, highContrast, reducedMotion)` puts these classes on every panel root:
 
 - `.mf-rtl`: rows mirror and panels swap sides.
-- `.mf-text-200`: every token size doubles, rows wrap, panels scroll.
-- `.mf-hc`: opaque Console panels, no imagery behind text, Muted text becomes Ceramic.
+- `.mf-text-200`: every token size doubles, rows wrap, panels scroll. The top bar grows to 196 px with the phase
+  stepper on its own band (every step keeps its label), and `.mf-screen` pads to 212 px below it. A panel that can
+  outgrow the frame wraps its body in a `ScrollView` whose content container fills the viewport (see `Lobby.uss`), so
+  the 100 % layout is unchanged.
+- `.mf-hc`: opaque Console panels with 2 px Ceramic-56 % boundaries, no imagery behind text (the Title puts its text
+  blocks, badge and credit on opaque surfaces), Muted text becomes Ceramic, locked steps are not dimmed.
 - `.mf-reduced-motion`.
 
 The Build Bay maps its `BayAccessibility` onto the same classes. For demos and evidence, the command-line flags

@@ -30,8 +30,8 @@ namespace MissionForge.UI
         private const int Segments = GlassMath.DefaultSegmentsPerCorner;
         private const float HighlightThickness = 1f;
 
-        /// <summary>Console #112B40 at 80 % (tokens.json console-80).</summary>
-        public static readonly Color DefaultTint = new Color(17f / 255f, 43f / 255f, 64f / 255f, 0.80f);
+        /// <summary>Console #112B40 at 92 % (tokens.json console-92; linear-space blend, reads like 72 % sRGB).</summary>
+        public static readonly Color DefaultTint = new Color(17f / 255f, 43f / 255f, 64f / 255f, 0.92f);
 
         /// <summary>Ceramic #E8EEF0 at 16 %.</summary>
         public static readonly Color DefaultHighlight = new Color(232f / 255f, 238f / 255f, 240f / 255f, 0.16f);

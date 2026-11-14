@@ -38,6 +38,7 @@ namespace MissionForge.Screens.BuildBay
             screen.Q<Label>("dashboard-subtitle").text = text.Get("ui.buildbay.dashboard.subtitle");
             _container = screen.Q<VisualElement>("metrics");
             _container.Clear();
+            if (_container is ScrollView scroll) MfScrollFade.Attach(scroll);
             foreach (string id in DashboardViewModel.MetricIds) _rows[id] = CreateRow(id);
         }
 

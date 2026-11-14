@@ -63,7 +63,21 @@
 .mf-stepper--compact .mf-step--locked .mf-step__icon, .mf-stepper--compact .mf-step--done .mf-step__icon { margin-right: 0; }
 .mf-rtl .mf-stepper, .mf-rtl .mf-step { flex-direction: row-reverse; }
 .mf-rtl .mf-step__icon { margin-right: 0; margin-left: 6px; }
-/* 200 % text: the top bar keeps only the current step's label (others show their state icon). */
-.mf-text-200 .mf-step--locked .mf-step__label, .mf-text-200 .mf-step--done .mf-step__label { display: none; }
-.mf-text-200 .mf-topbar { height: 150px; }
+/* 200 % text: the top bar gets a second band for the stepper, so every step keeps its label (no icon-only steps);
+   the band wraps onto a further line if the labels still do not fit. The first row (logo, title, room, connection)
+   stays centred in the top 120 px. Screens pad below the 196 px bar (.mf-text-200 .mf-screen in MissionForgeTheme.uss). */
+.mf-text-200 .mf-topbar { height: 196px; padding-bottom: 76px; }
+.mf-text-200 .mf-topbar .mf-stepper {
+    position: absolute; left: var(--mf-sp-safe-x); right: var(--mf-sp-safe-x); bottom: 12px;
+    margin: 0; flex-wrap: wrap; overflow: visible; justify-content: center;
+}
 .mf-text-200 .mf-step { height: auto; min-height: 40px; padding-top: 4px; padding-bottom: 4px; }
+.mf-text-200 .mf-topbar .mf-step { margin-bottom: 4px; }
+.mf-text-200 .mf-topbar .mf-step__icon { width: 32px; height: 32px; }
+
+/* High contrast: an opaque bar with a strong boundary; locked steps are not dimmed (the lock shape carries the state). */
+.mf-hc .mf-topbar { background-color: var(--mf-space); border-bottom-width: 2px; border-bottom-color: var(--mf-ceramic-56); }
+.mf-hc .mf-step--locked { opacity: 1; }
+.mf-hc .mf-step__label, .mf-hc .mf-roomcode__label { color: var(--mf-ceramic); }
+.mf-hc .mf-step--current .mf-step__label { color: var(--mf-space); }
+.mf-hc .mf-stepper__rail { background-color: var(--mf-ceramic-56); }

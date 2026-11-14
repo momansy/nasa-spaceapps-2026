@@ -5,7 +5,7 @@ namespace MissionForge.UI
 {
     /// <summary>
     /// Radial gauge and timer ring (VISUAL_TARGET 3.1): a 270° arc with a 12 px stroke, a threshold tick, and the
-    /// status glyph at the arc end. A child label shows the value (kpi style) and an optional unit/caption.
+    /// status glyph at the arc end (seated on a Space disc so it caps the arc). A child label shows the value (kpi style) and an optional unit/caption.
     /// Timer mode: value = seconds left / total; the ring turns Fails-coloured and pulses (MfMotion) in the last 5 s.
     /// </summary>
     [UxmlElement]
@@ -13,6 +13,8 @@ namespace MissionForge.UI
     {
         /// <summary>Arc sweep and stroke (tokens.json dataviz, game_value).</summary>
         private const float SweepDeg = 270f, StartDeg = 135f, Stroke = 12f;
+        /// <summary>Threshold notch: px past each edge of the stroke; thresholds this close to a track end draw no notch.</summary>
+        private const float TickOverhang = 3f, TickEndMargin = 0.01f;
 
         private float _value, _threshold = -1f;
         private MfStatus _status = MfStatus.Info;
@@ -59,6 +61,7 @@ namespace MissionForge.UI
             _endIcon.kind = MfStatusBadge.IconFor(_status);
             _endIcon.Tint = MfDraw.StatusColour(_status);
             _endIcon.style.display = _status == MfStatus.Info || _status == MfStatus.Pending ? DisplayStyle.None : DisplayStyle.Flex;
+            PlaceGlyph();
             EnableInClassList("mf-gauge--fails", _status == MfStatus.Fails);
             EnableInClassList("mf-gauge--marginal", _status == MfStatus.Marginal);
             MarkDirtyRepaint();
@@ -105,10 +108,25 @@ namespace MissionForge.UI
                 p.Stroke();
             }
 
-            if (_threshold >= 0f && _threshold <= 1f)
+            // Threshold tick: a notch across the stroke only (a Space keyline, then Ceramic), so it never reaches the number
+            // inside or floats outside the ring. Ticks at the very ends of the track would read as a stray mark: skipped.
+            if (_threshold > TickEndMargin && _threshold < 1f - TickEndMargin)
             {
                 float deg = StartDeg + SweepDeg * _threshold;
-                MfDraw.Line(p, Polar(c, radius - Stroke, deg), Polar(c, radius + Stroke, deg), MfPalette.Ceramic, 2f);
+                Vector2 inner = Polar(c, radius - Stroke * 0.5f - TickOverhang, deg);
+                Vector2 outer = Polar(c, radius + Stroke * 0.5f + TickOverhang, deg);
+                MfDraw.Line(p, inner, outer, MfPalette.Space, 6f);
+                MfDraw.Line(p, inner, outer, MfPalette.Ceramic, 2f);
+            }
+
+            // Status glyph seat: a Space disc at the arc end so the glyph reads as the arc's end cap.
+            if (_endIcon.resolvedStyle.display == DisplayStyle.Flex)
+            {
+                float glyph = _endIcon.resolvedStyle.width > 0 ? _endIcon.resolvedStyle.width : 26f;
+                p.fillColor = MfPalette.Space;
+                p.BeginPath();
+                p.Arc(Polar(c, radius, StartDeg + SweepDeg * _value), glyph * 0.5f + 3f, 0f, 360f);
+                p.Fill();
             }
         }
     }

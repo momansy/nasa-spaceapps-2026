@@ -9,7 +9,8 @@ namespace MissionForge.UI
     /// Motion helpers on the motion tokens (tokens.json motion, VISUAL_TARGET 3.1; all game_value):
     /// enter/exit with a 40 ms stagger capped at 8 items, number count-up (ease-out-quart), and the timer pulse
     /// (1600 ms period, ease-in-out-sine, last 5 s only). Every helper honours reduced motion: movement becomes an
-    /// opacity fade of 150 ms or less (Motion.uss), there is no pulse, and count-ups jump to the value.
+    /// opacity fade of 150 ms or less (Motion.uss), there is no pulse, and count-ups jump to the value. Celebrate uses
+    /// ease-out-back clamped to 6 % overshoot (<see cref="EaseOutBack"/>).
     /// </summary>
     public static class MfMotion
     {
@@ -56,6 +57,19 @@ namespace MissionForge.UI
             return 1f - u * u * u * u;
         }
 
+        /// <summary>
+        /// Back constant of the celebrate curve: 1.28 overshoots 5.98 % (the stock 1.70158 overshoots 10 %, above the
+        /// token's 6 % limit). This is why the USS celebrate class uses ease-out-cubic and celebrations use this helper.
+        /// </summary>
+        public const float CelebrateBack = 1.28f;
+
+        /// <summary>ease-out-back with <see cref="CelebrateBack"/> (peak 1.0598 at t ~ 0.6), t in 0..1.</summary>
+        public static float EaseOutBack(float t)
+        {
+            float u = Mathf.Clamp01(t) - 1f;
+            return 1f + (CelebrateBack + 1f) * u * u * u + CelebrateBack * u * u;
+        }
+
         /// <summary>ease-in-out-sine, t in 0..1.</summary>
         public static float EaseInOutSine(float t) => -(Mathf.Cos(Mathf.PI * Mathf.Clamp01(t)) - 1f) / 2f;
 
@@ -77,6 +91,28 @@ namespace MissionForge.UI
             {
                 float t = (Time.realtimeSinceStartup - start) * 1000f / durationMs;
                 label.text = format(from + (to - from) * EaseOutQuart(t));
+                if (t >= 1f) item.Pause();
+            }).Every(16);
+            return item;
+        }
+
+        /// <summary>
+        /// Success moment (celebrate token, 480 ms): the element scales from 0.92 to 1, overshooting by at most 6 % of that
+        /// travel (peak scale ~1.005) before it settles. Reduced motion: no scale (the element is shown at rest size).
+        /// </summary>
+        public static IVisualElementScheduledItem Celebrate(VisualElement element)
+        {
+            if (element == null) return null;
+            element.style.scale = new Scale(Vector3.one);
+            if (Reduced) return null;
+            const float from = 0.92f;
+            float start = Time.realtimeSinceStartup;
+            IVisualElementScheduledItem item = null;
+            item = element.schedule.Execute(() =>
+            {
+                float t = (Time.realtimeSinceStartup - start) * 1000f / CelebrateMs;
+                float s = from + (1f - from) * EaseOutBack(t);
+                element.style.scale = new Scale(new Vector3(s, s, 1f));
                 if (t >= 1f) item.Pause();
             }).Every(16);
             return item;

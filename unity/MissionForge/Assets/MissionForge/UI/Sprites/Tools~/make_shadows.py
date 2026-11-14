@@ -4,17 +4,23 @@ drawn as a child over the surface without darkening it. Run: python make_shadows
 import sys
 from PIL import Image, ImageDraw, ImageFilter
 
-SPACE = (7, 21, 34)
-# name: (blur_px, radius_px, y_offset_px, alpha) -- game_value
+# Shadow colour: Space darkened to near black. Space itself (7, 21, 34) is the page and scene background, so a Space
+# shadow is invisible exactly where most surfaces sit; this keeps the navy hue but always reads darker than Space.
+SHADOW = (1, 4, 9)
+# name: (blur_px = tokens.json shadow_px, radius_px, y_offset_px, alpha) -- game_value. Each level reads deeper than the last:
+# larger blur and offset, higher alpha. The radius matches the surface the level is used on (card 16, panel/modal 24,
+# toast 16) so the cut-out fits the surface exactly.
 LEVELS = {
-    "e1": (24, 16, 8, 0.40),
-    "e2": (32, 24, 12, 0.48),
-    "e3": (48, 24, 20, 0.60),
-    "e4": (40, 16, 14, 0.52),
+    "e1": (24, 16, 4, 0.55),
+    "e2": (32, 24, 10, 0.65),
+    "e3": (48, 24, 22, 0.78),
+    "e4": (40, 16, 16, 0.72),
 }
 
 def make(blur, radius, dy, alpha, scale=2):
-    pad = blur + dy  # room for blur + offset on every side (keeps slices symmetric)
+    # Room for the whole Gaussian (3 sigma, sigma = blur / 2.2) plus the offset on every side, so the blur never
+    # reaches the sprite edge (a shorter pad shows as a hard square halo); equal on all sides keeps slices symmetric.
+    pad = int(round(blur * 3 / 2.2)) + dy
     core = 2 * radius + 4
     size = 2 * pad + core
     s = scale
@@ -26,7 +32,7 @@ def make(blur, radius, dy, alpha, scale=2):
     ImageDraw.Draw(cut).rounded_rectangle([pad * s, pad * s, (pad + core) * s - 1, (pad + core) * s - 1], radius * s, fill=255)
     from PIL import ImageChops
     mask = ImageChops.multiply(mask, ImageChops.invert(cut))
-    img = Image.new("RGBA", (size * s, size * s), SPACE + (0,))
+    img = Image.new("RGBA", (size * s, size * s), SHADOW + (0,))
     img.putalpha(mask)
     return img.resize((size, size), Image.LANCZOS), pad, radius
 

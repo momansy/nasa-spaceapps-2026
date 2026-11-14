@@ -44,6 +44,27 @@ namespace MissionForge.Editor.DesignSystem
             }
         }
 
+        /// <summary>
+        /// Volumes, rigs and scenes only (no URP asset or renderer changes). Batch:
+        /// <c>-executeMethod MissionForge.Editor.DesignSystem.LightingFoundation.LookOnly</c>.
+        /// </summary>
+        [MenuItem(MenuRoot + "Look Only (Volumes, Rigs, Scenes)", priority = 101)]
+        public static void LookOnly()
+        {
+            try
+            {
+                BuildVolumes();
+                BuildRigs();
+                ApplyToScenes();
+                Log("Look steps finished.");
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(LogPrefix + "Failed: " + e);
+                if (Application.isBatchMode) EditorApplication.Exit(1);
+            }
+        }
+
         internal static void Log(string message) => Debug.Log(LogPrefix + message);
 
         internal static void Warn(string message) => Debug.LogWarning(LogPrefix + message);

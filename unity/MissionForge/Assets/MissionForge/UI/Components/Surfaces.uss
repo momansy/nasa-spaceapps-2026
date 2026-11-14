@@ -5,10 +5,10 @@
    Never put glass on glass: a card inside a glass panel is .mf-card--flat (no shadow, Ceramic-6 % fill). */
 
 .mf-shadow { position: absolute; -unity-background-scale-mode: stretch-to-fill; }
-.mf-shadow--e1 { left: -32px; top: -32px; right: -32px; bottom: -32px; background-image: url("../Sprites/mf-shadow-e1.png"); -unity-slice-left: 49; -unity-slice-right: 49; -unity-slice-top: 49; -unity-slice-bottom: 49; }
-.mf-shadow--e2 { left: -44px; top: -44px; right: -44px; bottom: -44px; background-image: url("../Sprites/mf-shadow-e2.png"); -unity-slice-left: 69; -unity-slice-right: 69; -unity-slice-top: 69; -unity-slice-bottom: 69; }
-.mf-shadow--e3 { left: -68px; top: -68px; right: -68px; bottom: -68px; background-image: url("../Sprites/mf-shadow-e3.png"); -unity-slice-left: 93; -unity-slice-right: 93; -unity-slice-top: 93; -unity-slice-bottom: 93; }
-.mf-shadow--e4 { left: -54px; top: -54px; right: -54px; bottom: -54px; background-image: url("../Sprites/mf-shadow-e4.png"); -unity-slice-left: 71; -unity-slice-right: 71; -unity-slice-top: 71; -unity-slice-bottom: 71; }
+.mf-shadow--e1 { left: -37px; top: -37px; right: -37px; bottom: -37px; background-image: url("../Sprites/mf-shadow-e1.png"); -unity-slice-left: 55; -unity-slice-right: 55; -unity-slice-top: 55; -unity-slice-bottom: 55; }
+.mf-shadow--e2 { left: -54px; top: -54px; right: -54px; bottom: -54px; background-image: url("../Sprites/mf-shadow-e2.png"); -unity-slice-left: 80; -unity-slice-right: 80; -unity-slice-top: 80; -unity-slice-bottom: 80; }
+.mf-shadow--e3 { left: -87px; top: -87px; right: -87px; bottom: -87px; background-image: url("../Sprites/mf-shadow-e3.png"); -unity-slice-left: 113; -unity-slice-right: 113; -unity-slice-top: 113; -unity-slice-bottom: 113; }
+.mf-shadow--e4 { left: -71px; top: -71px; right: -71px; bottom: -71px; background-image: url("../Sprites/mf-shadow-e4.png"); -unity-slice-left: 89; -unity-slice-right: 89; -unity-slice-top: 89; -unity-slice-bottom: 89; }
 .mf-hc .mf-shadow { display: none; }
 
 /* ---------- e1 card ---------- */
@@ -51,7 +51,14 @@
 .mf-text-200 .mf-panel__header { flex-wrap: wrap; }
 .mf-text-200 .mf-panel__title { flex-basis: 100%; }
 .mf-text-200 .mf-panel__tag { margin: var(--mf-sp-2) 0 0 0; }
-.mf-hc .mf-panel, .mf-hc .mf-card { background-color: var(--mf-console); border-color: var(--mf-ceramic-56); }
+/* High contrast: every surface is opaque with a 2 px Ceramic-56 % boundary (>= 3:1 on Console and on Space). */
+.mf-hc .mf-panel, .mf-hc .mf-card, .mf-hc .mf-modal, .mf-hc .mf-toast, .mf-hc .mf-tooltip { background-color: var(--mf-console); border-width: 2px; border-color: var(--mf-ceramic-56); }
+.mf-hc .mf-card--flat { background-color: var(--mf-space); }
+.mf-hc .mf-card--selected, .mf-hc .mf-card--interactive:focus { border-width: 3px; border-color: var(--mf-signal); }
+.mf-hc .mf-toast { border-left-width: 6px; }
+.mf-hc .mf-divider { background-color: var(--mf-ceramic-56); }
+.mf-hc .mf-panel__tag, .mf-hc .mf-card__sub, .mf-hc .mf-tooltip__text, .mf-hc .mf-empty__text { color: var(--mf-ceramic); }
+.mf-hc .mf-scrim-text { background-color: var(--mf-console); border-width: 2px; border-color: var(--mf-ceramic-56); color: var(--mf-ceramic); }
 
 /* ---------- e3 modal: Space-92 % scrim, centred panel, stronger shadow ---------- */
 .mf-scrim { position: absolute; left: 0; top: 0; right: 0; bottom: 0; background-color: var(--mf-space-92); align-items: center; justify-content: center; opacity: 0; transition-property: opacity; transition-duration: var(--mf-dur-enter); }
@@ -132,4 +139,5 @@
 .mf-rtl .mf-empty { flex-direction: row-reverse; }
 
 /* ---------- text scrim (meta text over imagery, e.g. the imagery credit) ---------- */
-.mf-scrim-text { background-color: var(--mf-space-80); border-radius: var(--mf-radius-control); padding: var(--mf-sp-1) var(--mf-sp-3) var(--mf-sp-1) var(--mf-sp-3); }
+/* Space 92 %: UI Toolkit blends in linear space, so 80 % let bright clouds lift Muted text to 3.2:1 (contrast.md). */
+.mf-scrim-text { background-color: var(--mf-space-92); border-radius: var(--mf-radius-control); padding: var(--mf-sp-1) var(--mf-sp-3) var(--mf-sp-1) var(--mf-sp-3); }

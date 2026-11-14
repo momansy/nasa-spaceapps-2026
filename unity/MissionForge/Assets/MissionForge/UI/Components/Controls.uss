@@ -164,7 +164,7 @@
     padding: 0 var(--mf-sp-3) 0 var(--mf-sp-3);
     height: 48px;
     flex-grow: 1;
-    flex-basis: 0;
+    flex-basis: auto; /* each item is at least as wide as its label plus padding; spare width is shared equally */
     -unity-text-align: middle-center;
     white-space: nowrap;
     transition-property: background-color, color;
@@ -232,6 +232,24 @@
 .mf-textfield:focus .unity-base-field__input { border-width: 3px; border-color: var(--mf-signal); padding: 0 14px 0 14px; }
 .mf-textfield--invalid .unity-base-field__input { border-width: 3px; border-color: var(--mf-fails); padding: 0 14px 0 14px; }
 .mf-field__error { -unity-font-definition: var(--mf-font-body-medium); font-size: var(--mf-fs-label); color: var(--mf-fails); margin: var(--mf-sp-2) 0 0 0; padding: 0; }
+
+/* ---------- high contrast (.mf-hc on the panel root): 2 px boundaries at Ceramic 56 % or more, full-strength text ---------- */
+.mf-hc .mf-btn { border-width: 2px; border-color: var(--mf-ceramic); }
+.mf-hc .mf-btn--ghost { background-color: var(--mf-console); border-color: var(--mf-ceramic-56); }
+.mf-hc .mf-btn--primary { border-color: var(--mf-ceramic); }
+.mf-hc .mf-btn:disabled { opacity: 1; border-color: var(--mf-ceramic-56); }
+.mf-hc .mf-btn:focus { border-width: 3px; border-color: var(--mf-signal); }
+.mf-hc .mf-chip { background-color: var(--mf-space); border-width: 2px; border-color: var(--mf-ceramic-56); }
+.mf-hc .mf-chip--muted .mf-chip__label { color: var(--mf-ceramic); }
+.mf-hc .mf-status { background-color: var(--mf-space); }
+.mf-hc .mf-status--pending { border-color: var(--mf-ceramic-56); }
+.mf-hc .mf-status--pending .mf-status__label { color: var(--mf-ceramic); }
+.mf-hc .mf-segmented, .mf-hc .mf-segment { background-color: var(--mf-space); border-width: 2px; border-color: var(--mf-ceramic-56); }
+.mf-hc .mf-segmented__item, .mf-hc .mf-segment__item { color: var(--mf-ceramic); }
+.mf-hc .mf-segmented__item--on, .mf-hc .mf-segment__item--on { color: var(--mf-space); }
+.mf-hc .mf-toggle__track { border-color: var(--mf-ceramic-56); }
+.mf-hc .mf-field__label, .mf-hc .mf-setting__label { color: var(--mf-ceramic); }
+.mf-hc .mf-textfield .unity-base-field__input { border-width: 2px; border-color: var(--mf-ceramic-56); }
 
 /* ---------- 200 % text: fixed-height pills, badges and keys grow with their label instead of clipping ---------- */
 .mf-text-200 .mf-chip, .mf-text-200 .mf-status { height: auto; min-height: 40px; padding-top: 6px; padding-bottom: 6px; }

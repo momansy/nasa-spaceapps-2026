@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using MissionForge.Net;
 using MissionForge.UI;
@@ -44,6 +45,8 @@ namespace MissionForge.App.Screens
         private Texture2D _qrTexture;
         private string _qrCodeShown;
         private RoomClient _client;
+        private int _crewShown;
+        private IVisualElementScheduledItem _crewCountUp;
 
         protected override void OnEnter()
         {
@@ -207,7 +210,7 @@ namespace MissionForge.App.Screens
                 }
             }
 
-            _crewCount.text = crewCount.ToString();
+            ShowCrewCount(crewCount);
             _start.SetEnabled(crewCount >= 1);
             _hint.text = crewCount == 0
                 ? "Waiting for the first crew member to join."
@@ -223,10 +226,23 @@ namespace MissionForge.App.Screens
             _code.text = code;
             _code.RemoveFromClassList(CodeEmptyClass);
             string joinUrl = App.Room.BuildJoinUrl(code, _client != null && _client.RoomCode == code ? _client.JoinUrl : null);
-            _joinUrl.text = joinUrl;
+            // The QR keeps the full URL; the panel shows only a public host (a localhost dev URL is never shown).
+            string host = JoinUrlDisplay.PublicHost(joinUrl);
+            _joinUrl.text = host;
+            _joinUrl.style.display = host.Length == 0 ? DisplayStyle.None : DisplayStyle.Flex;
             if (_qrTexture != null) Destroy(_qrTexture);
             _qrTexture = QrCodeTexture.Create(joinUrl, QrDark, QrLight);
             _qrImage.style.backgroundImage = new StyleBackground(_qrTexture);
+        }
+
+        /// <summary>The seat KPI counts up to the new value (count token; reduced motion jumps straight to it).</summary>
+        private void ShowCrewCount(int crewCount)
+        {
+            if (crewCount == _crewShown) return;
+            _crewCountUp?.Pause();
+            int from = int.TryParse(_crewCount.text, out int shown) ? shown : 0;
+            _crewShown = crewCount;
+            _crewCountUp = MfMotion.CountUp(_crewCount, from, crewCount, v => Math.Round(v).ToString("0"));
         }
     }
 }

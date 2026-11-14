@@ -37,7 +37,8 @@ namespace MissionForge.Screens.BuildBay
             string objKey = "contract." + id + ".objective.primary";
             bool hasObjective = _text.Has(objKey);
             Objective.text = hasObjective ? _text.Get("ui.buildbay.objectives.primary") + ": " + _text.Get(objKey) : "";
-            Objective.style.display = hasObjective ? DisplayStyle.Flex : DisplayStyle.None;
+            // Null (not Flex) when shown, so USS modes can still hide it (200 % text hides the paragraph).
+            Objective.style.display = hasObjective ? new StyleEnum<DisplayStyle>(StyleKeyword.Null) : DisplayStyle.None;
 
             if (!_built)
             {
@@ -96,7 +97,7 @@ namespace MissionForge.Screens.BuildBay
             _legend.Clear();
             _legend.Add(LegendItem(_text.Get("ui.buildbay.timeline.critical"), "mf-legend__swatch--critical"));
             _legend.Add(LegendItem(slack, b.SlackDays >= 0 ? "mf-legend__swatch--slack" : "mf-legend__swatch--late"));
-            _legend.Add(LegendItem(deadline, "mf-legend__swatch--deadline"));
+            // The deadline is labelled once, on the chart's deadline line (it was also repeated here).
 
             // Budget: spent against the budget marker; the leading option's extra cost as the ghost delta.
             double scale = Math.Max(b.BudgetM, b.TotalCostM + Math.Max(0, previewCostDeltaM)) * 1.1;
@@ -107,9 +108,9 @@ namespace MissionForge.Screens.BuildBay
             _budgetBar.Set(F(b.TotalCostM), status, F(b.BudgetM), null, preview ? F(b.TotalCostM + previewCostDeltaM) : -1f, null, -1f, -1f, rtl);
 
             string text = _text.Get("ui.buildbay.budget.spent") + " " + DashboardViewModel.Money(b.TotalCostM) +
-                          "   " + _text.Get("ui.buildbay.budget.remaining") + " " + MfText.TrueMinus(DashboardViewModel.Money(b.RemainingM).Replace("$-", "-$"));
+                          " \u00B7 " + _text.Get("ui.buildbay.budget.remaining") + " " + MfText.TrueMinus(DashboardViewModel.Money(b.RemainingM).Replace("$-", "-$"));
             if (preview)
-                text += "   <color=#55C5CD>" + _text.Get("ui.buildbay.budget.preview") + " " + (previewCostDeltaM > 0 ? "↑ +" : "↓ " + MfText.Minus) +
+                text += " \u00B7 <color=#55C5CD>" + _text.Get("ui.buildbay.budget.preview") + " " + (previewCostDeltaM > 0 ? "↑ +" : "↓ " + MfText.Minus) +
                         DashboardViewModel.Money(Math.Abs(previewCostDeltaM)) + "</color>";
             _budgetText.text = text;
         }

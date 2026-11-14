@@ -46,6 +46,7 @@ namespace MissionForge.Screens.BuildBay
             _options = screen.Q<VisualElement>("vote-options");
             _feed = screen.Q<VisualElement>("vote-feed");
             _idle = screen.Q<MfEmptyState>("vote-idle");
+            if (_options is ScrollView scroll) MfScrollFade.Attach(scroll);
         }
 
         public void ShowIdle(bool done)
@@ -152,8 +153,11 @@ namespace MissionForge.Screens.BuildBay
         private void Tally()
         {
             bool hidden = _model.TalliesHidden && _model.WinnerId == null;
-            _tally.style.display = hidden || _model.Options.Count == 0 ? DisplayStyle.None : DisplayStyle.Flex;
-            if (hidden) return;
+            int cast = 0;
+            foreach (OptionState o in _model.Options) cast += Math.Max(0, o.Count ?? 0);
+            // Before the first vote the note above already says "0 of N voted": no empty stand-in bar (VISUAL_TARGET 3.1).
+            _tally.style.display = hidden || cast == 0 ? DisplayStyle.None : DisplayStyle.Flex;
+            if (hidden || cast == 0) return;
             var segments = new List<MfTallySegment>(_model.Options.Count);
             for (int i = 0; i < _model.Options.Count; i++)
             {
@@ -220,18 +224,19 @@ namespace MissionForge.Screens.BuildBay
             if (o.Vetoed) badges.Add(Badge("fails", _text.Format("ui.buildbay.vote.vetoed", _channel?.PlayerName(o.VetoedBy) ?? o.VetoedBy), "bb-badge--bad"));
             if (badges.childCount > 0) card.Add(badges);
 
-            if (o.Deltas.Count > 0)
+            var deltas = Row("bb-card__row");
+            foreach (DeltaItem d in o.Deltas)
             {
-                var deltas = Row("bb-card__row");
-                deltas.Add(Text(_text.Get("ui.buildbay.vote.if_chosen"), "bb-card__line"));
-                foreach (DeltaItem d in o.Deltas)
-                {
-                    string label = DeltaLabel(d);
-                    if (label == null) continue;
-                    var chip = Text(MfText.TrueMinus(label), "bb-delta");
-                    chip.AddToClassList(d.Rating == "GOOD" ? "bb-delta--good" : d.Rating == "BAD" ? "bb-delta--bad" : "bb-delta--neutral");
-                    deltas.Add(chip);
-                }
+                string label = DeltaLabel(d);
+                if (label == null) continue;
+                var chip = Text(MfText.TrueMinus(label), "bb-delta");
+                chip.AddToClassList(d.Rating == "GOOD" ? "bb-delta--good" : d.Rating == "BAD" ? "bb-delta--bad" : "bb-delta--neutral");
+                deltas.Add(chip);
+            }
+            // Only when at least one delta is shown: an "If chosen" label with nothing after it reads as missing data.
+            if (deltas.childCount > 0)
+            {
+                deltas.Insert(0, Text(_text.Get("ui.buildbay.vote.if_chosen"), "bb-card__line"));
                 card.Add(deltas);
             }
 

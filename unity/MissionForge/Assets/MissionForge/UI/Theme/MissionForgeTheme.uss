@@ -94,9 +94,14 @@
 .mf-veil { position: absolute; left: 0; top: 0; right: 0; bottom: 0; background-color: var(--mf-space); opacity: 1; }
 
 /* ---------- high contrast (applied on the panel root as .mf-hc): no imagery behind text ---------- */
-.mf-hc .mf-label, .mf-hc .mf-meta, .mf-hc .mf-unit, .mf-hc .mf-body--dim, .mf-hc .mf-caption { color: var(--mf-ceramic); }
+.mf-hc .mf-label, .mf-hc .mf-meta, .mf-hc .mf-unit, .mf-hc .mf-body--dim, .mf-hc .mf-caption, .mf-hc .mf-text-muted,
+.mf-hc .mf-region__label { color: var(--mf-ceramic); }
+.mf-hc .mf-region { background-color: var(--mf-console); border-width: 2px; border-color: var(--mf-ceramic-56); }
 
 /* ---------- 200 % text (applied on the panel root as .mf-text-200): every token size doubles ---------- */
+/* The top bar is 196 px tall at 200 % (its stepper takes a second band, Navigation.uss); full-bleed screens keep the safe margin. */
+.mf-text-200 .mf-screen { padding-top: 212px; }
+.mf-text-200 .mf-screen--bare { padding-top: var(--mf-sp-safe-y); }
 .mf-text-200 {
     --mf-fs-display: 192px;
     --mf-fs-h1: 128px;

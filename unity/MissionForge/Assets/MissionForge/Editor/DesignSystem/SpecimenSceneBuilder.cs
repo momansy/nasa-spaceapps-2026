@@ -37,12 +37,14 @@ namespace MissionForge.Editor.DesignSystem
             cameraGo.AddComponent<UniversalAdditionalCameraData>().renderPostProcessing = true;
             cameraGo.transform.SetPositionAndRotation(new Vector3(0f, 0f, -10f), Quaternion.identity);
 
-            // A lit planet behind the page so the glass panel has something to blur.
+            // A small lit planet behind the glass panel only (top right, clear of the seat cards) so the glass has something to
+            // blur without putting imagery behind the Data column. MfDesignSystemSpecimen sets the Earth shader's sun so
+            // the day side faces the camera (no night-side city lights).
             var earth = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             earth.name = "Specimen Backdrop";
             Object.DestroyImmediate(earth.GetComponent<Collider>());
-            earth.transform.position = new Vector3(4.2f, -2.6f, 6f);
-            earth.transform.localScale = Vector3.one * 9f;
+            earth.transform.position = new Vector3(7.9f, 3.75f, 6f);
+            earth.transform.localScale = Vector3.one * 2.2f;
             var earthMat = AssetDatabase.LoadAssetAtPath<Material>(EarthMaterialPath);
             if (earthMat != null) earth.GetComponent<MeshRenderer>().sharedMaterial = earthMat;
 
@@ -69,7 +71,7 @@ namespace MissionForge.Editor.DesignSystem
         [MenuItem("MissionForge/Design System/Build Specimen Player (macOS, dev)")]
         public static void BuildPlayer()
         {
-            if (!File.Exists(ScenePath)) BuildScene();
+            BuildScene(); // Always regenerate so the scene matches this builder.
             string output = Path.GetFullPath(Path.Combine(Application.dataPath, "..", "Builds", "Specimen", "Specimen.app"));
             BuildReport report = BuildPipeline.BuildPlayer(new BuildPlayerOptions
             {

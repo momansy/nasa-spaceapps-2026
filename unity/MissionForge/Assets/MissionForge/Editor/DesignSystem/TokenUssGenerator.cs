@@ -128,10 +128,14 @@ namespace MissionForge.Editor.DesignSystem
         }
 
         /// <summary>
-        /// USS has no quartic easing: ease-out-quart (count-ups) maps to ease-out-cubic in USS; MfMotion.CountUp still uses
-        /// the true quartic curve in C#, and the React client reads the token as written.
+        /// USS easing has no quartic curve and no tunable back overshoot, so two tokens map to the closest USS curve:
+        /// ease-out-quart (count-ups) becomes ease-out-cubic (closest USS curve: at most 0.105 from the quartic, mean 0.050;
+        /// ease-out-circ is 0.130 / 0.047 with a vertical start, expo 0.168 / 0.057), and ease-out-back (celebrate, at most
+        /// 6 % overshoot) becomes ease-out-cubic because USS ease-out-back overshoots about 10 %. C# keeps the exact curves: MfMotion.CountUp (quartic) and
+        /// MfMotion.Celebrate (back, 6 % overshoot). The React client reads the tokens as written.
         /// </summary>
-        public static string UssCurve(string curve) => curve == "ease-out-quart" ? "ease-out-cubic" : curve;
+        public static string UssCurve(string curve) =>
+            curve == "ease-out-quart" || curve == "ease-out-back" ? "ease-out-cubic" : curve;
 
         private static string Px(JToken t) => ((double)t).ToString("0.##", CultureInfo.InvariantCulture) + "px";
 
