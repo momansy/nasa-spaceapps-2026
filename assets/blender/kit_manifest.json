@@ -1,0 +1,58 @@
+{
+ "schema": 1,
+ "units": "metres, Blender axes (+Z up, +Y forward)",
+ "parts": {
+  "adapter_d54_to_d37": {
+   "id": "adapter_d54_to_d37",
+   "length_m": 2.3,
+   "diameter_bottom_m": 5.4,
+   "diameter_top_m": 3.7,
+   "value_types": {
+    "length_m": "game_value",
+    "diameter_bottom_m": "game_value",
+    "diameter_top_m": "game_value"
+   },
+   "family": "adapter",
+   "design_ref": "7.5 (fairing mating)",
+   "bbox_min_m": [
+    -2.7,
+    -2.699,
+    0.0
+   ],
+   "bbox_max_m": [
+    2.7,
+    2.699,
+    2.3
+   ],
+   "attach_points_m": {
+    "attach_top": {
+     "blender_xyz": [
+      0.0,
+      0.0,
+      2.3
+     ]
+    }
+   },
+   "materials": [
+    "detail_dark",
+    "engine_metal",
+    "hull",
+    "livery"
+   ],
+   "triangles": {
+    "lod0": 3592,
+    "lod1": 1004,
+    "phone": 3592
+   },
+   "files": {
+    "fbx": "unity/MissionForge/Assets/Art/Models/adapter_d54_to_d37.fbx",
+    "glb": "client/public/models/adapter_d54_to_d37.glb",
+    "fbx_bytes": 113836,
+    "glb_bytes": 187696,
+    "blend": "assets/blender/adapter_d54_to_d37.blend",
+    "blend_bytes": 166337
+   },
+   "issues": []
+  }
+ }
+}
