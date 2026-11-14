@@ -11,7 +11,9 @@ from typing import Callable
 import bpy
 from mathutils import Vector
 
-from .core import SLOTS, MeshBuilder
+from . import materials, surface
+from . import uv as uvmod
+from .core import ALL_SLOTS, SLOTS, VARIANT_SLOTS, MeshBuilder
 
 # --------------------------------------------------------------------------- paths
 SCRIPTS_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -23,8 +25,19 @@ BUILD_DIR = os.path.join(BLENDER_DIR, "_build")                 # git-ignored sc
 MANIFEST_PATH = os.path.join(BLENDER_DIR, "kit_manifest.json")
 
 # --------------------------------------------------------------------------- budgets
-HOST_TRI_BUDGET = 30000
+HOST_TRI_BUDGET = 30000           # legacy flat limit, still used for families with no table row
 LOD1_RATIO = 0.30
+# VISUAL_TARGET 2.3: (family prefix) -> (LOD0 max, LOD1 max) triangles; first matching prefix wins
+FAMILY_BUDGETS = (("engine", (50000, 15000)), ("booster", (50000, 15000)), ("tank", (40000, 12000)),
+                  ("fairing", (40000, 12000)), ("interstage", (40000, 12000)), ("mount", (40000, 12000)),
+                  ("adapter", (20000, 6000)), ("structure_adapter", (20000, 6000)))
+
+
+def tri_budget(family: str) -> tuple[int, int | None]:
+    for prefix, b in FAMILY_BUDGETS:
+        if family.startswith(prefix):
+            return b
+    return (HOST_TRI_BUDGET, None)
 PHONE_TRI_BUDGET = 8000
 PHONE_BYTES_BUDGET = 2 * 1024 * 1024
 
@@ -40,6 +53,11 @@ MATERIAL_LOOK = {
     "nozzle_hot": dict(color=(0.17, 0.135, 0.115), metallic=0.82, roughness=0.50),
     "thermal": dict(color=(0.60, 0.33, 0.11), metallic=0.0, roughness=0.82),
     "detail_dark": dict(color=(0.022, 0.030, 0.040), metallic=0.15, roughness=0.62),
+    "trim": dict(color=(0.50, 0.52, 0.55), metallic=0.85, roughness=0.40),                  # T032 slots
+    "decal": dict(color=(0.90, 0.92, 0.93), metallic=0.0, roughness=0.55),
+    "foam": dict(color=(0.30, 0.16, 0.065), metallic=0.0, roughness=0.80),                   # burnt amber SOFI
+    "nozzle_radiative": dict(color=(0.10, 0.10, 0.11), metallic=0.70, roughness=0.46),     # T032 variants
+    "nozzle_ablative": dict(color=(0.050, 0.040, 0.034), metallic=0.0, roughness=0.75),
     # T017 slots (style guide materials table; linear RGB, game_value art choices)
     "gantry": dict(color=(0.0056, 0.0242, 0.0513), metallic=0.20, roughness=0.62),       # Console navy #112B40
     "concrete": dict(color=(0.20, 0.205, 0.20), metallic=0.0, roughness=0.88),
@@ -51,6 +69,11 @@ MATERIAL_LOOK = {
 
 
 def get_material(name: str) -> bpy.types.Material:
+    """Slot material: the PBR library entry when its textures exist (materials.py), else the flat look."""
+    return materials.get_material(name, MATERIAL_LOOK[name], _flat_material)
+
+
+def _flat_material(name: str) -> bpy.types.Material:
     mat = bpy.data.materials.get(name)
     if mat is not None and mat.get("mfkit"):
         return mat
@@ -139,6 +162,13 @@ class PartCtx:
             self.meshes[sub] = MeshBuilder(self.lod)
         return self.meshes[sub]
 
+    def decal(self, tile_id: str, z: float, angle: float, size_m=None, *, r_at, sub: str = "", z_max=None,
+              center=(0.0, 0.0)):
+        """Conformal decal from the shared atlas (see decals.py). r_at(z) is the skin radius at height z."""
+        from . import decals
+        return decals.add_decal(self.mesh(sub), tile_id, z=z, angle=angle, size_m=size_m, r_at=r_at, z_max=z_max,
+                                center=center)
+
     def empty(self, name: str, loc, sub: str = "") -> None:
         """Attach point. Identity rotation: local +Z is the stack's up axis."""
         self.empties[name] = dict(loc=tuple(float(c) for c in loc), sub=sub)
@@ -165,7 +195,7 @@ def builder_to_mesh(mb: MeshBuilder, name: str) -> bpy.types.Mesh:
     used = sorted(set(mb.fm))
     remap = {slot: i for i, slot in enumerate(used)}
     for slot in used:
-        me.materials.append(get_material(SLOTS[slot]))
+        me.materials.append(get_material(ALL_SLOTS[slot]))
     me.polygons.foreach_set("material_index", [remap[m] for m in mb.fm])
     me.polygons.foreach_set("use_smooth", mb.fs)
     uv_layer = me.uv_layers.new(name="UVMap")
@@ -181,8 +211,9 @@ def builder_to_mesh(mb: MeshBuilder, name: str) -> bpy.types.Mesh:
         for u, v in uvs:
             flat.extend((u, v))
     uv_layer.data.foreach_set("uv", flat)
-    if SLOTS.index("nozzle_hot") in used and any(h > 0 for h in mb.heat):
-        col = me.color_attributes.new("heat", "BYTE_COLOR", "CORNER")
+    hot_slots = {ALL_SLOTS.index(n) for n in ("nozzle_hot", *VARIANT_SLOTS)}
+    if hot_slots & set(used) and any(h > 0 for h in mb.heat):
+        col = me.color_attributes.new("heat", "FLOAT_COLOR", "CORNER")
         cflat = []
         for face in mb.f:
             for vi in face:
@@ -254,6 +285,13 @@ def instantiate(part_id: str, *, lods=(0, 1), prefix: str = "", collection=None,
                 me = mesh_cache[ckey]
             else:
                 me = builder_to_mesh(mb, name)
+            if surface.wants_finish(PARTS[part_id].family) and not me.get("mf_finished"):
+                me = surface.finish(me, lod)
+                me["mf_finished"] = True
+                if mesh_cache is not None:
+                    mesh_cache[ckey] = me
+            if uvmod.wants_uv1(PARTS[part_id].family) and uvmod.UV1_NAME not in me.uv_layers:
+                uvmod.add_uv1(me, res=uvmod.bake_res(lod))
             ob = _link(bpy.data.objects.new(name, me), collection)
             ob.parent = sub_parent[sub]
             objs.append(ob)
@@ -265,6 +303,8 @@ def instantiate(part_id: str, *, lods=(0, 1), prefix: str = "", collection=None,
         if t1 > limit:
             for o in result["lod"][1]:
                 _decimate_to(o, int(tri_count(o.data) * limit / t1))
+                if uvmod.wants_uv1(PARTS[part_id].family):
+                    uvmod.add_uv1(o.data, res=uvmod.bake_res(1))   # decimation bends UV1: lay it out again
     for lod, objs in result["lod"].items():
         result["tris"][lod] = sum(tri_count(o.data) for o in objs)
     for name, e in ctx0.empties.items():
@@ -348,13 +388,17 @@ def validate(part_id: str, inst: dict) -> list[str]:
                     issues.append(f"mating ring at z={z:g}: radius {r:.3f}, expected {meta[key] / 2.0:.3f}")
     for o in lod0:
         for m in o.data.materials:
-            if m is None or m.name not in SLOTS:
+            if m is None or m.name not in ALL_SLOTS:
                 issues.append(f"unknown material {m.name if m else None}")
     t0, t1 = inst["tris"].get(0, 0), inst["tris"].get(1, 0)
-    if t0 > HOST_TRI_BUDGET:
-        issues.append(f"LOD0 {t0} tris over host budget {HOST_TRI_BUDGET}")
+    b0, b1 = tri_budget(family)
+    if t0 > b0:
+        issues.append(f"LOD0 {t0} tris over the {family} budget {b0}")
     if 1 in inst["tris"] and t1 > max(int(t0 * LOD1_RATIO), 200) + 2:
         issues.append(f"LOD1 {t1} tris over {LOD1_RATIO:.0%} of LOD0 ({t0})")
+    if b1 is not None and t1 > b1:
+        issues.append(f"LOD1 {t1} tris over the {family} LOD1 budget {b1}")
+    issues += uvmod.uv_issues(part_id, lod0 + inst["lod"].get(1, []), family)
     return issues
 
 
@@ -409,9 +453,10 @@ def clear_scene(scene=None, keep_collection: str = "studio") -> None:
     """Delete every object in the scene except those in the studio collection."""
     scene = scene or bpy.context.scene
     keep = set()
-    col = bpy.data.collections.get(keep_collection)
-    if col is not None:
-        keep = set(col.all_objects)
+    for name in ((keep_collection, "lookdev") if keep_collection else ()):   # the look-dev rig survives too
+        col = bpy.data.collections.get(name)
+        if col is not None:
+            keep |= set(col.all_objects)
     for o in list(scene.objects):
         if o not in keep:
             bpy.data.objects.remove(o, do_unlink=True)

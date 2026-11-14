@@ -1,0 +1,677 @@
+{
+ "version": 1,
+ "value_type": "game_value",
+ "uv": {
+  "uv0": "metric, 1 unit = 1 m; bells angle-normalised",
+  "uv1": "unique 0..1 bake layout"
+ },
+ "channel_layout": {
+  "albedo": "sRGB, near-neutral luminance; multiply by tint (sRGB hex)",
+  "normal": "OpenGL +Y tangent space (glTF and Unity)",
+  "orm": "linear: R occlusion, G roughness, B metallic",
+  "mask": "UV1: R AO, G edge wear, B heat or frost, A grime and cavity"
+ },
+ "materials": {
+  "hull": {
+   "albedo": "textures/hull/hull_albedo.jpg",
+   "normal": "textures/hull/hull_normal.png",
+   "orm": "textures/hull/hull_orm.jpg",
+   "tiling_m": 2.0,
+   "tint": "#E8EEF0",
+   "metallic": [
+    0.0,
+    0.0
+   ],
+   "roughness": [
+    0.4,
+    0.55
+   ],
+   "normal_strength": 0.8,
+   "hero": true,
+   "source": [
+    {
+     "name": "ambientCG Metal012 (2K-JPG)",
+     "url": "https://ambientcg.com/a/Metal012",
+     "licence": "CC0 1.0"
+    }
+   ],
+   "value_type": "game_value"
+  },
+  "engine_metal": {
+   "albedo": "textures/engine_metal/engine_metal_albedo.jpg",
+   "normal": "textures/engine_metal/engine_metal_normal.png",
+   "orm": "textures/engine_metal/engine_metal_orm.jpg",
+   "tiling_m": 1.0,
+   "tint": "#BEC1C6",
+   "metallic": [
+    0.88,
+    0.97
+   ],
+   "roughness": [
+    0.22,
+    0.52
+   ],
+   "normal_strength": 1.0,
+   "hero": true,
+   "source": [
+    {
+     "name": "ambientCG Metal009 (2K-JPG)",
+     "url": "https://ambientcg.com/a/Metal009",
+     "licence": "CC0 1.0"
+    }
+   ],
+   "value_type": "game_value"
+  },
+  "detail_dark": {
+   "albedo": "textures/detail_dark/detail_dark_albedo.jpg",
+   "normal": "textures/detail_dark/detail_dark_normal.png",
+   "orm": "textures/detail_dark/detail_dark_orm.jpg",
+   "tiling_m": 0.5,
+   "tint": "#2A3A4A",
+   "metallic": [
+    0.1,
+    0.15
+   ],
+   "roughness": [
+    0.48,
+    0.78
+   ],
+   "normal_strength": 1.0,
+   "hero": false,
+   "source": [
+    {
+     "name": "ambientCG Rubber004 (2K-JPG)",
+     "url": "https://ambientcg.com/a/Rubber004",
+     "licence": "CC0 1.0"
+    }
+   ],
+   "value_type": "game_value"
+  },
+  "nozzle_hot": {
+   "albedo": "textures/nozzle_hot/nozzle_hot_albedo.jpg",
+   "normal": "textures/nozzle_hot/nozzle_hot_normal.png",
+   "orm": "textures/nozzle_hot/nozzle_hot_orm.jpg",
+   "tiling_m": 0.5,
+   "tint": "#6A5648",
+   "metallic": [
+    0.8,
+    0.9
+   ],
+   "roughness": [
+    0.2,
+    0.75
+   ],
+   "normal_strength": 1.0,
+   "hero": true,
+   "source": [
+    {
+     "name": "Procedural (numpy generator in assets/blender/materials/source/mat_nozzle.py)",
+     "url": "https://github.com/momansy/nasa-spaceapps-2026",
+     "licence": "CC0 1.0"
+    }
+   ],
+   "value_type": "game_value",
+   "uv_mode": "angle",
+   "tubes_per_tile": 12,
+   "heat_tint": 0.55,
+   "note": "regen tube wall; u repeats around the bell, v is metres along the meridian"
+  },
+  "nozzle_radiative": {
+   "albedo": "textures/nozzle_radiative/nozzle_radiative_albedo.jpg",
+   "normal": "textures/nozzle_radiative/nozzle_radiative_normal.png",
+   "orm": "textures/nozzle_radiative/nozzle_radiative_orm.jpg",
+   "tiling_m": 1.0,
+   "tint": "#58555A",
+   "metallic": [
+    0.6,
+    0.8
+   ],
+   "roughness": [
+    0.3,
+    0.7
+   ],
+   "normal_strength": 0.8,
+   "hero": true,
+   "source": [
+    {
+     "name": "Procedural (numpy generator in assets/blender/materials/source/mat_nozzle.py)",
+     "url": "https://github.com/momansy/nasa-spaceapps-2026",
+     "licence": "CC0 1.0"
+    }
+   ],
+   "value_type": "game_value",
+   "uv_mode": "angle",
+   "slot": "nozzle_hot",
+   "heat_tint": 1.0,
+   "note": "radiatively cooled extension; vertex heat drives straw-bronze-violet tint"
+  },
+  "nozzle_ablative": {
+   "albedo": "textures/nozzle_ablative/nozzle_ablative_albedo.jpg",
+   "normal": "textures/nozzle_ablative/nozzle_ablative_normal.png",
+   "orm": "textures/nozzle_ablative/nozzle_ablative_orm.jpg",
+   "tiling_m": 0.8,
+   "tint": "#40342C",
+   "metallic": [
+    0.0,
+    0.05
+   ],
+   "roughness": [
+    0.6,
+    0.9
+   ],
+   "normal_strength": 1.0,
+   "hero": false,
+   "source": [
+    {
+     "name": "Procedural (numpy generator in assets/blender/materials/source/mat_nozzle.py)",
+     "url": "https://github.com/momansy/nasa-spaceapps-2026",
+     "licence": "CC0 1.0"
+    }
+   ],
+   "value_type": "game_value",
+   "uv_mode": "angle",
+   "slot": "nozzle_hot",
+   "heat_tint": 0.0,
+   "note": "carbon-phenolic layered wrap; solid and ablative nozzles"
+  },
+  "livery": {
+   "albedo": "textures/livery/livery_albedo.jpg",
+   "normal": "textures/livery/livery_normal.png",
+   "orm": "textures/livery/livery_orm.jpg",
+   "tiling_m": 1.5,
+   "tint": "#176887",
+   "metallic": [
+    0.0,
+    0.0
+   ],
+   "roughness": [
+    0.38,
+    0.52
+   ],
+   "normal_strength": 0.6,
+   "hero": false,
+   "source": [
+    {
+     "name": "Procedural (numpy generator in assets/blender/materials/source/mat_nozzle.py)",
+     "url": "https://github.com/momansy/nasa-spaceapps-2026",
+     "licence": "CC0 1.0"
+    }
+   ],
+   "value_type": "game_value"
+  },
+  "thermal": {
+   "albedo": "textures/thermal/thermal_albedo.jpg",
+   "normal": "textures/thermal/thermal_normal.png",
+   "orm": "textures/thermal/thermal_orm.jpg",
+   "tiling_m": 1.0,
+   "tint": "#C79A52",
+   "metallic": [
+    0.6,
+    0.8
+   ],
+   "roughness": [
+    0.15,
+    0.55
+   ],
+   "normal_strength": 1.0,
+   "hero": false,
+   "source": [
+    {
+     "name": "Procedural (numpy generator in assets/blender/materials/source/mat_nozzle.py)",
+     "url": "https://github.com/momansy/nasa-spaceapps-2026",
+     "licence": "CC0 1.0"
+    }
+   ],
+   "value_type": "game_value"
+  },
+  "foam": {
+   "albedo": "textures/foam/foam_albedo.jpg",
+   "normal": "textures/foam/foam_normal.png",
+   "orm": "textures/foam/foam_orm.jpg",
+   "tiling_m": 0.5,
+   "tint": "#9A6A3F",
+   "metallic": [
+    0.0,
+    0.0
+   ],
+   "roughness": [
+    0.7,
+    0.9
+   ],
+   "normal_strength": 1.0,
+   "hero": false,
+   "source": [
+    {
+     "name": "Procedural (numpy generator in assets/blender/materials/source/mat_nozzle.py)",
+     "url": "https://github.com/momansy/nasa-spaceapps-2026",
+     "licence": "CC0 1.0"
+    }
+   ],
+   "value_type": "game_value"
+  },
+  "trim": {
+   "albedo": "trim/mf_trim_01_albedo.jpg",
+   "normal": "trim/mf_trim_01_normal.png",
+   "orm": "trim/mf_trim_01_orm.jpg",
+   "tiling_m": 1.0,
+   "tint": "#BEC1C6",
+   "metallic": [
+    0.25,
+    0.92
+   ],
+   "roughness": [
+    0.2,
+    0.8
+   ],
+   "normal_strength": 1.0,
+   "hero": true,
+   "source": [
+    {
+     "name": "Procedural (numpy generator in assets/blender/materials/source/mat_nozzle.py)",
+     "url": "https://github.com/momansy/nasa-spaceapps-2026",
+     "licence": "CC0 1.0"
+    }
+   ],
+   "value_type": "game_value",
+   "uv_mode": "trim"
+  },
+  "decal": {
+   "albedo": "decals/mf_decals_01_albedo.png",
+   "normal": "decals/mf_decals_01_normal.png",
+   "orm": "decals/mf_decals_01_orm.jpg",
+   "tiling_m": 1.0,
+   "tint": "#FFFFFF",
+   "metallic": [
+    0.0,
+    0.0
+   ],
+   "roughness": [
+    0.5,
+    0.6
+   ],
+   "normal_strength": 0.5,
+   "hero": true,
+   "source": [
+    {
+     "name": "Procedural (numpy generator in assets/blender/materials/source/mat_nozzle.py)",
+     "url": "https://github.com/momansy/nasa-spaceapps-2026",
+     "licence": "CC0 1.0"
+    },
+    {
+     "name": "Saira Stencil One (Regular)",
+     "url": "https://fonts.google.com/specimen/Saira+Stencil+One",
+     "licence": "SIL OFL 1.1"
+    }
+   ],
+   "value_type": "game_value",
+   "uv_mode": "atlas",
+   "alpha": "clip",
+   "alpha_cutoff": 0.5
+  }
+ },
+ "trim": {
+  "textures": {
+   "albedo": "trim/mf_trim_01_albedo.jpg",
+   "normal": "trim/mf_trim_01_normal.png",
+   "orm": "trim/mf_trim_01_orm.jpg"
+  },
+  "size_px": 2048,
+  "u_repeat_m": 1.0,
+  "tint": "#BEC1C6",
+  "rows": [
+   {
+    "name": "weld_bead",
+    "v0": 0.0,
+    "v1": 0.0625
+   },
+   {
+    "name": "rivet_single",
+    "v0": 0.0625,
+    "v1": 0.125
+   },
+   {
+    "name": "rivet_double",
+    "v0": 0.125,
+    "v1": 0.21875
+   },
+   {
+    "name": "panel_gap",
+    "v0": 0.21875,
+    "v1": 0.28125
+   },
+   {
+    "name": "hat_stringer",
+    "v0": 0.28125,
+    "v1": 0.40625
+   },
+   {
+    "name": "bolt_flange",
+    "v0": 0.40625,
+    "v1": 0.53125
+   },
+   {
+    "name": "bellows",
+    "v0": 0.53125,
+    "v1": 0.65625
+   },
+   {
+    "name": "braided_hose",
+    "v0": 0.65625,
+    "v1": 0.75
+   },
+   {
+    "name": "cable_clamp_strip",
+    "v0": 0.75,
+    "v1": 0.84375
+   },
+   {
+    "name": "hinge_latch_strip",
+    "v0": 0.84375,
+    "v1": 0.9375
+   },
+   {
+    "name": "vent_grille",
+    "v0": 0.9375,
+    "v1": 1.0
+   }
+  ],
+  "source": [
+   {
+    "name": "Procedural (numpy generator in assets/blender/materials/source/mat_nozzle.py)",
+    "url": "https://github.com/momansy/nasa-spaceapps-2026",
+    "licence": "CC0 1.0"
+   }
+  ],
+  "value_type": "game_value",
+  "note": "u: 1 repeat per metre of band length (UV0 metric); v: across the strip, inside the row range"
+ },
+ "decals": {
+  "textures": {
+   "albedo": "decals/mf_decals_01_albedo.png",
+   "normal": "decals/mf_decals_01_normal.png",
+   "orm": "decals/mf_decals_01_orm.jpg"
+  },
+  "size_px": 2048,
+  "offset_m": 0.003,
+  "tiles": [
+   {
+    "id": "fluid_lox",
+    "rect": [
+     0.0,
+     0.875,
+     0.5,
+     1.0
+    ],
+    "size_m": [
+     0.4,
+     0.1
+    ],
+    "px": [
+     1024,
+     256
+    ]
+   },
+   {
+    "id": "fluid_rp1",
+    "rect": [
+     0.5,
+     0.875,
+     1.0,
+     1.0
+    ],
+    "size_m": [
+     0.4,
+     0.1
+    ],
+    "px": [
+     1024,
+     256
+    ]
+   },
+   {
+    "id": "fluid_lh2",
+    "rect": [
+     0.0,
+     0.75,
+     0.5,
+     0.875
+    ],
+    "size_m": [
+     0.4,
+     0.1
+    ],
+    "px": [
+     1024,
+     256
+    ]
+   },
+   {
+    "id": "fluid_ch4",
+    "rect": [
+     0.5,
+     0.75,
+     1.0,
+     0.875
+    ],
+    "size_m": [
+     0.4,
+     0.1
+    ],
+    "px": [
+     1024,
+     256
+    ]
+   },
+   {
+    "id": "fluid_gn2",
+    "rect": [
+     0.0,
+     0.625,
+     0.5,
+     0.75
+    ],
+    "size_m": [
+     0.4,
+     0.1
+    ],
+    "px": [
+     1024,
+     256
+    ]
+   },
+   {
+    "id": "no_step",
+    "rect": [
+     0.5,
+     0.625,
+     1.0,
+     0.75
+    ],
+    "size_m": [
+     0.4,
+     0.1
+    ],
+    "px": [
+     1024,
+     256
+    ]
+   },
+   {
+    "id": "stage_1",
+    "rect": [
+     0.0,
+     0.5,
+     0.5,
+     0.625
+    ],
+    "size_m": [
+     0.4,
+     0.1
+    ],
+    "px": [
+     1024,
+     256
+    ]
+   },
+   {
+    "id": "stage_2",
+    "rect": [
+     0.5,
+     0.5,
+     1.0,
+     0.625
+    ],
+    "size_m": [
+     0.4,
+     0.1
+    ],
+    "px": [
+     1024,
+     256
+    ]
+   },
+   {
+    "id": "serial_s1",
+    "rect": [
+     0.0,
+     0.375,
+     0.5,
+     0.5
+    ],
+    "size_m": [
+     0.4,
+     0.1
+    ],
+    "px": [
+     1024,
+     256
+    ]
+   },
+   {
+    "id": "serial_s2",
+    "rect": [
+     0.5,
+     0.375,
+     1.0,
+     0.5
+    ],
+    "size_m": [
+     0.4,
+     0.1
+    ],
+    "px": [
+     1024,
+     256
+    ]
+   },
+   {
+    "id": "arm_plug",
+    "rect": [
+     0.0,
+     0.25,
+     0.5,
+     0.375
+    ],
+    "size_m": [
+     0.4,
+     0.1
+    ],
+    "px": [
+     1024,
+     256
+    ]
+   },
+   {
+    "id": "safe_plug",
+    "rect": [
+     0.5,
+     0.25,
+     1.0,
+     0.375
+    ],
+    "size_m": [
+     0.4,
+     0.1
+    ],
+    "px": [
+     1024,
+     256
+    ]
+   },
+   {
+    "id": "hazard_chevrons",
+    "rect": [
+     0.0,
+     0.125,
+     1.0,
+     0.25
+    ],
+    "size_m": [
+     0.8,
+     0.1
+    ],
+    "px": [
+     2048,
+     256
+    ]
+   },
+   {
+    "id": "lift_point",
+    "rect": [
+     0.0,
+     0.0,
+     0.125,
+     0.125
+    ],
+    "size_m": [
+     0.1,
+     0.1
+    ],
+    "px": [
+     256,
+     256
+    ]
+   },
+   {
+    "id": "cg_marker",
+    "rect": [
+     0.125,
+     0.0,
+     0.25,
+     0.125
+    ],
+    "size_m": [
+     0.1,
+     0.1
+    ],
+    "px": [
+     256,
+     256
+    ]
+   }
+  ],
+  "value_type": "game_value",
+  "source": [
+   {
+    "name": "Saira Stencil One (Regular)",
+    "url": "https://fonts.google.com/specimen/Saira+Stencil+One",
+    "licence": "SIL OFL 1.1"
+   },
+   {
+    "name": "Procedural (numpy generator in assets/blender/materials/source/mat_nozzle.py)",
+    "url": "https://github.com/momansy/nasa-spaceapps-2026",
+    "licence": "CC0 1.0"
+   }
+  ],
+  "note": "RGBA albedo (alpha-clipped); rect = [u0, v0, u1, v1] with v from the bottom; size_m = default printed size in metres [width, height]"
+ },
+ "parts": {
+  "eng_kerolox_workhorse": {
+   "mask_res": 2048,
+   "mask_b": "heat",
+   "channels": "R ao, G edge wear, B heat, A cavity and grime",
+   "lod0_mask": "bakes/eng_kerolox_workhorse/eng_kerolox_workhorse_lod0_mask.png",
+   "lod1_mask": "bakes/eng_kerolox_workhorse/eng_kerolox_workhorse_lod1_mask.png"
+  }
+ }
+}

@@ -24,11 +24,28 @@ TAU = math.tau
 # dark rubber/composite/shadow-gap material shared by every part.
 SLOTS = ("hull", "livery", "engine_metal", "nozzle_hot", "thermal", "detail_dark",
          # T017 world / spacecraft slots (appended; never reorder the ones above)
-         "gantry", "concrete", "ground", "foliage", "solar_cell", "heat_shield")
+         "gantry", "concrete", "ground", "foliage", "solar_cell", "heat_shield",
+         # T032 slots (appended): trim-sheet strips, alpha-clipped decal atlas quads, spray-on foam insulation
+         "trim", "decal", "foam")
+
+
+# Library-only material variants (T032): mapped from an engine's params, they are NOT new game slots. They share the
+# `nozzle_hot` slot semantics (heat mask, recolour); library.json gives each its own texture set.
+VARIANT_SLOTS = {"nozzle_radiative": "nozzle_hot", "nozzle_ablative": "nozzle_hot"}
+ALL_SLOTS = SLOTS + tuple(VARIANT_SLOTS)
 
 
 def _even(n: int) -> int:
     return n + (n % 2)
+
+
+def trim_range(row: str) -> tuple[float, float]:
+    """(v0, v1) of a trim-sheet row from library.json; raises KeyError for an unknown row."""
+    from . import materials
+    for r in materials.library().get("trim", {}).get("rows", []):
+        if r["name"] == row:
+            return (r["v0"], r["v1"])
+    raise KeyError(f"trim row {row!r} not in library.json")
 
 
 def fillet_polyline(points, bend_radius, bend_seg):
@@ -113,7 +130,7 @@ class MeshBuilder:
     # ------------------------------------------------------------------ low level
     @staticmethod
     def _slot(mat) -> int:
-        return mat if isinstance(mat, int) else SLOTS.index(mat)
+        return mat if isinstance(mat, int) else ALL_SLOTS.index(mat)
 
     def _vert(self, co, heat=0.0) -> int:
         self.v.append((co[0], co[1], co[2]))
@@ -216,7 +233,7 @@ class MeshBuilder:
 
     # ------------------------------------------------------------------ primitives
     def lathe(self, profile, seg, mat, *, smooth=True, crease=30.0, sweep=None, flip=False,
-              heat=0.0, closed=False, uv_scale=1.0):
+              heat=0.0, closed=False, uv_scale=1.0, uv_u_repeat=None, uv_v_range=None):
         """Revolve an (r, z) profile around +Z.
 
         profile : list of (r, z). Points with r <= 1e-6 become a single pole vertex.
@@ -226,6 +243,10 @@ class MeshBuilder:
         flip    : reverse normals.
         heat    : float, or list with one value per profile point (nozzle glow mask 0..1).
         closed  : profile is a closed loop (last point connects to first; do not repeat it).
+        uv_scale: metric UV multiplier (1.0 = 1 UV unit per metre).
+        uv_v_range: (v0, v1): v spans this range over the whole profile length (trim-sheet rows).
+        uv_u_repeat: if set, u is angle-normalised: exactly this many texture repeats around the full
+                  circumference at any radius (bells: constant coolant-tube count from throat to exit).
         """
         pts = [(float(r), float(z)) for r, z in profile]
         n = len(pts)
@@ -276,11 +297,20 @@ class MeshBuilder:
             for k in range(len(run) - 1):
                 ia, ib = run[k], run[k + 1]
                 ra, rb = rings[k], rings[k + 1]
-                va, vb = vlen[ia] * uv_scale, vlen[ib] * uv_scale
+                if uv_v_range is None:
+                    va, vb = vlen[ia] * uv_scale, vlen[ib] * uv_scale
+                else:
+                    tot = vlen[-1] or 1.0
+                    va = uv_v_range[0] + (uv_v_range[1] - uv_v_range[0]) * vlen[ia] / tot
+                    vb = uv_v_range[0] + (uv_v_range[1] - uv_v_range[0]) * vlen[ib] / tot
                 for j in range(seg):
                     j2 = (j + 1) % cols if full else j + 1
-                    u0 = (a0 + (a1 - a0) * j / seg) * r_ref * uv_scale
-                    u1 = (a0 + (a1 - a0) * (j + 1) / seg) * r_ref * uv_scale
+                    if uv_u_repeat is None:
+                        u0 = (a0 + (a1 - a0) * j / seg) * r_ref * uv_scale
+                        u1 = (a0 + (a1 - a0) * (j + 1) / seg) * r_ref * uv_scale
+                    else:
+                        u0 = (a0 + (a1 - a0) * j / seg) / TAU * uv_u_repeat
+                        u1 = (a0 + (a1 - a0) * (j + 1) / seg) / TAU * uv_u_repeat
                     if len(ra) == 1 and len(rb) == 1:
                         continue
                     if len(ra) == 1:
@@ -319,13 +349,20 @@ class MeshBuilder:
     def strut(self, p0, p1, r, mat="engine_metal", seg=6, caps=False):
         self.cyl(p0, p1, r, seg, mat, caps=caps)
 
-    def tube(self, path, radius, seg, mat, *, bend=None, bend_seg=4, caps=False, smooth=True):
-        """Pipe of constant radius along a polyline, with rounded bends.
+    def tube(self, path, radius, seg, mat, *, bend=None, bend_seg=4, caps=False, smooth=True, radii=None,
+             trim=None):
+        """Pipe along a polyline, with rounded bends.
 
-        bend: bend radius (default 2.5 x pipe radius). bend_seg: arc steps per corner at LOD0."""
-        bend = radius * 2.5 if bend is None else bend
-        bseg = bend_seg if self.lod == 0 else max(2, bend_seg // 2)
-        pts = fillet_polyline(path, bend, bseg)
+        bend: bend radius (default 2.5 x pipe radius). bend_seg: arc steps per corner at LOD0.
+        radii: one radius per path point (no filleting; for scroll cases and tapers).
+        trim='<row>': slot `trim`, u = metres along the pipe (the row tiles along u), v = once around the pipe
+                      inside the row's v range (e.g. 'braided_hose', 'cable_clamp_strip')."""
+        if radii is not None:
+            pts = [Vector(p) for p in path]
+        else:
+            bend = radius * 2.5 if bend is None else bend
+            bseg = bend_seg if self.lod == 0 else max(2, bend_seg // 2)
+            pts = fillet_polyline(path, bend, bseg)
         if len(pts) < 2:
             return
         # tangents
@@ -354,14 +391,21 @@ class MeshBuilder:
                 vcoord.append(vcoord[-1] + (p - pts[i - 1]).length)
             bin_ = t.cross(nrm)
             ring = []
+            rad = radii[i] if radii is not None else radius
             for j in range(seg):
                 a = TAU * j / seg
-                ring.append(self._vert(p + (nrm * math.cos(a) + bin_ * math.sin(a)) * radius))
+                ring.append(self._vert(p + (nrm * math.cos(a) + bin_ * math.sin(a)) * rad))
             rings.append(ring)
+        tv = trim_range(trim) if trim else None
         for i in range(len(rings) - 1):
             ra, rb = rings[i], rings[i + 1]
             for j in range(seg):
                 j2 = (j + 1) % seg
+                if tv:
+                    va, vb = tv[0] + (tv[1] - tv[0]) * j / seg, tv[0] + (tv[1] - tv[0]) * (j + 1) / seg
+                    self._face([ra[j], ra[j2], rb[j2], rb[j]], "trim", smooth,
+                               [(vcoord[i], va), (vcoord[i], vb), (vcoord[i + 1], vb), (vcoord[i + 1], va)])
+                    continue
                 u0, u1 = TAU * radius * j / seg, TAU * radius * (j + 1) / seg
                 self._face([ra[j], ra[j2], rb[j2], rb[j]], mat, smooth,
                            [(u0, vcoord[i]), (u1, vcoord[i]), (u1, vcoord[i + 1]), (u0, vcoord[i + 1])])
@@ -447,15 +491,25 @@ class MeshBuilder:
             prof.reverse()
         self.lathe(prof, seg, mat, crease=80.0, flip=flip)
 
-    def torus(self, major_r, minor_r, z, seg, minor_seg, mat, *, heat=0.0):
-        """Ring (hoop) around +Z at height z."""
+    def torus(self, major_r, minor_r, z, seg, minor_seg, mat, *, heat=0.0, trim=None):
+        """Ring (hoop) around +Z at height z. trim='<row>' maps the section onto a trim-sheet row (slot `trim`)."""
         prof = [(major_r + minor_r * math.cos(TAU * i / minor_seg),
                  z + minor_r * math.sin(TAU * i / minor_seg)) for i in range(minor_seg)]
+        if trim:
+            self.lathe(prof, seg, "trim", crease=179.0, closed=True, heat=heat, uv_v_range=trim_range(trim))
+            return
         self.lathe(prof, seg, mat, crease=179.0, closed=True, heat=heat)
 
-    def band(self, radius, z0, z1, thickness, seg, mat, *, heat=0.0):
-        """Flat raised hoop (rectangular section) hugging a cylinder of `radius`."""
+    def band(self, radius, z0, z1, thickness, seg, mat, *, heat=0.0, trim=None):
+        """Flat raised hoop (rectangular section) hugging a cylinder of `radius`.
+
+        trim='<row>': the outer face maps onto that trim-sheet row (v across the band, u metric) in slot `trim`."""
         r_out = radius + thickness
+        if trim:
+            self.lathe([(radius, z0), (r_out, z0)], seg, mat, heat=heat)
+            self.lathe([(r_out, z0), (r_out, z1)], seg, "trim", heat=heat, uv_v_range=trim_range(trim))
+            self.lathe([(r_out, z1), (radius, z1)], seg, mat, heat=heat)
+            return
         self.lathe([(radius, z0), (r_out, z0), (r_out, z1), (radius, z1)], seg, mat, heat=heat)
 
     def bolt_ring(self, radius, z, count, bolt_r, bolt_h, mat="engine_metal", *, axis="Z", phase=0.0,
