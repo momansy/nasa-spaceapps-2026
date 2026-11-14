@@ -97,6 +97,12 @@ namespace MissionForge.Core.Campaign
                 Def("patch_archivist", "career", "mission_patches_designed", "gte", 10)
             });
 
+        /// <summary>
+        /// Built-in copy of data/achievements.json, used when the host passes no JSON text. A test keeps it
+        /// identical to the data file; the data file is authoritative.
+        /// </summary>
+        public static IReadOnlyList<AchievementDefinition> BuiltIn => Defaults;
+
         private static AchievementDefinition Def(string id, string scope, string metric, string op,
             double value = 0, IEnumerable<string>? contracts = null, string assistLevel = "") =>
             new AchievementDefinition(id, scope, new[] { new AchievementCriterion(metric, op, value) },
@@ -132,7 +138,7 @@ namespace MissionForge.Core.Campaign
                         (string?)criterion["minigame"] ?? ""));
                 }
                 var contracts = row["contracts"] is JArray cs ?
-                    cs.Select(x => (string)x).ToArray() : Array.Empty<string>();
+                    cs.Select(x => (string?)x ?? "").Where(x => x.Length != 0).ToArray() : Array.Empty<string>();
                 defs.Add(new AchievementDefinition(id, scope, criteria, contracts,
                     (string?)row["assist_level"] ?? ""));
             }

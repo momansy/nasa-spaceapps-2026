@@ -1,6 +1,6 @@
 # T014 — Core campaign and modes evidence
 
-**Status:** implementation proposed for review; .NET tests not executed on this ChatGPT host.
+**Status:** compiles and passes: `dotnet test core/dotnet~` 376/376 (347 before T014, 29 Campaign). See `dotnet-test.txt`.
 **Source:** GAME_DESIGN.md §13, T014 task brief and protocol GameMode.
 **Scope:** core/Runtime/Campaign/, core/dotnet~/Tests/Campaign/, orchestration/evidence/T014/.
 
@@ -16,6 +16,19 @@
 9. Schema-driven achievements, including operators `gte`, `gt`, `lte`, `lt`, `eq`, `within`, `is_true`; one-time unlocks.
 
 ## Verification
+- **Compile and test fixes (orchestrator, .NET 8 SDK):** the PR as written did not build. Fixed, design unchanged:
+  - `Leaderboard.cs`: inside `LeaderboardRecord`, `TeamName.Validate` bound to the `TeamName` string property; now
+    fully qualified to the `TeamName` validator class.
+  - `CampaignTests.cs`: the test namespace `MissionForge.Core.Tests.Campaign` hid the Core class `Campaign`
+    (`Campaign.Record` resolved to the namespace); added a namespace-scoped alias. Added `using MissionForge.Core.Data`
+    for `Slots`. Nullable annotations on optional test parameters.
+  - `Achievements.cs`: null-safe read of `contracts` (nullable warning).
+  - No test asserted anything contrary to the brief; no test expectation was changed.
+- **Gaps closed:** the catalog-integrity test now loads only the real `data/parts/*.json` (no DesignFixture fallback
+  parts), so tech-tree and mode pool IDs must exist in the shipped data; `Achievements.BuiltIn` exposes the built-in
+  copy and `BuiltInAchievementsMatchDataFile` keeps it identical to `data/achievements.json`; new test
+  `WearAccumulatesOverSeveralFlightsAndRefurbishmentResetsIt` covers wear over three reuses (1%, 2%, 3%) and the reset.
+- `static-checks.json` below is the PR author's pre-compile record and is superseded by `dotnet-test.txt`.
 - Code and xUnit tests committed on separate feature branch.
 - Static catalog review found invalid Daily/Heritage pool part IDs; these were corrected and a new catalog-integrity regression test was added.
 - `dotnet test core/dotnet~`: **NOT RUN** — no .NET SDK installed in this isolated environment, and network access is unavailable for installing the .NET 8 SDK or NuGet packages.

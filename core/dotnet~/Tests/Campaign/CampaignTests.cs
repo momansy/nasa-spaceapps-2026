@@ -4,17 +4,21 @@ using System.IO;
 using System.Linq;
 using MissionForge.Core.Build;
 using MissionForge.Core.Campaign;
+using MissionForge.Core.Data;
 using MissionForge.Core.Tests.Data;
 using Newtonsoft.Json.Linq;
 using Xunit;
 
 namespace MissionForge.Core.Tests.Campaign
 {
+    // The test namespace ends in "Campaign", which hides the Core class of that name; alias it back.
+    using Campaign = global::MissionForge.Core.Campaign.Campaign;
+
     public class CampaignTests
     {
         private static MissionReport Report(MissionOutcome result = MissionOutcome.Success,
             string contract = "C1", bool onTime = true,
-            IEnumerable<string> objectives = null, IEnumerable<string> recovered = null,
+            IEnumerable<string>? objectives = null, IEnumerable<string>? recovered = null,
             int earnedKp = 12, double remainingM = 40, double initialM = 100) =>
             new MissionReport(contract, "CAMPAIGN", result, 900, "A", remainingM,
                 initialM, onTime ? 2 : -3, onTime, earnedKp,
@@ -34,7 +38,7 @@ namespace MissionForge.Core.Tests.Campaign
             var loaded = CampaignState.FromJson(json);
             Assert.Equal(json, loaded.ToJson());
             Assert.Equal(35, loaded.Reputation);
-            Assert.Equal(1, loaded.InventoryItems.Count);
+            Assert.Single(loaded.InventoryItems);
             Assert.True(loaded.Insured);
             Assert.Equal(0, Start().Reputation); // operations do not mutate previous state
         }
@@ -213,6 +217,30 @@ namespace MissionForge.Core.Tests.Campaign
         }
 
         [Fact]
+        public void WearAccumulatesOverSeveralFlightsAndRefurbishmentResetsIt()
+        {
+            // One recovered fairing flown again twice: flight count 1 -> 2 -> 3, wear 1% per flight.
+            var catalog = DesignFixture.Catalog();
+            var build = BuildState.New("C1", 7).WithChoice(Slots.Fairing, "fairing_small");
+            var state = Campaign.Record(Start(), Report(recovered: new[] { "fairing_small" })).State;
+            var penalties = new List<double>();
+            for (int flight = 1; flight <= 3; flight++)
+            {
+                var item = Assert.Single(state.InventoryItems);
+                Assert.Equal(flight, item.Flights);
+                var inventory = new Inventory(state);
+                penalties.Add(inventory.ApplyReuse(build, catalog, item.ItemId).Condition(Slots.Fairing).ReliabilityDelta);
+                state = Campaign.Record(inventory.Consume(item.ItemId),
+                    Report(recovered: new[] { "fairing_small" })).State;
+            }
+            Assert.Equal(new[] { -0.01, -0.02, -0.03 }, penalties.Select(p => Math.Round(p, 8)));
+            var worn = Assert.Single(state.InventoryItems);
+            Assert.Equal(4, worn.Flights);
+            var fresh = new Inventory(new Inventory(state).MarkRefurbished(worn.ItemId));
+            Assert.Equal(0, fresh.ApplyReuse(build, catalog, worn.ItemId).Condition(Slots.Fairing).ReliabilityDelta, 8);
+        }
+
+        [Fact]
         public void MilestonesNeverRepeat()
         {
             var r = Report(contract: "C6", objectives: new[] { "orbit", "lunar_flyby", "crew_safe" },
@@ -258,7 +286,8 @@ namespace MissionForge.Core.Tests.Campaign
         [Fact]
         public void EveryModeRestrictedPartAndTechUnlockExistsInRealCatalog()
         {
-            var real = DesignFixture.Catalog();
+            // Real data/parts/*.json only, without the DesignFixture fallback parts.
+            var real = CatalogLoader.Load(DesignFixture.RealFiles());
             var restricted = new[]
             {
                 ModeRules.For("DAILY", new ModeOptions(date: "2026-11-14")),
@@ -333,6 +362,18 @@ namespace MissionForge.Core.Tests.Campaign
             var saved = Achievements.Apply(Start(), first);
             Assert.DoesNotContain("penny_pincher", Achievements.Evaluate(saved, report, metrics, data));
             Assert.Equal(saved.Achievements.Count, Achievements.Apply(saved, first).Achievements.Count);
+        }
+
+        [Fact]
+        public void BuiltInAchievementsMatchDataFile()
+        {
+            string data = File.ReadAllText(Path.Combine(DesignFixture.DataDir, "achievements.json"));
+            static string Canon(IEnumerable<AchievementDefinition> defs) => string.Join("/", defs.Select(d =>
+                d.Id + "|" + d.Scope + "|" + string.Join(",", d.Contracts) + "|" + d.AssistLevel + "|" +
+                string.Join(";", d.Criteria.Select(c => c.Metric + " " + c.Operator + " " +
+                    c.Value.ToString("R", System.Globalization.CultureInfo.InvariantCulture) + " " +
+                    c.Tolerance.ToString("R", System.Globalization.CultureInfo.InvariantCulture) + " " + c.MinigameId))));
+            Assert.Equal(Canon(Achievements.Parse(data)), Canon(Achievements.BuiltIn));
         }
 
         [Fact]

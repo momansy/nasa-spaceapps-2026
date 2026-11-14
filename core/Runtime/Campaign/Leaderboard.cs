@@ -48,7 +48,7 @@ namespace MissionForge.Core.Campaign
         {
             if (string.IsNullOrWhiteSpace(contractId) || string.IsNullOrWhiteSpace(mode))
                 throw new ArgumentException("Contract and mode are required.");
-            if (!TeamName.Validate(teamName))
+            if (!global::MissionForge.Core.Campaign.TeamName.Validate(teamName))
                 throw new ArgumentException("Team name has invalid characters or length.", nameof(teamName));
             if (double.IsNaN(score) || double.IsInfinity(score) ||
                 double.IsNaN(budgetEfficiency) || double.IsInfinity(budgetEfficiency) ||
