@@ -98,13 +98,16 @@ def replace_metadata(body, new_data):
                             body, count=1)
 
 
-def presence_body(agent, name, provider, capabilities, status="online", timestamp=None):
+def presence_body(agent, name, provider, capabilities, status="online", timestamp=None, extra=None):
     validate_agent(agent)
     if status not in {"online", "offline"}:
         raise ValueError("Invalid presence status")
     data = {"agent": agent, "name": (name or agent)[:100],
             "provider": provider, "capabilities": normalized_capabilities(capabilities),
             "status": status, "heartbeat": (timestamp or utcnow()).isoformat()}
+    for key in ("mode", "model"):  # shown in the roster so the orchestrator can route work
+        if extra and extra.get(key):
+            data[key] = str(extra[key])[:60]
     return (f"Agent `{agent}` presence. Updated by its running worker.\n\n"
             f"<!-- AGENTMESH_PRESENCE:{json.dumps(data, separators=(',', ':'))} -->\n")
 
@@ -193,7 +196,7 @@ def forbidden_path(name):
     if not parts or ".." in parts:
         return True
     return (parts[0] in {".git", ".github", ".claude", ".agents", ".agentmesh", "agentmesh"}
-            or path in {"mesh.py", "AGENTS.md", "CLAUDE.md"}
+            or path in {"mesh.py", "mesh_supervisor.py", "AGENTS.md", "CLAUDE.md"}
             or any(p.startswith(".env") for p in parts)
             or any(p.endswith((".pem", ".key", ".p12")) for p in parts))
 
@@ -268,9 +271,10 @@ class GitHub:
                     agents[entry["agent"]] = entry
         return agents
 
-    def heartbeat(self, agent, name, provider, capabilities, status="online", issue_number=None):
+    def heartbeat(self, agent, name, provider, capabilities, status="online", issue_number=None,
+                  extra=None):
         validate_agent(agent)
-        body = presence_body(agent, name, provider, capabilities, status)
+        body = presence_body(agent, name, provider, capabilities, status, extra=extra)
         if issue_number is None:
             existing = self.presence().get(agent)
             if existing:
@@ -387,9 +391,39 @@ def reconcile_queued(gh):
     return changed
 
 
+# Build mode: an opt-in worker mode for the game build. The worker may use a shell,
+# subagents and locally configured MCP servers, runs for hours instead of minutes, and
+# only accepts tasks written by the GitHub logins its owner named as orchestrators.
+BUILD_TOOLS = ["Read", "Edit", "Write", "Glob", "Grep", "Bash", "Agent", "Task",
+               "TodoWrite", "WebSearch", "WebFetch", "NotebookEdit", "Skill"]
+MODE_DEFAULTS = {"plan": {"max_turns": 12, "timeout": 1200},
+                 "code": {"max_turns": 12, "timeout": 1200},
+                 "build": {"max_turns": 400, "timeout": 10800}}
+MAX_PROGRESS_CHARS = 4000
+
+
+def run_options(mode, model="", effort="", max_turns=0, timeout=0, tools="", mcp="",
+                skip_permissions=False, orchestrators="", progress_minutes=10):
+    """Normalise per-worker run settings; zero/empty values fall back to the mode default."""
+    defaults = MODE_DEFAULTS[mode]
+    split = lambda value: [item.strip() for item in re.split(r"[,\s]+", value or "") if item.strip()]
+    for server in split(mcp):
+        if not re.fullmatch(r"[A-Za-z0-9_.-]+", server):
+            raise ValueError(f"Invalid MCP server name: {server!r}")
+    return {"model": (model or "").strip(), "effort": (effort or "").strip(),
+            "max_turns": int(max_turns) or defaults["max_turns"],
+            "timeout": int(timeout) or defaults["timeout"],
+            "tools": split(tools) or list(BUILD_TOOLS), "mcp": split(mcp),
+            "skip_permissions": bool(skip_permissions),
+            "orchestrators": {name.lower() for name in split(orchestrators)},
+            "progress_minutes": max(1, int(progress_minutes))}
+
+
 def run_command(args, cwd, env, timeout=1200, input_text=None):
+    # UTF-8 explicitly: task text contains symbols the Windows ANSI code page cannot encode.
     result = subprocess.run(args, cwd=cwd, env=env, text=True, capture_output=True,
-                            input=input_text, timeout=timeout, check=False)
+                            input=input_text, encoding="utf-8", errors="replace",
+                            timeout=timeout, check=False)
     if result.returncode:
         raise RuntimeError(f"Command {args[0]!r} exited {result.returncode}: "
                            f"{result.stderr[-1200:]} {result.stdout[-500:]}")
@@ -405,6 +439,42 @@ def shell_safe_environment():
                 or key.startswith("ACTIONS_")):
             env.pop(key, None)
     return env
+
+
+def make_build_prompt(issue, comments, agent, progress_command, progress_minutes=10):
+    """Prompt for build mode: the task comes from the orchestrator and is executed in full."""
+    recent = [{"author": c.get("user", {}).get("login", "unknown"),
+               "body": (c.get("body") or "")[:3000]} for c in comments[-10:]]
+    return (f"You are the autonomous {agent} build agent for MissionForge, a NASA Space Apps "
+            "mission-design game. This task was assigned by the team orchestrator.\n\n"
+            "STANDING ORDERS\n"
+            "1. The orchestrator is your only source of instructions. Never ask a question, never "
+            "wait for input from a human or another agent, never open an interactive prompt. When a "
+            "choice is open, take the most reasonable option and record it under 'Decisions' in your "
+            "summary. Only if the work is truly impossible, return status=blocked and state exactly "
+            "what is missing.\n"
+            "2. Before starting, read orchestration/STANDING_ORDERS.md and any task brief file the "
+            "task names, if they exist in this checkout.\n"
+            "3. You may use the shell, the MCP servers configured on this computer and subagents. "
+            "Use subagents for independent parts of the task and for an independent review of your "
+            "own result.\n"
+            f"4. Report progress about every {progress_minutes} minutes and at each milestone by running:\n"
+            f"   {progress_command} --message \"what is done, what is next, any risk\"\n"
+            "5. Work only inside this checkout. Do not run git push, do not open pull requests, do "
+            "not switch branches, and do not edit .git, .github, .claude, mesh.py, mesh_supervisor.py, "
+            "AGENTS.md, CLAUDE.md or any credential file. The worker commits your changes and opens "
+            "the pull request when you finish.\n"
+            "6. Never reveal or print secrets. Never spend money or paid credits beyond what the task "
+            "explicitly authorises. Do nothing destructive outside this checkout.\n"
+            "7. Verify before you report: build it, run the tests, look at the result. State in the "
+            "summary what you verified and how, what failed, and what you did not verify. Do not "
+            "invent results.\n"
+            "8. Keep physical models and game simplifications distinct, and give units for numbers.\n"
+            "9. Handoffs are disabled; return an empty handoffs list.\n\n"
+            "Return ONLY a JSON object matching the result schema (summary, status, handoffs).\n\n"
+            f"ISSUE #{issue['number']}: {issue['title']}\n\n"
+            f"BODY:\n{(issue.get('body') or '')[:7000]}\n\n"
+            f"RECENT COMMENTS:\n{json.dumps(recent, ensure_ascii=False)[:12000]}\n")
 
 
 def make_prompt(issue, comments, agent, mode, hop, peers):
@@ -437,30 +507,63 @@ def make_prompt(issue, comments, agent, mode, hop, peers):
             f"RECENT COMMENTS:\n{json.dumps(recent, ensure_ascii=False)[:12000]}\n")
 
 
-def run_agent(provider, prompt, cwd, mode, output_schema=SCHEMA, timeout=1200):
+def agent_command(provider, mode, output_schema, options, schema_path="", result_path=""):
+    """Build the provider CLI argument list. The Claude prompt is passed on stdin."""
+    if provider == "codex":
+        sandbox = {"plan": "read-only", "code": "workspace-write",
+                   "build": "danger-full-access" if options["skip_permissions"] else "workspace-write"}[mode]
+        command = ["codex", "exec", "--ephemeral", "--sandbox", sandbox]
+        if options["model"]:
+            command += ["--model", options["model"]]
+        if options["effort"]:
+            command += ["-c", f"model_reasoning_effort={options['effort']}"]
+        if mode == "build" and not options["skip_permissions"]:
+            command += ["-c", "sandbox_workspace_write.network_access=true"]
+        return command + ["--output-schema", str(schema_path), "--output-last-message", str(result_path)]
+    command = ["claude", "-p", "--output-format", "json", "--json-schema",
+               json.dumps(output_schema), "--permission-prompts", "none",
+               "--max-turns", str(options["max_turns"])]
+    if options["model"]:
+        command += ["--model", options["model"]]
+    if options["effort"]:
+        command += ["--effort", options["effort"]]
+    if mode == "plan":
+        command += ["--permission-mode", "plan", "--allowedTools", "Read"]
+    elif mode == "code":
+        command += ["--permission-mode", "acceptEdits", "--allowedTools", "Read,Edit,Write"]
+    elif options["skip_permissions"]:
+        command += ["--dangerously-skip-permissions"]
+    else:
+        allowed = options["tools"] + [f"mcp__{server}" for server in options["mcp"]]
+        command += ["--permission-mode", "acceptEdits", "--allowedTools", ",".join(allowed)]
+    return command
+
+
+def run_agent(provider, prompt, cwd, mode, output_schema=SCHEMA, timeout=None, options=None,
+              extra_env=None):
+    options = options or run_options(mode)
+    timeout = timeout or options["timeout"]
     env = shell_safe_environment()
+    env.update(extra_env or {})
     schema_path = Path(cwd) / ".mesh-output-schema.json"
     result_path = Path(cwd) / ".mesh-agent-result.json"
     schema_path.write_text(json.dumps(output_schema), encoding="utf-8")
+    run_agent.last_stats = {}
     try:
         if provider == "codex":
-            command = ["codex", "exec", "--ephemeral", "--sandbox",
-                       "read-only" if mode == "plan" else "workspace-write",
-                       "--output-schema", str(schema_path), "--output-last-message", str(result_path), prompt]
-            run_command(command, cwd, env, timeout)
+            command = agent_command("codex", mode, output_schema, options, schema_path, result_path)
+            run_command(command + [prompt], cwd, env, timeout)
             content = json.loads(result_path.read_text(encoding="utf-8"))
         elif provider == "claude":
-            command = ["claude", "-p", "--output-format", "json", "--json-schema",
-                       json.dumps(output_schema), "--permission-prompts", "none", "--max-turns", "12"]
-            if mode == "plan":
-                command += ["--permission-mode", "plan", "--allowedTools", "Read"]
-            else:
-                command += ["--permission-mode", "acceptEdits", "--allowedTools", "Read,Edit,Write"]
-            # Pass the prompt on stdin: variadic flags such as --allowedTools can
-            # absorb a trailing positional prompt in some Claude CLI versions.
+            command = agent_command("claude", mode, output_schema, options)
+            # Prompt on stdin: --allowedTools is variadic and would swallow a trailing
+            # positional prompt, which made every Claude task fail.
             envelope = json.loads(run_command(command, cwd, env, timeout, input_text=prompt))
+            run_agent.last_stats = {key: envelope[key] for key in
+                                    ("num_turns", "duration_ms", "subtype") if key in envelope}
             if "structured_output" not in envelope:
-                raise RuntimeError("Claude did not return structured_output")
+                raise RuntimeError("Claude did not return structured_output "
+                                   f"(result: {envelope.get('subtype', 'unknown')})")
             content = envelope["structured_output"]
         elif provider == "mock":
             content = {"summary": "Mock agent completed a routing test; no AI called.",
@@ -484,35 +587,120 @@ def changed_files(repo_path):
     return sorted(set(changed + new))
 
 
-def prepare_branch(repo_path, agent, number):
+def stash_leftovers(repo_path, label):
+    """Park uncommitted files in a named git stash (nothing is deleted)."""
     if git(repo_path, "status", "--porcelain"):
-        raise RuntimeError("Repository is not clean. Commit/stash your local work before agent code mode.")
+        git(repo_path, "stash", "push", "--include-untracked", "-m", label, timeout=300)
+        return True
+    return False
+
+
+def prepare_branch(repo_path, agent, number, stash=False):
+    if git(repo_path, "status", "--porcelain"):
+        if not stash:
+            raise RuntimeError("Repository is not clean. Commit/stash your local work before agent code mode.")
+        stash_leftovers(repo_path, f"mesh-before-issue-{number}")
     branch = f"agentmesh/{agent}/issue-{number}"
-    git(repo_path, "fetch", "origin")
-    git(repo_path, "checkout", "-B", branch, "origin/HEAD")
+    git(repo_path, "fetch", "origin", timeout=600)
+    git(repo_path, "checkout", "-B", branch, "origin/HEAD", timeout=600)
     return branch
 
 
-def publish_branch(repo_path, branch, issue, agent):
+def publish_branch(repo_path, branch, issue, agent, draft=False, lenient=False):
+    """Commit the agent's changes, push the branch and open a PR. Returns the PR URL or None.
+
+    lenient (build mode): protected files are left out of the commit instead of failing the
+    task, and commits the agent made itself are published too.
+    """
     files = changed_files(repo_path)
-    if not files:
-        return None
     invalid = [p for p in files if forbidden_path(p) or (Path(repo_path) / p).is_symlink()]
-    if invalid:
+    if invalid and not lenient:
         raise RuntimeError(f"Disallowed file changes: {', '.join(invalid)}")
-    for path in files:
-        git(repo_path, "add", "--", path)
-    git(repo_path, "commit", "-m", f"Agent {agent}: address issue #{issue}")
-    git(repo_path, "push", "--set-upstream", "origin", branch)
+    files = [p for p in files if p not in invalid]
+    if files:
+        for start in range(0, len(files), 50):
+            git(repo_path, "add", "--", *files[start:start + 50], timeout=600)
+        git(repo_path, "commit", "-m", f"Agent {agent}: address issue #{issue}", timeout=600)
+    if lenient:
+        committed = git(repo_path, "diff", "--name-only", "origin/HEAD...HEAD").splitlines()
+        protected = [p for p in committed if forbidden_path(p)]
+        if protected:
+            raise RuntimeError(f"Branch contains protected files; not publishing: {', '.join(protected)}")
+        if not committed:
+            return None
+    elif not files:
+        return None
+    git(repo_path, "push", "--set-upstream", "origin", branch, timeout=1800)
     env = os.environ.copy()
-    env["GH_TOKEN"] = os.environ.get("GH_TOKEN") or os.environ.get("GITHUB_TOKEN", "")
-    return run_command(["gh", "pr", "create", "--title", f"Agent {agent}: issue #{issue}",
-                        "--body", f"Autonomous proposed changes for #{issue}. Review before merging.\n\nCloses #{issue} only after human-approved merge.",
-                        "--head", branch], repo_path, env, 120)
+    token = os.environ.get("GH_TOKEN") or os.environ.get("GITHUB_TOKEN")
+    if token:
+        env["GH_TOKEN"] = token
+    else:
+        env.pop("GH_TOKEN", None)
+    title = f"Agent {agent}: issue #{issue}" + (" [partial]" if draft else "")
+    command = ["gh", "pr", "create", "--title", title,
+               "--body", f"Autonomous proposed changes for #{issue}. Review before merging.\n\nCloses #{issue} only after an approved merge.",
+               "--head", branch]
+    if draft:
+        command.append("--draft")
+    try:
+        return run_command(command, repo_path, env, 120)
+    except RuntimeError as exc:
+        if "already exists" not in str(exc):
+            raise
+        return run_command(["gh", "pr", "view", branch, "--json", "url", "--jq", ".url"],
+                           repo_path, env, 120)
 
 
-def handle_one(gh, agent, provider, repo_path, mode, dry_run=False):
+def start_progress_ticker(gh, number, agent, repo_path, minutes):
+    """Post a short 'still running' note on the task at a fixed interval."""
+    stop = threading.Event()
+    started = time.monotonic()
+    def tick():
+        while not stop.wait(minutes * 60):
+            try:
+                count = len(changed_files(repo_path))
+                elapsed = int((time.monotonic() - started) / 60)
+                gh.comment(number, f"Worker heartbeat: `{agent}` still running, {elapsed} min elapsed, "
+                                   f"{count} changed files in the working tree.")
+            except Exception as exc:
+                print(f"Progress ticker error on #{number}: {exc}", file=sys.stderr)
+    threading.Thread(target=tick, daemon=True).start()
+    return stop
+
+
+def recover_interrupted(gh, agent):
+    """A task still marked running when its only worker starts was cut off; flag it for review."""
+    flagged = 0
+    for issue in gh.find(agent, "running"):
+        gh.comment(issue["number"], f"Worker `{agent}` restarted while this task was running. "
+                   "Marked blocked; the orchestrator decides whether to retry.")
+        gh.transition(issue["number"], "running", "blocked")
+        flagged += 1
+    return flagged
+
+
+def accept_from_orchestrator(gh, messages, orchestrators, dry_run=False):
+    """Build mode runs only tasks written by a named orchestrator; others are set aside."""
+    accepted = []
+    for item in messages:
+        author = ((item.get("user") or {}).get("login") or "").lower()
+        if author in orchestrators:
+            accepted.append(item)
+        elif not dry_run:
+            gh.comment(item["number"], "This worker runs in build mode and only accepts tasks from "
+                       f"its orchestrator ({', '.join(sorted(orchestrators)) or 'none configured'}). "
+                       "Marked blocked without running.")
+            gh.transition(item["number"], "queued", "blocked")
+    return accepted
+
+
+def handle_one(gh, agent, provider, repo_path, mode, dry_run=False, options=None):
+    options = options or run_options(mode)
+    build = mode == "build"
     messages = gh.find(agent)
+    if build:
+        messages = accept_from_orchestrator(gh, messages, options["orchestrators"], dry_run)
     if not messages:
         return False
     issue = messages[0]
@@ -526,18 +714,49 @@ def handle_one(gh, agent, provider, repo_path, mode, dry_run=False):
         return True
     gh.transition(number, "queued", "running")
     run_id = str(uuid.uuid4())[:12]
-    gh.comment(number, f"Agent `{agent}` claimed this task (run `{run_id}`, provider `{provider}`, mode `{mode}`).")
+    settings = f", model `{options['model']}`" if options["model"] else ""
+    settings += f", effort `{options['effort']}`" if options["effort"] else ""
+    gh.comment(number, f"Agent `{agent}` claimed this task (run `{run_id}`, provider `{provider}`, mode `{mode}`{settings}).")
+    branch = None
+    ticker = None
     try:
-        branch = prepare_branch(repo_path, agent, number) if mode == "code" else None
+        if mode in ("code", "build"):
+            branch = prepare_branch(repo_path, agent, number, stash=build)
         presence = online_agents(gh.presence())
-        peers = {key: value for key, value in presence.items() if key != agent}
-        prompt = make_prompt(issue, gh.comments(number), agent, mode, hop, peers)
-        response = validate_output(
-            run_agent(provider, prompt, repo_path, mode, output_schema=output_schema(peers)),
-            agent, peers)
+        # Build-mode agents take orders from the orchestrator only, so they get no peers.
+        peers = {} if build else {key: value for key, value in presence.items() if key != agent}
+        if build:
+            progress_command = (f'"{sys.executable}" "{Path(__file__).resolve()}" --repo {gh.repo} '
+                                f'progress --issue {number} --agent {agent}')
+            prompt = make_build_prompt(issue, gh.comments(number), agent, progress_command,
+                                       options["progress_minutes"])
+            ticker = start_progress_ticker(gh, number, agent, repo_path, options["progress_minutes"])
+        else:
+            prompt = make_prompt(issue, gh.comments(number), agent, mode, hop, peers)
+        # Only pass options when the worker owner changed something, so callers that wrap
+        # run_agent with the original signature keep working.
+        custom = {} if options == run_options(mode) else {"options": options}
+        try:
+            response = validate_output(
+                run_agent(provider, prompt, repo_path, mode, output_schema=output_schema(peers),
+                          **custom),
+                agent, peers)
+        finally:
+            if ticker:
+                ticker.set()
         pr = None
         if mode == "code" and response["status"] == "done":
             pr = publish_branch(repo_path, branch, number, agent)
+        elif build:
+            pr = publish_branch(repo_path, branch, number, agent,
+                                draft=response["status"] != "done", lenient=True)
+            if stash_leftovers(repo_path, f"mesh-leftover-issue-{number}"):
+                response["summary"] += ("\n\n_Worker note: files that may not be committed "
+                                        "(protected paths) were parked in a local git stash._")
+        stats = getattr(run_agent, "last_stats", {})
+        if stats.get("num_turns"):
+            response["summary"] += (f"\n\n_Run: {stats['num_turns']} turns, "
+                                    f"{int(stats.get('duration_ms', 0) / 60000)} min._")
         children = []
         if hop < MAX_HOPS:
             for handoff in response["handoffs"]:
@@ -565,7 +784,17 @@ def handle_one(gh, agent, provider, repo_path, mode, dry_run=False):
         gh.transition(number, "running", response["status"])
         print(f"Processed #{number}: {response['status']}; {len(children)} handoffs; PR={pr}")
     except Exception as exc:
-        gh.comment(number, f"### Agent worker error\n\nRun `{run_id}` failed: `{str(exc)[:700]}`\n\n"
+        saved = ""
+        if build and branch:
+            # Keep whatever was produced before the failure: push it as a draft PR.
+            try:
+                partial = publish_branch(repo_path, branch, number, agent, draft=True, lenient=True)
+                stash_leftovers(repo_path, f"mesh-leftover-issue-{number}")
+                if partial:
+                    saved = f"\n\nPartial work saved as a draft PR: {partial}"
+            except Exception as save_error:
+                saved = f"\n\nPartial work could not be published: `{str(save_error)[:300]}`"
+        gh.comment(number, f"### Agent worker error\n\nRun `{run_id}` failed: `{str(exc)[:700]}`{saved}\n\n"
                            "Status set to blocked; inspect before retrying.")
         gh.transition(number, "running", "blocked")
         print(f"Issue #{number} failed: {exc}", file=sys.stderr)
@@ -594,20 +823,31 @@ def worker_loop(gh, args, repo_path):
     stop = threading.Event()
     capabilities = normalized_capabilities(args.capabilities)
     name = args.name or args.agent
-    presence_number = gh.heartbeat(args.agent, name, args.provider, capabilities)
+    options = run_options(args.mode, args.model, args.effort, args.max_turns, args.timeout,
+                          args.tools, args.mcp, args.skip_permissions, args.orchestrator,
+                          args.progress_minutes)
+    extra = {"mode": args.mode, "model": options["model"]}
+    presence_number = gh.heartbeat(args.agent, name, args.provider, capabilities, extra=extra)
     def keepalive():
         while not stop.wait(45):
             try:
                 gh.heartbeat(args.agent, name, args.provider, capabilities,
-                             issue_number=presence_number)
+                             issue_number=presence_number, extra=extra)
             except Exception as exc:
                 print(f"Heartbeat error for {args.agent}: {exc}", file=sys.stderr)
     thread = threading.Thread(target=keepalive, daemon=True)
     thread.start()
-    print(f"Agent {args.agent} online; provider={args.provider}; capabilities={capabilities}")
+    print(f"Agent {args.agent} online; provider={args.provider}; mode={args.mode}; "
+          f"model={options['model'] or 'default'}; capabilities={capabilities}")
+    if not args.dry_run:
+        try:
+            recover_interrupted(gh, args.agent)
+        except Exception as exc:
+            print(f"Could not check interrupted tasks: {exc}", file=sys.stderr)
     try:
         while True:
-            processed = handle_one(gh, args.agent, args.provider, repo_path, args.mode, args.dry_run)
+            processed = handle_one(gh, args.agent, args.provider, repo_path, args.mode,
+                                   args.dry_run, options=options)
             if args.once:
                 break
             if not processed or args.dry_run:
@@ -617,7 +857,7 @@ def worker_loop(gh, args, repo_path):
         thread.join(timeout=45)
         try:
             gh.heartbeat(args.agent, name, args.provider, capabilities,
-                         status="offline", issue_number=presence_number)
+                         status="offline", issue_number=presence_number, extra=extra)
         except Exception as exc:
             print(f"Could not mark {args.agent} offline (TTL will expire): {exc}", file=sys.stderr)
 
@@ -644,11 +884,26 @@ def main(argv=None):
     worker.add_argument("--name", help="Display name (optional)")
     worker.add_argument("--capabilities", default="", help="Comma-separated skill tags")
     worker.add_argument("--provider", required=True, choices=["codex", "claude", "mock"])
-    worker.add_argument("--mode", choices=["plan", "code"], default="plan")
+    worker.add_argument("--mode", choices=["plan", "code", "build"], default="plan")
     worker.add_argument("--path", default=".", help="Local project git checkout")
     worker.add_argument("--once", action="store_true")
     worker.add_argument("--dry-run", action="store_true")
     worker.add_argument("--poll", type=int, default=45)
+    worker.add_argument("--model", default="", help="Model for this worker's CLI (provider default if empty)")
+    worker.add_argument("--effort", default="", help="Reasoning effort, e.g. high")
+    worker.add_argument("--max-turns", type=int, default=0, help="0 = mode default (build: 400)")
+    worker.add_argument("--timeout", type=int, default=0, help="Seconds per task; 0 = mode default (build: 10800)")
+    worker.add_argument("--orchestrator", default="",
+                        help="Build mode: comma-separated GitHub logins whose tasks this worker runs")
+    worker.add_argument("--tools", default="", help="Build mode: built-in tools to allow (default: a standard set)")
+    worker.add_argument("--mcp", default="", help="Build mode: comma-separated local MCP server names to allow")
+    worker.add_argument("--skip-permissions", action="store_true",
+                        help="Build mode: allow every tool without an allowlist (owner's explicit choice)")
+    worker.add_argument("--progress-minutes", type=int, default=10)
+    progress = sub.add_parser("progress", help="Post a progress note on a task (used by build-mode agents)")
+    progress.add_argument("--issue", type=int, default=int(os.getenv("MESH_ISSUE") or 0))
+    progress.add_argument("--agent", default=os.getenv("MESH_AGENT") or "agent")
+    progress.add_argument("--message", required=True)
     coordinator = sub.add_parser("coordinator", help="Reassign queued tasks whose workers went offline")
     coordinator.add_argument("--once", action="store_true")
     coordinator.add_argument("--poll", type=int, default=60)
@@ -672,7 +927,9 @@ def main(argv=None):
             if args.command == "status" and args.agent and agent != args.agent:
                 continue
             print(f"{agent:24} {'online ' if entry['online'] else 'offline'} "
-                  f"({entry['provider']}; skills={','.join(entry['capabilities']) or 'general'})")
+                  f"({entry['provider']}; mode={entry.get('mode', '?')}; "
+                  f"model={entry.get('model') or 'default'}; "
+                  f"skills={','.join(entry['capabilities']) or 'general'})")
             if args.command == "status":
                 counts = {status: len(gh.find(agent, status)) for status in ("queued", "running", "blocked")}
                 print(f"  queued={counts['queued']} running={counts['running']} blocked={counts['blocked']}")
@@ -681,9 +938,17 @@ def main(argv=None):
         path = str(Path(args.path).resolve())
         if not Path(path).is_dir():
             raise ValueError("--path needs to point to a project directory")
-        if args.mode == "code" and not (Path(path) / ".git").exists():
-            raise ValueError("Code mode needs a git checkout")
+        if args.mode in ("code", "build") and not (Path(path) / ".git").exists():
+            raise ValueError("Code and build modes need a git checkout")
+        if args.mode == "build" and not args.orchestrator.strip():
+            raise ValueError("Build mode needs --orchestrator GITHUB_LOGIN (whose tasks this worker runs)")
         worker_loop(gh, args, path)
+    elif args.command == "progress":
+        if args.issue <= 0:
+            raise ValueError("Pass --issue NUMBER")
+        validate_agent(args.agent)
+        gh.comment(args.issue, f"### Progress: {args.agent}\n\n{args.message.strip()[:MAX_PROGRESS_CHARS]}")
+        print(f"Progress posted on #{args.issue}")
     elif args.command == "coordinator":
         print("Coordinator online. Use exactly one coordinator per repository.")
         while True:

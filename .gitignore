@@ -6,3 +6,26 @@ __pycache__/
 !.env.example
 .agentmesh/
 .pytest_cache/
+
+# Worker scratch files
+.mesh-output-schema.json
+.mesh-agent-result.json
+
+# Unity
+unity/*/[Ll]ibrary/
+unity/*/[Tt]emp/
+unity/*/[Oo]bj/
+unity/*/[Bb]uild/
+unity/*/[Bb]uilds/
+unity/*/[Ll]ogs/
+unity/*/[Uu]ser[Ss]ettings/
+unity/*/.vs/
+unity/*/*.csproj
+unity/*/*.sln
+
+# Node and .NET
+node_modules/
+dist/
+bin/
+obj/
+*.tsbuildinfo
