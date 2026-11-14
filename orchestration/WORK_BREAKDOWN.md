@@ -52,9 +52,13 @@ Updated: 2026-11-14 (build start).
 
 | Worker | Model | Special tools | First assignment |
 |---|---|---|---|
-| `yousuf-amek` | Claude Fable 5.2 | Unity MCP, Blender MCP | F1, then G1 |
-| `momansy` | Codex | Higgsfield MCP | H1 |
-| `mohammed-alainieh` | Claude Opus 5.5, high | Higgsfield connector | C |
-| `cyrex04` | Claude Opus 5.5, high | — | B1 |
-| `ahmed-saeed-amek` | Claude Opus 5.5, high | — | A |
-| `kingrma` | orchestrator | browser | protocol and data schemas, review, merge, verification |
+| `cyrex04` | Claude Fable 5.2 | Unity MCP, Blender MCP | F1 (T001), then F2 |
+| `yousuf-amek` | Claude Fable 5.2 | Unity MCP, Blender MCP | G1 (T006), then Unity scenes in its own folders |
+| `momansy` | Codex | Higgsfield MCP (whole balance approved) | H1 (T005) |
+| `mohammed-alainieh` | Claude Opus 5.5, high | Higgsfield connector | C (T004) |
+| `ahmed-saeed-amek` | Claude Opus 5.5, high | — | B1 (T002) |
+| `kingrma` | orchestrator, local subagents | browser | protocol and data schemas, A (T003), review, merge, verification |
+
+Two workers have Unity. To avoid scene merge conflicts, a Unity task owns specific scene
+and prefab folders, and only one task at a time may change `ProjectSettings/` and
+`Packages/`.
