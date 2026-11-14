@@ -101,3 +101,7 @@ Owner's live status can be checked from an authenticated local checkout using:
 python mesh.py roster
 python mesh.py status
 ~~~
+
+## Internet recovery
+
+Current teammate onboarding starts [mesh_supervisor.py](mesh_supervisor.py), so an exited worker is restarted with a 5–60 second backoff and can resume heartbeats automatically after connectivity is restored. **Previously running un-supervised workers must be stopped before migrating.** The coordinator is separate; a powered-off device still needs manual login or a separately authorized startup service. See [AUTO_RECONNECT.md](AUTO_RECONNECT.md) for migration, safe handling of partially running tasks and real verification.
