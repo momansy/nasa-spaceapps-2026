@@ -37,25 +37,25 @@ namespace MissionForge.Core.Build
     public static class ValidationRules
     {
         /// <summary>Lift-off TWR ≤ 1.0 → Blocker.</summary>
-        public const string LiftoffTwr = "liftoff_twr";
+        public const string LiftoffTwr = "liftoff_twr_too_low";
         /// <summary>Total Δv &lt; requirement → Blocker (Major when within 3%).</summary>
-        public const string TotalDv = "total_dv";
+        public const string TotalDv = "delta_v_below_requirement";
         /// <summary>Crewed contract without launch escape → Blocker.</summary>
-        public const string CrewedEscape = "crewed_escape";
-        /// <summary>Returning payload without heat shield → Blocker.</summary>
-        public const string ReturnHeatShield = "return_heat_shield";
+        public const string CrewedEscape = "crewed_without_launch_escape";
+        /// <summary>Returning payload without heat shield → Blocker (only when the contract requires a shield, see <see cref="ContractDef.HeatShieldRequired"/>).</summary>
+        public const string ReturnHeatShield = "returning_payload_without_heat_shield";
         /// <summary>Heat shield rating &lt; contract entry speed → Major.</summary>
-        public const string HeatShieldRating = "heat_shield_rating";
+        public const string HeatShieldRating = "heat_shield_rating_below_entry_speed";
         /// <summary>Payload doesn't fit fairing → Blocker.</summary>
-        public const string FairingFit = "fairing_fit";
+        public const string FairingFit = "payload_does_not_fit_fairing";
         /// <summary>Power negative in eclipse → Major.</summary>
-        public const string EclipsePower = "eclipse_power";
+        public const string EclipsePower = "power_negative_in_eclipse";
         /// <summary>Upper stage restarts &lt; required burns → Blocker.</summary>
-        public const string UpperRestarts = "upper_restarts";
+        public const string UpperRestarts = "upper_stage_restarts_below_required_burns";
         /// <summary>Hydrolox upper + long coast without boil-off mitigation → Major.</summary>
-        public const string BoilOff = "boil_off";
+        public const string BoilOff = "hydrolox_upper_long_coast_without_boiloff_mitigation";
         /// <summary>Data generated &gt; downlink capacity → Minor.</summary>
-        public const string DataBudget = "data_budget";
+        public const string DataBudget = "data_generated_exceeds_downlink";
         /// <summary>
         /// A chosen part's data rule <c>requires_part</c> / <c>requires_any_part</c> is not met (e.g. RTLS booster
         /// landing needs grid fins, design 7.18) → Blocker. Not a 6.11 row: it enforces the part rules of 17.5.
@@ -81,8 +81,8 @@ namespace MissionForge.Core.Build
             _ => Severity.Blocker,
         };
 
-        /// <summary>Default strings key: <c>validation.&lt;rule id&gt;</c>.</summary>
-        public static string DefaultTextKey(string ruleId) => "validation." + ruleId;
+        /// <summary>Default strings key: <c>validation_rule.&lt;rule id&gt;.explanation</c> (the keys of <c>data/strings/en.parts_b.json</c>).</summary>
+        public static string DefaultTextKey(string ruleId) => "validation_rule." + ruleId + ".explanation";
 
         /// <summary>The exact explanation text of design 6.11 (placeholder <c>{N}</c> for starts).</summary>
         public static string DefaultText(string ruleId) => ruleId switch
@@ -157,7 +157,7 @@ namespace MissionForge.Core.Build
                 var key = string.IsNullOrEmpty(def?.TextKey) ? ValidationRules.DefaultTextKey(rule) : def!.TextKey;
                 var text = string.IsNullOrEmpty(def?.Text) ? ValidationRules.DefaultText(rule) : def!.Text;
                 var a = args ?? new Dictionary<string, string>();
-                foreach (var kv in a) text = text.Replace("{" + kv.Key + "}", kv.Value);
+                foreach (var kv in a) text = ReplaceIgnoreCase(text, "{" + kv.Key + "}", kv.Value); // data strings write {n}, code args use {N}
                 issues.Add(new ValidationIssue(rule, sev, key, text, a));
             }
             double Param(string rule, string name, double fallback)
@@ -170,7 +170,7 @@ namespace MissionForge.Core.Build
             if (Judgeable(ValidationRules.LiftoffTwr))
             {
                 var twr = d.LiftoffTwr ?? 0;
-                if (twr <= BuildConstants.MinLiftoffTwr)
+                if (twr <= Param(ValidationRules.LiftoffTwr, "twr_min", BuildConstants.MinLiftoffTwr))
                     Add(ValidationRules.LiftoffTwr, args: new Dictionary<string, string> { ["twr"] = F(twr, "0.00") });
             }
 
@@ -191,7 +191,7 @@ namespace MissionForge.Core.Build
             if (c.Returning)
             {
                 var shield = v.Part(Slots.HeatShield);
-                if (Judgeable(ValidationRules.ReturnHeatShield) && shield == null)
+                if (c.HeatShieldRequired && Judgeable(ValidationRules.ReturnHeatShield) && shield == null)
                     Add(ValidationRules.ReturnHeatShield);
                 if (shield != null && c.EntrySpeedMps.HasValue && d.MaxEntrySpeedRatingMps.HasValue &&
                     d.MaxEntrySpeedRatingMps.Value < c.EntrySpeedMps.Value)
@@ -338,6 +338,17 @@ namespace MissionForge.Core.Build
         /// balanced budget (orbit-average generation = load) computes as about −1e-14 W.
         /// </summary>
         private const double PowerBalanceToleranceW = 1e-9;
+
+        private static string ReplaceIgnoreCase(string text, string token, string value)
+        {
+            var i = text.IndexOf(token, StringComparison.OrdinalIgnoreCase);
+            while (i >= 0)
+            {
+                text = text.Substring(0, i) + value + text.Substring(i + token.Length);
+                i = text.IndexOf(token, i + value.Length, StringComparison.OrdinalIgnoreCase);
+            }
+            return text;
+        }
 
         private static string F(double x, string format) => x.ToString(format, CultureInfo.InvariantCulture);
     }

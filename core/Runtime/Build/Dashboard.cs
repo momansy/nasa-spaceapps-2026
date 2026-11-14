@@ -181,7 +181,7 @@ namespace MissionForge.Core.Build
             var sep = v.Part(Slots.StageSeparation);
             d.HotStagingBonusMps = sep == null ? 0 : stages * sep.Stats.DvBonusFraction;
             var site = v.Part(Slots.LaunchSite);
-            (d.RotationBoostMps, d.PlaneChangePenaltyMps) = SiteEffects(site?.Stats.LatitudeDeg, v.Contract.InclinationDeg);
+            (d.RotationBoostMps, d.PlaneChangePenaltyMps) = SiteEffects(site, v.Contract);
             d.TotalDvMps = stages > 0
                 ? stages + d.EngineBonusDvMps + d.HotStagingBonusMps - d.RecoveryDvCostMps + d.RotationBoostMps - d.PlaneChangePenaltyMps
                 : 0;
@@ -229,6 +229,25 @@ namespace MissionForge.Core.Build
                 penalty = 2 * BuildConstants.LeoSpeedMps * Math.Sin((lat - inclinationDeg.Value) * Math.PI / 180 / 2);
             return (boost, penalty);
         }
+
+        /// <summary>
+        /// Launch-site effects for a chosen site and a contract. Same as <see cref="SiteEffects(double?, double?)"/> with these
+        /// differences (design 7.1): a suborbital contract (<see cref="ContractDef.Destination"/> = <c>suborbital</c>, C0) has no
+        /// orbit to reach, so the rotation boost and the plane-change penalty are 0; a site with the flag
+        /// <c>no_eastward_launch</c> (West Coast Polar Range, over the ocean only to the south) gets no rotation boost for any target.
+        /// </summary>
+        /// <param name="site">The chosen launch-site part, or null when none is chosen (both effects 0).</param>
+        /// <param name="contract">The contract (inclination and destination).</param>
+        public static (double boostMps, double planeChangeMps) SiteEffects(PartDef? site, ContractDef contract)
+        {
+            if (site == null || contract.Destination == SuborbitalDestination) return (0, 0);
+            var (boost, penalty) = SiteEffects(site.Stats.LatitudeDeg, contract.InclinationDeg);
+            if (site.HasTag("no_eastward_launch")) boost = 0;
+            return (boost, penalty);
+        }
+
+        /// <summary>Destination type of a suborbital contract (data <c>destination.type</c>).</summary>
+        public const string SuborbitalDestination = "suborbital";
 
         private static readonly string[] PowerConsumers =
         {
@@ -332,7 +351,7 @@ namespace MissionForge.Core.Build
             var bodyL = length - noseL;
             Force(BuildConstants.BodyLiftSlopePerCaliber * bodyL / diameter, noseL + bodyL / 2);
             var aero = v.Part(Slots.AeroControl);
-            if (aero != null && aero.HasTag("fins")) Force(BuildConstants.FinNormalForceSlope, length - 0.5 * diameter);
+            if (aero != null && (aero.HasTag("fins") || aero.HasTag("atmospheric_stability_bonus"))) Force(BuildConstants.FinNormalForceSlope, length - 0.5 * diameter);
             if (v.BoosterCount > 0)
             {
                 // Each strap-on has its own nose at the top of the first stage, scaled by its frontal area (≈ half diameter).

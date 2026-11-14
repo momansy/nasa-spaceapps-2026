@@ -60,8 +60,14 @@ namespace MissionForge.Core.Tests.Build
         {
             // Order(): "most capable options first: more thrust, more engines, then lighter". Engine-count options
             // carry no thrust, so the count itself must rank them: 9 engines is tried first and fixes TWR at once.
+            var exhaustive = FixSearch.RunExhaustive(F.TwoStage("C1"), FlightCatalog());
+            Assert.Equal(1, exhaustive.Evaluations);
+            // The pruned search spends a bound check and a complete build on the same first try, twice: once to show the propulsion can work
+            // with the payload-side votes left empty, once with them decided.
             var fix = FixSearch.Run(F.TwoStage("C1"), FlightCatalog());
-            Assert.Equal(1, fix.Evaluations);
+            Assert.True(fix.Exists);
+            Assert.True(fix.Evaluations <= 4, "evaluations: " + fix.Evaluations);
+            Assert.Equal(F.Count9, fix.Example!.Choice(Slots.FirstStageEngineCount));
         }
 
         [Fact]
@@ -69,10 +75,16 @@ namespace MissionForge.Core.Tests.Build
         {
             // Electric-Pump Mini on tank M: even 9 × 24 kN = 216 kN against ≈ 322 t gives TWR 0.068.
             var build = F.TwoStage("C1", firstEngine: F.EPumpMini);
+            var exhaustive = FixSearch.RunExhaustive(build, FlightCatalog());
+            Assert.False(exhaustive.Exists);
+            Assert.False(exhaustive.Inconclusive);
+            Assert.Equal(3, exhaustive.Evaluations); // counts 1, 3 and 9 all fail
+            Assert.Null(exhaustive.Example);
+
             var fix = FixSearch.Run(build, FlightCatalog());
             Assert.False(fix.Exists);
             Assert.False(fix.Inconclusive);
-            Assert.Equal(3, fix.Evaluations); // counts 1, 3 and 9 all fail
+            Assert.True(fix.Evaluations <= 3, "evaluations: " + fix.Evaluations); // the bound check refutes all three counts at once
             Assert.Null(fix.Example);
         }
 
@@ -80,10 +92,17 @@ namespace MissionForge.Core.Tests.Build
         public void FixSearch_is_optimistic_and_inconclusive_when_capped()
         {
             var build = F.TwoStage("C1", firstEngine: F.EPumpMini);
-            var fix = FixSearch.Run(build, FlightCatalog(), maxEvaluations: 1);
+            var exhaustive = FixSearch.RunExhaustive(build, FlightCatalog(), maxEvaluations: 1);
+            Assert.True(exhaustive.Exists);
+            Assert.True(exhaustive.Inconclusive);
+            Assert.Equal(1, exhaustive.Evaluations);
+            Assert.Null(exhaustive.Example);
+
+            // The cap of the pruned search counts every evaluation. A cap of 0 stops it before the first one.
+            var fix = FixSearch.Run(build, FlightCatalog(), maxEvaluations: 0);
             Assert.True(fix.Exists);
             Assert.True(fix.Inconclusive);
-            Assert.Equal(1, fix.Evaluations);
+            Assert.Equal(0, fix.Evaluations);
             Assert.Null(fix.Example);
         }
 

@@ -138,6 +138,11 @@
               "description": "Number of identical payload units.",
               "minimum": 1
             },
+            "diameter_m": {
+              "type": "number",
+              "description": "Outer diameter of the payload in m, compared with the fairing diameter by rule payload_does_not_fit_fairing. Optional: when absent the rule uses the largest diameter of the chosen payload parts, or does not fire. Covered by value_types.payload.",
+              "exclusiveMinimum": 0
+            },
             "crew": {
               "type": "integer",
               "description": "Crew aboard.",

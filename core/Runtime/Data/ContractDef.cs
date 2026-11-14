@@ -35,6 +35,14 @@ namespace MissionForge.Core.Data
 
         /// <summary>True when data listed the options explicitly.</summary>
         public bool ExplicitOptions { get; internal set; } = true;
+
+        /// <summary>
+        /// True when the part may be offered in this vote as far as its stage goes. An <c>engine_count</c> vote of a stage
+        /// accepts only parts whose <c>stats.stage</c> equals the vote's stage (a 9-engine first-stage cluster is never an
+        /// upper-stage option). A part that states no stage (test fixtures only; all data parts state one) is accepted. Other votes accept every part.
+        /// </summary>
+        public bool AcceptsStage(PartDef part) =>
+            Category != PartCategories.EngineCount || Stage == null || part.Stats.Stage == null || part.Stats.Stage == Stage;
     }
 
     /// <summary>
@@ -49,7 +57,7 @@ namespace MissionForge.Core.Data
             double? inclinationDeg = null, bool crewed = false, bool returning = false, double? entrySpeedMps = null,
             int requiredUpperStageStarts = 1, bool longCoast = false, bool science = false,
             double? payloadDiameterM = null, double launchWindowIntervalDays = 30, bool boosterLandingRequired = false,
-            string? destination = null, bool campaign = false)
+            string? destination = null, bool campaign = false, bool? heatShieldRequired = null)
         {
             Id = id ?? throw new ArgumentNullException(nameof(id));
             Name = name ?? id;
@@ -70,6 +78,7 @@ namespace MissionForge.Core.Data
             BoosterLandingRequired = boosterLandingRequired;
             Destination = destination ?? "";
             Campaign = campaign;
+            HeatShieldRequired = heatShieldRequired ?? returning;
         }
 
         /// <summary>Contract ID, e.g. <c>C1</c>.</summary>
@@ -95,6 +104,11 @@ namespace MissionForge.Core.Data
         public bool Crewed { get; }
         /// <summary>The payload returns through an atmosphere (needs a heat shield).</summary>
         public bool Returning { get; }
+        /// <summary>
+        /// A heat shield is required (data <c>requirements.heat_shield_required</c>). Defaults to <see cref="Returning"/> when the
+        /// field is absent. False for C0: a suborbital return needs no shield (game decision, see contracts.json).
+        /// </summary>
+        public bool HeatShieldRequired { get; }
         /// <summary>Entry speed the heat shield must survive, m/s (real-world approximate), or null.</summary>
         public double? EntrySpeedMps { get; }
         /// <summary>Number of upper-stage engine starts the mission needs (first ignition counts as one).</summary>
