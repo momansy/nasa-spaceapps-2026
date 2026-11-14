@@ -16,7 +16,8 @@ namespace MissionForge.Core.Campaign
         public Inventory(CampaignState state) { _state = state ?? throw new ArgumentNullException(nameof(state)); }
 
         /// <summary>Items recoverable between missions.</summary>
-        public IReadOnlyList<InventoryItem> Items => _state.InventoryItems;
+        public IReadOnlyList<InventoryItem> Items =>
+            Array.AsReadOnly(_state.InventoryItems.Where(item => item.Available).ToArray());
 
         /// <summary>
         /// Applies the price refund and a per-flight reliability loss to the matching chosen
@@ -27,6 +28,7 @@ namespace MissionForge.Core.Campaign
             if (build == null || catalog == null) throw new ArgumentNullException(
                 build == null ? nameof(build) : nameof(catalog));
             InventoryItem item = Find(itemId);
+            if (!item.Available) throw new InvalidOperationException("Inventory item is already in flight.");
             string flag = "campaign_reused:" + item.ItemId;
             if (build.HasFlag(flag)) return build;
             var slots = build.Choices.Where(c => c.Value == item.PartId).Select(c => c.Key).ToArray();
@@ -54,6 +56,7 @@ namespace MissionForge.Core.Campaign
             if (build == null || catalog == null) throw new ArgumentNullException(
                 build == null ? nameof(build) : nameof(catalog));
             var item = Find(itemId);
+            if (!item.Available) throw new InvalidOperationException("Cannot refurbish in-flight hardware.");
             string flag = "campaign_refurbished:" + item.ItemId;
             if (build.HasFlag(flag)) return build;
             double costM = catalog.Part(item.PartId).CostM * CampaignConstants.RefurbishmentCostFraction;
@@ -65,16 +68,19 @@ namespace MissionForge.Core.Campaign
         public CampaignState MarkRefurbished(string itemId)
         {
             var item = Find(itemId);
+            if (!item.Available) throw new InvalidOperationException("Cannot refurbish in-flight hardware.");
             var updated = _state.InventoryItems.Select(x => x.ItemId == item.ItemId ?
                 x.With(refurbished: true) : x).ToArray();
             return _state.With(inventoryItems: updated);
         }
 
-        /// <summary>Consumes a recovered item when installed for a mission; the host later records its recovery.</summary>
+        /// <summary>Marks an item in flight (unavailable). The next mission report keeps its flight count if recovered.</summary>
         public CampaignState Consume(string itemId)
         {
-            Find(itemId);
-            return _state.With(inventoryItems: _state.InventoryItems.Where(i => i.ItemId != itemId));
+            var item = Find(itemId);
+            if (!item.Available) throw new InvalidOperationException("Item is already in flight.");
+            return _state.With(inventoryItems: _state.InventoryItems.Select(i =>
+                i.ItemId == itemId ? i.With(available: false) : i));
         }
 
         private InventoryItem Find(string itemId)
