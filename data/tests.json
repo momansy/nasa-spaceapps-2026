@@ -1,0 +1,278 @@
+{
+  "$schema": "./schema/test.schema.json",
+  "design_notes": [
+    "Rows, costs and days are those of table 6.6. All of them are game values (section 19).",
+    "applies_to_scope is the Applies to column as one word. applies_to_categories lists the part categories that hold such hardware; it is a reading of the column, which the design does not spell out.",
+    "reveals_failure_modes maps the Reveals column to the failure modes of 8.4. Where no failure mode matches (\"loose components\", \"thermal design faults\", \"countdown issues\"), the reveal is a flag.",
+    "Effects with a number in the design: component qualification narrows the uncertainty band by 50%, engine hot-fire adds 1% reliability (stored as +0.01, percentage points).",
+    "Effects chosen by the data author because the design shows only a plus sign (game values, to be tuned): vibration test \"payload reliability +\" = +0.01 reliability on the payload, the same size as the hot-fire bonus; arc-jet test \"+heat margin\" = +5% heat margin on the tested shield, the size of a Bronze Heat Margin boost.",
+    "Qualitative effects left as flags because no effect target fits: \"fewer holds\" (wet dress rehearsal), \"power & thermal +\" (thermal-vacuum), \"Removes pogo risk if found\" (pogo suppression).",
+    "The design gives no probability that a test reveals a hidden flaw and no cost for fixing one (6.5: \"for time and money\"; Appendix A shows a $1 M fix). The Test Failure anomaly card carries the choice.",
+    "minigames follows the sentence under the table (MG-03, MG-04, MG-06). MG-03 names the static fire and MG-06 the vibration test in section 10.5. MG-04 Orientation Check names no test (\"avionics/sensor integration\", reward \"parachute & sensor reliability\"); it is attached to the software-in-the-loop test (avionics / GNC) and to the drop test (parachutes; 8.4 links the Genesis fact of MG-04 to parachute failure). To be confirmed.",
+    "MG-11 Pogo Damper is a flight minigame whose chance rises without the pogo test; it is not a build minigame and is not listed."
+  ],
+  "tests": [
+    {
+      "id": "component_qualification",
+      "name_key": "test.component_qualification.name",
+      "applies_to_key": "test.component_qualification.applies_to",
+      "applies_to_scope": "any_part",
+      "cost_fraction_of_part": 0.05,
+      "days": 3,
+      "reveals_key": "test.component_qualification.reveals",
+      "effects": [
+        {
+          "target": "uncertainty_band",
+          "op": "add_fraction",
+          "value": -0.5,
+          "scope": "this_part"
+        }
+      ],
+      "basis_key": "test.component_qualification.basis",
+      "design_notes": [
+        "No applies_to_categories: \"Any part\" means every category.",
+        "\"5% of part cost\" has no meaning for options without a cost (the design gives none for RCS, power and most communications options)."
+      ]
+    },
+    {
+      "id": "engine_hot_fire",
+      "name_key": "test.engine_hot_fire.name",
+      "applies_to_key": "test.engine_hot_fire.applies_to",
+      "applies_to_scope": "engine",
+      "applies_to_categories": [
+        "first_stage_engine",
+        "upper_stage_engine"
+      ],
+      "cost_fraction_of_part": 0.1,
+      "days": 7,
+      "reveals_key": "test.engine_hot_fire.reveals",
+      "reveals_failure_modes": [
+        "combustion_instability",
+        "engine_shutdown"
+      ],
+      "effects": [
+        {
+          "target": "reliability",
+          "op": "add",
+          "value": 0.01,
+          "scope": "this_part"
+        }
+      ],
+      "basis_key": "test.engine_hot_fire.basis",
+      "design_notes": [
+        "\"Turbopump flaws\" is mapped to engine_shutdown, whose cause in 8.4 is \"low-reliability engine, skipped hot-fire\".",
+        "The design does not say whether \"10% of engine cost\" is the cost of one engine or of all engines on the stage."
+      ]
+    },
+    {
+      "id": "static_fire",
+      "name_key": "test.static_fire.name",
+      "applies_to_key": "test.static_fire.applies_to",
+      "applies_to_scope": "stage",
+      "applies_to_categories": [
+        "first_stage_engine",
+        "upper_stage_engine",
+        "engine_count",
+        "tank_size",
+        "structural_material"
+      ],
+      "cost_min_M": 2,
+      "cost_max_M": 8,
+      "days": 5,
+      "reveals_key": "test.static_fire.reveals",
+      "reveals_failure_modes": [
+        "cryogenic_leak"
+      ],
+      "flags": [
+        "reveals_engine_out_behavior"
+      ],
+      "basis_key": "test.static_fire.basis",
+      "minigames": [
+        "MG-03"
+      ],
+      "design_notes": [
+        "The design gives a cost range of $2–8 M and does not say what sets the price inside it (presumably the size of the stage).",
+        "\"Plumbing leaks\" is mapped to cryogenic_leak (8.4: propellant loss, mitigated by testing). A stage is not one part category; the list names the categories that make up a stage."
+      ]
+    },
+    {
+      "id": "wet_dress_rehearsal",
+      "name_key": "test.wet_dress_rehearsal.name",
+      "applies_to_key": "test.wet_dress_rehearsal.applies_to",
+      "applies_to_scope": "vehicle",
+      "cost_M": 3,
+      "days": 4,
+      "reveals_key": "test.wet_dress_rehearsal.reveals",
+      "flags": [
+        "reveals_propellant_loading_issues",
+        "reveals_countdown_issues",
+        "fewer_countdown_holds"
+      ],
+      "basis_key": "test.wet_dress_rehearsal.basis",
+      "design_notes": [
+        "No applies_to_categories: the test is run on the whole vehicle."
+      ]
+    },
+    {
+      "id": "vibration_test",
+      "name_key": "test.vibration_test.name",
+      "applies_to_key": "test.vibration_test.applies_to",
+      "applies_to_scope": "payload",
+      "applies_to_categories": [
+        "instrument",
+        "satellite_power",
+        "attitude_control",
+        "capsule",
+        "mars_lander",
+        "avionics"
+      ],
+      "cost_min_M": 1,
+      "cost_max_M": 3,
+      "days": 4,
+      "reveals_key": "test.vibration_test.reveals",
+      "effects": [
+        {
+          "target": "reliability",
+          "op": "add",
+          "value": 0.01,
+          "scope": "payload"
+        }
+      ],
+      "flags": [
+        "reveals_loose_components"
+      ],
+      "basis_key": "test.vibration_test.basis",
+      "minigames": [
+        "MG-06"
+      ],
+      "design_notes": [
+        "The +0.01 reliability is chosen by the data author; the design says only \"payload reliability +\".",
+        "The design gives a cost range of $1–3 M and does not say what sets the price inside it."
+      ]
+    },
+    {
+      "id": "thermal_vacuum_test",
+      "name_key": "test.thermal_vacuum_test.name",
+      "applies_to_key": "test.thermal_vacuum_test.applies_to",
+      "applies_to_scope": "spacecraft",
+      "applies_to_categories": [
+        "instrument",
+        "satellite_power",
+        "attitude_control",
+        "capsule",
+        "life_support",
+        "mars_lander",
+        "power_system"
+      ],
+      "cost_M": 2,
+      "days": 6,
+      "reveals_key": "test.thermal_vacuum_test.reveals",
+      "flags": [
+        "reveals_thermal_design_faults",
+        "improves_power_margin",
+        "improves_thermal_margin"
+      ],
+      "basis_key": "test.thermal_vacuum_test.basis"
+    },
+    {
+      "id": "drop_test",
+      "name_key": "test.drop_test.name",
+      "applies_to_key": "test.drop_test.applies_to",
+      "applies_to_scope": "parachutes",
+      "applies_to_categories": [
+        "capsule_recovery",
+        "booster_recovery",
+        "mars_lander"
+      ],
+      "cost_M": 1.5,
+      "days": 5,
+      "reveals_key": "test.drop_test.reveals",
+      "reveals_failure_modes": [
+        "parachute_failure"
+      ],
+      "basis_key": "test.drop_test.basis",
+      "minigames": [
+        "MG-04"
+      ],
+      "design_notes": [
+        "Only the options with parachutes count: both parachute options of capsule_recovery, Parachute + splashdown of booster_recovery and the three Mars landers (each lands with a parachute). The mandatory parachute recovery of C0 has no part."
+      ]
+    },
+    {
+      "id": "arc_jet_test",
+      "name_key": "test.arc_jet_test.name",
+      "applies_to_key": "test.arc_jet_test.applies_to",
+      "applies_to_scope": "heat_shield",
+      "applies_to_categories": [
+        "heat_shield"
+      ],
+      "cost_M": 2,
+      "days": 5,
+      "reveals_key": "test.arc_jet_test.reveals",
+      "reveals_failure_modes": [
+        "heat_shield_burn_through"
+      ],
+      "effects": [
+        {
+          "target": "heat_margin",
+          "op": "add_fraction",
+          "value": 0.05,
+          "scope": "this_part"
+        }
+      ],
+      "basis_key": "test.arc_jet_test.basis",
+      "design_notes": [
+        "The +5% heat margin is chosen by the data author; the design says only \"+heat margin\"."
+      ]
+    },
+    {
+      "id": "software_in_the_loop",
+      "name_key": "test.software_in_the_loop.name",
+      "applies_to_key": "test.software_in_the_loop.applies_to",
+      "applies_to_scope": "avionics",
+      "applies_to_categories": [
+        "avionics",
+        "navigation_sensor"
+      ],
+      "cost_M": 1,
+      "days": 3,
+      "reveals_key": "test.software_in_the_loop.reveals",
+      "reveals_failure_modes": [
+        "software_overflow"
+      ],
+      "basis_key": "test.software_in_the_loop.basis",
+      "minigames": [
+        "MG-04"
+      ],
+      "design_notes": [
+        "Skipping this test is the trigger of the Software Bug Found anomaly card (6.8)."
+      ]
+    },
+    {
+      "id": "pogo_suppression_test",
+      "name_key": "test.pogo_suppression_test.name",
+      "applies_to_key": "test.pogo_suppression_test.applies_to",
+      "applies_to_scope": "first_stage",
+      "applies_to_categories": [
+        "first_stage_engine",
+        "tank_size"
+      ],
+      "cost_M": 1,
+      "days": 2,
+      "reveals_key": "test.pogo_suppression_test.reveals",
+      "reveals_failure_modes": [
+        "pogo_oscillation"
+      ],
+      "flags": [
+        "removes_pogo_risk_if_found"
+      ],
+      "basis_key": "test.pogo_suppression_test.basis",
+      "design_notes": [
+        "The cause of pogo in 8.4 is a \"long first stage\", so the first-stage tank size is listed beside the engine. The design does not say which tank sizes count as long."
+      ]
+    }
+  ],
+  "value_types": {
+    "tests": "game_value"
+  }
+}
