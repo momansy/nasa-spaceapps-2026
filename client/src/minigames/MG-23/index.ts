@@ -7,7 +7,6 @@
 // Teams: per-player param `slot`, common param `slots`. Shared state (optional, display only):
 // action `deploy` x = [stage, playTimeMs]; `shared.deployed` (number[4]) = play time in ms of each
 // stage's deployment, −1 until it happens. Without `env.coop`, a seeded crew deploys the others.
-import type { MgMap } from '@protocol';
 import { fmt } from '../../data/format';
 import type { MinigameModule } from '../types';
 import { runDemo, runMinigame, type Controller, type GameSpec, type Runtime } from '../MG-22/kit';

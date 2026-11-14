@@ -612,6 +612,7 @@ export function runMinigame<I, S extends SimLike<I>, V extends ViewLike<S>>(root
       }
     },
     onResult(cb) {
+      if (destroyed) return;
       resultCb = cb;
       if (pending) {
         const r = pending;

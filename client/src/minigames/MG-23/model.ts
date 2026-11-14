@@ -71,7 +71,8 @@ export interface Mg23Config {
  * Turns the host parameters, the input mode (design section 16) and the difficulty (design 10.1
  * rule 6) into the configuration of one run.
  *
- * Gate width: Relaxed ×1.6 ("the gate stays lit longer"), One-button ×1.4; Cadet ×1.25, Engineer
+ * Gate width: Relaxed ×1.6 ("the gate stays lit longer"); One-button is already one button, so the gate is
+ * unchanged and the whole field is the button; Cadet ×1.25, Engineer
  * ×1, Flight Director ×0.8. All game values. Stage: `params.stage`, else `slot` mod 4.
  */
 export function resolveConfig(params: MgMap, mode: MinigameMode, assist: AssistLevel): Mg23Config {
@@ -83,7 +84,6 @@ export function resolveConfig(params: MgMap, mode: MinigameMode, assist: AssistL
   if (assist === 'CADET') half *= 1.25;
   else if (assist === 'FLIGHT_DIRECTOR') half *= 0.8;
   if (mode === 'RELAXED') half *= 1.6;
-  else if (mode === 'ONE_BUTTON') half *= 1.4;
   return {
     stage,
     backup: Math.floor(slot / 4),
@@ -115,7 +115,7 @@ export interface Mg23Descent {
 export function createDescent(config: Mg23Config, seed: number, durationS: number): Mg23Descent {
   const rnd = mulberry32(seed);
   const shift = (rnd() * 2 - 1) * 0.5;
-  const centreS = GATE_BASE_S.map((b, k) => (b + shift + (rnd() * 2 - 1) * 0.35) * (durationS / 20));
+  const centreS = GATE_BASE_S.map((b) => (b + shift + (rnd() * 2 - 1) * 0.35) * (durationS / 20));
   const total = Math.max(1, Math.round(durationS * STEP_HZ));
   const speed = new Float32Array(total + 1);
   const altitude = new Float32Array(total + 1);

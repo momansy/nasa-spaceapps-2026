@@ -57,3 +57,7 @@ polite live region (at most every 1.5 s). Status is colour + glyph + word + bord
 12 ms tick when re-entering the corridor, `[40, 30, 40]` when leaving, 20–35 ms rumble every 0.45 s while out.
 Reduced motion: no plasma flicker, fewer streaks. DPR capped at 2, no per-frame allocation in the step loop,
 chunk well under 60 KB. `dir=rtl` mirrors the cards and keeps numbers left to right.
+
+## Decisions
+
+The corridor edges use the Apollo 13 numbers (`real_world_approximate`, F17); the perfect fraction (0.97), the stick rate (1.25 °/s), the one-button rate (0.85 °/s), the lift lag (0.09 s), the disturbance sizes and the mode/difficulty factors (Relaxed ×1.6, One-button ×1.5, Cadet ×1.25, Flight Director ×0.8) are `game_value`s; the data stores only the corridor and `in_corridor_fraction_min`. `value` is the mean γ in degrees (negative below the horizon).
