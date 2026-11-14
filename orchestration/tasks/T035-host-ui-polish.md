@@ -10,4 +10,9 @@ T031 (merged, PR #93) built the host design system. Its own rubric (`orchestrati
 2. **U9 200 % text + right-to-left:** no collisions, sliced text or dropped content on the Build Bay (including Gantt labels); Lobby RTL alignment; Title body text kept off the Earth limb.
 3. **U10 polish:** no text sliced by scroll masks, no line breaks between a number and its unit, no markers drawn over text, specimen labels current.
 
+4. **Lobby controls for judging day** (from `RELEASE.md` section 6.3): add host lobby controls for
+   `audienceVoteWeight` (0 or 1, "Audience counts as one player"), `inspectTimerS` (5 to 60 s) and a
+   10 s option in the vote-timer segment, styled with the design system. The protocol and `RoomClient`
+   already support `settings.set`; without these, judging-day mode (design 13.7) is unreachable.
+
 Do not touch the 3D scene (T034) or models. Keep EditMode tests green. Evidence: before/after pairs at 1920×1080, 200 % + RTL captures, the re-scored rubric with every item at 4 or better.

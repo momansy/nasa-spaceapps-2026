@@ -10,3 +10,22 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     X-Frame-Options = "SAMEORIGIN"
+
+# Unity WebGL host build: the .unityweb files are gzip-compressed (see RELEASE.md section 3.1).
+[[headers]]
+  for = "/play/host/Build/*.wasm.unityweb"
+  [headers.values]
+    Content-Encoding = "gzip"
+    Content-Type = "application/wasm"
+
+[[headers]]
+  for = "/play/host/Build/*.js.unityweb"
+  [headers.values]
+    Content-Encoding = "gzip"
+    Content-Type = "application/javascript"
+
+[[headers]]
+  for = "/play/host/Build/*.data.unityweb"
+  [headers.values]
+    Content-Encoding = "gzip"
+    Content-Type = "application/octet-stream"
