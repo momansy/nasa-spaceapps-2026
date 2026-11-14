@@ -16,7 +16,8 @@ from mathutils import Vector
 
 from . import spec
 from .core import TAU
-from .engine_common import actuator, bell_nozzle, chamber, gimbal_mount, pipe_flange, pump
+from .engine_common import (actuator, bell_nozzle, bellows as flex_bellows, chamber, duct, gimbal_mount, harness, inducer, pipe_flange,
+                            pump, stiffener, volute)
 from .pipeline import register
 
 
@@ -31,19 +32,17 @@ def _minor(mb, n=8):
     return n if mb.lod == 0 else max(4, n // 2)
 
 
-def _inlet(mb, x, y, z0, z_face, r, mat="engine_metal", bellows=3):
-    """Vertical propellant inlet: pipe + flex bellows + bolted flange, top at <= z_face."""
+def _inlet(mb, x, y, z0, z_face, r, mat="engine_metal", bellows=2):
+    """Vertical propellant inlet: pipe + flex bellows sections + bolted flange, top at <= z_face."""
     s = mb.seg(14, 8)
     z_top = z_face - 0.30 * r - 0.004
     mb.cyl((x, y, z0), (x, y, z_top), r, s, mat, caps=False)
-    with mb.xform(loc=(x, y, 0.0)):
-        mb.lathe([(r * 0.97, z_top - 0.004), (0.0, z_top - 0.004)], s, "detail_dark")
-        if mb.want(0):
-            span = (z_top - z0)
-            for i in range(bellows):
-                z = z0 + span * (0.30 + 0.14 * i)
-                mb.torus(r * 1.02, r * 0.13, z, s, 4, mat)
-    pipe_flange(mb, (x, y, z_top - 0.18 * r), (0, 0, 1), r, mat, seg=14, bolts=8)
+    inducer(mb, (x, y, z_top - 0.004), (0, 0, 1), r)
+    span = z_top - z0
+    for i in range(bellows):
+        zc = z0 + span * (0.30 + 0.24 * i)
+        flex_bellows(mb, (x, y, zc - r * 0.8), (x, y, zc + r * 0.8), r, mat, folds=3)
+    pipe_flange(mb, (x, y, z_top - 0.18 * r), (0, 0, 1), r, mat, seg=14)
 
 
 def _open_end(mb, p, direction, r, mat="engine_metal"):
@@ -87,7 +86,8 @@ def _finish(ctx, pid, z_pivot, extra=None):
 
 # --------------------------------------------------------------------------- Kerolox Workhorse
 def gen_workhorse(ctx):
-    """Merlin 1D class: compact gas-generator engine with a turbine exhaust duct beside the bell."""
+    """Merlin 1D class (T032 golden engine): tube-wall bell, volute turbopump, gas generator with its exhaust
+    duct, two gimbal actuators at 90 degrees, five flanged ducts with bellows and a clamped harness."""
     pid = "eng_kerolox_workhorse"
     e = spec.ENGINES[pid]
     mb = ctx.mesh()
@@ -96,24 +96,21 @@ def gen_workhorse(ctx):
     s_main = mb.seg(56, 14)
     s_pipe = mb.seg(12, 6)
 
+    # ---- bell: 180 coolant tubes (angle-normalised UV0), two hat stiffeners, exit manifold, throat collar
     r_at = bell_nozzle(mb, z_exit=0.0, length=bell_len, r_throat=r_th, r_exit=r_exit, seg=56, steps=16,
-                       wall=0.012, theta_n=30.0, theta_e=9.0, bands=5, band_z0=0.30, band_z1=0.86,
-                       band_size=0.011)
-    # regen fuel inlet manifold near the exit
+                       wall=0.012, theta_n=30.0, theta_e=9.0, bands=2, band_z0=0.42, band_z1=0.80,
+                       band_size=0.011, tubes=180)
     z_man = 0.15
     mb.torus(r_at(z_man) + 0.022, 0.026, z_man, s_main, _minor(mb), "engine_metal")
-    # throat stiffener collar
-    mb.torus(r_th + 0.030, 0.022, bell_len - 0.02, mb.seg(32, 10), _minor(mb, 6), "engine_metal")
+    stiffener(mb, r_at, bell_len - 0.06, 0.07, 0.020, mb.seg(32, 10), "engine_metal", trim="bolt_flange")
 
     z_ch = chamber(mb, z_throat=bell_len, r_throat=r_th, r_chamber=0.19, length=0.52, seg=36,
                    mat="nozzle_hot", heat=0.9)
-    # injector / LOX dome
     s_head = mb.seg(36, 10)
     mb.lathe([(0.19, 1.79), (0.245, 1.83), (0.245, 1.95), (0.20, 2.05), (0.11, 2.11)], s_head,
              "engine_metal", crease=35.0)
     if mb.want(0):
         mb.bolt_ring(0.222, 1.95, 20, 0.011, 0.014)
-    # thrust column up to the gimbal
     g_h = 0.38
     z_piv = gimbal_mount(mb, z_top=length, d=e["mount_d"], h=g_h, seg=28)
     z_gb = length - g_h
@@ -124,72 +121,66 @@ def gen_workhorse(ctx):
                         matrix=_xz_plane())
     _ = z_ch
 
-    # ---- turbopump on the +X side, shaft vertical
-    px = 0.41
-    pr = 0.135
-    pump(mb, (px, 0, 1.40), (px, 0, 2.30), pr, ribs=6, seg=20)
-    # turbine housing under the pump
+    # ---- turbopump on the +X side: barrel, turbine housing, scroll case (volute) with its discharge
+    px, pr = 0.41, 0.135
+    p_lo, p_hi = (px, 0, 1.40), (px, 0, 2.30)
+    pump(mb, p_lo, p_hi, pr, ribs=6, seg=20)
     with mb.xform(loc=(px, 0, 0)):
         mb.lathe([(0.0, 1.27), (0.085, 1.27), (0.150, 1.33), (0.150, 1.43), (0.10, 1.47)], mb.seg(20, 8),
                  "engine_metal", crease=40.0)
         if mb.want(0):
             mb.bolt_ring(0.142, 1.43, 12, 0.008, 0.012)
-    # pump mounts to the chamber
+    v_out, v_dir = volute(mb, p_lo, p_hi, pr, z_frac=0.64, turns=0.85, end_angle=100.0, outlet_len=0.05)
     for z in (1.62, 2.02):
         mb.strut((0.18, 0.07, z), (px - 0.10, 0.07, z + 0.03), 0.018, seg=6)
         mb.strut((0.18, -0.07, z), (px - 0.10, -0.07, z + 0.03), 0.018, seg=6)
 
-    # ---- turbine exhaust duct: the signature pipe running down beside the bell
-    dr = 0.060
-    off = 0.11
-    z_end = 0.07
-    duct = [(px, 0, 1.30), (px, 0, 1.12), (r_at(0.80) + off, 0, 0.80), (r_at(0.45) + off, 0, 0.45),
-            (r_at(z_end) + off, 0, z_end)]
-    mb.tube(duct, dr, s_pipe, "engine_metal", bend=0.22, bend_seg=5)
-    _open_end(mb, duct[-1], Vector(duct[-1]) - Vector(duct[-2]), dr)
-    pipe_flange(mb, (px, 0, 1.22), (0, 0, 1), dr, seg=12, bolts=8)
+    # ---- duct 1: turbine exhaust, down beside the bell (open end with a dark bore)
+    dr, off, z_end = 0.060, 0.11, 0.07
+    exhaust = [(px, 0, 1.30), (px, 0, 0.98), (r_at(0.80) + off, 0, 0.80), (r_at(0.45) + off, 0, 0.45),
+               (r_at(z_end) + off, 0, z_end)]
+    mb.tube(exhaust, dr, s_pipe, "engine_metal", bend=0.22, bend_seg=5)
+    for f in (0.28, 0.72):
+        c = Vector(exhaust[0]) + Vector((0, 0, -1)) * (0.32 * f)
+        flex_bellows(mb, c + Vector((0, 0, 0.8 * dr)), c - Vector((0, 0, 0.8 * dr)), dr, folds=4)
+    pipe_flange(mb, (px, 0, 1.28), (0, 0, 1), dr)
+    _open_end(mb, exhaust[-1], Vector(exhaust[-1]) - Vector(exhaust[-2]), dr)
     for z in (0.42, 0.78):
         x_d = r_at(z) + off
         mb.box((off + 0.01, 0.022, 0.05), "engine_metal", center=(x_d - off / 2.0, 0.0, z))
         with mb.xform(loc=(x_d, 0, 0)):
             mb.band(dr, z - 0.025, z + 0.025, 0.010, s_pipe, "engine_metal")
 
-    # ---- gas generator feeding the turbine
+    # ---- gas generator and its feed to the turbine
     gg = (0.305, 0.215)
     with mb.xform(loc=(gg[0], gg[1], 0)):
         mb.lathe([(0.0, 1.44), (0.05, 1.44), (0.058, 1.48), (0.058, 1.68), (0.035, 1.74), (0.0, 1.74)],
                  mb.seg(14, 8), "engine_metal", crease=40.0)
+        mb.band(0.058, 1.50, 1.56, 0.008, mb.seg(14, 8), "engine_metal", trim="bolt_flange")
     mb.tube([(gg[0], gg[1], 1.47), (gg[0], gg[1], 1.36), (px - 0.02, 0.10, 1.35)], 0.034, mb.seg(10, 6),
             "engine_metal", bend=0.07)
-    if mb.want(0):
-        mb.tube([(gg[0], gg[1], 1.72), (gg[0] - 0.02, gg[1] + 0.02, 1.84), (0.20, 0.14, 1.90)], 0.014, 6,
-                "engine_metal", bend=0.05)
+    pipe_flange(mb, (gg[0], gg[1], 1.405), (0, 0, 1), 0.034)
 
-    # ---- propellant inlets (top of the pump and its -Y side)
+    # ---- duct 2: main propellant inlet (top of the pump); duct 3: second inlet on the -Y side
     _inlet(mb, px, 0.0, 2.28, length - 0.06, 0.085)
-    mb.tube([(px, -0.10, 2.02), (px, -0.305, 2.02), (px, -0.305, 2.50)], 0.060, s_pipe, "engine_metal",
-            bend=0.13)
+    duct(mb, [(px, -0.10, 2.02), (px, -0.305, 2.02), (px, -0.305, 2.50)], 0.060, bellows_at=(0.35, 0.78))
     _inlet(mb, px, -0.305, 2.48, length - 0.06, 0.060, bellows=2)
 
-    # ---- high-pressure LOX line: pump -> LOX dome (over the +Y side)
-    mb.tube([(px, 0.10, 2.16), (px, 0.30, 2.16), (0.12, 0.36, 2.10), (0.0, 0.20, 2.00)], 0.045, s_pipe,
-            "engine_metal", bend=0.12)
-    pipe_flange(mb, (px, 0.19, 2.16), (0, 1, 0), 0.045, seg=10, bolts=6)
-    # main oxidiser valve
-    mb.cyl((0.20, 0.365, 2.115), (0.30, 0.345, 2.14), 0.062, mb.seg(12, 6), "engine_metal")
+    # ---- duct 4: high-pressure LOX line from the volute discharge to the injector dome
+    v0 = Vector(v_out)
+    lox = [v0, Vector((0.27, 0.285, v0.z + 0.04)), Vector((0.13, 0.31, 2.00)), Vector(_pol(0.236, 70.0, 1.99))]
+    duct(mb, lox, 0.040, bellows_at=(0.38,))
+    mb.cyl((0.20, 0.365, 2.115), (0.30, 0.345, 2.14), 0.062, mb.seg(12, 6), "engine_metal")   # main oxidiser valve
 
-    # ---- high-pressure fuel line: pump -> regen manifold at the nozzle exit (-Y side)
+    # ---- duct 5: high-pressure fuel line, pump -> regen manifold at the nozzle exit (-Y side)
     az = -52.0
     fuel = [(px, -0.10, 1.66), (px - 0.03, -0.27, 1.60), _pol(r_at(1.05) + 0.085, az, 1.05),
             _pol(r_at(0.55) + 0.07, az, 0.55), _pol(r_at(z_man) + 0.03, az, z_man + 0.03)]
-    mb.tube(fuel, 0.040, s_pipe, "engine_metal", bend=0.14, bend_seg=5)
-    pipe_flange(mb, _pol(r_at(0.55) + 0.07, az, 0.62), (Vector(fuel[3]) - Vector(fuel[2])), 0.040, seg=10,
-                bolts=6)
-    # main fuel valve on the line
+    duct(mb, fuel, 0.040, bellows_at=(0.30, 0.72))
     mb.cyl(_pol(r_at(1.05) + 0.085, az, 1.12), _pol(r_at(0.95) + 0.082, az, 0.94), 0.058, mb.seg(12, 6),
            "engine_metal")
 
-    # ---- two gimbal actuators, 90 degrees apart on the side away from the pump
+    # ---- two gimbal actuators, 90 degrees apart on the side away from the pump (clevis ends)
     for a_deg in (135.0, 225.0):
         lug = _pol(0.235, a_deg, 1.74)
         top = _pol(0.50, a_deg, length - 0.09)
@@ -199,16 +190,32 @@ def gen_workhorse(ctx):
         if mb.want(0):
             _lug(mb, top, 0.07)
 
-    # ---- small lines and harness
-    if mb.want(0):
-        # igniter fluid line and sensor harness down the chamber
-        mb.tube([_pol(0.20, 180, 2.08), _pol(0.26, 180, 1.98), _pol(0.215, 180, 1.60), _pol(0.15, 180, 1.36)],
-                0.012, 6, "engine_metal", bend=0.05)
-        mb.tube([_pol(0.16, 95, 2.50), _pol(0.27, 100, 2.20), _pol(0.26, 105, 1.96), _pol(0.215, 120, 1.70),
-                 _pol(0.16, 125, 1.30), _pol(r_at(0.9) + 0.03, 128, 0.90)], 0.013, 6, "detail_dark", bend=0.06)
-        mb.box((0.10, 0.05, 0.14), "detail_dark", center=_pol(0.27, 180, 2.02))
+    # ---- harness: 8 small lines (rubber and braided) with clamps, each ending on a connector block
+    runs = [
+        ([_pol(0.20, 180, 2.08), _pol(0.26, 180, 1.98), _pol(0.215, 180, 1.60), _pol(0.15, 180, 1.36)], 0.012, False),
+        ([_pol(0.16, 95, 2.50), _pol(0.27, 100, 2.20), _pol(0.26, 105, 1.96), _pol(0.215, 120, 1.70),
+          _pol(0.16, 125, 1.30), _pol(r_at(0.9) + 0.03, 128, 0.90)], 0.013, False),
+        ([_pol(0.215, 150, 2.00), _pol(0.27, 150, 1.85), _pol(0.20, 160, 1.60)], 0.010, True),
+        ([_pol(0.215, 200, 2.00), _pol(0.275, 205, 1.80), _pol(0.205, 195, 1.55)], 0.010, True),
+        ([_pol(0.19, 20, 1.90), _pol(0.25, 15, 1.70), _pol(0.25, 10, 1.55)], 0.009, False),
+        ([_pol(0.13, 60, 2.30), _pol(0.22, 62, 2.18), _pol(0.235, 66, 2.02)], 0.009, True),
+        ([_pol(0.26, 250, 1.78), _pol(0.30, 250, 1.50), _pol(r_at(1.1) + 0.03, 252, 1.12)], 0.011, False),
+        ([_pol(0.19, 300, 1.62), _pol(0.27, 302, 1.40), _pol(r_at(1.15) + 0.03, 304, 1.15)], 0.009, True),
+    ]
+    for path, rad, braided in runs:
+        if not mb.want(0) and rad < 0.011:
+            continue
+        harness(mb, path, rad, clamps=2, braided=braided)
+        for end in (path[0], path[-1]):
+            mb.box((0.035, 0.03, 0.03), "detail_dark", center=tuple(end))
 
-    _finish(ctx, pid, z_piv, dict(cycle="gas generator"))
+    # ---- markings (sparse, generic): serial plate on the injector dome, RP-1 tag on the pump barrel
+    ctx.decal("serial_s1", 1.89, math.radians(-70.0), (0.17, 0.0425), r_at=lambda z: 0.2455, z_max=length)
+    ctx.decal("fluid_rp1", 1.86, math.radians(-100.0), (0.11, 0.0275), r_at=lambda z: pr + 0.001,
+              center=(px, 0.0), z_max=length)
+
+    _finish(ctx, pid, z_piv, dict(cycle="gas generator",
+                                  soot=dict(z0_m=0.0, z1_m=0.32, strength=0.75)))
 
 
 def _xz_plane():
