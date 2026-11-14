@@ -110,25 +110,63 @@ namespace MissionForge.Core.Campaign
     /// <summary>Mode configurations from design 13.1 and 13.3, keyed by protocol GameMode tokens.</summary>
     public static class ModeRules
     {
+        // Fixed, catalog-verified game pools. These are curated game alternatives,
+        // not historical hardware inventories or real-world mission specifications.
         private static readonly string[] DailyPool =
         {
-            "eng_kerolox_workhorse", "eng_hydrolox_vacuum", "tank_s", "tank_m",
-            "sep_pyro_bolts", "comm_s_band", "nav_gnss", "fairing_small",
-            "solar_fixed", "bat_li_ion"
+            "site_equatorial_spaceport", "site_subtropical_coast",
+            "site_west_coast_polar_range",
+            "eng_kerolox_workhorse", "eng_kerolox_staged_combustion",
+            "eng_hydrolox_vacuum", "eng_kerolox_vacuum",
+            "eng_hypergolic_storable", "engcount_first_1", "engcount_first_3",
+            "engcount_upper_1", "tank_s", "tank_m", "tank_l",
+            "sep_pyro_bolts_springs", "sep_pneumatic_pushers",
+            "comm_s_band", "comm_x_band", "comm_relay_network",
+            "nav_imu_gnss", "nav_imu_gnss_star_tracker",
+            "fairing_small", "fairing_standard", "fairing_large",
+            "mat_aluminum_2219", "mat_aluminum_lithium_2195",
+            "pwr_primary_batteries", "pwr_deployable_solar_liion",
+            "satpwr_body_mounted_solar_cells", "satpwr_deployable_solar_wings",
+            "inst_wide_field_optical_camera", "inst_multispectral_imager",
+            "avi_commercial_single", "avi_radiation_hardened",
+            "adcs_reaction_wheels", "rcs_cold_gas",
+            "aero_gimbal_only", "aero_fins",
+            "strap_none", "strap_2_small_solid",
+            "assur_standard", "assur_class_a",
+            "brec_expendable", "brec_parachute_splashdown",
+            "cap_compact", "cap_standard", "crec_parachutes_splashdown",
+            "tps_avcoat_ablator", "les_escape_tower", "ls_open_loop",
+            "lander_legged", "lander_sky_crane"
         };
 
         private static readonly string[] LunarSixtiesPool =
         {
-            "eng_kerolox_workhorse", "eng_hypergolic_storable",
-            "tank_s", "tank_m", "tank_l", "sep_pyro_bolts",
-            "comm_s_band", "nav_inertial", "fairing_large",
-            "mat_aluminum", "solar_fixed", "bat_li_ion"
+            "site_equatorial_spaceport", "site_subtropical_coast",
+            "eng_kerolox_workhorse", "eng_kerolox_giant", "eng_kerolox_vacuum",
+            "eng_hypergolic_storable", "engcount_first_1", "engcount_first_5",
+            "engcount_upper_1", "tank_s", "tank_m", "tank_l",
+            "sep_pyro_bolts_springs", "comm_uhf", "comm_s_band",
+            "nav_imu_only", "fairing_standard", "fairing_large",
+            "mat_aluminum_2219", "pwr_primary_batteries", "pwr_fuel_cells",
+            "satpwr_body_mounted_solar_cells", "avi_commercial_single",
+            "adcs_magnetorquers_only", "rcs_bipropellant", "aero_fins",
+            "strap_none", "assur_standard", "brec_expendable",
+            "cap_standard", "crec_parachutes_splashdown",
+            "tps_avcoat_ablator", "les_escape_tower", "ls_open_loop"
         };
 
         private static readonly string[] EarlySatellitesPool =
         {
-            "eng_kerolox_workhorse", "tank_xs", "tank_s", "sep_pyro_bolts",
-            "comm_s_band", "nav_inertial", "fairing_small", "bat_li_ion"
+            "site_equatorial_spaceport", "site_subtropical_coast",
+            "eng_kerolox_workhorse", "eng_kerolox_vacuum",
+            "engcount_first_1", "engcount_upper_1",
+            "tank_xs", "tank_s", "sep_pyro_bolts_springs",
+            "comm_uhf", "comm_s_band", "nav_imu_only", "fairing_small",
+            "mat_aluminum_2219", "satpwr_body_mounted_solar_cells",
+            "pwr_primary_batteries", "adcs_magnetorquers_only",
+            "avi_commercial_single", "inst_wide_field_optical_camera",
+            "aero_gimbal_only", "rcs_cold_gas", "strap_none",
+            "assur_standard", "brec_expendable"
         };
 
         /// <summary>Returns deterministic rules for a supported GameMode; unknown tokens are rejected.</summary>
