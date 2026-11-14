@@ -1,10 +1,10 @@
 {
-  "checked_at": "2026-11-14T10:59:03.870Z",
+  "checked_at": "2026-11-14T16:01:07.201Z",
   "node": "v24.16.0",
-  "scope": "Preproduction checks only; no image decoding or video inspection possible without media.",
+  "scope": "Source, decoded-media and recorded visual-acceptance checks.",
   "checks": [
     {
-      "name": "Nine explicit generation requests, no outputs claimed",
+      "name": "Nine explicit requests and nine completed outputs recorded",
       "pass": true
     },
     {
@@ -37,6 +37,22 @@
     },
     {
       "name": "Specified text/status foregrounds exceed 4.5:1 on opaque Console",
+      "pass": true
+    },
+    {
+      "name": "Six style frames decode as 2048 x 1152 PNG",
+      "pass": true
+    },
+    {
+      "name": "Key art decodes at required landscape and square sizes",
+      "pass": true
+    },
+    {
+      "name": "C1 cinematic decodes as silent 1280 x 720 H.264 for 8-15 s",
+      "pass": true
+    },
+    {
+      "name": "Contact sheet decodes and includes recorded visual acceptance",
       "pass": true
     },
     {
@@ -85,65 +101,220 @@
   "authoredFileSizes": [
     {
       "path": "assets/media/style/STYLE_GUIDE.md",
-      "bytes": 13527
+      "bytes": 15157
     },
     {
       "path": "assets/media/style/PROMPT_PACK.json",
-      "bytes": 15972
+      "bytes": 16895
     },
     {
       "path": "assets/media/CREDITS.md",
-      "bytes": 5249
+      "bytes": 16501
     },
     {
       "path": "orchestration/evidence/T005/README.md",
-      "bytes": 5717
+      "bytes": 5832
     },
     {
       "path": "orchestration/evidence/T005/verify-preproduction.mjs",
-      "bytes": 4239
+      "bytes": 5748
     }
   ],
   "media": [
     {
       "path": "assets/media/style/frames/01-title.png",
-      "exists": false
+      "exists": true,
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "png",
+          "codec_type": "video",
+          "width": 2048,
+          "height": 1152,
+          "pix_fmt": "rgb24",
+          "r_frame_rate": "25/1"
+        }
+      ],
+      "format": {
+        "size": "2705026"
+      }
     },
     {
       "path": "assets/media/style/frames/02-build-bay.png",
-      "exists": false
+      "exists": true,
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "png",
+          "codec_type": "video",
+          "width": 2048,
+          "height": 1152,
+          "pix_fmt": "rgb24",
+          "r_frame_rate": "25/1"
+        }
+      ],
+      "format": {
+        "size": "2720112"
+      }
     },
     {
       "path": "assets/media/style/frames/03-ascent.png",
-      "exists": false
+      "exists": true,
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "png",
+          "codec_type": "video",
+          "width": 2048,
+          "height": 1152,
+          "pix_fmt": "rgb24",
+          "r_frame_rate": "25/1"
+        }
+      ],
+      "format": {
+        "size": "2837889"
+      }
     },
     {
       "path": "assets/media/style/frames/04-orbit-operations.png",
-      "exists": false
+      "exists": true,
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "png",
+          "codec_type": "video",
+          "width": 2048,
+          "height": 1152,
+          "pix_fmt": "rgb24",
+          "r_frame_rate": "25/1"
+        }
+      ],
+      "format": {
+        "size": "2934002"
+      }
     },
     {
       "path": "assets/media/style/frames/05-reentry.png",
-      "exists": false
+      "exists": true,
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "png",
+          "codec_type": "video",
+          "width": 2048,
+          "height": 1152,
+          "pix_fmt": "rgb24",
+          "r_frame_rate": "25/1"
+        }
+      ],
+      "format": {
+        "size": "2751581"
+      }
     },
     {
       "path": "assets/media/style/frames/06-mission-control.png",
-      "exists": false
+      "exists": true,
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "png",
+          "codec_type": "video",
+          "width": 2048,
+          "height": 1152,
+          "pix_fmt": "rgb24",
+          "r_frame_rate": "25/1"
+        }
+      ],
+      "format": {
+        "size": "3113350"
+      }
     },
     {
       "path": "assets/media/key-art/missionforge-16x9.png",
-      "exists": false
+      "exists": true,
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "png",
+          "codec_type": "video",
+          "width": 2048,
+          "height": 1152,
+          "pix_fmt": "rgb24",
+          "r_frame_rate": "25/1"
+        }
+      ],
+      "format": {
+        "size": "2909186"
+      }
     },
     {
       "path": "assets/media/key-art/missionforge-1x1.png",
-      "exists": false
+      "exists": true,
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "png",
+          "codec_type": "video",
+          "width": 2048,
+          "height": 2048,
+          "pix_fmt": "rgb24",
+          "r_frame_rate": "25/1"
+        }
+      ],
+      "format": {
+        "size": "4891337"
+      }
     },
     {
       "path": "assets/media/cinematics/c1-earth-watch-briefing.mp4",
-      "exists": false
+      "exists": true,
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1280,
+          "height": 720,
+          "pix_fmt": "yuv420p",
+          "r_frame_rate": "24/1"
+        }
+      ],
+      "format": {
+        "duration": "10.000000",
+        "size": "3574783"
+      }
     }
   ],
-  "contactSheetExists": false,
+  "contactSheet": {
+    "path": "orchestration/evidence/T005/contact-sheet.jpg",
+    "exists": true,
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "mjpeg",
+        "codec_type": "video",
+        "width": 1920,
+        "height": 810,
+        "pix_fmt": "yuvj444p",
+        "r_frame_rate": "25/1"
+      }
+    ],
+    "format": {
+      "duration": "0.040000",
+      "size": "531927"
+    }
+  },
   "preproduction_pass": true,
-  "media_acceptance_pass": false,
-  "blocker": "Higgsfield estimate_image_cost and generate_image rejected before submission: MCP tool call requires approval, but approval policy is never"
+  "media_acceptance_pass": true,
+  "blocker": null
 }

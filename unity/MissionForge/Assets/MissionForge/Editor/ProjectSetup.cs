@@ -95,8 +95,16 @@ namespace MissionForge.Editor
             scenePaths.Add(BuildShellScene(sphere, earth, atmosphere, starfield, profile, panel, serverConfig));
             foreach (ScreenInfo info in ScreenCatalog.All)
             {
+                // T015 owns MF_BuildBay (launch pad, live vehicle, vote panel): keep it and let its own builder refresh it.
+                string owned = ScenesDir + "/" + info.SceneName + ".unity";
+                if (info.Id == ScreenId.BuildBay && File.Exists(owned))
+                {
+                    scenePaths.Add(owned);
+                    continue;
+                }
                 scenePaths.Add(BuildScreenScene(info, panel, starfield));
             }
+            EditorApplication.ExecuteMenuItem("MissionForge/Build Bay/Rebuild Scene");
 
             var buildScenes = new List<EditorBuildSettingsScene>();
             foreach (string path in scenePaths) buildScenes.Add(new EditorBuildSettingsScene(path, true));

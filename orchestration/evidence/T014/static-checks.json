@@ -1,0 +1,43 @@
+{
+  "task": "T014",
+  "status": "static_checks_passed_compilation_not_run",
+  "date": "2026-11-14",
+  "method": "ChatGPT read files via connected GitHub; source-only checks, NOT a C# parser or .NET compile",
+  "files_checked": [
+    "core/Runtime/Campaign/CampaignState.cs",
+    "core/Runtime/Campaign/CampaignRules.cs",
+    "core/Runtime/Campaign/Inventory.cs",
+    "core/Runtime/Campaign/ModeRules.cs",
+    "core/Runtime/Campaign/Leaderboard.cs",
+    "core/Runtime/Campaign/Achievements.cs",
+    "core/dotnet~/Tests/Campaign/CampaignTests.cs",
+    "orchestration/evidence/T014/README.md"
+  ],
+  "checks": {
+    "file_access": "pass",
+    "brace_counts_equal": "pass",
+    "forbidden_core_calls": "pass",
+    "forbidden_patterns": [
+      "System.Random",
+      "DateTime.Now",
+      "DateTime.UtcNow",
+      "DateTime.Today",
+      "File.Read/Write/Open/Create",
+      "UnityEngine",
+      "Console.Read/Write"
+    ],
+    "test_methods_declared": 19,
+    "real_catalog_part_id_check": "not executed by dotnet; source IDs reviewed and a new xUnit regression test was added"
+  },
+  "dotnet": {
+    "sdk_present": false,
+    "compile_run": false,
+    "tests_run": false,
+    "github_actions": {
+      "run_url": "https://github.com/momansy/nasa-spaceapps-2026/actions/runs/43602277544",
+      "result": "startup_failure",
+      "jobs_started": 0
+    }
+  },
+  "summary": "Static checks are a narrow sanity check only. They do not prove C# syntax, type correctness, package resolution, test outcomes, or behavior. Independent dotnet test run remains required."
+}
