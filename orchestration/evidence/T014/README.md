@@ -1,6 +1,6 @@
 # T014 — Core campaign and modes evidence
 
-**Status:** implementation proposed for review; .NET tests not executed on this ChatGPT host.
+**Status:** verified on .NET 8; Release build and all tests pass.
 **Source:** GAME_DESIGN.md §13, T014 task brief and protocol GameMode.
 **Scope:** core/Runtime/Campaign/, core/dotnet~/Tests/Campaign/, orchestration/evidence/T014/.
 
@@ -16,13 +16,46 @@
 9. Schema-driven achievements, including operators `gte`, `gt`, `lte`, `lt`, `eq`, `within`, `is_true`; one-time unlocks.
 
 ## Verification
-- Code and xUnit tests committed on separate feature branch.
+- Verification used a dedicated worktree and branch based on PR #71, then merged current
+  `origin/main` (`237a753`) to test against the latest Build/Data APIs and fixes.
+- .NET SDK 8.0.428, runtime 8.0.34 and MSBuild 17.11.71 were used from the existing local
+  T007 SDK installation. NuGet restore completed through its isolated configuration.
+- `dotnet test core/dotnet~ --configuration Release`: **PASS — 376 passed, 0 failed,
+  0 skipped; exit code 0**. The exact output is in `dotnet-test.txt`.
+- Campaign-only regression run: **29 passed, 0 failed, 0 skipped**.
+- Release build status: **PASS** for `MissionForge.Core` (`netstandard2.1`) and
+  `MissionForge.Core.Tests` (`net8.0`).
 - Static catalog review found invalid Daily/Heritage pool part IDs; these were corrected and a new catalog-integrity regression test was added.
-- `dotnet test core/dotnet~`: **NOT RUN** — no .NET SDK installed in this isolated environment, and network access is unavailable for installing the .NET 8 SDK or NuGet packages.
-- Attempted an isolated GitHub Actions validation on `ci/t014-validation-20261114` at https://github.com/momansy/nasa-spaceapps-2026/actions/runs/43602277544 ; GitHub reported `startup_failure` and **zero jobs**. This was a workflow startup failure, **not** a C# test result.
-- No result has been fabricated. Review and execute the test command before merge; save actual stdout/stderr to `orchestration/evidence/T014/dotnet-test.txt`.
-- Spot-check API compatibility against `core/Runtime/Build/BuildState.cs`, `core/Runtime/Random/SeededRandom.cs`, `core/Runtime/Data/GameCatalog.cs`, and `data/achievements.json`.
+- Compatibility was checked against current `BuildState`, `Vehicle`, `BudgetScheduleModel`,
+  `SeededRandom`, `GameCatalog`, protocol GameMode tokens and the shipped
+  `data/achievements.json`.
 - Campaign Core has no file I/O, system clock, Unity dependency or `System.Random` usage. The tests can read fixture JSON from disk.
+
+## Bugs discovered and corrected during real verification
+- Qualified the `TeamName` validator type in `LeaderboardRecord`; its property name had
+  shadowed the validator and prevented Campaign Core from compiling.
+- Removed the test namespace/type collision around `Campaign` and imported `Slots`; these
+  defects prevented the T014 regression project from compiling.
+- Hardened achievement contract parsing against non-string/null entries and removed
+  nullable compiler warnings.
+- Preserved an in-flight inventory item's stable `ItemId` when it is recovered; the
+  previous code retained wear but silently assigned a new physical identity.
+- Supplier trust now discounts the actual selected hardware quantity and build slot cost
+  via `BudgetScheduleModel.PartCostM`; the previous calculation charged only one engine
+  regardless of engine count. A three-engine hand calculation is covered by regression.
+- Campaign state now rejects duplicate inventory item IDs, preventing ambiguous lookup
+  and multi-item consumption when loading a malformed save.
+- Blank recovery entries no longer create a false first-recovery milestone.
+- An independent reviewer found the last two edge cases above; both findings were fixed
+  and the affected tests and complete suite were rerun.
+- Merging current `main` supplied the already-approved Build/Data corrections behind the
+  three unrelated baseline failures seen on PR #71's older base.
+
+## Unverified functionality / remaining integration risk
+- No Campaign Hub UI exists in T014's scope, so host-side wiring of `MissionReport`, mode
+  rules, inventory consumption/recovery and achievement JSON remains an integration task.
+- Game-balance constants and curated Heritage pools are deterministic and tested but still
+  require the design owner's balance approval, as originally documented.
 
 ## Decisions (all proposed numeric values are `game_value`)
 - Reputation: success +8, partial +3, failure −8, on time +2, late −3; clamp to [0,100].
@@ -68,4 +101,4 @@ Localizable string keys: for each tech `campaign.tech.<id>.name` and `campaign.t
 - Team owner/orchestrator should check game-balance constants and Heritage presets before approving.
 
 ## Next
-Run `dotnet test core/dotnet~ --configuration Release` with .NET 8, fix any failures, record real results, and request an independent T014 review before merging.
+Obtain independent approval of PR #71 and merge only with the orchestrator's authorization.

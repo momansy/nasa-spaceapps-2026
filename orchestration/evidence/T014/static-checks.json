@@ -1,8 +1,8 @@
 {
   "task": "T014",
-  "status": "static_checks_passed_compilation_not_run",
+  "status": "static_checks_and_dotnet_verification_passed",
   "date": "2026-11-14",
-  "method": "ChatGPT read files via connected GitHub; source-only checks, NOT a C# parser or .NET compile",
+  "method": "Initial source checks followed by an independent local .NET 8 Release build and complete xUnit run",
   "files_checked": [
     "core/Runtime/Campaign/CampaignState.cs",
     "core/Runtime/Campaign/CampaignRules.cs",
@@ -26,18 +26,24 @@
       "UnityEngine",
       "Console.Read/Write"
     ],
-    "test_methods_declared": 19,
-    "real_catalog_part_id_check": "not executed by dotnet; source IDs reviewed and a new xUnit regression test was added"
+    "test_methods_declared": 21,
+    "real_catalog_part_id_check": "pass in executed xUnit regression"
   },
   "dotnet": {
-    "sdk_present": false,
-    "compile_run": false,
-    "tests_run": false,
+    "sdk_present": true,
+    "sdk_version": "8.0.428",
+    "compile_run": true,
+    "tests_run": true,
+    "configuration": "Release",
+    "exit_code": 0,
+    "passed": 376,
+    "failed": 0,
+    "skipped": 0,
     "github_actions": {
       "run_url": "https://github.com/momansy/nasa-spaceapps-2026/actions/runs/43602277544",
       "result": "startup_failure",
       "jobs_started": 0
     }
   },
-  "summary": "Static checks are a narrow sanity check only. They do not prove C# syntax, type correctness, package resolution, test outcomes, or behavior. Independent dotnet test run remains required."
+  "summary": "Static checks were confirmed by a real Release build and full test run. Exact console output is recorded in dotnet-test.txt."
 }
