@@ -28,11 +28,11 @@ Exact prompts and model parameters: [style/PROMPT_PACK.json](style/PROMPT_PACK.j
 | Planned file | Planned tool / model | Prompt ID | Observed state |
 |---|---|---|---|
 | `style/frames/01-title.png` | Higgsfield / `gpt_image_2_6`, 2K medium PNG, unlimited allowance | `title`; exact prompt in `style/PROMPT_PACK.json` | Generated 2026-11-14; job `a33a2929-9128-42dd-b5a4-4bde3754eb9b`; provider source `hf_20261114_110531_a33a2929-9128-42dd-b5a4-4bde3754eb9b.png`; downloaded unchanged; 2048×1152 RGB PNG; 2,641,505 bytes; SHA-256 `5F83F8D9457A080169A5C275D94CA4E2D99FB5D4675C327594CFA2A93DF8AAB1`; decoded and visually inspected: clean upper-left logo space, no text/logo/watermark, coherent palette and plausible generic vehicle |
-| `style/frames/02-build-bay.png` | Higgsfield / `gpt_image_2_6` | `build_bay` | Not submitted |
+| `style/frames/02-build-bay.png` | Higgsfield / `gpt_image_2_6` | `build_bay` | Submitted as job `1701e2f5-18de-47ff-bdc4-2a4b4aa8c5cf`; awaiting result, not yet delivered |
 | `style/frames/03-ascent.png` | Higgsfield / `gpt_image_2_6` | `ascent` | Not submitted |
 | `style/frames/04-orbit-operations.png` | Higgsfield / `gpt_image_2_6` | `orbit` | Not submitted |
 | `style/frames/05-reentry.png` | Higgsfield / `gpt_image_2_6` | `reentry` | Not submitted |
-| `style/frames/06-mission-control.png` | Higgsfield / `gpt_image_2_6` | `mission_control` | Submitted as job `1d0620fe-ce79-4805-be7a-51837011921b`; awaiting result, not yet delivered |
+| `style/frames/06-mission-control.png` | Higgsfield / `gpt_image_2_6`, 2K medium PNG, unlimited allowance | `mission_control`; exact prompt in `style/PROMPT_PACK.json`; approved title frame used as image reference | Generated 2026-11-14; job `1d0620fe-ce79-4805-be7a-51837011921b`; provider source `hf_20261114_122001_1d0620fe-ce79-4805-be7a-51837011921b.png`; downloaded unchanged; 2048×1152 RGB PNG; 3,114,998 bytes; SHA-256 `FDA1FFD79D02B1F1C15ECB716730C7366DEA623C4EBBAD697E3C4B4FA7335535`; decoded and visually inspected: collaborative human-scale control room, abstract text-free displays, coherent palette, no logo or watermark |
 | `key-art/missionforge-16x9.png` | Higgsfield / `gpt_image_2_6` | `key_art_landscape` | Not submitted |
 | `key-art/missionforge-1x1.png` | Higgsfield / `gpt_image_2_6` | `key_art_square` | Not submitted |
 | `cinematics/c1-earth-watch-briefing.mp4` | Higgsfield / `seedance_2_5` | `c1_briefing` | Not submitted |

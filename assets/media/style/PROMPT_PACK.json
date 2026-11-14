@@ -3,7 +3,8 @@
   "date": "2026-11-14",
   "status": "in_progress",
   "generated_files": [
-    "assets/media/style/frames/01-title.png"
+    "assets/media/style/frames/01-title.png",
+    "assets/media/style/frames/06-mission-control.png"
   ],
   "authorization": "Whole available Higgsfield balance approved in task. Covered unlimited configurations selected to preserve credits; no trial activation or purchase.",
   "initial_balance_credits": 10,
@@ -62,7 +63,7 @@
       "order": 2,
       "id": "build_bay",
       "path": "assets/media/style/frames/02-build-bay.png",
-      "status": "not_submitted",
+      "status": "waiting_job_1701e2f5-18de-47ff-bdc4-2a4b4aa8c5cf",
       "reference_policy": "Use approved title frame as style-only reference; preserve this scene.",
       "params": {
         "model": "gpt_image_2_6",
@@ -130,7 +131,7 @@
       "order": 6,
       "id": "mission_control",
       "path": "assets/media/style/frames/06-mission-control.png",
-      "status": "waiting_job_1d0620fe-ce79-4805-be7a-51837011921b",
+      "status": "completed_job_1d0620fe-ce79-4805-be7a-51837011921b",
       "reference_policy": "Use approved title frame as style-only reference.",
       "params": {
         "model": "gpt_image_2_6",
