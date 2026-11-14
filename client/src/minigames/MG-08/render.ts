@@ -3,6 +3,7 @@
 // `model.ts`. Colours come from the theme's CSS variables so high-contrast mode applies, and
 // every state is shown by a word, an icon shape and a pattern as well as by colour.
 import { fmt } from '../../data/format';
+import { paintGlass, paintStage, uiFont } from '../MG-09/shared/art';
 import type { Mg08Config, Mg08Sim, Zone } from './model';
 
 type Translate = (key: string, args?: Record<string, string | number>) => string;
@@ -210,8 +211,14 @@ export class Mg08View {
 
   // ───────────── drawing helpers ─────────────
 
-  private font(px: number, weight: number, mono: boolean): string {
-    return `${weight} ${Math.round(px * 10) / 10}px ${mono ? this.pal.fontMono : this.pal.fontUi}`;
+  /** The colours the shared art kit needs (sun and ocean are not in this view's palette). */
+  private artPal() {
+    return { ...this.pal, sun: '#ffce83', ocean: '#176887' };
+  }
+
+  /** Theme UI face (IBM Plex Sans, tabular figures); `mono` is kept for older call sites. */
+  private font(px: number, weight: number, _mono: boolean): string {
+    return uiFont(px < 12 ? px + (12 - px) * 0.6 : px, weight);
   }
 
   /** Sets the largest font up to `px` that fits `text` into `maxW`; returns the size used. */
@@ -230,9 +237,9 @@ export class Mg08View {
    */
   private numberWithUnit(ctx: CanvasRenderingContext2D, num: string, unit: string, x: number, baseY: number, maxW: number, px: number, color: string) {
     const measure = (size: number) => {
-      ctx.font = this.font(size, 800, true);
+      ctx.font = this.font(size, 600, false);
       const nw = ctx.measureText(num).width;
-      ctx.font = this.font(size * 0.55, 700, true);
+      ctx.font = this.font(size * 0.62, 500, false);
       return { nw, total: nw + size * 0.18 + ctx.measureText(unit).width };
     };
     let size = px;
@@ -241,10 +248,10 @@ export class Mg08View {
       size = Math.max(10, Math.floor((size * maxW) / m.total));
       m = measure(size);
     }
-    ctx.font = this.font(size, 800, true);
+    ctx.font = this.font(size, 600, false);
     ctx.fillStyle = color;
     ctx.fillText(num, x, baseY);
-    ctx.font = this.font(size * 0.55, 700, true);
+    ctx.font = this.font(size * 0.62, 500, false);
     ctx.fillStyle = this.pal.dim;
     ctx.fillText(unit, x + m.nw + size * 0.18, baseY);
   }
@@ -338,14 +345,16 @@ export class Mg08View {
     const u = this.u;
     ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
     ctx.clearRect(0, 0, this.W, this.H);
+    // The shared stage (key-art backdrop) behind everything.
+    paintStage(ctx, this.W, this.H, this.artPal());
 
     const yHi = this.yOf(config.bandHiKpa);
     const yLo = this.yOf(config.bandLoKpa);
 
     // Chart panel.
     ctx.save();
-    this.roundRect(ctx, chart, 10);
-    ctx.fillStyle = pal.bg0;
+    this.roundRect(ctx, chart, 12);
+    ctx.fillStyle = 'rgba(4, 13, 23, 0.82)';
     ctx.fill();
     ctx.clip();
 
@@ -500,12 +509,7 @@ export class Mg08View {
 
     // Lever column.
     const sl = this.slider;
-    this.roundRect(ctx, sl, 10);
-    ctx.fillStyle = withAlpha(pal.bg2, 0.9);
-    ctx.fill();
-    ctx.lineWidth = 1;
-    ctx.strokeStyle = pal.lineStrong;
-    ctx.stroke();
+    paintGlass(ctx, sl, 14, this.artPal());
     const cx = sl.x + sl.w / 2;
     // Groove.
     ctx.lineCap = 'round';
@@ -726,12 +730,7 @@ export class Mg08View {
     const valuePx = 27 * Math.min(u, 1.45);
 
     for (const tile of [left, right]) {
-      this.roundRect(ctx, tile, 10);
-      ctx.fillStyle = withAlpha(pal.bg2, 0.92);
-      ctx.fill();
-      ctx.lineWidth = 1;
-      ctx.strokeStyle = pal.lineStrong;
-      ctx.stroke();
+      paintGlass(ctx, tile, 14, this.artPal());
     }
 
     // Dynamic pressure now.

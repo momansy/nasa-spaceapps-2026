@@ -3,6 +3,7 @@
 // status glyphs (shape + colour + word), panels, tiles, buttons and the reference launch
 // vehicle of the style guide (unbranded, slender, serially staged, plumes start at the bells).
 import { fmt } from '../../../data/format';
+import { applyStageBackground, artEpoch, ceramicGradient, engineBell, fairing, FONT_DISPLAY, graphiteGradient, jointShade, paintGlass, paintSky, plume, seam, silverGradient, tealBand, uiFont } from './art';
 
 export type Translate = (key: string, args?: Record<string, string | number>) => string;
 export type Tone = 'good' | 'warn' | 'bad' | 'neutral' | 'accent';
@@ -80,6 +81,7 @@ export class View2D {
   us = 1;
   rtl = false;
   reducedMotion: boolean;
+  private epoch = -1;
   private toneCache: Record<Tone, string> = { good: '', warn: '', bad: '', neutral: '', accent: '' };
 
   constructor(canvas: HTMLCanvasElement, t: Translate, reducedMotion: boolean) {
@@ -127,6 +129,8 @@ export class View2D {
       fontUi: cssVar(st, '--font-ui', 'system-ui, sans-serif'),
       fontMono: cssVar(st, '--font-mono', 'ui-monospace, monospace'),
     };
+    // The shared stage (key-art backdrop) is the canvas's CSS background.
+    applyStageBackground(this.canvas);
     this.toneCache = { good: this.pal.good, warn: this.pal.warn, bad: this.pal.bad, neutral: this.pal.dim, accent: this.pal.accent };
   }
 
@@ -137,6 +141,12 @@ export class View2D {
   /** Clears the frame and sets the DPR transform and the text direction. */
   begin() {
     const { ctx } = this;
+    // Fonts or stage art arrived: cached layers hold the old faces, repaint them.
+    const ep = artEpoch();
+    if (ep !== this.epoch) {
+      this.epoch = ep;
+      this.layers.clear();
+    }
     ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
     ctx.clearRect(0, 0, this.W, this.H);
     ctx.direction = this.rtl ? 'rtl' : 'ltr';
@@ -148,13 +158,26 @@ export class View2D {
 
   // ───────────── text ─────────────
 
-  font(px: number, weight: number, mono: boolean): string {
-    return `${weight} ${Math.round(px * 10) / 10}px ${mono ? this.pal.fontMono : this.pal.fontUi}`;
+  /**
+   * Canvas font in the theme's UI face. `mono` is kept for call sites written before the
+   * revamp: read-outs now use IBM Plex Sans too, whose figures are tabular (equal advances), so
+   * numbers still line up without a monospace face (VISUAL_TARGET section 4: no mono labels).
+   */
+  font(px: number, weight: number, _mono = false): string {
+    return uiFont(px, weight);
+  }
+
+  /** Display face (Oxanium) for titles and hero numbers. */
+  fontDisplay(px: number): string {
+    return uiFont(px, 600, FONT_DISPLAY);
   }
 
   /** Sets the largest font up to `px` that fits `text` into `maxW`; returns the size used. */
   fit(text: string, maxW: number, px: number, weight: number, mono: boolean): number {
     const { ctx } = this;
+    // Small captions were sized for a monospace face; Plex Sans reads smaller at the same size,
+    // so captions under 12 px move part of the way up (label floor of the phone type scale).
+    if (px < 12) px += (12 - px) * 0.6;
     ctx.font = this.font(px, weight, mono);
     const w = ctx.measureText(text).width;
     if (w <= maxW || w === 0) return px;
@@ -204,11 +227,12 @@ export class View2D {
    */
   numberUnit(num: string, unit: string, r: Rect, inset: number, baseY: number, px: number, color: string, maxW = r.w - inset * 2): number {
     const { ctx } = this;
+    // Units at 70 % in Muted after a thin space (VISUAL_TARGET 3.1).
     const measure = (size: number) => {
-      ctx.font = this.font(size, 800, true);
+      ctx.font = this.font(size, 600, false);
       const nw = ctx.measureText(num).width;
-      ctx.font = this.font(size * 0.55, 700, true);
-      return { nw, uw: ctx.measureText(unit).width, total: nw + size * 0.2 + ctx.measureText(unit).width };
+      ctx.font = this.font(size * 0.62, 500, false);
+      return { nw, uw: ctx.measureText(unit).width, total: nw + size * 0.14 + ctx.measureText(unit).width };
     };
     let size = px;
     let m = measure(size);
@@ -219,13 +243,13 @@ export class View2D {
     ctx.textAlign = 'left';
     const left = this.rtl ? r.x + r.w - inset - m.total : r.x + inset;
     // Numbers read left to right in both directions; the unit follows the number.
-    ctx.font = this.font(size, 800, true);
+    ctx.font = this.font(size, 600, false);
     ctx.fillStyle = color;
     ctx.direction = 'ltr';
     ctx.fillText(num, left, baseY);
-    ctx.font = this.font(size * 0.55, 700, true);
+    ctx.font = this.font(size * 0.62, 500, false);
     ctx.fillStyle = this.pal.dim;
-    ctx.fillText(unit, left + m.nw + size * 0.2, baseY);
+    ctx.fillText(unit, left + m.nw + size * 0.14, baseY);
     ctx.direction = this.rtl ? 'rtl' : 'ltr';
     return m.total;
   }
@@ -281,29 +305,17 @@ export class View2D {
 
   private readonly layers = new Map<string, HTMLCanvasElement>();
 
-  panel(r: Rect, radius = 12, fill = this.pal.bg2, stroke = this.pal.lineStrong, alpha = 0.94) {
-    this.cached(`panel|${radius}|${fill}|${stroke}|${alpha}`, r, 1, () => this.paintPanel(r, radius, fill, stroke, alpha));
-  }
-
-  private paintPanel(r: Rect, radius: number, fill: string, stroke: string, alpha: number) {
-    const { ctx, pal } = this;
-    this.roundRect(r, radius);
-    // Console glass: a little lighter at the top, an inner highlight along the top edge.
-    const g = ctx.createLinearGradient(0, r.y, 0, r.y + r.h);
-    g.addColorStop(0, withAlpha(fill, alpha));
-    g.addColorStop(1, withAlpha(pal.bg1 === fill ? pal.bg0 : pal.bg1, alpha));
-    ctx.fillStyle = g;
-    ctx.fill();
-    ctx.lineWidth = 1;
-    ctx.strokeStyle = stroke;
-    ctx.stroke();
-    if (r.h > 24 && r.w > 24) {
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.07)';
-      ctx.beginPath();
-      ctx.moveTo(r.x + radius, r.y + 1.5);
-      ctx.lineTo(r.x + r.w - radius, r.y + 1.5);
-      ctx.stroke();
-    }
+  /**
+   * Glass panel of the UI (theme --glass, --glass-edge, --glass-hi). The default call is the
+   * standard e2 glass; a custom `fill` (e.g. bg1 / bg0 for a deep well) gives the deeper glass,
+   * a custom `stroke` replaces the glass edge.
+   */
+  panel(r: Rect, radius = 14, fill = this.pal.bg2, stroke = '', alpha = 0.94) {
+    this.cached(`panel|${radius}|${fill}|${stroke}|${alpha}`, r, 1, () => {
+      const deep = fill !== this.pal.bg2;
+      const edge = stroke && stroke !== this.pal.lineStrong && stroke !== this.pal.line ? stroke : undefined;
+      paintGlass(this.ctx, r, r.h > 40 && r.w > 40 ? Math.max(radius, 14) : radius, this.pal, { deep, edge });
+    });
   }
 
   /**
@@ -321,67 +333,13 @@ export class View2D {
     ctx.save();
     this.roundRect(r, radius);
     ctx.clip();
-    const sky = ctx.createLinearGradient(0, r.y, 0, r.y + r.h);
-    sky.addColorStop(0, '#020610');
-    sky.addColorStop(Math.max(0.05, Math.min(0.95, horizon - 0.3)), pal.bg0);
-    sky.addColorStop(Math.max(0.1, Math.min(1, horizon)), withAlpha(pal.ocean, 0.85));
-    sky.addColorStop(1, withAlpha(pal.ocean, 0.85));
-    ctx.fillStyle = sky;
-    ctx.fillRect(r.x, r.y, r.w, r.h);
-    // Stars: low density, fixed pattern.
-    ctx.fillStyle = withAlpha(pal.text, 0.55);
-    const n = Math.round((r.w * r.h) / 9000);
-    for (let i = 0; i < n; i++) {
-      const sx = r.x + (((i * 7919) % 997) / 997) * r.w;
-      const sy = r.y + (((i * 104729) % 991) / 991) * r.h * Math.max(0.2, horizon - 0.15);
-      const sz = i % 5 === 0 ? 1.6 : 1;
-      ctx.fillRect(sx, sy, sz, sz);
-    }
-    // Earth limb: a large circle below the horizon line.
-    const hy = r.y + r.h * horizon;
-    const R = r.w * 2.2;
-    const cx = r.x + r.w * 0.55;
-    const cy = hy + R;
-    const glow = ctx.createRadialGradient(cx, cy, R * 0.97, cx, cy, R * 1.07);
-    glow.addColorStop(0, withAlpha(pal.sun, 0.55));
-    glow.addColorStop(0.35, withAlpha(pal.accent, 0.35));
-    glow.addColorStop(1, withAlpha(pal.accent, 0));
-    ctx.fillStyle = glow;
-    ctx.fillRect(r.x, hy - R * 0.08, r.w, r.h);
-    if (horizon <= 1) {
-      const earth = ctx.createLinearGradient(0, hy, 0, r.y + r.h);
-      earth.addColorStop(0, '#2a78a8');
-      earth.addColorStop(0.25, pal.ocean);
-      earth.addColorStop(1, '#0a2a44');
-      ctx.fillStyle = earth;
-      ctx.beginPath();
-      ctx.arc(cx, cy, R, 0, Math.PI * 2);
-      ctx.fill();
-      // Cloud streaks on the limb.
-      ctx.strokeStyle = 'rgba(235, 244, 250, 0.22)';
-      ctx.lineWidth = 2;
-      for (let i = 1; i <= 3; i++) {
-        ctx.beginPath();
-        ctx.arc(cx, cy, R - i * r.h * 0.035, Math.PI * 1.35, Math.PI * 1.62);
-        ctx.stroke();
-      }
-      ctx.strokeStyle = withAlpha(pal.accentStrong, 0.75);
-      ctx.lineWidth = 1.5;
-      ctx.beginPath();
-      ctx.arc(cx, cy, R, Math.PI * 1.1, Math.PI * 1.9);
-      ctx.stroke();
-    }
-    if (sun) {
-      const sx = sun === 'right' ? r.x + r.w * 0.94 : r.x + r.w * 0.06;
-      const sy = Math.min(hy - r.h * 0.04, r.y + r.h * 0.12);
-      const sg = ctx.createRadialGradient(sx, sy, 0, sx, sy, r.w * 0.35);
-      sg.addColorStop(0, withAlpha(pal.sun, 0.85));
-      sg.addColorStop(0.08, withAlpha(pal.sun, 0.35));
-      sg.addColorStop(1, withAlpha(pal.sun, 0));
-      ctx.fillStyle = sg;
-      ctx.fillRect(r.x, r.y, r.w, r.h);
-    }
+    paintSky(ctx, r, pal, horizon, sun);
     ctx.restore();
+    // Glass edge around the scene window.
+    this.roundRect(r, radius);
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = 'rgba(150, 205, 228, 0.22)';
+    ctx.stroke();
   }
 
   /** Dashed / double / solid border by status (tokens: good solid, warn dashed, bad double). */
@@ -478,46 +436,40 @@ export class View2D {
     ctx.restore();
   }
 
-  /** Status strip: tinted, status border, glyph and words centred. */
+  /** Status strip: glass tinted by the status, status border, glyph and words centred. */
   statusStrip(r: Rect, tone: Tone, glyph: GlyphKind, text: string) {
     const { ctx, pal } = this;
     const c = this.tone(tone);
     this.cached(`strip|${tone}`, r, 2, () => {
-      const x = this.ctx;
-      this.roundRect(r, 10);
-      x.fillStyle = withAlpha(pal.bg1, 0.96);
-      x.fill();
-      this.roundRect(r, 10);
-      x.fillStyle = withAlpha(c, tone === 'neutral' ? 0.08 : 0.16);
-      x.fill();
-      this.statusBorder(r, 10, tone, 2);
+      paintGlass(this.ctx, r, 12, pal, { deep: true, tint: c, tintAlpha: tone === 'neutral' ? 0.06 : 0.15, edge: 'rgba(0,0,0,0)' });
+      this.statusBorder(r, 12, tone, tone === 'neutral' ? 1 : 1.5);
     });
-    const px = this.fit(text, r.w - 64, 15 * this.us, 800, false);
+    const px = this.fit(text, r.w - 64, 15.5 * this.us, 600, false);
     const tw = ctx.measureText(text).width;
     const gs = px * 1.1;
-    const total = tw + gs + 8;
+    const total = tw + gs + 9;
     const left = r.x + (r.w - total) / 2;
     ctx.textBaseline = 'middle';
     const gx = this.rtl ? left + total - gs / 2 : left + gs / 2;
     this.glyph(glyph, gx, r.y + r.h / 2, gs, c);
-    ctx.fillStyle = tone === 'neutral' ? pal.text : c;
-    ctx.font = this.font(px, 800, false);
+    ctx.fillStyle = pal.text;
+    ctx.font = this.font(px, 600, false);
     ctx.textAlign = 'center';
-    ctx.fillText(text, this.rtl ? left + tw / 2 : left + gs + 8 + tw / 2, r.y + r.h / 2 + 1);
+    ctx.fillText(text, this.rtl ? left + tw / 2 : left + gs + 9 + tw / 2, r.y + r.h / 2 + 1);
     ctx.textBaseline = 'alphabetic';
   }
 
   /** Read-out tile: label on top, big number with unit, optional status glyph at the end. */
   tile(r: Rect, label: string, num: string, unit: string, color: string, glyph?: { kind: GlyphKind; color: string }) {
     const { ctx, pal } = this;
-    this.panel(r, 10);
-    const labelPx = 10.5 * Math.min(this.u, 1.4);
+    this.panel(r, 14);
+    const labelPx = 12.5 * Math.min(this.u, 1.3);
     const valuePx = Math.min(27 * Math.min(this.u, 1.4), r.h * 0.5);
     ctx.textBaseline = 'alphabetic';
     const gs = glyph ? valuePx * 0.6 : 0;
-    this.textStart(label, r, 10, r.y + labelPx + 8, labelPx, 700, true, pal.dim);
-    this.numberUnit(num, unit, r, 10, r.y + r.h - 10, valuePx, color, r.w - 20 - (glyph ? gs + 8 : 0));
-    if (glyph) this.glyph(glyph.kind, this.ex(r, 10 + gs / 2), r.y + r.h - 10 - valuePx * 0.34, gs, glyph.color);
+    this.textStart(label, r, 12, r.y + labelPx + 8, labelPx, 600, false, pal.dim);
+    this.numberUnit(num, unit, r, 12, r.y + r.h - 10, valuePx, color, r.w - 24 - (glyph ? gs + 8 : 0));
+    if (glyph) this.glyph(glyph.kind, this.ex(r, 12 + gs / 2), r.y + r.h - 10 - valuePx * 0.34, gs, glyph.color);
   }
 
   /**
@@ -531,32 +483,37 @@ export class View2D {
     const enabled = o.enabled !== false;
     this.cached(`button|${tone}|${enabled}|${!!o.armed}|${!!o.pressed}|${!!o.focus}`, r, 24, () => {
       const x = this.ctx;
-      x.save();
+      // Glass button: tinted glass, a lit top edge and a tone outline; armed adds a soft glow.
       if (o.armed && enabled) {
-        x.shadowColor = withAlpha(c, 0.75);
-        x.shadowBlur = 18;
+        x.save();
+        x.shadowColor = withAlpha(c, 0.6);
+        x.shadowBlur = 20;
+        this.roundRect(r, 16);
+        x.fillStyle = withAlpha(c, 0.25);
+        x.fill();
+        x.restore();
       }
-      this.roundRect(r, 14);
-      const g = x.createLinearGradient(0, r.y, 0, r.y + r.h);
-      if (!enabled) {
-        g.addColorStop(0, withAlpha(pal.bg2, 0.9));
-        g.addColorStop(1, withAlpha(pal.bg1, 0.9));
-      } else if (o.pressed) {
-        g.addColorStop(0, withAlpha(c, 0.55));
-        g.addColorStop(1, withAlpha(c, 0.35));
-      } else {
-        g.addColorStop(0, withAlpha(c, o.armed ? 0.36 : 0.2));
-        g.addColorStop(1, withAlpha(c, o.armed ? 0.2 : 0.1));
+      paintGlass(x, r, 16, pal, {
+        deep: true,
+        tint: enabled ? c : undefined,
+        tintAlpha: !enabled ? 0 : o.pressed ? 0.42 : o.armed ? 0.3 : 0.14,
+        edge: enabled ? withAlpha(c, o.armed ? 1 : 0.75) : pal.line,
+        edgeWidth: o.armed && enabled ? 2 : 1.5,
+      });
+      if (enabled && !o.pressed) {
+        // Light from above: a soft lift on the upper half.
+        x.save();
+        this.roundRect(r, 16);
+        x.clip();
+        const lift = x.createLinearGradient(0, r.y, 0, r.y + r.h);
+        lift.addColorStop(0, withAlpha(c, 0.16));
+        lift.addColorStop(0.5, withAlpha(c, 0));
+        x.fillStyle = lift;
+        x.fillRect(r.x, r.y, r.w, r.h);
+        x.restore();
       }
-      x.fillStyle = g;
-      x.fill();
-      x.restore();
-      this.roundRect(r, 14);
-      x.lineWidth = o.armed && enabled ? 3 : 2;
-      x.strokeStyle = enabled ? c : pal.line;
-      x.stroke();
       if (o.focus) {
-        this.roundRect({ x: r.x - 4, y: r.y - 4, w: r.w + 8, h: r.h + 8 }, 17);
+        this.roundRect({ x: r.x - 4, y: r.y - 4, w: r.w + 8, h: r.h + 8 }, 19);
         x.lineWidth = 2;
         x.strokeStyle = pal.accentStrong;
         x.stroke();
@@ -567,16 +524,16 @@ export class View2D {
     const cy = r.y + r.h / 2 - (hasSub ? px * 0.38 : 0);
     ctx.textBaseline = 'middle';
     const gs = o.glyph ? px * 0.95 : 0;
-    const size = this.fit(label, r.w - 24 - (gs ? gs + 8 : 0), px, 850, false);
+    const size = this.fit(label, r.w - 24 - (gs ? gs + 8 : 0), px, 600, false);
     const tw = ctx.measureText(label).width;
     const total = tw + (gs ? gs + 8 : 0);
     const left = r.x + (r.w - total) / 2;
     if (o.glyph) this.glyph(o.glyph, this.rtl ? left + total - gs / 2 : left + gs / 2, cy, gs, enabled ? c : pal.faint);
-    ctx.font = this.font(size, 850, false);
+    ctx.font = this.font(size, 600, false);
     ctx.fillStyle = enabled ? pal.text : pal.faint;
     ctx.textAlign = 'center';
     ctx.fillText(label, this.rtl ? left + tw / 2 : left + (gs ? gs + 8 : 0) + tw / 2, cy + 1);
-    if (o.sub) this.textCenter(o.sub, r.x + r.w / 2, cy + px * 0.95, r.w - 16, 11.5 * Math.min(this.u, 1.3), 650, true, enabled ? pal.dim : pal.faint);
+    if (o.sub) this.textCenter(o.sub, r.x + r.w / 2, cy + px * 0.95, r.w - 16, 12 * Math.min(this.u, 1.3), 500, false, enabled ? pal.dim : pal.faint);
     ctx.textBaseline = 'alphabetic';
   }
 
@@ -600,14 +557,10 @@ export class View2D {
     ctx.fillStyle = withAlpha(pal.bg0, 0.74);
     ctx.fillRect(0, 0, this.W, this.H);
     ctx.textBaseline = 'middle';
-    const px = this.fit(text, this.W - 80, 22 * this.us, 800, false);
+    const px = this.fit(text, this.W - 80, 22 * this.us, 600, false);
     const w = ctx.measureText(text).width;
-    this.roundRect({ x: this.W / 2 - w / 2 - 22, y: this.H / 2 - px * 1.1, w: w + 44, h: px * 2.2 }, 14);
-    ctx.fillStyle = pal.bg0;
-    ctx.fill();
-    ctx.lineWidth = 2;
-    ctx.strokeStyle = pal.accent;
-    ctx.stroke();
+    paintGlass(ctx, { x: this.W / 2 - w / 2 - 24, y: this.H / 2 - px * 1.2, w: w + 48, h: px * 2.4 }, 18, pal, { deep: true, edge: withAlpha(pal.accent, 0.7) });
+    ctx.font = this.fontDisplay(px);
     ctx.fillStyle = pal.text;
     ctx.textAlign = 'center';
     ctx.fillText(text, this.W / 2, this.H / 2 + 1);
@@ -655,12 +608,15 @@ export interface RocketStyle {
 }
 
 /**
- * Draws the unbranded serial launch vehicle: lower stage with generic paint bands, a clear
- * interstage, a smaller upper stage and a tapered fairing; bells converge at the throat and
- * expand to the exit; the plume starts at the bell exit. Proportions are game values.
+ * Draws the unbranded serial launch vehicle in the key-art finish (frame 03): satin ceramic
+ * stages with one broad soft highlight, cool navy fill side and a warm rim light on the sun
+ * side, panel seams in raking light, slim teal bands with a silver edge, a brushed-silver
+ * interstage, a graphite thrust section, dark bells with a bronze inner rim and throat heat
+ * tint, and layered plumes that start at the bell exits. Proportions are game values and are
+ * unchanged from the first version (markers such as `engineOffset` still line up).
  */
 export function drawRocket(v: View2D, s: RocketStyle) {
-  const { ctx, pal } = v;
+  const { ctx } = v;
   const L = s.length;
   const w = L / 11.5; // slender: length ≈ 11.5 diameters (game value)
   const part = s.part ?? 'stack';
@@ -671,74 +627,21 @@ export function drawRocket(v: View2D, s: RocketStyle) {
   const inter = L * 0.07;
   const s2 = L * 0.17;
   const fair = L * 0.2;
+  // The key light is the low sun of the backdrop: upper right, mirrored in right-to-left.
+  const sun = v.rtl ? -1 : 1;
+  const plumeLen = w * (s.plumeLen ?? 3.2);
 
   ctx.save();
   ctx.translate(s.x, s.y);
   ctx.rotate(s.angle ?? 0);
   ctx.scale(1, squash);
 
-  const body = '#dfe7ec';
-  const shade = '#9fb0bc';
-  // Generic paint bands in the theme's signal colour (no livery), as in the style frames.
-  const band = pal.accent;
-  const metal = '#55606a';
-
-  const drawBell = (cx: number, by: number, bw: number, bh: number) => {
-    // Throat (narrow) at the top, exit (wide) at the bottom.
-    ctx.beginPath();
-    ctx.moveTo(cx - bw * 0.22, by - bh);
-    ctx.quadraticCurveTo(cx - bw * 0.26, by - bh * 0.35, cx - bw * 0.5, by);
-    ctx.lineTo(cx + bw * 0.5, by);
-    ctx.quadraticCurveTo(cx + bw * 0.26, by - bh * 0.35, cx + bw * 0.22, by - bh);
-    ctx.closePath();
-    const g = ctx.createLinearGradient(cx - bw / 2, 0, cx + bw / 2, 0);
-    g.addColorStop(0, '#3a434b');
-    g.addColorStop(0.45, '#8a949c');
-    g.addColorStop(1, '#2f373e');
-    ctx.fillStyle = g;
-    ctx.fill();
-  };
-
-  const drawPlume = (cx: number, by: number, pw: number, power: number) => {
-    if (power <= 0.01) return;
-    const t = s.time ?? 0;
-    const flick = s.calm ? 1 : 1 + 0.06 * Math.sin(t * 37 + cx) + 0.04 * Math.sin(t * 61);
-    const len = w * (s.plumeLen ?? 3.2) * power * flick;
-    // Soft bloom confined to the flame (style guide).
-    const bloom = ctx.createRadialGradient(cx, by + len * 0.25, 0, cx, by + len * 0.25, len * 0.6);
-    bloom.addColorStop(0, withAlpha(pal.sun, 0.35 * power));
-    bloom.addColorStop(1, withAlpha(pal.sun, 0));
-    ctx.fillStyle = bloom;
-    ctx.fillRect(cx - len * 0.6, by - len * 0.35, len * 1.2, len * 1.2);
-    const g = ctx.createLinearGradient(0, by, 0, by + len);
-    g.addColorStop(0, 'rgba(255, 252, 240, 0.98)');
-    g.addColorStop(0.18, withAlpha(pal.sun, 0.92));
-    g.addColorStop(0.6, 'rgba(255, 150, 70, 0.45)');
-    g.addColorStop(1, 'rgba(255, 120, 60, 0)');
-    ctx.fillStyle = g;
-    ctx.beginPath();
-    ctx.moveTo(cx - pw * 0.48, by);
-    ctx.bezierCurveTo(cx - pw * 0.75, by + len * 0.35, cx - pw * 0.3, by + len * 0.8, cx, by + len);
-    ctx.bezierCurveTo(cx + pw * 0.3, by + len * 0.8, cx + pw * 0.75, by + len * 0.35, cx + pw * 0.48, by);
-    ctx.closePath();
-    ctx.fill();
-  };
-
-  const cyl = (top: number, h: number, ww: number, fill: string) => {
-    const g = ctx.createLinearGradient(-ww / 2, 0, ww / 2, 0);
-    g.addColorStop(0, shade);
-    g.addColorStop(0.35, fill);
-    g.addColorStop(0.7, fill);
-    g.addColorStop(1, '#7d8d99');
-    ctx.fillStyle = g;
+  const stage = (top: number, h: number, ww: number) => {
+    ctx.fillStyle = ceramicGradient(ctx, ww, sun);
     ctx.fillRect(-ww / 2, top, ww, h);
-    // Warm rim light from the low sun.
-    ctx.fillStyle = withAlpha(pal.sun, 0.45);
-    ctx.fillRect(ww / 2 - Math.max(1, ww * 0.06), top, Math.max(1, ww * 0.06), h);
   };
 
   if (part === 'stack' || part === 'lower') {
-    // First stage, bells at y = 0, body above.
     const eng = s.engines;
     const n = Math.max(1, eng ? eng.length : s.bells ?? 3);
     const bw = Math.min(w * 0.62, (w * 0.96) / n);
@@ -746,30 +649,56 @@ export function drawRocket(v: View2D, s: RocketStyle) {
       for (let i = 0; i < n; i++) {
         const cx = ((i - (n - 1) / 2) * (w * 0.96)) / n;
         const tilt = eng ? eng[i]!.tilt : 0;
+        const power = eng ? eng[i]!.power : s.plume ?? 0;
         ctx.save();
         // Gimbal about the throat.
         ctx.translate(cx, -bellH);
         ctx.rotate(tilt);
         ctx.translate(-cx, bellH);
-        if (pass === 0) drawPlume(cx, 0, bw, eng ? eng[i]!.power : s.plume ?? 0);
-        else drawBell(cx, 0, bw, bellH);
+        if (pass === 0) plume(ctx, cx, 0, bw, { power, length: plumeLen, time: s.time, calm: s.calm, seed: i * 3.1 });
+        else engineBell(ctx, cx, 0, bw, bellH, power, sun);
         ctx.restore();
       }
     }
-    cyl(-bellH - s1, s1, w, body);
-    // Generic paint bands (no livery).
-    ctx.fillStyle = band;
-    ctx.fillRect(-w / 2, -bellH - s1 * 0.12, w, s1 * 0.05);
-    ctx.fillRect(-w / 2, -bellH - s1 * 0.78, w, s1 * 0.03);
-    // Thrust section skirt.
-    ctx.fillStyle = metal;
-    ctx.fillRect(-w / 2, -bellH - w * 0.12, w, w * 0.12);
-    // Interstage belongs to the first stage and stays with it at separation.
-    ctx.fillStyle = '#3b4752';
-    ctx.fillRect(-w / 2, -bellH - s1 - inter, w, inter);
+    const top1 = -bellH - s1;
+    stage(top1, s1, w);
+    // Tank domes and panel joints, grouped where real hardware has them.
+    seam(ctx, top1 + s1 * 0.34, w, 0.8);
+    seam(ctx, top1 + s1 * 0.62, w, 0.8);
+    seam(ctx, top1 + s1 * 0.9, w, 0.6);
+    // Generic teal bands (no livery), slim with a silver edge.
+    tealBand(ctx, -bellH - s1 * 0.13, s1 * 0.045, w, sun);
+    tealBand(ctx, -bellH - s1 * 0.79, s1 * 0.028, w, sun);
+    // Raceway along the shadow side (umbilical run), very restrained.
+    if (w > 10) {
+      ctx.fillStyle = 'rgba(40, 58, 76, 0.22)';
+      ctx.fillRect(-w * 0.36 * sun - w * 0.025, top1 + s1 * 0.05, w * 0.05, s1 * 0.8);
+    }
+    // Thrust section: graphite skirt with an occlusion band above the bells.
+    const skirt = w * 0.14;
+    ctx.fillStyle = graphiteGradient(ctx, w, sun);
+    ctx.fillRect(-w / 2, -bellH - skirt, w, skirt);
+    ctx.fillStyle = silverGradient(ctx, w, sun);
+    ctx.fillRect(-w / 2, -bellH - skirt - Math.max(0.8, w * 0.03), w, Math.max(0.8, w * 0.03));
+    jointShade(ctx, -bellH - skirt, w, Math.max(2, w * 0.18), false);
+    // Interstage: brushed silver with a few stringers; it stays with the first stage.
+    const itop = top1 - inter;
+    ctx.fillStyle = silverGradient(ctx, w, sun);
+    ctx.fillRect(-w / 2, itop, w, inter);
+    if (w > 12) {
+      ctx.strokeStyle = 'rgba(30, 40, 52, 0.22)';
+      ctx.lineWidth = 0.7;
+      ctx.beginPath();
+      for (const f of [-0.32, -0.12, 0.08, 0.28]) {
+        ctx.moveTo(f * w, itop + 1);
+        ctx.lineTo(f * w, itop + inter - 1);
+      }
+      ctx.stroke();
+    }
+    jointShade(ctx, top1, w, Math.max(2, inter * 0.4), true);
     if (s.seam) {
       ctx.fillStyle = s.seam;
-      ctx.fillRect(-w / 2 - 2, -bellH - s1 - inter - 1.5, w + 4, 3);
+      ctx.fillRect(-w / 2 - 2, itop - 1.5, w + 4, 3);
     }
   }
 
@@ -777,35 +706,17 @@ export function drawRocket(v: View2D, s: RocketStyle) {
     const base = part === 'upper' ? 0 : -bellH - s1 - inter - gap;
     const uw = w * 0.92;
     const ubell = w * 0.5;
-    if (part === 'upper') drawPlume(0, base, ubell * 0.9, s.plume ?? 0);
-    else if (gap > 0.5) drawPlume(0, base, ubell * 0.9, s.plume ?? 0);
-    drawBell(0, base, ubell, bellH * 0.9);
-    cyl(base - bellH * 0.9 - s2, s2, uw, body);
-    ctx.fillStyle = band;
-    ctx.fillRect(-uw / 2, base - bellH * 0.9 - s2 * 0.55, uw, s2 * 0.1);
-    // Fairing: cylinder then ogive to a rounded tip.
-    const ft = base - bellH * 0.9 - s2;
-    const fw = w * 1.04;
-    ctx.beginPath();
-    ctx.moveTo(-fw / 2, ft);
-    ctx.lineTo(-fw / 2, ft - fair * 0.45);
-    ctx.bezierCurveTo(-fw / 2, ft - fair * 0.85, -fw * 0.12, ft - fair, 0, ft - fair);
-    ctx.bezierCurveTo(fw * 0.12, ft - fair, fw / 2, ft - fair * 0.85, fw / 2, ft - fair * 0.45);
-    ctx.lineTo(fw / 2, ft);
-    ctx.closePath();
-    const g = ctx.createLinearGradient(-fw / 2, 0, fw / 2, 0);
-    g.addColorStop(0, shade);
-    g.addColorStop(0.4, '#f2f6f8');
-    g.addColorStop(1, '#8696a2');
-    ctx.fillStyle = g;
-    ctx.fill();
-    // Fairing seam (the two halves).
-    ctx.strokeStyle = 'rgba(40, 60, 80, 0.45)';
-    ctx.lineWidth = 1;
-    ctx.beginPath();
-    ctx.moveTo(0, ft);
-    ctx.lineTo(0, ft - fair * 0.97);
-    ctx.stroke();
+    const ubellH = bellH * 0.9;
+    const lit = s.plume ?? 0;
+    if (part === 'upper' || gap > 0.5) plume(ctx, 0, base, ubell * 0.9, { power: lit, length: plumeLen, time: s.time, calm: s.calm, seed: 7, vacuum: true });
+    engineBell(ctx, 0, base, ubell, ubellH, part === 'upper' || gap > 0.5 ? lit : 0, sun);
+    const top2 = base - ubellH - s2;
+    stage(top2, s2, uw);
+    seam(ctx, top2 + s2 * 0.5, uw, 0.7);
+    tealBand(ctx, base - ubellH - s2 * 0.58, s2 * 0.09, uw, sun);
+    jointShade(ctx, base - ubellH, uw, Math.max(2, s2 * 0.12), false);
+    fairing(ctx, top2, fair, w * 1.04, sun);
+    jointShade(ctx, top2, uw, Math.max(1.5, s2 * 0.1), true);
   }
   ctx.restore();
 }

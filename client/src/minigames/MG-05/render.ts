@@ -274,7 +274,8 @@ export class Mg05View {
       }
       const px = this.px(x);
       const py = this.py(y);
-      const size = Math.max(1.6, p.size * f.w);
+      // At least about 4 px across so specks survive the room-distance (33 %) view.
+      const size = Math.max(5.4, p.size * f.w);
       ctx.globalAlpha = alpha;
       if (s === 2) {
         ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
@@ -302,11 +303,10 @@ export class Mg05View {
         ctx.beginPath();
         ctx.arc(px, py, size * 0.75, 0, Math.PI * 2);
         ctx.fill();
-        if (onMirror) {
-          ctx.strokeStyle = 'rgba(255, 245, 220, 0.7)';
-          ctx.lineWidth = 1;
-          ctx.stroke();
-        }
+        // A contrasting rim: light on the gold mirror, dark on the bright speck over the lens.
+        ctx.strokeStyle = onMirror ? 'rgba(255, 245, 220, 0.75)' : 'rgba(7, 21, 34, 0.55)';
+        ctx.lineWidth = 1;
+        ctx.stroke();
         if (s === 2 && !this.o.reducedMotion) {
           ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
           ctx.fillRect(px - 0.5, py - size * 1.4, 1, size * 2.8);

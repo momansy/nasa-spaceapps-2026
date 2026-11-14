@@ -3,6 +3,7 @@
 // with the band of the current phase, the valve steps and the valve buttons.
 import { fmt, fmtSigned } from '../../data/format';
 import { rect, View2D, withAlpha, type GlyphKind, type Rect, type Tone, type Translate } from '../MG-09/shared/draw';
+import { ceramicGradient, paintBarFill, paintBarTrack, silverGradient } from '../MG-09/shared/art';
 import { bandOf, RELIEF, VALVE_STEPS, type Mg08bSim, type Phase } from './model';
 
 export interface Mg08bFrame {
@@ -160,14 +161,26 @@ export class Mg08bView extends View2D {
     const inner = rect(vessel.x + 4, vessel.y + 10, vessel.w - 8, vessel.h - 20);
     const time = f.timeMs / 1000;
     // Vessel: frosted insulation with a cutaway window.
-    const shell = ctx.createLinearGradient(vessel.x, 0, vessel.x + vessel.w, 0);
-    shell.addColorStop(0, '#9fb3c2');
-    shell.addColorStop(0.45, '#e6eef3');
-    shell.addColorStop(1, '#7f95a6');
-    ctx.fillStyle = shell;
-    this.roundRect(vessel, vessel.w * 0.42);
+    // Ceramic-white insulated shell in the key-art light, with a frost rime on the cold lower
+    // half and a silver ring at each dome joint.
+    ctx.save();
+    ctx.translate(vessel.x + vessel.w / 2, 0);
+    ctx.fillStyle = ceramicGradient(ctx, vessel.w, this.rtl ? -1 : 1);
+    this.roundRect(rect(-vessel.w / 2, vessel.y, vessel.w, vessel.h), vessel.w * 0.42);
     ctx.fill();
-    ctx.fillStyle = '#04101c';
+    ctx.save();
+    ctx.clip();
+    const frost = ctx.createLinearGradient(0, vessel.y + vessel.h * 0.35, 0, vessel.y + vessel.h);
+    frost.addColorStop(0, 'rgba(225, 240, 250, 0)');
+    frost.addColorStop(1, 'rgba(225, 240, 250, 0.35)');
+    ctx.fillStyle = frost;
+    ctx.fillRect(-vessel.w / 2, vessel.y, vessel.w, vessel.h);
+    ctx.fillStyle = silverGradient(ctx, vessel.w, this.rtl ? -1 : 1);
+    ctx.fillRect(-vessel.w / 2, vessel.y + vessel.w * 0.36, vessel.w, 2);
+    ctx.fillRect(-vessel.w / 2, vessel.y + vessel.h - vessel.w * 0.36, vessel.w, 2);
+    ctx.restore();
+    ctx.restore();
+    ctx.fillStyle = '#030c16';
     this.roundRect(inner, Math.min(inner.w * 0.38, 20));
     ctx.fill();
     // Liquid oxygen: pale blue, with a gently moving surface (steady in reduced motion).
@@ -200,7 +213,18 @@ export class Mg08bView extends View2D {
       ctx.arc(bx, by, 1.4 + (i % 3) * 0.5, 0, Math.PI * 2);
       ctx.fill();
     }
+    // Glass of the cutaway window: one soft vertical reflection.
+    const refl = ctx.createLinearGradient(inner.x, 0, inner.x + inner.w, 0);
+    refl.addColorStop(0, 'rgba(255, 255, 255, 0)');
+    refl.addColorStop(0.18, 'rgba(255, 255, 255, 0.16)');
+    refl.addColorStop(0.3, 'rgba(255, 255, 255, 0)');
+    ctx.fillStyle = refl;
+    ctx.fillRect(inner.x, inner.y, inner.w, inner.h);
     ctx.restore();
+    ctx.strokeStyle = 'rgba(150, 205, 228, 0.35)';
+    ctx.lineWidth = 1;
+    this.roundRect(inner, Math.min(inner.w * 0.38, 20));
+    ctx.stroke();
     // Level marks: relief 100 % (double red line), target 99 % (green), slow fill 90 % (dashed).
     const mark = (level: number, color: string, label: string, kind: 'solid' | 'dash' | 'double') => {
       const y = Math.round(this.yLevel(level, inner)) + 0.5;
@@ -260,12 +284,20 @@ export class Mg08bView extends View2D {
     const fy = vessel.y + vessel.h - 14;
     const pipeX0 = this.rtl ? vessel.x + vessel.w : r.x + 8;
     const pipeX1 = this.rtl ? r.x + r.w - 8 : vessel.x;
-    ctx.strokeStyle = '#55606a';
-    ctx.lineWidth = 7;
+    ctx.lineCap = 'round';
+    ctx.strokeStyle = '#4a5662';
+    ctx.lineWidth = 8;
     ctx.beginPath();
     ctx.moveTo(pipeX0, fy);
     ctx.lineTo(pipeX1, fy);
     ctx.stroke();
+    ctx.strokeStyle = 'rgba(215, 222, 227, 0.55)';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pipeX0, fy - 2);
+    ctx.lineTo(pipeX1, fy - 2);
+    ctx.stroke();
+    ctx.lineCap = 'butt';
     if (sim.flow > 0.0004) {
       ctx.strokeStyle = '#9bd9f0';
       ctx.lineWidth = 3;
@@ -295,9 +327,7 @@ export class Mg08bView extends View2D {
     const top = r.y + (compact ? 10 : 30 * Math.min(this.u, 1.3));
     const scale = rect(r.x + r.w * 0.5 - 9, top + 6, 18, r.y + r.h - 14 - top - 6);
     const yOf = (v: number) => scale.y + scale.h * (1 - (Math.min(RATE_HI, Math.max(RATE_LO, v)) - RATE_LO) / (RATE_HI - RATE_LO));
-    ctx.fillStyle = pal.bg0;
-    this.roundRect(scale, 6);
-    ctx.fill();
+    paintBarTrack(ctx, scale);
     // Bands of the three phases: the current one bright with brackets, the others faint.
     const phases: Phase[] = ['fast', 'slow', 'top'];
     for (const ph of phases) {
@@ -391,11 +421,14 @@ export class Mg08bView extends View2D {
         const k = this.rtl ? VALVE_STEPS - 1 - i : i;
         const cell = rect(x0 + i * (pw + 6), p.y + p.h * 0.22, pw, p.h * 0.56);
         this.roundRect(cell, 4);
-        ctx.fillStyle = k < sim.valve ? pal.accent : pal.bg0;
-        ctx.fill();
-        ctx.strokeStyle = k < sim.valve ? pal.accentStrong : pal.lineStrong;
-        ctx.lineWidth = 1.5;
-        ctx.stroke();
+        if (k < sim.valve) paintBarFill(ctx, cell, pal.accent);
+        else {
+          ctx.fillStyle = 'rgba(232, 238, 240, 0.08)';
+          ctx.fill();
+          ctx.strokeStyle = 'rgba(150, 205, 228, 0.3)';
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
       }
       ctx.textBaseline = 'alphabetic';
     }

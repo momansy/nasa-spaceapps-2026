@@ -3,6 +3,7 @@
 // this player's half, and the crew boat.
 import { fmt } from '../../data/format';
 import { rect, View2D, withAlpha, type Translate } from '../MG-09/shared/draw';
+import { ceramicGradient, tealGradient } from '../MG-09/shared/art';
 import { SCENE_HALF_M, START_ALT_M, type Mg10Sim } from './model';
 
 export interface Mg10Frame {
@@ -117,78 +118,135 @@ export class Mg10View extends View2D {
   private drawParafoil(x: number, y: number, size: number, mine: boolean, time: number) {
     const { ctx, pal } = this;
     const sway = this.reducedMotion ? 0 : Math.sin(time * 1.3 + x * 0.05) * 0.05;
+    const sun = this.rtl ? -1 : 1;
     ctx.save();
     ctx.translate(x, y);
     ctx.rotate(sway);
     const cw = size * 1.9;
     const ch = size * 0.36;
     const top = -size * 1.55;
-    // Ram-air canopy: an arc of cells.
+    // Suspension lines first (behind the canopy's lower skin), fine and slightly warm.
+    ctx.strokeStyle = 'rgba(232, 238, 240, 0.5)';
+    ctx.lineWidth = 0.8;
     ctx.beginPath();
-    ctx.moveTo(-cw / 2, top + ch * 0.55);
-    ctx.quadraticCurveTo(0, top - ch * 0.9, cw / 2, top + ch * 0.55);
-    ctx.quadraticCurveTo(0, top - ch * 0.1, -cw / 2, top + ch * 0.55);
-    ctx.closePath();
-    const g = ctx.createLinearGradient(0, top - ch, 0, top + ch);
-    g.addColorStop(0, mine ? pal.sun : '#d9e2e8');
-    g.addColorStop(1, mine ? '#e0a070' : '#9fb0bc');
-    ctx.fillStyle = g;
-    ctx.fill();
-    ctx.strokeStyle = 'rgba(7, 21, 34, 0.45)';
-    ctx.lineWidth = 1;
-    for (let i = 1; i < 6; i++) {
-      const cx = -cw / 2 + (i / 6) * cw;
-      ctx.beginPath();
-      ctx.moveTo(cx, top + ch * 0.45 - Math.sin((i / 6) * Math.PI) * ch * 0.75);
-      ctx.lineTo(cx, top + ch * 0.55 - Math.sin((i / 6) * Math.PI) * ch * 0.45);
-      ctx.stroke();
-    }
-    // Suspension lines.
-    ctx.strokeStyle = 'rgba(232, 238, 240, 0.55)';
-    ctx.beginPath();
-    for (let i = 0; i <= 4; i++) {
-      ctx.moveTo(-cw / 2 + (i / 4) * cw, top + ch * 0.45);
+    for (let i = 0; i <= 6; i++) {
+      ctx.moveTo(-cw / 2 + (i / 6) * cw, top + ch * 0.5 - Math.sin((i / 6) * Math.PI) * ch * 0.4);
       ctx.lineTo(0, -size * 0.25);
     }
     ctx.stroke();
-    // Fairing half: a curved clamshell, white with a signal band.
+    // Ram-air canopy: individual cells with their own light (lit side warm, shade side cool).
+    const cells = 7;
+    const upper = (u: number) => top + ch * 0.55 - Math.sin(u * Math.PI) * ch * 1.45;
+    const lower = (u: number) => top + ch * 0.55 - Math.sin(u * Math.PI) * ch * 0.65;
+    const base = mine ? pal.sun : '#dfe7ec';
+    const shadeC = mine ? '#b5763f' : '#7f93a6';
+    for (let i = 0; i < cells; i++) {
+      const u0 = i / cells;
+      const u1 = (i + 1) / cells;
+      const x0 = -cw / 2 + u0 * cw;
+      const x1 = -cw / 2 + u1 * cw;
+      ctx.beginPath();
+      ctx.moveTo(x0, upper(u0));
+      ctx.quadraticCurveTo((x0 + x1) / 2, upper((u0 + u1) / 2) - ch * 0.12, x1, upper(u1));
+      ctx.lineTo(x1, lower(u1));
+      ctx.quadraticCurveTo((x0 + x1) / 2, lower((u0 + u1) / 2) + ch * 0.05, x0, lower(u0));
+      ctx.closePath();
+      const lit = sun > 0 ? u0 : 1 - u1;
+      const g = ctx.createLinearGradient(0, top - ch, 0, top + ch * 0.6);
+      g.addColorStop(0, base);
+      g.addColorStop(1, shadeC);
+      ctx.fillStyle = g;
+      ctx.fill();
+      ctx.fillStyle = `rgba(10, 25, 40, ${0.28 * (1 - lit)})`;
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(7, 21, 34, 0.35)';
+      ctx.lineWidth = 0.8;
+      ctx.stroke();
+    }
+    // Leading-edge rim light.
+    ctx.strokeStyle = withAlpha(pal.sun, 0.6);
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    for (let i = 0; i <= 20; i++) {
+      const u = i / 20;
+      const px = -cw / 2 + u * cw;
+      if (i === 0) ctx.moveTo(px, upper(u));
+      else ctx.lineTo(px, upper(u));
+    }
+    ctx.stroke();
+    // Fairing half: a curved ceramic clamshell with a teal band and a silver edge.
     ctx.beginPath();
     ctx.moveTo(-size * 0.22, -size * 0.25);
     ctx.quadraticCurveTo(size * 0.42, -size * 0.1, size * 0.3, size * 0.55);
     ctx.lineTo(-size * 0.2, size * 0.55);
     ctx.quadraticCurveTo(-size * 0.05, size * 0.1, -size * 0.22, -size * 0.25);
     ctx.closePath();
-    const fg = ctx.createLinearGradient(-size * 0.2, 0, size * 0.3, 0);
-    fg.addColorStop(0, '#f2f6f8');
-    fg.addColorStop(1, '#9fb0bc');
-    ctx.fillStyle = fg;
+    ctx.fillStyle = ceramicGradient(ctx, size * 0.6, sun, size * 0.05);
     ctx.fill();
-    ctx.fillStyle = pal.accent;
-    ctx.fillRect(-size * 0.2, size * 0.38, size * 0.5, size * 0.08);
+    ctx.save();
+    ctx.clip();
+    ctx.fillStyle = tealGradient(ctx, size * 0.6, sun, size * 0.05);
+    ctx.fillRect(-size * 0.25, size * 0.36, size * 0.6, size * 0.07);
+    ctx.fillStyle = 'rgba(30, 48, 66, 0.25)';
+    ctx.fillRect(-size * 0.25, size * 0.5, size * 0.6, size * 0.05);
+    ctx.restore();
+    ctx.strokeStyle = 'rgba(200, 210, 218, 0.8)';
+    ctx.lineWidth = 0.8;
+    ctx.beginPath();
+    ctx.moveTo(-size * 0.2, size * 0.55);
+    ctx.quadraticCurveTo(-size * 0.05, size * 0.1, -size * 0.22, -size * 0.25);
+    ctx.stroke();
     ctx.restore();
   }
 
   private drawBoat(x: number, y: number, size: number, mine: boolean, label: string) {
     const { ctx, pal } = this;
+    const sun = this.rtl ? -1 : 1;
     ctx.save();
     // The net (drawn right of the hull's centre) is what has to be under the half: centre it on x.
     ctx.translate(x - size * 0.5, y);
-    // Hull.
+    // Reflection on the water.
+    const refl = ctx.createLinearGradient(0, size * 0.22, 0, size * 0.9);
+    refl.addColorStop(0, mine ? 'rgba(232, 238, 240, 0.22)' : 'rgba(142, 165, 181, 0.16)');
+    refl.addColorStop(1, 'rgba(232, 238, 240, 0)');
+    ctx.fillStyle = refl;
+    ctx.fillRect(-size * 0.9, size * 0.22, size * 1.75, size * 0.7);
+    // Hull: dark navy below a white sheer line.
     ctx.beginPath();
     ctx.moveTo(-size * 1.1, -size * 0.25);
-    ctx.lineTo(size * 1.1, -size * 0.25);
+    ctx.lineTo(size * 1.15, -size * 0.25);
     ctx.lineTo(size * 0.85, size * 0.22);
     ctx.lineTo(-size * 0.9, size * 0.22);
     ctx.closePath();
-    ctx.fillStyle = mine ? '#e8eef0' : '#8ea5b5';
+    const hull = ctx.createLinearGradient(0, -size * 0.25, 0, size * 0.22);
+    hull.addColorStop(0, mine ? '#eef3f5' : '#a9b8c4');
+    hull.addColorStop(0.42, mine ? '#c9d5dd' : '#7f93a6');
+    hull.addColorStop(0.45, mine ? '#1c3b55' : '#24435c');
+    hull.addColorStop(1, '#0b1d2e');
+    ctx.fillStyle = hull;
     ctx.fill();
-    ctx.fillStyle = mine ? pal.accent : '#3f6d8a';
-    ctx.fillRect(-size * 1.05, -size * 0.12, size * 2.1, size * 0.1);
-    // Cabin.
-    ctx.fillStyle = mine ? '#cfd9e0' : '#6f8696';
-    ctx.fillRect(-size * 0.75, -size * 0.6, size * 0.6, size * 0.35);
+    ctx.fillStyle = mine ? tealGradient(ctx, size * 2.2, sun) : '#3f6d8a';
+    ctx.fillRect(-size * 1.05, -size * 0.1, size * 2.15, size * 0.06);
+    // Superstructure: ceramic block with dark windows and a mast.
+    ctx.fillStyle = mine ? ceramicGradient(ctx, size * 0.7, sun, -size * 0.45) : '#6f8696';
+    ctx.fillRect(-size * 0.8, -size * 0.62, size * 0.7, size * 0.37);
+    ctx.fillStyle = mine ? '#c9d5dd' : '#5d7385';
+    ctx.fillRect(-size * 0.7, -size * 0.82, size * 0.42, size * 0.2);
+    ctx.fillStyle = 'rgba(7, 21, 34, 0.75)';
+    for (let i = 0; i < 4; i++) ctx.fillRect(-size * 0.74 + i * size * 0.15, -size * 0.52, size * 0.1, size * 0.08);
+    ctx.strokeStyle = mine ? '#c3ccd3' : '#6f8696';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(-size * 0.5, -size * 0.82);
+    ctx.lineTo(-size * 0.5, -size * 1.15);
+    ctx.stroke();
+    // Warm practical light on the mast.
+    ctx.fillStyle = withAlpha(pal.sun, 0.9);
+    ctx.beginPath();
+    ctx.arc(-size * 0.5, -size * 1.15, Math.max(1, size * 0.04), 0, Math.PI * 2);
+    ctx.fill();
     // Net between two arms.
-    ctx.strokeStyle = mine ? pal.text : withAlpha(pal.text, 0.6);
+    ctx.strokeStyle = mine ? '#d5e1e8' : withAlpha(pal.text, 0.6);
     ctx.lineWidth = 2;
     ctx.beginPath();
     ctx.moveTo(size * 0.1, -size * 0.25);
@@ -206,6 +264,13 @@ export class Mg10View extends View2D {
     }
     ctx.moveTo(-size * 0.2, -size * 1.0);
     ctx.quadraticCurveTo(size * 0.5, -size * 0.55, size * 1.2, -size * 1.0);
+    ctx.stroke();
+    // Bow wake.
+    ctx.strokeStyle = 'rgba(232, 238, 240, 0.45)';
+    ctx.lineWidth = 1.2;
+    ctx.beginPath();
+    ctx.moveTo(size * 0.9, size * 0.2);
+    ctx.quadraticCurveTo(size * 1.3, size * 0.26, size * 1.6, size * 0.24);
     ctx.stroke();
     ctx.restore();
     if (!this.compact) {
@@ -226,9 +291,25 @@ export class Mg10View extends View2D {
     const time = f.timeMs / 1000;
     // Sea.
     const sea = ctx.createLinearGradient(0, seaY, 0, r.y + r.h);
-    sea.addColorStop(0, pal.ocean);
-    sea.addColorStop(1, '#06233a');
+    sea.addColorStop(0, '#2a7aa3');
+    sea.addColorStop(0.08, '#1a5b80');
+    sea.addColorStop(0.5, '#0e3a58');
+    sea.addColorStop(1, '#06203a');
     ctx.fillStyle = sea;
+    ctx.fillRect(r.x, seaY, r.w, r.y + r.h - seaY);
+    // Horizon haze and the sun's glitter path on the water.
+    const haze = ctx.createLinearGradient(0, seaY - 14, 0, seaY + 10);
+    haze.addColorStop(0, 'rgba(150, 210, 240, 0)');
+    haze.addColorStop(0.6, 'rgba(170, 220, 245, 0.35)');
+    haze.addColorStop(1, 'rgba(150, 210, 240, 0)');
+    ctx.fillStyle = haze;
+    ctx.fillRect(r.x, seaY - 14, r.w, 24);
+    const gx = this.rtl ? r.x + r.w * 0.12 : r.x + r.w * 0.88;
+    const glit = ctx.createRadialGradient(gx, seaY, 0, gx, seaY, r.w * 0.5);
+    glit.addColorStop(0, withAlpha(pal.sun, 0.42));
+    glit.addColorStop(0.35, withAlpha(pal.sun, 0.1));
+    glit.addColorStop(1, withAlpha(pal.sun, 0));
+    ctx.fillStyle = glit;
     ctx.fillRect(r.x, seaY, r.w, r.y + r.h - seaY);
     // Sun glint and wave lines (steady in reduced motion).
     ctx.strokeStyle = 'rgba(232, 238, 240, 0.22)';
@@ -251,10 +332,11 @@ export class Mg10View extends View2D {
     const z0 = this.screenX(sim.halfX[mine] - half);
     const z1 = this.screenX(sim.halfX[mine] + half);
     ctx.fillStyle = withAlpha(pal.good, sim.under ? 0.4 : 0.22);
-    ctx.fillRect(z0, seaY - 3, z1 - z0, 10);
+    this.roundRect(rect(z0, seaY - 3, z1 - z0, 10), 5);
+    ctx.fill();
     ctx.strokeStyle = pal.good;
-    ctx.lineWidth = 2;
-    ctx.strokeRect(z0, seaY - 3, z1 - z0, 10);
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
     const top = r.y + 24;
     const fall = seaY - top - r.h * 0.12;
     const hy = top + fall * (1 - sim.altitudeM / START_ALT_M) + r.h * 0.12;
@@ -288,7 +370,7 @@ export class Mg10View extends View2D {
     ctx.restore();
     this.roundRect(r, 12);
     ctx.lineWidth = 1;
-    ctx.strokeStyle = pal.lineStrong;
+    ctx.strokeStyle = 'rgba(150, 205, 228, 0.22)';
     ctx.stroke();
     if (this.compact) return;
     // Scale bar and the gap read-out.

@@ -2,7 +2,8 @@
 // antenna reticle with its lock circle, readouts and the data bar. Reads the simulation only.
 // No radio beam is drawn between the antenna and the station (style guide).
 import { fmt } from '../../data/format';
-import { Canvas2D, makeLayer, pathRoundRect, withAlpha, type Rect } from './kit';
+import { Canvas2D, makeLayer, withAlpha, type Rect } from './kit';
+import { paintGlass } from '../MG-09/shared/art';
 import { passPoint, type Mg13Sim, type SkyPoint } from './model';
 
 type Translate = (key: string, args?: Record<string, string | number>) => string;
@@ -123,9 +124,18 @@ export class Mg13View {
     ctx.beginPath();
     ctx.arc(cx, cy, R, 0, Math.PI * 2);
     ctx.fill();
+    // Airglow along the horizon (the sky brightens towards it) and a faint teal rim glow.
+    const air = ctx.createRadialGradient(cx, cy, R * 0.72, cx, cy, R * 1.06);
+    air.addColorStop(0, 'rgba(85, 197, 205, 0)');
+    air.addColorStop(0.85, 'rgba(85, 197, 205, 0.12)');
+    air.addColorStop(1, 'rgba(85, 197, 205, 0)');
+    ctx.fillStyle = air;
+    ctx.beginPath();
+    ctx.arc(cx, cy, R * 1.06, 0, Math.PI * 2);
+    ctx.fill();
 
     // Elevation rings at 0°, 30°, 60° and azimuth spokes every 30°.
-    ctx.strokeStyle = withAlpha(pal.lineStrong, 0.75);
+    ctx.strokeStyle = 'rgba(150, 205, 228, 0.22)';
     ctx.lineWidth = 1;
     for (const el of [30, 60]) {
       ctx.beginPath();
@@ -138,11 +148,11 @@ export class Mg13View {
       ctx.moveTo(cx + Math.sin(a) * R * 0.04, cy - Math.cos(a) * R * 0.04);
       ctx.lineTo(cx + Math.sin(a) * R, cy - Math.cos(a) * R);
     }
-    ctx.strokeStyle = withAlpha(pal.lineStrong, 0.35);
+    ctx.strokeStyle = 'rgba(150, 205, 228, 0.1)';
     ctx.stroke();
     // Horizon ring.
-    ctx.lineWidth = 2;
-    ctx.strokeStyle = pal.lineStrong;
+    ctx.lineWidth = 1.5;
+    ctx.strokeStyle = 'rgba(143, 224, 230, 0.55)';
     ctx.beginPath();
     ctx.arc(cx, cy, R, 0, Math.PI * 2);
     ctx.stroke();
@@ -213,12 +223,7 @@ export class Mg13View {
     const { pal } = c;
     const t = this.opts.t;
     const lp = c.px(10.5);
-    pathRoundRect(ctx, pr, 10);
-    ctx.fillStyle = withAlpha(pal.bg2, 0.94);
-    ctx.fill();
-    ctx.lineWidth = 1;
-    ctx.strokeStyle = pal.lineStrong;
-    ctx.stroke();
+    paintGlass(ctx, pr, 14, pal);
     ctx.font = c.font(lp, 700);
     ctx.fillStyle = pal.dim;
     ctx.textBaseline = 'middle';
@@ -229,7 +234,7 @@ export class Mg13View {
     const chart = { x: pr.x + 10 + axisW, y: pr.y + 18 + lp, w: pr.w - 22 - axisW, h: pr.h - 26 - lp - tickPx };
     this.chart = chart;
     // Elevation grid 0 / 30 / 60 / 90 degrees and time ticks every 5 s.
-    ctx.strokeStyle = withAlpha(pal.lineStrong, 0.5);
+    ctx.strokeStyle = 'rgba(150, 205, 228, 0.12)';
     ctx.lineWidth = 1;
     ctx.beginPath();
     ctx.font = c.font(tickPx, 600, true);

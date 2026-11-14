@@ -3,6 +3,7 @@
 // wing axis with the Sun, the tolerance wedge and the wing's cell side. Reads the sim only.
 import { fmt } from '../../data/format';
 import { Canvas2D, clamp, drawSatellite, KeyedLayer, makeLayer, pathRoundRect, withAlpha, type Rect, type Status } from '../MG-13/kit';
+import { paintGlass, paintSky } from '../MG-09/shared/art';
 import type { Hinge, Mg15Sim } from './model';
 
 type Translate = (key: string, args?: Record<string, string | number>) => string;
@@ -103,90 +104,18 @@ export class Mg15View {
     const ctx = layer.ctx;
     const { pal } = this.c;
     const s = this.satR;
-    // Space panel.
+    // Space panel: the key-art sky with the Earth limb low in the frame, Sun off to the left.
+    ctx.save();
     pathRoundRect(ctx, s, 12);
-    ctx.save();
     ctx.clip();
-    ctx.fillStyle = pal.bg0;
-    ctx.fillRect(s.x, s.y, s.w, s.h);
-    // A few faint stars (seeded by position, not random).
-    ctx.fillStyle = withAlpha(pal.ceramic, 0.45);
-    for (let i = 0; i < 18; i++) {
-      const x = s.x + ((i * 97 + 31) % 100) / 100 * s.w;
-      const y = s.y + ((i * 61 + 17) % 100) / 100 * s.h * 0.55;
-      ctx.fillRect(Math.round(x), Math.round(y), 1.2, 1.2);
-    }
-    // Earth limb below: ocean navy, thin atmospheric rim, no halo (style guide).
-    const er = s.w * 1.6;
-    const ecx = s.x + s.w * 0.5;
-    const ecy = s.y + s.h + er - s.h * 0.2;
-    const eg = ctx.createRadialGradient(ecx - er * 0.3, ecy - er * 0.4, er * 0.2, ecx, ecy, er);
-    eg.addColorStop(0, '#1d7a98');
-    eg.addColorStop(0.7, pal.ocean);
-    eg.addColorStop(1, '#0d3f57');
-    ctx.fillStyle = eg;
-    ctx.beginPath();
-    ctx.arc(ecx, ecy, er, 0, Math.PI * 2);
-    ctx.fill();
-    // Cloud bands and a coastline, clipped to the disc (fixed pattern, drawn once).
-    ctx.save();
-    ctx.beginPath();
-    ctx.arc(ecx, ecy, er, 0, Math.PI * 2);
-    ctx.clip();
-    ctx.fillStyle = 'rgba(70, 110, 70, 0.55)';
-    ctx.beginPath();
-    ctx.ellipse(s.x + s.w * 0.82, s.y + s.h * 0.98, s.w * 0.22, s.h * 0.09, -0.15, 0, Math.PI * 2);
-    ctx.fill();
-    for (let i = 0; i < 12; i++) {
-      const fx = ((i * 37 + 11) % 100) / 100;
-      const fy = ((i * 53 + 29) % 100) / 100;
-      const cx = s.x + fx * s.w;
-      const cy = s.y + s.h * (0.84 + fy * 0.2);
-      const cr = s.w * (0.03 + 0.05 * ((i * 17) % 10) / 10);
-      const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, cr * 2);
-      g.addColorStop(0, 'rgba(240, 245, 248, 0.55)');
-      g.addColorStop(1, 'rgba(240, 245, 248, 0)');
-      ctx.fillStyle = g;
-      ctx.beginPath();
-      ctx.ellipse(cx, cy, cr * 2, cr * 0.8, 0, 0, Math.PI * 2);
-      ctx.fill();
-    }
-    ctx.restore();
-    // Night side towards the right (Sun on the left).
-    const ng = ctx.createLinearGradient(s.x + s.w * 0.45, 0, s.x + s.w, 0);
-    ng.addColorStop(0, 'rgba(5, 12, 22, 0)');
-    ng.addColorStop(1, 'rgba(5, 12, 22, 0.75)');
-    ctx.fillStyle = ng;
-    ctx.beginPath();
-    ctx.arc(ecx, ecy, er, 0, Math.PI * 2);
-    ctx.fill();
-    // Thin atmospheric rim, brighter on the day side, no halo.
-    const rim = ctx.createLinearGradient(s.x, 0, s.x + s.w, 0);
-    rim.addColorStop(0, 'rgba(120, 200, 255, 0.95)');
-    rim.addColorStop(0.6, 'rgba(90, 170, 230, 0.6)');
-    rim.addColorStop(1, 'rgba(60, 120, 180, 0.15)');
-    ctx.strokeStyle = rim;
-    ctx.lineWidth = 2.5;
-    ctx.beginPath();
-    ctx.arc(ecx, ecy, er + 1, Math.PI * 1.15, Math.PI * 1.85);
-    ctx.stroke();
-    // Sunlight from the left: a warm glow at the edge (the Sun itself is off-panel).
-    const sg = ctx.createRadialGradient(s.x - 10, s.y + s.h * 0.35, 4, s.x - 10, s.y + s.h * 0.35, s.w * 0.45);
-    sg.addColorStop(0, withAlpha(pal.sun, 0.35));
-    sg.addColorStop(1, withAlpha(pal.sun, 0));
-    ctx.fillStyle = sg;
-    ctx.fillRect(s.x, s.y, s.w, s.h);
+    paintSky(ctx, s, pal, 0.82, 'left');
     ctx.restore();
     pathRoundRect(ctx, s, 12);
     ctx.lineWidth = 1;
-    ctx.strokeStyle = pal.lineStrong;
+    ctx.strokeStyle = 'rgba(150, 205, 228, 0.22)';
     ctx.stroke();
-    // Lower panel.
-    pathRoundRect(ctx, this.lower, 12);
-    ctx.fillStyle = withAlpha(pal.bg2, 0.94);
-    ctx.fill();
-    ctx.strokeStyle = pal.lineStrong;
-    ctx.stroke();
+    // Lower panel: glass.
+    paintGlass(ctx, this.lower, 14, pal);
   }
 
   private hingeStatus(h: Hinge): Status | 'info' | 'idle' {

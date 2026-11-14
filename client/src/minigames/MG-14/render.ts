@@ -172,8 +172,8 @@ export class Mg14View {
       glow.addColorStop(1, withAlpha(pal.accent, 0));
       ctx.fillStyle = glow;
       ctx.fillRect(p.x, p.y, p.w, p.h);
-      // Grid.
-      ctx.strokeStyle = withAlpha(pal.lineStrong, 0.35);
+      // Faint guides (σ steps), not a heavy lattice.
+      ctx.strokeStyle = 'rgba(150, 205, 228, 0.08)';
       ctx.lineWidth = 1;
       ctx.beginPath();
       for (let m = -1500; m <= 1500; m += 500) {
@@ -253,7 +253,7 @@ export class Mg14View {
       }
       ctx.restore();
       ctx.lineWidth = 1;
-      ctx.strokeStyle = pal.lineStrong;
+      ctx.strokeStyle = 'rgba(150, 205, 228, 0.22)';
       pathRoundRect(ctx, p, 12);
       ctx.stroke();
     });
@@ -543,14 +543,7 @@ export class Mg14View {
     }
     const label = t(key, args);
     if (s === 'info') {
-      c.roundRect(this.strip, 10);
-      c.ctx.fillStyle = pal.bg1;
-      c.ctx.fill();
-      c.roundRect(this.strip, 10);
-      c.ctx.strokeStyle = pal.accent;
-      c.ctx.lineWidth = 1.5;
-      c.ctx.stroke();
-      c.text(label, this.strip.x + this.strip.w / 2, this.strip.y + this.strip.h / 2 + 1, this.strip.w - 24, c.px(15, 1.5), 800, pal.text, 'center');
+      c.infoStrip(this.strip, label);
     } else c.statusStrip(this.strip, s, label);
 
     const hintKey = sim.burn ? 'minigame.MG-14.hint.done' : sim.config.oneButton ? 'minigame.MG-14.hint.press' : sim.config.shortList ? 'minigame.MG-14.hint.list' : 'minigame.MG-14.hint.menu';

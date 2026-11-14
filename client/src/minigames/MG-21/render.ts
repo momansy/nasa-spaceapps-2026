@@ -3,6 +3,7 @@
 // of captured image tiles and the shutter. Imaging is never drawn as a beam (style guide).
 import { fmt } from '../../data/format';
 import { Canvas2D, clamp, KeyedLayer, mulberry32, pathRoundRect, withAlpha, type Rect, type Status } from '../MG-13/kit';
+import { paintGlass } from '../MG-09/shared/art';
 import { cloudOffset, TARGET_R, type Mg21Sim, type ShotOutcome, type Target } from './model';
 
 type Translate = (key: string, args?: Record<string, string | number>) => string;
@@ -134,8 +135,14 @@ export class Mg21View {
     const yOf = (s: number) => (sMax - s) * this.k;
     const xOf = (x: number) => W / 2 + x * this.k;
     const rnd = mulberry32((sim.scene.targets.length * 7919) ^ Math.round(sim.scene.terminatorS * 1000));
-    // Ocean.
+    // Ocean: deep blue with a broad lighter swell across the middle (the look of frame 04).
     ctx.fillStyle = '#0f4b67';
+    ctx.fillRect(0, 0, W, yOf(sMin));
+    const swell = ctx.createLinearGradient(0, 0, W, 0);
+    swell.addColorStop(0, 'rgba(6, 30, 52, 0.45)');
+    swell.addColorStop(0.45, 'rgba(40, 130, 170, 0.18)');
+    swell.addColorStop(1, 'rgba(6, 30, 52, 0.4)');
+    ctx.fillStyle = swell;
     ctx.fillRect(0, 0, W, yOf(sMin));
     // Subtle ocean texture: long soft bands.
     ctx.fillStyle = 'rgba(23, 104, 135, 0.35)';
@@ -255,8 +262,28 @@ export class Mg21View {
     g.addColorStop(1, color === '#7a7550' ? '#5c5a3d' : '#34502f');
     ctx.fillStyle = g;
     ctx.fill();
-    ctx.strokeStyle = 'rgba(230, 215, 170, 0.45)';
-    ctx.lineWidth = 1.2;
+    // Terrain texture: fine deterministic speckle in lighter and darker tones (no random draw).
+    ctx.save();
+    ctx.clip();
+    const n2 = Math.round(r * r * 0.05);
+    for (let i = 0; i < n2; i++) {
+      const hx = Math.sin(i * 12.9898 + ph * 78.233) * 43758.5453;
+      const hy = Math.sin(i * 39.3468 + ph2 * 11.135) * 24634.6345;
+      const fx = hx - Math.floor(hx);
+      const fy = hy - Math.floor(hy);
+      ctx.fillStyle = i % 3 === 0 ? 'rgba(235, 225, 190, 0.12)' : 'rgba(20, 30, 18, 0.16)';
+      const d = 1 + (i % 4) * 0.6;
+      ctx.fillRect(cx - r + fx * r * 2, cy - r + fy * r * 2, d, d);
+    }
+    // Shade on the side away from the Sun.
+    const sh = ctx.createLinearGradient(cx - r, cy - r, cx + r, cy + r);
+    sh.addColorStop(0, 'rgba(255, 236, 200, 0.08)');
+    sh.addColorStop(1, 'rgba(8, 16, 12, 0.3)');
+    ctx.fillStyle = sh;
+    ctx.fillRect(cx - r * 1.2, cy - r * 1.2, r * 2.4, r * 2.4);
+    ctx.restore();
+    ctx.strokeStyle = 'rgba(230, 215, 170, 0.3)';
+    ctx.lineWidth = 1;
     ctx.stroke();
     // Ridges.
     ctx.strokeStyle = 'rgba(20, 30, 15, 0.25)';
@@ -576,7 +603,7 @@ export class Mg21View {
       bctx.fillStyle = pal.bg0;
       bctx.fill('evenodd');
       bctx.lineWidth = 1;
-      bctx.strokeStyle = pal.lineStrong;
+      bctx.strokeStyle = 'rgba(150, 205, 228, 0.3)';
       pathRoundRect(bctx, { x: fr.x + 0.5, y: fr.y + 0.5, w: fr.w - 1, h: fr.h - 1 }, 12);
       bctx.stroke();
     });
@@ -595,7 +622,11 @@ export class Mg21View {
       ctx.beginPath();
       ctx.arc(sh.x, sh.y, sh.r + 4, 0, Math.PI * 2);
       ctx.fill();
-      ctx.fillStyle = ready ? pal.ceramic : pal.dim;
+      const bg = ctx.createRadialGradient(sh.x - sh.r * 0.35, sh.y - sh.r * 0.45, sh.r * 0.1, sh.x, sh.y, sh.r);
+      bg.addColorStop(0, ready ? '#ffffff' : '#c9d3da');
+      bg.addColorStop(0.6, ready ? pal.ceramic : pal.dim);
+      bg.addColorStop(1, ready ? '#9fb0bc' : '#6f8696');
+      ctx.fillStyle = bg;
       ctx.beginPath();
       ctx.arc(sh.x, sh.y, sh.r, 0, Math.PI * 2);
       ctx.fill();
@@ -619,7 +650,7 @@ export class Mg21View {
     const need = sim.config.goodMin;
     const next = sim.nextTarget();
     const secs = next ? Math.max(0, (next.s - sim.s) / sim.config.speed) : 0;
-    const secsText = next ? (secs < 0.05 ? fmt(0, 1, 1) : fmt(secs, 1, 1)) : '—';
+    const secsText = next ? (secs < 0.05 ? fmt(0, 1, 1) : fmt(secs, 1, 1)) : '';
     let sKey: string;
     let sStatus: Status | 'info';
     let sArgs: Record<string, string | number> | undefined;
@@ -644,17 +675,11 @@ export class Mg21View {
       const ok = sim.good >= need;
       c.readout(first, `${t('minigame.MG-21.hud.good')} · ${t('minigame.MG-21.hud.need', { n: need })}`, fmt(sim.good, 0), t('minigame.MG-21.hud.of', { n: sim.scene.targets.length }), ok ? pal.good : pal.text, ok ? 'good' : undefined);
       if (next) c.readout(second, `${t('minigame.MG-21.hud.next')}: ${t(`minigame.MG-21.target.${next.type}`)}`, secsText, 's', pal.text);
-      else c.readout(second, t('minigame.MG-21.hud.next'), '—', '', pal.dim);
+      else c.readout(second, t('minigame.MG-21.hud.next'), t('minigame.MG-21.hud.none'), '', pal.dim);
       const label = t(sKey, sArgs);
       if (sStatus === 'info') {
-        c.roundRect(this.strip, 10);
-        lctx.fillStyle = pal.bg1;
-        lctx.fill();
-        c.roundRect(this.strip, 10);
-        lctx.strokeStyle = pal.accent;
-        lctx.lineWidth = 1.5;
-        lctx.stroke();
-        c.text(label, this.strip.x + this.strip.w / 2, this.strip.y + this.strip.h / 2 + 1, this.strip.w - 24, c.px(15, 1.5), 800, pal.text, 'center');
+        paintGlass(lctx, this.strip, 12, pal, { deep: true, tint: pal.accent, tintAlpha: 0.08, edge: withAlpha(pal.accent, 0.7), edgeWidth: 1.5 });
+        c.text(label, this.strip.x + this.strip.w / 2, this.strip.y + this.strip.h / 2 + 1, this.strip.w - 24, c.px(15.5, 1.5), 600, pal.text, 'center');
       } else c.statusStrip(this.strip, sStatus, label);
     });
 

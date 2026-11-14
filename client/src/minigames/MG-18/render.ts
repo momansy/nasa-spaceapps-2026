@@ -3,6 +3,7 @@
 // load switches. Reads the simulation only; panels are cached and repainted on change.
 import { fmt } from '../../data/format';
 import { Canvas2D, clamp, KeyedLayer, pathRoundRect, withAlpha, type Rect, type Status } from '../MG-13/kit';
+import { paintGlobe, paintMiniSat } from '../MG-09/shared/art';
 import { ECLIPSE_MIN, LOAD_W, LOADS, ONE_BUTTON_LOADS, ORBIT_SLICE_MIN, SUN_BEFORE_MIN, type LoadId, type Mg18Sim } from './model';
 
 type Translate = (key: string, args?: Record<string, string | number>) => string;
@@ -189,37 +190,20 @@ export class Mg18View {
       const cx = opts.compact ? o.x + o.w / 2 : o.x + o.w * 0.36;
       const cy = o.y + o.h / 2;
       const orbitR = R * 1.45;
-      // Shadow behind Earth (Sun on the left): a dark band to the right.
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.45)';
+      // Shadow behind Earth (Sun on the left): a dark cylinder fading out to the right.
+      const umbra = ctx.createLinearGradient(cx, 0, o.x + o.w, 0);
+      umbra.addColorStop(0, 'rgba(0, 4, 10, 0.55)');
+      umbra.addColorStop(1, 'rgba(0, 4, 10, 0.25)');
+      ctx.fillStyle = umbra;
       ctx.fillRect(cx, cy - R, o.x + o.w - cx, R * 2);
       // Sunlight from the left.
       const sg = ctx.createLinearGradient(o.x, 0, cx, 0);
-      sg.addColorStop(0, withAlpha(pal.sun, 0.18));
+      sg.addColorStop(0, withAlpha(pal.sun, 0.22));
       sg.addColorStop(1, withAlpha(pal.sun, 0));
       ctx.fillStyle = sg;
       ctx.fillRect(o.x, o.y, cx - o.x, o.h);
-      // Earth: ocean navy, lit half on the Sun side, thin rim, no halo.
-      const eg = ctx.createRadialGradient(cx - R * 0.45, cy - R * 0.3, R * 0.1, cx, cy, R);
-      eg.addColorStop(0, '#2a8fb0');
-      eg.addColorStop(0.65, pal.ocean);
-      eg.addColorStop(1, '#0c3a52');
-      ctx.fillStyle = eg;
-      ctx.beginPath();
-      ctx.arc(cx, cy, R, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.fillStyle = 'rgba(70, 120, 70, 0.6)';
-      ctx.beginPath();
-      ctx.ellipse(cx - R * 0.25, cy - R * 0.2, R * 0.35, R * 0.22, 0.5, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.fillStyle = 'rgba(4, 10, 20, 0.72)';
-      ctx.beginPath();
-      ctx.arc(cx, cy, R, -Math.PI / 2, Math.PI / 2);
-      ctx.fill();
-      ctx.strokeStyle = 'rgba(120, 200, 255, 0.85)';
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.arc(cx, cy, R + 1, Math.PI * 0.5, Math.PI * 1.5);
-      ctx.stroke();
+      // Earth in the key-art finish, lit from the left, night side on the right.
+      paintGlobe(ctx, cx, cy, R, pal, { sunAngle: Math.PI, night: 1, cities: true, atmosphere: 0.06, seed: 2 });
       // Orbit, with the eclipse arc and the slice shown.
       const angAt = (min: number) => ((min - (SUN_BEFORE_MIN + ECLIPSE_MIN / 2)) / PERIOD_MIN) * 360;
       ctx.strokeStyle = withAlpha(pal.lineStrong, 0.8);
@@ -244,15 +228,10 @@ export class Mg18View {
       const a = angAt(m) * DEG;
       const sx = cx + Math.cos(a) * orbitR;
       const sy = cy - Math.sin(a) * orbitR;
-      ctx.fillStyle = pal.ceramic;
-      ctx.fillRect(sx - 4, sy - 4, 8, 8);
-      ctx.fillStyle = '#26406a';
-      ctx.fillRect(sx - 13, sy - 2.5, 8, 5);
-      ctx.fillRect(sx + 5, sy - 2.5, 8, 5);
-      ctx.strokeStyle = pal.accent;
-      ctx.lineWidth = 1;
-      ctx.strokeRect(sx - 13, sy - 2.5, 8, 5);
-      ctx.strokeRect(sx + 5, sy - 2.5, 8, 5);
+      ctx.save();
+      ctx.translate(sx, sy);
+      paintMiniSat(ctx, 4, -1);
+      ctx.restore();
       ctx.restore();
       if (!opts.compact) {
         const t = opts.t;
@@ -474,14 +453,7 @@ export class Mg18View {
       c.readout(first, t('minigame.MG-18.hud.battery', { pct }), fmt(sim.energyWh, 1, 1), 'Wh', c.statusColor(bs), bs);
       c.readout(second, `${t('minigame.MG-18.hud.solar')} · ${t('minigame.MG-18.hud.load', { w: fmt(sim.loadW, 0) })}`, fmt(sim.solarW, 0), 'W', sim.solarW > 0 ? pal.sun : pal.dim);
       if (st === 'info') {
-        c.roundRect(this.strip, 10);
-        c.ctx.fillStyle = pal.bg1;
-        c.ctx.fill();
-        c.roundRect(this.strip, 10);
-        c.ctx.strokeStyle = pal.accent;
-        c.ctx.lineWidth = 1.5;
-        c.ctx.stroke();
-        c.text(t(key), this.strip.x + this.strip.w / 2, this.strip.y + this.strip.h / 2 + 1, this.strip.w - 24, c.px(15, 1.5), 800, pal.text, 'center');
+        c.infoStrip(this.strip, t(key));
       } else c.statusStrip(this.strip, st, t(key));
     });
     c.hint(this.hintR, t(sim.config.oneButton ? 'minigame.MG-18.hint.press' : 'minigame.MG-18.hint.tap'), f.active);

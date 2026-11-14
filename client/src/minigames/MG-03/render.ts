@@ -56,6 +56,67 @@ export class Mg03View {
     this.layout();
   }
 
+  private legend: Rect | null = null;
+  private legendLayer: KeyedLayer | null = null;
+
+  /** Legend card: a sample crack and a sample pore cluster as they look on the film. */
+  private drawLegend() {
+    const r = this.legend;
+    if (!r) return;
+    const c = this.c;
+    const { pal } = c;
+    const t = this.o.t;
+    c.glass(r, 16);
+    const ctx = c.ctx;
+    const lp = c.px(12, 1.3);
+    c.text(t(K + 'legend.title'), c.rtl ? r.x + r.w - 14 : r.x + 14, r.y + 12 + lp * 0.5, r.w - 28, lp, 600, pal.dim, c.rtl ? 'right' : 'left');
+    const half = (r.w - 28) / 2;
+    const sampleS = Math.min(r.h - lp - 30, 44);
+    for (let i = 0; i < 2; i++) {
+      const cellX = c.rtl ? r.x + r.w - 14 - (i + 1) * half : r.x + 14 + i * half;
+      const sy = r.y + lp + 22;
+      const sx = c.rtl ? cellX + half - sampleS : cellX;
+      // A swatch of film with the defect drawn on a weld bead.
+      ctx.save();
+      pathRoundRect(ctx, { x: sx, y: sy, w: sampleS, h: sampleS }, 8);
+      ctx.clip();
+      const g = ctx.createLinearGradient(0, sy, 0, sy + sampleS);
+      g.addColorStop(0, '#2a3a46');
+      g.addColorStop(0.5, '#5f7381');
+      g.addColorStop(1, '#2a3a46');
+      ctx.fillStyle = g;
+      ctx.fillRect(sx, sy, sampleS, sampleS);
+      ctx.strokeStyle = 'rgba(10, 16, 22, 0.85)';
+      ctx.fillStyle = 'rgba(10, 16, 22, 0.85)';
+      const mx = sx + sampleS / 2;
+      const my = sy + sampleS / 2;
+      if (i === 0) {
+        ctx.lineWidth = 1.6;
+        ctx.beginPath();
+        ctx.moveTo(mx - sampleS * 0.32, my + 3);
+        ctx.lineTo(mx - sampleS * 0.1, my - 2);
+        ctx.lineTo(mx + 0.05 * sampleS, my + 2);
+        ctx.lineTo(mx + sampleS * 0.3, my - 3);
+        ctx.stroke();
+      } else {
+        for (const [dx, dy, rr] of [[-0.18, -0.06, 2.4], [0.02, 0.08, 1.8], [0.15, -0.1, 2.1], [-0.04, -0.14, 1.5], [0.2, 0.1, 1.4]] as const) {
+          ctx.beginPath();
+          ctx.arc(mx + dx * sampleS, my + dy * sampleS, rr, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+      ctx.restore();
+      ctx.strokeStyle = 'rgba(150, 205, 228, 0.3)';
+      ctx.lineWidth = 1;
+      pathRoundRect(ctx, { x: sx, y: sy, w: sampleS, h: sampleS }, 8);
+      ctx.stroke();
+      const tx = c.rtl ? sx - 10 : sx + sampleS + 10;
+      const tw = half - sampleS - 18;
+      c.text(t(i === 0 ? K + 'legend.crack' : K + 'legend.porosity'), tx, sy + sampleS * 0.3, tw, c.px(14, 1.3), 600, pal.text, c.rtl ? 'right' : 'left');
+      c.text(t(i === 0 ? K + 'legend.crack_hint' : K + 'legend.porosity_hint'), tx, sy + sampleS * 0.72, tw, c.px(12, 1.3), 500, pal.dim, c.rtl ? 'right' : 'left');
+    }
+  }
+
   private layout() {
     const { W, H } = this.c;
     const c = this.c;
@@ -84,10 +145,16 @@ export class Mg03View {
       const ah = this.box.h - inset * 2;
       const fw = Math.min(aw, ah / FILM_H);
       const fh = fw * FILM_H;
-      // The light box hugs the film; any spare height stays as backdrop above and below.
-      const top = this.box.y + (this.box.h - fh - inset * 2) / 2;
+      // The light box hugs the film under the read-outs; the spare height below holds a small
+      // legend card (what a crack and porosity look like) instead of empty backdrop.
+      const spare = this.box.h - fh - inset * 2;
+      const legendH = Math.round(Math.min(96 * s, spare - 10));
+      const showLegend = legendH >= 64;
+      const top = showLegend ? this.box.y + Math.max(0, (spare - legendH - 10) / 2) : this.box.y + spare / 2;
+      const full = { ...this.box };
       this.box = { x: this.box.x + (this.box.w - fw - inset * 2) / 2, y: top, w: fw + inset * 2, h: fh + inset * 2 };
       this.film = { x: this.box.x + inset, y: top + inset, w: fw, h: fh };
+      this.legend = showLegend ? { x: full.x, y: this.box.y + this.box.h + 10, w: full.w, h: legendH } : null;
     }
   }
 
@@ -258,6 +325,11 @@ export class Mg03View {
     c.backdrop(0.7);
     this.ensureFilm();
     if (!this.o.compact) this.drawHud();
+    if (!this.o.compact && this.legend) {
+      const lg = this.legend;
+      this.legendLayer ??= new KeyedLayer(this.c);
+      this.legendLayer.blit({ x: lg.x - 4, y: lg.y - 4, w: lg.w + 8, h: lg.h + 20 }, `${lg.x},${lg.y},${lg.w},${lg.h}`, () => this.drawLegend());
+    }
     const b = this.box;
     // Light box frame (static).
     this.boxLayer.blit({ x: b.x - 6, y: b.y - 4, w: b.w + 12, h: b.h + 26 }, `${b.w}x${b.h}@${b.x},${b.y}|${this.film.w}`, () => {

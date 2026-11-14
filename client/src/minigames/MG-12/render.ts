@@ -4,6 +4,7 @@
 // sweeping throttle and LOCK button in one-button mode).
 import { fmt, fmtSigned } from '../../data/format';
 import { drawRocket, engineOffset, rect, View2D, withAlpha, type Rect, type Translate } from '../MG-09/shared/draw';
+import { paintBarFill, paintBarTrack, paintPlotWell } from '../MG-09/shared/art';
 import { GIMBAL_MAX_DEG, THROTTLE_MIN, type Mg12Sim } from './model';
 
 export interface Mg12Frame {
@@ -149,9 +150,7 @@ export class Mg12View extends View2D {
     const track = this.compact ? rect(r.x + 14, r.y + r.h * 0.3, r.w - 28, Math.max(8, r.h * 0.3)) : rect(r.x + 14, r.y + tpx * 2 + 10, r.w - 28, 12);
     // Torque is a physical left / right: the scale is not mirrored.
     const xOf = (k: number) => track.x + ((Math.max(-range, Math.min(range, k)) + range) / (2 * range)) * track.w;
-    ctx.fillStyle = pal.bg0;
-    this.roundRect(track, track.h / 2);
-    ctx.fill();
+    paintBarTrack(ctx, track);
     const z0 = xOf(-sim.config.zoneKnm);
     const z1 = xOf(sim.config.zoneKnm);
     ctx.fillStyle = withAlpha(pal.good, 0.4);
@@ -247,7 +246,7 @@ export class Mg12View extends View2D {
     ctx.restore();
     this.roundRect(r, 12);
     ctx.lineWidth = 1;
-    ctx.strokeStyle = pal.lineStrong;
+    ctx.strokeStyle = 'rgba(150, 205, 228, 0.22)';
     ctx.stroke();
     if (!this.compact) {
       const px = 10.5 * Math.min(this.u, 1.3);
@@ -318,13 +317,9 @@ export class Mg12View extends View2D {
     if (sim.config.oneButton) {
       // The throttle sweeping up and down, and the lock state.
       const bar = rect(inner.x, inner.y + inner.h * 0.15, inner.w, Math.min(26, inner.h * 0.2));
-      ctx.fillStyle = pal.bg0;
-      this.roundRect(bar, 8);
-      ctx.fill();
+      paintBarTrack(ctx, bar);
       const f0 = (sim.cmdThrottle - THROTTLE_MIN) / (1 - THROTTLE_MIN);
-      ctx.fillStyle = sim.locked ? pal.good : pal.accent;
-      this.roundRect(rect(bar.x, bar.y, Math.max(8, bar.w * f0), bar.h), 8);
-      ctx.fill();
+      paintBarFill(ctx, rect(bar.x, bar.y, Math.max(bar.h, bar.w * f0), bar.h), sim.locked ? pal.good : pal.accent);
       if (!this.compact) {
         ctx.textBaseline = 'alphabetic';
         this.textStart(this.t('minigame.MG-12.pad.throttle_now', { pct: fmt(sim.cmdThrottle * 100, 0) }), r, 14, r.y + px + 8, px, 700, true, pal.dim);
@@ -339,23 +334,35 @@ export class Mg12View extends View2D {
       });
       return;
     }
-    // Grid: gimbal across (−6 … +6°), throttle up (60 … 100 %).
-    ctx.strokeStyle = withAlpha(pal.lineStrong, 0.5);
-    ctx.lineWidth = 1;
-    ctx.beginPath();
-    for (let g = -GIMBAL_MAX_DEG; g <= GIMBAL_MAX_DEG; g += 2) {
-      const x = Math.round(this.pointOf(1, g).x) + 0.5;
-      ctx.moveTo(x, inner.y);
-      ctx.lineTo(x, inner.y + inner.h);
-    }
-    for (let t = THROTTLE_MIN; t <= 1.0001; t += 0.1) {
-      const y = Math.round(this.pointOf(t, 0).y) + 0.5;
-      ctx.moveTo(inner.x, y);
-      ctx.lineTo(inner.x + inner.w, y);
-    }
-    ctx.stroke();
-    ctx.strokeStyle = pal.lineStrong;
-    ctx.strokeRect(inner.x + 0.5, inner.y + 0.5, inner.w - 1, inner.h - 1);
+    // Control pad: gimbal across (−6 … +6°), throttle up (60 … 100 %). A deep glass well with
+    // dot marks at the 2° / 10 % steps and the zero-gimbal axis, not a debug lattice.
+    this.cached('mg12pad', inner, 0, () => {
+      const x = this.ctx;
+      paintPlotWell(x, inner, 10);
+      const thr = x.createLinearGradient(0, inner.y + inner.h, 0, inner.y);
+      thr.addColorStop(0, withAlpha(pal.accent, 0));
+      thr.addColorStop(1, withAlpha(pal.accent, 0.08));
+      x.fillStyle = thr;
+      x.fillRect(inner.x + 1, inner.y + 1, inner.w - 2, inner.h - 2);
+      x.fillStyle = withAlpha(pal.text, 0.28);
+      for (let g = -GIMBAL_MAX_DEG; g <= GIMBAL_MAX_DEG; g += 2) {
+        for (let t = THROTTLE_MIN; t <= 1.0001; t += 0.1) {
+          const pt = this.pointOf(t, g);
+          x.beginPath();
+          x.arc(pt.x, pt.y, 1.3, 0, Math.PI * 2);
+          x.fill();
+        }
+      }
+      const zx = Math.round(this.pointOf(1, 0).x) + 0.5;
+      x.strokeStyle = withAlpha(pal.accent, 0.35);
+      x.setLineDash([3, 5]);
+      x.lineWidth = 1;
+      x.beginPath();
+      x.moveTo(zx, inner.y + 6);
+      x.lineTo(zx, inner.y + inner.h - 6);
+      x.stroke();
+      x.setLineDash([]);
+    });
     // The settings that would balance right now at each throttle: a guide curve (Cadet only).
     // (Engineer and Flight Director read the needle.)
     // Puck at the command, ring at what the engine delivers.
