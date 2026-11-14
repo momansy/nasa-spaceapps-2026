@@ -45,6 +45,7 @@ architecture wins on file layout and interfaces. Report the conflict in your sum
 ## 4. Quality bar
 
 - This is a professional 3D game. Presentation and graphics matter as much as correctness.
+  Every visual task must meet `orchestration/VISUAL_TARGET.md` (score 4/5 or better).
   Placeholder art, default materials, unstyled UI and debug text are not "done".
 - Every number shown to a player has a unit. Every number in data or code is tagged
   `physical`, `real_world_approximate` or `game_value` (design section 19).

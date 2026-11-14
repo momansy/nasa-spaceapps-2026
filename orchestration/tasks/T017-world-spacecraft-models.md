@@ -1,5 +1,7 @@
 # T017 — World and spacecraft models (package G2 part 1, with the G1 payload parts)
 
+> **Amendment (orchestrator, after the visual overhaul):** every model in this task must meet `orchestration/VISUAL_TARGET.md` and use the PBR material library from T032 (`assets/blender/library/library.json`). Add any new material slots to that library rather than creating untextured materials. This task runs after T032 and T033 are merged.
+
 **Worker:** `cyrex04` (Blender MCP, Unity MCP) · **Starts after:** T009 (queue behind it;
 best after T009 is merged to `main`)
 
