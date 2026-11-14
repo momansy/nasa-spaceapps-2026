@@ -18,6 +18,7 @@ import plexSans400 from '../../../assets/fonts/plex-sans-400.woff';
 import plexSans600 from '../../../assets/fonts/plex-sans-600.woff';
 import oxanium700 from '../../../assets/fonts/oxanium-700.woff';
 import limbArt from '../../../assets/art/bg-limb.webp';
+import bayArt from '../../../assets/art/bg-bay.webp';
 
 export interface ArtRect {
   x: number;
@@ -256,10 +257,24 @@ export function paintStage(ctx: CanvasRenderingContext2D, W: number, H: number, 
  * blit per frame costs too much on slow phones). High contrast: plain black. Called when the
  * canvas is made and on every re-measure, so a contrast switch applies.
  */
-export function applyStageBackground(canvas: HTMLCanvasElement) {
+export function applyStageBackground(canvas: HTMLCanvasElement, scene: 'limb' | 'bay' = 'limb', warmth = 1) {
   const st = canvas.style;
   if (highContrast()) {
     st.background = '#000000';
+    return;
+  }
+  if (scene === 'bay') {
+    // Build phase (frame 02, the Build Bay at dusk): the bay key art held well back behind a
+    // navy veil so cards keep AA contrast, with the low warm sun glowing in from the lower
+    // right and a slow vignette into navy.
+    const w = Math.max(0, Math.min(1.2, warmth));
+    st.background = [
+      'radial-gradient(120% 80% at 50% 45%, rgba(3, 10, 18, 0) 40%, rgba(3, 10, 18, 0.6) 100%)',
+      `radial-gradient(90% 55% at 85% 102%, rgba(255, 170, 90, ${(0.38 * w).toFixed(3)}), rgba(255, 140, 80, ${(0.1 * w).toFixed(3)}) 40%, rgba(255, 140, 80, 0) 75%)`,
+      'linear-gradient(180deg, rgba(7, 21, 34, 0.5), rgba(7, 21, 34, 0.64) 60%, rgba(7, 21, 34, 0.42))',
+      `url("${bayArt}") center center / cover no-repeat`,
+      'linear-gradient(180deg, #0b2136, #071522)',
+    ].join(', ');
     return;
   }
   st.background = [

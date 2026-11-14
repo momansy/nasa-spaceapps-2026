@@ -12,6 +12,7 @@
 // The pure helpers at the top have no DOM access and are covered by the minigames' tests.
 import type { MgMap } from '@protocol';
 import type { MinigameEnv, MinigameResult } from '../types';
+import { applyStageBackground, artEpoch, onArtChange, revealWhenFontsReady } from '../MG-09/shared/art';
 
 // ───────────────────────── pure helpers ─────────────────────────
 
@@ -124,17 +125,27 @@ export function makeCanvas(root: HTMLElement): HTMLCanvasElement {
   canvas.style.setProperty('-webkit-user-select', 'none');
   canvas.style.setProperty('-webkit-touch-callout', 'none');
   root.appendChild(canvas);
+  // Theme fonts first: the canvas fades in once they are loaded (no fallback-face frame).
+  revealWhenFontsReady(canvas);
   return canvas;
 }
 
 export function watchSize(el: HTMLElement, cb: () => void): () => void {
+  // Fonts arriving count as a resize too: cached plates and layers are repainted.
+  const offArt = onArtChange(cb);
   if (typeof ResizeObserver === 'function') {
     const ro = new ResizeObserver(cb);
     ro.observe(el);
-    return () => ro.disconnect();
+    return () => {
+      ro.disconnect();
+      offArt();
+    };
   }
   window.addEventListener('resize', cb);
-  return () => window.removeEventListener('resize', cb);
+  return () => {
+    window.removeEventListener('resize', cb);
+    offArt();
+  };
 }
 
 /**
@@ -455,7 +466,6 @@ export class Canvas2D {
   rtl = false;
   /** Advance of one digit per font string, for tabular numerals. */
   private digitW = new Map<string, number>();
-  private backdropLayer: HTMLCanvasElement | null = null;
   /** Cached glass plates by size. */
   private plates = new Map<string, HTMLCanvasElement>();
   private backdropKey = '';
@@ -715,40 +725,13 @@ export class Canvas2D {
    * glow (the Build Bay frame's sun) with a soft vignette. Cached per size.
    */
   backdrop(warmth = 1) {
+    // The Build Bay key art at dusk, given to the canvas as its CSS background (no per-frame
+    // full-screen blit, which was the largest cost on slow phones). Set once per size / mode.
     const key = `${this.W}x${this.H}@${this.dpr}/${warmth}/${this.pal.highContrast}`;
-    if (key !== this.backdropKey || !this.backdropLayer) {
-      const layer = this.backdropLayer ?? document.createElement('canvas');
-      layer.width = Math.round(this.W * this.dpr);
-      layer.height = Math.round(this.H * this.dpr);
-      const g = layer.getContext('2d');
-      if (g) {
-        g.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
-        const { W, H, pal } = this;
-        g.fillStyle = pal.bg0;
-        g.fillRect(0, 0, W, H);
-        if (!pal.highContrast) {
-          const top = g.createLinearGradient(0, 0, 0, H);
-          top.addColorStop(0, 'rgba(23, 58, 85, 0.55)');
-          top.addColorStop(0.55, 'rgba(11, 29, 46, 0)');
-          g.fillStyle = top;
-          g.fillRect(0, 0, W, H);
-          const warm = g.createRadialGradient(W * 0.82, H * 1.02, 0, W * 0.82, H * 1.02, Math.max(W, H) * 0.75);
-          warm.addColorStop(0, `rgba(255, 170, 90, ${0.2 * warmth})`);
-          warm.addColorStop(0.35, `rgba(255, 140, 80, ${0.07 * warmth})`);
-          warm.addColorStop(1, 'rgba(255, 140, 80, 0)');
-          g.fillStyle = warm;
-          g.fillRect(0, 0, W, H);
-          const vig = g.createRadialGradient(W / 2, H * 0.45, Math.min(W, H) * 0.35, W / 2, H * 0.45, Math.max(W, H) * 0.8);
-          vig.addColorStop(0, 'rgba(3, 10, 18, 0)');
-          vig.addColorStop(1, 'rgba(3, 10, 18, 0.55)');
-          g.fillStyle = vig;
-          g.fillRect(0, 0, W, H);
-        }
-      }
-      this.backdropLayer = layer;
+    if (key !== this.backdropKey) {
+      applyStageBackground(this.canvas, 'bay', warmth);
       this.backdropKey = key;
     }
-    this.ctx.drawImage(this.backdropLayer, 0, 0, this.W, this.H);
   }
 
   statusColor(s: Status): string {
@@ -1040,7 +1023,8 @@ export class KeyedLayer {
     const c = this.c;
     const w = Math.max(1, Math.ceil(r.w * c.dpr));
     const h = Math.max(1, Math.ceil(r.h * c.dpr));
-    const size = `${w}x${h}@${r.x},${r.y}/${c.dpr}`;
+    // The asset epoch is part of the size key: fonts arriving repaint the layer.
+    const size = `${w}x${h}@${r.x},${r.y}/${c.dpr}#${artEpoch()}`;
     if (!this.canvas) {
       this.canvas = document.createElement('canvas');
       this.lctx = this.canvas.getContext('2d');

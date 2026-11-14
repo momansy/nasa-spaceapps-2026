@@ -128,7 +128,9 @@ export class Mg30View {
     const g = img.getContext('2d');
     if (g) {
       g.setTransform(c.dpr, 0, 0, c.dpr, 0, 0);
-      drawPatch(g, p, size / 2, size / 2, R, this.o.t(`${K}motto.${p[3]}`), c.pal.fontUi);
+      // Thumbnails keep the ribbon but drop its words: at that size the motto would be about
+      // 6 px and unreadable across a room; the large preview carries it.
+      drawPatch(g, p, size / 2, size / 2, R, R >= 50 ? this.o.t(`${K}motto.${p[3]}`) : '', c.pal.fontUi);
     }
     this.cache.set(key, img);
     return img;
