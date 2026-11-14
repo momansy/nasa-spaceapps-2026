@@ -36,7 +36,7 @@ Exact prompts and proposed model parameters: [style/PROMPT_PACK.json](style/PROM
 | `key-art/missionforge-16x9.png` | Higgsfield / `gpt_image_2_6` | `key_art_landscape` | Not submitted |
 | `key-art/missionforge-1x1.png` | Higgsfield / `gpt_image_2_6` | `key_art_square` | Not submitted |
 | `cinematics/c1-earth-watch-briefing.mp4` | Google Gemini user-supplied export; exact model not provided; local FFmpeg remux | `c1_briefing` visual intent; original generation prompt not provided | Delivered and approved 2026-11-14; source and derivative details below |
-| `../../orchestration/evidence/T005/contact-sheet.jpg` | Local contact-sheet assembly, tool to be recorded | Arrange all eight finished stills plus representative cinematic frames | Not produced; no finished media available |
+| `../../orchestration/evidence/T005/contact-sheet.jpg` | Local FFmpeg contact-sheet assembly | All eight approved stills plus cinematic frames at 0.5, 5.5 and 9.5 s | Produced and visually inspected; 1920×810 JPEG; 531,927 bytes |
 
 When resumed, replace each planned row with actual tool/model, exact prompt or immutable prompt reference, UTC generation date, job ID, source/result URL where safe to retain, downloaded path, dimensions, duration/codec when relevant, file hash, edits/encoding and inspection result. Record both source and derivative for any crop, resize or video transcode. Do not overwrite this blocked attempt's history or claim a new generation is the earlier rejected call.
 

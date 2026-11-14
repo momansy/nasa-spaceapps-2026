@@ -24,7 +24,7 @@ Initial inherited-context subagent startup failed with a thread-store error. A f
 
 ## Verification
 
-Run from checkout root: `node orchestration/evidence/T005/verify-preproduction.mjs`. Exit 1 means failed source checks or missing assets; exit 2 would mean files exist but still require separate decoded-media and visual acceptance. This script never awards full media acceptance. `node --check orchestration/evidence/T005/verify-preproduction.mjs` passed syntax validation.
+Run from checkout root: `node orchestration/evidence/T005/verify-preproduction.mjs`. Exit 0 means all source, decoded-media and recorded visual-acceptance checks pass; exit 1 means at least one check failed. `node --check orchestration/evidence/T005/verify-preproduction.mjs` passed syntax validation.
 
 Final result: **14/14 checks passed; 0 missing media; media acceptance PASS.** The verifier checks manifest completion, prompt/source coverage, palette contrast, all still dimensions/codecs, both key-art sizes, silent H.264 duration/resolution, contact-sheet decoding, recorded visual acceptance and file-size limits. `ffmpeg` also decoded the final cinematic end to end without errors. Arithmetic remains a design-token check rather than a colour-vision simulation.
 
