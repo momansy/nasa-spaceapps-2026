@@ -9,6 +9,7 @@ import { goodPlayer as goodPlayer26, makeSim as mk26 } from '../../../src/miniga
 import { goodPlayer as goodPlayer27, makeSim as mk27 } from '../../../src/minigames/MG-27/model';
 import { chainOf, HERRINGS } from '../../../src/minigames/MG-28/clues';
 import { goodPlayer as goodPlayer28, makeSim as mk28 } from '../../../src/minigames/MG-28/model';
+import type { LabApi } from './lab';
 import { EVIDENCE, medianFps, openLab, shot, startVite, throttle, watchConsole, type LabOpts } from './helpers';
 
 let server: ViteDevServer;
@@ -40,7 +41,7 @@ test.describe('lab smoke (MG-08, the reference)', () => {
     await page.clock.runFor(1500);
     await shot(page, 'lab-smoke', false);
     await page.clock.runFor(3500);
-    const result = await page.evaluate(() => ({ r: window.__lab.result, n: window.__lab.resultCount }));
+    const result = await page.evaluate(() => ({ r: (window as unknown as { __lab: LabApi }).__lab.result, n: (window as unknown as { __lab: LabApi }).__lab.resultCount }));
     expect(result.n).toBe(1);
     expect(result.r).not.toBeNull();
     con.assertClean();
@@ -324,7 +325,7 @@ for (const e of ENTRIES) {
         };
         await e.play(page, clocked, mode);
         await page.clock.runFor(e.durS * 1000 + 3000);
-        const out = await page.evaluate(() => ({ r: window.__lab.result, n: window.__lab.resultCount }));
+        const out = await page.evaluate(() => ({ r: (window as unknown as { __lab: LabApi }).__lab.result, n: (window as unknown as { __lab: LabApi }).__lab.resultCount }));
         expect(out.n).toBe(1);
         expect(out.r).not.toBeNull();
         expect(out.r!.score).toBeGreaterThanOrEqual(0);
@@ -338,9 +339,9 @@ for (const e of ENTRIES) {
     test(`${e.id}: result is not delivered after destroy()`, async ({ page }) => {
       await openLab(page, { mg: e.id, seed: 3, ...e.opts });
       await page.clock.runFor(1000);
-      await page.evaluate(() => window.__lab.destroy());
+      await page.evaluate(() => (window as unknown as { __lab: LabApi }).__lab.destroy());
       await page.clock.runFor(e.durS * 1000 + 3000);
-      const n = await page.evaluate(() => window.__lab.resultCount);
+      const n = await page.evaluate(() => (window as unknown as { __lab: LabApi }).__lab.resultCount);
       expect(n).toBe(0);
     });
 
@@ -382,7 +383,7 @@ test.describe('MG-28 shared state through the fake env.coop', () => {
     await page.keyboard.press('Backspace'); // take the card at the cursor off again
     await run(200);
     await shot(page, 'MG-28-coop');
-    const out = await page.evaluate(() => ({ actions: window.__lab.actions, shared: window.__lab.shared() as { chain: number[]; votes: number[] } | null }));
+    const out = await page.evaluate(() => ({ actions: (window as unknown as { __lab: LabApi }).__lab.actions, shared: (window as unknown as { __lab: LabApi }).__lab.shared() as { chain: number[]; votes: number[] } | null }));
     const places = out.actions.filter((a) => a.a === 'place');
     expect(places.length).toBe(5); // the five cards of the true chain
     for (const a of places) {
@@ -395,7 +396,7 @@ test.describe('MG-28 shared state through the fake env.coop', () => {
     expect(out.shared!.votes[1]).toBe(1);
     expect(out.shared!.chain.filter((v) => v >= 0)).toHaveLength(4); // five placed, one cleared
     await run(45000);
-    const r = await page.evaluate(() => ({ r: window.__lab.result, n: window.__lab.resultCount }));
+    const r = await page.evaluate(() => ({ r: (window as unknown as { __lab: LabApi }).__lab.result, n: (window as unknown as { __lab: LabApi }).__lab.resultCount }));
     expect(r.n).toBe(1);
     expect(r.r!.success).toBe(true);
     con.assertClean();

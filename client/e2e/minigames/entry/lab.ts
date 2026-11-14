@@ -27,12 +27,6 @@ export interface LabApi {
   resultCount: number;
 }
 
-declare global {
-  interface Window {
-    __lab: LabApi;
-  }
-}
-
 const q = new URLSearchParams(location.search);
 const mgId = q.get('mg') ?? 'MG-22';
 const mode = (q.get('mode') ?? 'STANDARD') as MinigameMode;
@@ -60,7 +54,7 @@ const lab: LabApi = {
   destroy: () => undefined,
   resultCount: 0,
 };
-window.__lab = lab;
+(window as unknown as { __lab: LabApi }).__lab = lab;
 
 /** Fake shared state of the MG-28 contract (chain, votes, locked) so the shared path is testable. */
 function makeCoop(): MinigameCoop {

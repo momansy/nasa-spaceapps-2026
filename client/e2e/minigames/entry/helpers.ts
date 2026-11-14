@@ -1,4 +1,5 @@
 import type { Page } from '@playwright/test';
+import type { LabApi } from './lab';
 import { mkdirSync, copyFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -78,7 +79,7 @@ export async function openLab(page: Page, o: LabOpts, opts: { clock?: boolean } 
 }
 
 export async function labResult(page: Page) {
-  return page.evaluate(() => window.__lab.result);
+  return page.evaluate(() => (window as unknown as { __lab: LabApi }).__lab.result);
 }
 
 export async function shot(page: Page, name: string, evidence = true) {
@@ -90,10 +91,10 @@ export async function shot(page: Page, name: string, evidence = true) {
 /** Median frames per second over `ms` of real time (the real clock, not the fake one). */
 export async function medianFps(page: Page, ms = 5000): Promise<number> {
   const samples: number[] = [];
-  let last = await page.evaluate(() => window.__lab.frames);
+  let last = await page.evaluate(() => (window as unknown as { __lab: LabApi }).__lab.frames);
   for (let i = 0; i < ms / 500; i++) {
     await page.waitForTimeout(500);
-    const now = await page.evaluate(() => window.__lab.frames);
+    const now = await page.evaluate(() => (window as unknown as { __lab: LabApi }).__lab.frames);
     samples.push((now - last) * 2);
     last = now;
   }
