@@ -1,0 +1,69 @@
+
+> missionforge-client@0.1.0 e2e
+> playwright test e2e/minigames/build/build.spec.ts
+
+
+Running 1 test using 1 worker
+
+(node:121644) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+X [ERROR] Cannot read directory "../../../../../../..": Access is denied.
+
+X [ERROR] Could not resolve "./cjs/react-dom.development.js"
+
+    node_modules/react-dom/index.js:37:27:
+      37 │   module.exports = require('./cjs/react-dom.development.js');
+         ╵                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+X [ERROR] Could not resolve "./cjs/react.development.js"
+
+    node_modules/react/index.js:6:27:
+      6 │   module.exports = require('./cjs/react.development.js');
+        ╵                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  x  1 e2e\minigames\build\build.spec.ts:19:1 › lab smoke with reference MG-08 (2ms)
+X [ERROR] Could not resolve "./cjs/react-jsx-runtime.development.js"
+
+    node_modules/react/jsx-runtime.js:6:27:
+      6 │   module.exports = require('./cjs/react-jsx-runtime.development.js');
+        ╵                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+X [ERROR] Could not resolve "./cjs/react-jsx-dev-runtime.development.js"
+
+    node_modules/react/jsx-dev-runtime.js:6:27:
+      6 │ ...le.exports = require('./cjs/react-jsx-dev-runtime.development.js');
+        ╵                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+  1) e2e\minigames\build\build.spec.ts:19:1 › lab smoke with reference MG-08 ───────────────────────
+
+    Error: browserType.launch: Executable doesn't exist at C:\Users\moham\AppData\Local\ms-playwright\chromium_headless_shell-1255\chrome-headless-shell-win64\chrome-headless-shell.exe
+    ╔════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright was just installed or updated.       ║
+    ║ Please run the following command to download new browsers: ║
+    ║                                                            ║
+    ║     npx playwright install                                 ║
+    ║                                                            ║
+    ║ <3 Playwright Team                                         ║
+    ╚════════════════════════════════════════════════════════════╝
+
+    Error Context: test-results\minigames-build-build-lab-smoke-with-reference-MG-08\error-context.md
+
+    Error Context: test-results\minigames-build-build-lab-smoke-with-reference-MG-08\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\minigames-build-build-lab-smoke-with-reference-MG-08\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\minigames-build-build-lab-smoke-with-reference-MG-08\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    e2e\minigames\build\build.spec.ts:19:1 › lab smoke with reference MG-08 ────────────────────────
+npm notice
+npm notice New major version of npm available! 11.13.0 -> 12.2.2
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.2
+npm notice To update run: npm install -g npm@12.2.2
+npm notice
