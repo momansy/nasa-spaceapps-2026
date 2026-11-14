@@ -27,6 +27,7 @@ import {
   recordMessage,
   type OverallBudgetState,
 } from '../limits/messageLimits.js';
+import { getPayloadValidator } from './validate.js';
 import { newBucket, tryConsume, type TokenBucketState } from '../limits/tokenBucket.js';
 
 const HELLO_TIMEOUT_MS = 5000;
@@ -77,6 +78,14 @@ export interface ServerOptions {
 export function startServer(opts: ServerOptions): WebSocketServer {
   const rooms = new Map<string, Room>();
   const wss = new WebSocketServer({ port: opts.port });
+  // Housekeeping once a second: slot-hold expiry (3 min) and room expiry (10 min host absence).
+  const sweeper = setInterval(() => {
+    for (const room of [...rooms.values()]) room.sweep();
+  }, 1000);
+  wss.on('close', () => {
+    clearInterval(sweeper);
+    for (const room of rooms.values()) room.stopAllTimers();
+  });
 
   wss.on('connection', (ws: WebSocket) => {
     const conn = new WsConnection(ws, randomUUID());
@@ -122,9 +131,9 @@ export function startServer(opts: ServerOptions): WebSocketServer {
 function onDisconnect(session: Session): void {
   const room = session.room;
   if (!room) return;
-  if (session.conn.kind === 'HOST') room.disconnectHost();
-  else if (session.conn.kind === 'PLAYER' && session.conn.playerId) room.disconnectPlayer(session.conn.playerId);
-  else if (session.conn.kind === 'SPECTATOR' && session.conn.spectatorId) room.disconnectSpectator(session.conn.spectatorId);
+  if (session.conn.kind === 'HOST') room.disconnectHost(session.conn);
+  else if (session.conn.kind === 'PLAYER' && session.conn.playerId) room.disconnectPlayer(session.conn.playerId, session.conn);
+  else if (session.conn.kind === 'SPECTATOR' && session.conn.spectatorId) room.disconnectSpectator(session.conn.spectatorId, session.conn);
 }
 
 function sizeLimitFor(session: Session): number {
@@ -170,6 +179,12 @@ function handleFrame(rooms: Map<string, Room>, opts: ServerOptions, session: Ses
       sendBye(conn, 'PROTOCOL_VIOLATION');
       return;
     }
+    const helloCheck = getPayloadValidator().check('hello', d);
+    if (!helloCheck.ok) {
+      conn.sendError(errorFields('BAD_PAYLOAD', seq, t, true, { field: helloCheck.field }));
+      sendBye(conn, 'PROTOCOL_VIOLATION');
+      return;
+    }
     handleHello(session, seq, d as unknown as PayloadMap['hello']);
     return;
   }
@@ -202,17 +217,33 @@ function handleFrame(rooms: Map<string, Room>, opts: ServerOptions, session: Ses
       conn.sendError(errorFields('ALREADY_IN_ROOM', seq, t, false));
       return;
     }
+    const preCheck = getPayloadValidator().check(t, d);
+    if (!preCheck.ok) {
+      conn.sendError(errorFields('BAD_PAYLOAD', seq, t, false, { field: preCheck.field }));
+      return;
+    }
     handlePreRoom(rooms, opts, session, seq, t, d);
     return;
   }
 
   if (t === 'clock.ping') {
+    const pingCheck = getPayloadValidator().check(t, d);
+    if (!pingCheck.ok) {
+      conn.sendError(errorFields('BAD_PAYLOAD', seq, t, false, { field: pingCheck.field }));
+      return;
+    }
     conn.send('clock.pong', { clientTimeMs: (d as { clientTimeMs?: number }).clientTimeMs ?? 0, serverTimeMs: Date.now() });
     return;
   }
 
   if (!session.inRoom || !session.room) {
     conn.sendError(errorFields('NOT_IN_ROOM', seq, t, false));
+    return;
+  }
+
+  const payloadCheck = getPayloadValidator().check(t, d);
+  if (!payloadCheck.ok) {
+    conn.sendError(errorFields('BAD_PAYLOAD', seq, t, false, { field: payloadCheck.field }));
     return;
   }
 
@@ -223,7 +254,7 @@ function handleFrame(rooms: Map<string, Room>, opts: ServerOptions, session: Ses
   }
 
   try {
-    dispatch(room, conn, t, d);
+    dispatch(room, conn, t, d, seq);
   } catch (e) {
     const code = e instanceof Error && 'code' in e ? (e as unknown as { code: string }).code : 'INTERNAL';
     const extra = e instanceof Error && 'extra' in e ? (e as unknown as { extra: Record<string, unknown> }).extra : {};
@@ -251,7 +282,7 @@ function handleHello(session: Session, seq: number, d: PayloadMap['hello']): voi
   });
 }
 
-function sendSnapshotEnd(conn: WsConnection, room: Room): void {
+function sendSnapshotEnd(conn: WsConnection, room: Room, lastOutcomeSeq = 0): void {
   conn.send('settings.state', { settings: room.settings });
   conn.send('room.state', room.buildRoomState());
   conn.send('roles.state', room.buildRolesState());
@@ -262,16 +293,22 @@ function sendSnapshotEnd(conn: WsConnection, room: Room): void {
       roomExpiresAtMs: room.pauseState.roomExpiresAtMs,
     });
   }
+  for (const m of room.snapshotMessages(conn, lastOutcomeSeq)) conn.send(m.t as never, m.d as never);
   conn.send('snapshot.end', { serverTimeMs: Date.now(), lastOutcomeSeq: room.outcomeLog.at(-1)?.outcomeSeq ?? 0 });
 }
 
 function handlePreRoom(rooms: Map<string, Room>, opts: ServerOptions, session: Session, seq: number, t: MessageType, d: Record<string, unknown>): void {
   const { conn } = session;
+  if ((t === 'room.create' && session.client !== 'HOST') || (t === 'room.join' && session.client !== 'PHONE')) {
+    conn.sendError(errorFields('FORBIDDEN', seq, t, false));
+    return;
+  }
   if (t === 'room.create') {
     const code = generateRoomCode((c) => rooms.has(c));
     const room = new Room({ code, clientBaseUrl: opts.clientBaseUrl });
     attachOrchestration(room);
     rooms.set(code, room);
+    room.onDestroyed = () => rooms.delete(code);
     const created = room.createByHost(conn, (d as unknown as PayloadMap['room.create']).settings);
     session.room = room;
     session.inRoom = true;
@@ -301,15 +338,19 @@ function handlePreRoom(rooms: Map<string, Room>, opts: ServerOptions, session: S
     const p = d as unknown as PayloadMap['room.resume'];
     const room = rooms.get(p.room);
     if (!room) {
-      conn.sendError(errorFields('TOKEN_INVALID', seq, t, false));
+      conn.sendError(errorFields('ROOM_NOT_FOUND', seq, t, false));
       return;
     }
     if (room.isHostToken(p.token)) {
+      if (session.client !== 'HOST') {
+        conn.sendError(errorFields('FORBIDDEN', seq, t, false));
+        return;
+      }
       room.resumeHost(conn);
       session.room = room;
       session.inRoom = true;
       conn.send('room.resumed', { room: room.code, kind: 'HOST', id: 'host', slot: null, pendingPlayer: false, paused: room.pauseState.paused });
-      sendSnapshotEnd(conn, room);
+      sendSnapshotEnd(conn, room, p.lastOutcomeSeq ?? 0);
       return;
     }
     const player = room.findPlayerByToken(p.token);

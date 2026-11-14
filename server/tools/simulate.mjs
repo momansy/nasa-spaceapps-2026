@@ -159,6 +159,7 @@ async function main() {
     // Run several PART vote rounds (ties, vetoes, plurality) and measure vote.cast -> vote.ack
     // round-trip time for every player and every round.
     const roundTrips = [];
+    const spectatorTrips = [];
     const ROUNDS = 5;
     for (let r = 0; r < ROUNDS; r++) {
       const roundId = `r${r}`;
@@ -187,6 +188,14 @@ async function main() {
       await Promise.all(players.map((p) => waitForVoteStage(p.ws, 'VOTE')));
 
       const options = ['eng_a', 'eng_b', 'eng_c'];
+      // The 50 spectators vote first (audience ballots, advisory) and each waits for its own ack.
+      await Promise.all(
+        spectators.map((ws, i) => {
+          const t = Date.now();
+          send(ws, 'vote.cast', { roundId, optionId: options[i % options.length] });
+          return waitFor(ws, 'vote.ack').then(() => spectatorTrips.push(Date.now() - t));
+        }),
+      );
       await Promise.all(
         players.map((p, i) => {
           const t = Date.now();
@@ -213,9 +222,11 @@ async function main() {
     console.log(`  max    = ${Math.max(...roundTrips)}`);
     const over200 = roundTrips.filter((x) => x > 200).length;
     console.log(`  over 200ms target (§17.8): ${over200}/${roundTrips.length}`);
+    console.log('\nSpectator (audience) vote.cast -> vote.ack round-trip times (ms):');
+    console.log(`  n = ${spectatorTrips.length}  p50 = ${percentile(spectatorTrips, 50)}  p95 = ${percentile(spectatorTrips, 95)}  max = ${Math.max(...spectatorTrips)}`);
 
     // A GO/NO-GO poll calling every connected role.
-    send(host, 'poll.open', { pollId: 'poll1', context: 'FRR', round: 1, order: ['FLIGHT', 'BOOSTER', 'STRUCT', 'GUIDO', 'FIDO', 'EECOM', 'INCO', 'PAYLOAD', 'RETRO', 'PM'], perCallMs: 2000 });
+    send(host, 'poll.open', { pollId: 'poll1', context: 'FRR', round: 1, order: ['FLIGHT', 'BOOSTER', 'STRUCT', 'GUIDO', 'FIDO', 'EECOM', 'INCO', 'PAYLOAD', 'RETRO', 'PM'], perCallMs: 3000 });
     for (let i = 0; i < PLAYER_COUNT; i++) {
       const call = await waitFor(host, 'poll.call');
       const player = players.find((p) => p.id === call.playerId);
