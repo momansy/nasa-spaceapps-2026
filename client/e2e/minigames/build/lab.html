@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark" />
+    <title>Build minigame lab</title>
+    <style>
+      html, body { margin: 0; height: 100%; background: #030a12; color: #e8eef0; }
+      body { display: flex; align-items: center; justify-content: center; }
+      #frame {
+        position: relative; width: 390px; height: 844px; max-height: 100vh; overflow: hidden;
+        display: flex; flex-direction: column; background: var(--bg-0, #071522);
+      }
+      .lab-intro { padding: 14px var(--gutter, 16px) 10px; display: flex; flex-direction: column; gap: 10px; }
+      .lab-intro__how { font-size: 1.15rem; font-weight: 650; line-height: 1.3; }
+      .lab-intro__goal { color: var(--text-dim); font-size: 0.95rem; }
+      .lab-demo {
+        position: relative; height: clamp(150px, 26vh, 230px); border-radius: 16px; overflow: hidden;
+        border: 1px solid var(--line-strong); background: var(--bg-1);
+      }
+      .lab-demo > div { position: absolute; inset: 0; }
+      .lab-result {
+        position: absolute; left: 12px; right: 12px; bottom: 12px; padding: 10px 12px; border-radius: 10px;
+        background: var(--bg-2); border: 1px solid var(--line-strong); font: 600 13px var(--font-mono); display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="frame"></div>
+    <script type="module" src="./lab.ts"></script>
+  </body>
+</html>
