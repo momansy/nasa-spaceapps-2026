@@ -34,6 +34,10 @@ architecture wins on file layout and interfaces. Report the conflict in your sum
 - **Do not** push, open pull requests, switch branches, or edit `mesh.py`,
   `mesh_supervisor.py`, `AGENTS.md`, `CLAUDE.md`, `.github/` or `.claude/`. The worker
   commits and opens the pull request for you.
+- **Work in increments that stand on their own.** A run can be cut off by a usage limit or
+  a timeout, and whatever is in the checkout at that moment is published as a draft pull
+  request. Finish and verify one piece before starting the next, in the order of the
+  brief, and keep the project in a state that builds.
 - Keep single files under 50 MB. Do not commit build caches (`Library/`, `node_modules/`,
   `bin/`, `obj/`).
 - Never print or commit secrets. Spend paid credits only up to the budget a task states.

@@ -470,7 +470,10 @@ def make_build_prompt(issue, comments, agent, progress_command, progress_minutes
             "summary what you verified and how, what failed, and what you did not verify. Do not "
             "invent results.\n"
             "8. Keep physical models and game simplifications distinct, and give units for numbers.\n"
-            "9. Handoffs are disabled; return an empty handoffs list.\n\n"
+            "9. Handoffs are disabled; return an empty handoffs list.\n"
+            "10. This checkout may already hold partial work on this task from an earlier run that "
+            "was cut off. Check 'git status' and 'git log origin/HEAD..HEAD' first and continue from "
+            "what is there instead of starting again.\n\n"
             "Return ONLY a JSON object matching the result schema (summary, status, handoffs).\n\n"
             f"ISSUE #{issue['number']}: {issue['title']}\n\n"
             f"BODY:\n{(issue.get('body') or '')[:7000]}\n\n"
@@ -595,13 +598,39 @@ def stash_leftovers(repo_path, label):
     return False
 
 
-def prepare_branch(repo_path, agent, number, stash=False):
+def prepare_branch(repo_path, agent, number, stash=False, resume=False):
+    """Put the checkout on the task branch.
+
+    resume (build mode): a task that was cut off (usage limit, timeout, worker restart)
+    continues from where it stopped instead of starting again from the default branch.
+    """
+    branch = f"agentmesh/{agent}/issue-{number}"
+    if resume and git(repo_path, "rev-parse", "--abbrev-ref", "HEAD") == branch:
+        # Interrupted run of this same task: keep the working tree exactly as it is.
+        git(repo_path, "fetch", "origin", timeout=600)
+        return branch
     if git(repo_path, "status", "--porcelain"):
         if not stash:
             raise RuntimeError("Repository is not clean. Commit/stash your local work before agent code mode.")
         stash_leftovers(repo_path, f"mesh-before-issue-{number}")
-    branch = f"agentmesh/{agent}/issue-{number}"
     git(repo_path, "fetch", "origin", timeout=600)
+    if resume:
+        try:
+            git(repo_path, "rev-parse", "--verify", "--quiet", f"refs/remotes/origin/{branch}")
+            published = True
+        except RuntimeError:
+            published = False
+        if published:
+            # Earlier partial work was pushed: continue from it, brought up to date.
+            git(repo_path, "checkout", "-B", branch, f"origin/{branch}", timeout=600)
+            try:
+                git(repo_path, "merge", "--no-edit", "origin/HEAD", timeout=600)
+            except RuntimeError:
+                try:
+                    git(repo_path, "merge", "--abort")
+                except RuntimeError:
+                    pass
+            return branch
     git(repo_path, "checkout", "-B", branch, "origin/HEAD", timeout=600)
     return branch
 
@@ -648,6 +677,11 @@ def publish_branch(repo_path, branch, issue, agent, draft=False, lenient=False):
     except RuntimeError as exc:
         if "already exists" not in str(exc):
             raise
+        if not draft:
+            try:  # a resumed task that is now complete: its earlier draft becomes reviewable
+                run_command(["gh", "pr", "ready", branch], repo_path, env, 120)
+            except RuntimeError:
+                pass
         return run_command(["gh", "pr", "view", branch, "--json", "url", "--jq", ".url"],
                            repo_path, env, 120)
 
@@ -678,6 +712,22 @@ def recover_interrupted(gh, agent):
         gh.transition(issue["number"], "running", "blocked")
         flagged += 1
     return flagged
+
+
+TASK_MODEL = re.compile(r"^\s*mesh-model:\s*([A-Za-z0-9._\[\]-]{1,60})\s*$", re.MULTILINE | re.IGNORECASE)
+TASK_EFFORT = re.compile(r"^\s*mesh-effort:\s*(low|medium|high|xhigh|max)\s*$", re.MULTILINE | re.IGNORECASE)
+
+
+def task_overrides(body):
+    """Per-task settings the orchestrator may put in a build task: 'mesh-model: X', 'mesh-effort: Y'."""
+    found = {}
+    model = TASK_MODEL.search(body or "")
+    effort = TASK_EFFORT.search(body or "")
+    if model:
+        found["model"] = model.group(1)
+    if effort:
+        found["effort"] = effort.group(1).lower()
+    return found
 
 
 def accept_from_orchestrator(gh, messages, orchestrators, dry_run=False):
@@ -712,6 +762,9 @@ def handle_one(gh, agent, provider, repo_path, mode, dry_run=False, options=None
     if dry_run:
         print(f"Would run {agent} ({provider}/{mode}) on #{number}: {issue['title']}")
         return True
+    if build:
+        # The orchestrator may choose the model and effort per task.
+        options = dict(options, **task_overrides(issue.get("body", "")))
     gh.transition(number, "queued", "running")
     run_id = str(uuid.uuid4())[:12]
     settings = f", model `{options['model']}`" if options["model"] else ""
@@ -721,7 +774,7 @@ def handle_one(gh, agent, provider, repo_path, mode, dry_run=False, options=None
     ticker = None
     try:
         if mode in ("code", "build"):
-            branch = prepare_branch(repo_path, agent, number, stash=build)
+            branch = prepare_branch(repo_path, agent, number, stash=build, resume=build)
         presence = online_agents(gh.presence())
         # Build-mode agents take orders from the orchestrator only, so they get no peers.
         peers = {} if build else {key: value for key, value in presence.items() if key != agent}
