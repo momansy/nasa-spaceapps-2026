@@ -36,11 +36,30 @@ namespace MissionForge.Core.Flight.Mission
             if (phase == "F7" && (full || HasAid("auto_circularize_with_prompt")))
             {
                 if (!circularizePrompted) { circularizePrompted = true; Emit("guidance_prompt", "auto_circularize"); }
-                copy.PitchRad = GuidancePitchRad();
-                copy.ThrottleFraction = 1;
                 var elements = OrbitalMechanics.Elements(state, body.MuM3S2);
-                if (elements.PeriapsisRadiusM - body.RadiusM >= setup.TargetOrbitAltitudeM - 10000)
+                var targetPeriapsisM = setup.TargetOrbitAltitudeM - 10000; // game_value insertion tolerance
+                if (elements.PeriapsisRadiusM - body.RadiusM >= targetPeriapsisM)
                 { copy.ThrottleFraction = 0; copy.Cutoff = true; }
+                else
+                {
+                    // game_value closed-loop insertion controller: command radial velocity toward
+                    // target altitude while converging tangential speed on the local circular speed.
+                    var radiusM = state.RadiusM;
+                    var tangentialMs = (state.PositionXM * state.VelocityYMs - state.PositionYM * state.VelocityXMs) / radiusM;
+                    var circularMs = OrbitalMechanics.CircularSpeedMs(body.MuM3S2, radiusM);
+                    var targetRadialMs = Math.Max(-200, Math.Min(200,
+                        (setup.TargetOrbitAltitudeM - AltitudeM) / 40));
+                    var radialAccelerationMs2 = (targetRadialMs - RadialMs) / 12
+                        + body.GravityMs2(radiusM) - tangentialMs * tangentialMs / radiusM;
+                    var tangentialAccelerationMs2 = Math.Max(-20, Math.Min(20,
+                        (circularMs - tangentialMs) / 20));
+                    var requestedAccelerationMs2 = Math.Sqrt(radialAccelerationMs2 * radialAccelerationMs2
+                        + tangentialAccelerationMs2 * tangentialAccelerationMs2);
+                    var availableAccelerationMs2 = Stage.Engine.ThrustN(body.PressureRatioUnitless(AltitudeM)) / state.MassKg;
+                    copy.PitchRad = Math.Atan2(radialAccelerationMs2, tangentialAccelerationMs2);
+                    copy.ThrottleFraction = Math.Max(0.02, Math.Min(1, requestedAccelerationMs2 / availableAccelerationMs2));
+                    copy.Cutoff = false; copy.Attitude = AttitudeMode.Manual;
+                }
             }
             if (phase == "F8") copy.ThrottleFraction = 0;
             return new PilotInput { Main = copy, Booster = input.Booster, MinigameActive = input.MinigameActive,
