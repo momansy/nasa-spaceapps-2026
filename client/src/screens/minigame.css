@@ -1,0 +1,579 @@
+/* Minigame host: intro (instruction, demo, countdown), play, waiting and team result. */
+
+.mg {
+  min-height: 0;
+}
+
+/* ───────────── intro ───────────── */
+
+.mg-intro {
+  gap: 10px;
+}
+
+.mg-intro__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.mg-intro__time {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.mg-intro__how {
+  font-size: 1.15rem;
+  font-weight: 650;
+  line-height: 1.3;
+  color: var(--text);
+}
+
+.mg-intro__goal {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  color: var(--text-dim);
+  font-size: 0.95rem;
+}
+
+.mg-intro__goal svg {
+  color: var(--good);
+  margin-top: 0.15em;
+}
+
+.mg-demo {
+  position: relative;
+  flex: none;
+  height: clamp(150px, 26vh, 230px);
+  border-radius: var(--radius);
+  border: var(--border-w) solid var(--line-strong);
+  background: var(--bg-1);
+  overflow: hidden;
+  box-shadow: var(--shadow-1);
+}
+
+.mg-demo__stage {
+  position: absolute;
+  inset: 0;
+}
+
+.mg-demo__tag {
+  position: absolute;
+  top: 8px;
+  inset-inline-start: 8px;
+  padding: 0.1rem 0.5rem;
+  border-radius: 6px;
+  background: rgba(5, 16, 26, 0.82);
+  border: var(--border-w) solid var(--line-strong);
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+.mg-demo__loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: var(--text-dim);
+  font-weight: 600;
+}
+
+.mg-count {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 8px calc(var(--gutter) + var(--safe-right)) calc(8px + var(--safe-bottom)) calc(var(--gutter) + var(--safe-left));
+  border-top: var(--border-w) solid var(--line);
+  background: rgba(7, 21, 34, 0.9);
+}
+
+.mg-count__label {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.mg-count__ring {
+  position: relative;
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: center;
+  width: 4.6rem;
+  height: 4.6rem;
+  min-width: 74px;
+  min-height: 74px;
+  border-radius: 50%;
+  border: 3px solid var(--accent);
+  background: var(--accent-soft);
+  box-shadow: var(--glow-accent);
+}
+
+.mg-count__num {
+  align-self: center;
+  display: inline-grid;
+  place-items: center;
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--text);
+  animation: mg-count-pop 0.45s var(--ease-out-back) both;
+}
+
+.mg-count__unit {
+  align-self: center;
+  margin-inline-start: 2px;
+  margin-top: 0.9rem;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-dim);
+}
+
+@keyframes mg-count-pop {
+  from {
+    transform: scale(1.5);
+    opacity: 0.2;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+.mg-modes {
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+}
+
+.mg-modes__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 2px;
+}
+
+.mg-modes .switch + .switch,
+.mg-modes__locked + .switch {
+  border-top: var(--border-w) solid var(--line);
+}
+
+.mg-modes__locked {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: var(--tap);
+  padding: 6px 0;
+  color: var(--text-dim);
+  font-weight: 600;
+}
+
+.mg-modes__locked svg {
+  color: var(--accent);
+}
+
+/* ───────────── play ───────────── */
+
+.mg-play__head {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 2.6rem;
+  padding: 4px calc(var(--gutter) + var(--safe-right)) 4px calc(var(--gutter) + var(--safe-left));
+}
+
+.mg-play__name {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mg-play__left {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.mg-play__left--low {
+  color: var(--warn);
+}
+
+.mg-play__bar {
+  flex: none;
+  height: 5px;
+}
+
+.mg-play__bar .timerbar__fill {
+  transition: transform 110ms linear;
+}
+
+.mg-stage {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+  padding-bottom: var(--safe-bottom);
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.mg-stage canvas:focus-visible {
+  outline: none;
+}
+
+/* ───────────── waiting ───────────── */
+
+.mg-wait {
+  align-items: center;
+  text-align: center;
+  gap: 14px;
+}
+
+.mg-badge {
+  display: inline-grid;
+  place-items: center;
+  width: 6.2rem;
+  height: 6.2rem;
+  border-radius: 50%;
+  border: 3px solid var(--line-strong);
+  background: var(--neutral-soft);
+  color: var(--text-dim);
+  animation: pop-in var(--dur-slow) var(--ease-out-back) both;
+}
+
+.mg-badge--good {
+  border-color: var(--good);
+  background: var(--good-soft);
+  color: var(--good);
+  box-shadow: 0 0 34px rgba(119, 214, 161, 0.25);
+}
+
+.mg-badge--neutral {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+}
+
+.mg-own {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: start;
+}
+
+.mg-score__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+
+.mg-score__k {
+  color: var(--text-dim);
+  font-weight: 600;
+}
+
+.mg-score__v {
+  font-size: 1.7rem;
+  font-weight: 800;
+}
+
+.mg-waitline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: var(--text-dim);
+  font-weight: 600;
+  min-height: 2rem;
+}
+
+/* ───────────── team result ───────────── */
+
+.mg-result {
+  gap: 10px;
+}
+
+.mg-result .panel {
+  padding: 10px 14px;
+}
+
+.mg-result__headline {
+  font-size: 1.4rem;
+}
+
+.mg-tier {
+  --tier: var(--tier-none);
+  position: relative;
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding-top: 4px;
+}
+
+.mg-tier--bronze {
+  --tier: var(--tier-bronze);
+}
+
+.mg-tier--silver {
+  --tier: var(--tier-silver);
+}
+
+.mg-tier--gold {
+  --tier: var(--tier-gold);
+}
+
+.mg-tier--platinum {
+  --tier: var(--tier-platinum);
+}
+
+.mg-tier__medal {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 6rem;
+  height: 6rem;
+  color: var(--tier);
+  animation: mg-medal-in 0.7s var(--ease-out-back) both;
+}
+
+.mg-tier__shape {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  fill: rgba(11, 29, 46, 0.92);
+  stroke: var(--tier);
+  stroke-width: 4;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 14px color-mix(in srgb, var(--tier) 45%, transparent));
+}
+
+.mg-tier__inner {
+  fill: color-mix(in srgb, var(--tier) 16%, transparent);
+  stroke-width: 1.5;
+  stroke-dasharray: 3 4;
+}
+
+.mg-tier--none .mg-tier__shape {
+  stroke-dasharray: 8 7;
+  filter: none;
+}
+
+.mg-tier__icon {
+  position: relative;
+}
+
+.mg-tier__spark {
+  position: absolute;
+  top: 0.9rem;
+  inset-inline-end: 1rem;
+  color: #ffffff;
+}
+
+.mg-tier__word {
+  font-family: var(--font-mono);
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--tier);
+  margin-inline-start: 0.22em;
+}
+
+.mg-tier__pips {
+  display: inline-flex;
+  gap: 4px;
+}
+
+.mg-pip {
+  color: var(--line-strong);
+}
+
+.mg-pip--on {
+  color: var(--tier);
+}
+
+/* Slow rays behind the emblem for Gold and Platinum. */
+.mg-tier__rays {
+  position: absolute;
+  top: -0.8rem;
+  left: 50%;
+  width: 8.4rem;
+  height: 8.4rem;
+  margin-left: -4.2rem;
+  border-radius: 50%;
+  background: repeating-conic-gradient(from 0deg, color-mix(in srgb, var(--tier) 22%, transparent) 0deg 9deg, transparent 9deg 22.5deg);
+  -webkit-mask-image: radial-gradient(circle, transparent 34%, #000 36%, transparent 70%);
+  mask-image: radial-gradient(circle, transparent 34%, #000 36%, transparent 70%);
+  animation: mg-rays 16s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes mg-rays {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes mg-medal-in {
+  from {
+    transform: scale(0.4) rotate(-14deg);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+.mg-crew {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  text-align: center;
+}
+
+.mg-crew__dots {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+}
+
+.mg-crew__dot {
+  display: inline-grid;
+  place-items: center;
+  width: 1.45rem;
+  height: 1.45rem;
+  border-radius: 50%;
+  border: 2px dashed var(--line-strong);
+  color: var(--good-ink);
+}
+
+.mg-crew__dot--on {
+  border: 2px solid var(--good);
+  background: var(--good);
+}
+
+.mg-crew__text {
+  font-size: 1.15rem;
+  font-weight: 750;
+}
+
+.mg-crew__you {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-dim);
+  font-size: 0.92rem;
+}
+
+.mg-rewards {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mg-rewards__list {
+  display: flex;
+  flex-direction: column;
+}
+
+.mg-reward {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 2.3rem;
+  padding: 4px 0;
+}
+
+.mg-reward + .mg-reward {
+  border-top: var(--border-w) solid var(--line);
+}
+
+.mg-reward__icon {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 9px;
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+}
+
+.mg-reward__name {
+  font-weight: 650;
+}
+
+.mg-reward__note {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+}
+
+.mg-reward__amount {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--good);
+}
+
+.mg-fact p {
+  margin-top: 2px;
+  color: var(--text);
+}
+
+/* Short screens (and large text): let the demo give way first. */
+@media (max-height: 640px) {
+  .mg-demo {
+    height: clamp(120px, 22vh, 180px);
+  }
+
+  .mg-count__ring {
+    width: 4.2rem;
+    height: 4.2rem;
+    min-width: 68px;
+    min-height: 68px;
+  }
+
+  .mg-count__num {
+    font-size: 2.2rem;
+  }
+}

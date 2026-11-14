@@ -1,0 +1,124 @@
+.rolecard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 14px;
+  border-radius: var(--radius);
+  border: var(--border-w) solid var(--line-strong);
+  background:
+    linear-gradient(135deg, rgba(85, 197, 205, 0.1), transparent 45%),
+    linear-gradient(180deg, rgba(23, 58, 85, 0.6), rgba(14, 34, 52, 0.85));
+  box-shadow: var(--shadow-1);
+  animation: rolecard-in var(--dur-slow) var(--ease-out-back) both;
+}
+
+:root[data-contrast='high'] .rolecard {
+  background: var(--bg-1);
+}
+
+@keyframes rolecard-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.rolecard__head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.rolecard__icon {
+  display: grid;
+  place-items: center;
+  width: 3.4rem;
+  height: 3.4rem;
+  flex: none;
+  border-radius: 14px;
+  border: var(--border-w) solid var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+}
+
+.rolecard__name {
+  margin-top: 4px;
+  font-size: 1.25rem;
+  font-weight: 750;
+  line-height: 1.15;
+}
+
+.rolecard__origin {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.86rem;
+  color: var(--text-dim);
+}
+
+.rolecard__origin svg {
+  margin-top: 3px;
+  color: var(--text-faint);
+}
+
+.rolecard__duties {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.rolecard__duties dt {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 2px;
+}
+
+.rolecard__duties dd {
+  font-size: 0.98rem;
+}
+
+.rolecard__ability {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px;
+  border-radius: 12px;
+  border: var(--border-w) dashed var(--warn);
+  background: var(--warn-soft);
+}
+
+.rolecard__ability .eyebrow {
+  color: var(--warn);
+}
+
+.rolecard__ability.is-used {
+  border-color: var(--line-strong);
+  background: var(--neutral-soft);
+  opacity: 0.8;
+}
+
+.rolecard__ability.is-used .eyebrow {
+  color: var(--text-faint);
+}
+
+.rolecard__abilityname {
+  font-size: 1.15rem;
+  font-weight: 750;
+}
+
+.rolecard__ability .btn {
+  align-self: flex-start;
+  margin-top: 4px;
+}
