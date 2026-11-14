@@ -4,7 +4,7 @@
 best after T015 is merged to `main`)
 **Owns:** `unity/MissionForge/Assets/MissionForge/Screens/Flight/` (create),
 `unity/MissionForge/Assets/MissionForge/Scenes/MF_Countdown.unity`, `MF_Flight.unity`,
-`MF_OrbitMap.unity` (+ `.meta`), `unity/MissionForge/Assets/MissionForge/Art/VFX/` (create),
+`MF_OrbitMap.unity` (+ `.meta`), `unity/MissionForge/Assets/MissionForge/Art/VFX/` (create; except `Art/VFX/Entry/`, which belongs to T023),
 `orchestration/evidence/T016/`. The **settings lock** (`ProjectSettings/`, `Packages/`,
 `Assets/Settings/`) passes to this task only once T015 is merged; use it only when a step
 cannot be done otherwise (for example enabling the URP opaque texture for heat shimmer) and
