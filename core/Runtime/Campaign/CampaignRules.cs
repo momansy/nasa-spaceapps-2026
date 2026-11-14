@@ -206,14 +206,14 @@ namespace MissionForge.Core.Campaign
     {
         private static readonly IReadOnlyList<TechNode> NodesValue = Array.AsReadOnly(new[]
         {
-            new TechNode("methalox", 10, Array.Empty<string>(),
+            new TechNode("methalox", CampaignConstants.MethaloxTechCostKp, Array.Empty<string>(),
                 new[] { "eng_methalox_full_flow", "eng_methalox_vacuum" }),
-            new TechNode("laser_comms", 12, Array.Empty<string>(), new[] { "comm_laser" }),
-            new TechNode("terrain_relative", 16, new[] { "laser_comms" },
+            new TechNode("laser_comms", CampaignConstants.LaserCommsTechCostKp, Array.Empty<string>(), new[] { "comm_laser" }),
+            new TechNode("terrain_relative", CampaignConstants.TerrainTechCostKp, new[] { "laser_comms" },
                 new[] { "nav_terrain_relative" }),
-            new TechNode("hiad", 18, new[] { "terrain_relative" },
+            new TechNode("hiad", CampaignConstants.HiadTechCostKp, new[] { "terrain_relative" },
                 new[] { "tps_inflatable_decelerator" }),
-            new TechNode("hot_staging", 8, Array.Empty<string>(), new[] { "sep_hot_staging" })
+            new TechNode("hot_staging", CampaignConstants.HotStagingTechCostKp, Array.Empty<string>(), new[] { "sep_hot_staging" })
         });
         /// <summary>Available tech-tree nodes with defined part IDs.</summary>
         public static IReadOnlyList<TechNode> Nodes => NodesValue;
