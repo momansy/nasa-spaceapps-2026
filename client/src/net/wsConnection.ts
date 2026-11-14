@@ -11,7 +11,34 @@ export const APP_VERSION = typeof __APP_VERSION__ === 'string' ? __APP_VERSION__
  * `wss://rooms.example.org/ws`); without it the client expects the server on the page's own
  * host at `/ws` (messages.md section 2: "One WebSocket per device to wss://<server>/ws").
  */
+/**
+ * `?server=ws://host:port` lets one build rehearse against another room server (for example a
+ * laptop on a hotspot). Only local-network or same-host servers are accepted, so a shared link
+ * cannot point phones at an arbitrary internet server.
+ */
+export function serverOverride(search: string, pageHost: string): string | null {
+  const value = new URLSearchParams(search).get('server');
+  if (!value || !/^wss?:\/\//.test(value)) return null;
+  let host: string;
+  try {
+    host = new URL(value).hostname;
+  } catch {
+    return null;
+  }
+  const local =
+    host === 'localhost' ||
+    host === pageHost ||
+    host.endsWith('.local') ||
+    /^127\./.test(host) ||
+    /^10\./.test(host) ||
+    /^192\.168\./.test(host) ||
+    /^172\.(1[6-9]|2\d|3[01])\./.test(host);
+  return local ? value : null;
+}
+
 export function roomServerUrl(): string {
+  const override = serverOverride(location.search, location.hostname);
+  if (override) return override;
   const configured = import.meta.env.VITE_ROOM_SERVER_URL as string | undefined;
   if (configured) return configured;
   const scheme = location.protocol === 'https:' ? 'wss:' : 'ws:';
