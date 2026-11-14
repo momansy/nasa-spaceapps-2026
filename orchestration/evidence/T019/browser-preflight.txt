@@ -1,0 +1,21 @@
+{"executable":"C:\\Users\\moham\\AppData\\Local\\ms-playwright\\chromium-1255\\chrome-win64\\chrome.exe","exists":false}
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+browserType.launch: Executable doesn't exist at C:\Users\moham\AppData\Local\ms-playwright\chromium_headless_shell-1255\chrome-headless-shell-win64\chrome-headless-shell.exe
+╔════════════════════════════════════════════════════════════╗
+║ Looks like Playwright was just installed or updated.       ║
+║ Please run the following command to download new browsers: ║
+║                                                            ║
+║     npx playwright install                                 ║
+║                                                            ║
+║ <3 Playwright Team                                         ║
+╚════════════════════════════════════════════════════════════╝
+    at C:\Users\moham\Documents\Codex\2026-11-14\https-nasasc-netlify-app-https-nasasc\work\nasa-spaceapps-2026\client\[eval1]:1:230
+    at async node:internal/modules/esm/loader:230:26 {
+  log: [],
+  name: 'Error'
+}
+
+Node.js v24.16.0
