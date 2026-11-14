@@ -1,5 +1,12 @@
 # One-command teammate onboarding — NASA Space Apps Agent Mesh
 
+## Automatic reconnect is included
+
+The one-command Windows/macOS/Linux launchers **now start mesh_supervisor.py**. A worker that exits during an internet outage is restarted with 5–60 second backoff until GitHub connectivity returns. This does not bypass personal login requirements, and does not keep a computer running while it is asleep or powered off. Old workers must be stopped before migrating to prevent duplicates. See [AUTO_RECONNECT.md](../AUTO_RECONNECT.md) for one-time upgrade and testing commands.
+
+---
+
+
 **Only for trusted teammates invited to the private repository** `momansy/nasa-spaceapps-2026`.
 
 ## Windows 10/11: paste **one PowerShell command**
