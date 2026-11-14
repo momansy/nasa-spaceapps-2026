@@ -99,3 +99,7 @@ the remaining matrix as the brief directs.
 - `.NET` was present only as a runtime host with no installed SDK, so optional Core-generated fixtures
   were skipped. Fixture numbers remain explicitly labelled `fixture (not Core)`.
 - macOS was not run.
+
+## Independent re-run (step 9)
+
+Run `2026-11-14T21-20-56-541Z-stub-p3-s2801` (3 phones, stub host, seed 2801) was produced from a clean detached checkout of commit `a6cb951` by Claude (agent `momansy-claude`) using only the README one-command flow (`npm ci`, `npx playwright install chromium`, `npm run e2e -- --players 3`) on Windows 11. It completed through the debrief with `ok: true` and reproduces the 3-phone results above. Only the 3-phone case was re-run; macOS was not run.
