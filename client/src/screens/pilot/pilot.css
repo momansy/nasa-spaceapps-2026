@@ -1,0 +1,1044 @@
+/* Phone pilot and co-pilot: thumb zones, hold rings, guarded abort. Palette and sizes from the
+   shared tokens (48 px targets, 64 px+ for STAGE and ABORT, text scale to 200 %). */
+
+/* Landscape gets the full width: the gamepad is better there. */
+.app[data-screen='pilot'],
+.app[data-screen='watch'] {
+  max-width: none;
+}
+
+.pilot__scroll {
+  gap: 8px;
+  padding-block-start: 10px;
+}
+
+.pilot .num,
+.pilot .unit,
+.pstrip .num {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+.pilot__head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.pilot__title {
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+.pilot__sideicon {
+  transform: rotate(-90deg);
+}
+
+.pilot--right .pilot__sideicon {
+  transform: rotate(90deg);
+}
+
+/* ───────────── flight strip ───────────── */
+
+.pstrip {
+  padding: 8px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pstrip__top {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+}
+
+.pstrip__met {
+  font-size: 1.5rem;
+  font-weight: 750;
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+  color: var(--accent-strong);
+}
+
+.pstrip__phase {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.pstrip__phasename {
+  font-weight: 650;
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  overflow-wrap: anywhere;
+}
+
+.pstrip__stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  margin: 0;
+}
+
+.pstrip__stat {
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  border: var(--border-w) solid var(--line);
+  background: rgba(5, 16, 26, 0.5);
+  min-width: 0;
+}
+
+.pstrip__stat dt {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.66rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.pstrip__stat dd {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.pstrip__stat .unit {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-dim);
+}
+
+/* ───────────── banners ───────────── */
+
+.pbanner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  border: var(--border-w) solid var(--line-strong);
+  background: var(--bg-2);
+  font-size: 0.95rem;
+}
+
+.pbanner--cue {
+  border-style: solid;
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.pbanner--prompt {
+  border-style: dashed;
+  border-color: var(--warn);
+  background: var(--warn-soft);
+}
+
+.pbanner__text {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  min-width: 0;
+}
+
+.pbanner--rotate {
+  color: var(--text-dim);
+  font-size: 0.78rem;
+  line-height: 1.2;
+  padding-block: 2px;
+  display: none;
+}
+
+.pbanner--rotate .iconbtn {
+  flex: none;
+}
+
+@media (orientation: portrait) {
+  .pbanner--rotate {
+    display: flex;
+  }
+}
+
+/* ───────────── pad layout ───────────── */
+
+.pilot {
+  position: relative;
+}
+
+/* Portrait: the head and strip on top, then throttle | controls | pitch filling the rest. */
+.pilot__main {
+  direction: ltr; /* the throttle stays on the side the player chose, also in right-to-left layouts */
+  display: grid;
+  gap: 8px;
+  grid-template-columns: minmax(0, 84px) minmax(0, 1fr) minmax(0, 84px);
+  grid-template-rows: auto minmax(330px, 1fr);
+  grid-template-areas:
+    'top top top'
+    'thr mid stk';
+}
+
+.pilot--right .pilot__main {
+  grid-template-areas:
+    'top top top'
+    'stk mid thr';
+}
+
+[dir='rtl'] .pilot__main > * {
+  direction: rtl;
+}
+
+.pilot__top {
+  grid-area: top;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.pilot__thr {
+  grid-area: thr;
+  min-height: 0;
+}
+.pilot__mid {
+  grid-area: mid;
+}
+.pilot__stick {
+  grid-area: stk;
+  min-height: 0;
+}
+
+/* Cadet: throttle on one side, no pitch stick; STAGE and ABORT only in the bar. */
+.pilot--cadet .pilot__main {
+  grid-template-columns: minmax(0, 96px) minmax(0, 1fr);
+  grid-template-areas:
+    'top top'
+    'thr mid';
+}
+
+.pilot--cadet.pilot--right .pilot__main {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 96px);
+  grid-template-areas:
+    'top top'
+    'mid thr';
+}
+
+.pilot--cadet .pilot__bar {
+  grid-template-columns: auto minmax(0, 1fr);
+}
+
+/* The big three (STAGE, CUTOFF, ABORT) sit in a bar at the bottom: the thumbs' zone. */
+.pilot__bar {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+}
+
+.pilot__mid {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+}
+
+.pilot__mid::-webkit-scrollbar {
+  display: none;
+}
+
+.pilot__mid > * {
+  flex: none;
+}
+
+.pilot__row {
+  display: flex;
+  gap: 8px;
+}
+
+.pilot__row > .btn {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.pilot__group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.pilot__gk {
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.pilot__chips {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.pchip {
+  padding-inline: 6px;
+  font-size: 0.78rem;
+  line-height: 1.1;
+}
+
+.pilot .btn--sm {
+  min-height: var(--tap);
+}
+
+.pilot__deploy {
+  justify-content: flex-start;
+  text-align: start;
+}
+
+.pilot__deploytext {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.pilot__deploytext small {
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--text-dim);
+}
+
+.pilot__warp {
+  align-items: stretch;
+}
+
+.pilot__warp > .btn {
+  flex: 0 0 var(--tap);
+}
+
+.pilot__warpnow {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.1;
+}
+
+.pilot__warpnow small {
+  font-size: 0.66rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.pilot__note {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: var(--warn);
+}
+
+.pilot__cutoff {
+  min-height: max(64px, 4rem);
+  padding-inline: 6px;
+  gap: 4px;
+  font-size: 0.9rem;
+  letter-spacing: 0;
+}
+
+.abort__cover-text b {
+  font-size: 0.95rem;
+  letter-spacing: 0;
+}
+
+/* ───────────── throttle ───────────── */
+
+.thr {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  height: 100%;
+}
+
+.thr__read {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  font-size: 0.78rem;
+}
+
+.thr__readrow {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.1;
+}
+
+.thr__k {
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  font-size: 0.66rem;
+}
+
+.thr__v {
+  font-weight: 750;
+  font-size: 1rem;
+}
+
+.thr__readrow--host .thr__v {
+  color: var(--signal);
+}
+
+.thr__track {
+  position: relative;
+  flex: 1 1 0;
+  min-height: 140px;
+  border-radius: var(--radius);
+  border: var(--border-w) solid var(--line-strong);
+  background: linear-gradient(180deg, rgba(5, 16, 26, 0.6), rgba(17, 43, 64, 0.9));
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  overflow: hidden;
+}
+
+.thr__track:focus-visible,
+.stick__track:focus-visible,
+.swipe:focus-visible,
+.rotpad:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.thr__fill {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, rgba(85, 197, 205, 0.55), rgba(23, 104, 135, 0.7));
+  border-top: 3px solid var(--accent-strong);
+}
+
+.thr__host {
+  position: absolute;
+  inset-inline: 0;
+  height: 0;
+  border-top: 3px dashed var(--sunlight);
+}
+
+.thr__thumb {
+  position: absolute;
+  inset-inline: 8px;
+  height: 36px;
+  margin-bottom: -18px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: var(--ceramic);
+  color: var(--space);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+}
+
+.thr__tick {
+  position: absolute;
+  inset-inline-start: 6px;
+  font-size: 0.62rem;
+  font-family: var(--font-mono);
+  color: var(--text-faint);
+}
+
+.thr__tick--100 {
+  top: 4px;
+}
+
+.thr__tick--0 {
+  bottom: 4px;
+}
+
+/* ───────────── pitch stick ───────────── */
+
+.stick {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 6px;
+  height: 100%;
+}
+
+.stick__label {
+  font-size: 0.66rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  text-align: center;
+}
+
+.stick__track {
+  position: relative;
+  flex: 1 1 0;
+  min-height: 140px;
+  border-radius: 999px;
+  border: var(--border-w) solid var(--line-strong);
+  background: linear-gradient(180deg, rgba(17, 43, 64, 0.9), rgba(5, 16, 26, 0.7) 50%, rgba(17, 43, 64, 0.9));
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+.stick__centre {
+  position: absolute;
+  inset-inline: 14px;
+  top: 50%;
+  border-top: 2px dotted var(--line-strong);
+}
+
+.stick__thumb {
+  position: absolute;
+  inset-inline: 10px;
+  aspect-ratio: 1;
+  margin-top: -32px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #ffffff, var(--ceramic) 55%, #9fb4c2);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+}
+
+.stick__arrow {
+  position: absolute;
+  inset-inline-start: 50%;
+  margin-inline-start: -0.55rem;
+  color: var(--text-faint);
+}
+
+.stick__arrow--up {
+  top: 8px;
+}
+
+.stick__arrow--down {
+  bottom: 8px;
+}
+
+.stick__value {
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+/* ───────────── hold buttons ───────────── */
+
+.hold {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+}
+
+.hold__btn {
+  position: relative;
+  width: clamp(88px, 5.5rem, 120px);
+  height: clamp(88px, 5.5rem, 120px);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  border: 0;
+  padding: 0;
+  color: var(--accent-ink);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  background: linear-gradient(180deg, #86dee4, #45b3bc);
+  box-shadow: 0 6px 22px rgba(85, 197, 205, 0.3);
+  transition: transform var(--dur-fast) var(--ease);
+}
+
+.hold__btn--bad {
+  background: linear-gradient(180deg, #ffa8a8, #ef7474);
+  color: var(--bad-ink);
+  box-shadow: 0 6px 22px rgba(255, 143, 143, 0.3);
+}
+
+.hold__btn:focus-visible {
+  outline: 3px solid var(--ceramic);
+  outline-offset: 3px;
+}
+
+.hold__btn.is-holding {
+  transform: scale(0.96);
+}
+
+.hold__btn[aria-disabled='true'] {
+  background: var(--bg-3);
+  color: var(--text-faint);
+  box-shadow: none;
+  border: var(--border-w) dashed var(--line-strong);
+}
+
+:root[data-contrast='high'] .hold__btn {
+  background: var(--accent);
+  color: #000;
+}
+
+:root[data-contrast='high'] .hold__btn--bad {
+  background: var(--bad);
+}
+
+.hold__ring {
+  position: absolute;
+  inset: -6px;
+  width: calc(100% + 12px);
+  height: calc(100% + 12px);
+  pointer-events: none;
+}
+
+.hold__track {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.18);
+  stroke-width: 5;
+}
+
+.hold__arc {
+  fill: none;
+  stroke: var(--ceramic);
+  stroke-width: 7;
+  stroke-linecap: round;
+}
+
+.hold__btn--bad .hold__arc {
+  stroke: #ffffff;
+}
+
+.hold__label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  font-size: 0.95rem;
+  line-height: 1.05;
+}
+
+.hold__why {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 4px;
+  max-width: 11rem;
+  font-size: 0.72rem;
+  line-height: 1.2;
+  color: var(--warn);
+  text-align: start;
+}
+
+/* ───────────── abort ───────────── */
+
+.abort {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+}
+
+.abort__cover {
+  width: 100%;
+  min-width: 0;
+  min-height: max(64px, 4rem);
+  padding-inline: 8px;
+  gap: 4px;
+  overflow: hidden;
+  justify-content: flex-start;
+  text-align: start;
+  border-width: 2px;
+  border-style: double;
+  border-color: var(--bad);
+  background: repeating-linear-gradient(135deg, rgba(255, 143, 143, 0.14) 0 8px, rgba(255, 143, 143, 0.04) 8px 16px);
+  color: var(--text);
+}
+
+.abort__cover-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.abort__cover-text small {
+  font-size: 0.68rem;
+  line-height: 1.15;
+  font-weight: 500;
+  color: var(--text-dim);
+}
+
+.abort--open .abort__cover {
+  border-style: solid;
+  background: var(--bad-soft);
+}
+
+/* The armed switch: a panel above the bar, so STAGE and CUTOFF never move. */
+.abort__panel {
+  position: absolute;
+  inset-inline: 10px;
+  bottom: calc(100% + 8px);
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: var(--radius);
+  border: 2px double var(--bad);
+  background: var(--bg-1);
+  box-shadow: 0 -8px 28px rgba(0, 0, 0, 0.5);
+}
+
+.abort__panel .hold {
+  flex: none;
+  margin-inline-start: 6px;
+}
+
+.abort__text {
+  flex: 1 1 auto;
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.25;
+  color: var(--text-dim);
+}
+
+.abort__close {
+  flex: none;
+}
+
+/* ───────────── rotate pad and camera swipe ───────────── */
+
+.rotpad {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  min-height: var(--tap);
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  border: var(--border-w) dashed var(--accent);
+  background: var(--accent-soft);
+  font-size: 0.8rem;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+.rotpad.is-off {
+  border-color: var(--line);
+  background: transparent;
+  color: var(--text-faint);
+}
+
+.rotpad__vals {
+  flex-basis: 100%;
+  font-weight: 700;
+}
+
+.swipe {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: var(--tap);
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  border: var(--border-w) solid var(--line);
+  background: rgba(5, 16, 26, 0.5);
+  color: var(--text-dim);
+  font-size: 0.8rem;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* ───────────── co-pilot ───────────── */
+
+.copilot__readback {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
+}
+
+.copilot__cell {
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  border: var(--border-w) solid var(--line);
+  background: rgba(5, 16, 26, 0.5);
+}
+
+.copilot__cell dt {
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.copilot__cell dd {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 750;
+}
+
+.copilot__stage {
+  display: flex;
+  justify-content: center;
+  padding: 8px 0;
+}
+
+.copilot__targets {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr));
+  gap: 8px;
+}
+
+.copilot__target {
+  min-height: max(64px, 4rem);
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* ───────────── co-pilot layout ───────────── */
+
+.copilot__main {
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.copilot__main > .pilot__top {
+  grid-area: auto;
+}
+
+.copilot__head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.copilot__targets-title {
+  margin: 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.copilot__tag {
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--signal);
+}
+
+/* ───────────── landscape: the gamepad layout ───────────── */
+
+@media (orientation: landscape) and (max-height: 560px) {
+  .pilot {
+    flex-direction: row;
+  }
+  /* Throttle and pitch run the full height; the head, strip and controls share the middle. */
+  .pilot__main {
+    padding-block: 6px;
+    min-width: 0;
+    overflow: hidden;
+    grid-template-columns: minmax(0, 104px) minmax(0, 1fr) minmax(0, 104px);
+    grid-template-rows: auto minmax(0, 1fr);
+    grid-template-areas:
+      'thr top stk'
+      'thr mid stk';
+  }
+  .pilot--right .pilot__main {
+    grid-template-areas:
+      'stk top thr'
+      'stk mid thr';
+  }
+  .copilot__main {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+    align-content: start;
+  }
+  .copilot__main > .pilot__top {
+    grid-column: 1 / -1;
+  }
+  .pilot__top {
+    gap: 6px;
+  }
+  .pilot__head {
+    flex-wrap: nowrap;
+  }
+  .pstrip {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    padding: 4px 10px;
+  }
+  .pstrip__top {
+    flex: 0 0 auto;
+  }
+  .pstrip__phasename {
+    display: none;
+  }
+  .pstrip__stats {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  .pilot__mid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-content: start;
+    gap: 6px;
+  }
+  .pilot__mid > .pilot__group {
+    grid-column: 1 / -1;
+  }
+  .pilot__chips {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .thr__track,
+  .stick__track {
+    min-height: 100px;
+  }
+  .pilot__bar {
+    flex: none;
+    width: calc(clamp(88px, 5.5rem, 120px) + 40px);
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: stretch;
+    align-content: center;
+    border-top: 0;
+    border-inline-start: var(--border-w) solid var(--line);
+    padding: 8px 10px;
+    gap: 8px;
+  }
+  .pilot__bar .hold {
+    align-items: center;
+  }
+  .hold__why {
+    font-size: 0.66rem;
+    max-width: 100%;
+  }
+  .pilot__cutoff {
+    min-height: var(--tap);
+  }
+  .abort__cover {
+    padding-inline: 6px;
+  }
+  .abort__cover-text small {
+    display: none;
+  }
+  .abort__panel {
+    inset-inline: auto;
+    inset-inline-end: calc(100% + 8px);
+    bottom: 8px;
+    width: min(300px, 60vw);
+  }
+}
+
+/* Large text: the page scrolls as a whole and the columns stack so nothing is cut off. */
+:root[data-text-scale='large'] .pilot {
+  overflow-y: auto;
+  flex-direction: column;
+}
+
+:root[data-text-scale='large'] .pilot__main {
+  overflow: visible;
+  flex: none;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-rows: auto auto auto;
+  grid-template-areas:
+    'top top'
+    'thr stk'
+    'mid mid';
+}
+
+:root[data-text-scale='large'] .pilot--right .pilot__main {
+  grid-template-areas:
+    'top top'
+    'stk thr'
+    'mid mid';
+}
+
+:root[data-text-scale='large'] .pilot--cadet .pilot__main,
+:root[data-text-scale='large'] .pilot--cadet.pilot--right .pilot__main {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    'top'
+    'thr'
+    'mid';
+}
+
+:root[data-text-scale='large'] .pilot__mid {
+  overflow: visible;
+}
+
+:root[data-text-scale='large'] .thr__track,
+:root[data-text-scale='large'] .stick__track {
+  min-height: 220px;
+}
+
+:root[data-text-scale='large'] .pilot__bar {
+  flex: none;
+  width: auto;
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: stretch;
+  border-inline-start: 0;
+  border-top: var(--border-w) solid var(--line);
+}
+
+:root[data-text-scale='large'] .pilot__bar .hold {
+  align-items: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hold__btn,
+  .hold__btn.is-holding {
+    transition: none;
+    transform: none;
+  }
+}
+
+/* Large text: the three live numbers stack so none is cut off. */
+:root[data-text-scale='large'] .pstrip__stats {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+:root[data-text-scale='large'] .pstrip {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+:root[data-text-scale='large'] .pstrip__stat dd {
+  flex-wrap: wrap;
+  white-space: normal;
+}
+
+/* A number keeps its unit on the right of it in right-to-left layouts too ("176.7 km"). */
+.pstrip__stat dd {
+  direction: ltr;
+}
+
+[dir='rtl'] .pstrip__stat dd {
+  justify-content: flex-end;
+}

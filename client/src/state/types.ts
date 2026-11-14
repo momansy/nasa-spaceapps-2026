@@ -29,11 +29,13 @@ import type {
   OptionId,
   PhaseSetPayload,
   PilotAssignPayload,
+  PilotHudPayload,
   PingEventPayload,
   PlayerPrefs,
   PollCallPayload,
   PollEntry,
   PollResultPayload,
+  ReactionCounts,
   ReactionId,
   RoleId,
   RolesStatePayload,
@@ -163,6 +165,14 @@ export interface SocialItem {
   emoji: ReactionId | null;
 }
 
+/** One `react.audience` window (spectator reactions of one second, anonymous). */
+export interface AudienceWindow {
+  id: number;
+  atMs: number;
+  windowMs: number;
+  counts: ReactionCounts;
+}
+
 export interface AppError {
   id: number;
   code: ErrorCode;
@@ -200,6 +210,12 @@ export interface AppState {
   codex: { unlocked: string[]; fresh: string[]; badges: string[] };
   debrief: { score: DebriefScorePayload | null; awards: DebriefAwardsPayload | null; facts: DebriefFactsPayload | null };
   social: SocialItem[];
+  /** Latest `pilot.hud` for this phone's pilot seat (T030). */
+  pilotHud: PilotHudPayload | null;
+  /** The `pilot.assign` that was current when `pilotHud` arrived (a newer assignment makes the hud stale). */
+  pilotHudFor: PilotAssignPayload | null;
+  /** Recent `react.audience` windows, newest last (T030). */
+  audience: AudienceWindow[];
   prefs: PlayerPrefs;
   /** Roles signature for which the role card was acknowledged ("" = never). */
   roleCardSeen: string;
@@ -228,4 +244,4 @@ export type Action =
   | { type: 'local.codexLoad'; unlocked: string[]; badges: string[] }
   | { type: 'local.leave' };
 
-export type Screen = 'join' | 'lobby' | 'role' | 'vote' | 'poll' | 'build' | 'console' | 'minigame' | 'debrief';
+export type Screen = 'join' | 'lobby' | 'role' | 'vote' | 'poll' | 'build' | 'console' | 'minigame' | 'debrief' | 'pilot' | 'watch';

@@ -1,0 +1,26 @@
+/* Profile sheet: reuses the Join screen's pickers (join.css); only spacing lives here. */
+.profile {
+  gap: 16px;
+}
+
+.profile .join__avatar {
+  flex-wrap: wrap;
+}
+
+.profile .join__swatch:disabled,
+.profile .join__patch:disabled {
+  opacity: 0.5;
+}
+
+/* 48 px targets, also for the Join screen's swatches reused here. */
+.profile .join__swatch,
+.profile .join__patch {
+  min-width: var(--tap);
+  min-height: var(--tap);
+}
+
+/* The selected one keeps its full size (the join screen shrinks it a little). */
+.profile .join__swatch[aria-checked='true'],
+.profile .join__patch[aria-checked='true'] {
+  transform: none;
+}
