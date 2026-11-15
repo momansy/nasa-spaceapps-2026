@@ -1,0 +1,58 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+  html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: transparent; }
+  * { box-sizing: border-box; }
+  body { font-family: "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif; color: #fff; position: relative; }
+  .abs { position: absolute; }
+  /* still / video caption band */
+  .band { left: 0; right: 0; bottom: 0; height: 400px;
+    background: linear-gradient(to bottom, rgba(3,9,18,0) 0%, rgba(3,9,18,0.82) 38%, rgba(3,9,18,0.93) 100%); }
+  .cap { left: 96px; right: 96px; bottom: 64px; }
+  .cap h1 { margin: 0 0 14px; font-size: 60px; line-height: 1.12; font-weight: 700; letter-spacing: -0.5px; text-shadow: 0 2px 12px rgba(0,0,0,.6); }
+  .cap p { margin: 0; font-size: 36px; line-height: 1.32; color: #d3e6f0; font-weight: 500; text-shadow: 0 2px 10px rgba(0,0,0,.7); }
+  .src { top: 36px; left: 40px; font-size: 24px; font-weight: 600; color: #e9f6fb; background: rgba(3,9,18,0.78);
+    padding: 10px 18px 10px 16px; border-left: 6px solid #4fd1dc; border-radius: 6px; letter-spacing: .2px; }
+  .src.amber { border-left-color: #f2b544; }
+  .src.right { left: auto; right: 40px; }
+  .srcline { display: inline-block; font-size: 24px; font-weight: 600; color: #e9f6fb; background: rgba(3,9,18,0.6); padding: 6px 14px 6px 12px; border-left: 5px solid #4fd1dc; border-radius: 5px; margin-bottom: 16px; }
+  /* phone scene */
+  .bgimg { inset: 0; background-size: cover; background-position: center; filter: blur(26px) brightness(0.32) saturate(1.1); transform: scale(1.08); }
+  .bgshade { inset: 0; background: radial-gradient(ellipse at 30% 40%, rgba(10,32,52,0.55), rgba(2,6,14,0.92) 75%); }
+  .col { left: 110px; top: 0; bottom: 0; display: flex; flex-direction: column; justify-content: center; }
+  .kicker { font-size: 30px; font-weight: 700; color: #4fd1dc; letter-spacing: 1.5px; margin-bottom: 18px; }
+  .col h1 { font-size: 70px; line-height: 1.08; font-weight: 700; margin: 0 0 28px; letter-spacing: -0.8px; }
+  .col p { font-size: 38px; line-height: 1.34; color: #d3e6f0; margin: 0 0 22px; font-weight: 500; }
+  .chips { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 10px; }
+  .chip { font-size: 30px; font-weight: 600; padding: 10px 22px; border-radius: 40px; background: rgba(79,209,220,0.14); border: 2px solid rgba(79,209,220,0.6); color: #e6fbfd; }
+  .chip.amber { background: rgba(242,181,68,0.14); border-color: rgba(242,181,68,0.7); color: #fff3da; }
+  .note { margin-top: 30px; font-size: 25px; color: #9fb7c6; font-weight: 600; border-left: 5px solid #f2b544; padding: 6px 0 6px 16px; line-height: 1.35; }
+  .bezel { border: 14px solid #10161f; border-radius: 62px; box-shadow: 0 0 0 2px #3a4656, 0 30px 80px rgba(0,0,0,.7); }
+  .phlabel { font-size: 24px; font-weight: 600; color: #bcd3df; text-align: center; }
+  .mask .hide { visibility: hidden !important; }
+  .mask .bgimg, .mask .bgshade { display: none; }
+  /* cards */
+  .cardbg { inset: 0; background-size: cover; background-position: center; }
+  .cardshade { inset: 0; background: linear-gradient(90deg, rgba(2,7,16,0.95) 0%, rgba(2,7,16,0.88) 50%, rgba(2,7,16,0.25) 100%); }
+  .title { font-size: 150px; font-weight: 800; letter-spacing: 4px; line-height: 1; margin: 0 0 26px; }
+  .title span { color: #f2b544; }
+  .tag { font-size: 44px; font-weight: 600; color: #d3e6f0; margin: 0 0 18px; }
+  .small { font-size: 26px; color: #a8bfcc; line-height: 1.45; font-weight: 500; }
+  .grid { display: grid; grid-template-columns: repeat(3, auto); gap: 16px 18px; justify-content: start; margin: 26px 0 30px; }
+  .fact { font-size: 34px; line-height: 1.4; color: #e6f2f8; font-weight: 500; }
+  .fact b { color: #fff; }
+</style></head>
+<body><div id="root"></div>
+<script>
+window.render = (spec, mask) => {
+  const r = document.getElementById('root');
+  document.body.className = mask ? 'mask' : '';
+  document.body.style.background = 'transparent';
+  r.innerHTML = spec.html;
+  return new Promise((res) => {
+    const imgs = [...document.querySelectorAll('img')];
+    const bgs = [...document.querySelectorAll('[data-bg]')].map((e) => { e.style.backgroundImage = `url("${e.dataset.bg}")`; const i = new Image(); i.src = e.dataset.bg; return i; });
+    Promise.all([...imgs, ...bgs].map((i) => i.complete ? 1 : new Promise((ok) => { i.onload = ok; i.onerror = ok; }))).then(() => document.fonts.ready).then(() => setTimeout(res, 100));
+  });
+};
+</script></body></html>
