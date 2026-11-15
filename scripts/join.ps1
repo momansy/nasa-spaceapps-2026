@@ -44,6 +44,7 @@ function Install-Tool([string]$Command,[string]$Package) {
     }
 }
 function Get-PythonRunner {
+    $ErrorActionPreference = 'Continue'
     $options = @(
         @{exe='py'; flags=@('-3.12')},
         @{exe='py'; flags=@('-3')},
@@ -52,7 +53,7 @@ function Get-PythonRunner {
     )
     foreach ($option in $options) {
         if (-not (Has-Tool $option.exe)) { continue }
-        $check = & $option.exe @($option.flags) -c 'import sys; print("OK" if sys.version_info >= (3,10) else "OLD")' 2>$null
+        $check = & $option.exe @($option.flags) -c "import sys; print('OK' if sys.version_info >= (3,10) else 'OLD')" 2>$null
         if ($LASTEXITCODE -eq 0 -and $check -eq 'OK') { return $option }
     }
     return $null
