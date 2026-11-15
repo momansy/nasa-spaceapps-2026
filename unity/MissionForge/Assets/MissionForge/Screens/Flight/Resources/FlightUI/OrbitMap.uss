@@ -1,0 +1,100 @@
+/* MF_OrbitMap layout. Colours of the drawn map come from MfPalette in OrbitMapView.cs; this sheet only lays out. */
+
+.mf-orbit-map {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    flex-direction: column;
+    padding-left: var(--mf-sp-safe-x);
+    padding-right: var(--mf-sp-safe-x);
+    padding-top: 128px; /* below the 110 px chrome top bar */
+    padding-bottom: var(--mf-sp-safe-y);
+    background-color: var(--mf-space-80);
+}
+
+.mf-orbit-map__header {
+    flex-direction: row;
+    align-items: flex-end;
+    flex-shrink: 0;
+    margin-bottom: var(--mf-sp-5);
+}
+
+.mf-orbit-map__title {
+    margin-right: var(--mf-sp-8);
+}
+
+.mf-orbit-map__readout {
+    flex-direction: column;
+    margin-right: var(--mf-sp-7);
+}
+
+.mf-orbit-map__readout-name {
+    color: var(--mf-muted);
+}
+
+.mf-orbit-map__readout-value {
+    color: var(--mf-ceramic);
+}
+
+.mf-orbit-map__hint {
+    margin-left: auto;
+    color: var(--mf-muted);
+}
+
+.mf-orbit-map__stage {
+    flex-grow: 1;
+    padding-top: var(--mf-sp-4);
+    padding-bottom: var(--mf-sp-4);
+    padding-left: var(--mf-sp-4);
+    padding-right: var(--mf-sp-4);
+}
+
+.mf-orbit-map__view {
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+/* Positioned by OrbitMapView (left/top = label centre). */
+.mf-orbit-map__apsis {
+    position: absolute;
+    translate: -50% -50%;
+    color: var(--mf-ceramic);
+    background-color: var(--mf-space-60);
+    padding-top: var(--mf-sp-1);
+    padding-bottom: var(--mf-sp-1);
+    padding-left: var(--mf-sp-3);
+    padding-right: var(--mf-sp-3);
+    border-top-left-radius: var(--mf-radius-control);
+    border-top-right-radius: var(--mf-radius-control);
+    border-bottom-left-radius: var(--mf-radius-control);
+    border-bottom-right-radius: var(--mf-radius-control);
+    white-space: nowrap;
+}
+
+.mf-orbit-map__message {
+    position: absolute;
+    left: 50%;
+    bottom: var(--mf-sp-5);
+    translate: -50% 0;
+    color: var(--mf-marginal);
+    background-color: var(--mf-space-80);
+    padding-top: var(--mf-sp-2);
+    padding-bottom: var(--mf-sp-2);
+    padding-left: var(--mf-sp-4);
+    padding-right: var(--mf-sp-4);
+    border-top-left-radius: var(--mf-radius-control);
+    border-top-right-radius: var(--mf-radius-control);
+    border-bottom-left-radius: var(--mf-radius-control);
+    border-bottom-right-radius: var(--mf-radius-control);
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-color: var(--mf-marginal);
+    border-right-color: var(--mf-marginal);
+    border-top-color: var(--mf-marginal);
+    border-bottom-color: var(--mf-marginal);
+    white-space: nowrap;
+}

@@ -222,7 +222,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1920247286}
   - component: {fileID: 1920247285}
-  - component: {fileID: 1920247284}
+  - component: {fileID: 1920247287}
   m_Layer: 0
   m_Name: Screen_OrbitMap
   m_TagString: Untagged
@@ -230,21 +230,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1920247284
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1920247283}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 831fe5ec03a4346de909ef9ed68b4be3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: MissionForge.App::MissionForge.App.Screens.RegionScreen
-  screenId: 11
-  document: {fileID: 1920247285}
-  vantage: {fileID: 1745707498}
 --- !u!114 &1920247285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,7 +244,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.UIElements.UIDocument
   m_PanelSettings: {fileID: 11400000, guid: 5d430196715a54314b42f5fd2a13b0b6, type: 2}
   m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 9197481963319205126, guid: ad9494f49f02246888b0da80d3c209d4, type: 3}
+  sourceAsset: {fileID: 9197481963319205126, guid: cae254d240477419cb2c04e8ae861df7, type: 3}
   m_SortingOrder: 10
   m_Position: 0
   m_WorldSpaceSizeMode: 1
@@ -284,6 +269,21 @@ Transform:
   - {fileID: 1745707500}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1920247287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1920247283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13fcd0c696d2d4db0bb0d2a239989606, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: MissionForge.Screens.Flight::MissionForge.Screens.Flight.OrbitMapScreen
+  screenId: 11
+  document: {fileID: 1920247285}
+  vantage: {fileID: 1745707498}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

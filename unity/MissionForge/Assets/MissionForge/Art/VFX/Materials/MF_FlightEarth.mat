@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MF_FlightEarth
+  m_Shader: {fileID: 4800000, guid: eebfdf873c3274059bd60fa6f530eb5e, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _CloudTex:
+        m_Texture: {fileID: 2800000, guid: ee02d5126c8194c6aabab59be5439c50, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DayTex:
+        m_Texture: {fileID: 2800000, guid: 84614620fbe954d0db6fd9403ae70a06, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NightTex:
+        m_Texture: {fileID: 2800000, guid: 7c64f9fbac92c4632a2ab7d39423ea6a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OceanTex:
+        m_Texture: {fileID: 2800000, guid: 3b6f6436cd9e34b7a9fcef233649b9bb, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _CloudOpacity: 0.92
+    - _CloudShadow: 0.45
+    - _NightLightBoost: 5
+    - _SpecPower: 120
+    - _SpecStrength: 1.6
+    - _SunIntensity: 2.6
+    m_Colors:
+    - _AmbientNight: {r: 0.01, g: 0.014, b: 0.026, a: 1}
+    - _NightLightColor: {r: 1, g: 0.72, b: 0.37999994, a: 1}
+    - _SpecColor2: {r: 1, g: 0.93, b: 0.82, a: 1}
+    - _TerminatorTint: {r: 1, g: 0.41999996, b: 0.17999998, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
