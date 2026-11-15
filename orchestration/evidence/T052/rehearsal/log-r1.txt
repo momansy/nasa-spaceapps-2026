@@ -1,0 +1,20 @@
+0.5 start {}
+1.7 host page load event {}
+30.7 room created {"code":"FJNV"}
+46.5 phone in lobby {"n":"Ada"}
+55 phone in lobby {"n":"Grace"}
+75.1 phone in lobby {"n":"Katherine"}
+141.7 click Open lobby {}
+146.4 host phase.set {"phase":"LOBBY","sub":"NONE"}
+211.1 click Start briefing {}
+211.1 phone0 screen {"key":"screen-lobby:"}
+215.4 host phase.set {"phase":"BRIEFING","sub":"NONE"}
+241.1 shot failed {"name":"phone-010-screen-lobby_"}
+241.1 click Continue (host) {}
+272.3 host phase.set {"phase":"CONTRACT_VOTE","sub":"NONE"}
+314.9 phone0 screen {"key":"screen-role:"}
+344.9 shot failed {"name":"phone-015-screen-role_"}
+346.9 click Continue (host) {}
+411.8 click Continue (host) {}
+499 shot failed {"name":"host-03-t412"}
+500.5 end {}
