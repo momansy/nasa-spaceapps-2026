@@ -1,0 +1,5 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <!-- T016 flight screens (countdown, flight, orbit map). The controllers build their HUD in code from
+         data/strings and Resources/FlightStrings; there is no placeholder text here. -->
+    <ui:VisualElement name="screen" class="mf-screen fl-screen" picking-mode="Ignore" style="flex-grow: 1;" />
+</ui:UXML>

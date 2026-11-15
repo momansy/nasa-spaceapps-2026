@@ -18,6 +18,14 @@
 }
 .fl-phase-name { color: var(--mf-sunlight); margin-top: var(--mf-sp-1); }
 .fl-feed-tag { color: var(--mf-muted); margin-top: var(--mf-sp-1); }
+.fl-speed {
+    color: var(--mf-space);
+    background-color: var(--mf-sunlight);
+    border-radius: 18px;
+    padding: 2px var(--mf-sp-3);
+    margin-top: var(--mf-sp-2);
+    align-self: flex-start;
+}
 
 .fl-col {
     position: absolute;
@@ -29,8 +37,13 @@
 .fl-col--left { left: var(--mf-sp-safe-x); }
 .fl-col--right { right: var(--mf-sp-safe-x); top: 120px; }
 
-.fl-metric { margin-bottom: var(--mf-sp-3); }
-.fl-metric--hero { margin-bottom: var(--mf-sp-4); }
+.fl-metric {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: var(--mf-sp-2);
+}
+.fl-metric--hero { flex-direction: column; align-items: flex-start; margin-bottom: var(--mf-sp-3); }
 .fl-metric__name { color: var(--mf-muted); }
 .fl-metric__value { color: var(--mf-ceramic); }
 
@@ -67,7 +80,7 @@
 
 .fl-bottom {
     position: absolute;
-    left: var(--mf-sp-safe-x);
+    left: 520px;
     right: var(--mf-sp-safe-x);
     bottom: var(--mf-sp-safe-y);
     flex-direction: row;
@@ -76,7 +89,7 @@
 }
 .fl-strip { flex-direction: row; flex-shrink: 1; }
 .fl-step {
-    width: 150px;
+    width: 128px;
     padding: var(--mf-sp-2) var(--mf-sp-2);
     margin-right: var(--mf-sp-1);
     border-top-width: 4px;
@@ -108,7 +121,7 @@
 .fl-callout {
     position: absolute;
     left: 560px; right: 560px;
-    top: 200px;
+    bottom: 220px;
     -unity-text-align: middle-center;
     color: var(--mf-ceramic);
     background-color: var(--mf-console-76);
@@ -120,12 +133,13 @@
 .mf-rtl .fl-col--left { left: auto; right: var(--mf-sp-safe-x); }
 .mf-rtl .fl-col--right { right: auto; left: var(--mf-sp-safe-x); }
 .mf-rtl .fl-top { left: auto; right: 470px; align-items: flex-end; }
-.mf-rtl .fl-bottom { flex-direction: row-reverse; }
+.mf-rtl .fl-bottom { flex-direction: row-reverse; left: var(--mf-sp-safe-x); right: 520px; }
 .mf-rtl .fl-strip { flex-direction: row-reverse; }
 .mf-hc .fl-col { background-color: var(--mf-console); border-width: 2px; border-color: var(--mf-ceramic-56); }
 .mf-hc .fl-metric__name, .mf-hc .fl-stage__name, .mf-hc .fl-step__name { color: var(--mf-ceramic); }
 .mf-text-200 .fl-col { width: 560px; }
-.mf-text-200 .fl-step { width: 200px; }
+.mf-text-200 .fl-step { width: 150px; }
+.mf-text-200 .fl-metric { flex-direction: column; align-items: flex-start; }
 
 /* Countdown screen (MF_Countdown). */
 .fl-cd {

@@ -23,7 +23,7 @@ namespace MissionForge.Screens.Flight
         public const int BoostSlots = 4;
 
         private readonly VisualElement _root;
-        private readonly Label _clock, _phaseName, _feedTag;
+        private readonly Label _clock, _phaseName, _feedTag, _speed;
         private readonly Dictionary<string, Label> _values = new Dictionary<string, Label>();
         private readonly Dictionary<string, Label> _names = new Dictionary<string, Label>();
         private readonly VisualElement _throttleFill;
@@ -49,6 +49,7 @@ namespace MissionForge.Screens.Flight
             var top = Box(_root, "fl-top");
             _clock = Text(top, "fl-clock mf-kpi--l");
             _phaseName = Text(top, "fl-phase-name mf-h3");
+            _speed = Text(top, "fl-speed mf-label");
             _feedTag = Text(top, "fl-feed-tag mf-meta");
 
             // Left column: flight state.
@@ -123,6 +124,11 @@ namespace MissionForge.Screens.Flight
             if (t == null) return;
             _clock.text = FlightUnits.MissionClock(t.metS);
             _phaseName.text = FlightText.Get("flight_phase." + t.phase + ".name");
+            double ff = FlightSession.FastForward(t);
+            _speed.text = t.warp > 1.01 ? FlightText.Format("ui.flight.time_warp", t.warp.ToString("0"))
+                : t.warp < 0.99 ? FlightText.Get("ui.flight.minigame.slowmo")
+                : ff > 1 ? FlightText.Format("ui.flight.fast_forward", ff.ToString("0")) : "";
+            _speed.style.display = string.IsNullOrEmpty(_speed.text) ? DisplayStyle.None : DisplayStyle.Flex;
 
             Set("altitude", FlightUnits.Altitude(t.altitudeM));
             _names["velocity"].text = FlightText.Get(ShowOrbitalVelocity ? "ui.flight.velocity.orbital" : "ui.flight.velocity.surface");

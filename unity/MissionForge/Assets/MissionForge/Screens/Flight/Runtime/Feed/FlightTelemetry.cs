@@ -85,6 +85,11 @@ namespace MissionForge.Screens.Flight
         public double pressureRatio;
         /// <summary>Displayed attitude, rad above the local horizontal.</summary>
         public double pitchRad = Math.PI / 2;
+        /// <summary>
+        /// Downrange angle over the rotating ground from the pad, rad: Core's inertial angle minus the pad's own rotation
+        /// (Core's launch-direction surface speed / R × simulated time). Used to place the ground and the Earth.
+        /// </summary>
+        public double groundAngleRad;
         public double positionXM;
         public double positionYM;
         public double velocityXMs;

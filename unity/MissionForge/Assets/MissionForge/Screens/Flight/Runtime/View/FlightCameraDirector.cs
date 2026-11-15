@@ -86,7 +86,7 @@ namespace MissionForge.Screens.Flight
                     look = mid;
                     float dist = Vector3.Distance(pos, look);
                     // Keep the vehicle about a third of the frame height (long lens, narrowing as it climbs).
-                    fov = Mathf.Clamp(2f * Mathf.Atan(len * 1.6f / dist) * Mathf.Rad2Deg, 0.4f, TelescopeFovDeg);
+                    fov = Mathf.Clamp(2f * Mathf.Atan(len * 1.6f / dist) * Mathf.Rad2Deg, 2.5f, TelescopeFovDeg);
                     break;
                 case FlightShot.Onboard:
                     pos = v.AxisPoint(0.9f) + v.Pivot.forward * -2.6f + v.Pivot.right * 0.6f;

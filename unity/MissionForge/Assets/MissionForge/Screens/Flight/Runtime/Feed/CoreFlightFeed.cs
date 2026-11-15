@@ -27,6 +27,7 @@ namespace MissionForge.Screens.Flight
         private FlightControlCommand _pending;
         private double _lastThrottle;
         private bool _orbitReported;
+        private double _simTimeS;
 
         public CoreFlightFeed(BuildState build, GameCatalog catalog, IReadOnlyDictionary<string, string> jsonByPath,
             bool fullAutopilot = true)
@@ -52,7 +53,7 @@ namespace MissionForge.Screens.Flight
             _sim = MissionSim.Create(_spec, setup);
             // MissionSim starts at rest on the pad: its initial inertial velocity is the launch-direction surface rotation.
             _rotationSpeedMs = _sim.State.VelocityYMs;
-            Current = Capture(Array.Empty<FlightEvent>());
+            Current = Capture(Array.Empty<FlightEvent>(), advanced: false);
             Previous = Current;
         }
 
@@ -82,13 +83,16 @@ namespace MissionForge.Screens.Flight
             }
             IReadOnlyList<FlightEvent> events = _sim.Step(input);
             Previous = Current;
-            Current = Capture(events);
+            Current = Capture(events, advanced: true);
             return Current;
         }
 
-        private FlightTelemetry Capture(IReadOnlyList<FlightEvent> coreEvents)
+        private FlightTelemetry Capture(IReadOnlyList<FlightEvent> coreEvents, bool advanced)
         {
             HudSnapshot hud = _sim.Snapshot();
+            // Core holds the inertial state on the pad until lift-off; from then the pad turns with the Earth for MET
+            // seconds (MET already includes time warp).
+            _simTimeS = hud.MetS > 0 ? hud.MetS : 0;
             FlightState s = _sim.State;
             Body earth = Body.Earth;
             double altitudeM = s.RadiusM - earth.RadiusM;
@@ -133,6 +137,7 @@ namespace MissionForge.Screens.Flight
                 heatLoad01 = hud.HeatLoadPct / 100,
                 pressureRatio = earth.PressureRatioUnitless(Math.Max(0, altitudeM)),
                 pitchRad = DisplayPitch(hud, s, radialMs),
+                groundAngleRad = Math.Atan2(s.PositionYM, s.PositionXM) - omega * _simTimeS,
                 positionXM = s.PositionXM,
                 positionYM = s.PositionYM,
                 velocityXMs = s.VelocityXMs,

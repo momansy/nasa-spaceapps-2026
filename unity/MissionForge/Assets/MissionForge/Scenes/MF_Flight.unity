@@ -119,6 +119,78 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &617562009
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2088077062062644667, guid: 4804b528243ff45009b9c9ebda82744c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2088077062062644667, guid: 4804b528243ff45009b9c9ebda82744c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2088077062062644667, guid: 4804b528243ff45009b9c9ebda82744c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2088077062062644667, guid: 4804b528243ff45009b9c9ebda82744c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2088077062062644667, guid: 4804b528243ff45009b9c9ebda82744c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2088077062062644667, guid: 4804b528243ff45009b9c9ebda82744c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2088077062062644667, guid: 4804b528243ff45009b9c9ebda82744c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2088077062062644667, guid: 4804b528243ff45009b9c9ebda82744c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2088077062062644667, guid: 4804b528243ff45009b9c9ebda82744c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2088077062062644667, guid: 4804b528243ff45009b9c9ebda82744c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4577515651558621661, guid: 4804b528243ff45009b9c9ebda82744c, type: 3}
+      propertyPath: m_Name
+      value: FlightWorld
+      objectReference: {fileID: 0}
+    - target: {fileID: 4577515651558621661, guid: 4804b528243ff45009b9c9ebda82744c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4804b528243ff45009b9c9ebda82744c, type: 3}
+--- !u!114 &617562010 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5818232623473352669, guid: 4804b528243ff45009b9c9ebda82744c, type: 3}
+  m_PrefabInstance: {fileID: 617562009}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3ccc4add5aae40fd974b2f07335872a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: MissionForge.Screens.Flight::MissionForge.Screens.Flight.FlightWorld
 --- !u!1 &1745707497
 GameObject:
   m_ObjectHideFlags: 0
@@ -205,8 +277,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1745707497}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.07186922, y: 0.10435451, z: -0.007561038, w: 0.9919112}
-  m_LocalPosition: {x: -1.5, y: 7.6, z: -9.4}
+  m_LocalRotation: {x: -0.14662336, y: 0.28258625, z: 0.043754503, w: 0.94695944}
+  m_LocalPosition: {x: -38, y: 4.5, z: -8058}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -222,7 +294,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1920247286}
   - component: {fileID: 1920247285}
-  - component: {fileID: 1920247284}
+  - component: {fileID: 1920247288}
+  - component: {fileID: 1920247287}
   m_Layer: 0
   m_Name: Screen_Flight
   m_TagString: Untagged
@@ -230,21 +303,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1920247284
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1920247283}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 831fe5ec03a4346de909ef9ed68b4be3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: MissionForge.App::MissionForge.App.Screens.RegionScreen
-  screenId: 9
-  document: {fileID: 1920247285}
-  vantage: {fileID: 1745707498}
 --- !u!114 &1920247285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,7 +317,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.UIElements.UIDocument
   m_PanelSettings: {fileID: 11400000, guid: 5d430196715a54314b42f5fd2a13b0b6, type: 2}
   m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 9197481963319205126, guid: 9eae34e38e1c34a6da4b7b874ebbf442, type: 3}
+  sourceAsset: {fileID: 9197481963319205126, guid: cae254d240477419cb2c04e8ae861df7, type: 3}
   m_SortingOrder: 10
   m_Position: 0
   m_WorldSpaceSizeMode: 1
@@ -284,8 +342,40 @@ Transform:
   - {fileID: 1745707500}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1920247287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1920247283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89c48fb61e2b0436faff1faba2903797, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: MissionForge.Screens.Flight::MissionForge.Screens.Flight.FlightCameraDirector
+  vantage: {fileID: 1745707498}
+  world: {fileID: 617562010}
+--- !u!114 &1920247288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1920247283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48739c9cb10fe42729c75729582c7e64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: MissionForge.Screens.Flight::MissionForge.Screens.Flight.FlightScreen
+  screenId: 9
+  document: {fileID: 1920247285}
+  vantage: {fileID: 1745707498}
+  world: {fileID: 617562010}
+  cameraDirector: {fileID: 1920247287}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1920247286}
+  - {fileID: 617562009}

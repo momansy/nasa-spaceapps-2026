@@ -42,6 +42,23 @@ namespace MissionForge.Screens.Flight
 
         public static bool IsRunning => Runner != null && Runner.Running;
 
+        /// <summary>
+        /// Presentation fast-forward (game_value): Core's C1 upper-stage burn lasts about 20 minutes and is powered, so
+        /// Core keeps its time warp at 1× (design 9.7). After the first 20 s of F7, and in orbital operations, the view
+        /// plays Core's fixed steps faster, labelled on the HUD. Never during a minigame (bullet-time) or with
+        /// <c>-mfNoFastForward</c>. Core still integrates every 1/120 s step; only the playback speed changes.
+        /// </summary>
+        public static double FastForward(FlightTelemetry t)
+        {
+            if (t == null || t.warp < 1 || DisableFastForward) return 1;
+            if (t.phase == "F7" && t.metS > F7StartMetS + 20) return 12;
+            if (t.phase == "F8") return 3;
+            return 1;
+        }
+
+        public static bool DisableFastForward { get; set; }
+        private static double F7StartMetS = double.MaxValue;
+
         /// <summary>Raised for every event of every simulation step, in order.</summary>
         public static event Action<FlightTelemetryEvent, FlightTelemetry> EventRaised;
 
@@ -64,6 +81,7 @@ namespace MissionForge.Screens.Flight
                 Catalog = CatalogCache.Get(app.Data.Data);
                 IsRehearsal = Arg("-mfRehearsal") != null || app.Room == null || app.Room.Client == null
                     || string.IsNullOrEmpty(app.Room.Client.RoomCode);
+                DisableFastForward = Arg("-mfNoFastForward") != null;
                 if (float.TryParse(Arg("-mfFlightRate"), NumberStyles.Float, CultureInfo.InvariantCulture, out float rate) && rate > 0)
                     PlaybackRate = rate;
 
@@ -99,7 +117,7 @@ namespace MissionForge.Screens.Flight
             if (Runner == null)
             {
                 var go = new GameObject("MF_FlightSession") { hideFlags = HideFlags.DontSave };
-                UnityEngine.Object.DontDestroyOnLoad(go);
+                if (Application.isPlaying) UnityEngine.Object.DontDestroyOnLoad(go);
                 Runner = go.AddComponent<FlightSessionRunner>();
             }
             Runner.Running = false;
@@ -122,6 +140,7 @@ namespace MissionForge.Screens.Flight
             if (Runner != null) UnityEngine.Object.Destroy(Runner.gameObject);
             Runner = null;
             Feed = null;
+            F7StartMetS = double.MaxValue;
             Controls = null;
             Build = null;
             HandedOffBuild = null;
@@ -131,6 +150,8 @@ namespace MissionForge.Screens.Flight
         internal static void Raise(FlightTelemetry t)
         {
             OrbitMapTrail.Add(t);
+            foreach (FlightTelemetryEvent e in t.events)
+                if (e.kind == FlightEventKind.PhaseEntered && e.id == "F7") F7StartMetS = e.metS;
             foreach (FlightTelemetryEvent e in t.events) EventRaised?.Invoke(e, t);
             Stepped?.Invoke(t);
         }
@@ -231,7 +252,7 @@ namespace MissionForge.Screens.Flight
             if (!Running || feed == null) return;
             double stepS = FlightSession.FixedStepS;
             if (feed is RecordedFlightFeed recorded) stepS *= recorded.TicksPerStep;
-            _accumulatorS += Time.unscaledDeltaTime * FlightSession.PlaybackRate;
+            _accumulatorS += Time.unscaledDeltaTime * FlightSession.PlaybackRate * FlightSession.FastForward(feed.Current);
             int steps = 0;
             while (_accumulatorS >= stepS && steps < MaxStepsPerFrame && !feed.IsFinished)
             {

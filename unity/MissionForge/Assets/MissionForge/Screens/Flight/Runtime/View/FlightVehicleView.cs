@@ -176,7 +176,7 @@ namespace MissionForge.Screens.Flight
             FlightTelemetry a = feed.Previous ?? feed.Current, c = feed.Current;
             float k = FlightSession.Alpha;
             double alt = Lerp(a.altitudeM, c.altitudeM, k);
-            double downAngle = Lerp(a.DownrangeAngleRad, c.DownrangeAngleRad, k);
+            double downAngle = Lerp(a.groundAngleRad, c.groundAngleRad, k);
             double downrangeM = downAngle * MissionForge.Core.Flight.Body.Earth.RadiusM;
             double pitch = LerpAngle(a.pitchRad, c.pitchRad, k);
             if (world != null) world.SetDisplacement(alt, downrangeM);

@@ -62,7 +62,7 @@ namespace MissionForge.Screens.Flight
             FlightTelemetry a = feed.Previous ?? feed.Current, c = feed.Current;
             float k = FlightSession.Alpha;
             double alt = a.altitudeM + (c.altitudeM - a.altitudeM) * k;
-            double down = a.DownrangeAngleRad + (c.DownrangeAngleRad - a.DownrangeAngleRad) * k;
+            double down = a.groundAngleRad + (c.groundAngleRad - a.groundAngleRad) * k;
             bool show = alt >= FlightWorld.EnvironmentOffAltitudeM;
             if (_earth.gameObject.activeSelf != show)
             {

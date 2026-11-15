@@ -71,6 +71,18 @@ namespace MissionForge.Screens.Flight.Tests
         }
 
         [Test]
+        public void GroundAngle_StaysOnThePadUntilLiftOff()
+        {
+            CoreFlightFeed feed = FlightTestData.NewFeed();
+            while (!feed.Current.IsLifted) feed.Step();
+            Assert.AreEqual(0.0, feed.Current.groundAngleRad * MissionForge.Core.Flight.Body.Earth.RadiusM, 2.0,
+                "pad drift (m) before lift-off: the ground frame must remove Earth's rotation");
+            for (int i = 0; i < 120 * 10; i++) feed.Step();
+            double inertialMinusGroundM = (feed.Current.DownrangeAngleRad - feed.Current.groundAngleRad) * MissionForge.Core.Flight.Body.Earth.RadiusM;
+            Assert.Greater(System.Math.Abs(inertialMinusGroundM), 1.0, "after lift-off the inertial angle includes the pad's rotation");
+        }
+
+        [Test]
         public void Recording_RoundTripsThroughJsonAndReplaysTheSameValues()
         {
             CoreFlightFeed feed = FlightTestData.NewFeed();
