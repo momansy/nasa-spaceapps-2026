@@ -154,7 +154,8 @@ function Hero({ score }: { score: DebriefScorePayload }) {
         </span>
       </div>
       <h1 className="title db-hero__title">{t(score.title.key, score.title.args)}</h1>
-      <p className="db-score" aria-label={t('ui.debrief.score_label', { points: fmt(score.total, 0) })}>
+      <p className="db-score">
+        <span className="sr-only">{t('ui.debrief.score_label', { points: fmt(score.total, 0) })}</span>
         <span className="num db-score__value" aria-hidden="true">
           {fmt(shown, 0)}
         </span>
@@ -520,7 +521,7 @@ function Comparison({ comparison }: { comparison: NonNullable<DebriefFactsPayloa
 function Tallying() {
   const t = useT();
   return (
-    <div className="screen__scroll screen__scroll--center" data-testid="debrief-waiting">
+    <div className="screen__scroll screen__scroll--center" tabIndex={0} data-testid="debrief-waiting">
       <div className="waiting">
         <span className="db-tally" aria-hidden="true">
           <Icon name="trophy" size="2.2rem" />
@@ -558,7 +559,7 @@ export function DebriefScreen() {
 
   return (
     <div className="screen" data-testid="screen-debrief">
-      <div className="screen__scroll">
+      <div className="screen__scroll" tabIndex={0}>
         <Hero score={score} />
         {mine && mine.awardIds.length > 0 && <MyAwards mine={mine} />}
         <Breakdown score={score} />

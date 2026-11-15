@@ -323,7 +323,7 @@ export const PartCard = memo(function PartCard(props: PartCardProps) {
         )}
 
         {tagAs && !vetoed && (
-          <section className="tagbar" aria-label={t('ui.vote.tag_as', { role: tagAs.role })}>
+          <div className="tagbar" role="group" aria-label={t('ui.vote.tag_as', { role: tagAs.role })}>
             <span className="tagbar__k">{t('ui.vote.tag_as', { role: tagAs.role })}</span>
             <div className="tagbar__btns">
               {(['RECOMMENDED', 'CONCERN'] as const).map((k) => (
@@ -340,17 +340,17 @@ export const PartCard = memo(function PartCard(props: PartCardProps) {
                 </button>
               ))}
             </div>
-          </section>
+          </div>
         )}
 
         {factText && (
-          <aside className="dyk">
+          <div className="dyk" role="note">
             <Icon name="bulb" size="1.2rem" className="dyk__icon" />
             <div>
               <p className="dyk__k">{t('ui.card.did_you_know')}</p>
               <p className="dyk__v">{factText}</p>
             </div>
-          </aside>
+          </div>
         )}
       </div>
       {more && (

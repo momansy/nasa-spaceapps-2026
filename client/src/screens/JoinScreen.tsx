@@ -80,7 +80,7 @@ export function JoinScreen() {
 
   return (
     <form className="screen join" onSubmit={submit} noValidate data-testid="screen-join">
-      <div className="screen__scroll">
+      <div className="screen__scroll" tabIndex={0}>
         <div className="join__hero">
           <p className="eyebrow join__eyebrow">
             <span className="join__live" aria-hidden="true" />

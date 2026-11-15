@@ -121,7 +121,7 @@ export function LobbyScreen() {
 
   return (
     <div className="screen" data-testid="screen-lobby">
-      <div className="screen__scroll">
+      <div className="screen__scroll" tabIndex={0}>
         <section className="lobby__me panel panel--accent">
           {me ? <Avatar avatar={me.avatar} size="lg" /> : <span className="lobby__eye"><Icon name="eye" size="2.4rem" /></span>}
           <div className="grow stack stack--sm">

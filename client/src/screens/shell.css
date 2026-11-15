@@ -262,3 +262,9 @@
 :root[data-text-scale='large'] .brand__word {
   display: none;
 }
+
+/* T043: scroll regions are keyboard-focusable (so they can be scrolled without a pointer); the
+   ring sits inside the region so overflow clipping never hides it. */
+.screen__scroll:focus-visible {
+  outline-offset: -4px;
+}

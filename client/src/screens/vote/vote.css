@@ -299,8 +299,8 @@
   position: relative;
   display: inline-grid;
   place-items: center;
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
 }
 
@@ -1393,4 +1393,40 @@
 
 .namenb__word {
   white-space: nowrap;
+}
+
+/* T043: at 150 % to 200 % text the hint, banners, header and action bar leave no room for the
+   part card (it collapsed to about 9 px, so its stats could not be reached). The whole stage
+   scrolls instead and the card keeps a usable height. */
+:root[data-text-scale='large'] .screen:has(.votebody) {
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+:root[data-text-scale='large'] .screen:has(.votebody) > * {
+  flex-shrink: 0;
+}
+
+:root[data-text-scale='large'] .votebody {
+  flex: none;
+}
+
+:root[data-text-scale='large'] .carouselwrap {
+  flex: none;
+  height: max(420px, 62dvh);
+}
+
+/* Large text: the action bar wraps so no button label is clipped. */
+:root[data-text-scale='large'] .votebar {
+  flex-wrap: wrap;
+}
+
+:root[data-text-scale='large'] .votebar .btn {
+  flex: 1 1 auto;
+  white-space: normal;
+}
+
+:root[data-text-scale='large'] .votebar .btn--grow {
+  flex-basis: 100%;
 }

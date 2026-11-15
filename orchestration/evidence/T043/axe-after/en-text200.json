@@ -1,0 +1,2807 @@
+{
+  "config": {
+    "id": "en-text200",
+    "lang": "en",
+    "highContrast": false,
+    "textScalePct": 200
+  },
+  "screens": [
+    "join",
+    "lobby",
+    "role-card",
+    "briefing",
+    "vote-reveal",
+    "predict",
+    "predict-result",
+    "part-card",
+    "stat-explain",
+    "part-card-warnings",
+    "part-viewer",
+    "vote-cast",
+    "vote-result",
+    "build",
+    "quick-vote",
+    "veto-flash",
+    "veto-confirm",
+    "pings",
+    "trivia",
+    "pick",
+    "poll-waiting",
+    "poll-my-call",
+    "poll-result",
+    "console-countdown",
+    "console-alert",
+    "minigame-intro",
+    "minigame-play",
+    "minigame-result",
+    "blackout",
+    "debrief",
+    "codex",
+    "codex-entry",
+    "settings"
+  ],
+  "nodesByImpact": {
+    "critical": 0,
+    "serious": 0,
+    "moderate": 0,
+    "minor": 0
+  },
+  "findings": [],
+  "smallTargets": [],
+  "contrastIncomplete": [
+    {
+      "screen": "join",
+      "count": 7
+    },
+    {
+      "screen": "lobby",
+      "count": 10
+    },
+    {
+      "screen": "role-card",
+      "count": 9
+    },
+    {
+      "screen": "briefing",
+      "count": 8
+    },
+    {
+      "screen": "vote-reveal",
+      "count": 7
+    },
+    {
+      "screen": "predict",
+      "count": 10
+    },
+    {
+      "screen": "predict-result",
+      "count": 0
+    },
+    {
+      "screen": "part-card",
+      "count": 0
+    },
+    {
+      "screen": "stat-explain",
+      "count": 0
+    },
+    {
+      "screen": "part-card-warnings",
+      "count": 0
+    },
+    {
+      "screen": "part-viewer",
+      "count": 0
+    },
+    {
+      "screen": "vote-cast",
+      "count": 0
+    },
+    {
+      "screen": "vote-result",
+      "count": 7
+    },
+    {
+      "screen": "build",
+      "count": 12
+    },
+    {
+      "screen": "quick-vote",
+      "count": 16
+    },
+    {
+      "screen": "veto-flash",
+      "count": 0
+    },
+    {
+      "screen": "veto-confirm",
+      "count": 0
+    },
+    {
+      "screen": "pings",
+      "count": 0
+    },
+    {
+      "screen": "trivia",
+      "count": 7
+    },
+    {
+      "screen": "pick",
+      "count": 10
+    },
+    {
+      "screen": "poll-waiting",
+      "count": 11
+    },
+    {
+      "screen": "poll-my-call",
+      "count": 13
+    },
+    {
+      "screen": "poll-result",
+      "count": 7
+    },
+    {
+      "screen": "console-countdown",
+      "count": 14
+    },
+    {
+      "screen": "console-alert",
+      "count": 14
+    },
+    {
+      "screen": "minigame-intro",
+      "count": 11
+    },
+    {
+      "screen": "minigame-play",
+      "count": 4
+    },
+    {
+      "screen": "minigame-result",
+      "count": 11
+    },
+    {
+      "screen": "blackout",
+      "count": 10
+    },
+    {
+      "screen": "debrief",
+      "count": 10
+    },
+    {
+      "screen": "codex",
+      "count": 25
+    },
+    {
+      "screen": "codex-entry",
+      "count": 21
+    },
+    {
+      "screen": "settings",
+      "count": 19
+    }
+  ],
+  "contrastSamples": [
+    {
+      "screen": "join",
+      "target": ".mockbadge",
+      "text": "Demo",
+      "fontPx": 28,
+      "color": "rgb(255, 206, 131)",
+      "worstRatio": 7.88,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "join",
+      "target": "label[for=\"join-code\"]",
+      "text": "Room code",
+      "fontPx": 28,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "join",
+      "target": ".join__tile.is-set:nth-child(1)",
+      "text": "K",
+      "fontPx": 64,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "join",
+      "target": ".join__tile.is-set:nth-child(2)",
+      "text": "Q",
+      "fontPx": 64,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "join",
+      "target": ".join__tile.is-set:nth-child(3)",
+      "text": "X",
+      "fontPx": 64,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "join",
+      "target": ".join__tile.is-set:nth-child(4)",
+      "text": "M",
+      "fontPx": 64,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "join",
+      "target": ".chip > span",
+      "text": "Room code from your link",
+      "fontPx": 26,
+      "color": "rgb(119, 214, 161)",
+      "worstRatio": 6.52,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "lobby",
+      "target": ".eyebrow",
+      "text": "You are in",
+      "fontPx": 28,
+      "color": "rgb(85, 197, 205)",
+      "worstRatio": 5.61,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "lobby",
+      "target": "h1",
+      "text": "Ada",
+      "fontPx": 64,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "lobby",
+      "target": ".lobby__wait > span:nth-child(2)",
+      "text": "Waiting for the host to start the missio",
+      "fontPx": 28,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "lobby",
+      "target": ".btn",
+      "text": "Edit call sign",
+      "fontPx": 28,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "lobby",
+      "target": "h2",
+      "text": "Crew · 5",
+      "fontPx": 28,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "lobby",
+      "target": ".crew__row--me > .crew__name > .crew__nick",
+      "text": "Ada",
+      "fontPx": 36,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "lobby",
+      "target": ".crew__you",
+      "text": "You",
+      "fontPx": 24,
+      "color": "rgb(7, 21, 34)",
+      "worstRatio": 9,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "lobby",
+      "target": ".crew__row--me > .crew__slot.num",
+      "text": "01",
+      "fontPx": 28,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "lobby",
+      "target": "li:nth-child(2) > .crew__name > .crew__nick",
+      "text": "Vega",
+      "fontPx": 36,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "lobby",
+      "target": "li:nth-child(2) > .crew__slot.num",
+      "text": "02",
+      "fontPx": 28,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "role-card",
+      "target": ".rolebtn > .callsign",
+      "text": "BOOSTER",
+      "fontPx": 26,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "role-card",
+      "target": ".rolebtn__more",
+      "text": "+1",
+      "fontPx": 26,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "role-card",
+      "target": ".grow",
+      "text": "CAPCOMEarth Watch: put a 150 kg imaging ",
+      "fontPx": 30,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "role-card",
+      "target": ".toast__kind",
+      "text": "CAPCOM",
+      "fontPx": 28,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "role-card",
+      "target": ".stack--sm > .eyebrow",
+      "text": "Console assignment",
+      "fontPx": 28,
+      "color": "rgb(85, 197, 205)",
+      "worstRatio": 5.61,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "role-card",
+      "target": "h1",
+      "text": "Your 2 consoles",
+      "fontPx": 48,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "role-card",
+      "target": ".lede",
+      "text": "Real Mission Control positions. Each giv",
+      "fontPx": 32,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "briefing",
+      "target": ".callsign",
+      "text": "BOOSTER",
+      "fontPx": 26,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "briefing",
+      "target": ".rolebtn__more",
+      "text": "+1",
+      "fontPx": 26,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "briefing",
+      "target": ".toast > .grow",
+      "text": "CAPCOMEarth Watch: put a 150 kg imaging ",
+      "fontPx": 30,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "briefing",
+      "target": ".toast__kind",
+      "text": "CAPCOM",
+      "fontPx": 28,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "briefing",
+      "target": "header > .eyebrow",
+      "text": "Briefing",
+      "fontPx": 28,
+      "color": "rgb(85, 197, 205)",
+      "worstRatio": 5.61,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "briefing",
+      "target": "h1",
+      "text": "Earth Watch",
+      "fontPx": 48,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "briefing",
+      "target": ".lede",
+      "text": "Sun-synchronous orbit, 550 km, ~97.6°",
+      "fontPx": 32,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "briefing",
+      "target": ".standby__title",
+      "text": "Mission briefing on the big screen",
+      "fontPx": 40,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "vote-reveal",
+      "target": ".callsign",
+      "text": "BOOSTER",
+      "fontPx": 26,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "vote-reveal",
+      "target": ".rolebtn__more",
+      "text": "+1",
+      "fontPx": 26,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "vote-reveal",
+      "target": ".toast > .grow",
+      "text": "HintBuild begins. First decision: the fi",
+      "fontPx": 30,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "vote-reveal",
+      "target": ".toast__kind",
+      "text": "Hint",
+      "fontPx": 28,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "vote-reveal",
+      "target": ".timer__label",
+      "text": "1s",
+      "fontPx": 36,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "vote-reveal",
+      "target": ".timer__unit",
+      "text": "s",
+      "fontPx": 19.8,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "vote-reveal",
+      "target": ".lede",
+      "text": "The first-stage engines lift everything ",
+      "fontPx": 32,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "predict",
+      "target": ".callsign",
+      "text": "BOOSTER",
+      "fontPx": 26,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "predict",
+      "target": ".rolebtn__more",
+      "text": "+1",
+      "fontPx": 26,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "predict",
+      "target": ".timer__label",
+      "text": "7s",
+      "fontPx": 36,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "predict",
+      "target": ".timer__unit",
+      "text": "s",
+      "fontPx": 19.8,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "predict",
+      "target": "section > .eyebrow",
+      "text": "Predict",
+      "fontPx": 28,
+      "color": "rgb(85, 197, 205)",
+      "worstRatio": 5.61,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "predict",
+      "target": "h2",
+      "text": "Which of these engines is the most effic",
+      "fontPx": 40,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "predict",
+      "target": ".body-sm",
+      "text": "Your first answer is final. Correct pred",
+      "fontPx": 28,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "predict",
+      "target": "button[data-testid=\"predict-0\"] > .choice__letter.num",
+      "text": "A",
+      "fontPx": 32,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "predict",
+      "target": "button[data-testid=\"predict-0\"] > .grow",
+      "text": "Kerolox Workhorse",
+      "fontPx": 32,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "predict",
+      "target": "button[data-testid=\"predict-1\"] > .grow",
+      "text": "Kerolox Staged-Combustion",
+      "fontPx": 32,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "vote-result",
+      "target": ".callsign",
+      "text": "BOOSTER",
+      "fontPx": 26,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "vote-result",
+      "target": ".rolebtn__more",
+      "text": "+1",
+      "fontPx": 26,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "vote-result",
+      "target": ".tone-good",
+      "text": "Chosen",
+      "fontPx": 28,
+      "color": "rgb(119, 214, 161)",
+      "worstRatio": 6.52,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "vote-result",
+      "target": "h2",
+      "text": "Methalox Full-Flow",
+      "fontPx": 48,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "vote-result",
+      "target": ".chip--accent > span",
+      "text": "Most votes",
+      "fontPx": 26,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "vote-result",
+      "target": ".resulthero > .body-sm",
+      "text": "Your pick: Methalox Full-Flow",
+      "fontPx": 28,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "vote-result",
+      "target": "strong",
+      "text": "Methalox Full-Flow",
+      "fontPx": 28,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "build",
+      "target": ".callsign",
+      "text": "BOOSTER",
+      "fontPx": 26,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "build",
+      "target": ".rolebtn__more",
+      "text": "+1",
+      "fontPx": 26,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "build",
+      "target": ".eyebrow",
+      "text": "Build",
+      "fontPx": 28,
+      "color": "rgb(85, 197, 205)",
+      "worstRatio": 5.61,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "build",
+      "target": "h1",
+      "text": "Earth Watch",
+      "fontPx": 48,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "build",
+      "target": ".lede",
+      "text": "Sun-synchronous orbit, 550 km, ~97.6°",
+      "fontPx": 32,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "build",
+      "target": ".row > .body-sm",
+      "text": "Build step 2 of 12",
+      "fontPx": 28,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "build",
+      "target": ".row > .dim.num",
+      "text": "17 %",
+      "fontPx": 32,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "build",
+      "target": ".standby__title",
+      "text": "Watch the big screen",
+      "fontPx": 40,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "build",
+      "target": ".grow > .body-sm",
+      "text": "The next decision appears here automatic",
+      "fontPx": 28,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "build",
+      "target": ".banner > .grow",
+      "text": "Latest decisionFirst stage engine: Metha",
+      "fontPx": 30,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "build",
+      "target": ".toast__kind",
+      "text": "Latest decision",
+      "fontPx": 28,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "build",
+      "target": "strong",
+      "text": "First stage engine:",
+      "fontPx": 30,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "quick-vote",
+      "target": ".callsign",
+      "text": "BOOSTER",
+      "fontPx": 26,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "quick-vote",
+      "target": ".rolebtn__more",
+      "text": "+1",
+      "fontPx": 26,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "quick-vote",
+      "target": ".timer__label",
+      "text": "8s",
+      "fontPx": 36,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "quick-vote",
+      "target": ".timer__unit",
+      "text": "s",
+      "fontPx": 19.8,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "quick-vote",
+      "target": ".lede",
+      "text": "A hot-fire test costs time and money but",
+      "fontPx": 32,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "quick-vote",
+      "target": ".ballotline > .grow",
+      "text": "Your vote: Run the test",
+      "fontPx": 28,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "quick-vote",
+      "target": ".dim",
+      "text": "3 of 5 voted",
+      "fontPx": 28,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "quick-vote",
+      "target": ".quickopt--mine > .row.row--between > .quickopt__name",
+      "text": "Run the test",
+      "fontPx": 40,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "quick-vote",
+      "target": ".quickopt--mine > .quickopt__detail",
+      "text": "Costs money and days, may reveal a hidde",
+      "fontPx": 28,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "quick-vote",
+      "target": ".chip--good.chip:nth-child(1) > span",
+      "text": "Budget left −$2 M",
+      "fontPx": 26,
+      "color": "rgb(119, 214, 161)",
+      "worstRatio": 6.52,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "quick-vote",
+      "target": ".chip--good.chip:nth-child(1) > span > .num",
+      "text": "−$2 M",
+      "fontPx": 26,
+      "color": "rgb(119, 214, 161)",
+      "worstRatio": 6.52,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "quick-vote",
+      "target": ".chip--warn > span",
+      "text": "Schedule +7 d",
+      "fontPx": 26,
+      "color": "rgb(255, 209, 102)",
+      "worstRatio": 7.96,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "quick-vote",
+      "target": ".chip--warn > span > .num",
+      "text": "+7 d",
+      "fontPx": 26,
+      "color": "rgb(255, 209, 102)",
+      "worstRatio": 7.96,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "quick-vote",
+      "target": ".chip--good.chip:nth-child(3) > span",
+      "text": "Success chance +1 %",
+      "fontPx": 26,
+      "color": "rgb(119, 214, 161)",
+      "worstRatio": 6.52,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "quick-vote",
+      "target": ".chip--good.chip:nth-child(3) > span > .num",
+      "text": "+1 %",
+      "fontPx": 26,
+      "color": "rgb(119, 214, 161)",
+      "worstRatio": 6.52,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "quick-vote",
+      "target": ".quickopt--mine > .quickopt__tally > .num",
+      "text": "3 votes",
+      "fontPx": 28,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "trivia",
+      "target": ".callsign",
+      "text": "BOOSTER",
+      "fontPx": 26,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "trivia",
+      "target": ".rolebtn__more",
+      "text": "+1",
+      "fontPx": 26,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "trivia",
+      "target": ".timer__label",
+      "text": "9s",
+      "fontPx": 36,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "trivia",
+      "target": ".timer__unit",
+      "text": "s",
+      "fontPx": 19.8,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "trivia",
+      "target": ".tone-warn",
+      "text": "Tie! Trivia sudden-death",
+      "fontPx": 28,
+      "color": "rgb(255, 209, 102)",
+      "worstRatio": 7.96,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "trivia",
+      "target": ".body-sm:nth-child(2)",
+      "text": "Tied: Small fairing · Large fairing",
+      "fontPx": 28,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "trivia",
+      "target": "h2",
+      "text": "Two NASA climate satellites, OCO (2009) ",
+      "fontPx": 40,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "pick",
+      "target": ".callsign",
+      "text": "BOOSTER",
+      "fontPx": 26,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "pick",
+      "target": ".rolebtn__more",
+      "text": "+1",
+      "fontPx": 26,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "pick",
+      "target": ".toast > .grow",
+      "text": "+30 KP · trivia tiebreak",
+      "fontPx": 30,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "pick",
+      "target": ".timer__label",
+      "text": "4s",
+      "fontPx": 36,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "pick",
+      "target": ".timer__unit",
+      "text": "s",
+      "fontPx": 19.8,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "pick",
+      "target": "section > p",
+      "text": "You were fastest! Pick the winner.",
+      "fontPx": 28,
+      "color": "rgb(85, 197, 205)",
+      "worstRatio": 5.61,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "pick",
+      "target": "h2",
+      "text": "Pick the winner",
+      "fontPx": 40,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "pick",
+      "target": "button[data-testid=\"pick-fairing_small\"] > .row.row--between > .quickopt__name",
+      "text": "Small fairing",
+      "fontPx": 40,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "pick",
+      "target": "button[data-testid=\"pick-fairing_small\"] > .quickopt__detail",
+      "text": "Real-world twin: Small launchers",
+      "fontPx": 28,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "pick",
+      "target": "button[data-testid=\"pick-fairing_large\"] > .row.row--between > .quickopt__name",
+      "text": "Large fairing",
+      "fontPx": 40,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "poll-waiting",
+      "target": ".callsign",
+      "text": "BOOSTER",
+      "fontPx": 26,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "poll-waiting",
+      "target": ".rolebtn__more",
+      "text": "+1",
+      "fontPx": 26,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "poll-waiting",
+      "target": ".toast > .grow",
+      "text": "CAPCOMFlight Readiness Review. FLIGHT po",
+      "fontPx": 30,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "poll-waiting",
+      "target": ".toast__kind",
+      "text": "CAPCOM",
+      "fontPx": 28,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "poll-waiting",
+      "target": ".votehead__text > .eyebrow",
+      "text": "GO / NO-GO · round 1",
+      "fontPx": 28,
+      "color": "rgb(85, 197, 205)",
+      "worstRatio": 5.61,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "poll-waiting",
+      "target": "h1",
+      "text": "Flight Readiness Review",
+      "fontPx": 40,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "poll-waiting",
+      "target": ".timer__label",
+      "text": "5s",
+      "fontPx": 36,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "poll-waiting",
+      "target": ".timer__unit",
+      "text": "s",
+      "fontPx": 19.8,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "poll-waiting",
+      "target": ".body-sm",
+      "text": "Answer for your consoles. NO-GO stops th",
+      "fontPx": 28,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "poll-my-call",
+      "target": ".rolebtn > .callsign",
+      "text": "BOOSTER",
+      "fontPx": 26,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "poll-my-call",
+      "target": ".rolebtn__more",
+      "text": "+1",
+      "fontPx": 26,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "poll-my-call",
+      "target": ".votehead__text > .eyebrow",
+      "text": "GO / NO-GO · round 1",
+      "fontPx": 28,
+      "color": "rgb(85, 197, 205)",
+      "worstRatio": 5.61,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "poll-my-call",
+      "target": "h1",
+      "text": "Flight Readiness Review",
+      "fontPx": 40,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "poll-my-call",
+      "target": ".timer__label",
+      "text": "4s",
+      "fontPx": 36,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "poll-my-call",
+      "target": ".timer__unit",
+      "text": "s",
+      "fontPx": 19.8,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "poll-my-call",
+      "target": "section > .eyebrow",
+      "text": "Call 2 of 5",
+      "fontPx": 28,
+      "color": "rgb(85, 197, 205)",
+      "worstRatio": 5.61,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "poll-my-call",
+      "target": ".pollcall__roles > .callsign:nth-child(1)",
+      "text": "BOOSTER",
+      "fontPx": 26,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "poll-my-call",
+      "target": ".callsign:nth-child(2)",
+      "text": "STRUCT",
+      "fontPx": 26,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "poll-my-call",
+      "target": "h2",
+      "text": "BOOSTER · STRUCT, are you GO?",
+      "fontPx": 64,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "poll-my-call",
+      "target": ".body-sm",
+      "text": "Answer for your consoles. NO-GO stops th",
+      "fontPx": 28,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "poll-result",
+      "target": ".callsign",
+      "text": "BOOSTER",
+      "fontPx": 26,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "poll-result",
+      "target": ".rolebtn__more",
+      "text": "+1",
+      "fontPx": 26,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "poll-result",
+      "target": ".eyebrow",
+      "text": "GO / NO-GO · round 1",
+      "fontPx": 28,
+      "color": "rgb(85, 197, 205)",
+      "worstRatio": 5.61,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "poll-result",
+      "target": "h1",
+      "text": "Flight Readiness Review",
+      "fontPx": 40,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "poll-result",
+      "target": "h2",
+      "text": "All consoles GO",
+      "fontPx": 64,
+      "color": "rgb(119, 214, 161)",
+      "worstRatio": 6.52,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "poll-result",
+      "target": ".lede",
+      "text": "Flight is GO. Stand by for the countdown",
+      "fontPx": 32,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "poll-result",
+      "target": "li:nth-child(1) > .pollrow__who.grow > .pollrow__name",
+      "text": "Vega",
+      "fontPx": 32,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "console-countdown",
+      "target": ".rolebtn > .callsign",
+      "text": "BOOSTER",
+      "fontPx": 26,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "console-countdown",
+      "target": ".rolebtn__more",
+      "text": "+1",
+      "fontPx": 26,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "console-countdown",
+      "target": ".eyebrow",
+      "text": "Lift-off in",
+      "fontPx": 28,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "console-countdown",
+      "target": ".hud__clock",
+      "text": "T−00:07",
+      "fontPx": 104,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "console-countdown",
+      "target": ".callsign--plain",
+      "text": "F1",
+      "fontPx": 26,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "console-countdown",
+      "target": ".hud__phasename",
+      "text": "Propellant loading & countdown",
+      "fontPx": 28,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "console-countdown",
+      "target": "button[aria-label=\"BOOSTER console\"] > .mono",
+      "text": "BOOSTER",
+      "fontPx": 30,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "console-countdown",
+      "target": "button[aria-label=\"STRUCT console\"] > .mono",
+      "text": "STRUCT",
+      "fontPx": 30,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "console-countdown",
+      "target": ".consolehead > .callsign",
+      "text": "BOOSTER",
+      "fontPx": 26,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "console-countdown",
+      "target": ".consolehead__name",
+      "text": "Launch vehicle propulsion",
+      "fontPx": 28,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "console-countdown",
+      "target": ".gauge--none > .gauge__head > .gauge__label",
+      "text": "Chamber pressure",
+      "fontPx": 28,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "console-countdown",
+      "target": "button[data-testid=\"callout-engine_out\"] > span",
+      "text": "ENGINE OUT",
+      "fontPx": 28,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "console-countdown",
+      "target": "button[data-testid=\"callout-chamber_pressure_low\"] > span",
+      "text": "CHAMBER PRESSURE LOW",
+      "fontPx": 28,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "console-countdown",
+      "target": "button[data-testid=\"callout-propellant_low\"] > span",
+      "text": "PROPELLANT LOW",
+      "fontPx": 28,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "console-alert",
+      "target": ".rolebtn > .callsign",
+      "text": "BOOSTER",
+      "fontPx": 26,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "console-alert",
+      "target": ".rolebtn__more",
+      "text": "+1",
+      "fontPx": 26,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "console-alert",
+      "target": ".grow",
+      "text": "CAPCOMApproaching Max Q. STRUCT, watch t",
+      "fontPx": 30,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "console-alert",
+      "target": ".toast__kind",
+      "text": "CAPCOM",
+      "fontPx": 28,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "console-alert",
+      "target": ".alert--bad > .alert__head > .callsign",
+      "text": "STRUCT",
+      "fontPx": 26,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "console-alert",
+      "target": ".alert--bad > .alert__head > .alert__sev",
+      "text": "Warning",
+      "fontPx": 28,
+      "color": "rgb(255, 143, 143)",
+      "worstRatio": 5.24,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "console-alert",
+      "target": ".alert--bad > .alert__head > .alert__left.num[aria-label=\"Good Call window\"]",
+      "text": "6.4s",
+      "fontPx": 48,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "console-alert",
+      "target": ".alert--bad > .alert__head > .alert__left.num[aria-label=\"Good Call window\"] > .unit",
+      "text": "s",
+      "fontPx": 35.52,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "console-alert",
+      "target": ".btn--sm",
+      "text": "Show STRUCT",
+      "fontPx": 28,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "console-alert",
+      "target": ".alert--warn > .alert__head > .callsign",
+      "text": "BOOSTER",
+      "fontPx": 26,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "console-alert",
+      "target": ".alert--warn > .alert__head > .alert__left.num[aria-label=\"Good Call window\"]",
+      "text": "6.4s",
+      "fontPx": 48,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "console-alert",
+      "target": "button[data-testid=\"callout-chamber_pressure_low\"] > span",
+      "text": "CHAMBER PRESSURE LOW",
+      "fontPx": 28,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "minigame-intro",
+      "target": ".callsign",
+      "text": "BOOSTER",
+      "fontPx": 26,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "minigame-intro",
+      "target": ".rolebtn__more",
+      "text": "+1",
+      "fontPx": 26,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "minigame-intro",
+      "target": ".mg-intro__head > .eyebrow",
+      "text": "Minigame · F4",
+      "fontPx": 28,
+      "color": "rgb(85, 197, 205)",
+      "worstRatio": 5.61,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "minigame-intro",
+      "target": ".mg-intro__time",
+      "text": "20 s",
+      "fontPx": 28.8,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "minigame-intro",
+      "target": "h1",
+      "text": "Max Q Throttle Bucket",
+      "fontPx": 48,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "minigame-intro",
+      "target": ".mg-intro__how",
+      "text": "Slide your throttle so the vehicle's str",
+      "fontPx": 36,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "minigame-intro",
+      "target": ".mg-demo__tag",
+      "text": "Demo",
+      "fontPx": 24,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "minigame-intro",
+      "target": ".mg-intro__goal > span",
+      "text": "In band ≥ 85% of the time.",
+      "fontPx": 30.4,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "minigame-intro",
+      "target": ".mg-count__label",
+      "text": "Starts in",
+      "fontPx": 28,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "minigame-intro",
+      "target": ".mg-count__num",
+      "text": "3",
+      "fontPx": 80,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "minigame-intro",
+      "target": ".mg-count__unit",
+      "text": "s",
+      "fontPx": 28.8,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "minigame-play",
+      "target": ".callsign",
+      "text": "BOOSTER",
+      "fontPx": 26,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "minigame-play",
+      "target": ".rolebtn__more",
+      "text": "+1",
+      "fontPx": 26,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "minigame-play",
+      "target": "h1",
+      "text": "Max Q Throttle Bucket",
+      "fontPx": 28,
+      "color": "rgb(85, 197, 205)",
+      "worstRatio": 5.61,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "minigame-play",
+      "target": ".mg-play__left",
+      "text": "19 s",
+      "fontPx": 36.8,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "minigame-result",
+      "target": ".callsign",
+      "text": "BOOSTER",
+      "fontPx": 26,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "minigame-result",
+      "target": ".rolebtn__more",
+      "text": "+1",
+      "fontPx": 26,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "minigame-result",
+      "target": ".center.eyebrow",
+      "text": "Max Q Throttle Bucket",
+      "fontPx": 28,
+      "color": "rgb(85, 197, 205)",
+      "worstRatio": 5.61,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "minigame-result",
+      "target": ".mg-tier__word",
+      "text": "Bronze",
+      "fontPx": 43.2,
+      "color": "rgb(224, 160, 112)",
+      "worstRatio": 5.16,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "minigame-result",
+      "target": "h1",
+      "text": "Boost earned",
+      "fontPx": 44.8,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "minigame-result",
+      "target": ".mg-crew__text",
+      "text": "3 of 5 made it",
+      "fontPx": 36.8,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "minigame-result",
+      "target": ".mg-crew__you > span",
+      "text": "You missed this one · 23 %",
+      "fontPx": 29.44,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "minigame-result",
+      "target": "span > .num",
+      "text": "23 %",
+      "fontPx": 29.44,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "minigame-result",
+      "target": ".eyebrow--dim",
+      "text": "Earned",
+      "fontPx": 28,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "minigame-result",
+      "target": "li:nth-child(1) > .grow > .mg-reward__name",
+      "text": "Load Margin",
+      "fontPx": 32,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "blackout",
+      "target": ".callsign",
+      "text": "BOOSTER",
+      "fontPx": 26,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "blackout",
+      "target": ".rolebtn__more",
+      "text": "+1",
+      "fontPx": 26,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "blackout",
+      "target": ".grow",
+      "text": "CAPCOMOut of ground-station coverage. Te",
+      "fontPx": 30,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "blackout",
+      "target": ".toast__kind",
+      "text": "CAPCOM",
+      "fontPx": 28,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "blackout",
+      "target": ".eyebrow",
+      "text": "No signal",
+      "fontPx": 28,
+      "color": "rgb(85, 197, 205)",
+      "worstRatio": 5.61,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "blackout",
+      "target": "h1",
+      "text": "Out of coverage",
+      "fontPx": 48,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "blackout",
+      "target": ".lede",
+      "text": "No ground station can see the vehicle ri",
+      "fontPx": 32,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "blackout",
+      "target": ".body-sm",
+      "text": "Signal expected in",
+      "fontPx": 28,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "blackout",
+      "target": ".blackout__time",
+      "text": "4s",
+      "fontPx": 80,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "blackout",
+      "target": ".unit",
+      "text": "s",
+      "fontPx": 59.2,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "debrief",
+      "target": ".rolebtn > .callsign",
+      "text": "BOOSTER",
+      "fontPx": 26,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "debrief",
+      "target": ".rolebtn__more",
+      "text": "+1",
+      "fontPx": 26,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "debrief",
+      "target": ".eyebrow",
+      "text": "Mission 1 · Debrief",
+      "fontPx": 28,
+      "color": "rgb(85, 197, 205)",
+      "worstRatio": 5.61,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "debrief",
+      "target": ".db-hero__contract",
+      "text": "Earth Watch",
+      "fontPx": 40,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "debrief",
+      "target": ".chip > span",
+      "text": "Mission success",
+      "fontPx": 26,
+      "color": "rgb(119, 214, 161)",
+      "worstRatio": 6.52,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "debrief",
+      "target": ".db-grade__letter",
+      "text": "A",
+      "fontPx": 136,
+      "color": "rgb(255, 206, 131)",
+      "worstRatio": 7.88,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "debrief",
+      "target": "h1",
+      "text": "Mission Accomplished",
+      "fontPx": 42.9,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "debrief",
+      "target": ".db-score__value",
+      "text": "8,516",
+      "fontPx": 66.3,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "debrief",
+      "target": ".db-score__unit",
+      "text": "pts",
+      "fontPx": 32,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "debrief",
+      "target": ".body-sm",
+      "text": "Team mission score",
+      "fontPx": 28,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex",
+      "target": ".rolebtn > .callsign",
+      "text": "BOOSTER",
+      "fontPx": 26,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex",
+      "target": ".rolebtn__more",
+      "text": "+1",
+      "fontPx": 26,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex",
+      "target": ".eyebrow",
+      "text": "Mission 1 · Debrief",
+      "fontPx": 28,
+      "color": "rgb(85, 197, 205)",
+      "worstRatio": 5.61,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex",
+      "target": ".db-hero__contract",
+      "text": "Earth Watch",
+      "fontPx": 40,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex",
+      "target": ".chip > span",
+      "text": "Mission success",
+      "fontPx": 26,
+      "color": "rgb(119, 214, 161)",
+      "worstRatio": 6.52,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex",
+      "target": ".db-grade__letter",
+      "text": "A",
+      "fontPx": 136,
+      "color": "rgb(255, 206, 131)",
+      "worstRatio": 7.88,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex",
+      "target": "h1",
+      "text": "Mission Accomplished",
+      "fontPx": 42.9,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex",
+      "target": ".db-score__value",
+      "text": "8,516",
+      "fontPx": 66.3,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex",
+      "target": ".db-score__unit",
+      "text": "pts",
+      "fontPx": 32,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex",
+      "target": ".body-sm",
+      "text": "Team mission score",
+      "fontPx": 28,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex",
+      "target": "#\\:r4a\\:",
+      "text": "Mission Codex",
+      "fontPx": 40,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex",
+      "target": ".cx-tile:nth-child(1) > .cx-tile__k",
+      "text": "Entries",
+      "fontPx": 28,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex",
+      "target": ".cx-tile:nth-child(1) > .cx-tile__v.num",
+      "text": "6",
+      "fontPx": 48,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex",
+      "target": ".cx-tile:nth-child(2) > .cx-tile__k",
+      "text": "Your KP",
+      "fontPx": 28,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex",
+      "target": ".cx-tile:nth-child(2) > .cx-tile__v.num",
+      "text": "80KP",
+      "fontPx": 48,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex",
+      "target": ".cx-tile:nth-child(2) > .cx-tile__v.num > .unit",
+      "text": "KP",
+      "fontPx": 35.52,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex",
+      "target": ".cx-tile:nth-child(3) > .cx-tile__k",
+      "text": "Team KP",
+      "fontPx": 28,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex",
+      "target": ".cx-tile:nth-child(3) > .cx-tile__v.num",
+      "text": "180KP",
+      "fontPx": 48,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex",
+      "target": ".cx-tile:nth-child(3) > .cx-tile__v.num > .unit",
+      "text": "KP",
+      "fontPx": 35.52,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex",
+      "target": ".stack--sm:nth-child(2) > h3 > span",
+      "text": "Parts",
+      "fontPx": 28,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex",
+      "target": ".stack--sm:nth-child(2) > .stack--sm.stack > li:nth-child(1) > .cx-item.cx-item--new[data-testid=\"codex-item\"] > .cx-item__text.grow > .cx-item__title",
+      "text": "Small fairingNew",
+      "fontPx": 32,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex",
+      "target": ".stack--sm:nth-child(2) > .stack--sm.stack > li:nth-child(1) > .cx-item.cx-item--new[data-testid=\"codex-item\"] > .cx-item__text.grow > .cx-item__sub",
+      "text": "Real-world twin: Small launchers",
+      "fontPx": 28,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex",
+      "target": ".stack--sm:nth-child(2) > .stack--sm.stack > li:nth-child(2) > .cx-item.cx-item--new[data-testid=\"codex-item\"] > .cx-item__text.grow > .cx-item__title",
+      "text": "Kerolox VacuumNew",
+      "fontPx": 32,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex-entry",
+      "target": ".rolebtn > .callsign",
+      "text": "BOOSTER",
+      "fontPx": 26,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex-entry",
+      "target": ".rolebtn__more",
+      "text": "+1",
+      "fontPx": 26,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex-entry",
+      "target": ".db-hero > .eyebrow",
+      "text": "Mission 1 · Debrief",
+      "fontPx": 28,
+      "color": "rgb(85, 197, 205)",
+      "worstRatio": 5.61,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex-entry",
+      "target": ".db-hero__contract",
+      "text": "Earth Watch",
+      "fontPx": 40,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex-entry",
+      "target": ".chip > span",
+      "text": "Mission success",
+      "fontPx": 26,
+      "color": "rgb(119, 214, 161)",
+      "worstRatio": 6.52,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex-entry",
+      "target": ".db-grade__letter",
+      "text": "A",
+      "fontPx": 136,
+      "color": "rgb(255, 206, 131)",
+      "worstRatio": 7.88,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex-entry",
+      "target": "h1",
+      "text": "Mission Accomplished",
+      "fontPx": 42.9,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex-entry",
+      "target": ".db-score__value",
+      "text": "8,516",
+      "fontPx": 66.3,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex-entry",
+      "target": ".db-score__unit",
+      "text": "pts",
+      "fontPx": 32,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex-entry",
+      "target": ".body-sm",
+      "text": "Team mission score",
+      "fontPx": 28,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex-entry",
+      "target": "#\\:r4a\\:",
+      "text": "Mission Codex",
+      "fontPx": 40,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex-entry",
+      "target": ".btn",
+      "text": "All entries",
+      "fontPx": 28,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex-entry",
+      "target": ".grow > .eyebrow",
+      "text": "Parts",
+      "fontPx": 28,
+      "color": "rgb(85, 197, 205)",
+      "worstRatio": 5.61,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex-entry",
+      "target": "h3",
+      "text": "Small fairing",
+      "fontPx": 39,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex-entry",
+      "target": ".stack--sm.panel.stack > .kv > .kv__k",
+      "text": "Real-world twin",
+      "fontPx": 30,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex-entry",
+      "target": ".stack--sm.panel.stack > .kv > .kv__v",
+      "text": "Small launchers",
+      "fontPx": 32,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex-entry",
+      "target": ".tone-good",
+      "text": "Strengths",
+      "fontPx": 28,
+      "color": "rgb(119, 214, 161)",
+      "worstRatio": 6.52,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex-entry",
+      "target": "div:nth-child(2) > .cx-bullets > li:nth-child(1)",
+      "text": "Light",
+      "fontPx": 30.08,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex-entry",
+      "target": ".cx-bullets > li:nth-child(2)",
+      "text": "Cheap",
+      "fontPx": 30.08,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex-entry",
+      "target": ".tone-bad",
+      "text": "Drawbacks",
+      "fontPx": 28,
+      "color": "rgb(255, 143, 143)",
+      "worstRatio": 5.24,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex-entry",
+      "target": "div:nth-child(3) > .cx-bullets > li",
+      "text": "Only small payloads",
+      "fontPx": 30.08,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "settings",
+      "target": ".rolebtn > .callsign",
+      "text": "BOOSTER",
+      "fontPx": 26,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "settings",
+      "target": ".rolebtn__more",
+      "text": "+1",
+      "fontPx": 26,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "settings",
+      "target": ".eyebrow",
+      "text": "Mission 1 · Debrief",
+      "fontPx": 28,
+      "color": "rgb(85, 197, 205)",
+      "worstRatio": 5.61,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "settings",
+      "target": ".db-hero__contract",
+      "text": "Earth Watch",
+      "fontPx": 40,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "settings",
+      "target": ".chip > span",
+      "text": "Mission success",
+      "fontPx": 26,
+      "color": "rgb(119, 214, 161)",
+      "worstRatio": 6.52,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "settings",
+      "target": ".db-grade__letter",
+      "text": "A",
+      "fontPx": 136,
+      "color": "rgb(255, 206, 131)",
+      "worstRatio": 7.88,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "settings",
+      "target": "h1",
+      "text": "Mission Accomplished",
+      "fontPx": 42.9,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "settings",
+      "target": ".db-score__value",
+      "text": "8,516",
+      "fontPx": 66.3,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "settings",
+      "target": ".db-score__unit",
+      "text": "pts",
+      "fontPx": 32,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "settings",
+      "target": ".db-hero > .body-sm",
+      "text": "Team mission score",
+      "fontPx": 28,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "settings",
+      "target": "#\\:r4b\\:",
+      "text": "Settings",
+      "fontPx": 40,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "settings",
+      "target": ".stack--sm:nth-child(1) > h3 > span",
+      "text": "Display",
+      "fontPx": 28,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "settings",
+      "target": ".st-text__head > .switch__title",
+      "text": "Text size",
+      "fontPx": 32,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "settings",
+      "target": ".st-text__value",
+      "text": "200%",
+      "fontPx": 36.8,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "settings",
+      "target": ".st-stepper__a--sm",
+      "text": "A",
+      "fontPx": 14,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "settings",
+      "target": "button[data-testid=\"pref-highContrast\"] > .switch__text > .switch__title",
+      "text": "High contrast",
+      "fontPx": 32,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "settings",
+      "target": "button[data-testid=\"pref-highContrast\"] > .switch__text > .switch__desc",
+      "text": "Black background, white text, heavier ou",
+      "fontPx": 28,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "settings",
+      "target": "button[data-testid=\"pref-reducedMotion\"] > .switch__text > .switch__title",
+      "text": "Reduced motion",
+      "fontPx": 32,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "settings",
+      "target": "button[data-testid=\"pref-reducedMotion\"] > .switch__text > .switch__desc",
+      "text": "No shake, fewer particles, no flashing.",
+      "fontPx": 28,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    }
+  ]
+}
