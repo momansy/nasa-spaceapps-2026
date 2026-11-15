@@ -1,0 +1,25 @@
+01-countdown-venting: MET -4.5 s, phase F1, altitude 0.0 km, feed CoreFlightFeed
+  cam (-38.00, 4.50, -8058.00) fwd (0.51, 0.36, 0.78) fov 48.0 near 0.5 far 40000 mask -1 | anchorHome (0.00, 10.50, -8000.00) pad (0.00, 10.50, -8000.00) env (0.00, 0.00, -8000.00) active True | rig bounds (0.00, 16.87, -7999.75) size (26.31, 64.16, 26.08) renderers 36 on 36 visible 24 layer 0 mat0 Universal Render Pipeline/Lit
+02-liftoff-pad-cam: MET 2.0 s, phase F3, altitude 0.0 km, feed CoreFlightFeed
+  cam (-37.49, 0.56, -8058.00) fwd (0.51, 0.32, 0.80) fov 47.7 near 0.5 far 40000 mask -1 | anchorHome (0.00, 10.50, -8000.00) pad (0.51, 3.21, -8000.00) env (0.51, -7.29, -8000.00) active True | rig bounds (0.00, 26.80, -8000.00) size (24.55, 44.31, 24.55) renderers 36 on 36 visible 24 layer 0 mat0 Universal Render Pipeline/Lit
+03-minigame-banner-bullet-time: MET 46.0 s, phase F4, altitude 5.0 km, feed CoreFlightFeed
+  cam (-26.92, 16.27, -8088.44) fwd (0.29, 0.16, 0.94) fov 38.0 near 0.5 far 40000 mask -1 | anchorHome (0.00, 10.50, -8000.00) pad (-0.85, -4942.06, -8000.00) env (-0.85, -4952.56, -8000.00) active True | rig bounds (0.00, 22.97, -8000.00) size (24.55, 51.96, 24.55) renderers 36 on 36 visible 24 layer 0 mat0 Universal Render Pipeline/Lit
+04-tracking-telescope: MET 46.0 s, phase F4, altitude 5.0 km, feed CoreFlightFeed
+  cam (-900.85, -4938.06, -10200.00) fwd (0.16, 0.90, 0.40) fov 2.5 near 0.5 far 40000 mask -1 | anchorHome (0.00, 10.50, -8000.00) pad (-0.85, -4949.44, -8000.00) env (-0.85, -4959.94, -8000.00) active True | rig bounds (0.00, 22.97, -8000.00) size (24.55, 51.96, 24.55) renderers 36 on 36 visible 25 layer 0 mat0 Universal Render Pipeline/Lit
+05-condensation-collar-near-max-q: MET 63.3 s, phase F4, altitude 9.9 km, feed CoreFlightFeed
+  cam (-22.74, 26.02, -8088.44) fwd (0.33, 0.04, 0.94) fov 38.0 near 0.5 far 40000 mask -1 | anchorHome (0.00, 10.50, -8000.00) pad (-3.90, -8979.30, -8000.00) env (-3.90, -8989.80, -8000.00) active True | rig bounds (1.45, 20.39, -8000.00) size (27.75, 51.92, 24.55) renderers 36 on 36 visible 24 layer 0 mat0 Universal Render Pipeline/Lit
+06-ascent-hud: MET 105.0 s, phase F5, altitude 27.0 km, feed CoreFlightFeed
+  cam (-5.59, 37.45, -8088.44) fwd (0.27, -0.20, 0.94) fov 38.0 near 0.5 far 40000 mask -1 | anchorHome (0.00, 10.50, -8000.00) pad (-3.90, -8979.30, -8000.00) env (-3.90, -8989.80, -8000.00) active True | rig bounds (8.30, 13.54, -8000.00) size (54.38, 35.04, 24.55) renderers 36 on 36 visible 24 layer 0 mat0 Universal Render Pipeline/Lit
+07-staging-onboard: MET 138.9 s, phase F6, altitude 43.5 km, feed CoreFlightFeed
+  cam (27.57, 31.43, -8002.60) fwd (-0.79, -0.61, 0.05) fov 62.0 near 0.1 far 40000 mask -1 | anchorHome (0.00, 10.50, -8000.00) pad (-3.90, -8979.30, -8000.00) env (-3.90, -8989.80, -8000.00) active True | rig bounds (-0.86, 12.70, -8002.46) size (82.87, 80.15, 48.65) renderers 15 on 15 visible 8 layer 0 mat0 Universal Render Pipeline/Lit
+08-staging-chase: MET 144.0 s, phase F6, altitude 46.0 km, feed CoreFlightFeed
+  cam (-11.38, 35.56, -8088.44) fwd (0.30, -0.13, 0.94) fov 38.0 near 0.5 far 40000 mask -1 | anchorHome (0.00, 10.50, -8000.00) pad (-3.90, -8979.30, -8000.00) env (-3.90, -8989.80, -8000.00) active True | rig bounds (0.41, 12.41, -8001.59) size (83.57, 80.91, 49.56) renderers 15 on 15 visible 9 layer 0 mat0 Universal Render Pipeline/Lit
+09-fairing-jettison: MET 195.0 s, phase F7, altitude 71.3 km, feed CoreFlightFeed
+  cam (-9.30, 36.41, -8088.44) fwd (0.29, -0.16, 0.94) fov 38.0 near 0.5 far 40000 mask -1 | anchorHome (0.00, 10.50, -8000.00) pad (-3.90, -8979.30, -8000.00) env (-3.90, -8989.80, -8000.00) active True | rig bounds (0.95, 10.68, -8001.37) size (84.72, 80.27, 48.35) renderers 11 on 11 visible 7 layer 0 mat0 Universal Render Pipeline/Lit
+10-orbit-chase-earth-limb: MET 1400.5 s, phase F8, altitude 299.6 km, feed CoreFlightFeed
+  cam (27.53, 10.53, -8088.44) fwd (-0.25, -0.22, 0.94) fov 38.0 near 0.5 far 40000 mask -1 | anchorHome (0.00, 10.50, -8000.00) pad (-3.90, -8979.30, -8000.00) env (-3.90, -8989.80, -8000.00) active True | rig bounds (4.60, -8.38, -8000.04) size (9.10, 31.16, 3.85) renderers 11 on 11 visible 5 layer 0 mat0 Universal Render Pipeline/Lit
+11-orbit-map: MET 1401.9 s, phase F8, altitude 299.6 km, feed CoreFlightFeed
+  cam (-0.51, 26.80, -18.99) fwd (0.02, -0.81, 0.59) fov 34.0 near 0.1 far 400 mask -1
+median FPS lift-off (MET 0-20 s): 60.0 over 394 frames
+median FPS orbit (F8): 60.0 over 451 frames
+resolution 1920x1080, Mac16,13, Apple M4, playback rate 3

@@ -53,6 +53,9 @@ dropping to 0 in F7/F8 = SECO (view-side label only).
   and drift with the vehicle's felt g-load; condensation collar at Mach 0.9–1.1 below 18 km; LOX venting; pad exhaust.
 - `EnginePlume` (`FlightVfx.cs`): Particle System (WebGL safe). Length 6 → 18 bell diameters and cone 3° → 32° as
   p/p0 goes 1 → 0; Mach diamonds while p/p0 > 0.25. Reduced motion halves emission and drops the pad cloud.
+- Engine-bay light (`FlightVehicleView.CreateEngineLight`): warm point light scaled by throttle, never fully off. It
+  also keeps the vehicle on the same URP/Lit variant as on the pad; without it, player builds drew nothing for the
+  vehicle above about 9 km (the no-additional-lights variant is stripped).
 - `FlightCameraDirector`: pad cam, tracking telescope (2.4 km off the pad, ≤ 13.7° vertical FOV ≈ 100 mm lens), chase,
   onboard; cuts on lift-off (+9 s), Max Q, staging, orbit.
 
