@@ -51,6 +51,11 @@ export class Mg29View {
   private hintR: Rect | null = null;
   private qPx = 17;
   private qLines: string[] = [];
+  /** Slot of the verdict card (replaces the question and the timer bar after the reveal), never over the stage (T038). */
+  private verdictR: Rect | null = null;
+  private whyLines: string[] = [];
+  private whyPx = 13.5;
+  private stripH = 40;
   private qLayer: KeyedLayer;
   private btnLayer: KeyedLayer;
   private verdictLayer: KeyedLayer;
@@ -92,6 +97,7 @@ export class Mg29View {
       this.barR = null;
       this.stage = { x: pad, y: pad, w: W - pad * 2, h: bTop - 6 - pad };
       this.hintR = null;
+      this.verdictR = null;
       return;
     }
     // Question card: wrapped text, at most 5 lines.
@@ -104,6 +110,17 @@ export class Mg29View {
     const barH = Math.round(40 * Math.min(s, 1.25));
     this.barR = { x: pad, y, w: W - pad * 2, h: barH };
     y += barH + 10;
+    // The verdict (strip + explanation) takes the place of the question and the bar once the
+    // answer is revealed; if it needs more room than they have, the stage starts lower instead of
+    // the verdict covering it.
+    this.whyPx = c.px(16, 1.35);
+    c.ctx.font = c.font(this.whyPx, 500);
+    this.whyLines = wrap(c.ctx, this.o.t(`${K}q.${this.sim.q.id}.why`), W - pad * 2 - 44).slice(0, 4);
+    this.stripH = Math.round(40 * Math.min(c.u, 1.3));
+    const needed = Math.round(this.stripH + 18 + this.whyLines.length * this.whyPx * 1.35 + 8);
+    const slotH = Math.max(needed, y - 10 - pad);
+    this.verdictR = { x: pad, y: pad, w: W - pad * 2, h: slotH };
+    y = Math.max(y, pad + slotH + 10);
     const hintH = Math.round(28 * s);
     const bh = Math.round(Math.max(56, 50 * s));
     const gap = 8;
@@ -127,8 +144,11 @@ export class Mg29View {
     c.begin();
     c.backdrop(0.8);
     if (!this.o.compact) {
-      this.drawQuestion();
-      this.drawBar();
+      if (this.sim.animK >= REVEAL_K) this.drawVerdict();
+      else {
+        this.drawQuestion();
+        this.drawBar();
+      }
     }
     this.drawStage();
     this.drawButtons(st.focus ?? -1);
@@ -232,24 +252,20 @@ export class Mg29View {
     ctx.lineWidth = 1;
     pathRoundRect(ctx, { x: r.x + 0.5, y: r.y + 0.5, w: r.w - 1, h: r.h - 1 }, 16);
     ctx.stroke();
-    if (sim.animK >= REVEAL_K && !this.o.compact) this.drawVerdict();
   }
 
   private drawVerdict() {
     const c = this.c;
     const sim = this.sim;
     const t = this.o.t;
-    const r = this.stage;
+    const box = this.verdictR;
+    if (!box) return;
     const ok = sim.locked === sim.correctSlot;
     const label = sim.locked < 0 ? t(K + 'result.none') : ok ? t(K + 'result.right') : t(K + 'result.wrong');
-    const why = t(`${K}q.${sim.q.id}.why`);
-    const px = c.px(13.5, 1.3);
-    c.ctx.font = c.font(px, 500);
-    const lines = wrap(c.ctx, why, r.w - 44).slice(0, 4);
-    const stripH = Math.round(40 * Math.min(c.u, 1.3));
-    const h = stripH + 18 + lines.length * px * 1.35 + 8;
-    const box = { x: r.x + 10, y: r.y + r.h - h - 10, w: r.w - 20, h };
-    this.verdictLayer.blit({ x: box.x - 8, y: box.y - 6, w: box.w + 16, h: box.h + 26 }, `${label}|${box.w}x${box.h}|${box.y}`, () => {
+    const px = this.whyPx;
+    const lines = this.whyLines;
+    const stripH = this.stripH;
+    this.verdictLayer.blit({ x: box.x - 8, y: box.y - 6, w: box.w + 16, h: box.h + 26 }, `${label}|${box.w}x${box.h}|${box.y}|${sim.q.id}`, () => {
       c.glass(box, 14, true);
       c.statusStrip({ x: box.x + 8, y: box.y + 8, w: box.w - 16, h: stripH }, ok ? 'good' : 'bad', label);
       const ctx = c.ctx;
@@ -258,7 +274,10 @@ export class Mg29View {
       ctx.textBaseline = 'middle';
       ctx.textAlign = c.rtl ? 'right' : 'left';
       const x = c.rtl ? box.x + box.w - 14 : box.x + 14;
-      lines.forEach((l, i) => ctx.fillText(l, x, box.y + stripH + 20 + px * 0.5 + i * px * 1.35));
+      // Centre the explanation in the space under the strip.
+      const textH = lines.length * px * 1.35;
+      const y0 = box.y + stripH + 16 + Math.max(0, (box.h - stripH - 16 - textH) / 2);
+      lines.forEach((l, i) => ctx.fillText(l, x, y0 + px * 0.68 + i * px * 1.35));
     });
   }
 

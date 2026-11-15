@@ -181,7 +181,7 @@ export const PartCard = memo(function PartCard(props: PartCardProps) {
       data-testid={`card-${option.id}`}
       data-maturity={part.game?.maturity ?? undefined}
     >
-      <div className="pcard__viewport">
+      <div className={`pcard__viewport ${drawbacks.length > 0 ? '' : 'pcard__viewport--full'}`}>
       <div className="pcard__scroll" ref={scrollRef} onScroll={measure}>
         <div className="pcard__media">
           <PartViewer partId={part.id} size="card" active={active && !vetoed} onExpand={onExpandViewer} />
@@ -355,13 +355,15 @@ export const PartCard = memo(function PartCard(props: PartCardProps) {
       </div>
       {more && (
         <button type="button" className="pcard__more" onClick={scrollMore} aria-label={t('ui.card.more_stats')} data-testid="card-more">
-          <Icon name="chevronDown" size="1rem" strokeWidth={2.6} />
-          <span>{t('ui.card.more')}</span>
+          <span className="pcard__pill">
+            <Icon name="chevronDown" size="1rem" strokeWidth={2.6} />
+            <span>{t('ui.card.more')}</span>
+          </span>
         </button>
       )}
       </div>
-      <div className="pcard__pin">
-        {drawbacks.length > 0 && (
+      {drawbacks.length > 0 && (
+        <div className="pcard__pin">
           <section className="plist plist--bad drawbacks" data-testid="drawbacks">
             <h3 className="plist__title">
               <Icon name={TONE_ICON.bad} size="1rem" />
@@ -373,8 +375,8 @@ export const PartCard = memo(function PartCard(props: PartCardProps) {
               ))}
             </ul>
           </section>
-        )}
-      </div>
+        </div>
+      )}
 
       {vetoed && (
         <div className="pcard__stamp" role="status">

@@ -193,3 +193,13 @@ describe('MG-04 runs', () => {
     expect(play(144)).toEqual(play(60));
   });
 });
+
+describe('host-timer agreement (T038)', () => {
+  it('windowLeftS counts the whole host window, longer than the Standard play time', () => {
+    const sim = new Mg04Sim(STD, 5);
+    expect(sim.windowLeftS).toBeCloseTo(DUR_S, 6);
+    expect(sim.leftS).toBeCloseTo(DUR_S * 0.75, 6);
+    for (let i = 0; i < 120; i++) sim.tick();
+    expect(sim.windowLeftS - sim.leftS).toBeCloseTo(DUR_S * 0.25, 6);
+  });
+});

@@ -467,15 +467,17 @@ export class Mg03View {
     const total = sim.defects.length;
     const need = Math.ceil(sim.config.foundMin * total - 1e-9);
     const found = sim.foundCount;
-    const left = Math.ceil(sim.leftS);
-    const key = `${found}|${sim.falseAlarms}|${left}|${c.W}`;
+    // The same time as the host timer bar (whole window), not the shorter Standard play time (T038).
+    const left = Math.ceil(sim.windowLeftS);
+    const urgent = sim.leftS <= 5 && !sim.done;
+    const key = `${found}|${sim.falseAlarms}|${left}|${urgent}|${c.W}`;
     const r0 = this.hud[0]!;
     this.hudLayer.blit({ x: 0, y: r0.y - 6, w: c.W, h: r0.h + 26 }, key, () => {
       const fs: Status = found >= need ? 'good' : 'warn';
       c.readout(this.hud[0]!, t(K + 'hud.found', { n: need }), `${found}/${total}`, t(K + 'unit.defects'), found >= need ? c.pal.good : c.pal.text, fs);
       const as: Status = sim.falseAlarms > sim.config.falseMax ? 'bad' : sim.falseAlarms === sim.config.falseMax && sim.falseAlarms > 0 ? 'warn' : 'good';
       c.readout(this.hud[1]!, t(K + 'hud.false', { n: sim.config.falseMax }), String(sim.falseAlarms), t(K + 'unit.marks'), sim.falseAlarms > sim.config.falseMax ? c.pal.bad : c.pal.text, as);
-      c.readout(this.hud[2]!, t(K + 'hud.left'), String(left), 's', left <= 5 && !sim.done ? c.pal.sun : c.pal.text);
+      c.readout(this.hud[2]!, t(K + 'hud.left'), String(left), 's', urgent ? c.pal.sun : c.pal.text);
     });
   }
 
