@@ -386,6 +386,47 @@ export async function createThreeScene(glb: ArrayBuffer, cacheKey?: string): Pro
   };
 }
 
+let warm: Promise<void> | null = null;
+
+/**
+ * One-time warm-up (see prewarm.ts): creates the shared renderer and its environment, then
+ * parses each model into the cache and draws it once off screen so its shader programs are
+ * compiled and its geometry and textures uploaded. `yieldFn` runs between steps so each lands
+ * in its own task. Idempotent: later calls return the first call's promise. Rejects without
+ * WebGL. Skips drawing while a viewer shows the WebGL canvas (it is already warm then).
+ */
+export function warmUp(models: { key: string; glb: ArrayBuffer }[], yieldFn: () => Promise<void> = () => Promise.resolve()): Promise<void> {
+  if (warm) return warm;
+  warm = (async () => {
+    const s = getShared();
+    for (const m of models) {
+      await yieldFn();
+      const entry = acquire(m.glb, m.key);
+      try {
+        const template = await entry.promise;
+        await yieldFn();
+        if (s.owner || s.lost) continue;
+        const canvas = document.createElement('canvas');
+        canvas.width = 64;
+        canvas.height = 64;
+        const pivot = new Group();
+        const fit = new Group();
+        fit.scale.setScalar(1 / template.radius);
+        fit.add(template.root.clone(true));
+        pivot.add(fit);
+        const v: ViewerState = { canvas, ctx: null as unknown as CanvasRenderingContext2D, pivot, aspect: 1, lastView: null };
+        renderView(s, v, { yaw: 0.6, pitch: 0.3, zoom: 1 });
+        pivot.clear();
+      } catch {
+        /* unreadable model: the viewer falls back on its own */
+      } finally {
+        release(entry);
+      }
+    }
+  })();
+  return warm;
+}
+
 /** Counters for tests and diagnostics. */
 export function viewerServiceStats() {
   return { ...stats, cachedModels: [...cache.keys()], hasRenderer: shared != null, hasOwner: shared?.owner != null };
@@ -400,6 +441,7 @@ export function resetViewerServiceForTests() {
     shared.renderer.dispose();
   }
   shared = null;
+  warm = null;
   sharedError = null;
   for (const e of cache.values()) disposeTemplate(e);
   cache.clear();
