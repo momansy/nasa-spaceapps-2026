@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MissionForge: pitch deck</title>
+<style>
+/* Fonts are the game's own (OFL 1.1, see docs/play/credits.html), copied to ./fonts so the deck has no network dependency. */
+@font-face{font-family:"Oxanium";font-weight:700;src:url("fonts/oxanium-700.woff") format("woff")}
+@font-face{font-family:"IBM Plex Sans";font-weight:400;src:url("fonts/plex-sans-400.woff") format("woff")}
+@font-face{font-family:"IBM Plex Sans";font-weight:600;src:url("fonts/plex-sans-600.woff") format("woff")}
+@font-face{font-family:"IBM Plex Mono";font-weight:600;src:url("fonts/plex-mono-600.woff") format("woff")}
+/* Palette from docs/play/judges.html */
+:root{--space:#071522;--console:#112B40;--ocean:#176887;--ceramic:#E8EEF0;--signal:#55C5CD;--sunlight:#FFCE83;--muted:#B6C7D3;--line:rgba(232,238,240,.22);--warn:#FFD166}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#000;overflow:hidden}
+body{font-family:"IBM Plex Sans",system-ui,"Segoe UI",Arial,sans-serif;color:var(--ceramic)}
+#stage{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0}
+.slide{position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden;background:var(--space);display:none;padding:72px 96px 0}
+.slide.on{display:block}
+.slide::before{content:"";position:absolute;inset:0;background:radial-gradient(1200px 700px at 85% -10%,rgba(23,104,135,.45),transparent 70%),radial-gradient(900px 600px at -5% 110%,rgba(17,43,64,.9),transparent 70%);z-index:0}
+.slide>*{position:relative;z-index:1}
+.kicker{font:600 30px/1 "IBM Plex Mono",ui-monospace,Consolas,monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--signal);margin:0 0 18px}
+h1{font:700 78px/1.05 "Oxanium","IBM Plex Sans",sans-serif;margin:0 0 26px;letter-spacing:.01em}
+h1 b{color:var(--sunlight);font-weight:700}
+p,li{font-size:34px;line-height:1.38;margin:0 0 14px}
+ul{margin:0;padding:0 0 0 38px}
+li{margin-bottom:12px}
+.muted{color:var(--muted)}
+b,strong{font-weight:600}
+.sun{color:var(--sunlight)}.sig{color:var(--signal)}
+.foot{position:absolute;left:96px;right:96px;bottom:26px;z-index:2;display:flex;justify-content:space-between;font:600 24px/1 "IBM Plex Mono",monospace;color:var(--muted);letter-spacing:.06em}
+.row{display:flex;gap:44px}
+.card{background:rgba(17,43,64,.92);border:1px solid var(--line);border-left:6px solid var(--signal);padding:22px 28px}
+.card.warn{border-left-color:var(--sunlight)}
+.card h3{font:700 40px/1.1 "Oxanium",sans-serif;margin:0 0 10px;color:var(--sunlight)}
+.card p,.card li{font-size:30px;line-height:1.32;margin:0}
+.pill{display:inline-block;font:600 28px/1 "IBM Plex Sans",sans-serif;border:2px solid var(--signal);color:var(--ceramic);border-radius:40px;padding:12px 26px;margin:0 12px 12px 0;background:rgba(7,21,34,.6)}
+.shot{border:1px solid var(--line);box-shadow:0 18px 50px rgba(0,0,0,.55);display:block}
+.cap{font-size:28px;line-height:1.3;color:var(--muted);margin:12px 0 0}
+.phone{border-radius:44px;border:4px solid #2a4a63;box-shadow:0 18px 50px rgba(0,0,0,.6);display:block}
+.stat{font:700 84px/1 "Oxanium",sans-serif;color:var(--sunlight)}
+.statl{font-size:30px;color:var(--muted);margin-top:6px;line-height:1.2}
+.bg{position:absolute!important;inset:0;z-index:0!important;background-size:cover;background-position:center}
+.scrim::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,21,34,.94) 0%,rgba(7,21,34,.86) 55%,rgba(7,21,34,.2) 100%);z-index:0}
+.tag{display:inline-block;font:600 28px/1 "IBM Plex Mono",monospace;padding:8px 16px;border:2px solid var(--line);letter-spacing:.04em;margin-right:10px}
+.tag.p{border-color:var(--signal);color:var(--signal)}.tag.a{border-color:var(--sunlight);color:var(--sunlight)}.tag.g{border-color:var(--muted);color:var(--muted)}
+table{border-collapse:collapse;width:100%}
+td,th{font-size:30px;line-height:1.25;text-align:left;padding:12px 18px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--sunlight);font:700 32px "Oxanium",sans-serif}
+.qr{width:560px;height:560px;border:10px solid #fff;display:block;background:#fff}
+.url{font:600 46px/1.2 "IBM Plex Mono",monospace;color:var(--sunlight);word-break:break-all}
+#hint{position:fixed;right:14px;top:8px;font:12px monospace;color:#789;z-index:9;opacity:0;animation:hint 5s ease 0.3s 1 both}
+@keyframes hint{0%,70%{opacity:1}100%{opacity:0}}
+.chain{display:flex;align-items:center;gap:18px;margin-top:40px}
+.chain .node{background:rgba(17,43,64,.95);border:2px solid var(--signal);padding:16px 26px;font:700 38px/1 "Oxanium",sans-serif;color:var(--ceramic)}
+.chain .node.end{border-color:var(--sunlight);color:var(--sunlight)}
+.chain .arr{font:600 44px/1 "IBM Plex Mono",monospace;color:var(--signal)}
+.arch{display:flex;align-items:stretch;gap:0;margin-top:26px}
+.arch .box{flex:1;background:rgba(17,43,64,.95);border:2px solid var(--signal);padding:20px 24px;text-align:center}
+.arch .box h3{font:700 38px/1.1 "Oxanium",sans-serif;margin:0 0 8px;color:var(--sunlight)}
+.arch .box p{font-size:32px;line-height:1.25;margin:0}
+.arch .link{width:215px;display:flex;flex-direction:column;align-items:center;justify-content:center;font:600 28px/1.2 "IBM Plex Mono",monospace;color:var(--signal);text-align:center}
+.foot span:last-child{text-shadow:0 0 6px #000}
+
+@media print{
+  @page{size:1920px 1080px;margin:0}
+  html,body{overflow:visible;height:auto;background:#000}
+  #stage{position:static;transform:none!important;width:1920px;height:auto}
+  .slide{display:block;position:relative;page-break-after:always;break-after:page;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  #hint{display:none}
+}
+</style>
+</head>
+<body>
+<div id="stage">
+
+<!-- 1 PROBLEM -->
+<section class="slide on" data-n="1">
+  <div class="kicker">MissionForge · NASA Space Apps Challenge 2026 · Team Winton</div>
+  <h1>Mission design is <b>trade-offs</b>.<br>Students never see them.</h1>
+  <div class="row" style="margin-top:34px">
+    <div style="width:1000px">
+      <p>More instruments need more power. More power needs more mass. More mass needs more fuel, and more money.</p>
+      <p>In a classroom that chain is a table of numbers, so nobody feels a decision.</p>
+      <p class="sun" style="margin-top:26px"><b>The challenge: a game where players design, fund and fly a space mission, and see why it worked or failed.</b></p>
+    </div>
+    <div style="width:600px">
+      <div class="card"><h3>Challenge asks for</h3>
+        <ul><li>mass, power, budget</li><li>data, comms, time</li><li>no single perfect answer</li><li>feedback on why</li></ul></div>
+    </div>
+  </div>
+  <div class="chain"><div class="node">Instruments</div><div class="arr">→</div><div class="node">Power</div><div class="arr">→</div><div class="node">Mass</div><div class="arr">→</div><div class="node">Fuel</div><div class="arr">→</div><div class="node end">Money</div></div>
+  <p class="muted" style="margin-top:22px">Every step in the chain pushes on the next. That is a mission design.</p>
+  <div class="foot"><span>Challenge: Space Mission Design Game</span><span>1 / 12</span></div>
+</section>
+
+<!-- 2 ONE LINE -->
+<section class="slide scrim" data-n="2">
+  <div class="bg" style="background-image:url(img/key-art.jpg)"></div>
+  <div class="kicker">MissionForge in one line</div>
+  <h1 style="font-size:92px">Mission<b>Forge</b></h1>
+  <p style="width:1060px;font-size:46px;line-height:1.3"><b>A cooperative party game: 1 to 10 players run a space agency, vote on every part of the rocket and satellite, then fly the mission.</b></p>
+  <div style="margin-top:44px;display:grid;grid-template-columns:repeat(5,200px);gap:10px;width:1100px">
+    <div><div class="stat">22</div><div class="statl">part votes<br>in contract C1</div></div>
+    <div><div class="stat">10</div><div class="statl">control<br>roles</div></div>
+    <div><div class="stat">32</div><div class="statl">phone<br>minigames</div></div>
+    <div><div class="stat">9</div><div class="statl">contracts<br>defined</div></div>
+    <div><div class="stat">6</div><div class="statl">languages</div></div>
+  </div>
+  <div class="foot"><span>Design it. Launch it. Learn why it worked.</span><span>2 / 12</span></div>
+</section>
+
+<!-- 3 HOW IT PLAYS -->
+<section class="slide" data-n="3">
+  <div class="kicker">How it plays</div>
+  <h1 style="font-size:66px">One big screen. Every phone is a console.</h1>
+  <div class="row" style="gap:40px;align-items:flex-start">
+    <div style="width:1080px">
+      <img class="shot" src="img/host-lobby.jpg" width="1080" height="608" alt="Host lobby on the hosted game: crew, room code, QR and mission settings">
+      <p class="cap">The big-screen lobby of the hosted game: room code, QR code, crew seats, settings.</p>
+    </div>
+    <div style="width:310px;margin-top:-10px">
+      <img class="phone" src="img/phone-lobby.jpg" width="310" height="671" alt="Phone lobby: You are in, crew list">
+    </div>
+    <div style="width:330px;padding-top:8px">
+      <p style="font-size:32px"><b class="sig">1</b> Scan the QR</p>
+      <p style="font-size:32px"><b class="sig">2</b> Get a console</p>
+      <p style="font-size:32px"><b class="sig">3</b> Vote together</p>
+      <p class="muted" style="font-size:28px;margin-top:22px">No app, no account, no chat.</p>
+    </div>
+  </div>
+  <div class="foot"><span>Real screenshots: hosted game, 15 Nov 2026</span><span>3 / 12</span></div>
+</section>
+
+<!-- 4 TRADE-OFFS -->
+<section class="slide" data-n="4">
+  <div class="kicker">The trade-offs that matter</div>
+  <h1 style="font-size:64px">Six constraints, one shared design</h1>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:26px">
+    <div class="card" style="min-height:200px"><h3>Mass</h3><p>Delta-v and lift-off thrust-to-weight on the dashboard.</p></div>
+    <div class="card"><h3>Power</h3><p>Payload power balance must stay above 0 W.</p></div>
+    <div class="card"><h3>Budget</h3><p>Every part and test has a cost. C1: 90 M game-dollars.</p></div>
+    <div class="card"><h3>Instruments</h3><p>Each camera or radar changes science, mass, power and data.</p></div>
+    <div class="card"><h3>Orbit</h3><p>Launch site and inclination. C1: 550 km, 97.6°.</p></div>
+    <div class="card"><h3>Communications</h3><p>Downlink volume and ground passes. C1: 8 GB.</p></div>
+  </div>
+  <div class="card warn" style="margin-top:34px;padding:26px 34px"><h3 style="font-size:42px">Contract C1 Earth Watch</h3>
+    <div class="row" style="gap:0;margin-top:10px;justify-content:space-between;padding-right:60px">
+      <div><div class="stat" style="font-size:72px">150 kg</div><div class="statl">imaging satellite</div></div>
+      <div><div class="stat" style="font-size:72px">550 km</div><div class="statl">Sun-synchronous, 97.6°</div></div>
+      <div><div class="stat" style="font-size:72px">90 M</div><div class="statl">game-dollars</div></div>
+      <div><div class="stat" style="font-size:72px">180 d</div><div class="statl">deadline</div></div>
+    </div></div>
+  <div class="foot"><span>Numbers: data/contracts.json</span><span>4 / 12</span></div>
+</section>
+
+<!-- 5 VOTE AND PART CARD -->
+<section class="slide" data-n="5">
+  <div class="kicker">The vote and the part card</div>
+  <h1 style="font-size:62px">Every option shows what it costs</h1>
+  <div class="row" style="gap:36px;align-items:flex-start">
+    <div style="width:1130px">
+      <img class="shot" src="img/host-buildbay.jpg" width="1130" height="636" alt="Build Bay: readiness dashboard, vote 5 of 22 payload fairing, option cards with mass, cost and drawbacks">
+      <p class="cap">Big-screen Build Bay: live readiness and the option cards. Rehearsal build with simulated voters.</p>
+    </div>
+    <div style="width:330px"><img class="phone" src="img/phone-partcard.jpg" width="330" height="715" alt="Phone part card with stats and drawbacks"></div>
+    <div style="width:290px;padding-top:6px">
+      <p style="font-size:30px;line-height:1.3">Mass, power, cost, risk and <b>drawbacks</b> before the vote.</p>
+      <p style="font-size:30px;line-height:1.3">Predict first, then vote.</p>
+      <p style="font-size:30px;line-height:1.3">The audience gets an "Audience says" bar.</p>
+    </div>
+  </div>
+  <div class="foot"><span>Phone: real client, scripted demo session (?mock=1)</span><span>5 / 12</span></div>
+</section>
+
+<!-- 6 FLIGHT AND MINIGAMES -->
+<section class="slide" data-n="6">
+  <div class="kicker">Flight and minigames</div>
+  <h1 style="font-size:62px">Constraints become short minigames</h1>
+  <div class="row" style="gap:50px;align-items:flex-start">
+    <div style="width:1100px">
+      <ul style="font-size:34px">
+        <li><b>Max Q Throttle Bucket:</b> keep dynamic pressure in the band (mass, structure)</li>
+        <li><b>Solar Wing Deploy</b> and <b>Eclipse Power Juggle:</b> power</li>
+        <li><b>Ground Station Pass:</b> communications</li>
+        <li><b>Science Capture:</b> instruments</li>
+      </ul>
+      <div class="card" style="margin-top:26px"><h3>A fact inside the mechanic</h3><p>"Many rockets throttle down near Max Q, the moment of peak aerodynamic stress, often about a minute after liftoff." <span class="muted">Source: NASA, Space Shuttle Day-of-Launch Trajectory Design, 2011, and others.</span></p></div>
+      <div class="card warn" style="margin-top:22px"><p><b>32 minigames</b> run on the phones. Each has a Relaxed mode and a One-Button mode. The big-screen flight view is <b>in development</b>.</p></div>
+    </div>
+    <div style="width:380px;margin-left:50px"><img class="phone" src="img/phone-maxq.jpg" width="380" height="822" alt="Max Q Throttle Bucket minigame on a phone"></div>
+  </div>
+  <div class="foot"><span>Phone: real client on the hosted site, scripted stand-in host</span><span>6 / 12</span></div>
+</section>
+
+<!-- 7 DEBRIEF AND FACTS -->
+<section class="slide" data-n="7">
+  <div class="kicker">Debrief and facts</div>
+  <h1 style="font-size:62px">What is physics, and what is game</h1>
+  <div class="row" style="gap:36px;align-items:flex-start">
+    <div style="width:1180px">
+      <table>
+        <tr><th style="width:340px">Tag</th><th>Examples in the game</th></tr>
+        <tr><td><span class="tag p">PHYSICAL</span></td><td>Gravity 9.80665 m/s², rocket equation, drag, Max Q, vis-viva orbit</td></tr>
+        <tr><td><span class="tag a">APPROX.</span></td><td>Engine thrust and Isp, about 9.7 km/s to a 550 km orbit</td></tr>
+        <tr><td><span class="tag g">GAME</span></td><td>Costs, schedules, reliabilities, score weights</td></tr>
+      </table>
+      <p style="margin-top:22px">Flight is 2D with one exponential atmosphere and probability rolls for failures. The Codex notes the simplifications.</p>
+      <div class="card warn" style="margin-top:14px"><p>The phone debrief shows score, grade, objectives, awards and facts. Tagging every number on screen with these three labels is <b>planned</b>; today the tags are in the data files and the Codex.</p></div>
+    </div>
+    <div style="width:380px"><img class="phone" src="img/phone-debrief.jpg" width="380" height="822" alt="Phone debrief: facts collected, each with its source"></div>
+  </div>
+  <div class="foot"><span>Debrief score: scripted demo session, not a simulation result</span><span>7 / 12</span></div>
+</section>
+
+<!-- 8 NASA DATA -->
+<section class="slide" data-n="8">
+  <div class="kicker">NASA data and sources</div>
+  <h1 style="font-size:62px">Facts inside the mechanics, with sources</h1>
+  <div class="row" style="gap:40px;align-items:flex-start">
+    <div style="width:1000px">
+      <div class="card"><h3>40 facts, each with a source URL</h3><p>Checked against the cited NASA, USGS or ESA page: 25 confirmed, 15 corrected, none rejected.</p></div>
+      <div class="card" style="margin-top:22px"><h3>Public NASA imagery</h3><p>Earth textures from NASA Visible Earth (Blue Marble, Black Marble).</p></div>
+      <div class="card" style="margin-top:22px"><h3>Where you see a fact</h3><p>Inside the minigame it explains, then in the debrief with its source.</p></div>
+      <div class="card warn" style="margin-top:22px"><h3>What we do not use</h3><p>No live NASA data feed or API. No GMAT run: delta-v values are rounded published figures.</p></div>
+    </div>
+    <div style="width:740px"><img class="shot" src="img/host-title.jpg" width="740" height="416" alt="Title screen with NASA Blue Marble Earth"><p class="cap">Title screen, Earth from NASA Visible Earth. Not affiliated with or endorsed by NASA.</p></div>
+  </div>
+  <div class="foot"><span>Details: submission/NASA_RESOURCES.md</span><span>8 / 12</span></div>
+</section>
+
+<!-- 9 ACCESSIBILITY -->
+<section class="slide" data-n="9">
+  <div class="kicker">Accessibility and 6 languages</div>
+  <h1 style="font-size:62px">Built to be played by everyone</h1>
+  <div class="row" style="gap:50px;align-items:flex-start">
+    <div style="width:1000px">
+      <ul>
+        <li>English, Arabic (right-to-left), Spanish, French, Portuguese, Hindi</li>
+        <li>Text up to 200 percent, high-contrast mode, reduced motion</li>
+        <li>Screen-reader labels; Relaxed and One-Button minigames</li>
+        <li>No chat, no accounts, no trackers</li>
+      </ul>
+      <div style="margin-top:20px"><span class="pill">English</span><span class="pill">العربية</span><span class="pill">Español</span><span class="pill">Français</span><span class="pill">Português</span><span class="pill">हिन्दी</span></div>
+      <div class="card warn" style="margin-top:14px"><p>Translations were written by AI agents. <b>No native-speaker review yet.</b></p></div>
+    </div>
+    <div style="width:330px"><img class="phone" src="img/phone-ar.jpg" width="330" height="715" alt="Phone part card in Arabic, right-to-left"></div>
+    <div style="width:330px"><img class="phone" src="img/phone-hc.jpg" width="330" height="715" alt="Phone console in high-contrast mode"></div>
+  </div>
+  <div class="foot"><span>Arabic and high contrast: real phone client</span><span>9 / 12</span></div>
+</section>
+
+<!-- 10 HOW BUILT -->
+<section class="slide" data-n="10">
+  <div class="kicker">How it was built</div>
+  <h1 style="font-size:62px">Four parts, one protocol, tested</h1>
+  <div class="arch">
+    <div class="box"><h3>Phones</h3><p>TypeScript, React, Vite. 32 minigames</p></div>
+    <div class="link">WebSocket<br>JSON<br>⇄</div>
+    <div class="box"><h3>Room server</h3><p>Node. Rooms in memory only</p></div>
+    <div class="link">WebSocket<br>JSON<br>⇄</div>
+    <div class="box"><h3>Big screen</h3><p>Unity 6 WebGL host. Lobby, Build Bay</p></div>
+  </div>
+  <p style="margin-top:30px;font-size:36px"><b class="sig">Core rules:</b> C#, no Unity dependency, deterministic from a seed. <b class="sig">Data:</b> JSON, 26 part categories, 9 contracts.</p>
+  <p style="margin-top:14px;font-size:36px"><b class="sun">Tests, 15 Nov 2026:</b> Core 567, phone client 916, server 240, all passing on Windows; data validator 0 errors.</p>
+  <div class="card warn" style="margin-top:22px;padding:28px 32px"><p style="font-size:34px"><b>Built by a human team directing AI coding agents</b> (Claude Code, OpenAI Codex). Images from Higgsfield, briefing video from Gemini. Fully disclosed in AI_DISCLOSURE.md.</p></div>
+  <div class="foot"><span>Evidence: orchestration/evidence/T042, T044</span><span>10 / 12</span></div>
+</section>
+
+<!-- 11 WHAT'S NEXT -->
+<section class="slide" data-n="11">
+  <div class="kicker">What is next</div>
+  <h1 style="font-size:62px">Built today, and planned</h1>
+  <div class="row" style="gap:40px">
+    <div class="card" style="width:870px;font-size:36px"><h3>Built</h3>
+      <ul style="font-size:36px"><li style="font-size:36px">Big screen: title, lobby, QR join</li><li style="font-size:36px;margin-bottom:12px">Build Bay scene (shown with simulated voters)</li><li style="font-size:36px;margin-bottom:12px">Full phone session: votes, 32 minigames, debrief</li><li style="font-size:36px;margin-bottom:12px">Hosted online, six languages</li></ul></div>
+    <div class="card warn" style="width:870px"><h3>Planned</h3>
+      <ul><li style="font-size:36px;margin-bottom:12px">Big screen: contract data in the briefing, live Build Bay, flight, orbit map, debrief</li><li style="font-size:36px;margin-bottom:12px">Frame rate on a GPU laptop; six-person playtest</li><li style="font-size:36px;margin-bottom:12px">Native-speaker review; recorded voice lines</li></ul></div>
+  </div>
+  <div class="card" style="margin-top:30px"><p style="font-size:34px">Today the big-screen briefing and contract-vote screens show the layout only, and the contract numbers appear on the phones. Only contract C1 is rehearsed end to end; C2 to C8 are defined and balance-checked.</p></div>
+  <div class="foot"><span>Honest status: submission/PROJECT_DESCRIPTION.md, sections 8 and 9</span><span>11 / 12</span></div>
+</section>
+
+<!-- 12 PLAY NOW -->
+<section class="slide scrim" data-n="12">
+  <div class="bg" style="background-image:url(img/key-art.jpg)"></div>
+  <div class="row" style="align-items:center;gap:80px;margin-top:40px">
+    <div style="width:1000px">
+      <div class="kicker">Play it now</div>
+      <h1 style="font-size:92px">Mission<b>Forge</b></h1>
+      <p style="font-size:38px">Open on a laptop, click <b>Host a mission</b>, join from any phone.</p>
+      <p class="url" style="font-size:44px">missionforge-spaceapps<br>.onrender.com/play/</p>
+      <p class="muted" style="font-size:30px;margin-top:20px">Free host: the first visit can take about a minute to wake. No room needed: /play/client/?mock=1</p>
+    </div>
+    <div><img class="qr" src="img/qr-play.svg" alt="QR code for the hosted game URL"></div>
+  </div>
+  <div class="foot"><span>Team Winton · Not affiliated with or endorsed by NASA</span><span>12 / 12</span></div>
+</section>
+
+</div>
+<div id="hint">← → or click · F fullscreen · P print</div>
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide')),stage=document.getElementById('stage'),i=0;
+  function fit(){var s=Math.min(innerWidth/1920,innerHeight/1080);stage.style.transform='scale('+s+')';stage.style.left=((innerWidth-1920*s)/2)+'px';stage.style.top=((innerHeight-1080*s)/2)+'px'}
+  function show(n){i=Math.max(0,Math.min(slides.length-1,n));slides.forEach(function(s,k){s.classList.toggle('on',k===i)});try{history.replaceState(null,'','#'+(i+1))}catch(e){}}
+  addEventListener('resize',fit);fit();
+  var h=parseInt((location.hash||'').slice(1),10);show(h>0?h-1:0);
+  addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '||e.key==='Enter'){e.preventDefault();show(i+1)}
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'||e.key==='Backspace'){e.preventDefault();show(i-1)}
+    else if(e.key==='Home')show(0);else if(e.key==='End')show(slides.length-1);
+    else if(e.key==='f'||e.key==='F'){if(document.fullscreenElement)document.exitFullscreen();else document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen()}
+    else if(e.key==='p'||e.key==='P')window.print();
+  });
+  document.addEventListener('click',function(e){if(e.target.closest('a'))return;show(e.clientX<innerWidth*0.25?i-1:i+1)});
+  window.__mfDeck={show:show,count:slides.length};
+})();
+</script>
+</body>
+</html>
