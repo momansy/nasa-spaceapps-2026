@@ -29,6 +29,8 @@ const measureVotePerformance = argv.includes('--measure-vote-performance') || pr
 if (profileVotePhone && segment !== 'full') throw new Error('--profile-vote-phone requires --segment full');
 if (profileVotePhone && playerCounts.some((count) => profileVotePhone > count)) throw new Error('--profile-vote-phone must exist in every requested player count');
 const mgIds = value('--minigames', 'MG-01,MG-02,MG-03,MG-04,MG-05,MG-06,MG-07,MG-08b,MG-08,MG-09,MG-10a,MG-10,MG-11,MG-12,MG-13,MG-14,MG-15,MG-16,MG-17,MG-18,MG-19,MG-20,MG-21,MG-29,MG-30').split(',');
+// --hosted http://localhost:10000: run against an already running `start:hosted` process (T048) instead of a private room server.
+const hostedOrigin = value('--hosted', null);
 const unityHeaded = argv.includes('--headed');
 const runStamp = new Date().toISOString().replace(/[:.]/g, '-');
 fs.mkdirSync(path.join(evidenceDir, 'runs'), { recursive: true });
@@ -44,7 +46,7 @@ async function runStub(playerCount) {
   const frameFile = path.join(runDir, 'frames.ndjson');
   const validator = new ProtocolValidator(schemaDir);
   const recorder = new FrameRecorder(frameFile, validator);
-  const stack = await launchStack({ recorder, runDir });
+  const stack = await launchStack({ recorder, runDir, hosted: hostedOrigin ? { origin: hostedOrigin.replace(/\/$/, '') } : null });
   let sharedBrowser = null;
   const phoneBrowsers = [];
   const newPhone = async (options) => {
@@ -144,7 +146,7 @@ async function runUnityProbe() {
   const runDir = path.join(evidenceDir, 'runs', runId);
   fs.mkdirSync(runDir, { recursive: true });
   const recorder = new FrameRecorder(path.join(runDir, 'frames.ndjson'), new ProtocolValidator(schemaDir));
-  const stack = await launchStack({ recorder, runDir });
+  const stack = await launchStack({ recorder, runDir, hosted: hostedOrigin ? { origin: hostedOrigin.replace(/\/$/, '') } : null });
   const consoleErrors = [];
   let result = { runId, host: 'unity', status: 'not_started', browserMode: unityHeaded ? 'headed' : 'headless', flags: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--enable-webgl', '--ignore-gpu-blocklist'] };
   const browser = await chromium.launch({ headless: !unityHeaded, args: result.flags });

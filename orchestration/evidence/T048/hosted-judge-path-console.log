@@ -1,0 +1,12 @@
+PASS  entry page: Host a mission link carries the same-origin ws URL {"href":"host/?server=ws%3A%2F%2Flocalhost%3A10000%2Fws"}
+PASS  Host a mission navigates to /play/host/ {"url":"http://localhost:10000/play/host/?server=ws%3A%2F%2Flocalhost%3A10000%2Fws"}
+PASS  Unity WebGL host finished loading (loading overlay hidden) {"seconds":18,"status":"LOADING MISSION CONTROL","wsUrl":"ws://localhost:10000/ws"}
+PASS  New mission: host received room.created (4-letter code) {"room":"EPKB"}
+PASS  join link points at http://localhost:10000/play/client/?room=CODE {"joinUrl":"http://localhost:10000/play/client/?room=EPKB"}
+PASS  phone 1 joined from the link only and shows the lobby {"errors":[]}
+PASS  phone 2 joined from the link only and shows the lobby {"errors":[]}
+PASS  phone 3 joined from the link only and shows the lobby {"errors":[]}
+{
+  "runDir": "C:\\Users\\moham\\Documents\\Codex\\2026-11-14\\https-nasasc-netlify-app-https-nasasc\\work\\nasa-spaceapps-2026-claude\\orchestration\\evidence\\T048\\runs\\2026-11-15T07-56-52-659Z-hosted-judge-path",
+  "failed": []
+}

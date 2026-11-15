@@ -1,0 +1,82 @@
+{
+  "origin": "http://localhost:10000",
+  "headed": false,
+  "steps": [
+    {
+      "name": "entry page: Host a mission link carries the same-origin ws URL",
+      "ok": true,
+      "at": "2026-11-15T07:56:54.523Z",
+      "href": "host/?server=ws%3A%2F%2Flocalhost%3A10000%2Fws"
+    },
+    {
+      "name": "Host a mission navigates to /play/host/",
+      "ok": true,
+      "at": "2026-11-15T07:56:54.707Z",
+      "url": "http://localhost:10000/play/host/?server=ws%3A%2F%2Flocalhost%3A10000%2Fws"
+    },
+    {
+      "name": "Unity WebGL host finished loading (loading overlay hidden)",
+      "ok": true,
+      "at": "2026-11-15T07:57:17.874Z",
+      "seconds": 18,
+      "status": "LOADING MISSION CONTROL",
+      "wsUrl": "ws://localhost:10000/ws"
+    },
+    {
+      "name": "New mission: host received room.created (4-letter code)",
+      "ok": true,
+      "at": "2026-11-15T07:57:55.818Z",
+      "room": "EPKB"
+    },
+    {
+      "name": "join link points at http://localhost:10000/play/client/?room=CODE",
+      "ok": true,
+      "at": "2026-11-15T07:57:55.818Z",
+      "joinUrl": "http://localhost:10000/play/client/?room=EPKB"
+    },
+    {
+      "name": "phone 1 joined from the link only and shows the lobby",
+      "ok": true,
+      "at": "2026-11-15T08:00:09.837Z",
+      "errors": []
+    },
+    {
+      "name": "phone 2 joined from the link only and shows the lobby",
+      "ok": true,
+      "at": "2026-11-15T08:01:22.128Z",
+      "errors": []
+    },
+    {
+      "name": "phone 3 joined from the link only and shows the lobby",
+      "ok": true,
+      "at": "2026-11-15T08:02:35.179Z",
+      "errors": []
+    }
+  ],
+  "notes": [],
+  "loadSeconds": 18,
+  "roomCreatedPayload": {
+    "room": "EPKB",
+    "hostToken": "<redacted>",
+    "joinUrl": "http://localhost:10000/play/client/?room=EPKB",
+    "spectateUrl": "http://localhost:10000/play/client/?room=EPKB&watch=1",
+    "maxPlayers": 10,
+    "slotHoldMs": 180000,
+    "roomHoldMs": 600000
+  },
+  "host": {
+    "errors": [],
+    "failedRequests": [],
+    "frames": [
+      "{\"t\":\"hello.ok\",\"seq\":1,\"d\":{\"protocolVersion\":1,\"serverTimeMs\":1794729419309,\"heartbeatMs\":5000,\"idleTimeoutMs\":15000,\"maxFrameBytes\":65536,\"maxMsgsPerSec\":400,\"maxBytesPerSec\":262144}}",
+      "{\"t\":\"clock.pong\",\"seq\":2,\"d\":{\"clientTimeMs\":7163,\"serverTimeMs\":1794729424365}}",
+      "{\"t\":\"clock.pong\",\"seq\":3,\"d\":{\"clientTimeMs\":10124,\"serverTimeMs\":1794729427321}}",
+      "{\"t\":\"clock.pong\",\"seq\":4,\"d\":{\"clientTimeMs\":11362,\"serverTimeMs\":1794729428557}}",
+      "{\"t\":\"clock.pong\",\"seq\":5,\"d\":{\"clientTimeMs\":17300,\"serverTimeMs\":1794729434503}}",
+      "{\"t\":\"room.created\",\"seq\":6,\"d\":{\"room\":\"EPKB\",\"hostToken\":\"CzxzlrTVZO55NSfxO2eUHUd65EbwmzBO\",\"joinUrl\":\"http://localhost:10000/play/client/?room=EPKB\",\"spectateUrl\":\"http://localhost:10000/play/clien",
+      "{\"t\":\"settings.state\",\"seq\":7,\"d\":{\"settings\":{\"roleAssignMode\":\"RANDOM\",\"voteTimerS\":20,\"inspectTimerS\":20,\"tallyVisibility\":\"OPEN\",\"strictMajority\":false,\"assistLevel\":\"ENGINEER\",\"audienceVoteWeight",
+      "{\"t\":\"room.state\",\"seq\":8,\"d\":{\"room\":\"EPKB\",\"hostConnected\":true,\"paused\":false,\"players\":[],\"spectatorCount\":0,\"pendingPlayerCount\":0}}"
+    ],
+    "totalSeconds": 444
+  }
+}

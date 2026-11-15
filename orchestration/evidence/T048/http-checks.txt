@@ -1,0 +1,115 @@
+=== /healthz
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+Cache-Control: no-store
+=== /
+HTTP/1.1 302 Found
+Location: /play/
+Cache-Control: no-cache
+=== /play
+HTTP/1.1 301 Moved Permanently
+Location: /play/
+Cache-Control: no-cache
+=== /play/
+HTTP/1.1 200 OK
+Content-Type: text/html; charset=utf-8
+Cache-Control: no-cache
+Last-Modified: Sun, 15 Nov 2026 06:09:00 GMT
+Content-Length: 8430
+=== /play/index.html
+HTTP/1.1 200 OK
+Content-Type: text/html; charset=utf-8
+Cache-Control: no-cache
+Last-Modified: Sun, 15 Nov 2026 06:09:00 GMT
+Content-Length: 8430
+=== /play/judges.html
+HTTP/1.1 200 OK
+Content-Type: text/html; charset=utf-8
+Cache-Control: no-cache
+Last-Modified: Sun, 15 Nov 2026 07:38:46 GMT
+Content-Length: 8927
+=== /play/credits.html
+HTTP/1.1 200 OK
+Content-Type: text/html; charset=utf-8
+Cache-Control: no-cache
+Last-Modified: Sun, 15 Nov 2026 07:38:46 GMT
+Content-Length: 48026
+=== /play/client
+HTTP/1.1 301 Moved Permanently
+Location: /play/client/
+Cache-Control: no-cache
+=== /play/client/
+HTTP/1.1 200 OK
+Content-Type: text/html; charset=utf-8
+Cache-Control: no-cache
+Last-Modified: Sun, 15 Nov 2026 07:38:46 GMT
+Content-Length: 1256
+=== /play/host
+HTTP/1.1 301 Moved Permanently
+Location: /play/host/
+Cache-Control: no-cache
+=== /play/host/
+HTTP/1.1 200 OK
+Content-Type: text/html; charset=utf-8
+Cache-Control: no-cache
+Last-Modified: Sat, 14 Nov 2026 20:48:42 GMT
+Content-Length: 5375
+=== /play/host/Build/host.loader.js
+HTTP/1.1 200 OK
+Content-Type: text/javascript; charset=utf-8
+Cache-Control: no-cache
+Last-Modified: Sun, 15 Nov 2026 06:09:00 GMT
+Content-Length: 48779
+=== /play/host/Build/host.data.unityweb
+HTTP/1.1 200 OK
+Content-Type: application/octet-stream
+Cache-Control: no-cache
+Last-Modified: Sun, 15 Nov 2026 06:09:00 GMT
+Content-Encoding: gzip
+Content-Length: 33132553
+=== /play/host/Build/host.framework.js.unityweb
+HTTP/1.1 200 OK
+Content-Type: application/javascript
+Cache-Control: no-cache
+Last-Modified: Sun, 15 Nov 2026 06:09:00 GMT
+Content-Encoding: gzip
+Content-Length: 80272
+=== /play/host/Build/host.wasm.unityweb
+HTTP/1.1 200 OK
+Content-Type: application/wasm
+Cache-Control: no-cache
+Last-Modified: Sun, 15 Nov 2026 06:09:00 GMT
+Content-Encoding: gzip
+Content-Length: 12653328
+=== /nope
+HTTP/1.1 404 Not Found
+Content-Type: text/plain; charset=utf-8
+Cache-Control: no-cache
+=== /play/nope.html
+HTTP/1.1 404 Not Found
+Content-Type: text/plain; charset=utf-8
+Cache-Control: no-cache
+=== /play/..%2f..%2fserver/package.json
+HTTP/1.1 404 Not Found
+Content-Type: text/plain; charset=utf-8
+Cache-Control: no-cache
+=== /play/%2e%2e/%2e%2e/server/package.json
+HTTP/1.1 404 Not Found
+Content-Type: text/plain; charset=utf-8
+Cache-Control: no-cache
+=== /play/..%5c..%5cserver%5cpackage.json
+HTTP/1.1 404 Not Found
+Content-Type: text/plain; charset=utf-8
+Cache-Control: no-cache
+=== /play/%00
+HTTP/1.1 404 Not Found
+Content-Type: text/plain; charset=utf-8
+Cache-Control: no-cache
+=== /play/%zz
+HTTP/1.1 404 Not Found
+Content-Type: text/plain; charset=utf-8
+Cache-Control: no-cache
+=== /play/host/StreamingAssets/
+HTTP/1.1 404 Not Found
+Content-Type: text/plain; charset=utf-8
+Cache-Control: no-cache
