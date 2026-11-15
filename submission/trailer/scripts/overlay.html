@@ -1,0 +1,121 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<!-- T053 trailer overlay layer. build.mjs calls window.draw(shot, t, geom) for every frame of a shot and
+     screenshots the page with a transparent background. Fonts are the game's own (client/src/assets/fonts). -->
+<style>
+  @font-face { font-family: Oxanium; src: url("../../../client/src/assets/fonts/oxanium-700.woff") format("woff"); font-weight: 700; }
+  @font-face { font-family: Plex; src: url("../../../client/src/assets/fonts/plex-sans-600.woff") format("woff"); font-weight: 600; }
+  @font-face { font-family: Plex; src: url("../../../client/src/assets/fonts/plex-sans-400.woff") format("woff"); font-weight: 400; }
+  :root { --space: #071522; --console: #112B40; --ocean: #176887; --ceramic: #E8EEF0; --signal: #55C5CD; --sun: #FFCE83; --amber: #f2b544; }
+  html, body { margin: 0; overflow: hidden; background: transparent; }
+  * { box-sizing: border-box; }
+  body { font-family: Plex, "Segoe UI", sans-serif; color: var(--ceramic); position: relative; }
+  #root { position: absolute; inset: 0; }
+  .abs { position: absolute; }
+  .word { position: absolute; left: 0; right: 0; text-align: center; font-family: Oxanium, sans-serif; font-weight: 700;
+    text-transform: uppercase; color: #fff; white-space: nowrap; line-height: 1;
+    text-shadow: 0 0 calc(var(--u) * 28px) rgba(85,197,205,.55), 0 calc(var(--u) * 4px) calc(var(--u) * 24px) rgba(0,0,0,.75); }
+  .word.amber { color: var(--sun); text-shadow: 0 0 calc(var(--u) * 30px) rgba(255,206,131,.5), 0 calc(var(--u) * 4px) calc(var(--u) * 24px) rgba(0,0,0,.75); }
+  .scrim { position: absolute; inset: 0; }
+  .chip { position: absolute; font: 600 calc(var(--u) * 21px)/1 Plex, sans-serif; letter-spacing: .04em; color: #dbe9ef;
+    background: rgba(7,21,34,.72); border: 1px solid rgba(232,238,240,.28); padding: calc(var(--u) * 8px) calc(var(--u) * 13px); border-radius: calc(var(--u) * 6px); }
+  .chip i { display: inline-block; width: calc(var(--u) * 9px); height: calc(var(--u) * 9px); border-radius: 50%; background: var(--sun); margin-right: calc(var(--u) * 9px); vertical-align: middle; position: relative; top: -1px; }
+  .chip.demo i { background: var(--signal); }
+  .bezel { position: absolute; border-radius: var(--ro); border: var(--bw) solid #0c131b;
+    box-shadow: 0 0 0 2px #3c4a5a, 0 0 0 calc(var(--bw) * .3) rgba(85,197,205,.0), 0 30px 90px rgba(0,0,0,.75); }
+  .bezel .hole { position: absolute; inset: 0; border-radius: var(--ri); box-shadow: 0 0 0 calc(var(--bw) * 2) #0c131b; }
+  .tag { position: absolute; text-align: center; font: 700 calc(var(--u) * 26px)/1.1 Oxanium, sans-serif; letter-spacing: .08em; color: var(--signal); text-transform: uppercase; white-space: nowrap; text-shadow: 0 2px 10px rgba(0,0,0,.8); }
+  .title { position: absolute; left: 0; right: 0; text-align: center; font: 700 calc(var(--u) * 190px)/1 Oxanium, sans-serif; letter-spacing: .02em; color: #fff;
+    text-shadow: 0 0 calc(var(--u) * 40px) rgba(85,197,205,.45), 0 6px 30px rgba(0,0,0,.8); }
+  .title b { color: var(--sun); font-weight: 700; text-shadow: 0 0 calc(var(--u) * 40px) rgba(255,206,131,.45), 0 6px 30px rgba(0,0,0,.8); }
+  .sub { position: absolute; left: 0; right: 0; text-align: center; font: 600 calc(var(--u) * 44px)/1.2 Plex, sans-serif; color: #dbe9ef; letter-spacing: .02em; text-shadow: 0 2px 14px rgba(0,0,0,.8); }
+  .end { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 40%, rgba(17,43,64,.92), rgba(7,21,34,.97) 70%); }
+  .url { font: 700 calc(var(--u) * 40px)/1.2 Plex, sans-serif; color: var(--signal); letter-spacing: .01em; }
+  .qr { background: #fff; padding: calc(var(--u) * 14px); border-radius: calc(var(--u) * 14px); box-shadow: 0 0 0 3px rgba(85,197,205,.6), 0 20px 60px rgba(0,0,0,.6); }
+  .qr img { display: block; width: 100%; height: 100%; image-rendering: pixelated; }
+  .fine { font: 400 calc(var(--u) * 22px)/1.45 Plex, sans-serif; color: #a9bfcc; text-align: center; }
+  .line { position: absolute; height: calc(var(--u) * 5px); background: var(--signal); box-shadow: 0 0 18px rgba(85,197,205,.8); }
+</style></head>
+<body><div id="root"></div>
+<script>
+const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+const easeOut = (p) => 1 - (1 - clamp(p)) ** 3;
+const el = (cls, html = '', style = {}) => { const e = document.createElement('div'); e.className = cls; e.innerHTML = html; Object.assign(e.style, style); return e; };
+
+// Kinetic word: slams in (scale 1.45 -> 1, blur, fade) over 0.16 s, then creeps 1 -> 1.05 until it leaves.
+function slamWord(w, t, W, H, u, D) {
+  const lt = t - w.at;
+  const end = w.until ?? D;
+  if (lt < 0 || t >= end) return null;
+  const p = easeOut(lt / 0.16);
+  const s = (1.45 - 0.45 * p) * (1 + 0.05 * clamp(lt / 1.5));
+  const out = clamp((end - t) / 0.06);
+  const size = (w.size ?? 200) * u;
+  const e = el('word' + (w.amber ? ' amber' : ''), w.w, { fontSize: size + 'px', letterSpacing: (w.ls ?? 0.04) + 'em' });
+  const y = (w.y ?? 0.5) * H - size * 0.5;
+  e.style.top = y + 'px';
+  if (w.x != null) { e.style.left = (w.x * W) + 'px'; e.style.right = 'auto'; e.style.textAlign = 'left'; e.style.transformOrigin = '0 50%'; }
+  e.style.transform = `scale(${s})`;
+  e.style.opacity = String(Math.min(clamp(lt / 0.07), out));
+  e.style.filter = `blur(${(1 - p) * 10 * u}px)`;
+  return e;
+}
+
+window.draw = (shot, t, g) => {
+  const { W, H } = g; const u = Math.min(W, H) / 1080; const D = shot.D;
+  document.documentElement.style.setProperty('--u', u);
+  document.body.style.width = W + 'px'; document.body.style.height = H + 'px';
+  const r = document.getElementById('root'); r.innerHTML = '';
+  const ov = shot.ov ?? {};
+  const SCRIM = { full: 'rgba(4,12,22,.55)', heavy: 'rgba(4,12,22,.74)', soft: 'radial-gradient(ellipse at 50% 50%, rgba(4,12,22,.62), rgba(4,12,22,.15) 75%)' };
+  if (ov.scrim) r.appendChild(el('scrim', '', { background: SCRIM[ov.scrim] }));
+  // phone bezels (the phone videos are composited below this layer at the same rectangles); no camera
+  // notch, so nothing covers the app's own header
+  for (const ph of g.phones ?? []) {
+    const bw = Math.round(ph.h * 0.018); const ri = Math.round(ph.h * 0.052);
+    const b = el('bezel', '<div class="hole"></div>', { left: (ph.x - bw) + 'px', top: (ph.y - bw) + 'px', width: (ph.w + 2 * bw) + 'px', height: (ph.h + 2 * bw) + 'px' });
+    b.style.setProperty('--bw', bw + 'px'); b.style.setProperty('--ri', ri + 'px'); b.style.setProperty('--ro', (ri + bw) + 'px');
+    r.appendChild(b);
+    if (ph.tag) r.appendChild(el('tag', ph.tag, { left: (ph.x - 120 * u) + 'px', width: (ph.w + 240 * u) + 'px', top: (ph.y + ph.h + bw + 18 * u) + 'px' }));
+  }
+  for (const w of ov.words ?? []) { const e = slamWord(w, t, W, H, u, D); if (e) r.appendChild(e); }
+  if (ov.title) {
+    const p = easeOut(t / 0.35);
+    const s = 1.25 - 0.25 * p + 0.04 * clamp(t / 2);
+    const ty = (ov.title.y ?? 0.42) * H;
+    const fs = Math.min(190 * u, W * 0.118);
+    const e = el('title', 'Mission<b>Forge</b>', { fontSize: fs + 'px', top: (ty - fs / 2) + 'px', transform: `scale(${s})`, opacity: String(clamp(t / 0.12)), filter: `blur(${(1 - p) * 12 * u}px)` });
+    r.appendChild(e);
+    if (ov.title.sub) r.appendChild(el('sub', ov.title.sub, { top: (ty + fs * 0.62 + 24 * u) + 'px', opacity: String(clamp((t - 0.45) / 0.25)) }));
+  }
+  if (ov.end) {
+    const portrait = H > W;
+    const end = el('end'); end.style.opacity = String(clamp(t / 0.2)); r.appendChild(end);
+    const box = el('abs', '', { left: 0, right: 0, top: 0, bottom: 0 });
+    const qs = (portrait ? 420 : 330) * u;
+    const title = `<div style="font:700 ${(portrait ? 124 : 132) * u}px/1 Oxanium,sans-serif;color:#fff;text-shadow:0 0 ${40 * u}px rgba(85,197,205,.45)">Mission<b style="color:var(--sun)">Forge</b></div>`;
+    const play = `<div style="font:700 ${(portrait ? 60 : 56) * u}px/1.15 Oxanium,sans-serif;color:var(--sun);letter-spacing:.03em;text-transform:uppercase;margin-top:${22 * u}px">Play free in your browser</div>`;
+    const url = `<div class="url" style="margin-top:${18 * u}px;font-size:${(portrait ? 36 : 38) * u}px">${ov.end.url}</div>`;
+    const qr = `<div class="qr" style="width:${qs}px;height:${qs}px"><img src="${ov.end.qr}"></div>`;
+    const fine = `<div class="fine" style="max-width:${(portrait ? 900 : 1400) * u}px">${ov.end.fine}</div>`;
+    const a = (k) => `opacity:${clamp((t - k) / 0.25)};transform:translateY(${(1 - easeOut((t - k) / 0.35)) * 30 * u}px)`;
+    if (portrait) {
+      const fineP = `<div class="fine" style="max-width:${880 * u}px;font-size:${30 * u}px">${ov.end.fine.replace('. Some', '.<br>Some').replace('. Not', '.<br>Not')}</div>`;
+      box.innerHTML = `<div style="position:absolute;left:0;right:0;top:${330 * u}px;bottom:${230 * u}px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;text-align:center">
+        <div><div style="${a(0.05)}">${title}</div><div style="${a(0.3)}">${play}</div><div style="${a(0.45)}">${url}</div></div>
+        <div style="${a(0.6)}">${qr}<div class="fine" style="margin-top:${20 * u}px;color:#dbe9ef;font-size:${30 * u}px">Scan to play</div></div><div style="${a(0.9)}">${fineP}</div></div>`;
+    } else {
+      box.innerHTML = `<div style="position:absolute;left:${150 * u}px;top:${330 * u}px;width:${1080 * u}px">
+        <div style="${a(0.05)}">${title}</div><div style="${a(0.3)}">${play}</div><div style="${a(0.45)}">${url}</div></div>
+        <div style="position:absolute;right:${170 * u}px;top:${300 * u}px;${a(0.6)}">${qr}<div class="fine" style="margin-top:${16 * u}px;color:#dbe9ef">Scan to play</div></div>
+        <div style="position:absolute;left:0;right:0;bottom:${80 * u}px;display:flex;justify-content:center;${a(0.9)}">${fine}</div>`;
+    }
+    r.appendChild(box);
+  }
+  const chipY = H - 60 * u - 22 * u;
+  if (ov.ai) r.appendChild(el('chip', '<i></i>AI-generated', { right: (36 * u) + 'px', top: (H > W ? 60 * u : chipY) + 'px' }));
+  if (ov.demo) r.appendChild(el('chip demo', '<i></i>' + (ov.demoText ?? 'Scripted demo session'), { left: (24 * u) + 'px', top: (H > W ? 60 * u : chipY) + 'px', fontSize: (19 * u) + 'px' }));
+  if (ov.host) r.appendChild(el('chip demo', '<i></i>' + ov.host, { left: (36 * u) + 'px', top: (H > W ? 60 * u : chipY) + 'px' }));
+  return new Promise((res) => { const imgs = [...document.querySelectorAll('img')]; Promise.all(imgs.map((i) => (i.complete ? 1 : new Promise((ok) => { i.onload = ok; i.onerror = ok; })))).then(() => document.fonts.ready).then(() => res(true)); });
+};
+</script></body></html>
