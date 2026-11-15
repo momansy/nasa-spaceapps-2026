@@ -1,0 +1,453 @@
+{
+ "generatedAt": "2026-11-15T10:39:09.723Z",
+ "commit": "d6fc7ba",
+ "note": "Trimmed from the full summarize-d102 output (hotCallChains and per-task attribution dropped).",
+ "comparisonRuns": [
+  {
+   "runId": "2026-11-15T10-26-33-585Z-stub-p10-s2801",
+   "mode": "shared",
+   "failures": 0,
+   "phone1PartVotes": [
+    {
+     "roundId": "m1.part.1",
+     "screenshotMs": 19723,
+     "screenshotOutcome": "viewport-retry-ok",
+     "probeEvalMs": 3666,
+     "longestMainThreadGapMs": 18457.3,
+     "estimatedStallMs": 18407.3,
+     "longTasksOver50Ms": [
+      65,
+      1198,
+      17222
+     ],
+     "machineCpu": {
+      "samples": 95,
+      "meanPct": 40,
+      "p95Pct": 69.8,
+      "maxPct": 83.6
+     },
+     "machineCpuSource": "vote-milestone-window"
+    },
+    {
+     "roundId": "m1.part.2",
+     "screenshotMs": 734,
+     "screenshotOutcome": "ok",
+     "probeEvalMs": null,
+     "longestMainThreadGapMs": 0,
+     "estimatedStallMs": 0,
+     "longTasksOver50Ms": [],
+     "machineCpu": {
+      "samples": 4,
+      "meanPct": 36.5,
+      "p95Pct": 60.4,
+      "maxPct": 60.4
+     },
+     "machineCpuSource": "vote-milestone-window"
+    },
+    {
+     "roundId": "m1.part.3",
+     "screenshotMs": 4830,
+     "screenshotOutcome": "ok",
+     "probeEvalMs": null,
+     "longestMainThreadGapMs": 2283.3,
+     "estimatedStallMs": 2233.3,
+     "longTasksOver50Ms": [
+      2240,
+      1351,
+      129,
+      411
+     ],
+     "machineCpu": {
+      "samples": 19,
+      "meanPct": 45.3,
+      "p95Pct": 78.7,
+      "maxPct": 78.7
+     },
+     "machineCpuSource": "vote-milestone-window"
+    },
+    {
+     "roundId": "m1.part.4",
+     "screenshotMs": 1013,
+     "screenshotOutcome": "ok",
+     "probeEvalMs": null,
+     "longestMainThreadGapMs": 102.1,
+     "estimatedStallMs": 52.1,
+     "longTasksOver50Ms": [
+      101
+     ],
+     "machineCpu": {
+      "samples": 6,
+      "meanPct": 49.1,
+      "p95Pct": 87.8,
+      "maxPct": 87.8
+     },
+     "machineCpuSource": "vote-milestone-window"
+    },
+    {
+     "roundId": "m1.part.5",
+     "screenshotMs": 698,
+     "screenshotOutcome": "ok",
+     "probeEvalMs": null,
+     "longestMainThreadGapMs": 0,
+     "estimatedStallMs": 0,
+     "longTasksOver50Ms": [],
+     "machineCpu": {
+      "samples": 3,
+      "meanPct": 42.2,
+      "p95Pct": 67.3,
+      "maxPct": 67.3
+     },
+     "machineCpuSource": "vote-milestone-window"
+    }
+   ],
+   "runMachineCpu": {
+    "samples": 1249,
+    "meanPct": 25.3,
+    "p95Pct": 49.3,
+    "maxPct": 100
+   }
+  },
+  {
+   "runId": "2026-11-15T10-32-05-194Z-stub-p10-s2801",
+   "mode": "shared",
+   "failures": 0,
+   "phone1PartVotes": [
+    {
+     "roundId": "m1.part.1",
+     "screenshotMs": 19062,
+     "screenshotOutcome": "viewport-retry-ok",
+     "probeEvalMs": 3049,
+     "longestMainThreadGapMs": 17644.1,
+     "estimatedStallMs": 17594.1,
+     "longTasksOver50Ms": [
+      79,
+      2539,
+      15093
+     ],
+     "machineCpu": {
+      "samples": 91,
+      "meanPct": 35.7,
+      "p95Pct": 65.5,
+      "maxPct": 81
+     },
+     "machineCpuSource": "vote-milestone-window"
+    },
+    {
+     "roundId": "m1.part.2",
+     "screenshotMs": 673,
+     "screenshotOutcome": "ok",
+     "probeEvalMs": null,
+     "longestMainThreadGapMs": 0,
+     "estimatedStallMs": 0,
+     "longTasksOver50Ms": [],
+     "machineCpu": {
+      "samples": 4,
+      "meanPct": 40.3,
+      "p95Pct": 62.7,
+      "maxPct": 62.7
+     },
+     "machineCpuSource": "vote-milestone-window"
+    },
+    {
+     "roundId": "m1.part.3",
+     "screenshotMs": 4850,
+     "screenshotOutcome": "ok",
+     "probeEvalMs": null,
+     "longestMainThreadGapMs": 2374.7,
+     "estimatedStallMs": 2324.7,
+     "longTasksOver50Ms": [
+      81,
+      2330,
+      1548,
+      420
+     ],
+     "machineCpu": {
+      "samples": 19,
+      "meanPct": 43.7,
+      "p95Pct": 82.1,
+      "maxPct": 82.1
+     },
+     "machineCpuSource": "vote-milestone-window"
+    },
+    {
+     "roundId": "m1.part.4",
+     "screenshotMs": 1045,
+     "screenshotOutcome": "ok",
+     "probeEvalMs": null,
+     "longestMainThreadGapMs": 272.8,
+     "estimatedStallMs": 222.8,
+     "longTasksOver50Ms": [
+      229
+     ],
+     "machineCpu": {
+      "samples": 6,
+      "meanPct": 46,
+      "p95Pct": 87.9,
+      "maxPct": 87.9
+     },
+     "machineCpuSource": "vote-milestone-window"
+    },
+    {
+     "roundId": "m1.part.5",
+     "screenshotMs": 653,
+     "screenshotOutcome": "ok",
+     "probeEvalMs": null,
+     "longestMainThreadGapMs": 0,
+     "estimatedStallMs": 0,
+     "longTasksOver50Ms": [],
+     "machineCpu": {
+      "samples": 3,
+      "meanPct": 38.9,
+      "p95Pct": 55.2,
+      "maxPct": 55.2
+     },
+     "machineCpuSource": "vote-milestone-window"
+    }
+   ],
+   "runMachineCpu": {
+    "samples": 1361,
+    "meanPct": 26.3,
+    "p95Pct": 49.1,
+    "maxPct": 87.9
+   }
+  }
+ ],
+ "profile": {
+  "runId": "2026-11-15T10-38-08-079Z-single-page-profile-p10-s2801",
+  "cpuThrottleRate": 4,
+  "longestMainThreadGapMs": 2220.8,
+  "estimatedStallMs": 2170.8,
+  "longTasksOver50Ms": [
+   {
+    "roundId": "m1.part.1",
+    "durationMs": 64
+   },
+   {
+    "roundId": "m1.part.1",
+    "durationMs": 342
+   },
+   {
+    "roundId": "m1.part.1",
+    "durationMs": 123
+   },
+   {
+    "roundId": "m1.part.1",
+    "durationMs": 208
+   },
+   {
+    "roundId": "m1.part.1",
+    "durationMs": 144
+   },
+   {
+    "roundId": "m1.part.1",
+    "durationMs": 84
+   },
+   {
+    "roundId": "m1.part.1",
+    "durationMs": 53
+   },
+   {
+    "roundId": "m1.part.1",
+    "durationMs": 718
+   },
+   {
+    "roundId": "m1.part.1",
+    "durationMs": 1487
+   },
+   {
+    "roundId": "m1.part.1",
+    "durationMs": 143
+   },
+   {
+    "roundId": "m1.part.1",
+    "durationMs": 69
+   },
+   {
+    "roundId": "m1.part.1",
+    "durationMs": 65
+   },
+   {
+    "roundId": "m1.part.2",
+    "durationMs": 52
+   },
+   {
+    "roundId": "m1.part.2",
+    "durationMs": 233
+   },
+   {
+    "roundId": "m1.part.2",
+    "durationMs": 122
+   },
+   {
+    "roundId": "m1.part.2",
+    "durationMs": 200
+   },
+   {
+    "roundId": "m1.part.2",
+    "durationMs": 103
+   },
+   {
+    "roundId": "m1.part.2",
+    "durationMs": 75
+   },
+   {
+    "roundId": "m1.part.2",
+    "durationMs": 88
+   },
+   {
+    "roundId": "m1.part.3",
+    "durationMs": 225
+   },
+   {
+    "roundId": "m1.part.3",
+    "durationMs": 154
+   },
+   {
+    "roundId": "m1.part.3",
+    "durationMs": 231
+   },
+   {
+    "roundId": "m1.part.3",
+    "durationMs": 165
+   },
+   {
+    "roundId": "m1.part.3",
+    "durationMs": 108
+   },
+   {
+    "roundId": "m1.part.3",
+    "durationMs": 376
+   },
+   {
+    "roundId": "m1.part.3",
+    "durationMs": 53
+   },
+   {
+    "roundId": "m1.part.3",
+    "durationMs": 56
+   },
+   {
+    "roundId": "m1.part.3",
+    "durationMs": 83
+   },
+   {
+    "roundId": "m1.part.4",
+    "durationMs": 205
+   },
+   {
+    "roundId": "m1.part.4",
+    "durationMs": 160
+   },
+   {
+    "roundId": "m1.part.4",
+    "durationMs": 193
+   },
+   {
+    "roundId": "m1.part.4",
+    "durationMs": 103
+   },
+   {
+    "roundId": "m1.part.4",
+    "durationMs": 117
+   },
+   {
+    "roundId": "m1.part.4",
+    "durationMs": 54
+   },
+   {
+    "roundId": "m1.part.4",
+    "durationMs": 109
+   },
+   {
+    "roundId": "m1.part.4",
+    "durationMs": 56
+   },
+   {
+    "roundId": "m1.part.4",
+    "durationMs": 95
+   },
+   {
+    "roundId": "m1.part.4",
+    "durationMs": 73
+   },
+   {
+    "roundId": "m1.part.4",
+    "durationMs": 64
+   },
+   {
+    "roundId": "m1.part.4",
+    "durationMs": 113
+   },
+   {
+    "roundId": "m1.part.5",
+    "durationMs": 200
+   },
+   {
+    "roundId": "m1.part.5",
+    "durationMs": 127
+   },
+   {
+    "roundId": "m1.part.5",
+    "durationMs": 157
+   },
+   {
+    "roundId": "m1.part.5",
+    "durationMs": 158
+   },
+   {
+    "roundId": "m1.part.5",
+    "durationMs": 93
+   },
+   {
+    "roundId": "m1.part.5",
+    "durationMs": 60
+   },
+   {
+    "roundId": "m1.part.5",
+    "durationMs": 61
+   }
+  ],
+  "topProfileSelfTime": [
+   {
+    "frame": "R | threeScene-X-aMJe78.js:1:2202",
+    "selfMs": 1837.7
+   },
+   {
+    "frame": "getBoundingClientRect | native:0:0",
+    "selfMs": 1256.5
+   },
+   {
+    "frame": "Zc | index-DMHzdjAY.js:2:500660",
+    "selfMs": 230.3
+   },
+   {
+    "frame": "ic | react-Bv9AnACW.js:40:14732",
+    "selfMs": 137.6
+   },
+   {
+    "frame": "setAttribute | native:0:0",
+    "selfMs": 133.8
+   },
+   {
+    "frame": "(anonymous) | native:0:0",
+    "selfMs": 121.5
+   },
+   {
+    "frame": "ju | react-Bv9AnACW.js:38:16877",
+    "selfMs": 112.1
+   },
+   {
+    "frame": "removeChild | native:0:0",
+    "selfMs": 100.5
+   },
+   {
+    "frame": "xe | react-Bv9AnACW.js:17:279",
+    "selfMs": 95
+   },
+   {
+    "frame": "getProgramInfoLog | native:0:0",
+    "selfMs": 92.5
+   }
+  ]
+ }
+}
