@@ -1,8 +1,10 @@
 # MissionForge: release and judging-day guide
 
 For the team. Part 1 is how to rebuild and publish; part 2 is the minute-by-minute runbook for the
-judging-day demo. Nothing here has been deployed: no hosting account, domain or DNS exists yet, and
-every hosted step below is **prepared but untested on a public host**.
+judging-day demo. **Status on 2026-11-15:** the free Render deployment described in [`HOSTING.md`](HOSTING.md) is live at
+`https://missionforge-spaceapps.onrender.com/play/` (health check and all pages returned HTTP 200, Unity files carry `Content-Encoding: gzip`).
+A complete session through that public URL (laptop host plus phones) has **not been verified by the documentation task**: rehearse it once.
+The older Netlify site (`nasasc.netlify.app/play/`) returned HTTP 404 and is not used. The Netlify and general-host notes in section 3 are background only.
 
 Deadline reminder: the NASA Space Apps submission closes **15 Nov 2026, 23:59 local**. The local demo
 (section 1.1) needs only Node and works with no internet.
@@ -30,9 +32,9 @@ npm --prefix tools/demo run demo         # builds anything missing, then starts 
 ```
 
 It prints the host URL, phone URL, audience URL, a QR code for the phone URL and the offline fallback.
-**Before judging day, rebuild the phone client:** `node tools/demo/build-client.mjs` (the demo only builds `docs/play/client/` when
-it is missing, so a stale committed build is served as it is; on 2026-11-15 the committed build predated the languages and
-minigames MG-22 to MG-30, see `orchestration/evidence/T044/REPORT.md`). Every flag is in [`tools/demo/README.md`](tools/demo/README.md). Needs Node 20 or newer on Windows
+**Before judging day, rebuild the phone client if it changed:** `node tools/demo/build-client.mjs` (the demo only builds `docs/play/client/` when
+it is missing, so a stale committed build is served as it is; the build was stale on 2026-11-15 morning, see `orchestration/evidence/T044/REPORT.md`, and was rebuilt
+afterwards; `docs/play/client/BUILD_INFO.json` names the commit it was built from, `7b440f7` on 2026-11-15, and `client/` should not have changed since unless that file is older than your last client change). Every flag is in [`tools/demo/README.md`](tools/demo/README.md). Needs Node 20 or newer on Windows
 (PowerShell) or macOS; on a first run with no `server/dist` or `docs/play/client/` it runs `npm ci`
 and the builds itself (about 2 minutes, needs internet once for `npm ci`).
 
@@ -42,7 +44,7 @@ and the builds itself (about 2 minutes, needs internet once for `npm ci`).
 
 | Part | Source | Published to | Who builds it |
 |---|---|---|---|
-| Unity host (big screen) | `unity/MissionForge/` | `docs/play/host/` (Gzip `.unityweb`) | The Unity settings-lock holder, in Unity 6000.6.9f1 (WebGL). Not rebuilt by these tools. |
+| Unity host (big screen) | `unity/MissionForge/` | `docs/play/host/` (Gzip `.unityweb`) | The Unity settings-lock holder, in Unity 6000.6.9f1 (WebGL). Not rebuilt by these tools. **The committed build dates from 2026-11-15 06:32 (+03:00) and predates the Countdown, Flight and Orbit Map screens (T016), the last Build Bay environment pass (T034), the end screens (Debrief, Campaign Hub, Codex, Settings; T024) and the host UI polish and lobby controls (T035): rebuild it to publish them.** |
 | Phone client | `client/` | `docs/play/client/` | `node tools/demo/build-client.mjs` |
 | Entry page | written by hand | `docs/play/index.html` | not generated |
 | Credits, judges page | generated | `docs/play/credits.html`, `docs/play/judges.html` | `node tools/demo/build-credits.mjs` |
@@ -123,8 +125,8 @@ From `server/README.md`:
 - [ ] `node tools/demo/build-credits.mjs` run after the last dependency, media or fact change; Team block filled.
 - [ ] No secrets in the diff (`git grep -n -i "api_key\|secret\|token=" -- . ':!*.lock'` finds only documentation text).
 - [ ] No `Library/`, `node_modules/`, `dist/`, `bin/` or `obj/` committed (they are git-ignored; `git status` is clean of them).
-- [ ] No file over 50 MB (`docs/play/host/Build/host.data.unityweb` is about 13 MB).
-- [ ] Hosting headers verified with `curl -sI` (section 3.1).
+- [ ] No file over 50 MB (`docs/play/host/Build/host.data.unityweb` is about 33 MB, the wasm file about 13 MB).
+- [ ] Hosting headers verified with `curl -sI` (section 3.1). Done for the Render site on 2026-11-15: `curl -s -D - -o /dev/null -H "Accept-Encoding: gzip" https://missionforge-spaceapps.onrender.com/play/host/Build/host.wasm.unityweb` showed `content-encoding: gzip` and `content-type: application/wasm` (a bare `curl -sI` request did not show the gzip header; ask with `Accept-Encoding: gzip`).
 - [ ] Rehearsed the runbook below once end to end, including one fallback.
 
 ## 5. Judging-day runbook (C1 Earth Watch Quick Mission)
@@ -179,7 +181,7 @@ slot** do one of: (a) play the lobby, briefing and the first 6 to 8 votes live, 
 | 2-4 | **Briefing** | Presenter | C1 briefing: 550 km Sun-synchronous orbit, 150 kg observation satellite, 90 M budget, 180 days. | **Orbit** (altitude and inclination from the contract), **budget**. |
 | 4-24 | **Build: 22 part votes** (early: payload bay, satellite power, attitude control; late: communications) | Players vote; audience watches the "Audience says" bar | Each round shows part cards with mass, power, cost and risk deltas. Run one deliberate trade-off aloud: a cheaper engine that misses the thrust-to-weight rule against a dearer one that flies. | **Mass** (delta-v and thrust-to-weight on the dashboard), **budget** (cost deltas, Emergency Funding), **instruments** (data multiplier) and **power** (payload power balance must stay positive) in the payload votes, **communication** (downlink GB) at the comms vote, **meaningful decisions** (stats plus drawbacks, Predict before vote). |
 | 24-25 | **Flight Readiness Review** | Everyone | GO/NO-GO poll: each console calls GO or NO-GO. | Systems-engineering review gates (Systems Engineering Handbook, design 20.2). |
-| 25-32 | **Flight** | Pilot plus consoles | Countdown to orbit insertion, then orbital operations. Everyone plays the minigames in 5.4. | **Orbit** (apogee/perigee), **power** (eclipse, solar wings), **instruments** (science capture). |
+| 25-32 | **Flight** | Pilot plus consoles | Countdown to orbit insertion, then orbital operations. Everyone plays the minigames in 5.4. On the committed (hosted) WebGL host the big screen has no flight view yet, so the flight is carried by the phones; a rebuilt host with the Countdown, Flight and Orbit Map screens (in the source since T016) and the Debrief (T024) changes this. | **Orbit** (apogee/perigee), **power** (eclipse, solar wings), **instruments** (science capture). |
 | 32-35 | **Debrief** | Presenter | Score, grade, timeline, facts collected, awards. Then open the **assumptions register** (`GAME_DESIGN.md` 19) and the Codex. | **Education**: which numbers are physical, which are real-world approximate, which are game values. |
 
 ### 5.4 Minigames everyone plays
@@ -206,7 +208,7 @@ parachute phase, so the parachute minigame (MG-23) never appears. The demo uses:
 | Default port 8080 or 8787 busy | `--port 8081` and/or `--server-port 8788`. |
 | Terminal QR unreadable | Use the lobby QR on the big screen, or type the URL printed under it. |
 
-## 6. Interface changes proposed (6.1 and 6.4 are done; 6.2 and 6.3 are not made, outside the owning task's paths)
+## 6. Interface changes proposed (6.1, 6.2, 6.3 and 6.4 are done in the source)
 
 ### 6.1 Netlify headers for the Unity Gzip files (`netlify.toml`)
 
@@ -250,6 +252,9 @@ Not tested on a real host (no deployment was allowed). Verify with `curl -sI` as
 
 ### 6.2 Phone client `?server=` parameter (`client/src/net/wsConnection.ts`)
 
+**Done** (checked 2026-11-15, T046): `serverOverride()` in `client/src/net/wsConnection.ts` (tests in `client/src/net/serverOverride.test.ts`) accepts `?server=ws://...` or `wss://...` only for
+local-network addresses (10.x, 172.16 to 31.x, 192.168.x, `localhost`, `*.local`) and the page's own host, which is the allow-list the note below asked for. The text below is the original proposal.
+
 The hosted phone build bakes in `VITE_ROOM_SERVER_URL`; a `?server=` override would let one build
 rehearse against any server (for example a hotspot laptop) without a rebuild:
 
@@ -265,6 +270,8 @@ Security note: an attacker-controlled link could point a phone at a hostile serv
 only a nickname and votes, but consider an allow-list before enabling it on a public build.
 
 ### 6.3 Host lobby controls (Unity `LobbyScreen.cs`, for the settings-lock holder)
+
+**Done in the source** (T035, merged 2026-11-15; checked from `orchestration/evidence/T035/RUBRIC.md` and the code, not run in Unity by T046): the Lobby has "Inspect timer" (5, 10, 20, 30, 60 s), "Audience counts as one player" (Off / One player) and a 10 s vote-timer segment, sent as `settings.set`. They are **not in the committed WebGL host** until it is rebuilt. The text below is the original proposal.
 
 Add lobby controls for `audienceVoteWeight` (0 or 1, "Audience counts as one player"), `inspectTimerS` (5 to 60 s) and a
 10 s option in the vote-timer segment. The protocol already accepts all three and `RoomClient` already sends `settings.set`.
