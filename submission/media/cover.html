@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>MissionForge cover</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: #050b14; }
+  body { position: relative; font-family: "Segoe UI Variable Display", "Segoe UI", "Helvetica Neue", system-ui, sans-serif; color: #fff; }
+  .abs { position: absolute; }
+  /* real key art (AI-generated, assets/media/key-art), cropped to 16:9 */
+  .art { inset: 0; background: url("../../assets/media/key-art/missionforge-16x9.png") 62% 40% / cover no-repeat; }
+  .shade { inset: 0; background:
+      linear-gradient(90deg, rgba(2,7,16,0.94) 0%, rgba(2,7,16,0.84) 42%, rgba(2,7,16,0.0) 66%),
+      linear-gradient(0deg, rgba(2,7,16,0.55) 0%, rgba(2,7,16,0) 35%); }
+  .copy { left: 96px; top: 300px; width: 900px; }
+  .kicker { font-size: 28px; font-weight: 700; letter-spacing: 2px; color: #4fd1dc; margin-bottom: 22px; }
+  .title { font-size: 132px; font-weight: 800; letter-spacing: 3px; line-height: 1; margin: 0 0 30px; text-shadow: 0 4px 24px rgba(0,0,0,.55); }
+  .title span { color: #f2b544; }
+  .tag { font-size: 44px; line-height: 1.25; font-weight: 600; color: #e6f3f9; margin: 0; max-width: 900px; text-shadow: 0 2px 14px rgba(0,0,0,.7); }
+  .tag b { color: #fff; font-weight: 800; }
+  /* real screenshots */
+  .shot { border-radius: 14px; border: 2px solid rgba(255,255,255,.35); box-shadow: 0 22px 60px rgba(0,0,0,.65); background-size: cover; background-position: center; }
+  .host { left: 990px; top: 600px; width: 800px; height: 450px; background-image: url("../../orchestration/evidence/T031/after/buildbay-assembly-1920x1080.png"); }
+  .phone { left: 1490px; top: 120px; width: 330px; height: 714px; border-radius: 40px; border: 8px solid #0b1522; outline: 2px solid rgba(255,255,255,.4);
+           background-image: url("../../orchestration/evidence/T038/after/09-part-card.png"); }
+  .label { font-size: 22px; font-weight: 600; color: #e9f6fb; background: rgba(3,9,18,0.78); padding: 6px 14px; border-left: 5px solid #4fd1dc; border-radius: 5px; }
+</style></head>
+<body>
+  <div class="abs art"></div><div class="abs shade"></div>
+  <div class="abs copy">
+    <div class="kicker">NASA SPACE APPS CHALLENGE 2026</div>
+    <div class="title">Mission<span>Forge</span></div>
+    <p class="tag">Design a satellite mission together.<br><b>Phones in hand, one big screen.</b></p>
+  </div>
+  <div class="abs shot host"></div>
+  <div class="abs shot phone"></div>
+  <div class="abs label" style="left:990px;top:556px">Big screen · Build Bay (rehearsal build)</div>
+  <div class="abs label" style="left:1490px;top:76px">Phone · part card</div>
+</body></html>
