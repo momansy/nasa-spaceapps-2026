@@ -1,0 +1,24 @@
+# Render Blueprint for the public MissionForge demo (see HOSTING.md).
+# One free web service serves docs/ (entry page, phone client, Unity WebGL host) and the room server's
+# WebSocket on the same https:// origin, so no server URL is baked into any build.
+# Free plan: sleeps after 15 min with no inbound traffic; the next visit waits about 1 min.
+services:
+  - type: web
+    name: missionforge-spaceapps
+    runtime: node
+    plan: free
+    region: frankfurt
+    buildCommand: npm --prefix server ci && npm --prefix server run build
+    startCommand: npm --prefix server run start:hosted
+    healthCheckPath: /healthz
+    autoDeployTrigger: commit
+    # Redeploy (which restarts the server and drops every room) only when the game itself changes.
+    buildFilter:
+      paths:
+        - server/**
+        - protocol/**
+        - docs/play/**
+        - render.yaml
+    envVars:
+      - key: NODE_VERSION
+        value: "22"

@@ -1,6 +1,7 @@
 // Connection manager: WebSocket bootstrap, handshake, room create/join/resume, and per-connection
 // envelope checks (protocol/messages.md §2, §3, §11, §12.1) before handing off to Room.dispatch.
 import { randomUUID } from 'node:crypto';
+import type { Server as HttpServer } from 'node:http';
 import { WebSocketServer, type WebSocket } from 'ws';
 import {
   MESSAGE_META,
@@ -73,11 +74,13 @@ interface Session {
 export interface ServerOptions {
   port: number;
   clientBaseUrl: string;
+  /** Attach to this HTTP server (shares its port; `port` is then ignored) instead of listening on `port`. */
+  httpServer?: HttpServer;
 }
 
 export function startServer(opts: ServerOptions): WebSocketServer {
   const rooms = new Map<string, Room>();
-  const wss = new WebSocketServer({ port: opts.port });
+  const wss = new WebSocketServer(opts.httpServer ? { server: opts.httpServer } : { port: opts.port });
   // Housekeeping once a second: slot-hold expiry (3 min) and room expiry (10 min host absence).
   const sweeper = setInterval(() => {
     for (const room of [...rooms.values()]) room.sweep();
