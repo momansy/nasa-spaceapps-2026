@@ -224,15 +224,22 @@ def stitch(paths, out_path, cols=None, pad=4, bg=(0.10, 0.11, 0.13, 1.0)):
     save_pixels(sheet, out_path)
 
 
-def preview(scene, objs, out_path, views=("3q", "side", "low"), size=640, ortho_side=True):
+def preview(scene, objs, out_path, views=("3q", "side", "low"), size=640, ortho_side=True, split=False):
     """Render objs from several views and stitch them into one PNG row."""
     paths = []
     stem = os.path.splitext(out_path)[0]
+    scene.render.resolution_x = scene.render.resolution_y = size     # frame with the aspect actually rendered
+    scene.render.resolution_percentage = 100
     for v in views:
         frame_camera(scene, objs, v, ortho=(ortho_side and v in ("side", "front")))
-        p = f"{stem}__{v}.png"
+        if bpy.data.objects.get("mf_lookdev_floor") is not None:     # HDRI look-dev: floor follows the part
+            from . import lookdev
+            lookdev.place_floor(scene, objs, camera_view_dir=VIEWS[v] if isinstance(v, str) else v)
+        p = f"{stem}_{v}.png" if split else f"{stem}__{v}.png"
         render_to(scene, p, size, size)
         paths.append(p)
+    if split:
+        return paths
     if len(paths) == 1:
         os.replace(paths[0], out_path)
     else:

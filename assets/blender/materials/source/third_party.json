@@ -1,0 +1,155 @@
+[
+ {
+  "name": "ambientCG Metal012 (2K-JPG)",
+  "url": "https://ambientcg.com/a/Metal012",
+  "author": "ambientCG (Lennart Demes and contributors)",
+  "licence": "CC0 1.0",
+  "date": "2026-11-15",
+  "path": "textures/hull/",
+  "changes": "Colour discarded (neutral albedo); roughness and normal used as mottling / orange-peel pattern, normal slope x0.35; mixed with procedural tileable noise"
+ },
+ {
+  "name": "ambientCG Rubber004 (2K-JPG)",
+  "url": "https://ambientcg.com/a/Rubber004",
+  "author": "ambientCG (Lennart Demes and contributors)",
+  "licence": "CC0 1.0",
+  "date": "2026-11-15",
+  "path": "textures/detail_dark/",
+  "changes": "Downsampled to 1024; colour reduced to neutral luminance; roughness remapped 0.48-0.78"
+ },
+ {
+  "name": "Procedural (numpy generator in assets/blender/materials/source/mat_nozzle.py)",
+  "url": "https://github.com/momansy/nasa-spaceapps-2026",
+  "author": "MissionForge team",
+  "licence": "CC0 1.0",
+  "date": "2026-11-15",
+  "path": "textures/livery/",
+  "changes": "Generated: tileable noise mottling"
+ },
+ {
+  "name": "Procedural (numpy generator in assets/blender/materials/source/mat_nozzle.py)",
+  "url": "https://github.com/momansy/nasa-spaceapps-2026",
+  "author": "MissionForge team",
+  "licence": "CC0 1.0",
+  "date": "2026-11-15",
+  "path": "textures/thermal/",
+  "changes": "Generated: quilted pillow cells with foil crinkle"
+ },
+ {
+  "name": "Procedural (numpy generator in assets/blender/materials/source/mat_nozzle.py)",
+  "url": "https://github.com/momansy/nasa-spaceapps-2026",
+  "author": "MissionForge team",
+  "licence": "CC0 1.0",
+  "date": "2026-11-15",
+  "path": "textures/foam/",
+  "changes": "Generated: tileable Worley cells + low-frequency mottling"
+ },
+ {
+  "name": "Procedural (numpy generator in assets/blender/materials/source/mat_nozzle.py)",
+  "url": "https://github.com/momansy/nasa-spaceapps-2026",
+  "author": "MissionForge team",
+  "licence": "CC0 1.0",
+  "date": "2026-11-15",
+  "path": "trim/",
+  "changes": "Generated: 11 rows (weld, rivets, gap, stringer, bolt flange, bellows, braid, clamp, hinge/latch, vent)"
+ },
+ {
+  "name": "Saira Stencil One (Regular)",
+  "url": "https://fonts.google.com/specimen/Saira+Stencil+One",
+  "author": "The Saira Stencil Project Authors (Omnibus-Type)",
+  "licence": "SIL OFL 1.1",
+  "date": "2026-11-15",
+  "path": "decals/ (lettering), source/fonts/",
+  "changes": "Glyphs rendered to alpha masks; font file kept for rebuilding, OFL.txt alongside"
+ },
+ {
+  "name": "Procedural (numpy generator in assets/blender/materials/source/mat_nozzle.py)",
+  "url": "https://github.com/momansy/nasa-spaceapps-2026",
+  "author": "MissionForge team",
+  "licence": "CC0 1.0",
+  "date": "2026-11-15",
+  "path": "decals/",
+  "changes": "Generated: tile artwork (bands, hazard chevrons, lift point, CG marker)"
+ },
+ {
+  "name": "Procedural (numpy generator in assets/blender/materials/source/mat_metal.py)",
+  "url": "https://github.com/momansy/nasa-spaceapps-2026",
+  "author": "MissionForge team",
+  "licence": "CC0 1.0",
+  "date": "2026-11-15",
+  "path": "textures/engine_metal/",
+  "changes": "Generated: two-scale streak noise smeared along v (12 mm and 31 mm), low contrast (+-1.2 % albedo, +-0.022 roughness); replaces the ambientCG Metal009 set"
+ },
+ {
+  "name": "Procedural (numpy generator in assets/blender/materials/source/mat_metal.py)",
+  "url": "https://github.com/momansy/nasa-spaceapps-2026",
+  "author": "MissionForge team",
+  "licence": "CC0 1.0",
+  "date": "2026-11-15",
+  "path": "textures/engine_metal_satin/",
+  "changes": "Generated: isotropic fine grain and shallow pits, no direction"
+ },
+ {
+  "name": "Procedural (numpy generator in assets/blender/materials/source/mat_nozzle.py)",
+  "url": "https://github.com/momansy/nasa-spaceapps-2026",
+  "author": "MissionForge team",
+  "licence": "CC0 1.0",
+  "date": "2026-11-15",
+  "path": "textures/nozzle_inner/",
+  "changes": "Generated: soft tube-wall height field, bronze tint in library.json"
+ },
+ {
+  "name": "Procedural (numpy generator in assets/blender/materials/source/mat_nozzle.py)",
+  "url": "https://github.com/momansy/nasa-spaceapps-2026",
+  "author": "MissionForge team",
+  "licence": "CC0 1.0",
+  "date": "2026-11-15",
+  "path": "textures/nozzle_ablative/",
+  "changes": "Generated: 28 varying-width tape plies, fine weave and grain, no large-scale mottle (T032 requeue)"
+ },
+ {
+  "name": "Procedural (numpy generator in assets/blender/materials/source/mat_nozzle.py)",
+  "url": "https://github.com/momansy/nasa-spaceapps-2026",
+  "author": "MissionForge team",
+  "licence": "CC0 1.0",
+  "date": "2026-11-15",
+  "path": "textures/nozzle_hot/",
+  "changes": "Generated: tube-wall height field, braze grooves, faint weld seam (even albedo)"
+ },
+ {
+  "name": "Procedural (numpy generator in assets/blender/materials/source/mat_nozzle.py)",
+  "url": "https://github.com/momansy/nasa-spaceapps-2026",
+  "author": "MissionForge team",
+  "licence": "CC0 1.0",
+  "date": "2026-11-15",
+  "path": "textures/nozzle_radiative/",
+  "changes": "Generated: fine hoop-direction spin marks, one faint panel seam per repeat (cloudy mottle removed in the T032 requeue)"
+ },
+ {
+  "name": "Poly Haven studio_small_09 (2K HDR)",
+  "url": "https://polyhaven.com/a/studio_small_09",
+  "author": "Sergej Majboroda",
+  "licence": "CC0 1.0",
+  "date": "2026-11-15",
+  "path": "hdri/studio_small_09_2k.hdr",
+  "changes": "none"
+ },
+ {
+  "name": "Poly Haven belfast_sunset_puresky (2K HDR)",
+  "url": "https://polyhaven.com/a/belfast_sunset_puresky",
+  "author": "Greg Zaal (processing), Dimitrios Savva (photography), Jarod Guest (sky edits)",
+  "licence": "CC0 1.0",
+  "date": "2026-11-15",
+  "path": "hdri/belfast_sunset_puresky_2k.hdr",
+  "changes": "none"
+ },
+ {
+  "name": "ambientCG Concrete034 (2K-JPG)",
+  "url": "https://ambientcg.com/a/Concrete034",
+  "author": "ambientCG (Lennart Demes and contributors)",
+  "licence": "CC0 1.0",
+  "date": "2026-11-15",
+  "path": "textures/lookdev_concrete034/",
+  "changes": "Look-dev ground only (dusk_pad); colour, roughness and NormalGL kept at 1K (resized from 2K), other maps deleted"
+ }
+]
