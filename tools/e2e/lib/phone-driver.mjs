@@ -4,7 +4,7 @@ import path from 'node:path';
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export class PhoneDriver {
-  constructor(browser, { webUrl, room, index, spectator = false, pending = false, runDir, cpuThrottle = 1, extraQuery = '', tag = null, measurePerformance = false }) {
+  constructor(browser, { webUrl, room, index, spectator = false, pending = false, runDir, cpuThrottle = 1, extraQuery = '', tag = null, measurePerformance = false, onFrame = null }) {
     this.browser = browser;
     this.webUrl = webUrl;
     this.room = room;
@@ -26,6 +26,8 @@ export class PhoneDriver {
     this.cpuProfileSession = null;
     this.cpuProfileMeta = null;
     this.tag = tag;
+    // T061: optional (phone, direction, payloadText) callback for every WebSocket frame this page sends or receives.
+    this.onFrame = onFrame;
     this.url = `${webUrl}/?room=${room}${spectator ? '&watch=1' : ''}${extraQuery}`;
   }
 
@@ -91,6 +93,13 @@ export class PhoneDriver {
     this.page = await this.context.newPage();
     this.page.on('console', (msg) => { if (msg.type() === 'error') this.consoleErrors.push(msg.text()); });
     this.page.on('pageerror', (error) => this.pageErrors.push(error.message));
+    if (this.onFrame) {
+      this.page.on('websocket', (ws) => {
+        ws.on('framereceived', (e) => this.onFrame(this, 'server_to_client', e.payload));
+        ws.on('framesent', (e) => this.onFrame(this, 'client_to_server', e.payload));
+        ws.on('close', () => this.onFrame(this, 'socket_closed', ''));
+      });
+    }
   }
 
   async shot(name) {

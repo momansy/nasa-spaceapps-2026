@@ -1,0 +1,311 @@
+{
+  "runId": "2026-11-15T11-12-55-902Z-real-host-EGBZ-p3",
+  "room": "EGBZ",
+  "phones": 3,
+  "server": "ws://localhost:10000/ws",
+  "phonePage": "http://localhost:10000/play/client",
+  "verdict": "completed",
+  "reason": "debrief reached and shown for 20 s",
+  "stoppedAt": null,
+  "durationSec": 235.9,
+  "phasesSeen": [
+    {
+      "signature": "LOBBY",
+      "missionSeq": 1,
+      "step": null,
+      "firstSeenAt": "2026-11-15T11:13:04.043Z",
+      "tSec": 8.1,
+      "phones": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "signature": "BRIEFING",
+      "missionSeq": 1,
+      "step": null,
+      "firstSeenAt": "2026-11-15T11:13:08.056Z",
+      "tSec": 12.2,
+      "phones": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "signature": "CONTRACT_VOTE",
+      "missionSeq": 1,
+      "step": null,
+      "firstSeenAt": "2026-11-15T11:13:08.569Z",
+      "tSec": 12.7,
+      "phones": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "signature": "BUILD:VOTE_ROUND",
+      "missionSeq": 1,
+      "step": {
+        "index": 1,
+        "total": 7
+      },
+      "firstSeenAt": "2026-11-15T11:13:14.878Z",
+      "tSec": 19,
+      "phones": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "signature": "BUILD:VOTE_ROUND",
+      "missionSeq": 1,
+      "step": {
+        "index": 2,
+        "total": 7
+      },
+      "firstSeenAt": "2026-11-15T11:13:21.675Z",
+      "tSec": 25.8,
+      "phones": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "signature": "BUILD:VOTE_ROUND",
+      "missionSeq": 1,
+      "step": {
+        "index": 3,
+        "total": 7
+      },
+      "firstSeenAt": "2026-11-15T11:13:27.600Z",
+      "tSec": 31.7,
+      "phones": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "signature": "BUILD:VOTE_ROUND",
+      "missionSeq": 1,
+      "step": {
+        "index": 4,
+        "total": 7
+      },
+      "firstSeenAt": "2026-11-15T11:13:33.918Z",
+      "tSec": 38,
+      "phones": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "signature": "BUILD:VOTE_ROUND",
+      "missionSeq": 1,
+      "step": {
+        "index": 5,
+        "total": 7
+      },
+      "firstSeenAt": "2026-11-15T11:13:40.202Z",
+      "tSec": 44.3,
+      "phones": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "signature": "BUILD:TEST",
+      "missionSeq": 1,
+      "step": {
+        "index": 6,
+        "total": 7
+      },
+      "firstSeenAt": "2026-11-15T11:13:46.673Z",
+      "tSec": 50.8,
+      "phones": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "signature": "BUILD:REVIEW:PDR",
+      "missionSeq": 1,
+      "step": {
+        "index": 7,
+        "total": 7
+      },
+      "firstSeenAt": "2026-11-15T11:13:51.636Z",
+      "tSec": 55.7,
+      "phones": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "signature": "FRR:FRR",
+      "missionSeq": 1,
+      "step": null,
+      "firstSeenAt": "2026-11-15T11:13:56.639Z",
+      "tSec": 60.7,
+      "phones": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "signature": "COUNTDOWN:F0",
+      "missionSeq": 1,
+      "step": null,
+      "firstSeenAt": "2026-11-15T11:13:57.074Z",
+      "tSec": 61.2,
+      "phones": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "signature": "FLIGHT:FLYING:F2:ASCENT",
+      "missionSeq": 1,
+      "step": null,
+      "firstSeenAt": "2026-11-15T11:14:11.414Z",
+      "tSec": 75.5,
+      "phones": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "signature": "FLIGHT:FLYING:F3:ASCENT",
+      "missionSeq": 1,
+      "step": null,
+      "firstSeenAt": "2026-11-15T11:14:36.581Z",
+      "tSec": 100.7,
+      "phones": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "signature": "FLIGHT:FLYING:F4:ASCENT",
+      "missionSeq": 1,
+      "step": null,
+      "firstSeenAt": "2026-11-15T11:15:06.423Z",
+      "tSec": 130.5,
+      "phones": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "signature": "FLIGHT:FLYING:F6:ORBIT",
+      "missionSeq": 1,
+      "step": null,
+      "firstSeenAt": "2026-11-15T11:15:18.972Z",
+      "tSec": 143.1,
+      "phones": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "signature": "FLIGHT:FLYING:F8:ORBIT",
+      "missionSeq": 1,
+      "step": null,
+      "firstSeenAt": "2026-11-15T11:15:44.509Z",
+      "tSec": 168.6,
+      "phones": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "signature": "FLIGHT:FLYING:F9:ORBIT",
+      "missionSeq": 1,
+      "step": null,
+      "firstSeenAt": "2026-11-15T11:16:03.984Z",
+      "tSec": 188.1,
+      "phones": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "signature": "DEBRIEF:SUMMARY",
+      "missionSeq": 1,
+      "step": null,
+      "firstSeenAt": "2026-11-15T11:16:28.666Z",
+      "tSec": 212.8,
+      "phones": [
+        1,
+        2,
+        3
+      ]
+    }
+  ],
+  "answered": {
+    "votes": 24,
+    "polls": 6,
+    "minigames": 21,
+    "trivia": 0,
+    "predictions": 0,
+    "picks": 0
+  },
+  "frameTypeCounts": {
+    "hello.ok": 3,
+    "room.state": 9,
+    "roles.state": 12,
+    "room.joined": 3,
+    "settings.state": 3,
+    "phase.set": 63,
+    "snapshot.end": 3,
+    "clock.pong": 141,
+    "vote.opened": 24,
+    "vote.stage": 108,
+    "vote.tally": 54,
+    "vote.result": 24,
+    "vote.commit": 24,
+    "vote.ack": 13,
+    "build.state": 15,
+    "poll.call": 18,
+    "poll.answered": 18,
+    "poll.result": 6,
+    "mg.start": 21,
+    "mg.summary": 21,
+    "pilot.assign": 3,
+    "console.config": 10,
+    "boost.applied": 3,
+    "console.telemetry": 60,
+    "flight.hud": 90,
+    "console.alert": 1,
+    "blackout.set": 6,
+    "sync.meter": 3,
+    "debrief.score": 3,
+    "debrief.awards": 3,
+    "debrief.facts": 3
+  },
+  "protocolFrames": {
+    "total": 1318,
+    "valid": 1318,
+    "invalid": 0,
+    "unknownTypes": 0
+  },
+  "failures": [],
+  "note": "The harness only answers; it never sends a host message or drives a phase. Phone input is generic and not tuned to win."
+}
