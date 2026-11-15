@@ -4,7 +4,7 @@
     "F01 to F40 of design section 12.4. Fact IDs are not flight phases: a flight-phase ID (F0 to F14) appears in this file only inside used_in.flight_phases.",
     "text_key is the on-screen sentence, 25 words or fewer (12.1). The bank column \"Fact (draft)\" is a keyword line, so the sentence is the one the design uses where it tells the fact (the Fact line of the minigame in 10.5, the \"Did you know?\" or table text of section 7, the failure model of 8.4, the abort table of 9.8), cut to 25 words where it was longer; detail_key then holds the full design sentence for the Codex. Every number is the one the design prints.",
     "topic_key, used_in and source_key are the Topic, Used in and Source to cite columns. \"§7.x\" is stored as the part category of that section, \"§6.10\" as the rocket preview channel, \"§9.8\" as the abort-modes channel.",
-    "Every status is unverified (the column says \"Verify\") and no source_url is set: verification with links is a later task.",
+    "T025: every fact was checked against an authoritative source opened on 2026-11-14 (UTC); status and source_url are set per fact, corrections and access dates are in each fact's design_notes, and the evidence is in orchestration/evidence/T025/fact-sources.md. \"verified\" covers both facts verified as written and facts corrected to match their source.",
     "Ten minigame fact lines of 10.5 have no entry in this bank (see data/minigames.json); the flight-phase fact moments of 9.1 are stored in data/flight_phases.json."
   ],
   "facts": [
@@ -18,7 +18,11 @@
         ]
       },
       "source_key": "fact.F01.source",
-      "status": "unverified"
+      "source_url": "https://llis.nasa.gov/llis_lib/pdf/1009464main1_0641-mr.pdf",
+      "status": "verified",
+      "design_notes": [
+        "T025: source accessed 2026-11-14 (UTC): https://llis.nasa.gov/llis_lib/pdf/1009464main1_0641-mr.pdf"
+      ]
     },
     {
       "id": "F02",
@@ -34,9 +38,12 @@
         ]
       },
       "source_key": "fact.F02.source",
-      "status": "unverified",
+      "source_url": "https://science.nasa.gov/learn/basics-of-space-flight/chapter3-2/",
+      "status": "verified",
       "design_notes": [
-        "The bank draft is the formula alone. The on-screen text is the fact line of MG-02 as printed; the detail text adds the formula of the bank, which the dashboard also uses."
+        "The bank draft is the formula alone. The on-screen text is the fact line of MG-02 as printed; the detail text adds the formula of the bank, which the dashboard also uses.",
+        "T025: source accessed 2026-11-14 (UTC): https://science.nasa.gov/learn/basics-of-space-flight/chapter3-2/",
+        "T025: supporting sources also opened: https://www1.grc.nasa.gov/beginners-guide-to-aeronautics/ideal-rocket-equation/ (gives Δu = Isp · g0 · ln(MR), the form in the detail text) and https://www1.grc.nasa.gov/beginners-guide-to-aeronautics/stage (\"In order to lighten the weight of the vehicle to achieve orbital velocity\" launchers discard part of the vehicle: staging)."
       ]
     },
     {
@@ -49,7 +56,12 @@
         ]
       },
       "source_key": "fact.F03.source",
-      "status": "unverified"
+      "source_url": "https://www.grc.nasa.gov/www/K-12/rocket/TRCRocket/balloon_staging.html",
+      "status": "verified",
+      "design_notes": [
+        "T025: source accessed 2026-11-14 (UTC): https://www.grc.nasa.gov/www/K-12/rocket/TRCRocket/balloon_staging.html",
+        "T025: supporting sources also opened: https://ntrs.nasa.gov/api/citations/19650013589/downloads/19650013589.pdf (Saturn I SA-8 Functional Systems Description, Vol. X: \"Primary ullage rocket function is to impart forward acceleration to pre-position S-IV stage propellant\" ... \"prior to ignition\")."
+      ]
     },
     {
       "id": "F04",
@@ -61,7 +73,13 @@
         ]
       },
       "source_key": "fact.F04.source",
-      "status": "unverified"
+      "source_url": "https://ntrs.nasa.gov/api/citations/20110003654/downloads/20110003654.pdf",
+      "status": "verified",
+      "design_notes": [
+        "T025: source accessed 2026-11-14 (UTC): https://ntrs.nasa.gov/api/citations/20110003654/downloads/20110003654.pdf",
+        "T025 2026-11-14: corrected from \"Rockets throttle down near Max Q, the point of maximum aerodynamic stress, about a minute after launch.\" because the source says throttling at Max Q is documented for the Space Shuttle (not for every rocket) and the timing varies by vehicle (Falcon 9 a little after 1 min 10 s, SLS within 90 s), so \"Rockets\" became \"Many rockets\" and the timing \"often about a minute\".",
+        "T025: supporting sources also opened: https://ntrs.nasa.gov/api/citations/20190000719/downloads/20190000719.pdf (CHANGO, SLS boost-stage guidance: core engines \"throttled down ... during the time of maximum dynamic pressure (max-q)\"); https://www.nasa.gov/wp-content/uploads/2018/07/spacex_nasa_crs-6_presskit-2.pdf (\"One minute and 10 seconds after liftoff, Falcon 9 reaches supersonic speed. The vehicle will pass through ... max Q--shortly thereafter.\"); https://www.nasa.gov/artemis-i-press-kit/ (SLS reaches greatest atmospheric force \"within 90 seconds\")."
+      ]
     },
     {
       "id": "F05",
@@ -73,9 +91,13 @@
         ]
       },
       "source_key": "fact.F05.source",
-      "status": "unverified",
+      "source_url": "https://orbitaldebris.jsc.nasa.gov/faq/",
+      "status": "verified",
       "design_notes": [
-        "\"Used in: F7\" is the flight phase F7 (upper stage burn & orbit insertion), not a fact ID. The part example of 17.5 also attaches F05 to the Kerolox Workhorse."
+        "\"Used in: F7\" is the flight phase F7 (upper stage burn & orbit insertion), not a fact ID. The part example of 17.5 also attaches F05 to the Kerolox Workhorse.",
+        "T025: source accessed 2026-11-14 (UTC): https://orbitaldebris.jsc.nasa.gov/faq/",
+        "T025 2026-11-14: corrected from \"Orbital speed in low Earth orbit is about 7.8 km/s.\" because the source says speeds in low Earth orbit range from about 7 to 8 km/s with altitude; a single 7.8 km/s fits only the lowest orbits (about 200 km), while circular-orbit physics gives about 7.7 km/s at the ISS's ~400 km (NASA rounds the ISS to 17,500 mph).",
+        "T025: supporting sources also opened: https://ntrs.nasa.gov/api/citations/20110016497/downloads/20110016497.pdf (NASA ISS overview, K. Shireman: \"Velocity: 28,164 km/h (17,500 mph) = 7823.2 m/s\")."
       ]
     },
     {
@@ -89,7 +111,11 @@
         ]
       },
       "source_key": "fact.F06.source",
-      "status": "unverified"
+      "source_url": "https://www.nasa.gov/learning-resources/for-kids-and-students/what-is-microgravity-grades-5-8/",
+      "status": "verified",
+      "design_notes": [
+        "T025: source accessed 2026-11-14 (UTC): https://www.nasa.gov/learning-resources/for-kids-and-students/what-is-microgravity-grades-5-8/"
+      ]
     },
     {
       "id": "F07",
@@ -101,9 +127,13 @@
         ]
       },
       "source_key": "fact.F07.source",
-      "status": "unverified",
+      "source_url": "https://ntrs.nasa.gov/api/citations/20080018689/downloads/20080018689.pdf",
+      "status": "verified",
       "design_notes": [
-        "The bank draft says \"S-II center engine\"; MG-11 says \"an engine\" and 8.4 \"its center engine\"."
+        "The bank draft says \"S-II center engine\"; MG-11 says \"an engine\" and 8.4 \"its center engine\".",
+        "T025: source accessed 2026-11-14 (UTC): https://ntrs.nasa.gov/api/citations/20080018689/downloads/20080018689.pdf",
+        "T025 2026-11-14: corrected from \"Pogo is a feedback loop between engine thrust and fuel flow. Apollo 13's second stage shut down its center engine because of severe pogo.\" because the source says pogo is a coupled structure-propulsion instability: structural vibration modulates propellant feed (on Saturn V the oxidizer feed), which modulates thrust; it is not only thrust and \"fuel\" flow. The Apollo 13 part is confirmed (S-II center J-2 engine shut down by its low chamber-pressure sensor).",
+        "T025: supporting sources also opened: https://nssdc.gsfc.nasa.gov/planetary/lunar/apollo_13_review_board.txt (Finding 20a: the S-II center engine \"prematurely shut down at 132 seconds due to large16 hertz oscillations in thrust chamber pressure\"); https://www.nasa.gov/history/50-years-ago-apollo-13-off-to-the-moon/ (\"excessive longitudinal oscillations, the so-called Pogo effect\")."
       ]
     },
     {
@@ -116,7 +146,11 @@
         ]
       },
       "source_key": "fact.F08.source",
-      "status": "unverified"
+      "source_url": "https://oig.nasa.gov/wp-content/uploads/2024/02/ig-13-016.pdf",
+      "status": "verified",
+      "design_notes": [
+        "T025: source accessed 2026-11-14 (UTC): https://oig.nasa.gov/wp-content/uploads/2024/02/ig-13-016.pdf"
+      ]
     },
     {
       "id": "F09",
@@ -129,9 +163,12 @@
         ]
       },
       "source_key": "fact.F09.source",
-      "status": "unverified",
+      "source_url": "https://www.nasa.gov/directorates/somd/space-communications-navigation-program/what-is-the-deep-space-network/",
+      "status": "verified",
       "design_notes": [
-        "The bank draft names the complexes Goldstone, Madrid and Canberra; the MG-13 line names California, Spain and Australia."
+        "The bank draft names the complexes Goldstone, Madrid and Canberra; the MG-13 line names California, Spain and Australia.",
+        "T025: source accessed 2026-11-14 (UTC): https://www.nasa.gov/directorates/somd/space-communications-navigation-program/what-is-the-deep-space-network/",
+        "T025: supporting sources also opened: https://www.nasa.gov/directorates/somd/space-communications-navigation-program/dsn-complexes/ (\"Goldstone, near Barstow, California; near Madrid, Spain; and near Canberra, Australia\")."
       ]
     },
     {
@@ -144,7 +181,12 @@
         ]
       },
       "source_key": "fact.F10.source",
-      "status": "unverified"
+      "source_url": "https://orbitaldebris.jsc.nasa.gov/faq/",
+      "status": "verified",
+      "design_notes": [
+        "T025: source accessed 2026-11-14 (UTC): https://orbitaldebris.jsc.nasa.gov/faq/",
+        "T025 2026-11-14: corrected from \"The ISS regularly performs debris-avoidance maneuvers. Tens of thousands of debris objects are tracked in Earth orbit.\" because the source says the ISS has made 41 collision avoidance maneuvers since 1999 (\"regularly\" overstated a rate of about 1.5 per year) and the 34,000+ cataloged objects include working satellites, not only debris."
+      ]
     },
     {
       "id": "F11",
@@ -156,7 +198,13 @@
         ]
       },
       "source_key": "fact.F11.source",
-      "status": "unverified"
+      "source_url": "https://earth.gsfc.nasa.gov/climate/projects/solar-irradiance/science",
+      "status": "verified",
+      "design_notes": [
+        "T025: source accessed 2026-11-14 (UTC): https://earth.gsfc.nasa.gov/climate/projects/solar-irradiance/science",
+        "T025 2026-11-14: corrected from \"Sunlight near Earth delivers about 1,361 W per square meter; modern cells convert roughly 30% of it.\" because the source says the 30% figure is the nominal efficiency of multi-junction space solar cells (NASA SmallSat state of the art); common terrestrial cells are less efficient, so \"modern cells\" became \"modern space solar cells\".",
+        "T025: supporting sources also opened: https://www.nasa.gov/smallsat-institute/sst-soa/power-subsystems/ (state-of-the-art space cells: 3- to 5-junction III-V \"with a nominal efficiency of 30% and a high of 34%\")."
+      ]
     },
     {
       "id": "F12",
@@ -168,7 +216,12 @@
         ]
       },
       "source_key": "fact.F12.source",
-      "status": "unverified"
+      "source_url": "https://www.nasa.gov/wp-content/uploads/2023/05/sts-096-press-kit.pdf",
+      "status": "verified",
+      "design_notes": [
+        "T025: source accessed 2026-11-14 (UTC): https://www.nasa.gov/wp-content/uploads/2023/05/sts-096-press-kit.pdf",
+        "T025 2026-11-14: corrected from \"Spacecraft dock at walking-slow speeds, a few centimeters per second, because in space nothing stops on its own (Newton's first law).\" because the source says the Shuttle docked at about one-tenth of a foot per second (about 3 cm/s), roughly fifty times slower than walking, so \"walking-slow speeds\" misdescribed it."
+      ]
     },
     {
       "id": "F13",
@@ -181,9 +234,12 @@
         ]
       },
       "source_key": "fact.F13.source",
-      "status": "unverified",
+      "source_url": "https://www.nasa.gov/wp-content/uploads/static/history/alsj/a11/a11.1201-pa.html",
+      "status": "verified",
       "design_notes": [
-        "Shortened by one word from the MG-17 line to meet the 25-word limit; the full line is the detail text."
+        "Shortened by one word from the MG-17 line to meet the 25-word limit; the full line is the detail text.",
+        "T025: source accessed 2026-11-14 (UTC): https://www.nasa.gov/wp-content/uploads/static/history/alsj/a11/a11.1201-pa.html",
+        "T025: supporting sources also opened: https://www.nasa.gov/history/50-years-ago-one-small-step-one-giant-leap/ (\"The alarm simply meant the computer was overloaded with too much data and couldn't process it all\"; Duke \"gave the GO to proceed\")."
       ]
     },
     {
@@ -196,7 +252,13 @@
         ]
       },
       "source_key": "fact.F14.source",
-      "status": "unverified"
+      "source_url": "https://ntrs.nasa.gov/api/citations/20030000609/downloads/20030000609.pdf",
+      "status": "verified",
+      "design_notes": [
+        "T025: source accessed 2026-11-14 (UTC): https://ntrs.nasa.gov/api/citations/20030000609/downloads/20030000609.pdf",
+        "T025 2026-11-14: corrected from \"In low Earth orbit a spacecraft spends about a third of every ~90-minute orbit in Earth's shadow, running on batteries.\" because the source says a typical 90-minute low orbit has about 35 minutes of eclipse (about 39%, more than a third); the shadow time also depends on the orbit's angle to the Sun, hence \"can spend\".",
+        "T025: supporting sources also opened: https://science.nasa.gov/mission/hubble/observatory/design/electrical-power/ (\"approximately 95 minutes, and the telescope is in Earth's shadow for about 36 minutes of each orbit\")."
+      ]
     },
     {
       "id": "F15",
@@ -209,9 +271,12 @@
         ]
       },
       "source_key": "fact.F15.source",
-      "status": "unverified",
+      "source_url": "https://www.nasa.gov/history/houston-weve-had-a-problem/",
+      "status": "verified",
       "design_notes": [
-        "Shortened from the MG-19 line to meet the 25-word limit; the full line is the detail text."
+        "Shortened from the MG-19 line to meet the 25-word limit; the full line is the detail text.",
+        "T025: source accessed 2026-11-14 (UTC): https://www.nasa.gov/history/houston-weve-had-a-problem/",
+        "T025: supporting sources also opened: https://www.nasa.gov/missions/apollo/apollo-13-mission-details/ (square CM canisters \"not compatible with the round openings in the lunar module environmental system\")."
       ]
     },
     {
@@ -224,7 +289,12 @@
         ]
       },
       "source_key": "fact.F16.source",
-      "status": "unverified"
+      "source_url": "https://www.usgs.gov/landsat-missions",
+      "status": "verified",
+      "design_notes": [
+        "T025: source accessed 2026-11-14 (UTC): https://www.usgs.gov/landsat-missions",
+        "T025 2026-11-14: corrected from \"Earth-observation satellites like Landsat have photographed Earth's surface continuously since 1972, tracking change over decades.\" because the source says the continuous record since 1972 is Landsat's and covers the land surface; the text credited Earth-observation satellites in general with photographing Earth's whole surface."
+      ]
     },
     {
       "id": "F17",
@@ -236,7 +306,12 @@
         ]
       },
       "source_key": "fact.F17.source",
-      "status": "unverified"
+      "source_url": "https://ntrs.nasa.gov/api/citations/20090026451/downloads/20090026451.pdf",
+      "status": "verified",
+      "design_notes": [
+        "T025: source accessed 2026-11-14 (UTC): https://ntrs.nasa.gov/api/citations/20090026451/downloads/20090026451.pdf",
+        "T025 2026-11-14: corrected from \"Returning capsules must hit a narrow \"entry corridor\". Apollo capsules had to enter within a few degrees.\" because the source says the source gives the actual Apollo 13 corridor: flight path angle from -5.25° to -7.4° (desired -6.5°), about 2° wide; \"within a few degrees\" was vague."
+      ]
     },
     {
       "id": "F18",
@@ -248,7 +323,11 @@
         ]
       },
       "source_key": "fact.F18.source",
-      "status": "unverified"
+      "source_url": "https://www.nasa.gov/missions/artemis/orion/orion-parachute-tests-prove-out-complex-system-for-human-deep-space-missions/",
+      "status": "verified",
+      "design_notes": [
+        "T025: source accessed 2026-11-14 (UTC): https://www.nasa.gov/missions/artemis/orion/orion-parachute-tests-prove-out-complex-system-for-human-deep-space-missions/"
+      ]
     },
     {
       "id": "F19",
@@ -260,7 +339,11 @@
         ]
       },
       "source_key": "fact.F19.source",
-      "status": "unverified"
+      "source_url": "https://ipnpr.jpl.nasa.gov/progress_report/42-150/150C.pdf",
+      "status": "verified",
+      "design_notes": [
+        "T025: source accessed 2026-11-14 (UTC): https://ipnpr.jpl.nasa.gov/progress_report/42-150/150C.pdf"
+      ]
     },
     {
       "id": "F20",
@@ -272,7 +355,12 @@
         ]
       },
       "source_key": "fact.F20.source",
-      "status": "unverified"
+      "source_url": "https://science.nasa.gov/blog/speaking-percys-language-how-to-talk-so-perseverance-will-listen/",
+      "status": "verified",
+      "design_notes": [
+        "T025: source accessed 2026-11-14 (UTC): https://science.nasa.gov/blog/speaking-percys-language-how-to-talk-so-perseverance-will-listen/",
+        "T025 2026-11-14: corrected from \"Radio signals take several minutes (between about 4 and 24, depending on planet positions) to travel between Earth and Mars, so landers must land themselves.\" because the source says one-way radio time between Earth and Mars is between 3 and 22 minutes, not 4 to 24."
+      ]
     },
     {
       "id": "F21",
@@ -284,7 +372,12 @@
         ]
       },
       "source_key": "fact.F21.source",
-      "status": "unverified"
+      "source_url": "https://science.nasa.gov/mission/genesis/",
+      "status": "verified",
+      "design_notes": [
+        "T025: source accessed 2026-11-14 (UTC): https://science.nasa.gov/mission/genesis/",
+        "T025 2026-11-14: corrected from \"The Genesis sample-return capsule crashed in 2004 because accelerometers were installed backwards, following a drawing error, so its parachutes never deployed.\" because the source says the sensors were gravity switches (G-switches), not accelerometers, and they were installed as drawn: the design itself had them inverted (\"a design defect that allowed an incorrect orientation during assembly of the gravity switch devices\")."
+      ]
     },
     {
       "id": "F22",
@@ -296,9 +389,12 @@
         ]
       },
       "source_key": "fact.F22.source",
-      "status": "unverified",
+      "source_url": "https://sci.esa.int/science-e/www/object/doc.cfm?fobjectid=38888",
+      "status": "verified",
       "design_notes": [
-        "Wording from the failure model (8.4): \"Ariane 5 Flight 501 (1996): a number too big for its variable\"."
+        "Wording from the failure model (8.4): \"Ariane 5 Flight 501 (1996): a number too big for its variable\".",
+        "T025: source accessed 2026-11-14 (UTC): https://sci.esa.int/science-e/www/object/doc.cfm?fobjectid=38888",
+        "T025: supporting sources also opened: https://www.esa.int/Newsroom/Press_Releases/Ariane_501_-_Presentation_of_Inquiry_Board_report (\"specification and design errors in the software of the inertial reference system\"). The scanned report has no text layer; page 4 (report page 4, section 2.1) was rendered and read."
       ]
     },
     {
@@ -311,7 +407,11 @@
         ]
       },
       "source_key": "fact.F23.source",
-      "status": "unverified"
+      "source_url": "https://www.nasa.gov/wp-content/uploads/2019/04/oco_glory_public_summary_update_-_for_the_web_-_04302019.pdf",
+      "status": "verified",
+      "design_notes": [
+        "T025: source accessed 2026-11-14 (UTC): https://www.nasa.gov/wp-content/uploads/2019/04/oco_glory_public_summary_update_-_for_the_web_-_04302019.pdf"
+      ]
     },
     {
       "id": "F24",
@@ -323,7 +423,12 @@
         ]
       },
       "source_key": "fact.F24.source",
-      "status": "unverified"
+      "source_url": "https://www.nasa.gov/wp-content/uploads/2015/05/design_iss_systems_engineering_case_study.pdf",
+      "status": "verified",
+      "design_notes": [
+        "T025: source accessed 2026-11-14 (UTC): https://www.nasa.gov/wp-content/uploads/2015/05/design_iss_systems_engineering_case_study.pdf",
+        "T025: supporting sources also opened: https://science.nasa.gov/earth/earth-observatory/catalog-of-earth-satellite-orbits/ (51.6397 degrees \"to make it easier for the Space Shuttle and Russian rockets to reach it\")."
+      ]
     },
     {
       "id": "F25",
@@ -336,9 +441,11 @@
         ]
       },
       "source_key": "fact.F25.source",
-      "status": "unverified",
+      "source_url": "https://www.nasa.gov/history/60-years-ago-first-test-firing-of-the-apollo-service-propulsion-system/",
+      "status": "verified",
       "design_notes": [
-        "Shortened from the \"Did you know?\" line of 7.8 to meet the 25-word limit; the full line is the detail text."
+        "Shortened from the \"Did you know?\" line of 7.8 to meet the 25-word limit; the full line is the detail text.",
+        "T025: source accessed 2026-11-14 (UTC): https://www.nasa.gov/history/60-years-ago-first-test-firing-of-the-apollo-service-propulsion-system/"
       ]
     },
     {
@@ -351,7 +458,11 @@
         ]
       },
       "source_key": "fact.F26.source",
-      "status": "unverified"
+      "source_url": "https://www.nasa.gov/history/solving-combustion-instability-and-saving-americas-first-trips-to-the-moon/",
+      "status": "verified",
+      "design_notes": [
+        "T025: source accessed 2026-11-14 (UTC): https://www.nasa.gov/history/solving-combustion-instability-and-saving-americas-first-trips-to-the-moon/"
+      ]
     },
     {
       "id": "F27",
@@ -363,7 +474,13 @@
         ]
       },
       "source_key": "fact.F27.source",
-      "status": "unverified"
+      "source_url": "https://www.nasa.gov/wp-content/uploads/static/history/SP-4225/documentation/mhh/mirhh-part1.pdf",
+      "status": "verified",
+      "design_notes": [
+        "T025: source accessed 2026-11-14 (UTC): https://www.nasa.gov/wp-content/uploads/static/history/SP-4225/documentation/mhh/mirhh-part1.pdf",
+        "T025 2026-11-14: corrected from \"The Soviet N1 rocket had 30 first-stage engines and failed on all four launch attempts, partly because of that complexity.\" because the source says the NASA history gives the 30 NK-15 engines and four first-stage failures with specific causes (engine control system shutdowns, an engine explosion, exhaust-flow roll, burst fuel lines) but does not attribute them to \"complexity\" in general.",
+        "T025: supporting sources also opened: Same document: flight 1 \"The engine control system incorrectly shut down two of the 30 NK-15 engines\"; flight 2 engine 8 exploded after a foreign object entered its oxidizer pump; flight 3 exhaust eddies of the 30 engines caused an uncontrollable roll. https://www.nasa.gov/history/50-years-ago-national-goal-nears-fulfillment/ also gives \"the 30 engines of the rocket's first stage\"."
+      ]
     },
     {
       "id": "F28",
@@ -375,9 +492,12 @@
         ]
       },
       "source_key": "fact.F28.source",
-      "status": "unverified",
+      "source_url": "https://www.jpl.nasa.gov/news/press_kits/stardust-return.pdf",
+      "status": "verified",
       "design_notes": [
-        "From the bank (\"Fastest reentry ~12.9 km/s\") and the PICA row of 7.3, which names Stardust as a real-world twin (\"fastest return at ~12.9 km/s\")."
+        "From the bank (\"Fastest reentry ~12.9 km/s\") and the PICA row of 7.3, which names Stardust as a real-world twin (\"fastest return at ~12.9 km/s\").",
+        "T025: source accessed 2026-11-14 (UTC): https://www.jpl.nasa.gov/news/press_kits/stardust-return.pdf",
+        "T025: supporting sources also opened: https://ntrs.nasa.gov/api/citations/20080013470/downloads/20080013470.pdf (Desai & Qualls, Reconstruction of the Stardust Entry, 2007: \"Entry VI = 12.9 km/s\")."
       ]
     },
     {
@@ -390,9 +510,11 @@
         ]
       },
       "source_key": "fact.F29.source",
-      "status": "unverified",
+      "source_url": "https://www.nasa.gov/centers-and-facilities/ames/loftid-inflatable-heat-shield-test-a-success-early-results-show/",
+      "status": "verified",
       "design_notes": [
-        "From the HIAD row of 7.3: \"NASA LOFTID test (2022)\"."
+        "From the HIAD row of 7.3: \"NASA LOFTID test (2022)\".",
+        "T025: source accessed 2026-11-14 (UTC): https://www.nasa.gov/centers-and-facilities/ames/loftid-inflatable-heat-shield-test-a-success-early-results-show/"
       ]
     },
     {
@@ -405,7 +527,13 @@
         ]
       },
       "source_key": "fact.F30.source",
-      "status": "unverified"
+      "source_url": "https://www.nasa.gov/blogs/spacestation/2018/10/11/statement-on-soyuz-ms-10-launch-abort/",
+      "status": "verified",
+      "design_notes": [
+        "T025: source accessed 2026-11-14 (UTC): https://www.nasa.gov/blogs/spacestation/2018/10/11/statement-on-soyuz-ms-10-launch-abort/",
+        "T025 2026-11-14: corrected from \"In 2018, a Soyuz crew survived a booster failure because the launch escape system pulled their capsule away safely.\" because the source says the NASA pages that could be opened confirm the booster failure about two minutes after launch, the abort, the spacecraft's separation and the crew's safe ballistic landing, but none names the launch escape system as what pulled the capsule away (the escape tower had already been jettisoned; the NASA Safety Center case study returned HTTP 500 and the JSC Roundup article HTTP 403).",
+        "T025: supporting sources also opened: https://www.nasa.gov/blogs/spacestation/2018/10/11/launch-update/ (\"the spacecraft separated from the booster\"); https://www.nasa.gov/blogs/spacestation/2018/10/12/station-crew-busy-with-science-after-aborted-launch-ascent/ (\"experienced a failure about two minutes after launching\")."
+      ]
     },
     {
       "id": "F31",
@@ -418,9 +546,12 @@
         ]
       },
       "source_key": "fact.F31.source",
-      "status": "unverified",
+      "source_url": "https://ntrs.nasa.gov/api/citations/20110000675/downloads/20110000675.pdf",
+      "status": "verified",
       "design_notes": [
-        "The MG-07 line has 28 words; its second sentence is the on-screen text and the full line is the detail text."
+        "The MG-07 line has 28 words; its second sentence is the on-screen text and the full line is the detail text.",
+        "T025: source accessed 2026-11-14 (UTC): https://ntrs.nasa.gov/api/citations/20110000675/downloads/20110000675.pdf",
+        "T025: supporting sources also opened: https://science.nasa.gov/resource/lightning-strikes-twice/ (discharges at 36.5 s and 52 s after lift-off)."
       ]
     },
     {
@@ -433,7 +564,11 @@
         ]
       },
       "source_key": "fact.F32.source",
-      "status": "unverified"
+      "source_url": "https://nssdc.gsfc.nasa.gov/planetary/lunar/apollo_15_feather_drop.html",
+      "status": "verified",
+      "design_notes": [
+        "T025: source accessed 2026-11-14 (UTC): https://nssdc.gsfc.nasa.gov/planetary/lunar/apollo_15_feather_drop.html"
+      ]
     },
     {
       "id": "F33",
@@ -445,7 +580,12 @@
         ]
       },
       "source_key": "fact.F33.source",
-      "status": "unverified"
+      "source_url": "https://mars.nasa.gov/system/internal_resources/details/original/605_MSL_Fact_Sheet.pdf",
+      "status": "verified",
+      "design_notes": [
+        "T025: source accessed 2026-11-14 (UTC): https://mars.nasa.gov/system/internal_resources/details/original/605_MSL_Fact_Sheet.pdf",
+        "T025: supporting sources also opened: https://science.nasa.gov/planetary-science/programs/radioisotope-power-systems/faq/ (MMRTG \"designed to supply about 110 watts of electrical power at the beginning of a mission\")."
+      ]
     },
     {
       "id": "F34",
@@ -457,7 +597,11 @@
         ]
       },
       "source_key": "fact.F34.source",
-      "status": "unverified"
+      "source_url": "https://www.nasa.gov/communicating-with-missions/history-of-the-networks/",
+      "status": "verified",
+      "design_notes": [
+        "T025: source accessed 2026-11-14 (UTC): https://www.nasa.gov/communicating-with-missions/history-of-the-networks/"
+      ]
     },
     {
       "id": "F35",
@@ -469,9 +613,12 @@
         ]
       },
       "source_key": "fact.F35.source",
-      "status": "unverified",
+      "source_url": "https://www.nasa.gov/directorates/stmd/tech-demo-missions-program/laser-communications-relay-demonstration-lcrd-overview/",
+      "status": "verified",
       "design_notes": [
-        "From the laser row of 7.17: \"NASA LCRD (2021), DSOC on Psyche (2023)\"."
+        "From the laser row of 7.17: \"NASA LCRD (2021), DSOC on Psyche (2023)\".",
+        "T025: source accessed 2026-11-14 (UTC): https://www.nasa.gov/directorates/stmd/tech-demo-missions-program/laser-communications-relay-demonstration-lcrd-overview/",
+        "T025: supporting sources also opened: https://www.jpl.nasa.gov/press-kits/psyche/dsoc/ (DSOC is \"the agency's first demonstration of laser, or optical, communications from deep space\", flying on Psyche, launch October 2023); https://www.nasa.gov/mission/deep-space-optical-communications-dsoc/ (Psyche launched on a Falcon Heavy from Kennedy)."
       ]
     },
     {
@@ -484,7 +631,12 @@
         ]
       },
       "source_key": "fact.F36.source",
-      "status": "unverified"
+      "source_url": "https://www.nasa.gov/missions/gemini/gemini-v/gemini-v-paving-the-way-for-long-duration-spaceflight/",
+      "status": "verified",
+      "design_notes": [
+        "T025: source accessed 2026-11-14 (UTC): https://www.nasa.gov/missions/gemini/gemini-v/gemini-v-paving-the-way-for-long-duration-spaceflight/",
+        "T025: supporting sources also opened: https://www.nasa.gov/history/symbols-of-nasa/ (\"Each space shuttle crew designs a patch that represents what it will do during the mission.\"); https://www.nasa.gov/history/55-years-ago-gemini-5-sets-a-new-record/ (Cooper designed the covered-wagon patch)."
+      ]
     },
     {
       "id": "F37",
@@ -496,9 +648,13 @@
         ]
       },
       "source_key": "fact.F37.source",
-      "status": "unverified",
+      "source_url": "https://www.nasa.gov/mission/sts-51f/",
+      "status": "verified",
       "design_notes": [
-        "From the abort-mode table (9.8): \"Lower orbit, partial success (Shuttle STS-51F did this in 1985)\"."
+        "From the abort-mode table (9.8): \"Lower orbit, partial success (Shuttle STS-51F did this in 1985)\".",
+        "T025: source accessed 2026-11-14 (UTC): https://www.nasa.gov/mission/sts-51f/",
+        "T025 2026-11-14: corrected from \"In 1985, Space Shuttle mission STS-51F performed an abort to orbit and reached a lower orbit.\" because the source says the opened NASA sources confirm the engine shutdown (from a faulty sensor), the abort to orbit and the mission's success, but none states that the orbit reached was lower than planned; the ATO definition there is \"a safe orbit\".",
+        "T025: supporting sources also opened: https://ntrs.nasa.gov/api/citations/20110015564/downloads/20110015564.pdf (ATO \"inserts in a safe orbit\" ... \"the only intact abort performed in the program on STS-51F following an erroneous engine shutdown from a faulty sensor reading\")."
       ]
     },
     {
@@ -511,7 +667,12 @@
         ]
       },
       "source_key": "fact.F38.source",
-      "status": "unverified"
+      "source_url": "https://www.nasa.gov/directorates/stmd/impact-story-terrain-relative-navigation/",
+      "status": "verified",
+      "design_notes": [
+        "T025: source accessed 2026-11-14 (UTC): https://www.nasa.gov/directorates/stmd/impact-story-terrain-relative-navigation/",
+        "T025: supporting sources also opened: https://www.jpl.nasa.gov/news/press_kits/mars_2020/landing/mission/ (arrival \"on Feb. 18, 2021\"; TRN picks \"the safest reachable landing site\")."
+      ]
     },
     {
       "id": "F39",
@@ -523,7 +684,13 @@
         ]
       },
       "source_key": "fact.F39.source",
-      "status": "unverified"
+      "source_url": "https://www.nasa.gov/learning-resources/for-kids-and-students/what-was-the-saturn-v-grades-5-8/",
+      "status": "verified",
+      "design_notes": [
+        "T025: source accessed 2026-11-14 (UTC): https://www.nasa.gov/learning-resources/for-kids-and-students/what-was-the-saturn-v-grades-5-8/",
+        "T025 2026-11-14: corrected from \"The Saturn V stood 110.6 m tall.\" because the source says NASA gives the height as 111 meters (363 feet); 110.6 m is a converted figure with more precision than the source states.",
+        "T025: supporting sources also opened: https://www.nasa.gov/history/55-years-ago-apollo-4-the-first-flight-of-the-saturn-v/ (\"the 363-foot tall Saturn V\")."
+      ]
     },
     {
       "id": "F40",
@@ -535,7 +702,11 @@
         ]
       },
       "source_key": "fact.F40.source",
-      "status": "unverified"
+      "source_url": "https://www.jpl.nasa.gov/news/the-launch-is-approaching-for-nasas-next-mars-rover-perseverance/",
+      "status": "verified",
+      "design_notes": [
+        "T025: source accessed 2026-11-14 (UTC): https://www.jpl.nasa.gov/news/the-launch-is-approaching-for-nasas-next-mars-rover-perseverance/"
+      ]
     }
   ]
 }

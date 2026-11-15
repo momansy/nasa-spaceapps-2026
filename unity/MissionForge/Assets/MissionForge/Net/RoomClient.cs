@@ -58,6 +58,13 @@ namespace MissionForge.Net
         /// <summary>Seconds without <c>hello.ok</c> / <c>clock.pong</c> after which the socket is dropped (messages.md 3.4).</summary>
         public const double ResponseTimeoutSeconds = ProtocolNames.Defaults.PongTimeoutMs / MillisecondsPerSecond;
 
+        /// <summary>
+        /// <c>clock.ping.clientTimeMs</c> used by the browser-side keepalive in MissionForgeWebSocket.jslib
+        /// (T040). The clock samples sent by this class are whole milliseconds, so a fractional value
+        /// identifies a keepalive pong: it proves the connection is alive but carries no clock sample.
+        /// </summary>
+        public const double KeepaliveClientTimeMs = 0.25;
+
         /// <summary>App version sent in <c>hello</c> when none (or an invalid one) is given.</summary>
         public const string DefaultAppVersion = "0.0.0";
 
@@ -726,6 +733,14 @@ namespace MissionForge.Net
             ClockPongDto pong;
             if (!TryRead(envelope, out pong))
             {
+                return;
+            }
+
+            if (pong.ClientTimeMs == KeepaliveClientTimeMs)
+            {
+                // Answer to a keepalive ping sent from browser JavaScript while the Unity frame loop
+                // was suspended (a backgrounded tab). Liveness only, no clock sample.
+                _lastResponseAt = _now;
                 return;
             }
 

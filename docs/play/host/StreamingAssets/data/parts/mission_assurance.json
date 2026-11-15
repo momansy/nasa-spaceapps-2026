@@ -7,7 +7,7 @@
     "The table has Cost, Days and Effect columns and no Strengths or Drawbacks. Each cell is shown as a strength when it helps the team and as a drawback when it hurts, with the column name in front (\"Cost −15% total\"). Standard has none.",
     "The \"Fact\" column is stored in twin. F01 (Mars Climate Orbiter) is attached to \"Faster, Cheaper\" because its fact line names that loss; the bank ties F01 to MG-01.",
     "Cost and Days are relative modifiers on cost_M and schedule_days for the whole mission (\"−15% total\"). The design does not say whether launch site fees, tests and anomaly costs are inside \"total\".",
-    "\"Uncertainty bands ×1.5\" and \"×0.5\" are multipliers on uncertainty_band of all parts. \"+1% reliability on all parts\" is stored as +0.01, read as percentage points (README, open question 9).",
+    "\"Uncertainty bands ×1.5\" and \"×0.5\" are multipliers on uncertainty_band of all parts. The design's \"+1% reliability on all parts\" (7.20) would be +0.01, read as percentage points (README, open question 9); the data uses +0.005 as a balance change (see assur_class_a design_notes).",
     "No option is restricted to a contract. No model path: an assurance level is a way of working, not a piece of the rocket."
   ],
   "parts": [
@@ -99,13 +99,17 @@
         {
           "target": "reliability",
           "op": "add",
-          "value": 0.01,
-          "scope": "all_parts"
+          "value": 0.005,
+          "scope": "all_parts",
+          "value_type": "game_value"
         }
       ],
       "value_types": {
         "modifiers": "game_value"
-      }
+      },
+      "design_notes": [
+        "Decision (T012 balance fix, game_value): the reliability bonus is +0.005 (+0.5 percentage points on every part), half the +1% of design 7.20. The T012 balance report found that with +0.01 the safest build of 8 of 9 contracts reached at least 99.9% displayed success only through this bonus, which lifts most parts to the 99.99% cap, so the expensive-and-safe archetype looked the same everywhere (for example C1 97.52% without it, 99.96% with it). Halving it keeps the cost/schedule versus reliability trade-off visible. Design 7.20 and section 19 should be updated if the change is kept after playtest."
+      ]
     }
   ]
 }
