@@ -76,11 +76,14 @@ namespace MissionForge.Screens.BuildBay
             }
 
             _text = UiText.From(catalog.Strings);
-            string contractId = Argument("-mfContract") ?? DefaultContractId;
+            string contractId = Argument("-mfContract") ?? MissionContext.ContractId ?? DefaultContractId;
+            if (!catalog.Contracts.ContainsKey(contractId)) contractId = DefaultContractId;
             int seededVotes = int.TryParse(Argument("-mfBayVotes"), out int v) ? v : 0;
+            // T063: back from a Test Stand, Design Review or FRR rework, the bay resumes the mission's build.
+            BuildState resumed = MissionContext.Build != null && MissionContext.Build.ContractId == contractId ? MissionContext.Build : null;
             BuildState initial = seededVotes > 0
                 ? SeededBuilds.Partial(catalog, contractId, DefaultSeed, seededVotes)
-                : BuildState.New(contractId, DefaultSeed);
+                : resumed ?? BuildState.New(contractId, DefaultSeed);
             Session = new BuildBaySession(catalog, initial);
             Session.Changed += OnBuildChanged;
 

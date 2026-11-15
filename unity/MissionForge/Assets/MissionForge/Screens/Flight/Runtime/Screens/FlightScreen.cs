@@ -15,8 +15,8 @@ namespace MissionForge.Screens.Flight
     {
         /// <summary>Protocol limit for flight.hud (messages.md, flight.hud: at most 5 Hz).</summary>
         public const float HudSendIntervalS = 0.2f;
-        /// <summary>Seconds after mission end before the rehearsal moves on to the debrief (game_value).</summary>
-        private const float RehearsalDebriefDelayS = 12f;
+        /// <summary>Seconds after mission end before the flight moves on to the debrief, rehearsal or live room (game_value).</summary>
+        private const float DebriefDelayS = 12f;
 
         [SerializeField] private FlightWorld world;
         [SerializeField] private FlightCameraDirector cameraDirector;
@@ -84,7 +84,9 @@ namespace MissionForge.Screens.Flight
             SendHud(t);
 
             if (t.missionEnded && _endedAt < 0) _endedAt = Time.unscaledTime;
-            if (_endedAt > 0 && FlightSession.IsRehearsal && Time.unscaledTime - _endedAt > RehearsalDebriefDelayS
+            // T063: success or failure, the flight hands over to the debrief on its own (live rooms too).
+            if (feed.IsFinished && _endedAt < 0) _endedAt = Time.unscaledTime;
+            if (_endedAt > 0 && Time.unscaledTime - _endedAt > DebriefDelayS
                 && App.Flow.Phase == GamePhase.Flight && !App.Flow.IsBusy && FlightSession.Arg("-mfFlightHold") == null)
                 App.Flow.GoToPhase(GamePhase.Debrief);
         }

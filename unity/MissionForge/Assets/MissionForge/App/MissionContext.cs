@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using MissionForge.Core.Build;
+using MissionForge.Core.Data;
 
 namespace MissionForge.App
 {
@@ -29,6 +31,16 @@ namespace MissionForge.App
 
         /// <summary>The category a review's Rework reopened (null when none); the Build Bay re-votes it and calls DesignReview.CompleteRework.</summary>
         public static string ReworkCategory { get; set; }
+
+        /// <summary>
+        /// Build Bay hook (T063, Preflight README "Build Bay hook"): after a committed vote the Build Bay calls this with
+        /// (build, catalog, committed slot, or null to re-check after an interlude). It runs <c>PreflightSchedule.After</c>
+        /// and, when it names a Test Stand offer or a Design Review, switches to that screen and returns true (the Build Bay
+        /// scene is then unloaded; it resumes from <see cref="Build"/> when the screen hands back). Returns false when no
+        /// interlude is due. Registered by the TestStand assembly (it references Preflight and the Build Bay, which the Build
+        /// Bay cannot reference back); null in builds without it.
+        /// </summary>
+        public static Func<BuildState, GameCatalog, string, bool> StartInterlude { get; set; }
 
         public static void Reset()
         {

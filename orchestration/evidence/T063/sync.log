@@ -1,0 +1,481 @@
+Unity Editor version:    6000.6.9f1 (8c45277fb9c5)
+Branch:                  6000.6/staging
+Build type:              Release
+Batch mode:              YES
+macOS version:           Version 26.6.2 (Build 25G83)
+Darwin version:          25.6.0
+Architecture:            arm64
+Running under Rosetta:   NO
+Available memory:        24576 MB
+Date:                    2026-11-15T11:46:31Z
+VBCSCompilerPreWarmer: watching VBCSCompiler (PID 80504)
+VBCSCompilerPreWarmer: pre-warm launched (dotnet PID 80506)
+VBCSCompiler prewarm took 2.78 ms
+[Licensing::Module] Trying to connect to existing licensing client channel...
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-yousofdiaa" at "2026-11-15T11:46:31.871868Z"
+Launching external process: /Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Helpers/PackageManager/Server/UnityPackageManager
+
+COMMAND LINE ARGUMENTS:
+/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/MacOS/Unity
+-batchmode
+-quit
+-nographics
+-projectPath
+unity/MissionForge
+-executeMethod
+MissionForge.Data.Editor.GameDataSync.SyncProject
+-logFile
+orchestration/evidence/T063/sync.log
+Successfully changed project path to: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge
+/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge
+[UnityMemory] Configuration Parameters - Can be set up in boot.config
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
+    "memorysetup-temp-allocator-size-audio-worker=65536"
+    "memorysetup-temp-allocator-size-cloud-worker=32768"
+    "memorysetup-temp-allocator-size-preload-manager=33554432"
+    "memorysetup-remapper-allocator-initial-capacity=32768"
+    "memorysetup-temp-allocator-size-gfx=262144"
+    "memorysetup-allocator-temp-initial-block-size-main=262144"
+    "memorysetup-allocator-temp-initial-block-size-worker=262144"
+    "memorysetup-temp-allocator-size-background-worker=32768"
+    "memorysetup-temp-allocator-size-job-worker=262144"
+    "memorysetup-bucket-allocator-granularity=16"
+    "memorysetup-bucket-allocator-bucket-count=8"
+    "memorysetup-bucket-allocator-block-size=33554432"
+    "memorysetup-bucket-allocator-block-count=8"
+    "memorysetup-main-allocator-block-size=16777216"
+    "memorysetup-thread-allocator-block-size=16777216"
+    "memorysetup-main-allocator-mimalloc-enabled=1"
+    "memorysetup-gfx-main-allocator-block-size=16777216"
+    "memorysetup-gfx-thread-allocator-block-size=16777216"
+    "memorysetup-cache-allocator-block-size=4194304"
+    "memorysetup-typetree-allocator-block-size=2097152"
+    "memorysetup-profiler-bucket-allocator-granularity=16"
+    "memorysetup-profiler-bucket-allocator-bucket-count=8"
+    "memorysetup-profiler-bucket-allocator-block-size=33554432"
+    "memorysetup-profiler-bucket-allocator-block-count=8"
+    "memorysetup-profiler-allocator-block-size=16777216"
+    "memorysetup-profiler-editor-allocator-block-size=1048576"
+    "memorysetup-temp-allocator-size-main=16777216"
+    "memorysetup-job-temp-allocator-block-size=2097152"
+    "memorysetup-job-temp-allocator-block-size-background=1048576"
+    "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
+Logging is directed to a specific file, skipping project log.
+Player connection [8349229440]  Target information:
+
+Player connection [8349229440]  * "[IP] 192.168.8.109 [Port] 55505 [Flags] 2 [Guid] 2356160760 [EditorId] 2356160760 [Version] 1048832 [Id] OSXEditor(0,Mac) [Debug] 1 [PackageName] OSXEditor [ProjectName] Editor" 
+
+Player connection [8349229440]  * "[IP] 192.168.2.1 [Port] 55505 [Flags] 2 [Guid] 2356160760 [EditorId] 2356160760 [Version] 1048832 [Id] OSXEditor(0,Mac) [Debug] 1 [PackageName] OSXEditor [ProjectName] Editor" 
+
+Player connection [8349229440] Host joined multi-casting on [225.0.0.222:54997]...
+Player connection [8349229440] Host joined alternative multi-casting on [225.0.0.222:34997]...
+Input System module state changed to: Initialized.
+[Physics::Module] Initialized fallback backend.
+[Physics::Module] Id: 0xdecafbad
+[Licensing::Client] Handshaking with LicensingClient:
+  Version:                 1.19.0+4cc3dda
+  Session Id:              c465ababc242433da8f0efd06a850f12
+  Correlation Id:          9bcd97f194c8d6c9ba39453213dcd5e7
+  External correlation Id: 3900065724558931554
+  Machine Id:              xpKyr8HtjWZHNd184qLVO+koXG8=
+[Licensing::Module] Successfully connected to LicensingClient on channel: "LicenseClient-yousofdiaa" (connect: 0.00s, validation: 0.00s, handshake: 0.08s)
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-yousofdiaa-notifications" at "2026-11-15T11:46:31.954795Z"
+[Licensing::Module] Error: Access token is unavailable; failed to update
+[Licensing::Client] Successfully resolved entitlement details
+[Licensing::Module] License group:
+  Id: 18968548154434-UnityPersXXXX
+  Product: Unity Personal
+  Type: Assigned
+  Expiration: Unlimited
+[Licensing::Client] Successfully updated license, isAsync: True, time: 0.00
+[Licensing::Client] Successfully resolved entitlement details
+[Licensing::Module] Licensing Background thread has ended after 0.08s
+Initialising UDS system complete:
+  - System type: Client
+  - Resource namespace: bb24f7794c66fce8e7a6e3675653d312
+  - Shared memory size: 1073741824
+  - Command buffer id: 1052672
+  - Command buffer size: 8192
+  - Hashmap size: 4194304
+  - Service connected: false
+[Package Manager] Connected to IPC stream "Upm-80503" after 0.1 seconds.
+[Licensing::Client] Successfully resolved entitlement details
+Library Redirect Path: Library/
+Launching Unity Data Store - /Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Helpers/Unity.DataStore 
+Unity Data Store artifact dir = Library/DataStore, working dir = /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForgeUnity Data Store running and initialised
+[Physics::Module] Selected backend (deferred post-plugins).
+[Physics::Module] Name: PhysX
+[Physics::Module] Id: 0xf2b8ea05
+[Physics::Module] SDK Version: 4.1.2
+[Physics::Module] Integration Version: 1.0.0
+[Physics::Module] Threading Mode: Multi-Threaded
+Initialize engine version: 6000.6.9f1 (8c45277fb9c5)
+[EntityIdStore] init: VM path (explicit commit), pageSize=16384, blockCount=262144, entitiesPerBlock=1024, blocksPerSlotPage=0, slots reserved=4294967296 bytes
+[Subsystems] Discovering subsystems at path /Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Assets
+Forcing GfxDevice: Null
+GfxDevice: creating device client; kGfxThreadingModeNonThreaded
+NullGfxDevice:
+    Version:  NULL 1.0 [1.0]
+    Renderer: Null Device
+    Vendor:   Unity Technologies
+Initialize mono
+Mono path[0] = '/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/Managed'
+Mono path[1] = '/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/BCLExtensions/runtime/netstandard2.1'
+Mono path[2] = '/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityjit-macos'
+Mono config path = '/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56503
+CodeReloadManager initialized
+ImportWorker Server TCP listen port: 0
+AcceleratorClientConnectionCallback - disconnected - :0
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: /Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
+Register platform support module: /Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll
+Registered in 0.000334 seconds.
+Native extension for OSXStandalone target not found
+Native extension for WebGL target not found
+Package Manager log level set to [2]
+ScheduleIndexationOnStartup MainProcess:False IndexOnStartup:False
+Scripting: successfully reloaded assembly
+- Finished resetting the current domain, in  0.316 seconds
+Domain Reload Profiling: 558ms
+	BeginReloadAssembly (50ms)
+		CreateAndSetChildDomain (10ms)
+	RebuildNativeTypeToScriptingClass (9ms)
+	initialDomainReloadingComplete (26ms)
+	LoadAllAssembliesAndSetupDomain (154ms)
+		LoadAssemblies (40ms)
+		TypeCache.Refresh (111ms)
+			TypeCache.ScanAssembly (102ms)
+		AnalyzeDomain (0ms)
+	FinalizeReload (316ms)
+		SetupLoadedEditorAssemblies (0ms)
+			BeforeProcessingInitializeOnLoad (49ms)
+			ProcessInitializeOnLoadAttributes (44ms)
+			ProcessInitializeOnLoadMethodAttributes (128ms)
+[Licensing::Client] Successfully resolved entitlement details
+Application.AssetDatabase Initial Refresh Start
+[Package Manager] Restoring resolved packages state from cache
+[Licensing::Client] Successfully resolved entitlement details
+[Package Manager] Registered 60 packages:
+  Packages from [https://packages.unity.com]:
+    com.unity.inputsystem@1.20.1 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.inputsystem@2436e68c60c4)
+    com.unity.nuget.newtonsoft-json@3.2.1 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.nuget.newtonsoft-json@74deb55db2a0)
+    com.unity.pipeline@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.pipeline@178b93997022)
+    com.unity.nuget.mono-cecil@1.11.6 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.nuget.mono-cecil@ecb9724e46ff)
+    com.unity.splines@2.9.2 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.splines@c3dd4719f1ee)
+    com.unity.searcher@4.9.5 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.searcher@a463122f2c00)
+    com.unity.profiling.core@1.0.3 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.profiling.core@8a49f7027d06)
+    com.unity.settings-manager@2.1.1 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.settings-manager@0b8638c5ce86)
+  Built-in packages:
+    com.unity.cinemachine@6.6.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.cinemachine@39083c3c55f9)
+    com.unity.modules.accessibility@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.accessibility)
+    com.unity.modules.adaptiveperformance@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.adaptiveperformance)
+    com.unity.modules.ai@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.ai)
+    com.unity.modules.androidjni@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.androidjni)
+    com.unity.modules.animation@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.animation)
+    com.unity.modules.assetbundle@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.assetbundle)
+    com.unity.modules.audio@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.audio)
+    com.unity.modules.cloth@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.cloth)
+    com.unity.modules.director@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.director)
+    com.unity.modules.imageconversion@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.imageconversion)
+    com.unity.modules.imgui@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.imgui)
+    com.unity.modules.jsonserialize@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.jsonserialize)
+    com.unity.modules.particlesystem@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.particlesystem)
+    com.unity.modules.physics@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.physics)
+    com.unity.modules.physics2d@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.physics2d)
+    com.unity.modules.physicscore2d@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.physicscore2d)
+    com.unity.modules.screencapture@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.screencapture)
+    com.unity.modules.terrain@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.terrain)
+    com.unity.modules.terrainphysics@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.terrainphysics)
+    com.unity.modules.tetgen@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.tetgen)
+    com.unity.modules.tilemap@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.tilemap)
+    com.unity.modules.timelinefoundation@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.timelinefoundation)
+    com.unity.modules.ui@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.ui)
+    com.unity.modules.uielements@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.uielements)
+    com.unity.modules.umbra@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.umbra)
+    com.unity.modules.unityanalytics@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.unityanalytics)
+    com.unity.modules.unitywebrequest@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.unitywebrequest)
+    com.unity.modules.unitywebrequestassetbundle@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.unitywebrequestassetbundle)
+    com.unity.modules.unitywebrequestaudio@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.unitywebrequestaudio)
+    com.unity.modules.unitywebrequesttexture@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.unitywebrequesttexture)
+    com.unity.modules.unitywebrequestwww@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.unitywebrequestwww)
+    com.unity.modules.vectorgraphics@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.vectorgraphics)
+    com.unity.modules.vehicles@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.vehicles)
+    com.unity.modules.video@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.video)
+    com.unity.modules.wind@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.wind)
+    com.unity.modules.xr@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.xr)
+    com.unity.render-pipelines.universal@17.6.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.render-pipelines.universal@2a6014b851d8)
+    com.unity.test-framework@1.8.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.test-framework@01a8b42f9cf6)
+    com.unity.ugui@2.6.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.ugui@ff4f88904a57)
+    com.unity.ext.nunit@2.1.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.ext.nunit@0198eae3b53e)
+    com.unity.render-pipelines.core@17.6.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.render-pipelines.core@77e675a23c5f)
+    com.unity.shadergraph@17.6.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.shadergraph@807b608040c3)
+    com.unity.render-pipelines.universal-config@17.6.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.render-pipelines.universal-config@561422b74439)
+    com.unity.modules.subsystems@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.subsystems)
+    com.unity.modules.hierarchycore@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.hierarchycore)
+    com.unity.graph-authoring@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.graph-authoring@cfd2588851ee)
+    com.unity.burst@2.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.burst@626e66ab421b)
+    com.unity.collections@6.6.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.collections@c70d71c1212e)
+    com.unity.mathematics@1.4.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.mathematics@8306a64d0cd6)
+    com.unity.test-framework.performance@6.6.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.test-framework.performance@816c370aad5b)
+  Local packages:
+    com.missionforge.core@file:/Users/yousofdiaa/Desktop/nasa-amek/core (location: /Users/yousofdiaa/Desktop/nasa-amek/core)
+[Subsystems] No new subsystems found in resolved package list.
+[Package Manager] Done registering packages in 0.00 seconds
+Assembly reference Packages/com.unity.cinemachine/Editor/Samples/ExposeHDRPInternals/HDRP-Editor-ref.asmref has no target assembly definition
+Assembly reference Packages/com.unity.cinemachine/Editor/Samples/ExposeHDRPInternals/HDRP-Editor-ref.asmref has no target assembly definition
+[ScriptCompilation] Requested script compilation because: AssetDatabase observed changes in script compilation related files
+Starting: /Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/BuildPipeline/bee_backend --ipc --defer-dag-verification --dagfile="Library/Bee/2000b0aE.dag" --continue-on-failure --profile="Library/Bee/backend1.traceevents" ScriptAssemblies
+WorkingDir: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge
+DisplayProgressbar: Compiling Scripts
+warn: Unity.ILPP.Runner.PostProcessingAssemblyLoadContext[0]
+      Assembly system.runtime.interopservices.windowsruntime has duplicate hint path. Ignoring "/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/NetStandard/Extensions/2.0.0/System.Runtime.InteropServices.WindowsRuntime.dll" in favor of "/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/UnityReferenceAssemblies/unity-4.8-api/Facades/System.Runtime.InteropServices.WindowsRuntime.dll"
+warn: Unity.ILPP.Runner.PostProcessingAssemblyLoadContext[0]
+      Assembly system.componentmodel.composition has duplicate hint path. Ignoring "/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/NetStandard/compat/2.1.0/shims/netfx/System.ComponentModel.Composition.dll" in favor of "/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/UnityReferenceAssemblies/unity-4.8-api/System.ComponentModel.Composition.dll"
+ExitCode: 0 Duration: 0s707ms
+[ 814/1112  0s] ILPP-Configuration Library/ilpp-configuration.nevergeneratedoutput
+[1100/1112  0s] Csc Library/Bee/artifacts/2000b0aE.dag/MissionForge.Screens.Debrief.dll (+2 others)
+[1101/1112  0s] ILPostProcess Library/Bee/artifacts/2000b0aE.dag/post-processed/MissionForge.Screens.Debrief.dll (+pdb)
+Processing assembly Library/Bee/artifacts/2000b0aE.dag/MissionForge.Screens.Debrief.dll, with 124 defines and 299 references
+processors: Unity.Jobs.CodeGen.JobsILPostProcessor, Unity.Pipeline.CodeGen.MethodReloadInPlaceILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+1 processor(s) skipped this assembly
+running Unity.Jobs.CodeGen.JobsILPostProcessor
+running Unity.Pipeline.CodeGen.MethodReloadInPlaceILPostProcessor
+[1102/1112  0s] CopyFiles Library/ScriptAssemblies/MissionForge.Screens.Debrief.pdb
+[1103/1112  0s] CopyFiles Library/ScriptAssemblies/MissionForge.Screens.Debrief.dll
+[1104/1112  0s] Csc Library/Bee/artifacts/2000b0aE.dag/MissionForge.EndScreens.Evidence.dll (+2 others)
+[1105/1112  0s] Csc Library/Bee/artifacts/2000b0aE.dag/MissionForge.EndScreens.Tests.dll (+2 others)
+[1106/1112  0s] ILPostProcess Library/Bee/artifacts/2000b0aE.dag/post-processed/MissionForge.EndScreens.Evidence.dll (+pdb)
+Processing assembly Library/Bee/artifacts/2000b0aE.dag/MissionForge.EndScreens.Evidence.dll, with 124 defines and 298 references
+processors: Unity.Jobs.CodeGen.JobsILPostProcessor, Unity.Pipeline.CodeGen.MethodReloadInPlaceILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+1 processor(s) skipped this assembly
+running Unity.Jobs.CodeGen.JobsILPostProcessor
+running Unity.Pipeline.CodeGen.MethodReloadInPlaceILPostProcessor
+[1107/1112  0s] ILPostProcess Library/Bee/artifacts/2000b0aE.dag/post-processed/MissionForge.EndScreens.Tests.dll (+pdb)
+Processing assembly Library/Bee/artifacts/2000b0aE.dag/MissionForge.EndScreens.Tests.dll, with 122 defines and 311 references
+processors: Unity.Jobs.CodeGen.JobsILPostProcessor, Unity.Pipeline.CodeGen.MethodReloadInPlaceILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+1 processor(s) skipped this assembly
+running Unity.Jobs.CodeGen.JobsILPostProcessor
+running Unity.Pipeline.CodeGen.MethodReloadInPlaceILPostProcessor
+[1108/1112  0s] CopyFiles Library/ScriptAssemblies/MissionForge.EndScreens.Evidence.dll
+[1109/1112  0s] CopyFiles Library/ScriptAssemblies/MissionForge.EndScreens.Tests.pdb
+[1110/1112  0s] CopyFiles Library/ScriptAssemblies/MissionForge.EndScreens.Evidence.pdb
+[1111/1112  0s] CopyFiles Library/ScriptAssemblies/MissionForge.EndScreens.Tests.dll
+*** Tundra build success (0.69 seconds), 13 items updated, 1112 evaluated
+AssetDatabase: script compilation time: 1.033037s
+Begin MonoManager ReloadAssembly
+Total cache size 268377739
+Total cache size after purge 268377739, took 00:00:00.1625015
+Symbol file LoadedFromMemory is not a mono symbol file
+Assembly reference Packages/com.unity.cinemachine/Editor/Samples/ExposeHDRPInternals/HDRP-Editor-ref.asmref has no target assembly definition
+'Packages/com.unity.cinemachine/Editor/Editors/CinemachineVirtualCameraBaseEditor.cs' contains partial class of Unity.Object, exactly 1 of the partial classes needs to be in a file with the same filename. This is to know the one that can be referenced from ie. GameObjects
+'Packages/com.unity.render-pipelines.core/Editor/Deprecated.cs' contains partial class of Unity.Object, exactly 1 of the partial classes needs to be in a file with the same filename. This is to know the one that can be referenced from ie. GameObjects
+'Packages/com.unity.render-pipelines.core/Editor/Deprecated.cs' contains partial class of Unity.Object, exactly 1 of the partial classes needs to be in a file with the same filename. This is to know the one that can be referenced from ie. GameObjects
+'Packages/com.unity.cinemachine/Editor/Obsolete/CinemachineVirtualCameraBaseEditor.cs' contains partial class of Unity.Object, exactly 1 of the partial classes needs to be in a file with the same filename. This is to know the one that can be referenced from ie. GameObjects
+Importing 'GUID: 00000000000000004000000000000000 - Path: ProjectSettings/ProjectSettings.asset' with importer (LibraryAssetImporter)
+Imported 'GUID: 00000000000000004000000000000000' -> (Import Result ID: '1856ca058982dc4acf6eace5458b21da') in 0.004 seconds [static dependencies only]. Details - ImportResultOutputID=054c890a8f4b6dddbea933bc5e4b7df4 DependenciesID=f91a17daa1ebc2383eaff7f99066fe2f StaticDependenciesID=ad94d78858ec92af22f6c0938e3c9c93 
+Native extension for OSXStandalone target not found
+Native extension for WebGL target not found
+Start HTTP server: port:7801
+Pipeline: Descriptor written to /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Pipeline/.unity-pipeline-port
+ScheduleIndexationOnStartup MainProcess:True IndexOnStartup:True
+Scripting: successfully reloaded assembly
+- Finished resetting the current domain, in  0.453 seconds
+Domain Reload Profiling: 939ms
+	BeginReloadAssembly (147ms)
+		DisableScriptedObjects (37ms)
+		CreateAndSetChildDomain (35ms)
+	RebuildCommonClasses (5ms)
+	RebuildNativeTypeToScriptingClass (9ms)
+	initialDomainReloadingComplete (36ms)
+	LoadAllAssembliesAndSetupDomain (288ms)
+		LoadAssemblies (140ms)
+		TypeCache.Refresh (102ms)
+			TypeCache.ScanAssembly (92ms)
+		AnalyzeDomain (27ms)
+			BuildScriptInfoCaches (23ms)
+			ResolveRequiredComponents (3ms)
+	FinalizeReload (454ms)
+		SetupLoadedEditorAssemblies (0ms)
+			BeforeProcessingInitializeOnLoad (53ms)
+			ProcessInitializeOnLoadAttributes (120ms)
+			ProcessInitializeOnLoadMethodAttributes (22ms)
+		AwakeInstancesAfterBackupRestoration (9ms)
+Launching external process: /Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Helpers/UnityShaderCompiler
+Starting new worker id: 0 with log in /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Logs/AssetImportWorkerHW0.log
+Importing 'GUID: 11044e3b3da124a4ea538b0ccf7b0ee7 - Path: Assets/StreamingAssets/data/index.json' with importer (DefaultImporter)
+Imported 'GUID: 11044e3b3da124a4ea538b0ccf7b0ee7' -> (Import Result ID: '13fb5d838368fcb96eda77a54b0b78b3') in 0.035 seconds [static dependencies only]. Details - ImportResultOutputID=570d829cad2bc29b3149fd16c237f9d9 DependenciesID=ce7987c476d06ef2abf3bd8a35877ae6 StaticDependenciesID=5b3926a1cd4cc50c8e709977c295b32b 
+Importing 'GUID: d19f4f8a13b6edb48b986a47ec96402e - Path: Packages/com.unity.render-pipelines.core/Runtime/PathTracing/Shaders/LightmapShadowMaskIntegration.urtshader' with importer (ScriptedImporter : Unity.Rendering.LightTransport.Editor:UnityEditor.Rendering.UnifiedRayTracing:UnifiedRTShaderImporter)
+Launched and connected shader compiler UnityShaderCompiler after 0.01 seconds
+Imported 'GUID: d19f4f8a13b6edb48b986a47ec96402e' -> (Import Result ID: '0e6499501193087ea2dd02947b15b392') in 0.026 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=f625f9468f77c3f856ec6d45c06d6879 DependenciesID=afad3bac61dd7f24a9819378cf76e0e0 StaticDependenciesID=9fd4e9b2e1ad89e7cbffc601eff4d03f 
+Importing 'GUID: 737a1597422c12547a8714d76a9406ec - Path: Packages/com.unity.render-pipelines.core/Runtime/PathTracing/Shaders/LightmapGBufferDebug.urtshader' with importer (ScriptedImporter : Unity.Rendering.LightTransport.Editor:UnityEditor.Rendering.UnifiedRayTracing:UnifiedRTShaderImporter)
+Imported 'GUID: 737a1597422c12547a8714d76a9406ec' -> (Import Result ID: 'a76e1d11c2db3318608bceb554ba931d') in 0.003 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=00ad5770b195491f955a3c00cbda9ed8 DependenciesID=dee0d9cecc225900daca02ecdcd54a10 StaticDependenciesID=b513b01e29d0aa4d28825e4d4fb57fb4 
+Importing 'GUID: f32463968f29423cad25aee15a14b9f1 - Path: Packages/com.unity.render-pipelines.core/Runtime/Lighting/SurfaceCache/PunctualLightSampling.urtshader' with importer (ScriptedImporter : Unity.Rendering.LightTransport.Editor:UnityEditor.Rendering.UnifiedRayTracing:UnifiedRTShaderImporter)
+Imported 'GUID: f32463968f29423cad25aee15a14b9f1' -> (Import Result ID: 'fa9036ed05701cf9f50a893105c00442') in 0.005 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=8637d7b913eab92a68bed4540c193348 DependenciesID=07e8cbe70e1fe3b2e450ee39b214146e StaticDependenciesID=b63d74c4e924df89cb98a36e44fc1845 
+Importing 'GUID: 1451d029813b192429211be28181beab - Path: Packages/com.unity.render-pipelines.core/Runtime/PathTracing/Shaders/LightmapNormalIntegration.urtshader' with importer (ScriptedImporter : Unity.Rendering.LightTransport.Editor:UnityEditor.Rendering.UnifiedRayTracing:UnifiedRTShaderImporter)
+Imported 'GUID: 1451d029813b192429211be28181beab' -> (Import Result ID: '5b976da9ec4c7185df4c4a9ce067ebe4') in 0.002 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=a02ad5d3b40d4bcc9a55949563d1b82d DependenciesID=a109493cf7b096998cbc50d56609e136 StaticDependenciesID=5afd8eadeec03e368f74c3a5603c453d 
+Importing 'GUID: 94a070d33e408384bafc1dea4a565df9 - Path: Packages/com.unity.render-pipelines.core/Editor/Lighting/ProbeVolume/RenderingLayerMask/TraceRenderingLayerMask.urtshader' with importer (ScriptedImporter : Unity.Rendering.LightTransport.Editor:UnityEditor.Rendering.UnifiedRayTracing:UnifiedRTShaderImporter)
+Imported 'GUID: 94a070d33e408384bafc1dea4a565df9' -> (Import Result ID: 'd6f5b247535ef77f32957c99a065199f') in 0.002 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=b5788f329a8e1a037375b3c4a5fcda73 DependenciesID=0519f9fa401eb1846dc1882c939be224 StaticDependenciesID=25a592d065c9c4788553066128367c57 
+Importing 'GUID: 94a39d12848d8d64ca962a72b74e7c50 - Path: Packages/com.unity.render-pipelines.core/Runtime/Lighting/SurfaceCache/Estimation.urtshader' with importer (ScriptedImporter : Unity.Rendering.LightTransport.Editor:UnityEditor.Rendering.UnifiedRayTracing:UnifiedRTShaderImporter)
+Imported 'GUID: 94a39d12848d8d64ca962a72b74e7c50' -> (Import Result ID: '01cacec62fe072b1c20c08afb2734b5e') in 0.002 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=1ef4f2df7567a43c4f3dbd60021e85d0 DependenciesID=04d64e067f08b6face62957d8100ab61 StaticDependenciesID=ffb0a11028fb7b99287455d15347e1d8 
+Importing 'GUID: f5ba4d424d4566249b3d94cf81a3e916 - Path: Packages/com.unity.render-pipelines.core/Runtime/PathTracing/Shaders/LightmapDirectDirectionalAndEnvironmentIntegration.urtshader' with importer (ScriptedImporter : Unity.Rendering.LightTransport.Editor:UnityEditor.Rendering.UnifiedRayTracing:UnifiedRTShaderImporter)
+Imported 'GUID: f5ba4d424d4566249b3d94cf81a3e916' -> (Import Result ID: '32cf421f87e0a359cf6901290d78f49e') in 0.003 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=826d5dee402fe048bb24158204d68103 DependenciesID=0feb7600ed841b22567937a976de1350 StaticDependenciesID=d4bdfd2147f181839dcd88d16b4cc45b 
+Importing 'GUID: 7624adbeb148b5c48ab5ab660cc2602a - Path: Packages/com.unity.render-pipelines.core/Runtime/PathTracing/Shaders/LightmapIndirectIntegration.urtshader' with importer (ScriptedImporter : Unity.Rendering.LightTransport.Editor:UnityEditor.Rendering.UnifiedRayTracing:UnifiedRTShaderImporter)
+Imported 'GUID: 7624adbeb148b5c48ab5ab660cc2602a' -> (Import Result ID: '3f48aa3f5a695f4e318166ef6f6fa862') in 0.003 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=91bc6475b361b935dc8bd931543c2291 DependenciesID=750fef09ab7e62162464fd3bac827603 StaticDependenciesID=637eaa30376abb268136eb146f59c034 
+Importing 'GUID: 5951703b3d165764c95c653e98350884 - Path: Packages/com.unity.render-pipelines.core/Runtime/PathTracing/Shaders/LightmapDirectBRDFIntegration.urtshader' with importer (ScriptedImporter : Unity.Rendering.LightTransport.Editor:UnityEditor.Rendering.UnifiedRayTracing:UnifiedRTShaderImporter)
+Imported 'GUID: 5951703b3d165764c95c653e98350884' -> (Import Result ID: 'f045183e5d24f4c4908c47efdab930a4') in 0.002 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=d24418d66c44ef8404916af44305b332 DependenciesID=a8000082cbeed3662425b022185290d1 StaticDependenciesID=059ad849da4bff5dcc29e3cff7813344 
+Importing 'GUID: 99ac6221b6ecd7b479be13e8b9866300 - Path: Packages/com.unity.render-pipelines.core/Tests/Editor/PathTracing/Shaders/TerrainRayMarchingTest.urtshader' with importer (ScriptedImporter : Unity.Rendering.LightTransport.Editor:UnityEditor.Rendering.UnifiedRayTracing:UnifiedRTShaderImporter)
+Imported 'GUID: 99ac6221b6ecd7b479be13e8b9866300' -> (Import Result ID: '4f1379c78418624f4e067b14095b7630') in 0.002 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=30bd2efd487b4dbb8deb21442ef54d7f DependenciesID=2b1a153c410c132b718b4ee0c2eeda5b StaticDependenciesID=9bd449fe018a48415143d373811214ef 
+Importing 'GUID: e9f4de6d1e07fb94f9a60d35b618f724 - Path: Packages/com.unity.render-pipelines.core/Runtime/PathTracing/Shaders/LightmapGBufferIntegration.urtshader' with importer (ScriptedImporter : Unity.Rendering.LightTransport.Editor:UnityEditor.Rendering.UnifiedRayTracing:UnifiedRTShaderImporter)
+Imported 'GUID: e9f4de6d1e07fb94f9a60d35b618f724' -> (Import Result ID: 'd6be0a290962d05ea7f5638c3347b5ec') in 0.002 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=2764a8bc51f3088d37161a1b3080aa91 DependenciesID=2b40d3cefd03840401910aa6ab5d6911 StaticDependenciesID=3c625e26646b7228663e0de2b2c1d69b 
+Importing 'GUID: 5a2a534753fbdb44e96c3c78b5a6999d - Path: Packages/com.unity.render-pipelines.core/Editor/Lighting/ProbeVolume/DynamicGI/DynamicGISkyOcclusion.urtshader' with importer (ScriptedImporter : Unity.Rendering.LightTransport.Editor:UnityEditor.Rendering.UnifiedRayTracing:UnifiedRTShaderImporter)
+Imported 'GUID: 5a2a534753fbdb44e96c3c78b5a6999d' -> (Import Result ID: '4d96f1e0ed858f54fbb1268710f11d85') in 0.002 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=95b7c5926ade123588afc9e62a968257 DependenciesID=0c40d0c11903500104a0aeaefe7cda5e StaticDependenciesID=72ee5fda06862b709c15f6cbb7db6f05 
+Importing 'GUID: 5bbebdef5916845478fcef13fa10d89f - Path: Packages/com.unity.render-pipelines.core/Runtime/PathTracing/Shaders/LightmapDirectStochasticLightIntegration.urtshader' with importer (ScriptedImporter : Unity.Rendering.LightTransport.Editor:UnityEditor.Rendering.UnifiedRayTracing:UnifiedRTShaderImporter)
+Imported 'GUID: 5bbebdef5916845478fcef13fa10d89f' -> (Import Result ID: 'be7fd4a27c1e04fcfc3f5f56fa89a64a') in 0.002 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=dce31d3cb03a884b88fb3e583f386073 DependenciesID=f7470980d5cfeb3d0b894a684a0554d8 StaticDependenciesID=471ca71b6b19c4611a46691a7356c8a6 
+Importing 'GUID: 1c410815c01ce1d4d82c645c0cd45747 - Path: Packages/com.unity.render-pipelines.core/Runtime/PathTracing/Shaders/LightmapAOIntegration.urtshader' with importer (ScriptedImporter : Unity.Rendering.LightTransport.Editor:UnityEditor.Rendering.UnifiedRayTracing:UnifiedRTShaderImporter)
+Imported 'GUID: 1c410815c01ce1d4d82c645c0cd45747' -> (Import Result ID: '24acd65023fd154878bdfeb9026fa666') in 0.002 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=d02415a2807b2e5d35e940ad501ea8a5 DependenciesID=3398ae02ce2f498102467e70263c7377 StaticDependenciesID=219d1b7269d01f2442d424f53e04d073 
+Importing 'GUID: 2c32233d92a2d0745930664c087c5c9a - Path: Packages/com.unity.render-pipelines.core/Runtime/PathTracing/Shaders/ProbeIntegrationValidity.urtshader' with importer (ScriptedImporter : Unity.Rendering.LightTransport.Editor:UnityEditor.Rendering.UnifiedRayTracing:UnifiedRTShaderImporter)
+Imported 'GUID: 2c32233d92a2d0745930664c087c5c9a' -> (Import Result ID: '084a4150523213d52963b007feb38b6e') in 0.002 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=c2afda22621ddb8c988877b950ccb68b DependenciesID=3cb1617a152526568e4c889fd3a1c1ea StaticDependenciesID=89ce6b5e76d568c473e42bb2e82d857d 
+Importing 'GUID: ace95ac84e213794891b4bd7c9b3c158 - Path: Packages/com.unity.render-pipelines.core/Runtime/PathTracing/Shaders/LightmapValidityIntegration.urtshader' with importer (ScriptedImporter : Unity.Rendering.LightTransport.Editor:UnityEditor.Rendering.UnifiedRayTracing:UnifiedRTShaderImporter)
+Imported 'GUID: ace95ac84e213794891b4bd7c9b3c158' -> (Import Result ID: '031dc44382b99f6754c404b2488b9a81') in 0.003 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=fb02a45bc5b75be8fc077273dbe8b98b DependenciesID=b863a128547250f74601cb1d1ad1f4e5 StaticDependenciesID=af3a8789fbe725883be9c99ebb7cf5e2 
+Importing 'GUID: 5ecdabd800f05984696f22ba95284516 - Path: Packages/com.unity.render-pipelines.core/Runtime/PathTracing/Shaders/ProbeIntegrationIndirect.urtshader' with importer (ScriptedImporter : Unity.Rendering.LightTransport.Editor:UnityEditor.Rendering.UnifiedRayTracing:UnifiedRTShaderImporter)
+Imported 'GUID: 5ecdabd800f05984696f22ba95284516' -> (Import Result ID: 'f54d839960c25d9cb0ef0eff437821b4') in 0.002 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=56da5ec11f5641fca91032cb6f850a5c DependenciesID=452b0994cd64b77c6dc50b71642a5b04 StaticDependenciesID=1ad901001e2e557153e1de5753d25220 
+Importing 'GUID: 6e0b547bab30a804c8123974120d583f - Path: Packages/com.unity.render-pipelines.core/Tests/Runtime/PathTracing/PathIteratorTest.urtshader' with importer (ScriptedImporter : Unity.Rendering.LightTransport.Editor:UnityEditor.Rendering.UnifiedRayTracing:UnifiedRTShaderImporter)
+Imported 'GUID: 6e0b547bab30a804c8123974120d583f' -> (Import Result ID: '2842944d591da65100753441b9e44d55') in 0.002 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=7166e8bd2ae4f9ce578bb8a476e9a143 DependenciesID=1581e1dd9bdd1a2f4570bb9891af41e8 StaticDependenciesID=e24ea404bb4dabe55ffbcaa7b840b299 
+Importing 'GUID: de3013e16d99f2746ab1735ec06a660b - Path: Packages/com.unity.render-pipelines.core/Runtime/PathTracing/Shaders/ProbeIntegrationOcclusion.urtshader' with importer (ScriptedImporter : Unity.Rendering.LightTransport.Editor:UnityEditor.Rendering.UnifiedRayTracing:UnifiedRTShaderImporter)
+Imported 'GUID: de3013e16d99f2746ab1735ec06a660b' -> (Import Result ID: '30cabc216b0c6829f1a7246b74e38c2b') in 0.002 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=3c51388c9ea289d4f965b4fc253b788f DependenciesID=e9a9f3309a5550350b80d136da956bcf StaticDependenciesID=d23a0c4a2896e547ad436f2fd232bb27 
+Importing 'GUID: fe7f1a959d1d3f544a208b7e8805e6cd - Path: Packages/com.unity.render-pipelines.core/Runtime/PathTracing/Shaders/ProbeIntegrationDirectDirectionalAndEnvironment.urtshader' with importer (ScriptedImporter : Unity.Rendering.LightTransport.Editor:UnityEditor.Rendering.UnifiedRayTracing:UnifiedRTShaderImporter)
+Imported 'GUID: fe7f1a959d1d3f544a208b7e8805e6cd' -> (Import Result ID: 'f9a83c05884c64fa4747f37dba23c327') in 0.002 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=ef64589824e04ee50cfdb7c28274be4e DependenciesID=f9053f67632f86162dcf7283b6aebae5 StaticDependenciesID=b8525778ccd6bf87644fae631483c773 
+Importing 'GUID: 1f9bfe60b4ad75943a5281839c1a4e5c - Path: Packages/com.unity.render-pipelines.core/Runtime/PathTracing/Shaders/ProbeIntegrationDirectStochasticLight.urtshader' with importer (ScriptedImporter : Unity.Rendering.LightTransport.Editor:UnityEditor.Rendering.UnifiedRayTracing:UnifiedRTShaderImporter)
+Imported 'GUID: 1f9bfe60b4ad75943a5281839c1a4e5c' -> (Import Result ID: '52f2389011ad04bb7d637533fbc02b9a') in 0.002 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=ca276de839a88b332807a496ca48ad48 DependenciesID=525a6287ddabf4c143420dd397e0e4b2 StaticDependenciesID=bb23e9aed0fe8778db1283cad6c57003 
+Importing 'GUID: ff2cbab5da58bf04d82c5f34037ed123 - Path: Packages/com.unity.render-pipelines.core/Editor/Lighting/ProbeVolume/VirtualOffset/TraceVirtualOffset.urtshader' with importer (ScriptedImporter : Unity.Rendering.LightTransport.Editor:UnityEditor.Rendering.UnifiedRayTracing:UnifiedRTShaderImporter)
+Imported 'GUID: ff2cbab5da58bf04d82c5f34037ed123' -> (Import Result ID: '3919f0bb63e1aa6bd9e06411ec34b5f2') in 0.002 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=91db14e79afe2fdade1b529eee15f885 DependenciesID=cf20445a7b00019d4d415d38b10a9726 StaticDependenciesID=577fb2ca56f9c9cef1dba593cc7f61b6 
+
+Asset Pipeline Refresh (id=4c8b7b984a36b48a0b9f5ee876e8192f): Total: 2.653 seconds - Initiated by InitialRefreshV2(ForceSynchronousImport)
+	(Values over 0.05ms)
+	Summary:
+		Imports: total=24 (actual=24, local cache=0, cache server=0)
+		Asset DB Process Time: managed=1 ms, native=964 ms
+		Asset DB Callback time: managed=85 ms, native=36 ms
+		Scripting: domain reloads=1, domain reload time=506 ms, compile time=1034 ms, other=25 ms
+		Project Asset Count: scripts=1216, non-scripts=2248
+		Asset File Changes: new=0, changed=1, moved=0, deleted=0
+		Scan Filter Count: 1
+	InvokePackagesCallback: 5.718ms
+	ApplyChangesToAssetFolders: 0.201ms
+	Scan: 238.172ms
+	Collect global state as custom dependencies: 10.382ms
+	OnSourceAssetsModified: 0.270ms
+	CategorizeScriptCompilationAssets: 14.773ms
+	ProcessAssetsWithTransientArtifactChanges: 24.971ms
+	CategorizeAssets: 31.478ms
+	CompileScripts: 1033.992ms
+	ImportOutOfDateAssets: 579.843ms (455.640ms without children)
+		ImportManagerImport: 121.172ms (0.876ms without children)
+			UpdateCategorizedAssets: 1.135ms
+		UnloadImportedAssets: 1.383ms
+		ReloadImportedAssets: 0.901ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 0.354ms
+		ImportSchedulerStart: 1.259ms
+	PostProcessAllAssets: 116.685ms
+		ComputeShaderImportPostprocess 16.571ms
+		RaytracingShaderImportPostprocess 13.944ms
+		VCAutoAddAssetPostprocess 0.454ms
+		MonoPostProcessAllAssets: 85.096ms
+			AssetPostprocessor.OnPostprocessAllAssets 51.234ms
+			StyleCatalogPostProcessor.OnPostprocessAllAssets 9.315ms
+			UniversalRenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 6.888ms
+			BuilderAssetPostprocessor.OnPostprocessAllAssets 3.217ms
+			ShaderGraphAssetPostProcessor.OnPostprocessAllAssets 1.259ms
+			SyncVS.PostprocessSyncProject 0.949ms
+			AssetChangedListener.OnPostprocessAllAssets 0.900ms
+			SpeedTree9Postprocessor.OnPostprocessAllAssets 0.828ms
+			WindowAssetPostprocessingWatcher.OnPostprocessAllAssets 0.790ms
+			EditModeScopePostprocessor.OnPostprocessAllAssets 0.597ms
+			RetainedModeAssetPostprocessor.OnPostprocessAllAssets 0.573ms
+			MaterialPostprocessor.OnPostprocessAllAssets 0.392ms
+			RenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 0.362ms
+			ShaderReflectionAssetPostProcessor.OnPostprocessAllAssets 0.268ms
+			PostProcessor.OnPostprocessAllAssets 0.247ms
+			ArtifactBrowserPostProcessor.OnPostprocessAllAssets 0.236ms
+			InputActionAssetPostprocessor.OnPostprocessAllAssets 0.216ms
+			TextAssetPostProcessor.OnPostprocessAllAssets 0.196ms
+			InputActionJsonNameModifierAssetProcessor.OnPostprocessAllAssets 0.194ms
+			CinemachineSettings.OnPostprocessAllAssets 0.155ms
+			TMPro_TexturePostProcessor.OnPostprocessAllAssets 0.154ms
+			AudioMixerPostprocessor.OnPostprocessAllAssets 0.136ms
+			ReferencedClipsPostProcessor.OnPostprocessAllAssets 0.129ms
+			AssetEvents.OnPostprocessAllAssets 0.121ms
+			DomainReloadProcessor.OnPostprocessAllAssets 0.098ms
+			TerrainToolbarOverlayPostProcessor.OnPostprocessAllAssets 0.085ms
+			ProjectSettingsPostprocessor.OnPostprocessAllAssets 0.071ms
+			SpeedTreePostProcessor.OnPostprocessAllAssets 0.070ms
+			SamplePostprocessor.OnPostprocessAllAssets 0.064ms
+			AssetDatabaseCallbacks.OnPostprocessAllAssets 0.063ms
+			ThemePostprocessor.OnPostprocessAllAssets 0.056ms
+			ConfigAssetsTracker.OnPostprocessAllAssets 0.055ms
+	PostAssetChangesProfiler: 0.503ms
+	UnloadStreamsBegin: 0.725ms
+	PersistCurrentRevisions: 0.154ms
+	GenerateScriptTypeHashes: 0.903ms
+	GenerateScriptTypeSerializationHashes: 1.587ms
+	Untracked: 593.923ms
+
+Application.AssetDatabase Initial Refresh End
+Shader Hidden/ChartRasterizerHardware is not supported: GPU does not support conservative rasterization
+Shader Hidden/ChartRasterizerHardware is not supported: GPU does not support conservative rasterization
+Scanning for USB devices : 0.049ms
+Initializing Unity extensions:
+[MODES] ModeService[none].Initialize
+[MODES] ModeService[none].LoadModes
+[MODES] Loading mode Default (0) for mode-current-id-MissionForge
+Unloading 96 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 4775 unused Assets / (5.9 MB). Loaded Objects now: 5693.
+Memory consumption went from 0.52 GB to 0.52 GB.
+Total: 6.163291 ms (FindLiveObjects: 0.301458 ms CreateObjectMapping: 0.085917 ms MarkObjects: 4.316541 ms  DeleteObjects: 1.393750 ms)
+
+Importing 'GUID: 11044e3b3da124a4ea538b0ccf7b0ee7 - Path: Assets/StreamingAssets/data/index.json' with importer (DefaultImporter)
+Imported 'GUID: 11044e3b3da124a4ea538b0ccf7b0ee7' -> (Import Result ID: '94d884a128ef47b15bdc7da0e8930a49') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=570d829cad2bc29b3149fd16c237f9d9 DependenciesID=ecf143caa377cdbbdb362209fb3b8d06 StaticDependenciesID=0592c6cc1f6b32db9d55ff36880c370b 
+Importing 'GUID: e070714426e3f46fe9e6a5b69ebd8165 - Path: Assets/StreamingAssets/data/strings/hi.host_preflight.json' with importer (DefaultImporter)
+Imported 'GUID: e070714426e3f46fe9e6a5b69ebd8165' -> (Import Result ID: '7dcd284522a559c3b41aa9ff91f1df74') in 0.003 seconds [static dependencies only]. Details - ImportResultOutputID=5a281d0c2cf9de4de0a548f2c1902333 DependenciesID=e1b6f251bd917ad593a448aa018ce7fb StaticDependenciesID=f91c07a65d96167ef1fc2b3861b94002 
+Importing 'GUID: 174477d3c540149f487d20a1f6dfa535 - Path: Assets/StreamingAssets/data/strings/fr.host_preflight.json' with importer (DefaultImporter)
+Imported 'GUID: 174477d3c540149f487d20a1f6dfa535' -> (Import Result ID: '922f9014cf5c014ab332b51dc69625af') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=95b2b1a745f82adcc10c6f36293106e6 DependenciesID=470707fbc8d62d5d44929226414c16c9 StaticDependenciesID=b05d6a2611a0d6901a5c9cdf6b51528d 
+Importing 'GUID: 28a36cc1a840d442d9ad95ec011dbf12 - Path: Assets/StreamingAssets/data/strings/es.host_preflight.json' with importer (DefaultImporter)
+Imported 'GUID: 28a36cc1a840d442d9ad95ec011dbf12' -> (Import Result ID: '536a21d06e30440c96b7a38fba3d90db') in 0.000 seconds [static dependencies only]. Details - ImportResultOutputID=fd73d4cdefc8941f2bfcd09aa1b93501 DependenciesID=12784e09d3056458ecb08800775e6cec StaticDependenciesID=33a6421dc807777d93d478d69a398a21 
+Importing 'GUID: 199671a93fa894623af57e0faa60a604 - Path: Assets/StreamingAssets/data/strings/ar.host_preflight.json' with importer (DefaultImporter)
+Imported 'GUID: 199671a93fa894623af57e0faa60a604' -> (Import Result ID: 'ef3e3afbc94ba8435c6e2aa5ab8f3b16') in 0.000 seconds [static dependencies only]. Details - ImportResultOutputID=06afc4936f237be43fa3dc849d7ac86c DependenciesID=e4db7a4c2f665a47b311eed4a62416cf StaticDependenciesID=380a2cc023695185f3a79ae29fbafad6 
+Importing 'GUID: ccdbe82a38eb24f05b384ce0b0ed371b - Path: Assets/StreamingAssets/data/strings/pt.host_preflight.json' with importer (DefaultImporter)
+Imported 'GUID: ccdbe82a38eb24f05b384ce0b0ed371b' -> (Import Result ID: '1ac05d6c016901c8c6df723c6782a790') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=0a9a77f16ba1a9eb5449b7f058b9660d DependenciesID=430ab033174fd4bd5e8428b6c5638232 StaticDependenciesID=c3545c298b0463941d381f97d2d410d6 
+Asset Pipeline Refresh (id=9a62e42fb7b5d44b091ae3aeac46a97d): Total: 0.132 seconds - Initiated by RefreshV2(NoUpdateAssetOptions)
+Worker ready: AssetImportWorkerHW0 0
+Thread 0x419d13000 may have been prematurely finalized
+Batchmode quit successfully invoked - shutting down!
+Pipeline Server stopped
+Thread 0x419ddf000 may have been prematurely finalized
+Input System module state changed to: ShutdownInProgress.
+Input Polling Thread exited.
+Input System module state changed to: Shutdown.
+Thread 0x16e3e7000 may have been prematurely finalized
+Thread 0x16e473000 may have been prematurely finalized
+[Physics::Module] Cleanup current backend.
+[Physics::Module] Id: 0xf2b8ea05
+[Licensing::IpcConnector] LicenseClient-yousofdiaa-notifications channel disconnected successfully.
+[Licensing::IpcConnector] LicenseClient-yousofdiaa channel disconnected successfully.
+Shut down UDS service system complete
+Lingering sessions upon destruction of worker manager
+Unity Data Store service was successfully shut down
+UDS shutting down local client system
+AcceleratorClientConnectionCallback - disconnected - :0
+Cleanup mono
+CodeReloadManager destroyed
+debugger-agent: Unable to listen on 43
+Exiting batchmode successfully now!
+[ExitDontLaunchBugReporter] Exiting without the bug reporter. Application will exit with return code 0
+[Package Manager] Server process was shutdown
