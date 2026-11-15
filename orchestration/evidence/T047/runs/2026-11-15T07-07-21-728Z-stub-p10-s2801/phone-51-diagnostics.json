@@ -1,0 +1,474 @@
+{
+  "consoleErrors": [],
+  "pageErrors": [],
+  "fps": [
+    {
+      "label": "end",
+      "avgFps": 59.805876009019904,
+      "onePercentLowFps": 59.52380952385077,
+      "frames": 915
+    }
+  ],
+  "actions": [],
+  "screenshots": [],
+  "performanceSnapshots": [
+    {
+      "label": "close",
+      "document": 1,
+      "capturedAt": "2026-11-15T07:12:45.200Z",
+      "capturedAtMs": 310263.10000014305,
+      "timeOriginMs": 1794726454800.7,
+      "visibility": "visible",
+      "perf": {
+        "timeOriginMs": 1794726454800.7,
+        "intervalMs": 50,
+        "timerGaps": [
+          {
+            "atMs": 198.40000009536743,
+            "gapMs": 175.90000009536743,
+            "excessMs": 125.90000009536743,
+            "screen": null
+          },
+          {
+            "atMs": 2077.2000000476837,
+            "gapMs": 154.09999990463257,
+            "excessMs": 104.09999990463257,
+            "screen": "watch"
+          },
+          {
+            "atMs": 28135.800000190735,
+            "gapMs": 108.20000004768372,
+            "excessMs": 58.200000047683716,
+            "screen": "vote"
+          },
+          {
+            "atMs": 39403.300000190735,
+            "gapMs": 11267.5,
+            "excessMs": 11217.5,
+            "screen": "vote"
+          },
+          {
+            "atMs": 40308.5,
+            "gapMs": 474.59999990463257,
+            "excessMs": 424.59999990463257,
+            "screen": "vote"
+          },
+          {
+            "atMs": 40589.40000009537,
+            "gapMs": 280.90000009536743,
+            "excessMs": 230.90000009536743,
+            "screen": "vote"
+          },
+          {
+            "atMs": 40740.5,
+            "gapMs": 151.09999990463257,
+            "excessMs": 101.09999990463257,
+            "screen": "vote"
+          },
+          {
+            "atMs": 53185.200000047684,
+            "gapMs": 112.29999995231628,
+            "excessMs": 62.299999952316284,
+            "screen": "vote"
+          },
+          {
+            "atMs": 59679.90000009537,
+            "gapMs": 6404.700000047684,
+            "excessMs": 6354.700000047684,
+            "screen": "vote"
+          },
+          {
+            "atMs": 60755.300000190735,
+            "gapMs": 1075.4000000953674,
+            "excessMs": 1025.4000000953674,
+            "screen": "watch"
+          },
+          {
+            "atMs": 61296.200000047684,
+            "gapMs": 540.8999998569489,
+            "excessMs": 490.89999985694885,
+            "screen": "watch"
+          },
+          {
+            "atMs": 70431.10000014305,
+            "gapMs": 9134.900000095367,
+            "excessMs": 9084.900000095367,
+            "screen": "watch"
+          },
+          {
+            "atMs": 75941.70000004768,
+            "gapMs": 118.20000004768372,
+            "excessMs": 68.20000004768372,
+            "screen": "vote"
+          },
+          {
+            "atMs": 82208.80000019073,
+            "gapMs": 6155.800000190735,
+            "excessMs": 6105.800000190735,
+            "screen": "vote"
+          },
+          {
+            "atMs": 91605.90000009537,
+            "gapMs": 9280,
+            "excessMs": 9230,
+            "screen": "watch"
+          },
+          {
+            "atMs": 308385,
+            "gapMs": 111.59999990463257,
+            "excessMs": 61.59999990463257,
+            "screen": null
+          }
+        ],
+        "longTasks": [
+          {
+            "startMs": 107.90000009536743,
+            "durationMs": 73,
+            "name": "self",
+            "screen": null,
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 1969.6000001430511,
+            "durationMs": 104,
+            "name": "self",
+            "screen": "watch",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 28136.400000095367,
+            "durationMs": 246,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 28383.10000014305,
+            "durationMs": 5459,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 33842.200000047684,
+            "durationMs": 4988,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 38831.10000014305,
+            "durationMs": 570,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 40308.90000009537,
+            "durationMs": 112,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 40423.300000190735,
+            "durationMs": 164,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 40589.5,
+            "durationMs": 111,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 53302.800000190735,
+            "durationMs": 181,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 53484.5,
+            "durationMs": 6128,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 59612.60000014305,
+            "durationMs": 53,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 59854.40000009537,
+            "durationMs": 269,
+            "name": "self",
+            "screen": "watch",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 60140.300000190735,
+            "durationMs": 609,
+            "name": "self",
+            "screen": "watch",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 60756,
+            "durationMs": 440,
+            "name": "self",
+            "screen": "watch",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 61307.40000009537,
+            "durationMs": 4091,
+            "name": "self",
+            "screen": "watch",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 65401.90000009537,
+            "durationMs": 5028,
+            "name": "self",
+            "screen": "watch",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 76058.10000014305,
+            "durationMs": 189,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 76247.5,
+            "durationMs": 5895,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 82143.40000009537,
+            "durationMs": 53,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 82363.30000019073,
+            "durationMs": 4916,
+            "name": "self",
+            "screen": "watch",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 87279.80000019073,
+            "durationMs": 4325,
+            "name": "self",
+            "screen": "watch",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 308333.7000000477,
+            "durationMs": 51,
+            "name": "self",
+            "screen": null,
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          }
+        ],
+        "longTaskObserverSupported": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,1362 @@
+{
+  "generatedAt": "2026-11-15T07:43:22.409Z",
+  "comparisonRuns": [
+    {
+      "runId": "2026-11-15T06-33-19-840Z-stub-p10-s2801",
+      "mode": "shared",
+      "failures": 1,
+      "phone1PartVotes": [
+        {
+          "roundId": "m1.part.1",
+          "screenshotMs": 32203,
+          "screenshotOutcome": "failed",
+          "probeEvalMs": 1870,
+          "longestMainThreadGapMs": 16678.5,
+          "estimatedStallMs": 16628.5,
+          "longTasksOver50Ms": [
+            15587,
+            1072
+          ],
+          "machineCpu": {
+            "samples": 124,
+            "meanPct": 51.9,
+            "p95Pct": 78.5,
+            "maxPct": 86.7
+          },
+          "machineCpuSource": "screenshot-window-fallback"
+        },
+        {
+          "roundId": "m1.part.2",
+          "screenshotMs": 601,
+          "screenshotOutcome": "ok",
+          "probeEvalMs": null,
+          "longestMainThreadGapMs": 0,
+          "estimatedStallMs": 0,
+          "longTasksOver50Ms": [],
+          "machineCpu": {
+            "samples": 4,
+            "meanPct": 47.9,
+            "p95Pct": 65.7,
+            "maxPct": 65.7
+          },
+          "machineCpuSource": "vote-milestone-window"
+        },
+        {
+          "roundId": "m1.part.3",
+          "screenshotMs": 37131,
+          "screenshotOutcome": "viewport-retry-ok",
+          "probeEvalMs": 17011,
+          "longestMainThreadGapMs": 31684.5,
+          "estimatedStallMs": 31634.5,
+          "longTasksOver50Ms": [
+            124,
+            63,
+            53,
+            12694,
+            13039,
+            5938,
+            191
+          ],
+          "machineCpu": {
+            "samples": 162,
+            "meanPct": 63.9,
+            "p95Pct": 92.8,
+            "maxPct": 100
+          },
+          "machineCpuSource": "vote-milestone-window"
+        },
+        {
+          "roundId": "m1.part.4",
+          "screenshotMs": 15030,
+          "screenshotOutcome": "ok",
+          "probeEvalMs": null,
+          "longestMainThreadGapMs": 6776.1,
+          "estimatedStallMs": 6726.1,
+          "longTasksOver50Ms": [
+            642,
+            6126
+          ],
+          "machineCpu": {
+            "samples": 139,
+            "meanPct": 59.4,
+            "p95Pct": 91.4,
+            "maxPct": 100
+          },
+          "machineCpuSource": "vote-milestone-window"
+        },
+        {
+          "roundId": "m1.part.5",
+          "screenshotMs": 565,
+          "screenshotOutcome": "ok",
+          "probeEvalMs": null,
+          "longestMainThreadGapMs": 0,
+          "estimatedStallMs": 0,
+          "longTasksOver50Ms": [],
+          "machineCpu": {
+            "samples": 3,
+            "meanPct": 38.4,
+            "p95Pct": 53.1,
+            "maxPct": 53.1
+          },
+          "machineCpuSource": "vote-milestone-window"
+        }
+      ],
+      "runMachineCpu": {
+        "samples": 1538,
+        "meanPct": 43.4,
+        "p95Pct": 81.5,
+        "maxPct": 100
+      }
+    },
+    {
+      "runId": "2026-11-15T06-40-07-579Z-stub-p10-s2801",
+      "mode": "separate",
+      "failures": 0,
+      "phone1PartVotes": [
+        {
+          "roundId": "m1.part.1",
+          "screenshotMs": 12727,
+          "screenshotOutcome": "ok",
+          "probeEvalMs": null,
+          "longestMainThreadGapMs": 11365.3,
+          "estimatedStallMs": 11315.3,
+          "longTasksOver50Ms": [
+            241,
+            5633,
+            5448
+          ],
+          "machineCpu": {
+            "samples": 58,
+            "meanPct": 76.6,
+            "p95Pct": 100,
+            "maxPct": 100
+          },
+          "machineCpuSource": "vote-milestone-window"
+        },
+        {
+          "roundId": "m1.part.2",
+          "screenshotMs": 445,
+          "screenshotOutcome": "ok",
+          "probeEvalMs": null,
+          "longestMainThreadGapMs": 100.6,
+          "estimatedStallMs": 50.6,
+          "longTasksOver50Ms": [],
+          "machineCpu": {
+            "samples": 3,
+            "meanPct": 64.8,
+            "p95Pct": 85.4,
+            "maxPct": 85.4
+          },
+          "machineCpuSource": "vote-milestone-window"
+        },
+        {
+          "roundId": "m1.part.3",
+          "screenshotMs": 17380,
+          "screenshotOutcome": "viewport-retry-ok",
+          "probeEvalMs": 1178,
+          "longestMainThreadGapMs": 10585.1,
+          "estimatedStallMs": 10535.1,
+          "longTasksOver50Ms": [
+            286,
+            5823,
+            4447
+          ],
+          "machineCpu": {
+            "samples": 81,
+            "meanPct": 81.4,
+            "p95Pct": 100,
+            "maxPct": 100
+          },
+          "machineCpuSource": "vote-milestone-window"
+        },
+        {
+          "roundId": "m1.part.4",
+          "screenshotMs": 18466,
+          "screenshotOutcome": "viewport-retry-ok",
+          "probeEvalMs": 1856,
+          "longestMainThreadGapMs": 6212,
+          "estimatedStallMs": 6162,
+          "longTasksOver50Ms": [
+            209,
+            5870
+          ],
+          "machineCpu": {
+            "samples": 86,
+            "meanPct": 86.7,
+            "p95Pct": 100,
+            "maxPct": 100
+          },
+          "machineCpuSource": "vote-milestone-window"
+        },
+        {
+          "roundId": "m1.part.5",
+          "screenshotMs": 463,
+          "screenshotOutcome": "ok",
+          "probeEvalMs": null,
+          "longestMainThreadGapMs": 0,
+          "estimatedStallMs": 0,
+          "longTasksOver50Ms": [],
+          "machineCpu": {
+            "samples": 3,
+            "meanPct": 60,
+            "p95Pct": 67.8,
+            "maxPct": 67.8
+          },
+          "machineCpuSource": "vote-milestone-window"
+        }
+      ],
+      "runMachineCpu": {
+        "samples": 1454,
+        "meanPct": 60.9,
+        "p95Pct": 100,
+        "maxPct": 100
+      }
+    },
+    {
+      "runId": "2026-11-15T06-46-38-867Z-stub-p10-s2801",
+      "mode": "shared",
+      "failures": 0,
+      "phone1PartVotes": [
+        {
+          "roundId": "m1.part.1",
+          "screenshotMs": 28701,
+          "screenshotOutcome": "viewport-retry-ok",
+          "probeEvalMs": 8,
+          "longestMainThreadGapMs": 28223.3,
+          "estimatedStallMs": 28173.3,
+          "longTasksOver50Ms": [
+            13842,
+            2825,
+            11513
+          ],
+          "machineCpu": {
+            "samples": 228,
+            "meanPct": 35.9,
+            "p95Pct": 70.6,
+            "maxPct": 92.5
+          },
+          "machineCpuSource": "vote-milestone-window"
+        },
+        {
+          "roundId": "m1.part.2",
+          "screenshotMs": 508,
+          "screenshotOutcome": "ok",
+          "probeEvalMs": null,
+          "longestMainThreadGapMs": 100.4,
+          "estimatedStallMs": 50.4,
+          "longTasksOver50Ms": [],
+          "machineCpu": {
+            "samples": 3,
+            "meanPct": 48.9,
+            "p95Pct": 72.8,
+            "maxPct": 72.8
+          },
+          "machineCpuSource": "vote-milestone-window"
+        },
+        {
+          "roundId": "m1.part.3",
+          "screenshotMs": 39394,
+          "screenshotOutcome": "viewport-retry-ok",
+          "probeEvalMs": 17065,
+          "longestMainThreadGapMs": 31942.2,
+          "estimatedStallMs": 31892.2,
+          "longTasksOver50Ms": [
+            14940,
+            13270,
+            3711
+          ],
+          "machineCpu": {
+            "samples": 182,
+            "meanPct": 64.6,
+            "p95Pct": 92.7,
+            "maxPct": 100
+          },
+          "machineCpuSource": "vote-milestone-window"
+        },
+        {
+          "roundId": "m1.part.4",
+          "screenshotMs": 15013,
+          "screenshotOutcome": "ok",
+          "probeEvalMs": null,
+          "longestMainThreadGapMs": 16594.8,
+          "estimatedStallMs": 16544.8,
+          "longTasksOver50Ms": [
+            16160
+          ],
+          "machineCpu": {
+            "samples": 151,
+            "meanPct": 55.7,
+            "p95Pct": 87.3,
+            "maxPct": 94.9
+          },
+          "machineCpuSource": "vote-milestone-window"
+        },
+        {
+          "roundId": "m1.part.5",
+          "screenshotMs": 447,
+          "screenshotOutcome": "ok",
+          "probeEvalMs": null,
+          "longestMainThreadGapMs": 0,
+          "estimatedStallMs": 0,
+          "longTasksOver50Ms": [],
+          "machineCpu": {
+            "samples": 3,
+            "meanPct": 50.8,
+            "p95Pct": 59.4,
+            "maxPct": 59.4
+          },
+          "machineCpuSource": "vote-milestone-window"
+        }
+      ],
+      "runMachineCpu": {
+        "samples": 1664,
+        "meanPct": 39.6,
+        "p95Pct": 81.5,
+        "maxPct": 100
+      }
+    },
+    {
+      "runId": "2026-11-15T06-53-59-848Z-stub-p10-s2801",
+      "mode": "separate",
+      "failures": 0,
+      "phone1PartVotes": [
+        {
+          "roundId": "m1.part.1",
+          "screenshotMs": 12515,
+          "screenshotOutcome": "ok",
+          "probeEvalMs": null,
+          "longestMainThreadGapMs": 12004.7,
+          "estimatedStallMs": 11954.7,
+          "longTasksOver50Ms": [
+            5784,
+            313,
+            5865
+          ],
+          "machineCpu": {
+            "samples": 65,
+            "meanPct": 74.1,
+            "p95Pct": 100,
+            "maxPct": 100
+          },
+          "machineCpuSource": "vote-milestone-window"
+        },
+        {
+          "roundId": "m1.part.2",
+          "screenshotMs": 457,
+          "screenshotOutcome": "ok",
+          "probeEvalMs": null,
+          "longestMainThreadGapMs": 0,
+          "estimatedStallMs": 0,
+          "longTasksOver50Ms": [],
+          "machineCpu": {
+            "samples": 2,
+            "meanPct": 44.3,
+            "p95Pct": 54.4,
+            "maxPct": 54.4
+          },
+          "machineCpuSource": "vote-milestone-window"
+        },
+        {
+          "roundId": "m1.part.3",
+          "screenshotMs": 15135,
+          "screenshotOutcome": "ok",
+          "probeEvalMs": null,
+          "longestMainThreadGapMs": 11606.4,
+          "estimatedStallMs": 11556.4,
+          "longTasksOver50Ms": [
+            2175,
+            4015,
+            5392
+          ],
+          "machineCpu": {
+            "samples": 84,
+            "meanPct": 79.8,
+            "p95Pct": 100,
+            "maxPct": 100
+          },
+          "machineCpuSource": "vote-milestone-window"
+        },
+        {
+          "roundId": "m1.part.4",
+          "screenshotMs": 15007,
+          "screenshotOutcome": "ok",
+          "probeEvalMs": null,
+          "longestMainThreadGapMs": 6282.7,
+          "estimatedStallMs": 6232.7,
+          "longTasksOver50Ms": [
+            184,
+            5953,
+            53,
+            182,
+            5570
+          ],
+          "machineCpu": {
+            "samples": 85,
+            "meanPct": 81.5,
+            "p95Pct": 100,
+            "maxPct": 100
+          },
+          "machineCpuSource": "vote-milestone-window"
+        },
+        {
+          "roundId": "m1.part.5",
+          "screenshotMs": 472,
+          "screenshotOutcome": "ok",
+          "probeEvalMs": null,
+          "longestMainThreadGapMs": 0,
+          "estimatedStallMs": 0,
+          "longTasksOver50Ms": [],
+          "machineCpu": {
+            "samples": 3,
+            "meanPct": 43.4,
+            "p95Pct": 69,
+            "maxPct": 69
+          },
+          "machineCpuSource": "vote-milestone-window"
+        }
+      ],
+      "runMachineCpu": {
+        "samples": 1361,
+        "meanPct": 49.2,
+        "p95Pct": 100,
+        "maxPct": 100
+      }
+    },
+    {
+      "runId": "2026-11-15T07-00-03-479Z-stub-p10-s2801",
+      "mode": "shared",
+      "failures": 0,
+      "phone1PartVotes": [
+        {
+          "roundId": "m1.part.1",
+          "screenshotMs": 28260,
+          "screenshotOutcome": "viewport-retry-ok",
+          "probeEvalMs": 9614,
+          "longestMainThreadGapMs": 24573,
+          "estimatedStallMs": 24523,
+          "longTasksOver50Ms": [
+            6829,
+            14353,
+            3370
+          ],
+          "machineCpu": {
+            "samples": 129,
+            "meanPct": 42,
+            "p95Pct": 66.2,
+            "maxPct": 75.7
+          },
+          "machineCpuSource": "vote-milestone-window"
+        },
+        {
+          "roundId": "m1.part.2",
+          "screenshotMs": 494,
+          "screenshotOutcome": "ok",
+          "probeEvalMs": null,
+          "longestMainThreadGapMs": 0,
+          "estimatedStallMs": 0,
+          "longTasksOver50Ms": [],
+          "machineCpu": {
+            "samples": 3,
+            "meanPct": 38.3,
+            "p95Pct": 63.5,
+            "maxPct": 63.5
+          },
+          "machineCpuSource": "vote-milestone-window"
+        },
+        {
+          "roundId": "m1.part.3",
+          "screenshotMs": 29716,
+          "screenshotOutcome": "viewport-retry-ok",
+          "probeEvalMs": 13264,
+          "longestMainThreadGapMs": 28163.7,
+          "estimatedStallMs": 28113.7,
+          "longTasksOver50Ms": [
+            13691,
+            13640,
+            807
+          ],
+          "machineCpu": {
+            "samples": 158,
+            "meanPct": 39.7,
+            "p95Pct": 67.3,
+            "maxPct": 78.2
+          },
+          "machineCpuSource": "vote-milestone-window"
+        },
+        {
+          "roundId": "m1.part.4",
+          "screenshotMs": 36586,
+          "screenshotOutcome": "viewport-retry-ok",
+          "probeEvalMs": 8800,
+          "longestMainThreadGapMs": 12815,
+          "estimatedStallMs": 12765,
+          "longTasksOver50Ms": [
+            12784
+          ],
+          "machineCpu": {
+            "samples": 160,
+            "meanPct": 40.7,
+            "p95Pct": 67.9,
+            "maxPct": 77.9
+          },
+          "machineCpuSource": "vote-milestone-window"
+        },
+        {
+          "roundId": "m1.part.5",
+          "screenshotMs": 412,
+          "screenshotOutcome": "ok",
+          "probeEvalMs": null,
+          "longestMainThreadGapMs": 0,
+          "estimatedStallMs": 0,
+          "longTasksOver50Ms": [],
+          "machineCpu": {
+            "samples": 2,
+            "meanPct": 54.5,
+            "p95Pct": 69.3,
+            "maxPct": 69.3
+          },
+          "machineCpuSource": "vote-milestone-window"
+        }
+      ],
+      "runMachineCpu": {
+        "samples": 1660,
+        "meanPct": 25.9,
+        "p95Pct": 57.3,
+        "maxPct": 81.9
+      }
+    },
+    {
+      "runId": "2026-11-15T07-07-21-728Z-stub-p10-s2801",
+      "mode": "separate",
+      "failures": 0,
+      "phone1PartVotes": [
+        {
+          "roundId": "m1.part.1",
+          "screenshotMs": 13488,
+          "screenshotOutcome": "ok",
+          "probeEvalMs": null,
+          "longestMainThreadGapMs": 10163.3,
+          "estimatedStallMs": 10113.3,
+          "longTasksOver50Ms": [
+            252,
+            5678,
+            4225,
+            54
+          ],
+          "machineCpu": {
+            "samples": 67,
+            "meanPct": 86.5,
+            "p95Pct": 100,
+            "maxPct": 100
+          },
+          "machineCpuSource": "vote-milestone-window"
+        },
+        {
+          "roundId": "m1.part.2",
+          "screenshotMs": 497,
+          "screenshotOutcome": "ok",
+          "probeEvalMs": null,
+          "longestMainThreadGapMs": 0,
+          "estimatedStallMs": 0,
+          "longTasksOver50Ms": [],
+          "machineCpu": {
+            "samples": 3,
+            "meanPct": 46,
+            "p95Pct": 67.4,
+            "maxPct": 67.4
+          },
+          "machineCpuSource": "vote-milestone-window"
+        },
+        {
+          "roundId": "m1.part.3",
+          "screenshotMs": 13594,
+          "screenshotOutcome": "ok",
+          "probeEvalMs": null,
+          "longestMainThreadGapMs": 11045.2,
+          "estimatedStallMs": 10995.2,
+          "longTasksOver50Ms": [
+            252,
+            5910,
+            4858
+          ],
+          "machineCpu": {
+            "samples": 82,
+            "meanPct": 80.8,
+            "p95Pct": 100,
+            "maxPct": 100
+          },
+          "machineCpuSource": "vote-milestone-window"
+        },
+        {
+          "roundId": "m1.part.4",
+          "screenshotMs": 15934,
+          "screenshotOutcome": "viewport-retry-ok",
+          "probeEvalMs": 112,
+          "longestMainThreadGapMs": 6642.6,
+          "estimatedStallMs": 6592.6,
+          "longTasksOver50Ms": [
+            197,
+            5928,
+            203,
+            6397
+          ],
+          "machineCpu": {
+            "samples": 77,
+            "meanPct": 79.2,
+            "p95Pct": 100,
+            "maxPct": 100
+          },
+          "machineCpuSource": "vote-milestone-window"
+        },
+        {
+          "roundId": "m1.part.5",
+          "screenshotMs": 486,
+          "screenshotOutcome": "ok",
+          "probeEvalMs": null,
+          "longestMainThreadGapMs": 0,
+          "estimatedStallMs": 0,
+          "longTasksOver50Ms": [],
+          "machineCpu": {
+            "samples": 3,
+            "meanPct": 48.4,
+            "p95Pct": 75.8,
+            "maxPct": 75.8
+          },
+          "machineCpuSource": "vote-milestone-window"
+        }
+      ],
+      "runMachineCpu": {
+        "samples": 1224,
+        "meanPct": 55.6,
+        "p95Pct": 100,
+        "maxPct": 100
+      }
+    }
+  ],
+  "profile": {
+    "runId": "2026-11-15T07-37-18-126Z-single-page-profile-p10-s2801",
+    "phone": 1,
+    "cpuThrottleRate": 4,
+    "browserMode": "single-rendered-page+9-protocol-peers",
+    "longestMainThreadGapMs": 2211.1,
+    "estimatedStallMs": 2161.1,
+    "longTasksOver50Ms": [
+      {
+        "roundId": "m1.part.1",
+        "startMs": 6115.4,
+        "durationMs": 369,
+        "responsible": []
+      },
+      {
+        "roundId": "m1.part.1",
+        "startMs": 6484.7,
+        "durationMs": 161,
+        "responsible": []
+      },
+      {
+        "roundId": "m1.part.1",
+        "startMs": 6680.2,
+        "durationMs": 174,
+        "responsible": []
+      },
+      {
+        "roundId": "m1.part.1",
+        "startMs": 6854.7,
+        "durationMs": 148,
+        "responsible": [
+          {
+            "frame": "bi | index-DZB-4vdL.js:2:224905",
+            "selfMs": 1.8
+          },
+          {
+            "frame": "appendChild | native:0:0",
+            "selfMs": 1.8
+          },
+          {
+            "frame": "send | native:0:0",
+            "selfMs": 1.7
+          }
+        ]
+      },
+      {
+        "roundId": "m1.part.1",
+        "startMs": 7113,
+        "durationMs": 112,
+        "responsible": [
+          {
+            "frame": "getPropertyValue | native:0:0",
+            "selfMs": 60.5
+          },
+          {
+            "frame": "getBoundingClientRect | native:0:0",
+            "selfMs": 23
+          },
+          {
+            "frame": "setAttribute | native:0:0",
+            "selfMs": 5.8
+          }
+        ]
+      },
+      {
+        "roundId": "m1.part.1",
+        "startMs": 7317.8,
+        "durationMs": 58,
+        "responsible": [
+          {
+            "frame": "Pc | index-DZB-4vdL.js:2:474554",
+            "selfMs": 27.7
+          },
+          {
+            "frame": "ee | index-DZB-4vdL.js:2:485017",
+            "selfMs": 4.2
+          },
+          {
+            "frame": "(anonymous) | index-DZB-4vdL.js:2:495895",
+            "selfMs": 3.3
+          }
+        ]
+      },
+      {
+        "roundId": "m1.part.1",
+        "startMs": 7449.5,
+        "durationMs": 765,
+        "responsible": [
+          {
+            "frame": "getBoundingClientRect | native:0:0",
+            "selfMs": 60.5
+          },
+          {
+            "frame": "getPropertyValue | native:0:0",
+            "selfMs": 39.8
+          },
+          {
+            "frame": "Pc | index-DZB-4vdL.js:2:474554",
+            "selfMs": 26.4
+          }
+        ]
+      },
+      {
+        "roundId": "m1.part.1",
+        "startMs": 8215.6,
+        "durationMs": 1404,
+        "responsible": [
+          {
+            "frame": "getProgramInfoLog | native:0:0",
+            "selfMs": 74.9
+          },
+          {
+            "frame": "render | three-CLFfS95R.js:3828:27930",
+            "selfMs": 21.7
+          },
+          {
+            "frame": "B | threeScene-BmW1h3Zi.js:1:425",
+            "selfMs": 19.1
+          }
+        ]
+      },
+      {
+        "roundId": "m1.part.1",
+        "startMs": 9689.9,
+        "durationMs": 62,
+        "responsible": []
+      },
+      {
+        "roundId": "m1.part.1",
+        "startMs": 9848.7,
+        "durationMs": 253,
+        "responsible": []
+      },
+      {
+        "roundId": "m1.part.1",
+        "startMs": 10102.9,
+        "durationMs": 1228,
+        "responsible": [
+          {
+            "frame": "getProgramInfoLog | native:0:0",
+            "selfMs": 49.4
+          },
+          {
+            "frame": "setSize | three-CLFfS95R.js:3828:21648",
+            "selfMs": 14.8
+          },
+          {
+            "frame": "getPropertyValue | native:0:0",
+            "selfMs": 14.2
+          }
+        ]
+      },
+      {
+        "roundId": "m1.part.1",
+        "startMs": 11342.1,
+        "durationMs": 213,
+        "responsible": []
+      },
+      {
+        "roundId": "m1.part.2",
+        "startMs": 12429.8,
+        "durationMs": 166,
+        "responsible": [
+          {
+            "frame": "(anonymous) | native:0:0",
+            "selfMs": 4.4
+          },
+          {
+            "frame": "serialize | native:203:19",
+            "selfMs": 3.4
+          },
+          {
+            "frame": "(anonymous) | index-DZB-4vdL.js:2:647268",
+            "selfMs": 1.8
+          }
+        ]
+      },
+      {
+        "roundId": "m1.part.2",
+        "startMs": 12612.4,
+        "durationMs": 64,
+        "responsible": []
+      },
+      {
+        "roundId": "m1.part.2",
+        "startMs": 12689.4,
+        "durationMs": 136,
+        "responsible": []
+      },
+      {
+        "roundId": "m1.part.2",
+        "startMs": 12826.1,
+        "durationMs": 77,
+        "responsible": []
+      },
+      {
+        "roundId": "m1.part.2",
+        "startMs": 12947.7,
+        "durationMs": 82,
+        "responsible": []
+      },
+      {
+        "roundId": "m1.part.2",
+        "startMs": 13216.7,
+        "durationMs": 81,
+        "responsible": [
+          {
+            "frame": "forceContextLoss | three-CLFfS95R.js:3828:21316",
+            "selfMs": 6.2
+          },
+          {
+            "frame": "va | react-CQSAhdDF.js:40:43895",
+            "selfMs": 3.5
+          },
+          {
+            "frame": "appendChild | native:0:0",
+            "selfMs": 2.3
+          }
+        ]
+      },
+      {
+        "roundId": "m1.part.3",
+        "startMs": 18711,
+        "durationMs": 182,
+        "responsible": []
+      },
+      {
+        "roundId": "m1.part.3",
+        "startMs": 18893.4,
+        "durationMs": 134,
+        "responsible": []
+      },
+      {
+        "roundId": "m1.part.3",
+        "startMs": 19043,
+        "durationMs": 157,
+        "responsible": []
+      },
+      {
+        "roundId": "m1.part.3",
+        "startMs": 19241,
+        "durationMs": 101,
+        "responsible": []
+      },
+      {
+        "roundId": "m1.part.3",
+        "startMs": 19416.3,
+        "durationMs": 112,
+        "responsible": [
+          {
+            "frame": "qf | react-CQSAhdDF.js:38:21922",
+            "selfMs": 1.8
+          },
+          {
+            "frame": "He | react-CQSAhdDF.js:33:1360",
+            "selfMs": 1.7
+          },
+          {
+            "frame": "Xr | react-CQSAhdDF.js:38:5066",
+            "selfMs": 1.6
+          }
+        ]
+      },
+      {
+        "roundId": "m1.part.3",
+        "startMs": 19704.7,
+        "durationMs": 247,
+        "responsible": [
+          {
+            "frame": "getBoundingClientRect | native:0:0",
+            "selfMs": 45
+          },
+          {
+            "frame": "getPropertyValue | native:0:0",
+            "selfMs": 17.8
+          },
+          {
+            "frame": "Pc | index-DZB-4vdL.js:2:474554",
+            "selfMs": 11.5
+          }
+        ]
+      },
+      {
+        "roundId": "m1.part.3",
+        "startMs": 19953,
+        "durationMs": 1534,
+        "responsible": [
+          {
+            "frame": "getProgramInfoLog | native:0:0",
+            "selfMs": 72.9
+          },
+          {
+            "frame": "getBoundingClientRect | native:0:0",
+            "selfMs": 38.4
+          },
+          {
+            "frame": "getPropertyValue | native:0:0",
+            "selfMs": 35.8
+          }
+        ]
+      },
+      {
+        "roundId": "m1.part.3",
+        "startMs": 21957.9,
+        "durationMs": 53,
+        "responsible": []
+      },
+      {
+        "roundId": "m1.part.3",
+        "startMs": 22163.5,
+        "durationMs": 275,
+        "responsible": [
+          {
+            "frame": "(anonymous) | native:1:1",
+            "selfMs": 1.8
+          },
+          {
+            "frame": "ju | react-CQSAhdDF.js:38:16877",
+            "selfMs": 1.7
+          },
+          {
+            "frame": "na | index-DZB-4vdL.js:2:484418",
+            "selfMs": 1.7
+          }
+        ]
+      },
+      {
+        "roundId": "m1.part.3",
+        "startMs": 22439.1,
+        "durationMs": 1173,
+        "responsible": [
+          {
+            "frame": "getProgramInfoLog | native:0:0",
+            "selfMs": 50.7
+          },
+          {
+            "frame": "texSubImage2D | native:0:0",
+            "selfMs": 19.1
+          },
+          {
+            "frame": "setSize | three-CLFfS95R.js:3828:21648",
+            "selfMs": 17.5
+          }
+        ]
+      },
+      {
+        "roundId": "m1.part.4",
+        "startMs": 25028.7,
+        "durationMs": 162,
+        "responsible": []
+      },
+      {
+        "roundId": "m1.part.4",
+        "startMs": 25191.4,
+        "durationMs": 124,
+        "responsible": []
+      },
+      {
+        "roundId": "m1.part.4",
+        "startMs": 25338.7,
+        "durationMs": 131,
+        "responsible": []
+      },
+      {
+        "roundId": "m1.part.4",
+        "startMs": 25501.4,
+        "durationMs": 87,
+        "responsible": []
+      },
+      {
+        "roundId": "m1.part.4",
+        "startMs": 25659.1,
+        "durationMs": 113,
+        "responsible": []
+      },
+      {
+        "roundId": "m1.part.4",
+        "startMs": 25940.7,
+        "durationMs": 227,
+        "responsible": [
+          {
+            "frame": "getBoundingClientRect | native:0:0",
+            "selfMs": 40.8
+          },
+          {
+            "frame": "getPropertyValue | native:0:0",
+            "selfMs": 39.7
+          },
+          {
+            "frame": "Pc | index-DZB-4vdL.js:2:474554",
+            "selfMs": 14.2
+          }
+        ]
+      },
+      {
+        "roundId": "m1.part.4",
+        "startMs": 26168.3,
+        "durationMs": 1368,
+        "responsible": [
+          {
+            "frame": "getProgramInfoLog | native:0:0",
+            "selfMs": 68.3
+          },
+          {
+            "frame": "getBoundingClientRect | native:0:0",
+            "selfMs": 33.7
+          },
+          {
+            "frame": "getPropertyValue | native:0:0",
+            "selfMs": 33.4
+          }
+        ]
+      },
+      {
+        "roundId": "m1.part.4",
+        "startMs": 27932.8,
+        "durationMs": 62,
+        "responsible": []
+      },
+      {
+        "roundId": "m1.part.4",
+        "startMs": 28030.6,
+        "durationMs": 74,
+        "responsible": []
+      },
+      {
+        "roundId": "m1.part.4",
+        "startMs": 28141.4,
+        "durationMs": 57,
+        "responsible": []
+      },
+      {
+        "roundId": "m1.part.4",
+        "startMs": 28566.1,
+        "durationMs": 216,
+        "responsible": [
+          {
+            "frame": "xe | react-CQSAhdDF.js:17:279",
+            "selfMs": 6.5
+          },
+          {
+            "frame": "checkVisibility | native:0:0",
+            "selfMs": 6.2
+          },
+          {
+            "frame": "mu | react-CQSAhdDF.js:38:128",
+            "selfMs": 4.8
+          }
+        ]
+      },
+      {
+        "roundId": "m1.part.4",
+        "startMs": 28782.2,
+        "durationMs": 1475,
+        "responsible": [
+          {
+            "frame": "getProgramInfoLog | native:0:0",
+            "selfMs": 69.8
+          },
+          {
+            "frame": "getBoundingClientRect | native:0:0",
+            "selfMs": 25.9
+          },
+          {
+            "frame": "setSize | three-CLFfS95R.js:3828:21648",
+            "selfMs": 25.6
+          }
+        ]
+      },
+      {
+        "roundId": "m1.part.5",
+        "startMs": 31357,
+        "durationMs": 125,
+        "responsible": []
+      },
+      {
+        "roundId": "m1.part.5",
+        "startMs": 31530,
+        "durationMs": 85,
+        "responsible": []
+      },
+      {
+        "roundId": "m1.part.5",
+        "startMs": 31619.8,
+        "durationMs": 97,
+        "responsible": []
+      },
+      {
+        "roundId": "m1.part.5",
+        "startMs": 31716.8,
+        "durationMs": 121,
+        "responsible": []
+      },
+      {
+        "roundId": "m1.part.5",
+        "startMs": 31855.2,
+        "durationMs": 90,
+        "responsible": []
+      },
+      {
+        "roundId": "m1.part.5",
+        "startMs": 34638.1,
+        "durationMs": 64,
+        "responsible": [
+          {
+            "frame": "now | native:0:0",
+            "selfMs": 1.6
+          }
+        ]
+      }
+    ],
+    "topProfileSelfTime": [
+      {
+        "frame": "getBoundingClientRect | native:0:0",
+        "selfMs": 518.9
+      },
+      {
+        "frame": "getPropertyValue | native:0:0",
+        "selfMs": 469.5
+      },
+      {
+        "frame": "getProgramInfoLog | native:0:0",
+        "selfMs": 387.6
+      },
+      {
+        "frame": "Pc | index-DZB-4vdL.js:2:474554",
+        "selfMs": 197.9
+      },
+      {
+        "frame": "setSize | three-CLFfS95R.js:3828:21648",
+        "selfMs": 123.7
+      },
+      {
+        "frame": "getContext | native:0:0",
+        "selfMs": 101.5
+      },
+      {
+        "frame": "setAttribute | native:0:0",
+        "selfMs": 99.3
+      },
+      {
+        "frame": "ic | react-CQSAhdDF.js:40:14732",
+        "selfMs": 97.2
+      },
+      {
+        "frame": "(anonymous) | native:0:0",
+        "selfMs": 95.3
+      },
+      {
+        "frame": "texSubImage2D | native:0:0",
+        "selfMs": 87.3
+      },
+      {
+        "frame": "shaderSource | native:0:0",
+        "selfMs": 85.1
+      },
+      {
+        "frame": "xe | react-CQSAhdDF.js:17:279",
+        "selfMs": 79
+      },
+      {
+        "frame": "ju | react-CQSAhdDF.js:38:16877",
+        "selfMs": 78.2
+      },
+      {
+        "frame": "Xs | react-CQSAhdDF.js:40:12567",
+        "selfMs": 75.1
+      },
+      {
+        "frame": "removeChild | native:0:0",
+        "selfMs": 71.5
+      },
+      {
+        "frame": "getExtension | native:0:0",
+        "selfMs": 68.2
+      },
+      {
+        "frame": "na | three-CLFfS95R.js:3735:352",
+        "selfMs": 57.1
+      },
+      {
+        "frame": "ji | react-CQSAhdDF.js:37:7534",
+        "selfMs": 55.7
+      },
+      {
+        "frame": "ee | index-DZB-4vdL.js:2:485017",
+        "selfMs": 55.4
+      },
+      {
+        "frame": "forceContextLoss | three-CLFfS95R.js:3828:21316",
+        "selfMs": 51.5
+      }
+    ],
+    "hotCallChains": [
+      {
+        "selfMs": 518.9,
+        "chain": [
+          "getBoundingClientRect | native:0:0",
+          "Fe | index-DZB-4vdL.js:2:485502",
+          "fl | react-CQSAhdDF.js:40:24225",
+          "Ln | react-CQSAhdDF.js:40:41441",
+          "vc | react-CQSAhdDF.js:40:40456",
+          "rn | react-CQSAhdDF.js:40:40334",
+          "sa | react-CQSAhdDF.js:40:36692",
+          "It | react-CQSAhdDF.js:38:3173"
+        ]
+      },
+      {
+        "selfMs": 469.5,
+        "chain": [
+          "getPropertyValue | native:0:0",
+          "s | index-DZB-4vdL.js:2:484238",
+          "Na | index-DZB-4vdL.js:2:484204",
+          "fl | react-CQSAhdDF.js:40:24225",
+          "Ln | react-CQSAhdDF.js:40:41441",
+          "vc | react-CQSAhdDF.js:40:40456",
+          "rn | react-CQSAhdDF.js:40:40334",
+          "sa | react-CQSAhdDF.js:40:36692",
+          "It | react-CQSAhdDF.js:38:3173"
+        ]
+      },
+      {
+        "selfMs": 387.6,
+        "chain": [
+          "getProgramInfoLog | native:0:0",
+          "b | three-CLFfS95R.js:3769:286",
+          "getUniforms | three-CLFfS95R.js:3776:297",
+          "so | three-CLFfS95R.js:3828:35620",
+          "renderBufferDirect | three-CLFfS95R.js:3828:24787",
+          "ds | three-CLFfS95R.js:3828:32640",
+          "wi | three-CLFfS95R.js:3828:32415",
+          "us | three-CLFfS95R.js:3828:30705",
+          "render | three-CLFfS95R.js:3828:27930",
+          "draw | threeScene-BmW1h3Zi.js:1:1434",
+          "ee | index-DZB-4vdL.js:2:485017",
+          "V | index-DZB-4vdL.js:2:485218"
+        ]
+      },
+      {
+        "selfMs": 197.9,
+        "chain": [
+          "Pc | index-DZB-4vdL.js:2:474554",
+          "ee | index-DZB-4vdL.js:2:485017",
+          "Fe | index-DZB-4vdL.js:2:485502",
+          "fl | react-CQSAhdDF.js:40:24225",
+          "Ln | react-CQSAhdDF.js:40:41441",
+          "vc | react-CQSAhdDF.js:40:40456",
+          "rn | react-CQSAhdDF.js:40:40334",
+          "sa | react-CQSAhdDF.js:40:36692",
+          "It | react-CQSAhdDF.js:38:3173"
+        ]
+      },
+      {
+        "selfMs": 123.7,
+        "chain": [
+          "setSize | three-CLFfS95R.js:3828:21648",
+          "setPixelRatio | three-CLFfS95R.js:3828:21539",
+          "resize | threeScene-BmW1h3Zi.js:1:1328"
+        ]
+      },
+      {
+        "selfMs": 101.5,
+        "chain": [
+          "getContext | native:0:0",
+          "fl | react-CQSAhdDF.js:40:24225",
+          "Ln | react-CQSAhdDF.js:40:41441",
+          "vc | react-CQSAhdDF.js:40:40456",
+          "rn | react-CQSAhdDF.js:40:40334",
+          "sa | react-CQSAhdDF.js:40:36692",
+          "It | react-CQSAhdDF.js:38:3173"
+        ]
+      },
+      {
+        "selfMs": 99.3,
+        "chain": [
+          "setAttribute | native:0:0",
+          "Je | react-CQSAhdDF.js:33:4935",
+          "ic | react-CQSAhdDF.js:40:14732",
+          "da | react-CQSAhdDF.js:40:39999",
+          "pc | react-CQSAhdDF.js:40:39809",
+          "gl | react-CQSAhdDF.js:40:39609",
+          "oa | react-CQSAhdDF.js:40:34550",
+          "qe | react-CQSAhdDF.js:25:1436",
+          "st | react-CQSAhdDF.js:25:1951"
+        ]
+      },
+      {
+        "selfMs": 97.2,
+        "chain": [
+          "ic | react-CQSAhdDF.js:40:14732",
+          "da | react-CQSAhdDF.js:40:39999",
+          "pc | react-CQSAhdDF.js:40:39809",
+          "gl | react-CQSAhdDF.js:40:39609",
+          "oa | react-CQSAhdDF.js:40:34550",
+          "qe | react-CQSAhdDF.js:25:1436",
+          "st | react-CQSAhdDF.js:25:1951"
+        ]
+      },
+      {
+        "selfMs": 95.3,
+        "chain": [
+          "(anonymous) | native:0:0"
+        ]
+      },
+      {
+        "selfMs": 87.3,
+        "chain": [
+          "texSubImage2D | native:0:0",
+          "k | three-CLFfS95R.js:3804:11957",
+          "X | three-CLFfS95R.js:3804:26021",
+          "Z | three-CLFfS95R.js:3804:23112",
+          "hh | three-CLFfS95R.js:3725:11361",
+          "upload | three-CLFfS95R.js:3725:15728",
+          "so | three-CLFfS95R.js:3828:35620",
+          "renderBufferDirect | three-CLFfS95R.js:3828:24787",
+          "ds | three-CLFfS95R.js:3828:32640",
+          "wi | three-CLFfS95R.js:3828:32415",
+          "us | three-CLFfS95R.js:3828:30705",
+          "render | three-CLFfS95R.js:3828:27930",
+          "draw | threeScene-BmW1h3Zi.js:1:1434",
+          "ee | index-DZB-4vdL.js:2:485017",
+          "V | index-DZB-4vdL.js:2:485218"
+        ]
+      }
+    ]
+  }
+}

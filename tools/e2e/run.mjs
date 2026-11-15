@@ -4,6 +4,7 @@ import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { chromium } from '@playwright/test';
 import { FrameRecorder } from './lib/frame-recorder.mjs';
+import { MachineCpuMonitor } from './lib/machine-cpu.mjs';
 import { calculateMetrics } from './lib/metrics.mjs';
 import { PhoneDriver } from './lib/phone-driver.mjs';
 import { ProtocolValidator } from './lib/schema-validator.mjs';
@@ -18,6 +19,15 @@ const hostMode = value('--host', 'stub');
 const spectatorsArg = Number(value('--spectators', '0'));
 const seed = Number(value('--seed', '2801')) >>> 0;
 const segment = value('--segment', 'full');
+const phoneProcessMode = value('--phone-processes', 'shared');
+if (!['shared', 'separate'].includes(phoneProcessMode)) throw new Error('--phone-processes must be shared or separate');
+const profileVotePhone = Number(value('--profile-vote-phone', '0'));
+const profileCpuRate = Number(value('--profile-cpu-rate', '4'));
+if (!Number.isInteger(profileVotePhone) || profileVotePhone < 0 || profileVotePhone > 10) throw new Error('--profile-vote-phone must be 0 or a phone number from 1 to 10');
+if (!Number.isFinite(profileCpuRate) || profileCpuRate < 1) throw new Error('--profile-cpu-rate must be at least 1');
+const measureVotePerformance = argv.includes('--measure-vote-performance') || profileVotePhone > 0;
+if (profileVotePhone && segment !== 'full') throw new Error('--profile-vote-phone requires --segment full');
+if (profileVotePhone && playerCounts.some((count) => profileVotePhone > count)) throw new Error('--profile-vote-phone must exist in every requested player count');
 const mgIds = value('--minigames', 'MG-01,MG-02,MG-03,MG-04,MG-05,MG-06,MG-07,MG-08b,MG-08,MG-09,MG-10a,MG-10,MG-11,MG-12,MG-13,MG-14,MG-15,MG-16,MG-17,MG-18,MG-19,MG-20,MG-21,MG-29,MG-30').split(',');
 const unityHeaded = argv.includes('--headed');
 const runStamp = new Date().toISOString().replace(/[:.]/g, '-');
@@ -35,24 +45,35 @@ async function runStub(playerCount) {
   const validator = new ProtocolValidator(schemaDir);
   const recorder = new FrameRecorder(frameFile, validator);
   const stack = await launchStack({ recorder, runDir });
-  const browser = await chromium.launch({ headless: true });
+  let sharedBrowser = null;
+  const phoneBrowsers = [];
+  const newPhone = async (options) => {
+    const browser = sharedBrowser ?? await chromium.launch({ headless: true });
+    if (!sharedBrowser) phoneBrowsers.push(browser);
+    return new PhoneDriver(browser, options);
+  };
   const host = new ScriptedHost(stack.wsUrl, { seed, audienceVoteWeight: playerCount === 10 ? 1 : 0 });
   const phones = [];
   const spectators = [];
   let lateJoiner = null;
   const failures = [];
   const milestones = [];
+  const voteMeasurements = [];
+  const cpu = measureVotePerformance ? new MachineCpuMonitor() : null;
   let dropped = false;
   try {
+    if (phoneProcessMode === 'shared') sharedBrowser = await chromium.launch({ headless: true });
+    cpu?.start();
     await host.connect();
     for (let i = 0; i < playerCount; i += 1) {
-      const phone = new PhoneDriver(browser, { webUrl: stack.webUrl, room: host.room, index: i, runDir, cpuThrottle: playerCount === 10 && i === 9 && !process.env.E2E_NO_THROTTLE ? 4 : 1 });
+      const cpuThrottle = profileVotePhone === i + 1 ? profileCpuRate : (playerCount === 10 && i === 9 && !process.env.E2E_NO_THROTTLE ? 4 : 1);
+      const phone = await newPhone({ webUrl: stack.webUrl, room: host.room, index: i, runDir, cpuThrottle, measurePerformance: measureVotePerformance });
       await phone.open();
       phones.push(phone);
     }
     const spectatorCount = spectatorsArg || (playerCount >= 6 ? 2 : 0);
     for (let i = 0; i < spectatorCount; i += 1) {
-      const spectator = new PhoneDriver(browser, { webUrl: stack.webUrl, room: host.room, index: 50 + i, spectator: true, runDir });
+      const spectator = await newPhone({ webUrl: stack.webUrl, room: host.room, index: 50 + i, spectator: true, runDir, measurePerformance: measureVotePerformance });
       await spectator.open(); spectators.push(spectator);
     }
     const onMilestone = async (name, data) => {
@@ -63,15 +84,24 @@ async function runStub(playerCount) {
         if (name === 'build_started') {
           await phones[0].shot('build');
           await host.disconnectAndResume(20000);
-          lateJoiner = new PhoneDriver(browser, { webUrl: stack.webUrl, room: host.room, index: 90, pending: true, runDir });
+          lateJoiner = await newPhone({ webUrl: stack.webUrl, room: host.room, index: 90, pending: true, runDir, measurePerformance: measureVotePerformance });
           await lateJoiner.open();
           await lateJoiner.shot('late-joiner-pending');
+          if (profileVotePhone) await phones[profileVotePhone - 1].startCpuProfile('five-part-vote-screens');
         }
         if (name === 'vote') {
-          const shouldDrop = !dropped && data.kind === 'PART';
+          if (profileVotePhone && data.roundId === 'm1.test') await phones[profileVotePhone - 1].stopCpuProfile();
+          const measurement = measureVotePerformance ? { roundId: data.roundId, kind: data.kind, startedAtMs: Date.now(), startedAt: new Date().toISOString() } : null;
+          const shouldDrop = !profileVotePhone && !dropped && data.kind === 'PART';
           if (shouldDrop) dropped = true;
           if (data.kind === 'PART') await phones[0].shot(`part-vote-${data.roundId.split('.').at(-1)}`);
+          if (data.kind === 'PART') await phones[0].collectPerformance(`after-screenshot:${data.roundId}`);
           await Promise.all(phones.map((p, i) => p.handleVote(data, { drop: shouldDrop && i === 0 })));
+          if (measurement) {
+            measurement.endedAtMs = Date.now();
+            measurement.endedAt = new Date().toISOString();
+            voteMeasurements.push(measurement);
+          }
         }
         if (name === 'poll') { await Promise.all(phones.map((p) => p.handlePoll(data.round))); await phones[0].shot(`frr-${data.round}`); }
         if (name === 'minigame') {
@@ -92,14 +122,18 @@ async function runStub(playerCount) {
   } catch (error) {
     failures.push(error.stack ?? error.message);
   } finally {
+    cpu?.stop();
     host.close();
     await Promise.allSettled([...phones, ...spectators, ...(lateJoiner ? [lateJoiner] : [])].map((p) => p.close()));
-    await browser.close();
+    await Promise.allSettled(sharedBrowser ? [sharedBrowser.close()] : phoneBrowsers.map((browser) => browser.close()));
     await stack.close();
     await recorder.close();
   }
   const metrics = calculateMetrics(frameFile);
-  const summary = { runId, playerCount, spectatorCount: spectators.length, seed, host: 'stub', segment, fixtureNumbers: 'fixture (not Core)', milestones, failures, segments: host.segments, minigames: host.mgLog, frameCounts: metrics.frames };
+  if (cpu) for (const measurement of voteMeasurements) measurement.machineCpu = cpu.summary(measurement.startedAtMs, measurement.endedAtMs);
+  const machineCpu = cpu ? { unit: 'percent of total logical CPU capacity', intervalMs: cpu.intervalMs, startedAt: cpu.startedAt, endedAt: cpu.endedAt, overall: cpu.summary(), samples: cpu.samples } : null;
+  const summary = { runId, playerCount, spectatorCount: spectators.length, seed, host: 'stub', segment, phoneProcessMode, profileVotePhone: profileVotePhone || null, profileCpuRate: profileVotePhone ? profileCpuRate : null, fixtureNumbers: 'fixture (not Core)', milestones, voteMeasurements, machineCpu: machineCpu?.overall ?? null, failures, segments: host.segments, minigames: host.mgLog, frameCounts: metrics.frames };
+  if (machineCpu) fs.writeFileSync(path.join(runDir, 'machine-cpu.json'), JSON.stringify(machineCpu, null, 2));
   fs.writeFileSync(path.join(runDir, 'metrics.json'), JSON.stringify(metrics, null, 2));
   fs.writeFileSync(path.join(runDir, 'run-summary.json'), JSON.stringify(summary, null, 2));
   return { summary, metrics, runDir };

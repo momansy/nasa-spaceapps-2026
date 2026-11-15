@@ -1,0 +1,1964 @@
+{
+  "consoleErrors": [],
+  "pageErrors": [],
+  "fps": [
+    {
+      "label": "MG-07",
+      "avgFps": 59.906726284917546,
+      "onePercentLowFps": 59.52380952374765,
+      "frames": 623
+    },
+    {
+      "label": "MG-08",
+      "avgFps": 26.307656357181102,
+      "onePercentLowFps": 8.576329331045883,
+      "frames": 698
+    },
+    {
+      "label": "MG-09",
+      "avgFps": 30.32468226596825,
+      "onePercentLowFps": 11.990407673861748,
+      "frames": 1078
+    },
+    {
+      "label": "MG-10a",
+      "avgFps": 33.73925709185004,
+      "onePercentLowFps": 12.004801920765791,
+      "frames": 1047
+    },
+    {
+      "label": "MG-13",
+      "avgFps": 25.600970142026398,
+      "onePercentLowFps": 10,
+      "frames": 608
+    },
+    {
+      "label": "MG-15",
+      "avgFps": 27.690435936734623,
+      "onePercentLowFps": 10,
+      "frames": 701
+    },
+    {
+      "label": "MG-21",
+      "avgFps": 60.00280168723848,
+      "onePercentLowFps": 59.52380952364454,
+      "frames": 771
+    },
+    {
+      "label": "mission-end",
+      "avgFps": 59.16125649705816,
+      "onePercentLowFps": 59.52380952364454,
+      "frames": 914
+    },
+    {
+      "label": "end",
+      "avgFps": 59.10438566092959,
+      "onePercentLowFps": 59.52380952364454,
+      "frames": 921
+    }
+  ],
+  "actions": [
+    "voted in C1/C0/C2",
+    "voted in inst_wide_field_optical_camera/inst_multispectral_imager/inst_thermal_infrared_camera",
+    "voted in eng_hydrolox_vacuum/eng_kerolox_vacuum/eng_methalox_vacuum",
+    "voted in eng_kerolox_workhorse/eng_methalox_full_flow/eng_hydrolox_high_efficiency",
+    "voted in tank_s/tank_m/tank_l",
+    "voted in TEST/SKIP",
+    "voted in PASS/REWORK",
+    "FRR round 1: GO",
+    "FRR round 2: GO",
+    "MG-07 played (112 generic inputs), own result shown",
+    "MG-08 played (32 generic inputs), own result shown",
+    "MG-09 played (37 generic inputs), own result shown",
+    "MG-10a played (10 generic inputs), own result shown",
+    "MG-13 played (33 generic inputs), own result shown",
+    "MG-15 played (24 generic inputs), own result shown",
+    "MG-21 played (33 generic inputs), own result shown"
+  ],
+  "screenshots": [],
+  "performanceSnapshots": [
+    {
+      "label": "close",
+      "document": 1,
+      "capturedAt": "2026-11-15T06:40:02.096Z",
+      "capturedAtMs": 391097.90000009537,
+      "timeOriginMs": 1794724410929.6,
+      "visibility": "visible",
+      "perf": {
+        "timeOriginMs": 1794724410929.6,
+        "intervalMs": 50,
+        "timerGaps": [
+          {
+            "atMs": 28630.799999952316,
+            "gapMs": 165.70000004768372,
+            "excessMs": 115.70000004768372,
+            "screen": "vote"
+          },
+          {
+            "atMs": 45576.799999952316,
+            "gapMs": 16706.799999952316,
+            "excessMs": 16656.799999952316,
+            "screen": "vote"
+          },
+          {
+            "atMs": 57960.200000047684,
+            "gapMs": 12292.200000047684,
+            "excessMs": 12242.200000047684,
+            "screen": null
+          },
+          {
+            "atMs": 67894,
+            "gapMs": 376,
+            "excessMs": 326,
+            "screen": "vote"
+          },
+          {
+            "atMs": 100072,
+            "gapMs": 32150.200000047684,
+            "excessMs": 32100.200000047684,
+            "screen": "vote"
+          },
+          {
+            "atMs": 102676.40000009537,
+            "gapMs": 2101.5,
+            "excessMs": 2051.5,
+            "screen": null
+          },
+          {
+            "atMs": 128748.40000009537,
+            "gapMs": 18332.700000047684,
+            "excessMs": 18282.700000047684,
+            "screen": "vote"
+          },
+          {
+            "atMs": 129693,
+            "gapMs": 425.7000000476837,
+            "excessMs": 375.7000000476837,
+            "screen": null
+          },
+          {
+            "atMs": 133708.20000004768,
+            "gapMs": 186.79999995231628,
+            "excessMs": 136.79999995231628,
+            "screen": null
+          },
+          {
+            "atMs": 163101.20000004768,
+            "gapMs": 132.29999995231628,
+            "excessMs": 82.29999995231628,
+            "screen": null
+          },
+          {
+            "atMs": 163451.79999995232,
+            "gapMs": 136.5,
+            "excessMs": 86.5,
+            "screen": null
+          },
+          {
+            "atMs": 163965.29999995232,
+            "gapMs": 188.29999995231628,
+            "excessMs": 138.29999995231628,
+            "screen": null
+          },
+          {
+            "atMs": 164905.20000004768,
+            "gapMs": 137.60000014305115,
+            "excessMs": 87.60000014305115,
+            "screen": null
+          },
+          {
+            "atMs": 165637.79999995232,
+            "gapMs": 160.09999990463257,
+            "excessMs": 110.09999990463257,
+            "screen": null
+          },
+          {
+            "atMs": 165948.40000009537,
+            "gapMs": 177.60000014305115,
+            "excessMs": 127.60000014305115,
+            "screen": null
+          },
+          {
+            "atMs": 166724,
+            "gapMs": 157.70000004768372,
+            "excessMs": 107.70000004768372,
+            "screen": null
+          },
+          {
+            "atMs": 167586.70000004768,
+            "gapMs": 156,
+            "excessMs": 106,
+            "screen": null
+          },
+          {
+            "atMs": 167881.29999995232,
+            "gapMs": 106.20000004768372,
+            "excessMs": 56.200000047683716,
+            "screen": null
+          },
+          {
+            "atMs": 168768.70000004768,
+            "gapMs": 153,
+            "excessMs": 103,
+            "screen": null
+          },
+          {
+            "atMs": 169485.29999995232,
+            "gapMs": 170.5,
+            "excessMs": 120.5,
+            "screen": null
+          },
+          {
+            "atMs": 169756.20000004768,
+            "gapMs": 138.10000014305115,
+            "excessMs": 88.10000014305115,
+            "screen": null
+          },
+          {
+            "atMs": 170487.20000004768,
+            "gapMs": 171.90000009536743,
+            "excessMs": 121.90000009536743,
+            "screen": null
+          },
+          {
+            "atMs": 170940.5,
+            "gapMs": 172.79999995231628,
+            "excessMs": 122.79999995231628,
+            "screen": null
+          },
+          {
+            "atMs": 171247,
+            "gapMs": 182.40000009536743,
+            "excessMs": 132.40000009536743,
+            "screen": null
+          },
+          {
+            "atMs": 171968.70000004768,
+            "gapMs": 153,
+            "excessMs": 103,
+            "screen": null
+          },
+          {
+            "atMs": 172710.70000004768,
+            "gapMs": 139.79999995231628,
+            "excessMs": 89.79999995231628,
+            "screen": null
+          },
+          {
+            "atMs": 172977.70000004768,
+            "gapMs": 161.70000004768372,
+            "excessMs": 111.70000004768372,
+            "screen": null
+          },
+          {
+            "atMs": 173746.09999990463,
+            "gapMs": 119.29999995231628,
+            "excessMs": 69.29999995231628,
+            "screen": null
+          },
+          {
+            "atMs": 174222.20000004768,
+            "gapMs": 148,
+            "excessMs": 98,
+            "screen": null
+          },
+          {
+            "atMs": 174513.79999995232,
+            "gapMs": 144.70000004768372,
+            "excessMs": 94.70000004768372,
+            "screen": null
+          },
+          {
+            "atMs": 175344.29999995232,
+            "gapMs": 124.79999995231628,
+            "excessMs": 74.79999995231628,
+            "screen": null
+          },
+          {
+            "atMs": 176059.20000004768,
+            "gapMs": 140.40000009536743,
+            "excessMs": 90.40000009536743,
+            "screen": null
+          },
+          {
+            "atMs": 176351.09999990463,
+            "gapMs": 185.59999990463257,
+            "excessMs": 135.59999990463257,
+            "screen": null
+          },
+          {
+            "atMs": 177162.90000009537,
+            "gapMs": 145.90000009536743,
+            "excessMs": 95.90000009536743,
+            "screen": null
+          },
+          {
+            "atMs": 177589.90000009537,
+            "gapMs": 122.40000009536743,
+            "excessMs": 72.40000009536743,
+            "screen": null
+          },
+          {
+            "atMs": 177909.79999995232,
+            "gapMs": 135.89999985694885,
+            "excessMs": 85.89999985694885,
+            "screen": null
+          },
+          {
+            "atMs": 178636.5,
+            "gapMs": 116.29999995231628,
+            "excessMs": 66.29999995231628,
+            "screen": null
+          },
+          {
+            "atMs": 179358.20000004768,
+            "gapMs": 143.20000004768372,
+            "excessMs": 93.20000004768372,
+            "screen": null
+          },
+          {
+            "atMs": 179649.5,
+            "gapMs": 133.90000009536743,
+            "excessMs": 83.90000009536743,
+            "screen": null
+          },
+          {
+            "atMs": 180421.79999995232,
+            "gapMs": 104.20000004768372,
+            "excessMs": 54.200000047683716,
+            "screen": null
+          },
+          {
+            "atMs": 180827.79999995232,
+            "gapMs": 154.59999990463257,
+            "excessMs": 104.59999990463257,
+            "screen": null
+          },
+          {
+            "atMs": 181100.29999995232,
+            "gapMs": 134.89999985694885,
+            "excessMs": 84.89999985694885,
+            "screen": null
+          },
+          {
+            "atMs": 181822.5,
+            "gapMs": 157.79999995231628,
+            "excessMs": 107.79999995231628,
+            "screen": null
+          },
+          {
+            "atMs": 183381.90000009537,
+            "gapMs": 111.40000009536743,
+            "excessMs": 61.40000009536743,
+            "screen": null
+          },
+          {
+            "atMs": 183812.70000004768,
+            "gapMs": 147.70000004768372,
+            "excessMs": 97.70000004768372,
+            "screen": null
+          },
+          {
+            "atMs": 184074,
+            "gapMs": 154.90000009536743,
+            "excessMs": 104.90000009536743,
+            "screen": null
+          },
+          {
+            "atMs": 184789.20000004768,
+            "gapMs": 120.70000004768372,
+            "excessMs": 70.70000004768372,
+            "screen": null
+          },
+          {
+            "atMs": 185440.79999995232,
+            "gapMs": 125.29999995231628,
+            "excessMs": 75.29999995231628,
+            "screen": null
+          },
+          {
+            "atMs": 185686.09999990463,
+            "gapMs": 121.19999980926514,
+            "excessMs": 71.19999980926514,
+            "screen": null
+          },
+          {
+            "atMs": 186320.09999990463,
+            "gapMs": 155.29999995231628,
+            "excessMs": 105.29999995231628,
+            "screen": null
+          },
+          {
+            "atMs": 186741.29999995232,
+            "gapMs": 125.5,
+            "excessMs": 75.5,
+            "screen": null
+          },
+          {
+            "atMs": 187617.70000004768,
+            "gapMs": 152.79999995231628,
+            "excessMs": 102.79999995231628,
+            "screen": null
+          },
+          {
+            "atMs": 188287.5,
+            "gapMs": 121,
+            "excessMs": 71,
+            "screen": null
+          },
+          {
+            "atMs": 188523.90000009537,
+            "gapMs": 104.80000019073486,
+            "excessMs": 54.80000019073486,
+            "screen": null
+          },
+          {
+            "atMs": 189129.70000004768,
+            "gapMs": 111.10000014305115,
+            "excessMs": 61.10000014305115,
+            "screen": null
+          },
+          {
+            "atMs": 189548.90000009537,
+            "gapMs": 134.30000019073486,
+            "excessMs": 84.30000019073486,
+            "screen": null
+          },
+          {
+            "atMs": 189787.29999995232,
+            "gapMs": 122.20000004768372,
+            "excessMs": 72.20000004768372,
+            "screen": null
+          },
+          {
+            "atMs": 190447.70000004768,
+            "gapMs": 133,
+            "excessMs": 83,
+            "screen": null
+          },
+          {
+            "atMs": 191107.09999990463,
+            "gapMs": 140.79999995231628,
+            "excessMs": 90.79999995231628,
+            "screen": null
+          },
+          {
+            "atMs": 191975.59999990463,
+            "gapMs": 103.89999985694885,
+            "excessMs": 53.89999985694885,
+            "screen": null
+          },
+          {
+            "atMs": 192391.20000004768,
+            "gapMs": 124.40000009536743,
+            "excessMs": 74.40000009536743,
+            "screen": null
+          },
+          {
+            "atMs": 192624.29999995232,
+            "gapMs": 109.5,
+            "excessMs": 59.5,
+            "screen": null
+          },
+          {
+            "atMs": 193222.40000009537,
+            "gapMs": 154.5,
+            "excessMs": 104.5,
+            "screen": null
+          },
+          {
+            "atMs": 193840.70000004768,
+            "gapMs": 122.29999995231628,
+            "excessMs": 72.29999995231628,
+            "screen": null
+          },
+          {
+            "atMs": 194076,
+            "gapMs": 109.09999990463257,
+            "excessMs": 59.09999990463257,
+            "screen": null
+          },
+          {
+            "atMs": 194690.70000004768,
+            "gapMs": 123.70000004768372,
+            "excessMs": 73.70000004768372,
+            "screen": null
+          },
+          {
+            "atMs": 195091.09999990463,
+            "gapMs": 126.39999985694885,
+            "excessMs": 76.39999985694885,
+            "screen": null
+          },
+          {
+            "atMs": 195325.70000004768,
+            "gapMs": 110.40000009536743,
+            "excessMs": 60.40000009536743,
+            "screen": null
+          },
+          {
+            "atMs": 195945.5,
+            "gapMs": 129.09999990463257,
+            "excessMs": 79.09999990463257,
+            "screen": null
+          },
+          {
+            "atMs": 196590.5,
+            "gapMs": 124.90000009536743,
+            "excessMs": 74.90000009536743,
+            "screen": null
+          },
+          {
+            "atMs": 196824,
+            "gapMs": 109.29999995231628,
+            "excessMs": 59.299999952316284,
+            "screen": null
+          },
+          {
+            "atMs": 197825.20000004768,
+            "gapMs": 108.79999995231628,
+            "excessMs": 58.799999952316284,
+            "screen": null
+          },
+          {
+            "atMs": 198058.40000009537,
+            "gapMs": 142.80000019073486,
+            "excessMs": 92.80000019073486,
+            "screen": null
+          },
+          {
+            "atMs": 198646.09999990463,
+            "gapMs": 131.5,
+            "excessMs": 81.5,
+            "screen": null
+          },
+          {
+            "atMs": 199274.5,
+            "gapMs": 109.79999995231628,
+            "excessMs": 59.799999952316284,
+            "screen": null
+          },
+          {
+            "atMs": 199490.70000004768,
+            "gapMs": 124.20000004768372,
+            "excessMs": 74.20000004768372,
+            "screen": null
+          },
+          {
+            "atMs": 200073.79999995232,
+            "gapMs": 108.89999985694885,
+            "excessMs": 58.89999985694885,
+            "screen": null
+          },
+          {
+            "atMs": 200474.20000004768,
+            "gapMs": 108.79999995231628,
+            "excessMs": 58.799999952316284,
+            "screen": null
+          },
+          {
+            "atMs": 201359.29999995232,
+            "gapMs": 144,
+            "excessMs": 94,
+            "screen": null
+          },
+          {
+            "atMs": 202024.59999990463,
+            "gapMs": 107.89999985694885,
+            "excessMs": 57.89999985694885,
+            "screen": null
+          },
+          {
+            "atMs": 202274.29999995232,
+            "gapMs": 106.59999990463257,
+            "excessMs": 56.59999990463257,
+            "screen": null
+          },
+          {
+            "atMs": 203273,
+            "gapMs": 154.79999995231628,
+            "excessMs": 104.79999995231628,
+            "screen": null
+          },
+          {
+            "atMs": 204128.90000009537,
+            "gapMs": 155.40000009536743,
+            "excessMs": 105.40000009536743,
+            "screen": null
+          },
+          {
+            "atMs": 204774.29999995232,
+            "gapMs": 159,
+            "excessMs": 109,
+            "screen": null
+          },
+          {
+            "atMs": 205007.79999995232,
+            "gapMs": 134.5,
+            "excessMs": 84.5,
+            "screen": null
+          },
+          {
+            "atMs": 205590.20000004768,
+            "gapMs": 116.70000004768372,
+            "excessMs": 66.70000004768372,
+            "screen": null
+          },
+          {
+            "atMs": 205989.70000004768,
+            "gapMs": 124.40000009536743,
+            "excessMs": 74.40000009536743,
+            "screen": null
+          },
+          {
+            "atMs": 206225.20000004768,
+            "gapMs": 110,
+            "excessMs": 60,
+            "screen": null
+          },
+          {
+            "atMs": 206841.79999995232,
+            "gapMs": 127.09999990463257,
+            "excessMs": 77.09999990463257,
+            "screen": null
+          },
+          {
+            "atMs": 207490.40000009537,
+            "gapMs": 124.70000004768372,
+            "excessMs": 74.70000004768372,
+            "screen": null
+          },
+          {
+            "atMs": 207740.5,
+            "gapMs": 125.79999995231628,
+            "excessMs": 75.79999995231628,
+            "screen": null
+          },
+          {
+            "atMs": 208358.40000009537,
+            "gapMs": 143.20000004768372,
+            "excessMs": 93.20000004768372,
+            "screen": null
+          },
+          {
+            "atMs": 209633.5,
+            "gapMs": 160.5,
+            "excessMs": 110.5,
+            "screen": null
+          },
+          {
+            "atMs": 210274,
+            "gapMs": 107,
+            "excessMs": 57,
+            "screen": null
+          },
+          {
+            "atMs": 211140.79999995232,
+            "gapMs": 125.59999990463257,
+            "excessMs": 75.59999990463257,
+            "screen": null
+          },
+          {
+            "atMs": 216902.29999995232,
+            "gapMs": 131.20000004768372,
+            "excessMs": 81.20000004768372,
+            "screen": null
+          },
+          {
+            "atMs": 217226.09999990463,
+            "gapMs": 156.29999995231628,
+            "excessMs": 106.29999995231628,
+            "screen": null
+          },
+          {
+            "atMs": 217620,
+            "gapMs": 190.70000004768372,
+            "excessMs": 140.70000004768372,
+            "screen": null
+          },
+          {
+            "atMs": 218512.5,
+            "gapMs": 143.40000009536743,
+            "excessMs": 93.40000009536743,
+            "screen": null
+          },
+          {
+            "atMs": 218981.5,
+            "gapMs": 111.70000004768372,
+            "excessMs": 61.700000047683716,
+            "screen": null
+          },
+          {
+            "atMs": 219284.09999990463,
+            "gapMs": 160.09999990463257,
+            "excessMs": 110.09999990463257,
+            "screen": null
+          },
+          {
+            "atMs": 219694.79999995232,
+            "gapMs": 174.39999985694885,
+            "excessMs": 124.39999985694885,
+            "screen": null
+          },
+          {
+            "atMs": 221029.40000009537,
+            "gapMs": 114.40000009536743,
+            "excessMs": 64.40000009536743,
+            "screen": null
+          },
+          {
+            "atMs": 221540.20000004768,
+            "gapMs": 124.79999995231628,
+            "excessMs": 74.79999995231628,
+            "screen": null
+          },
+          {
+            "atMs": 221990.29999995232,
+            "gapMs": 215.59999990463257,
+            "excessMs": 165.59999990463257,
+            "screen": null
+          },
+          {
+            "atMs": 223001.29999995232,
+            "gapMs": 122.09999990463257,
+            "excessMs": 72.09999990463257,
+            "screen": null
+          },
+          {
+            "atMs": 223792.5,
+            "gapMs": 122.5,
+            "excessMs": 72.5,
+            "screen": null
+          },
+          {
+            "atMs": 224232.90000009537,
+            "gapMs": 204.90000009536743,
+            "excessMs": 154.90000009536743,
+            "screen": null
+          },
+          {
+            "atMs": 225405.90000009537,
+            "gapMs": 136.70000004768372,
+            "excessMs": 86.70000004768372,
+            "screen": null
+          },
+          {
+            "atMs": 225938.90000009537,
+            "gapMs": 173.90000009536743,
+            "excessMs": 123.90000009536743,
+            "screen": null
+          },
+          {
+            "atMs": 226395.70000004768,
+            "gapMs": 217.20000004768372,
+            "excessMs": 167.20000004768372,
+            "screen": null
+          },
+          {
+            "atMs": 227427.5,
+            "gapMs": 155.09999990463257,
+            "excessMs": 105.09999990463257,
+            "screen": null
+          },
+          {
+            "atMs": 228215.70000004768,
+            "gapMs": 138.60000014305115,
+            "excessMs": 88.60000014305115,
+            "screen": null
+          },
+          {
+            "atMs": 228334.5,
+            "gapMs": 118.79999995231628,
+            "excessMs": 68.79999995231628,
+            "screen": null
+          },
+          {
+            "atMs": 228650.59999990463,
+            "gapMs": 183.59999990463257,
+            "excessMs": 133.59999990463257,
+            "screen": null
+          },
+          {
+            "atMs": 229698.59999990463,
+            "gapMs": 132.69999980926514,
+            "excessMs": 82.69999980926514,
+            "screen": null
+          },
+          {
+            "atMs": 230239,
+            "gapMs": 171.29999995231628,
+            "excessMs": 121.29999995231628,
+            "screen": null
+          },
+          {
+            "atMs": 230684.20000004768,
+            "gapMs": 217.20000004768372,
+            "excessMs": 167.20000004768372,
+            "screen": null
+          },
+          {
+            "atMs": 231650.5,
+            "gapMs": 126,
+            "excessMs": 76,
+            "screen": null
+          },
+          {
+            "atMs": 232607.90000009537,
+            "gapMs": 181,
+            "excessMs": 131,
+            "screen": null
+          },
+          {
+            "atMs": 232954.79999995232,
+            "gapMs": 188.09999990463257,
+            "excessMs": 138.09999990463257,
+            "screen": null
+          },
+          {
+            "atMs": 233669,
+            "gapMs": 101.09999990463257,
+            "excessMs": 51.09999990463257,
+            "screen": null
+          },
+          {
+            "atMs": 233945.09999990463,
+            "gapMs": 125.89999985694885,
+            "excessMs": 75.89999985694885,
+            "screen": null
+          },
+          {
+            "atMs": 234505.20000004768,
+            "gapMs": 125.79999995231628,
+            "excessMs": 75.79999995231628,
+            "screen": null
+          },
+          {
+            "atMs": 235016.09999990463,
+            "gapMs": 247.29999995231628,
+            "excessMs": 197.29999995231628,
+            "screen": null
+          },
+          {
+            "atMs": 235773.20000004768,
+            "gapMs": 106,
+            "excessMs": 56,
+            "screen": null
+          },
+          {
+            "atMs": 236068.20000004768,
+            "gapMs": 143.5,
+            "excessMs": 93.5,
+            "screen": null
+          },
+          {
+            "atMs": 236589.09999990463,
+            "gapMs": 109,
+            "excessMs": 59,
+            "screen": null
+          },
+          {
+            "atMs": 236862.5,
+            "gapMs": 140.90000009536743,
+            "excessMs": 90.90000009536743,
+            "screen": null
+          },
+          {
+            "atMs": 243429.20000004768,
+            "gapMs": 152.60000014305115,
+            "excessMs": 102.60000014305115,
+            "screen": null
+          },
+          {
+            "atMs": 243841.29999995232,
+            "gapMs": 116.89999985694885,
+            "excessMs": 66.89999985694885,
+            "screen": null
+          },
+          {
+            "atMs": 244887.90000009537,
+            "gapMs": 110,
+            "excessMs": 60,
+            "screen": null
+          },
+          {
+            "atMs": 245692.5,
+            "gapMs": 122.20000004768372,
+            "excessMs": 72.20000004768372,
+            "screen": null
+          },
+          {
+            "atMs": 246087.40000009537,
+            "gapMs": 114.10000014305115,
+            "excessMs": 64.10000014305115,
+            "screen": null
+          },
+          {
+            "atMs": 247522.5,
+            "gapMs": 154.90000009536743,
+            "excessMs": 104.90000009536743,
+            "screen": null
+          },
+          {
+            "atMs": 248019.59999990463,
+            "gapMs": 140.69999980926514,
+            "excessMs": 90.69999980926514,
+            "screen": null
+          },
+          {
+            "atMs": 248440.40000009537,
+            "gapMs": 124,
+            "excessMs": 74,
+            "screen": null
+          },
+          {
+            "atMs": 249518.59999990463,
+            "gapMs": 150.29999995231628,
+            "excessMs": 100.29999995231628,
+            "screen": null
+          },
+          {
+            "atMs": 250360.20000004768,
+            "gapMs": 139.90000009536743,
+            "excessMs": 89.90000009536743,
+            "screen": null
+          },
+          {
+            "atMs": 250770.5,
+            "gapMs": 148.90000009536743,
+            "excessMs": 98.90000009536743,
+            "screen": null
+          },
+          {
+            "atMs": 251834.59999990463,
+            "gapMs": 109.09999990463257,
+            "excessMs": 59.09999990463257,
+            "screen": null
+          },
+          {
+            "atMs": 252561.40000009537,
+            "gapMs": 138.80000019073486,
+            "excessMs": 88.80000019073486,
+            "screen": null
+          },
+          {
+            "atMs": 253012.79999995232,
+            "gapMs": 189.79999995231628,
+            "excessMs": 139.79999995231628,
+            "screen": null
+          },
+          {
+            "atMs": 254142.59999990463,
+            "gapMs": 125.29999995231628,
+            "excessMs": 75.29999995231628,
+            "screen": null
+          },
+          {
+            "atMs": 254920.90000009537,
+            "gapMs": 146.80000019073486,
+            "excessMs": 96.80000019073486,
+            "screen": null
+          },
+          {
+            "atMs": 255319.29999995232,
+            "gapMs": 153.79999995231628,
+            "excessMs": 103.79999995231628,
+            "screen": null
+          },
+          {
+            "atMs": 256451,
+            "gapMs": 123,
+            "excessMs": 73,
+            "screen": null
+          },
+          {
+            "atMs": 257024.5,
+            "gapMs": 108.90000009536743,
+            "excessMs": 58.90000009536743,
+            "screen": null
+          },
+          {
+            "atMs": 257459,
+            "gapMs": 138.09999990463257,
+            "excessMs": 88.09999990463257,
+            "screen": null
+          },
+          {
+            "atMs": 258658.40000009537,
+            "gapMs": 184.60000014305115,
+            "excessMs": 134.60000014305115,
+            "screen": null
+          },
+          {
+            "atMs": 259509.5,
+            "gapMs": 140.40000009536743,
+            "excessMs": 90.40000009536743,
+            "screen": null
+          },
+          {
+            "atMs": 259969.20000004768,
+            "gapMs": 149.60000014305115,
+            "excessMs": 99.60000014305115,
+            "screen": null
+          },
+          {
+            "atMs": 261171.09999990463,
+            "gapMs": 152.29999995231628,
+            "excessMs": 102.29999995231628,
+            "screen": null
+          },
+          {
+            "atMs": 261826.5,
+            "gapMs": 153.40000009536743,
+            "excessMs": 103.40000009536743,
+            "screen": null
+          },
+          {
+            "atMs": 262266.59999990463,
+            "gapMs": 144.59999990463257,
+            "excessMs": 94.59999990463257,
+            "screen": null
+          },
+          {
+            "atMs": 263331,
+            "gapMs": 112.90000009536743,
+            "excessMs": 62.90000009536743,
+            "screen": null
+          },
+          {
+            "atMs": 264132,
+            "gapMs": 152.20000004768372,
+            "excessMs": 102.20000004768372,
+            "screen": null
+          },
+          {
+            "atMs": 264605.09999990463,
+            "gapMs": 125.39999985694885,
+            "excessMs": 75.39999985694885,
+            "screen": null
+          },
+          {
+            "atMs": 265891.09999990463,
+            "gapMs": 123.39999985694885,
+            "excessMs": 73.39999985694885,
+            "screen": null
+          },
+          {
+            "atMs": 266515,
+            "gapMs": 143.29999995231628,
+            "excessMs": 93.29999995231628,
+            "screen": null
+          },
+          {
+            "atMs": 267012.2999999523,
+            "gapMs": 138.5,
+            "excessMs": 88.5,
+            "screen": null
+          },
+          {
+            "atMs": 274410.09999990463,
+            "gapMs": 139.29999995231628,
+            "excessMs": 89.29999995231628,
+            "screen": null
+          },
+          {
+            "atMs": 274738.2999999523,
+            "gapMs": 123.39999985694885,
+            "excessMs": 73.39999985694885,
+            "screen": null
+          },
+          {
+            "atMs": 275811.09999990463,
+            "gapMs": 145.19999980926514,
+            "excessMs": 95.19999980926514,
+            "screen": null
+          },
+          {
+            "atMs": 276610.40000009537,
+            "gapMs": 142.60000014305115,
+            "excessMs": 92.60000014305115,
+            "screen": null
+          },
+          {
+            "atMs": 277153.59999990463,
+            "gapMs": 138.19999980926514,
+            "excessMs": 88.19999980926514,
+            "screen": null
+          },
+          {
+            "atMs": 278626.5,
+            "gapMs": 160.29999995231628,
+            "excessMs": 110.29999995231628,
+            "screen": null
+          },
+          {
+            "atMs": 279134.7000000477,
+            "gapMs": 117.40000009536743,
+            "excessMs": 67.40000009536743,
+            "screen": null
+          },
+          {
+            "atMs": 279541.7999999523,
+            "gapMs": 164.89999985694885,
+            "excessMs": 114.89999985694885,
+            "screen": null
+          },
+          {
+            "atMs": 280615.40000009537,
+            "gapMs": 145.40000009536743,
+            "excessMs": 95.40000009536743,
+            "screen": null
+          },
+          {
+            "atMs": 288562.2999999523,
+            "gapMs": 191.29999995231628,
+            "excessMs": 141.29999995231628,
+            "screen": null
+          },
+          {
+            "atMs": 288853.2000000477,
+            "gapMs": 138.40000009536743,
+            "excessMs": 88.40000009536743,
+            "screen": null
+          },
+          {
+            "atMs": 289253.7999999523,
+            "gapMs": 184.20000004768372,
+            "excessMs": 134.20000004768372,
+            "screen": null
+          },
+          {
+            "atMs": 289966,
+            "gapMs": 100.29999995231628,
+            "excessMs": 50.299999952316284,
+            "screen": null
+          },
+          {
+            "atMs": 290246.59999990463,
+            "gapMs": 124.59999990463257,
+            "excessMs": 74.59999990463257,
+            "screen": null
+          },
+          {
+            "atMs": 291016.5,
+            "gapMs": 199.20000004768372,
+            "excessMs": 149.20000004768372,
+            "screen": null
+          },
+          {
+            "atMs": 291301.2999999523,
+            "gapMs": 184.70000004768372,
+            "excessMs": 134.70000004768372,
+            "screen": null
+          },
+          {
+            "atMs": 292700.2000000477,
+            "gapMs": 124.10000014305115,
+            "excessMs": 74.10000014305115,
+            "screen": null
+          },
+          {
+            "atMs": 292833.59999990463,
+            "gapMs": 118,
+            "excessMs": 68,
+            "screen": null
+          },
+          {
+            "atMs": 293308,
+            "gapMs": 193.09999990463257,
+            "excessMs": 143.09999990463257,
+            "screen": null
+          },
+          {
+            "atMs": 293629.59999990463,
+            "gapMs": 160.19999980926514,
+            "excessMs": 110.19999980926514,
+            "screen": null
+          },
+          {
+            "atMs": 294323,
+            "gapMs": 106.79999995231628,
+            "excessMs": 56.799999952316284,
+            "screen": null
+          },
+          {
+            "atMs": 294622.5,
+            "gapMs": 157.79999995231628,
+            "excessMs": 107.79999995231628,
+            "screen": null
+          },
+          {
+            "atMs": 295369.40000009537,
+            "gapMs": 153.40000009536743,
+            "excessMs": 103.40000009536743,
+            "screen": null
+          },
+          {
+            "atMs": 295772.2000000477,
+            "gapMs": 157.10000014305115,
+            "excessMs": 107.10000014305115,
+            "screen": null
+          },
+          {
+            "atMs": 296732.5,
+            "gapMs": 113.5,
+            "excessMs": 63.5,
+            "screen": null
+          },
+          {
+            "atMs": 297240.90000009537,
+            "gapMs": 124.40000009536743,
+            "excessMs": 74.40000009536743,
+            "screen": null
+          },
+          {
+            "atMs": 297684.40000009537,
+            "gapMs": 212.40000009536743,
+            "excessMs": 162.40000009536743,
+            "screen": null
+          },
+          {
+            "atMs": 298527.2999999523,
+            "gapMs": 159,
+            "excessMs": 109,
+            "screen": null
+          },
+          {
+            "atMs": 299236.40000009537,
+            "gapMs": 116.80000019073486,
+            "excessMs": 66.80000019073486,
+            "screen": null
+          },
+          {
+            "atMs": 299665.59999990463,
+            "gapMs": 200,
+            "excessMs": 150,
+            "screen": null
+          },
+          {
+            "atMs": 300563.40000009537,
+            "gapMs": 140.40000009536743,
+            "excessMs": 90.40000009536743,
+            "screen": null
+          },
+          {
+            "atMs": 300665,
+            "gapMs": 101.59999990463257,
+            "excessMs": 51.59999990463257,
+            "screen": null
+          },
+          {
+            "atMs": 301213.2999999523,
+            "gapMs": 198.70000004768372,
+            "excessMs": 148.70000004768372,
+            "screen": null
+          },
+          {
+            "atMs": 301516.7000000477,
+            "gapMs": 194.10000014305115,
+            "excessMs": 144.10000014305115,
+            "screen": null
+          },
+          {
+            "atMs": 302122.2999999523,
+            "gapMs": 107.29999995231628,
+            "excessMs": 57.299999952316284,
+            "screen": null
+          },
+          {
+            "atMs": 302367.7000000477,
+            "gapMs": 151.70000004768372,
+            "excessMs": 101.70000004768372,
+            "screen": null
+          },
+          {
+            "atMs": 303147.59999990463,
+            "gapMs": 123.5,
+            "excessMs": 73.5,
+            "screen": null
+          },
+          {
+            "atMs": 303542.7999999523,
+            "gapMs": 164.5,
+            "excessMs": 114.5,
+            "screen": null
+          },
+          {
+            "atMs": 304528,
+            "gapMs": 163.20000004768372,
+            "excessMs": 113.20000004768372,
+            "screen": null
+          },
+          {
+            "atMs": 304997.2999999523,
+            "gapMs": 125.5,
+            "excessMs": 75.5,
+            "screen": null
+          },
+          {
+            "atMs": 305443,
+            "gapMs": 164.29999995231628,
+            "excessMs": 114.29999995231628,
+            "screen": null
+          },
+          {
+            "atMs": 306380.5,
+            "gapMs": 163.40000009536743,
+            "excessMs": 113.40000009536743,
+            "screen": null
+          },
+          {
+            "atMs": 307133.7999999523,
+            "gapMs": 168.79999995231628,
+            "excessMs": 118.79999995231628,
+            "screen": null
+          },
+          {
+            "atMs": 307478.5,
+            "gapMs": 155.29999995231628,
+            "excessMs": 105.29999995231628,
+            "screen": null
+          },
+          {
+            "atMs": 310472.5,
+            "gapMs": 106.70000004768372,
+            "excessMs": 56.700000047683716,
+            "screen": null
+          },
+          {
+            "atMs": 313745.90000009537,
+            "gapMs": 128.70000004768372,
+            "excessMs": 78.70000004768372,
+            "screen": null
+          },
+          {
+            "atMs": 314407.7000000477,
+            "gapMs": 128.29999995231628,
+            "excessMs": 78.29999995231628,
+            "screen": null
+          },
+          {
+            "atMs": 314920.7999999523,
+            "gapMs": 156.20000004768372,
+            "excessMs": 106.20000004768372,
+            "screen": null
+          },
+          {
+            "atMs": 316255,
+            "gapMs": 139.70000004768372,
+            "excessMs": 89.70000004768372,
+            "screen": null
+          },
+          {
+            "atMs": 317096.7000000477,
+            "gapMs": 125.40000009536743,
+            "excessMs": 75.40000009536743,
+            "screen": null
+          },
+          {
+            "atMs": 317517.7000000477,
+            "gapMs": 153,
+            "excessMs": 103,
+            "screen": null
+          },
+          {
+            "atMs": 318073.2999999523,
+            "gapMs": 105.70000004768372,
+            "excessMs": 55.700000047683716,
+            "screen": null
+          },
+          {
+            "atMs": 319430.5,
+            "gapMs": 157,
+            "excessMs": 107,
+            "screen": null
+          },
+          {
+            "atMs": 320005.09999990463,
+            "gapMs": 140.29999995231628,
+            "excessMs": 90.29999995231628,
+            "screen": null
+          },
+          {
+            "atMs": 320447.5,
+            "gapMs": 132.20000004768372,
+            "excessMs": 82.20000004768372,
+            "screen": null
+          },
+          {
+            "atMs": 321999.2000000477,
+            "gapMs": 124.20000004768372,
+            "excessMs": 74.20000004768372,
+            "screen": null
+          },
+          {
+            "atMs": 322857.09999990463,
+            "gapMs": 128.39999985694885,
+            "excessMs": 78.39999985694885,
+            "screen": null
+          },
+          {
+            "atMs": 323244.5,
+            "gapMs": 125.5,
+            "excessMs": 75.5,
+            "screen": null
+          },
+          {
+            "atMs": 324754.90000009537,
+            "gapMs": 140,
+            "excessMs": 90,
+            "screen": null
+          },
+          {
+            "atMs": 325375.90000009537,
+            "gapMs": 154.20000004768372,
+            "excessMs": 104.20000004768372,
+            "screen": null
+          },
+          {
+            "atMs": 325872.40000009537,
+            "gapMs": 156.40000009536743,
+            "excessMs": 106.40000009536743,
+            "screen": null
+          },
+          {
+            "atMs": 327281.7999999523,
+            "gapMs": 108,
+            "excessMs": 58,
+            "screen": null
+          },
+          {
+            "atMs": 328153,
+            "gapMs": 184.20000004768372,
+            "excessMs": 134.20000004768372,
+            "screen": null
+          },
+          {
+            "atMs": 328269.90000009537,
+            "gapMs": 100.60000014305115,
+            "excessMs": 50.60000014305115,
+            "screen": null
+          },
+          {
+            "atMs": 328637.5,
+            "gapMs": 171.79999995231628,
+            "excessMs": 121.79999995231628,
+            "screen": null
+          },
+          {
+            "atMs": 330052.40000009537,
+            "gapMs": 124.70000004768372,
+            "excessMs": 74.70000004768372,
+            "screen": null
+          },
+          {
+            "atMs": 330721.7000000477,
+            "gapMs": 152.29999995231628,
+            "excessMs": 102.29999995231628,
+            "screen": null
+          },
+          {
+            "atMs": 331156.7000000477,
+            "gapMs": 138.79999995231628,
+            "excessMs": 88.79999995231628,
+            "screen": null
+          },
+          {
+            "atMs": 332606.59999990463,
+            "gapMs": 140.69999980926514,
+            "excessMs": 90.69999980926514,
+            "screen": null
+          },
+          {
+            "atMs": 335732.90000009537,
+            "gapMs": 117.20000004768372,
+            "excessMs": 67.20000004768372,
+            "screen": null
+          },
+          {
+            "atMs": 339136.5,
+            "gapMs": 260.7999999523163,
+            "excessMs": 210.79999995231628,
+            "screen": null
+          },
+          {
+            "atMs": 339410.5,
+            "gapMs": 140.5,
+            "excessMs": 90.5,
+            "screen": null
+          },
+          {
+            "atMs": 339807.2999999523,
+            "gapMs": 179.5,
+            "excessMs": 129.5,
+            "screen": null
+          },
+          {
+            "atMs": 340780.7999999523,
+            "gapMs": 165,
+            "excessMs": 115,
+            "screen": null
+          },
+          {
+            "atMs": 341548.40000009537,
+            "gapMs": 132.40000009536743,
+            "excessMs": 82.40000009536743,
+            "screen": null
+          },
+          {
+            "atMs": 341925.7999999523,
+            "gapMs": 157,
+            "excessMs": 107,
+            "screen": null
+          },
+          {
+            "atMs": 342818.09999990463,
+            "gapMs": 153.29999995231628,
+            "excessMs": 103.29999995231628,
+            "screen": null
+          },
+          {
+            "atMs": 343786.59999990463,
+            "gapMs": 171.89999985694885,
+            "excessMs": 121.89999985694885,
+            "screen": null
+          },
+          {
+            "atMs": 344104.59999990463,
+            "gapMs": 186.29999995231628,
+            "excessMs": 136.29999995231628,
+            "screen": null
+          },
+          {
+            "atMs": 345061.5,
+            "gapMs": 139.70000004768372,
+            "excessMs": 89.70000004768372,
+            "screen": null
+          },
+          {
+            "atMs": 345858.40000009537,
+            "gapMs": 190.60000014305115,
+            "excessMs": 140.60000014305115,
+            "screen": null
+          },
+          {
+            "atMs": 346176.7999999523,
+            "gapMs": 199.39999985694885,
+            "excessMs": 149.39999985694885,
+            "screen": null
+          },
+          {
+            "atMs": 347177,
+            "gapMs": 157,
+            "excessMs": 107,
+            "screen": null
+          },
+          {
+            "atMs": 347706.7999999523,
+            "gapMs": 138.59999990463257,
+            "excessMs": 88.59999990463257,
+            "screen": null
+          },
+          {
+            "atMs": 348080.5,
+            "gapMs": 156.59999990463257,
+            "excessMs": 106.59999990463257,
+            "screen": null
+          },
+          {
+            "atMs": 349148.2000000477,
+            "gapMs": 124.5,
+            "excessMs": 74.5,
+            "screen": null
+          },
+          {
+            "atMs": 349632,
+            "gapMs": 105.70000004768372,
+            "excessMs": 55.700000047683716,
+            "screen": null
+          },
+          {
+            "atMs": 349899.7999999523,
+            "gapMs": 127.59999990463257,
+            "excessMs": 77.59999990463257,
+            "screen": null
+          },
+          {
+            "atMs": 350284.7999999523,
+            "gapMs": 155.89999985694885,
+            "excessMs": 105.89999985694885,
+            "screen": null
+          },
+          {
+            "atMs": 351246.2000000477,
+            "gapMs": 122.29999995231628,
+            "excessMs": 72.29999995231628,
+            "screen": null
+          },
+          {
+            "atMs": 351728.2000000477,
+            "gapMs": 163.29999995231628,
+            "excessMs": 113.29999995231628,
+            "screen": null
+          },
+          {
+            "atMs": 352088,
+            "gapMs": 158.59999990463257,
+            "excessMs": 108.59999990463257,
+            "screen": null
+          },
+          {
+            "atMs": 352694.2000000477,
+            "gapMs": 126.79999995231628,
+            "excessMs": 76.79999995231628,
+            "screen": null
+          },
+          {
+            "atMs": 352961.7000000477,
+            "gapMs": 142.5,
+            "excessMs": 92.5,
+            "screen": null
+          },
+          {
+            "atMs": 353482.09999990463,
+            "gapMs": 108.19999980926514,
+            "excessMs": 58.19999980926514,
+            "screen": null
+          },
+          {
+            "atMs": 353775.59999990463,
+            "gapMs": 149,
+            "excessMs": 99,
+            "screen": null
+          },
+          {
+            "atMs": 354173.09999990463,
+            "gapMs": 156.59999990463257,
+            "excessMs": 106.59999990463257,
+            "screen": null
+          },
+          {
+            "atMs": 354876.2000000477,
+            "gapMs": 110.70000004768372,
+            "excessMs": 60.700000047683716,
+            "screen": null
+          },
+          {
+            "atMs": 355178,
+            "gapMs": 150.59999990463257,
+            "excessMs": 100.59999990463257,
+            "screen": null
+          },
+          {
+            "atMs": 355721.5,
+            "gapMs": 151.20000004768372,
+            "excessMs": 101.20000004768372,
+            "screen": null
+          },
+          {
+            "atMs": 356151.59999990463,
+            "gapMs": 183.29999995231628,
+            "excessMs": 133.29999995231628,
+            "screen": null
+          },
+          {
+            "atMs": 357098.90000009537,
+            "gapMs": 124.70000004768372,
+            "excessMs": 74.70000004768372,
+            "screen": null
+          },
+          {
+            "atMs": 357908.09999990463,
+            "gapMs": 140.5,
+            "excessMs": 90.5,
+            "screen": null
+          },
+          {
+            "atMs": 358360.09999990463,
+            "gapMs": 138,
+            "excessMs": 88,
+            "screen": null
+          },
+          {
+            "atMs": 389364.7999999523,
+            "gapMs": 149.89999985694885,
+            "excessMs": 99.89999985694885,
+            "screen": null
+          }
+        ],
+        "longTasks": [
+          {
+            "startMs": 28491.599999904633,
+            "durationMs": 93,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 28903,
+            "durationMs": 15597,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 44500.200000047684,
+            "durationMs": 1071,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 45587.09999990463,
+            "durationMs": 64,
+            "name": "self",
+            "screen": null,
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 45668.09999990463,
+            "durationMs": 12290,
+            "name": "self",
+            "screen": null,
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 67589.79999995232,
+            "durationMs": 280,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 67932.29999995232,
+            "durationMs": 16743,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 84683.29999995232,
+            "durationMs": 9807,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 94491.5,
+            "durationMs": 5575,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 100605.29999995232,
+            "durationMs": 2061,
+            "name": "self",
+            "screen": null,
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 110439.90000009537,
+            "durationMs": 13459,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 123899.20000004768,
+            "durationMs": 4845,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 129270,
+            "durationMs": 413,
+            "name": "self",
+            "screen": null,
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 163046.09999990463,
+            "durationMs": 54,
+            "name": "self",
+            "screen": null,
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 239444.59999990463,
+            "durationMs": 57,
+            "name": "self",
+            "screen": null,
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 288462.09999990463,
+            "durationMs": 61,
+            "name": "self",
+            "screen": null,
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 338971.59999990463,
+            "durationMs": 82,
+            "name": "self",
+            "screen": null,
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 389300.7000000477,
+            "durationMs": 57,
+            "name": "self",
+            "screen": null,
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          }
+        ],
+        "longTaskObserverSupported": true
+      }
+    }
+  ]
+}

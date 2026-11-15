@@ -1,0 +1,4220 @@
+{
+  "consoleErrors": [],
+  "pageErrors": [],
+  "fps": [
+    {
+      "label": "end",
+      "avgFps": 29.952388385888234,
+      "onePercentLowFps": 3.5298270384750783,
+      "frames": 614
+    }
+  ],
+  "actions": [
+    "CPU throttling x4",
+    "voted in C1/C0/C2",
+    "voted in site_equatorial_spaceport/site_subtropical_coast/site_west_coast_polar_range",
+    "voted in inst_wide_field_optical_camera/inst_multispectral_imager/inst_thermal_infrared_camera",
+    "voted in eng_hydrolox_vacuum/eng_kerolox_vacuum/eng_methalox_vacuum",
+    "voted in eng_kerolox_workhorse/eng_methalox_full_flow/eng_hydrolox_high_efficiency",
+    "voted in tank_s/tank_m/tank_l"
+  ],
+  "screenshots": [],
+  "performanceSnapshots": [
+    {
+      "label": "after-vote:m1.contract",
+      "document": 1,
+      "capturedAt": "2026-11-15T07:33:39.492Z",
+      "capturedAtMs": 2165.9000000953674,
+      "timeOriginMs": 1794728017320.1,
+      "visibility": "visible",
+      "perf": {
+        "timeOriginMs": 1794728017320.1,
+        "intervalMs": 50,
+        "timerGaps": [
+          {
+            "atMs": 597.7000000476837,
+            "gapMs": 173,
+            "excessMs": 123,
+            "screen": null
+          },
+          {
+            "atMs": 1696.9000000953674,
+            "gapMs": 117.60000014305115,
+            "excessMs": 67.60000014305115,
+            "screen": "vote"
+          },
+          {
+            "atMs": 1865.0999999046326,
+            "gapMs": 168.19999980926514,
+            "excessMs": 118.19999980926514,
+            "screen": "vote"
+          },
+          {
+            "atMs": 1981.0999999046326,
+            "gapMs": 107.09999990463257,
+            "excessMs": 57.09999990463257,
+            "screen": "vote"
+          },
+          {
+            "atMs": 2162.5,
+            "gapMs": 134.29999995231628,
+            "excessMs": 84.29999995231628,
+            "screen": "vote"
+          }
+        ],
+        "longTasks": [
+          {
+            "startMs": 121.59999990463257,
+            "durationMs": 82,
+            "name": "self",
+            "screen": null,
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 539.9000000953674,
+            "durationMs": 56,
+            "name": "self",
+            "screen": null,
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 1105.4000000953674,
+            "durationMs": 87,
+            "name": "self",
+            "screen": null,
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 1703.0999999046326,
+            "durationMs": 115,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          }
+        ],
+        "longTaskObserverSupported": true
+      }
+    },
+    {
+      "label": "after-vote:m1.part.1",
+      "document": 1,
+      "capturedAt": "2026-11-15T07:33:46.467Z",
+      "capturedAtMs": 9135.299999952316,
+      "timeOriginMs": 1794728017320.1,
+      "visibility": "visible",
+      "perf": {
+        "timeOriginMs": 1794728017320.1,
+        "intervalMs": 50,
+        "timerGaps": [
+          {
+            "atMs": 597.7000000476837,
+            "gapMs": 173,
+            "excessMs": 123,
+            "screen": null
+          },
+          {
+            "atMs": 1696.9000000953674,
+            "gapMs": 117.60000014305115,
+            "excessMs": 67.60000014305115,
+            "screen": "vote"
+          },
+          {
+            "atMs": 1865.0999999046326,
+            "gapMs": 168.19999980926514,
+            "excessMs": 118.19999980926514,
+            "screen": "vote"
+          },
+          {
+            "atMs": 1981.0999999046326,
+            "gapMs": 107.09999990463257,
+            "excessMs": 57.09999990463257,
+            "screen": "vote"
+          },
+          {
+            "atMs": 2162.5,
+            "gapMs": 134.29999995231628,
+            "excessMs": 84.29999995231628,
+            "screen": "vote"
+          },
+          {
+            "atMs": 5883.400000095367,
+            "gapMs": 690.1000001430511,
+            "excessMs": 640.1000001430511,
+            "screen": null
+          },
+          {
+            "atMs": 6723.299999952316,
+            "gapMs": 748.5999999046326,
+            "excessMs": 698.5999999046326,
+            "screen": "vote"
+          },
+          {
+            "atMs": 6891.900000095367,
+            "gapMs": 168.60000014305115,
+            "excessMs": 118.60000014305115,
+            "screen": "vote"
+          },
+          {
+            "atMs": 8875.400000095367,
+            "gapMs": 1936.7000000476837,
+            "excessMs": 1886.7000000476837,
+            "screen": "vote"
+          }
+        ],
+        "longTasks": [
+          {
+            "startMs": 121.59999990463257,
+            "durationMs": 82,
+            "name": "self",
+            "screen": null,
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 539.9000000953674,
+            "durationMs": 56,
+            "name": "self",
+            "screen": null,
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 1105.4000000953674,
+            "durationMs": 87,
+            "name": "self",
+            "screen": null,
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 1703.0999999046326,
+            "durationMs": 115,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 5984.799999952316,
+            "durationMs": 326,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 6358.5,
+            "durationMs": 84,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 6471.900000095367,
+            "durationMs": 134,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 6606.799999952316,
+            "durationMs": 108,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 6787,
+            "durationMs": 74,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 6946.099999904633,
+            "durationMs": 573,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 7519.799999952316,
+            "durationMs": 1337,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          }
+        ],
+        "longTaskObserverSupported": true
+      }
+    },
+    {
+      "label": "after-vote:m1.part.2",
+      "document": 1,
+      "capturedAt": "2026-11-15T07:33:50.670Z",
+      "capturedAtMs": 13333.099999904633,
+      "timeOriginMs": 1794728017320.1,
+      "visibility": "visible",
+      "perf": {
+        "timeOriginMs": 1794728017320.1,
+        "intervalMs": 50,
+        "timerGaps": [
+          {
+            "atMs": 597.7000000476837,
+            "gapMs": 173,
+            "excessMs": 123,
+            "screen": null
+          },
+          {
+            "atMs": 1696.9000000953674,
+            "gapMs": 117.60000014305115,
+            "excessMs": 67.60000014305115,
+            "screen": "vote"
+          },
+          {
+            "atMs": 1865.0999999046326,
+            "gapMs": 168.19999980926514,
+            "excessMs": 118.19999980926514,
+            "screen": "vote"
+          },
+          {
+            "atMs": 1981.0999999046326,
+            "gapMs": 107.09999990463257,
+            "excessMs": 57.09999990463257,
+            "screen": "vote"
+          },
+          {
+            "atMs": 2162.5,
+            "gapMs": 134.29999995231628,
+            "excessMs": 84.29999995231628,
+            "screen": "vote"
+          },
+          {
+            "atMs": 5883.400000095367,
+            "gapMs": 690.1000001430511,
+            "excessMs": 640.1000001430511,
+            "screen": null
+          },
+          {
+            "atMs": 6723.299999952316,
+            "gapMs": 748.5999999046326,
+            "excessMs": 698.5999999046326,
+            "screen": "vote"
+          },
+          {
+            "atMs": 6891.900000095367,
+            "gapMs": 168.60000014305115,
+            "excessMs": 118.60000014305115,
+            "screen": "vote"
+          },
+          {
+            "atMs": 8875.400000095367,
+            "gapMs": 1936.7000000476837,
+            "excessMs": 1886.7000000476837,
+            "screen": "vote"
+          },
+          {
+            "atMs": 9170.799999952316,
+            "gapMs": 146.20000004768372,
+            "excessMs": 96.20000004768372,
+            "screen": "vote"
+          },
+          {
+            "atMs": 9389.099999904633,
+            "gapMs": 218.29999995231628,
+            "excessMs": 168.29999995231628,
+            "screen": "vote"
+          },
+          {
+            "atMs": 10896.799999952316,
+            "gapMs": 1507.7000000476837,
+            "excessMs": 1457.7000000476837,
+            "screen": "vote"
+          },
+          {
+            "atMs": 11116.200000047684,
+            "gapMs": 219.40000009536743,
+            "excessMs": 169.40000009536743,
+            "screen": "vote"
+          },
+          {
+            "atMs": 12346.200000047684,
+            "gapMs": 172.40000009536743,
+            "excessMs": 122.40000009536743,
+            "screen": "vote"
+          },
+          {
+            "atMs": 12932.700000047684,
+            "gapMs": 586.5,
+            "excessMs": 536.5,
+            "screen": "vote"
+          },
+          {
+            "atMs": 13063.700000047684,
+            "gapMs": 131,
+            "excessMs": 81,
+            "screen": "vote"
+          }
+        ],
+        "longTasks": [
+          {
+            "startMs": 121.59999990463257,
+            "durationMs": 82,
+            "name": "self",
+            "screen": null,
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 539.9000000953674,
+            "durationMs": 56,
+            "name": "self",
+            "screen": null,
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 1105.4000000953674,
+            "durationMs": 87,
+            "name": "self",
+            "screen": null,
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 1703.0999999046326,
+            "durationMs": 115,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 5984.799999952316,
+            "durationMs": 326,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 6358.5,
+            "durationMs": 84,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 6471.900000095367,
+            "durationMs": 134,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 6606.799999952316,
+            "durationMs": 108,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 6787,
+            "durationMs": 74,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 6946.099999904633,
+            "durationMs": 573,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 7519.799999952316,
+            "durationMs": 1337,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 9239.5,
+            "durationMs": 68,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 9337.099999904633,
+            "durationMs": 51,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 9409.299999952316,
+            "durationMs": 268,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 9678.5,
+            "durationMs": 1214,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 10897.099999904633,
+            "durationMs": 211,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 12349.099999904633,
+            "durationMs": 195,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 12560.400000095367,
+            "durationMs": 76,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 12663.099999904633,
+            "durationMs": 163,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 12827,
+            "durationMs": 85,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 12996.200000047684,
+            "durationMs": 66,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          }
+        ],
+        "longTaskObserverSupported": true
+      }
+    },
+    {
+      "label": "after-vote:m1.part.3",
+      "document": 1,
+      "capturedAt": "2026-11-15T07:33:58.833Z",
+      "capturedAtMs": 21491.099999904633,
+      "timeOriginMs": 1794728017320.1,
+      "visibility": "visible",
+      "perf": {
+        "timeOriginMs": 1794728017320.1,
+        "intervalMs": 50,
+        "timerGaps": [
+          {
+            "atMs": 597.7000000476837,
+            "gapMs": 173,
+            "excessMs": 123,
+            "screen": null
+          },
+          {
+            "atMs": 1696.9000000953674,
+            "gapMs": 117.60000014305115,
+            "excessMs": 67.60000014305115,
+            "screen": "vote"
+          },
+          {
+            "atMs": 1865.0999999046326,
+            "gapMs": 168.19999980926514,
+            "excessMs": 118.19999980926514,
+            "screen": "vote"
+          },
+          {
+            "atMs": 1981.0999999046326,
+            "gapMs": 107.09999990463257,
+            "excessMs": 57.09999990463257,
+            "screen": "vote"
+          },
+          {
+            "atMs": 2162.5,
+            "gapMs": 134.29999995231628,
+            "excessMs": 84.29999995231628,
+            "screen": "vote"
+          },
+          {
+            "atMs": 5883.400000095367,
+            "gapMs": 690.1000001430511,
+            "excessMs": 640.1000001430511,
+            "screen": null
+          },
+          {
+            "atMs": 6723.299999952316,
+            "gapMs": 748.5999999046326,
+            "excessMs": 698.5999999046326,
+            "screen": "vote"
+          },
+          {
+            "atMs": 6891.900000095367,
+            "gapMs": 168.60000014305115,
+            "excessMs": 118.60000014305115,
+            "screen": "vote"
+          },
+          {
+            "atMs": 8875.400000095367,
+            "gapMs": 1936.7000000476837,
+            "excessMs": 1886.7000000476837,
+            "screen": "vote"
+          },
+          {
+            "atMs": 9170.799999952316,
+            "gapMs": 146.20000004768372,
+            "excessMs": 96.20000004768372,
+            "screen": "vote"
+          },
+          {
+            "atMs": 9389.099999904633,
+            "gapMs": 218.29999995231628,
+            "excessMs": 168.29999995231628,
+            "screen": "vote"
+          },
+          {
+            "atMs": 10896.799999952316,
+            "gapMs": 1507.7000000476837,
+            "excessMs": 1457.7000000476837,
+            "screen": "vote"
+          },
+          {
+            "atMs": 11116.200000047684,
+            "gapMs": 219.40000009536743,
+            "excessMs": 169.40000009536743,
+            "screen": "vote"
+          },
+          {
+            "atMs": 12346.200000047684,
+            "gapMs": 172.40000009536743,
+            "excessMs": 122.40000009536743,
+            "screen": "vote"
+          },
+          {
+            "atMs": 12932.700000047684,
+            "gapMs": 586.5,
+            "excessMs": 536.5,
+            "screen": "vote"
+          },
+          {
+            "atMs": 13063.700000047684,
+            "gapMs": 131,
+            "excessMs": 81,
+            "screen": "vote"
+          },
+          {
+            "atMs": 13368.5,
+            "gapMs": 143.09999990463257,
+            "excessMs": 93.09999990463257,
+            "screen": "vote"
+          },
+          {
+            "atMs": 15623.799999952316,
+            "gapMs": 150.20000004768372,
+            "excessMs": 100.20000004768372,
+            "screen": "vote"
+          },
+          {
+            "atMs": 19270,
+            "gapMs": 664.5,
+            "excessMs": 614.5,
+            "screen": "vote"
+          },
+          {
+            "atMs": 19433,
+            "gapMs": 163,
+            "excessMs": 113,
+            "screen": "vote"
+          },
+          {
+            "atMs": 21274.200000047684,
+            "gapMs": 1729.1000001430511,
+            "excessMs": 1679.1000001430511,
+            "screen": "vote"
+          }
+        ],
+        "longTasks": [
+          {
+            "startMs": 121.59999990463257,
+            "durationMs": 82,
+            "name": "self",
+            "screen": null,
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 539.9000000953674,
+            "durationMs": 56,
+            "name": "self",
+            "screen": null,
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 1105.4000000953674,
+            "durationMs": 87,
+            "name": "self",
+            "screen": null,
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 1703.0999999046326,
+            "durationMs": 115,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 5984.799999952316,
+            "durationMs": 326,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 6358.5,
+            "durationMs": 84,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 6471.900000095367,
+            "durationMs": 134,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 6606.799999952316,
+            "durationMs": 108,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 6787,
+            "durationMs": 74,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 6946.099999904633,
+            "durationMs": 573,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 7519.799999952316,
+            "durationMs": 1337,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 9239.5,
+            "durationMs": 68,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 9337.099999904633,
+            "durationMs": 51,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 9409.299999952316,
+            "durationMs": 268,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 9678.5,
+            "durationMs": 1214,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 10897.099999904633,
+            "durationMs": 211,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 12349.099999904633,
+            "durationMs": 195,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 12560.400000095367,
+            "durationMs": 76,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 12663.099999904633,
+            "durationMs": 163,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 12827,
+            "durationMs": 85,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 12996.200000047684,
+            "durationMs": 66,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 13248.799999952316,
+            "durationMs": 58,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 18605.900000095367,
+            "durationMs": 203,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 18809.599999904633,
+            "durationMs": 159,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 18992.299999952316,
+            "durationMs": 140,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 19132.900000095367,
+            "durationMs": 120,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 19346.099999904633,
+            "durationMs": 86,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 19587.599999904633,
+            "durationMs": 239,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 19827,
+            "durationMs": 1446,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          }
+        ],
+        "longTaskObserverSupported": true
+      }
+    },
+    {
+      "label": "after-vote:m1.part.4",
+      "document": 1,
+      "capturedAt": "2026-11-15T07:34:05.503Z",
+      "capturedAtMs": 28156.299999952316,
+      "timeOriginMs": 1794728017320.1,
+      "visibility": "visible",
+      "perf": {
+        "timeOriginMs": 1794728017320.1,
+        "intervalMs": 50,
+        "timerGaps": [
+          {
+            "atMs": 597.7000000476837,
+            "gapMs": 173,
+            "excessMs": 123,
+            "screen": null
+          },
+          {
+            "atMs": 1696.9000000953674,
+            "gapMs": 117.60000014305115,
+            "excessMs": 67.60000014305115,
+            "screen": "vote"
+          },
+          {
+            "atMs": 1865.0999999046326,
+            "gapMs": 168.19999980926514,
+            "excessMs": 118.19999980926514,
+            "screen": "vote"
+          },
+          {
+            "atMs": 1981.0999999046326,
+            "gapMs": 107.09999990463257,
+            "excessMs": 57.09999990463257,
+            "screen": "vote"
+          },
+          {
+            "atMs": 2162.5,
+            "gapMs": 134.29999995231628,
+            "excessMs": 84.29999995231628,
+            "screen": "vote"
+          },
+          {
+            "atMs": 5883.400000095367,
+            "gapMs": 690.1000001430511,
+            "excessMs": 640.1000001430511,
+            "screen": null
+          },
+          {
+            "atMs": 6723.299999952316,
+            "gapMs": 748.5999999046326,
+            "excessMs": 698.5999999046326,
+            "screen": "vote"
+          },
+          {
+            "atMs": 6891.900000095367,
+            "gapMs": 168.60000014305115,
+            "excessMs": 118.60000014305115,
+            "screen": "vote"
+          },
+          {
+            "atMs": 8875.400000095367,
+            "gapMs": 1936.7000000476837,
+            "excessMs": 1886.7000000476837,
+            "screen": "vote"
+          },
+          {
+            "atMs": 9170.799999952316,
+            "gapMs": 146.20000004768372,
+            "excessMs": 96.20000004768372,
+            "screen": "vote"
+          },
+          {
+            "atMs": 9389.099999904633,
+            "gapMs": 218.29999995231628,
+            "excessMs": 168.29999995231628,
+            "screen": "vote"
+          },
+          {
+            "atMs": 10896.799999952316,
+            "gapMs": 1507.7000000476837,
+            "excessMs": 1457.7000000476837,
+            "screen": "vote"
+          },
+          {
+            "atMs": 11116.200000047684,
+            "gapMs": 219.40000009536743,
+            "excessMs": 169.40000009536743,
+            "screen": "vote"
+          },
+          {
+            "atMs": 12346.200000047684,
+            "gapMs": 172.40000009536743,
+            "excessMs": 122.40000009536743,
+            "screen": "vote"
+          },
+          {
+            "atMs": 12932.700000047684,
+            "gapMs": 586.5,
+            "excessMs": 536.5,
+            "screen": "vote"
+          },
+          {
+            "atMs": 13063.700000047684,
+            "gapMs": 131,
+            "excessMs": 81,
+            "screen": "vote"
+          },
+          {
+            "atMs": 13368.5,
+            "gapMs": 143.09999990463257,
+            "excessMs": 93.09999990463257,
+            "screen": "vote"
+          },
+          {
+            "atMs": 15623.799999952316,
+            "gapMs": 150.20000004768372,
+            "excessMs": 100.20000004768372,
+            "screen": "vote"
+          },
+          {
+            "atMs": 19270,
+            "gapMs": 664.5,
+            "excessMs": 614.5,
+            "screen": "vote"
+          },
+          {
+            "atMs": 19433,
+            "gapMs": 163,
+            "excessMs": 113,
+            "screen": "vote"
+          },
+          {
+            "atMs": 21274.200000047684,
+            "gapMs": 1729.1000001430511,
+            "excessMs": 1679.1000001430511,
+            "screen": "vote"
+          },
+          {
+            "atMs": 21536.099999904633,
+            "gapMs": 159,
+            "excessMs": 109,
+            "screen": "vote"
+          },
+          {
+            "atMs": 21998,
+            "gapMs": 224.09999990463257,
+            "excessMs": 174.09999990463257,
+            "screen": "vote"
+          },
+          {
+            "atMs": 23798,
+            "gapMs": 1723,
+            "excessMs": 1673,
+            "screen": "vote"
+          },
+          {
+            "atMs": 24903.599999904633,
+            "gapMs": 129.59999990463257,
+            "excessMs": 79.59999990463257,
+            "screen": "vote"
+          },
+          {
+            "atMs": 25206,
+            "gapMs": 302.40000009536743,
+            "excessMs": 252.40000009536743,
+            "screen": "vote"
+          },
+          {
+            "atMs": 25504.099999904633,
+            "gapMs": 298.09999990463257,
+            "excessMs": 248.09999990463257,
+            "screen": "vote"
+          },
+          {
+            "atMs": 25638.299999952316,
+            "gapMs": 134.20000004768372,
+            "excessMs": 84.20000004768372,
+            "screen": "vote"
+          },
+          {
+            "atMs": 27392.599999904633,
+            "gapMs": 1664.5,
+            "excessMs": 1614.5,
+            "screen": "vote"
+          },
+          {
+            "atMs": 27742.099999904633,
+            "gapMs": 114.89999985694885,
+            "excessMs": 64.89999985694885,
+            "screen": "vote"
+          },
+          {
+            "atMs": 28012.700000047684,
+            "gapMs": 270.60000014305115,
+            "excessMs": 220.60000014305115,
+            "screen": "vote"
+          }
+        ],
+        "longTasks": [
+          {
+            "startMs": 121.59999990463257,
+            "durationMs": 82,
+            "name": "self",
+            "screen": null,
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 539.9000000953674,
+            "durationMs": 56,
+            "name": "self",
+            "screen": null,
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 1105.4000000953674,
+            "durationMs": 87,
+            "name": "self",
+            "screen": null,
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 1703.0999999046326,
+            "durationMs": 115,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 5984.799999952316,
+            "durationMs": 326,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 6358.5,
+            "durationMs": 84,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 6471.900000095367,
+            "durationMs": 134,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 6606.799999952316,
+            "durationMs": 108,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 6787,
+            "durationMs": 74,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 6946.099999904633,
+            "durationMs": 573,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 7519.799999952316,
+            "durationMs": 1337,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 9239.5,
+            "durationMs": 68,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 9337.099999904633,
+            "durationMs": 51,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 9409.299999952316,
+            "durationMs": 268,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 9678.5,
+            "durationMs": 1214,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 10897.099999904633,
+            "durationMs": 211,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 12349.099999904633,
+            "durationMs": 195,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 12560.400000095367,
+            "durationMs": 76,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 12663.099999904633,
+            "durationMs": 163,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 12827,
+            "durationMs": 85,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 12996.200000047684,
+            "durationMs": 66,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 13248.799999952316,
+            "durationMs": 58,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 18605.900000095367,
+            "durationMs": 203,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 18809.599999904633,
+            "durationMs": 159,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 18992.299999952316,
+            "durationMs": 140,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 19132.900000095367,
+            "durationMs": 120,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 19346.099999904633,
+            "durationMs": 86,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 19587.599999904633,
+            "durationMs": 239,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 19827,
+            "durationMs": 1446,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 21840.799999952316,
+            "durationMs": 70,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 21941.299999952316,
+            "durationMs": 56,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 22092,
+            "durationMs": 284,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 22376.5,
+            "durationMs": 1415,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 24934.5,
+            "durationMs": 148,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 25118.299999952316,
+            "durationMs": 87,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 25224.5,
+            "durationMs": 133,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 25357.799999952316,
+            "durationMs": 123,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 25536.400000095367,
+            "durationMs": 89,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 25742.400000095367,
+            "durationMs": 221,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 25964.099999904633,
+            "durationMs": 1396,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 27766.099999904633,
+            "durationMs": 66,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 27871.299999952316,
+            "durationMs": 83,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          }
+        ],
+        "longTaskObserverSupported": true
+      }
+    },
+    {
+      "label": "after-vote:m1.part.5",
+      "document": 1,
+      "capturedAt": "2026-11-15T07:34:09.556Z",
+      "capturedAtMs": 32206.799999952316,
+      "timeOriginMs": 1794728017320.1,
+      "visibility": "visible",
+      "perf": {
+        "timeOriginMs": 1794728017320.1,
+        "intervalMs": 50,
+        "timerGaps": [
+          {
+            "atMs": 597.7000000476837,
+            "gapMs": 173,
+            "excessMs": 123,
+            "screen": null
+          },
+          {
+            "atMs": 1696.9000000953674,
+            "gapMs": 117.60000014305115,
+            "excessMs": 67.60000014305115,
+            "screen": "vote"
+          },
+          {
+            "atMs": 1865.0999999046326,
+            "gapMs": 168.19999980926514,
+            "excessMs": 118.19999980926514,
+            "screen": "vote"
+          },
+          {
+            "atMs": 1981.0999999046326,
+            "gapMs": 107.09999990463257,
+            "excessMs": 57.09999990463257,
+            "screen": "vote"
+          },
+          {
+            "atMs": 2162.5,
+            "gapMs": 134.29999995231628,
+            "excessMs": 84.29999995231628,
+            "screen": "vote"
+          },
+          {
+            "atMs": 5883.400000095367,
+            "gapMs": 690.1000001430511,
+            "excessMs": 640.1000001430511,
+            "screen": null
+          },
+          {
+            "atMs": 6723.299999952316,
+            "gapMs": 748.5999999046326,
+            "excessMs": 698.5999999046326,
+            "screen": "vote"
+          },
+          {
+            "atMs": 6891.900000095367,
+            "gapMs": 168.60000014305115,
+            "excessMs": 118.60000014305115,
+            "screen": "vote"
+          },
+          {
+            "atMs": 8875.400000095367,
+            "gapMs": 1936.7000000476837,
+            "excessMs": 1886.7000000476837,
+            "screen": "vote"
+          },
+          {
+            "atMs": 9170.799999952316,
+            "gapMs": 146.20000004768372,
+            "excessMs": 96.20000004768372,
+            "screen": "vote"
+          },
+          {
+            "atMs": 9389.099999904633,
+            "gapMs": 218.29999995231628,
+            "excessMs": 168.29999995231628,
+            "screen": "vote"
+          },
+          {
+            "atMs": 10896.799999952316,
+            "gapMs": 1507.7000000476837,
+            "excessMs": 1457.7000000476837,
+            "screen": "vote"
+          },
+          {
+            "atMs": 11116.200000047684,
+            "gapMs": 219.40000009536743,
+            "excessMs": 169.40000009536743,
+            "screen": "vote"
+          },
+          {
+            "atMs": 12346.200000047684,
+            "gapMs": 172.40000009536743,
+            "excessMs": 122.40000009536743,
+            "screen": "vote"
+          },
+          {
+            "atMs": 12932.700000047684,
+            "gapMs": 586.5,
+            "excessMs": 536.5,
+            "screen": "vote"
+          },
+          {
+            "atMs": 13063.700000047684,
+            "gapMs": 131,
+            "excessMs": 81,
+            "screen": "vote"
+          },
+          {
+            "atMs": 13368.5,
+            "gapMs": 143.09999990463257,
+            "excessMs": 93.09999990463257,
+            "screen": "vote"
+          },
+          {
+            "atMs": 15623.799999952316,
+            "gapMs": 150.20000004768372,
+            "excessMs": 100.20000004768372,
+            "screen": "vote"
+          },
+          {
+            "atMs": 19270,
+            "gapMs": 664.5,
+            "excessMs": 614.5,
+            "screen": "vote"
+          },
+          {
+            "atMs": 19433,
+            "gapMs": 163,
+            "excessMs": 113,
+            "screen": "vote"
+          },
+          {
+            "atMs": 21274.200000047684,
+            "gapMs": 1729.1000001430511,
+            "excessMs": 1679.1000001430511,
+            "screen": "vote"
+          },
+          {
+            "atMs": 21536.099999904633,
+            "gapMs": 159,
+            "excessMs": 109,
+            "screen": "vote"
+          },
+          {
+            "atMs": 21998,
+            "gapMs": 224.09999990463257,
+            "excessMs": 174.09999990463257,
+            "screen": "vote"
+          },
+          {
+            "atMs": 23798,
+            "gapMs": 1723,
+            "excessMs": 1673,
+            "screen": "vote"
+          },
+          {
+            "atMs": 24903.599999904633,
+            "gapMs": 129.59999990463257,
+            "excessMs": 79.59999990463257,
+            "screen": "vote"
+          },
+          {
+            "atMs": 25206,
+            "gapMs": 302.40000009536743,
+            "excessMs": 252.40000009536743,
+            "screen": "vote"
+          },
+          {
+            "atMs": 25504.099999904633,
+            "gapMs": 298.09999990463257,
+            "excessMs": 248.09999990463257,
+            "screen": "vote"
+          },
+          {
+            "atMs": 25638.299999952316,
+            "gapMs": 134.20000004768372,
+            "excessMs": 84.20000004768372,
+            "screen": "vote"
+          },
+          {
+            "atMs": 27392.599999904633,
+            "gapMs": 1664.5,
+            "excessMs": 1614.5,
+            "screen": "vote"
+          },
+          {
+            "atMs": 27742.099999904633,
+            "gapMs": 114.89999985694885,
+            "excessMs": 64.89999985694885,
+            "screen": "vote"
+          },
+          {
+            "atMs": 28012.700000047684,
+            "gapMs": 270.60000014305115,
+            "excessMs": 220.60000014305115,
+            "screen": "vote"
+          },
+          {
+            "atMs": 28300.599999904633,
+            "gapMs": 145.39999985694885,
+            "excessMs": 95.39999985694885,
+            "screen": "vote"
+          },
+          {
+            "atMs": 30070.200000047684,
+            "gapMs": 1635.2000000476837,
+            "excessMs": 1585.2000000476837,
+            "screen": "vote"
+          },
+          {
+            "atMs": 31265.799999952316,
+            "gapMs": 141.70000004768372,
+            "excessMs": 91.70000004768372,
+            "screen": "vote"
+          },
+          {
+            "atMs": 31825.599999904633,
+            "gapMs": 559.7999999523163,
+            "excessMs": 509.7999999523163,
+            "screen": "vote"
+          },
+          {
+            "atMs": 32000.200000047684,
+            "gapMs": 174.60000014305115,
+            "excessMs": 124.60000014305115,
+            "screen": "vote"
+          }
+        ],
+        "longTasks": [
+          {
+            "startMs": 121.59999990463257,
+            "durationMs": 82,
+            "name": "self",
+            "screen": null,
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 539.9000000953674,
+            "durationMs": 56,
+            "name": "self",
+            "screen": null,
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 1105.4000000953674,
+            "durationMs": 87,
+            "name": "self",
+            "screen": null,
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 1703.0999999046326,
+            "durationMs": 115,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 5984.799999952316,
+            "durationMs": 326,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 6358.5,
+            "durationMs": 84,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 6471.900000095367,
+            "durationMs": 134,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 6606.799999952316,
+            "durationMs": 108,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 6787,
+            "durationMs": 74,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 6946.099999904633,
+            "durationMs": 573,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 7519.799999952316,
+            "durationMs": 1337,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 9239.5,
+            "durationMs": 68,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 9337.099999904633,
+            "durationMs": 51,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 9409.299999952316,
+            "durationMs": 268,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 9678.5,
+            "durationMs": 1214,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 10897.099999904633,
+            "durationMs": 211,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 12349.099999904633,
+            "durationMs": 195,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 12560.400000095367,
+            "durationMs": 76,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 12663.099999904633,
+            "durationMs": 163,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 12827,
+            "durationMs": 85,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 12996.200000047684,
+            "durationMs": 66,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 13248.799999952316,
+            "durationMs": 58,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 18605.900000095367,
+            "durationMs": 203,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 18809.599999904633,
+            "durationMs": 159,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 18992.299999952316,
+            "durationMs": 140,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 19132.900000095367,
+            "durationMs": 120,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 19346.099999904633,
+            "durationMs": 86,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 19587.599999904633,
+            "durationMs": 239,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 19827,
+            "durationMs": 1446,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 21840.799999952316,
+            "durationMs": 70,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 21941.299999952316,
+            "durationMs": 56,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 22092,
+            "durationMs": 284,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 22376.5,
+            "durationMs": 1415,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 24934.5,
+            "durationMs": 148,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 25118.299999952316,
+            "durationMs": 87,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 25224.5,
+            "durationMs": 133,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 25357.799999952316,
+            "durationMs": 123,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 25536.400000095367,
+            "durationMs": 89,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 25742.400000095367,
+            "durationMs": 221,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 25964.099999904633,
+            "durationMs": 1396,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 27766.099999904633,
+            "durationMs": 66,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 27871.299999952316,
+            "durationMs": 83,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 28182.799999952316,
+            "durationMs": 59,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 28463.400000095367,
+            "durationMs": 238,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 28702,
+            "durationMs": 1363,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 31267,
+            "durationMs": 127,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 31441.900000095367,
+            "durationMs": 94,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 31556.099999904633,
+            "durationMs": 111,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 31667.599999904633,
+            "durationMs": 155,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 31873.5,
+            "durationMs": 118,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          }
+        ],
+        "longTaskObserverSupported": true
+      }
+    },
+    {
+      "label": "close",
+      "document": 1,
+      "capturedAt": "2026-11-15T07:34:15.023Z",
+      "capturedAtMs": 37669.200000047684,
+      "timeOriginMs": 1794728017320.1,
+      "visibility": "visible",
+      "perf": {
+        "timeOriginMs": 1794728017320.1,
+        "intervalMs": 50,
+        "timerGaps": [
+          {
+            "atMs": 597.7000000476837,
+            "gapMs": 173,
+            "excessMs": 123,
+            "screen": null
+          },
+          {
+            "atMs": 1696.9000000953674,
+            "gapMs": 117.60000014305115,
+            "excessMs": 67.60000014305115,
+            "screen": "vote"
+          },
+          {
+            "atMs": 1865.0999999046326,
+            "gapMs": 168.19999980926514,
+            "excessMs": 118.19999980926514,
+            "screen": "vote"
+          },
+          {
+            "atMs": 1981.0999999046326,
+            "gapMs": 107.09999990463257,
+            "excessMs": 57.09999990463257,
+            "screen": "vote"
+          },
+          {
+            "atMs": 2162.5,
+            "gapMs": 134.29999995231628,
+            "excessMs": 84.29999995231628,
+            "screen": "vote"
+          },
+          {
+            "atMs": 5883.400000095367,
+            "gapMs": 690.1000001430511,
+            "excessMs": 640.1000001430511,
+            "screen": null
+          },
+          {
+            "atMs": 6723.299999952316,
+            "gapMs": 748.5999999046326,
+            "excessMs": 698.5999999046326,
+            "screen": "vote"
+          },
+          {
+            "atMs": 6891.900000095367,
+            "gapMs": 168.60000014305115,
+            "excessMs": 118.60000014305115,
+            "screen": "vote"
+          },
+          {
+            "atMs": 8875.400000095367,
+            "gapMs": 1936.7000000476837,
+            "excessMs": 1886.7000000476837,
+            "screen": "vote"
+          },
+          {
+            "atMs": 9170.799999952316,
+            "gapMs": 146.20000004768372,
+            "excessMs": 96.20000004768372,
+            "screen": "vote"
+          },
+          {
+            "atMs": 9389.099999904633,
+            "gapMs": 218.29999995231628,
+            "excessMs": 168.29999995231628,
+            "screen": "vote"
+          },
+          {
+            "atMs": 10896.799999952316,
+            "gapMs": 1507.7000000476837,
+            "excessMs": 1457.7000000476837,
+            "screen": "vote"
+          },
+          {
+            "atMs": 11116.200000047684,
+            "gapMs": 219.40000009536743,
+            "excessMs": 169.40000009536743,
+            "screen": "vote"
+          },
+          {
+            "atMs": 12346.200000047684,
+            "gapMs": 172.40000009536743,
+            "excessMs": 122.40000009536743,
+            "screen": "vote"
+          },
+          {
+            "atMs": 12932.700000047684,
+            "gapMs": 586.5,
+            "excessMs": 536.5,
+            "screen": "vote"
+          },
+          {
+            "atMs": 13063.700000047684,
+            "gapMs": 131,
+            "excessMs": 81,
+            "screen": "vote"
+          },
+          {
+            "atMs": 13368.5,
+            "gapMs": 143.09999990463257,
+            "excessMs": 93.09999990463257,
+            "screen": "vote"
+          },
+          {
+            "atMs": 15623.799999952316,
+            "gapMs": 150.20000004768372,
+            "excessMs": 100.20000004768372,
+            "screen": "vote"
+          },
+          {
+            "atMs": 19270,
+            "gapMs": 664.5,
+            "excessMs": 614.5,
+            "screen": "vote"
+          },
+          {
+            "atMs": 19433,
+            "gapMs": 163,
+            "excessMs": 113,
+            "screen": "vote"
+          },
+          {
+            "atMs": 21274.200000047684,
+            "gapMs": 1729.1000001430511,
+            "excessMs": 1679.1000001430511,
+            "screen": "vote"
+          },
+          {
+            "atMs": 21536.099999904633,
+            "gapMs": 159,
+            "excessMs": 109,
+            "screen": "vote"
+          },
+          {
+            "atMs": 21998,
+            "gapMs": 224.09999990463257,
+            "excessMs": 174.09999990463257,
+            "screen": "vote"
+          },
+          {
+            "atMs": 23798,
+            "gapMs": 1723,
+            "excessMs": 1673,
+            "screen": "vote"
+          },
+          {
+            "atMs": 24903.599999904633,
+            "gapMs": 129.59999990463257,
+            "excessMs": 79.59999990463257,
+            "screen": "vote"
+          },
+          {
+            "atMs": 25206,
+            "gapMs": 302.40000009536743,
+            "excessMs": 252.40000009536743,
+            "screen": "vote"
+          },
+          {
+            "atMs": 25504.099999904633,
+            "gapMs": 298.09999990463257,
+            "excessMs": 248.09999990463257,
+            "screen": "vote"
+          },
+          {
+            "atMs": 25638.299999952316,
+            "gapMs": 134.20000004768372,
+            "excessMs": 84.20000004768372,
+            "screen": "vote"
+          },
+          {
+            "atMs": 27392.599999904633,
+            "gapMs": 1664.5,
+            "excessMs": 1614.5,
+            "screen": "vote"
+          },
+          {
+            "atMs": 27742.099999904633,
+            "gapMs": 114.89999985694885,
+            "excessMs": 64.89999985694885,
+            "screen": "vote"
+          },
+          {
+            "atMs": 28012.700000047684,
+            "gapMs": 270.60000014305115,
+            "excessMs": 220.60000014305115,
+            "screen": "vote"
+          },
+          {
+            "atMs": 28300.599999904633,
+            "gapMs": 145.39999985694885,
+            "excessMs": 95.39999985694885,
+            "screen": "vote"
+          },
+          {
+            "atMs": 30070.200000047684,
+            "gapMs": 1635.2000000476837,
+            "excessMs": 1585.2000000476837,
+            "screen": "vote"
+          },
+          {
+            "atMs": 31265.799999952316,
+            "gapMs": 141.70000004768372,
+            "excessMs": 91.70000004768372,
+            "screen": "vote"
+          },
+          {
+            "atMs": 31825.599999904633,
+            "gapMs": 559.7999999523163,
+            "excessMs": 509.7999999523163,
+            "screen": "vote"
+          },
+          {
+            "atMs": 32000.200000047684,
+            "gapMs": 174.60000014305115,
+            "excessMs": 124.60000014305115,
+            "screen": "vote"
+          },
+          {
+            "atMs": 32238,
+            "gapMs": 106,
+            "excessMs": 56,
+            "screen": "vote"
+          },
+          {
+            "atMs": 34583.799999952316,
+            "gapMs": 159.20000004768372,
+            "excessMs": 109.20000004768372,
+            "screen": "vote"
+          },
+          {
+            "atMs": 37643.09999990463,
+            "gapMs": 218.59999990463257,
+            "excessMs": 168.59999990463257,
+            "screen": null
+          }
+        ],
+        "longTasks": [
+          {
+            "startMs": 121.59999990463257,
+            "durationMs": 82,
+            "name": "self",
+            "screen": null,
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 539.9000000953674,
+            "durationMs": 56,
+            "name": "self",
+            "screen": null,
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 1105.4000000953674,
+            "durationMs": 87,
+            "name": "self",
+            "screen": null,
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 1703.0999999046326,
+            "durationMs": 115,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 5984.799999952316,
+            "durationMs": 326,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 6358.5,
+            "durationMs": 84,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 6471.900000095367,
+            "durationMs": 134,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 6606.799999952316,
+            "durationMs": 108,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 6787,
+            "durationMs": 74,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 6946.099999904633,
+            "durationMs": 573,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 7519.799999952316,
+            "durationMs": 1337,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 9239.5,
+            "durationMs": 68,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 9337.099999904633,
+            "durationMs": 51,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 9409.299999952316,
+            "durationMs": 268,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 9678.5,
+            "durationMs": 1214,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 10897.099999904633,
+            "durationMs": 211,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 12349.099999904633,
+            "durationMs": 195,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 12560.400000095367,
+            "durationMs": 76,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 12663.099999904633,
+            "durationMs": 163,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 12827,
+            "durationMs": 85,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 12996.200000047684,
+            "durationMs": 66,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 13248.799999952316,
+            "durationMs": 58,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 18605.900000095367,
+            "durationMs": 203,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 18809.599999904633,
+            "durationMs": 159,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 18992.299999952316,
+            "durationMs": 140,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 19132.900000095367,
+            "durationMs": 120,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 19346.099999904633,
+            "durationMs": 86,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 19587.599999904633,
+            "durationMs": 239,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 19827,
+            "durationMs": 1446,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 21840.799999952316,
+            "durationMs": 70,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 21941.299999952316,
+            "durationMs": 56,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 22092,
+            "durationMs": 284,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 22376.5,
+            "durationMs": 1415,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 24934.5,
+            "durationMs": 148,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 25118.299999952316,
+            "durationMs": 87,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 25224.5,
+            "durationMs": 133,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 25357.799999952316,
+            "durationMs": 123,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 25536.400000095367,
+            "durationMs": 89,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 25742.400000095367,
+            "durationMs": 221,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 25964.099999904633,
+            "durationMs": 1396,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 27766.099999904633,
+            "durationMs": 66,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 27871.299999952316,
+            "durationMs": 83,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 28182.799999952316,
+            "durationMs": 59,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 28463.400000095367,
+            "durationMs": 238,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 28702,
+            "durationMs": 1363,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 31267,
+            "durationMs": 127,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 31441.900000095367,
+            "durationMs": 94,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 31556.099999904633,
+            "durationMs": 111,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 31667.599999904633,
+            "durationMs": 155,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 31873.5,
+            "durationMs": 118,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 34499.299999952316,
+            "durationMs": 75,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          },
+          {
+            "startMs": 34584,
+            "durationMs": 57,
+            "name": "self",
+            "screen": "vote",
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          }
+        ],
+        "longTaskObserverSupported": true
+      }
+    }
+  ]
+}
