@@ -76,7 +76,7 @@ function TopBar({ onOpen }: { onOpen: (o: Overlay) => void }) {
     <header className="topbar">
       {me ? (
         <>
-          <span className="roomcode" aria-label={t('ui.shell.room', { code: me.room.split('').join(' ') })}>
+          <span className="roomcode" role="group" aria-label={t('ui.shell.room', { code: me.room.split('').join(' ') })}>
             <span className="roomcode__k" aria-hidden="true">
               {t('ui.shell.room_short')}
             </span>

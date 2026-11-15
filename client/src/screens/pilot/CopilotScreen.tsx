@@ -23,7 +23,7 @@ export function CopilotScreen() {
   const suggested = hud?.deployTarget ?? null;
   return (
     <div className="screen pilot pilot--copilot" data-testid="copilot-screen">
-      <div className="screen__scroll pilot__scroll copilot__main">
+      <div className="screen__scroll pilot__scroll copilot__main" tabIndex={0}>
         <div className="pilot__top copilot__top">
           <header className="copilot__head">
             <h1 className="title pilot__title" data-testid="copilot-title">

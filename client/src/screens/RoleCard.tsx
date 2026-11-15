@@ -114,7 +114,7 @@ function OneRole({ role, canUse, index }: { role: RoleId; canUse: boolean; index
         <RolePatch role={role} />
         <div className="rolecard__title">
           <CallSign role={role} />
-          <h3 className="rolecard__name">{t(def.name_key)}</h3>
+          <h2 className="rolecard__name">{t(def.name_key)}</h2>
         </div>
       </header>
       <p className="rolecard__origin">
@@ -185,7 +185,7 @@ export function RoleCardScreen() {
   const signature = useSel(rolesSignature);
   return (
     <div className="screen" data-testid="screen-role">
-      <div className="screen__scroll">
+      <div className="screen__scroll" tabIndex={0}>
         <header className="stack stack--sm">
           <p className="eyebrow">{t('ui.role.eyebrow')}</p>
           <h1 className="title">{t(roles.length > 1 ? 'ui.role.title_many' : 'ui.role.title_one', { n: roles.length })}</h1>

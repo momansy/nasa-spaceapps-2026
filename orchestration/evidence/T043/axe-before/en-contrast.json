@@ -1,0 +1,855 @@
+{
+  "config": {
+    "id": "en-contrast",
+    "lang": "en",
+    "highContrast": true,
+    "textScalePct": 100
+  },
+  "screens": [
+    "join",
+    "lobby",
+    "role-card",
+    "briefing",
+    "vote-reveal",
+    "predict",
+    "predict-result",
+    "part-card",
+    "stat-explain",
+    "part-card-warnings",
+    "part-viewer",
+    "vote-cast",
+    "vote-result",
+    "build",
+    "quick-vote",
+    "veto-flash",
+    "veto-confirm",
+    "pings",
+    "trivia",
+    "pick",
+    "poll-waiting",
+    "poll-my-call",
+    "poll-result",
+    "console-countdown",
+    "console-alert",
+    "minigame-intro",
+    "minigame-play",
+    "minigame-result",
+    "blackout",
+    "debrief",
+    "codex",
+    "codex-entry",
+    "settings"
+  ],
+  "nodesByImpact": {
+    "critical": 4,
+    "serious": 48,
+    "moderate": 19,
+    "minor": 0
+  },
+  "findings": [
+    {
+      "screen": "lobby",
+      "rule": "aria-prohibited-attr",
+      "impact": "serious",
+      "help": "Elements must only use permitted ARIA attributes",
+      "nodes": [
+        {
+          "target": ".roomcode",
+          "summary": "Fix all of the following: aria-label attribute cannot be used on a span with no valid role attribute."
+        }
+      ]
+    },
+    {
+      "screen": "role-card",
+      "rule": "aria-prohibited-attr",
+      "impact": "serious",
+      "help": "Elements must only use permitted ARIA attributes",
+      "nodes": [
+        {
+          "target": ".roomcode",
+          "summary": "Fix all of the following: aria-label attribute cannot be used on a span with no valid role attribute."
+        }
+      ]
+    },
+    {
+      "screen": "role-card",
+      "rule": "heading-order",
+      "impact": "moderate",
+      "help": "Heading levels should only increase by one",
+      "nodes": [
+        {
+          "target": "article:nth-child(1) > .rolecard__head > .rolecard__title > h3",
+          "summary": "Fix any of the following: Heading order invalid"
+        }
+      ]
+    },
+    {
+      "screen": "role-card",
+      "rule": "scrollable-region-focusable",
+      "impact": "serious",
+      "help": "Scrollable region must have keyboard access",
+      "nodes": [
+        {
+          "target": ".screen__scroll",
+          "summary": "Fix any of the following: Element should have focusable content Element should be focusable"
+        }
+      ]
+    },
+    {
+      "screen": "briefing",
+      "rule": "aria-prohibited-attr",
+      "impact": "serious",
+      "help": "Elements must only use permitted ARIA attributes",
+      "nodes": [
+        {
+          "target": ".roomcode",
+          "summary": "Fix all of the following: aria-label attribute cannot be used on a span with no valid role attribute."
+        }
+      ]
+    },
+    {
+      "screen": "vote-reveal",
+      "rule": "aria-prohibited-attr",
+      "impact": "serious",
+      "help": "Elements must only use permitted ARIA attributes",
+      "nodes": [
+        {
+          "target": ".roomcode",
+          "summary": "Fix all of the following: aria-label attribute cannot be used on a span with no valid role attribute."
+        }
+      ]
+    },
+    {
+      "screen": "predict",
+      "rule": "aria-prohibited-attr",
+      "impact": "serious",
+      "help": "Elements must only use permitted ARIA attributes",
+      "nodes": [
+        {
+          "target": ".roomcode",
+          "summary": "Fix all of the following: aria-label attribute cannot be used on a span with no valid role attribute."
+        }
+      ]
+    },
+    {
+      "screen": "predict-result",
+      "rule": "aria-prohibited-attr",
+      "impact": "serious",
+      "help": "Elements must only use permitted ARIA attributes",
+      "nodes": [
+        {
+          "target": ".roomcode",
+          "summary": "Fix all of the following: aria-label attribute cannot be used on a span with no valid role attribute."
+        }
+      ]
+    },
+    {
+      "screen": "predict-result",
+      "rule": "landmark-complementary-is-top-level",
+      "impact": "moderate",
+      "help": "Aside should not be contained in another landmark",
+      "nodes": [
+        {
+          "target": "aside",
+          "summary": "Fix any of the following: The null landmark is contained in another landmark."
+        }
+      ]
+    },
+    {
+      "screen": "predict-result",
+      "rule": "landmark-unique",
+      "impact": "moderate",
+      "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+      "nodes": [
+        {
+          "target": "article[aria-label=\"Kerolox Workhorse\"] > .pcard__scroll > .tagbar[aria-label=\"Tag as BOOSTER\"]",
+          "summary": "Fix any of the following: The landmark must have a unique aria-label, aria-labelledby, or title to make landmarks distinguishable"
+        }
+      ]
+    },
+    {
+      "screen": "part-card",
+      "rule": "aria-prohibited-attr",
+      "impact": "serious",
+      "help": "Elements must only use permitted ARIA attributes",
+      "nodes": [
+        {
+          "target": ".roomcode",
+          "summary": "Fix all of the following: aria-label attribute cannot be used on a span with no valid role attribute."
+        }
+      ]
+    },
+    {
+      "screen": "part-card",
+      "rule": "landmark-complementary-is-top-level",
+      "impact": "moderate",
+      "help": "Aside should not be contained in another landmark",
+      "nodes": [
+        {
+          "target": "aside",
+          "summary": "Fix any of the following: The null landmark is contained in another landmark."
+        }
+      ]
+    },
+    {
+      "screen": "part-card",
+      "rule": "landmark-unique",
+      "impact": "moderate",
+      "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+      "nodes": [
+        {
+          "target": "article[aria-label=\"Kerolox Workhorse\"] > .pcard__scroll > .tagbar[aria-label=\"Tag as BOOSTER\"]",
+          "summary": "Fix any of the following: The landmark must have a unique aria-label, aria-labelledby, or title to make landmarks distinguishable"
+        }
+      ]
+    },
+    {
+      "screen": "stat-explain",
+      "rule": "aria-prohibited-attr",
+      "impact": "serious",
+      "help": "Elements must only use permitted ARIA attributes",
+      "nodes": [
+        {
+          "target": ".roomcode",
+          "summary": "Fix all of the following: aria-label attribute cannot be used on a span with no valid role attribute."
+        }
+      ]
+    },
+    {
+      "screen": "stat-explain",
+      "rule": "landmark-complementary-is-top-level",
+      "impact": "moderate",
+      "help": "Aside should not be contained in another landmark",
+      "nodes": [
+        {
+          "target": "aside",
+          "summary": "Fix any of the following: The null landmark is contained in another landmark."
+        }
+      ]
+    },
+    {
+      "screen": "stat-explain",
+      "rule": "landmark-unique",
+      "impact": "moderate",
+      "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+      "nodes": [
+        {
+          "target": "article[aria-label=\"Kerolox Workhorse\"] > .pcard__scroll > .tagbar[aria-label=\"Tag as BOOSTER\"]",
+          "summary": "Fix any of the following: The landmark must have a unique aria-label, aria-labelledby, or title to make landmarks distinguishable"
+        }
+      ]
+    },
+    {
+      "screen": "part-card-warnings",
+      "rule": "aria-prohibited-attr",
+      "impact": "serious",
+      "help": "Elements must only use permitted ARIA attributes",
+      "nodes": [
+        {
+          "target": ".roomcode",
+          "summary": "Fix all of the following: aria-label attribute cannot be used on a span with no valid role attribute."
+        }
+      ]
+    },
+    {
+      "screen": "part-card-warnings",
+      "rule": "landmark-complementary-is-top-level",
+      "impact": "moderate",
+      "help": "Aside should not be contained in another landmark",
+      "nodes": [
+        {
+          "target": "aside",
+          "summary": "Fix any of the following: The null landmark is contained in another landmark."
+        }
+      ]
+    },
+    {
+      "screen": "part-card-warnings",
+      "rule": "landmark-unique",
+      "impact": "moderate",
+      "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+      "nodes": [
+        {
+          "target": "article[aria-label=\"Kerolox Workhorse\"] > .pcard__scroll > .tagbar[aria-label=\"Tag as BOOSTER\"]",
+          "summary": "Fix any of the following: The landmark must have a unique aria-label, aria-labelledby, or title to make landmarks distinguishable"
+        }
+      ]
+    },
+    {
+      "screen": "part-viewer",
+      "rule": "aria-dialog-name",
+      "impact": "serious",
+      "help": "ARIA dialog and alertdialog nodes should have an accessible name",
+      "nodes": [
+        {
+          "target": ".sheet",
+          "summary": "Fix any of the following: aria-label attribute does not exist or is empty aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty Element has no title attribu"
+        }
+      ]
+    },
+    {
+      "screen": "part-viewer",
+      "rule": "aria-prohibited-attr",
+      "impact": "serious",
+      "help": "Elements must only use permitted ARIA attributes",
+      "nodes": [
+        {
+          "target": ".roomcode",
+          "summary": "Fix all of the following: aria-label attribute cannot be used on a span with no valid role attribute."
+        }
+      ]
+    },
+    {
+      "screen": "part-viewer",
+      "rule": "landmark-complementary-is-top-level",
+      "impact": "moderate",
+      "help": "Aside should not be contained in another landmark",
+      "nodes": [
+        {
+          "target": "aside",
+          "summary": "Fix any of the following: The null landmark is contained in another landmark."
+        }
+      ]
+    },
+    {
+      "screen": "part-viewer",
+      "rule": "landmark-unique",
+      "impact": "moderate",
+      "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+      "nodes": [
+        {
+          "target": "article[aria-label=\"Kerolox Workhorse\"] > .pcard__scroll > .tagbar[aria-label=\"Tag as BOOSTER\"]",
+          "summary": "Fix any of the following: The landmark must have a unique aria-label, aria-labelledby, or title to make landmarks distinguishable"
+        }
+      ]
+    },
+    {
+      "screen": "vote-cast",
+      "rule": "aria-prohibited-attr",
+      "impact": "serious",
+      "help": "Elements must only use permitted ARIA attributes",
+      "nodes": [
+        {
+          "target": ".roomcode",
+          "summary": "Fix all of the following: aria-label attribute cannot be used on a span with no valid role attribute."
+        }
+      ]
+    },
+    {
+      "screen": "vote-cast",
+      "rule": "landmark-complementary-is-top-level",
+      "impact": "moderate",
+      "help": "Aside should not be contained in another landmark",
+      "nodes": [
+        {
+          "target": "aside",
+          "summary": "Fix any of the following: The null landmark is contained in another landmark."
+        }
+      ]
+    },
+    {
+      "screen": "vote-cast",
+      "rule": "landmark-unique",
+      "impact": "moderate",
+      "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+      "nodes": [
+        {
+          "target": ".pcard--leading > .pcard__scroll > .tagbar[aria-label=\"Tag as BOOSTER\"]",
+          "summary": "Fix any of the following: The landmark must have a unique aria-label, aria-labelledby, or title to make landmarks distinguishable"
+        }
+      ]
+    },
+    {
+      "screen": "vote-result",
+      "rule": "aria-prohibited-attr",
+      "impact": "serious",
+      "help": "Elements must only use permitted ARIA attributes",
+      "nodes": [
+        {
+          "target": ".roomcode",
+          "summary": "Fix all of the following: aria-label attribute cannot be used on a span with no valid role attribute."
+        }
+      ]
+    },
+    {
+      "screen": "build",
+      "rule": "aria-prohibited-attr",
+      "impact": "serious",
+      "help": "Elements must only use permitted ARIA attributes",
+      "nodes": [
+        {
+          "target": ".roomcode",
+          "summary": "Fix all of the following: aria-label attribute cannot be used on a span with no valid role attribute."
+        }
+      ]
+    },
+    {
+      "screen": "build",
+      "rule": "scrollable-region-focusable",
+      "impact": "serious",
+      "help": "Scrollable region must have keyboard access",
+      "nodes": [
+        {
+          "target": ".screen__scroll",
+          "summary": "Fix any of the following: Element should have focusable content Element should be focusable"
+        }
+      ]
+    },
+    {
+      "screen": "quick-vote",
+      "rule": "aria-prohibited-attr",
+      "impact": "serious",
+      "help": "Elements must only use permitted ARIA attributes",
+      "nodes": [
+        {
+          "target": ".roomcode",
+          "summary": "Fix all of the following: aria-label attribute cannot be used on a span with no valid role attribute."
+        }
+      ]
+    },
+    {
+      "screen": "veto-flash",
+      "rule": "aria-prohibited-attr",
+      "impact": "serious",
+      "help": "Elements must only use permitted ARIA attributes",
+      "nodes": [
+        {
+          "target": ".roomcode",
+          "summary": "Fix all of the following: aria-label attribute cannot be used on a span with no valid role attribute."
+        }
+      ]
+    },
+    {
+      "screen": "veto-flash",
+      "rule": "landmark-unique",
+      "impact": "moderate",
+      "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+      "nodes": [
+        {
+          "target": "article[aria-label=\"Hydrolox Vacuum\"] > .pcard__scroll > .tagbar[aria-label=\"Tag as BOOSTER\"]",
+          "summary": "Fix any of the following: The landmark must have a unique aria-label, aria-labelledby, or title to make landmarks distinguishable"
+        }
+      ]
+    },
+    {
+      "screen": "veto-confirm",
+      "rule": "aria-prohibited-attr",
+      "impact": "serious",
+      "help": "Elements must only use permitted ARIA attributes",
+      "nodes": [
+        {
+          "target": ".roomcode",
+          "summary": "Fix all of the following: aria-label attribute cannot be used on a span with no valid role attribute."
+        }
+      ]
+    },
+    {
+      "screen": "veto-confirm",
+      "rule": "landmark-unique",
+      "impact": "moderate",
+      "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+      "nodes": [
+        {
+          "target": "article[aria-label=\"Hydrolox Vacuum\"] > .pcard__scroll > .tagbar[aria-label=\"Tag as BOOSTER\"]",
+          "summary": "Fix any of the following: The landmark must have a unique aria-label, aria-labelledby, or title to make landmarks distinguishable"
+        }
+      ]
+    },
+    {
+      "screen": "pings",
+      "rule": "aria-dialog-name",
+      "impact": "serious",
+      "help": "ARIA dialog and alertdialog nodes should have an accessible name",
+      "nodes": [
+        {
+          "target": ".sheet",
+          "summary": "Fix any of the following: aria-label attribute does not exist or is empty aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty Element has no title attribu"
+        }
+      ]
+    },
+    {
+      "screen": "pings",
+      "rule": "aria-prohibited-attr",
+      "impact": "serious",
+      "help": "Elements must only use permitted ARIA attributes",
+      "nodes": [
+        {
+          "target": ".roomcode",
+          "summary": "Fix all of the following: aria-label attribute cannot be used on a span with no valid role attribute."
+        }
+      ]
+    },
+    {
+      "screen": "pings",
+      "rule": "landmark-unique",
+      "impact": "moderate",
+      "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+      "nodes": [
+        {
+          "target": ".pcard--leading > .pcard__scroll > .tagbar[aria-label=\"Tag as BOOSTER\"]",
+          "summary": "Fix any of the following: The landmark must have a unique aria-label, aria-labelledby, or title to make landmarks distinguishable"
+        }
+      ]
+    },
+    {
+      "screen": "trivia",
+      "rule": "aria-prohibited-attr",
+      "impact": "serious",
+      "help": "Elements must only use permitted ARIA attributes",
+      "nodes": [
+        {
+          "target": ".roomcode",
+          "summary": "Fix all of the following: aria-label attribute cannot be used on a span with no valid role attribute."
+        }
+      ]
+    },
+    {
+      "screen": "pick",
+      "rule": "aria-prohibited-attr",
+      "impact": "serious",
+      "help": "Elements must only use permitted ARIA attributes",
+      "nodes": [
+        {
+          "target": ".roomcode",
+          "summary": "Fix all of the following: aria-label attribute cannot be used on a span with no valid role attribute."
+        }
+      ]
+    },
+    {
+      "screen": "poll-waiting",
+      "rule": "aria-prohibited-attr",
+      "impact": "serious",
+      "help": "Elements must only use permitted ARIA attributes",
+      "nodes": [
+        {
+          "target": ".roomcode",
+          "summary": "Fix all of the following: aria-label attribute cannot be used on a span with no valid role attribute."
+        }
+      ]
+    },
+    {
+      "screen": "poll-my-call",
+      "rule": "aria-prohibited-attr",
+      "impact": "serious",
+      "help": "Elements must only use permitted ARIA attributes",
+      "nodes": [
+        {
+          "target": ".roomcode",
+          "summary": "Fix all of the following: aria-label attribute cannot be used on a span with no valid role attribute."
+        }
+      ]
+    },
+    {
+      "screen": "poll-result",
+      "rule": "aria-prohibited-attr",
+      "impact": "serious",
+      "help": "Elements must only use permitted ARIA attributes",
+      "nodes": [
+        {
+          "target": ".roomcode",
+          "summary": "Fix all of the following: aria-label attribute cannot be used on a span with no valid role attribute."
+        }
+      ]
+    },
+    {
+      "screen": "console-countdown",
+      "rule": "aria-allowed-attr",
+      "impact": "critical",
+      "help": "Elements must only use supported ARIA attributes",
+      "nodes": [
+        {
+          "target": "button[aria-label=\"BOOSTER console\"]",
+          "summary": "Fix all of the following: ARIA attribute is not allowed: aria-pressed=\"true\""
+        },
+        {
+          "target": "button[aria-label=\"STRUCT console\"]",
+          "summary": "Fix all of the following: ARIA attribute is not allowed: aria-pressed=\"false\""
+        }
+      ]
+    },
+    {
+      "screen": "console-countdown",
+      "rule": "aria-prohibited-attr",
+      "impact": "serious",
+      "help": "Elements must only use permitted ARIA attributes",
+      "nodes": [
+        {
+          "target": ".roomcode",
+          "summary": "Fix all of the following: aria-label attribute cannot be used on a span with no valid role attribute."
+        }
+      ]
+    },
+    {
+      "screen": "console-countdown",
+      "rule": "page-has-heading-one",
+      "impact": "moderate",
+      "help": "Page should contain a level-one heading",
+      "nodes": [
+        {
+          "target": "html",
+          "summary": "Fix all of the following: Page must have a level-one heading"
+        }
+      ]
+    },
+    {
+      "screen": "console-alert",
+      "rule": "aria-allowed-attr",
+      "impact": "critical",
+      "help": "Elements must only use supported ARIA attributes",
+      "nodes": [
+        {
+          "target": "button[aria-label=\"BOOSTER console, alert active\"]",
+          "summary": "Fix all of the following: ARIA attribute is not allowed: aria-pressed=\"true\""
+        },
+        {
+          "target": "button[aria-label=\"STRUCT console, alert active\"]",
+          "summary": "Fix all of the following: ARIA attribute is not allowed: aria-pressed=\"false\""
+        }
+      ]
+    },
+    {
+      "screen": "console-alert",
+      "rule": "aria-prohibited-attr",
+      "impact": "serious",
+      "help": "Elements must only use permitted ARIA attributes",
+      "nodes": [
+        {
+          "target": ".roomcode",
+          "summary": "Fix all of the following: aria-label attribute cannot be used on a span with no valid role attribute."
+        }
+      ]
+    },
+    {
+      "screen": "console-alert",
+      "rule": "page-has-heading-one",
+      "impact": "moderate",
+      "help": "Page should contain a level-one heading",
+      "nodes": [
+        {
+          "target": "html",
+          "summary": "Fix all of the following: Page must have a level-one heading"
+        }
+      ]
+    },
+    {
+      "screen": "minigame-intro",
+      "rule": "aria-prohibited-attr",
+      "impact": "serious",
+      "help": "Elements must only use permitted ARIA attributes",
+      "nodes": [
+        {
+          "target": ".roomcode",
+          "summary": "Fix all of the following: aria-label attribute cannot be used on a span with no valid role attribute."
+        }
+      ]
+    },
+    {
+      "screen": "minigame-play",
+      "rule": "aria-prohibited-attr",
+      "impact": "serious",
+      "help": "Elements must only use permitted ARIA attributes",
+      "nodes": [
+        {
+          "target": ".roomcode",
+          "summary": "Fix all of the following: aria-label attribute cannot be used on a span with no valid role attribute."
+        }
+      ]
+    },
+    {
+      "screen": "minigame-play",
+      "rule": "page-has-heading-one",
+      "impact": "moderate",
+      "help": "Page should contain a level-one heading",
+      "nodes": [
+        {
+          "target": "html",
+          "summary": "Fix all of the following: Page must have a level-one heading"
+        }
+      ]
+    },
+    {
+      "screen": "minigame-result",
+      "rule": "aria-prohibited-attr",
+      "impact": "serious",
+      "help": "Elements must only use permitted ARIA attributes",
+      "nodes": [
+        {
+          "target": ".roomcode",
+          "summary": "Fix all of the following: aria-label attribute cannot be used on a span with no valid role attribute."
+        }
+      ]
+    },
+    {
+      "screen": "minigame-result",
+      "rule": "scrollable-region-focusable",
+      "impact": "serious",
+      "help": "Scrollable region must have keyboard access",
+      "nodes": [
+        {
+          "target": ".screen__scroll",
+          "summary": "Fix any of the following: Element should have focusable content Element should be focusable"
+        }
+      ]
+    },
+    {
+      "screen": "blackout",
+      "rule": "aria-prohibited-attr",
+      "impact": "serious",
+      "help": "Elements must only use permitted ARIA attributes",
+      "nodes": [
+        {
+          "target": ".roomcode",
+          "summary": "Fix all of the following: aria-label attribute cannot be used on a span with no valid role attribute."
+        }
+      ]
+    },
+    {
+      "screen": "debrief",
+      "rule": "aria-prohibited-attr",
+      "impact": "serious",
+      "help": "Elements must only use permitted ARIA attributes",
+      "nodes": [
+        {
+          "target": ".roomcode",
+          "summary": "Fix all of the following: aria-label attribute cannot be used on a span with no valid role attribute."
+        },
+        {
+          "target": ".db-score",
+          "summary": "Fix all of the following: aria-label attribute cannot be used on a p with no valid role attribute."
+        }
+      ]
+    },
+    {
+      "screen": "debrief",
+      "rule": "scrollable-region-focusable",
+      "impact": "serious",
+      "help": "Scrollable region must have keyboard access",
+      "nodes": [
+        {
+          "target": ".screen__scroll",
+          "summary": "Fix any of the following: Element should have focusable content Element should be focusable"
+        }
+      ]
+    },
+    {
+      "screen": "codex",
+      "rule": "aria-dialog-name",
+      "impact": "serious",
+      "help": "ARIA dialog and alertdialog nodes should have an accessible name",
+      "nodes": [
+        {
+          "target": ".sheet",
+          "summary": "Fix any of the following: aria-label attribute does not exist or is empty aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty Element has no title attribu"
+        }
+      ]
+    },
+    {
+      "screen": "codex",
+      "rule": "aria-prohibited-attr",
+      "impact": "serious",
+      "help": "Elements must only use permitted ARIA attributes",
+      "nodes": [
+        {
+          "target": ".roomcode",
+          "summary": "Fix all of the following: aria-label attribute cannot be used on a span with no valid role attribute."
+        },
+        {
+          "target": ".db-score",
+          "summary": "Fix all of the following: aria-label attribute cannot be used on a p with no valid role attribute."
+        }
+      ]
+    },
+    {
+      "screen": "codex",
+      "rule": "scrollable-region-focusable",
+      "impact": "serious",
+      "help": "Scrollable region must have keyboard access",
+      "nodes": [
+        {
+          "target": ".screen__scroll",
+          "summary": "Fix any of the following: Element should have focusable content Element should be focusable"
+        }
+      ]
+    },
+    {
+      "screen": "codex-entry",
+      "rule": "aria-dialog-name",
+      "impact": "serious",
+      "help": "ARIA dialog and alertdialog nodes should have an accessible name",
+      "nodes": [
+        {
+          "target": ".sheet",
+          "summary": "Fix any of the following: aria-label attribute does not exist or is empty aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty Element has no title attribu"
+        }
+      ]
+    },
+    {
+      "screen": "codex-entry",
+      "rule": "aria-prohibited-attr",
+      "impact": "serious",
+      "help": "Elements must only use permitted ARIA attributes",
+      "nodes": [
+        {
+          "target": ".roomcode",
+          "summary": "Fix all of the following: aria-label attribute cannot be used on a span with no valid role attribute."
+        },
+        {
+          "target": ".db-score",
+          "summary": "Fix all of the following: aria-label attribute cannot be used on a p with no valid role attribute."
+        }
+      ]
+    },
+    {
+      "screen": "codex-entry",
+      "rule": "scrollable-region-focusable",
+      "impact": "serious",
+      "help": "Scrollable region must have keyboard access",
+      "nodes": [
+        {
+          "target": ".screen__scroll",
+          "summary": "Fix any of the following: Element should have focusable content Element should be focusable"
+        }
+      ]
+    },
+    {
+      "screen": "settings",
+      "rule": "aria-dialog-name",
+      "impact": "serious",
+      "help": "ARIA dialog and alertdialog nodes should have an accessible name",
+      "nodes": [
+        {
+          "target": ".sheet",
+          "summary": "Fix any of the following: aria-label attribute does not exist or is empty aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty Element has no title attribu"
+        }
+      ]
+    },
+    {
+      "screen": "settings",
+      "rule": "aria-prohibited-attr",
+      "impact": "serious",
+      "help": "Elements must only use permitted ARIA attributes",
+      "nodes": [
+        {
+          "target": ".roomcode",
+          "summary": "Fix all of the following: aria-label attribute cannot be used on a span with no valid role attribute."
+        },
+        {
+          "target": ".db-score",
+          "summary": "Fix all of the following: aria-label attribute cannot be used on a p with no valid role attribute."
+        }
+      ]
+    },
+    {
+      "screen": "settings",
+      "rule": "scrollable-region-focusable",
+      "impact": "serious",
+      "help": "Scrollable region must have keyboard access",
+      "nodes": [
+        {
+          "target": ".screen__scroll",
+          "summary": "Fix any of the following: Element should have focusable content Element should be focusable"
+        }
+      ]
+    }
+  ]
+}

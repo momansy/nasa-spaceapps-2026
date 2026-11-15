@@ -144,7 +144,7 @@ export function WatchScreen() {
   const flying = phase === 'COUNTDOWN' || phase === 'FLIGHT';
   return (
     <div className="screen watch" data-testid="watch-screen" data-phase={phase} data-motion={reduced ? 'reduced' : 'full'}>
-      <div className="screen__scroll watch__main">
+      <div className="screen__scroll watch__main" tabIndex={0}>
         <header className="watch__head">
           <h1 className="title pilot__title">{t('ui.watch.title')}</h1>
           {paused && (

@@ -6,7 +6,7 @@ import { useT } from '../i18n';
 import { isPaused, playerById } from '../state/selectors';
 import { useSel, useStore } from '../state/store';
 import { Icon, TONE_ICON, type Tone } from '../ui/Icon';
-import { Avatar, CallSign, Countdown, CountdownBar } from '../ui/kit';
+import { Announce, Avatar, CallSign, Countdown, CountdownBar } from '../ui/kit';
 import './poll.css';
 
 const ANSWER_TONE: Record<PollAnswer, Tone> = { GO: 'good', NO_GO: 'bad', NO_ANSWER: 'neutral' };
@@ -39,9 +39,10 @@ export function PollScreen() {
       </header>
       {!result && <CountdownBar startedAtMs={poll.callAtMs} endsAtMs={call.endsAtMs} />}
 
-      <div className="screen__scroll">
+      <div className="screen__scroll" tabIndex={0}>
         {result ? (
           <section className={`pollresult ${result.allGo ? 'pollresult--go' : 'pollresult--nogo'} pop`} data-testid="poll-result">
+            <Announce text={`${result.allGo ? t('ui.poll.all_go') : t('ui.poll.no_go_result', { n: result.noGoCount })}. ${result.allGo ? t('ui.poll.all_go_detail') : t('ui.poll.no_go_detail')}`} />
             <Icon name={result.allGo ? TONE_ICON.good : TONE_ICON.bad} size="2.6rem" strokeWidth={2.2} />
             <h2 className="title">{result.allGo ? t('ui.poll.all_go') : t('ui.poll.no_go_result', { n: result.noGoCount })}</h2>
             <p className="lede">{result.allGo ? t('ui.poll.all_go_detail') : t('ui.poll.no_go_detail')}</p>

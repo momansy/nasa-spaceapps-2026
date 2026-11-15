@@ -31,7 +31,7 @@
   --bg-2: #112b40;
   --bg-3: #173a55;
   --line: #24435c;
-  --line-strong: #3f6d8a;
+  --line-strong: #5f8fac; /* T043: 3:1 against bg-3 for control outlines (was #3f6d8a, 2.1:1) */
 
   /* Glass: translucent navy over the living background. Opaque enough that a bright cloud in
      the backdrop never washes out text (style guide: "Keep HUD backgrounds opaque enough"). */
@@ -47,7 +47,7 @@
 
   --text: #e8eef0;
   --text-dim: #b6c7d3;
-  --text-faint: #8ea5b5;
+  --text-faint: #93aab9; /* T043: 4.5:1 on glass over a bright cloud */
 
   /* Signal: selection and focus only, never success alone. */
   --accent: #55c5cd;

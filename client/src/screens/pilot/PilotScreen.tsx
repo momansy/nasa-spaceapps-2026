@@ -145,7 +145,7 @@ function PilotPad({ craft, booster }: { craft: Craft; booster: boolean }) {
 
   return (
     <div className={`screen pilot pilot--${assist.toLowerCase()} pilot--${side}`} data-testid="pilot-screen" data-craft={craft} data-assist={assist}>
-      <div className="screen__scroll pilot__scroll pilot__main">
+      <div className="screen__scroll pilot__scroll pilot__main" tabIndex={0}>
         <div className="pilot__top">
         <header className="pilot__head">
           <h1 className="title pilot__title" data-testid="pilot-title">

@@ -12,7 +12,7 @@ import { amVoter, canTag, canVeto, isCandidate, isPaused, isVetoed, isWinnable, 
 import { isReducedMotion, useSel, useStore } from '../../state/store';
 import type { AppState, VoteRound } from '../../state/types';
 import { Icon, TONE_ICON, toneOfRating } from '../../ui/Icon';
-import { Avatar, Countdown, CountdownBar, Dialog, Sheet } from '../../ui/kit';
+import { Announce, Avatar, Countdown, CountdownBar, Dialog, Sheet } from '../../ui/kit';
 import { PartViewer } from '../../viewer/PartViewer';
 import { fmtMetricDelta, fmtMetricValue, METRIC_SPECS } from '../../data/format';
 import { optionDetail, optionName, optionNameById } from './names';
@@ -64,7 +64,7 @@ function Reveal({ round }: { round: VoteRound }) {
   const players = useSel((s) => s.room?.players ?? []);
   const isPart = round.opened.kind === 'PART';
   return (
-    <div className="screen__scroll reveal" data-testid="stage-reveal">
+    <div className="screen__scroll reveal" tabIndex={0} data-testid="stage-reveal">
       {round.opened.why && (
         <section className="panel panel--accent reveal__why">
           <Icon name={isPart ? 'cube' : 'flag'} size="1.6rem" className="tone-accent" />
@@ -129,7 +129,7 @@ function Predict({ round }: { round: VoteRound }) {
   const mine = round.predict.myChoice;
   const result = round.predict.result;
   return (
-    <div className="screen__scroll" data-testid="stage-predict">
+    <div className="screen__scroll" tabIndex={0} data-testid="stage-predict">
       <section className="panel predict">
         <p className="eyebrow">
           <Icon name="target" size="0.9rem" style={{ display: 'inline', verticalAlign: '-0.12em', marginInlineEnd: 6 }} />
@@ -479,7 +479,7 @@ function QuickStage({ round }: { round: VoteRound }) {
   const voting = VOTING.has(round.stage?.stage ?? '');
   const total = round.tally?.counts?.reduce((a, c) => a + c.n, 0) ?? 0;
   return (
-    <div className="screen__scroll" data-testid="stage-quick">
+    <div className="screen__scroll" tabIndex={0} data-testid="stage-quick">
       {round.opened.why && <p className="lede">{resolveText(t, round.opened.why)}</p>}
       {voting && <BallotLine round={round} />}
       <div className="quick">
@@ -547,7 +547,7 @@ function Trivia({ round }: { round: VoteRound }) {
   const tied = open.tiedOptionIds.map((id) => optionNameById(t, round.opened, id, players));
   const winner = result?.winnerId ? playerById(store.getState(), result.winnerId) : null;
   return (
-    <div className="screen__scroll" data-testid="stage-trivia">
+    <div className="screen__scroll" tabIndex={0} data-testid="stage-trivia">
       <section className="panel panel--warn-edge trivia">
         <p className="eyebrow tone-warn">
           <Icon name="bolt" size="0.9rem" style={{ display: 'inline', verticalAlign: '-0.12em', marginInlineEnd: 6 }} />
@@ -603,7 +603,7 @@ function Pick({ round }: { round: VoteRound }) {
   const tied = round.trivia.open?.tiedOptionIds ?? round.stage?.candidateIds ?? [];
   if (picker !== meId) {
     return (
-      <div className="screen__scroll screen__scroll--center" data-testid="stage-pick-wait">
+      <div className="screen__scroll screen__scroll--center" tabIndex={0} data-testid="stage-pick-wait">
         <div className="waitcard">
           <Avatar avatar={pickerInfo?.avatar} size="lg" />
           <p className="title title--sm center">{t('ui.vote.trivia.waiting_pick', { name: pickerInfo?.nickname ?? t('ui.vote.unknown_player') })}</p>
@@ -613,7 +613,7 @@ function Pick({ round }: { round: VoteRound }) {
     );
   }
   return (
-    <div className="screen__scroll" data-testid="stage-pick">
+    <div className="screen__scroll" tabIndex={0} data-testid="stage-pick">
       <section className="panel panel--accent">
         <p className="eyebrow">{t('ui.vote.trivia.winner_you')}</p>
         <h2 className="title title--sm">{t('ui.vote.trivia.pick_title')}</h2>
@@ -648,7 +648,7 @@ function Result({ round }: { round: VoteRound }) {
   const result = round.result;
   if (!result) {
     return (
-      <div className="screen__scroll screen__scroll--center">
+      <div className="screen__scroll screen__scroll--center" tabIndex={0}>
         <span className="spinner" aria-hidden="true" />
       </div>
     );
@@ -660,7 +660,11 @@ function Result({ round }: { round: VoteRound }) {
   const abstained = result.ballots.filter((b) => b.optionId == null).length;
   const commit = round.commit;
   return (
-    <div className="screen__scroll result" data-testid="stage-result">
+    <div className="screen__scroll result" tabIndex={0} data-testid="stage-result">
+      <Announce
+        testId="result-announce"
+        text={`${t('ui.vote.result.winner')} ${winner ? optionName(t, round.opened, winner, players) : ''}. ${t(`ui.vote.method.${result.method}`)}.`}
+      />
       <section className="resulthero">
         <span className="resulthero__ring" aria-hidden="true" />
         <p className="eyebrow tone-good">
