@@ -18,7 +18,6 @@ namespace MissionForge.Screens.Flight
         [SerializeField] private Transform vehicleAnchor;
         [SerializeField] private FlightVehicleView vehicle;
 
-        private Light _flightSun;
         private Vector3 _environmentHome;
         private Vector3 _anchorHome;
         private bool _homed;
@@ -69,32 +68,37 @@ namespace MissionForge.Screens.Flight
         {
             if (environment == null) return;
             bool show = altitudeM < EnvironmentOffAltitudeM;
-            if (environment.gameObject.activeSelf != show)
-            {
-                environment.gameObject.SetActive(show);
-                FlightSun().enabled = !show;
-            }
+            if (show != _environmentVisible) SetEnvironmentVisible(show);
             if (!show) return;
             environment.position = _environmentHome - Vector3.up * (float)altitudeM - Downrange * (float)downrangeM;
         }
 
+        private bool _environmentVisible = true;
+        private Renderer[] _environmentRenderers;
+        private ParticleSystem[] _environmentParticles;
+
         /// <summary>
-        /// Key light above the pad environment (the dusk rig's lights switch off with it): sunlight from the camera's
-        /// side so the vehicle reads against space. 5800 K-ish warm white, intensity 2 (game_value, as MF_Rig_Orbit).
+        /// Hides or shows the pad's geometry only. Its lights, volumes and BayEnvironment stay active: the vehicle keeps
+        /// the dusk key light all the way to orbit and the render state (main-light shadows, fog, ambient) never
+        /// changes in flight. Switching the whole environment off changed that state and, in some player builds, the
+        /// vehicle's URP/Lit variant was not drawn (T016 evidence run 6).
         /// </summary>
-        private Light FlightSun()
+        private void SetEnvironmentVisible(bool visible)
         {
-            if (_flightSun != null) return _flightSun;
-            var go = new GameObject("FlightSun");
-            go.transform.SetParent(transform, false);
-            go.transform.rotation = Quaternion.LookRotation(new Vector3(0.55f, -0.3f, 0.78f));
-            _flightSun = go.AddComponent<Light>();
-            _flightSun.type = LightType.Directional;
-            _flightSun.color = new Color(1f, 0.95f, 0.88f);
-            _flightSun.intensity = 2.2f;
-            _flightSun.shadows = LightShadows.None;
-            _flightSun.enabled = false;
-            return _flightSun;
+            _environmentVisible = visible;
+            if (_environmentRenderers == null)
+            {
+                _environmentRenderers = environment.GetComponentsInChildren<Renderer>(true);
+                _environmentParticles = environment.GetComponentsInChildren<ParticleSystem>(true);
+            }
+            foreach (Renderer r in _environmentRenderers)
+                if (r != null && !(r is ParticleSystemRenderer)) r.enabled = visible;
+            foreach (ParticleSystem p in _environmentParticles)
+            {
+                if (p == null) continue;
+                var r = p.GetComponent<ParticleSystemRenderer>();
+                if (r != null) r.enabled = visible;
+            }
         }
 
         public Vector3 AnchorHome => _anchorHome;

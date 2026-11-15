@@ -81,10 +81,12 @@ Shader "MissionForge/Flight/Earth"
                 o.positionCS = TransformWorldToHClip(o.positionWS);
                 // T016 copy: the flight draws the Earth in scaled space, so depth is pushed just inside the far plane
                 // (as MF_HdriSkyDome does) and the vehicle, plumes and debris always draw over it.
+                // Margin: 1e-6 rounded past the far plane on WebGL (non-reversed Z) and clipped triangles; 5e-5 stays
+                // inside it on every target while still behind all scene geometry (the starfield draws at exactly far).
                 #if UNITY_REVERSED_Z
-                o.positionCS.z = o.positionCS.w * 1e-6;
+                o.positionCS.z = o.positionCS.w * 5e-6;
                 #else
-                o.positionCS.z = o.positionCS.w * (1.0 - 1e-6);
+                o.positionCS.z = o.positionCS.w * (1.0 - 5e-5);
                 #endif
                 o.normalWS = TransformObjectToWorldNormal(input.normalOS);
                 // East-pointing tangent of a Y-up UV sphere.

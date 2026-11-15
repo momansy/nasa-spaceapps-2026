@@ -66,8 +66,9 @@ namespace MissionForge.Screens.Flight
             bool show = alt >= FlightWorld.EnvironmentOffAltitudeM;
             if (_earth.gameObject.activeSelf != show)
             {
-                _earth.gameObject.SetActive(show);
-                _atmosphere.gameObject.SetActive(show);
+                // Diagnostic flags for render-order checks (evidence builds).
+                _earth.gameObject.SetActive(show && FlightSession.Arg("-mfNoEarth") == null);
+                _atmosphere.gameObject.SetActive(show && FlightSession.Arg("-mfNoAtmosphere") == null);
             }
             if (!show) return;
 
