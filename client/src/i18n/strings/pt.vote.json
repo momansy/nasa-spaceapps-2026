@@ -11,7 +11,6 @@
   "ui.vote.kind.ABORT": "Votação rápida · aborto",
   "ui.vote.kind.FLIGHT_DECISION": "Votação rápida · voo",
   "ui.vote.kind.MCM": "Momento do Controle da Missão",
-
   "ui.vote.stage.REVEAL": "Revelação",
   "ui.vote.stage.PREDICT": "Previsão",
   "ui.vote.stage.INSPECT": "Inspeção",
@@ -21,7 +20,6 @@
   "ui.vote.stage.TIEBREAK_PICK": "Desempate por escolha",
   "ui.vote.stage.RESULT": "Resultado",
   "ui.vote.stage.CLOSED": "Encerrada",
-
   "ui.vote.timer": "Tempo restante nesta etapa",
   "ui.vote.options_count": "{n} opções",
   "ui.vote.reveal_hint": "Os cartões abrem em instantes. Olhe a tela grande.",
@@ -32,7 +30,6 @@
   "ui.vote.spectator_hint": "Voto da plateia: só consultivo.",
   "ui.vote.card_of": "Opção {i} de {n}",
   "ui.vote.go_to": "Mostrar opção {i}",
-
   "ui.vote.cast": "Votar",
   "ui.vote.change": "Mudar o voto para esta",
   "ui.vote.yours": "Seu voto",
@@ -44,7 +41,6 @@
   "ui.vote.runoff_reset": "Segundo turno: todos os votos foram zerados. Vote de novo.",
   "ui.vote.ballot_none": "Você ainda não votou",
   "ui.vote.ballot_is": "Seu voto: {name}",
-
   "ui.vote.veto": "Veto",
   "ui.vote.veto_used": "Veto usado",
   "ui.vote.veto_title": "Vetar {name}?",
@@ -53,14 +49,12 @@
   "ui.vote.vetoed": "Vetada",
   "ui.vote.vetoed_by": "Vetada por {name}",
   "ui.vote.veto_banner": "VETO · {role}",
-
   "ui.vote.tally": "{n} votos",
   "ui.vote.tally_one": "1 voto",
   "ui.vote.tally_hidden": "Contagem oculta",
   "ui.vote.voted_count": "{n} de {total} votaram",
   "ui.vote.leading": "Na frente",
   "ui.vote.audience_says": "A plateia diz: {name}",
-
   "ui.vote.tags.title": "Etiquetas de função",
   "ui.vote.tag.RECOMMENDED": "Recomendada",
   "ui.vote.tag.CONCERN": "Preocupação",
@@ -70,7 +64,6 @@
   "ui.vote.tag_clear": "Remover etiqueta",
   "ui.vote.tag_as": "Etiquetar como {role}",
   "ui.vote.insight_title": "Visão de {role}",
-
   "ui.vote.predict.title": "Previsão",
   "ui.vote.predict.hint": "Sua primeira resposta é definitiva. Previsões corretas valem 50 KP.",
   "ui.vote.predict.locked": "Travada. Aguardando os outros.",
@@ -78,7 +71,6 @@
   "ui.vote.predict.wrong": "Desta vez não. A resposta era {answer}.",
   "ui.vote.predict.missed": "Sem resposta. A resposta era {answer}.",
   "ui.vote.predict.crew_right": "{n} de {total} acertaram",
-
   "ui.vote.trivia.title": "Empate! Quiz de morte súbita",
   "ui.vote.trivia.hint": "A primeira resposta certa escolhe o vencedor entre as opções empatadas.",
   "ui.vote.trivia.tied": "Empatadas: {names}",
@@ -88,7 +80,6 @@
   "ui.vote.trivia.nobody": "Ninguém acertou. A moeda decide.",
   "ui.vote.trivia.pick_title": "Escolha o vencedor",
   "ui.vote.trivia.waiting_pick": "Aguardando {name} escolher…",
-
   "ui.vote.result.title": "Decisão",
   "ui.vote.result.winner": "Escolhida",
   "ui.vote.result.your_pick": "Sua escolha",
@@ -106,13 +97,11 @@
   "ui.vote.method.ABSTAIN_RECOMMENDED": "Ninguém votou: a recomendação do responsável",
   "ui.vote.method.ABSTAIN_DEFAULT": "Ninguém votou: a opção padrão",
   "ui.vote.method.ABSTAIN_CHEAPEST": "Ninguém votou: a opção mais barata",
-
   "ui.vote.decision_time": "Tempo de Decisão",
   "ui.vote.decision_time_hint": "Habilidade do FLIGHT: encerrar esta votação agora. Uma vez por missão.",
   "ui.vote.decision_time_confirm": "Encerrar a votação agora",
   "ui.vote.hint_title": "O diretor de voo sugere",
   "ui.vote.unknown_player": "Tripulante",
-
   "ui.vote.option.TEST": "Fazer o teste",
   "ui.vote.option.TEST.detail": "Custa dinheiro e dias, mas pode revelar uma falha oculta.",
   "ui.vote.option.SKIP": "Pular",
@@ -126,7 +115,6 @@
   "ui.vote.option.PERFECT_PHASE": "Fase perfeita",
   "ui.vote.option.SAVE_THE_MISSION": "Salvar a missão",
   "ui.vote.option.GOLDEN_WINDOW": "Janela dourada",
-
   "ui.card.twin": "Gêmeo no mundo real: {name}",
   "ui.card.drawbacks": "Desvantagens",
   "ui.card.strengths": "Vantagens",
@@ -153,11 +141,9 @@
   "ui.card.explain_reliability": "Chance de a peça funcionar neste voo. A faixa mostra o quanto temos de certeza.",
   "ui.card.better": "melhor",
   "ui.card.worse": "pior",
-
   "ui.maturity.proven": "Comprovada",
   "ui.maturity.mature": "Madura",
   "ui.maturity.new": "Nova",
-
   "ui.stat.thrust.label": "Empuxo",
   "ui.stat.thrust.explain": "Força do motor ao nível do mar / no vácuo. Mais empuxo levanta mais massa.",
   "ui.stat.isp.label": "Isp",
@@ -277,7 +263,6 @@
   "ui.stat.upper_stage_propellant_t.explain": "Propelente carregado no estágio superior.",
   "ui.stat.fixed_propellant_t.label": "Propelente fixo",
   "ui.stat.fixed_propellant_t.explain": "Um motor sólido leva uma carga fixa de propelente.",
-
   "ui.enum.propellant.RP1_LOX": "Querosene + oxigênio líquido",
   "ui.enum.propellant.LH2_LOX": "Hidrogênio líquido + oxigênio líquido",
   "ui.enum.propellant.CH4_LOX": "Metano + oxigênio líquido",
@@ -312,14 +297,12 @@
   "ui.enum.size.M": "M",
   "ui.enum.size.L": "L",
   "ui.enum.size.XL": "XL",
-
   "ui.ping.title": "Avisos rápidos",
   "ui.ping.open": "Avisos e reações",
   "ui.ping.about": "Sobre {name}",
   "ui.ping.react": "Reagir",
   "ui.ping.sent": "Enviado",
   "ui.ping.feed": "Avisos da tripulação",
-
   "ui.poll.title.FRR": "Revisão de Prontidão de Voo",
   "ui.poll.title.LAUNCH": "Consulta de lançamento",
   "ui.poll.eyebrow": "GO / NO-GO · rodada {round}",

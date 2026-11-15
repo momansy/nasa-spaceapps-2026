@@ -1,0 +1,63 @@
+
+ RUN  v3.2.7 C:/Users/moham/Documents/Codex/2026-11-14/https-nasasc-netlify-app-https-nasasc/work/nasa-spaceapps-2026-claude/client
+
+ ✓ src/minigames/MG-26/model.test.ts (34 tests) 170ms
+ ✓ src/minigames/MG-03/model.test.ts (14 tests) 239ms
+ ✓ src/minigames/MG-08b/model.test.ts (24 tests) 405ms
+ ✓ src/minigames/MG-25/model.test.ts (31 tests) 175ms
+ ✓ src/minigames/MG-02/model.test.ts (16 tests) 250ms
+ ✓ src/minigames/MG-30/model.test.ts (13 tests) 159ms
+ ✓ src/minigames/MG-01/model.test.ts (15 tests) 286ms
+ ✓ src/minigames/MG-23/model.test.ts (22 tests) 338ms
+ ✓ src/minigames/MG-16/model.test.ts (20 tests) 228ms
+ ✓ src/minigames/MG-19/model.test.ts (22 tests) 309ms
+ ✓ src/minigames/MG-12/model.test.ts (22 tests) 587ms
+ ✓ src/minigames/MG-13/model.test.ts (21 tests) 449ms
+ ✓ src/minigames/MG-05/model.test.ts (16 tests) 558ms
+   ✓ MG-05 runs > a scripted good player succeeds on 24 seeds in every mode and difficulty  413ms
+ ✓ src/minigames/MG-18/model.test.ts (22 tests) 518ms
+ ✓ src/minigames/MG-15/model.test.ts (24 tests) 551ms
+ ✓ src/minigames/MG-10/model.test.ts (22 tests) 990ms
+ ✓ src/minigames/MG-27/model.test.ts (26 tests) 669ms
+ ✓ src/minigames/MG-21/model.test.ts (33 tests) 951ms
+   ✓ MG-21 scene > radar: no city lights and no clouds in the way  490ms
+ ✓ src/minigames/MG-22/model.test.ts (26 tests) 1132ms
+   ✓ MG-22 modes and difficulty > a sloppy player does better in Relaxed than in STANDARD, and better at CADET than at FLIGHT_DIRECTOR  796ms
+ ✓ src/minigames/MG-06/model.test.ts (16 tests) 1426ms
+   ✓ MG-06 runs > a scripted good player succeeds on 24 seeds in every mode and difficulty  1182ms
+ ✓ src/minigames/MG-08/model.test.ts (26 tests) 96ms
+ ✓ src/minigames/MG-14/model.test.ts (26 tests) 91ms
+ ✓ src/minigames/MG-17/model.test.ts (21 tests) 113ms
+ ✓ src/minigames/MG-24/model.test.ts (37 tests) 116ms
+ ✓ src/minigames/MG-04/model.test.ts (13 tests) 82ms
+ ✓ src/minigames/MG-07/model.test.ts (24 tests) 90ms
+ ✓ src/state/reducer.test.ts (14 tests) 21ms
+ ✓ src/minigames/MG-11/model.test.ts (23 tests) 89ms
+ ✓ src/minigames/MG-28/model.test.ts (36 tests) 202ms
+ ✓ src/screens/pilot/state.test.ts (63 tests) 24ms
+ ✓ src/minigames/MG-10a/model.test.ts (24 tests) 50ms
+ ✓ src/minigames/MG-20/model.test.ts (30 tests) 82ms
+ ✓ src/screens/pilot/inputSampler.test.ts (9 tests) 34ms
+ ✓ src/minigames/MG-29/model.test.ts (14 tests) 70ms
+ ✓ src/i18n/parity.test.ts (31 tests) 71ms
+ ✓ src/screens/pilot/holdGesture.test.ts (7 tests) 11ms
+ ✓ src/net/serverOverride.test.ts (2 tests) 8ms
+ ✓ src/minigames/MG-09/shared/kit.test.ts (3 tests) 9ms
+ ✓ src/minigames/slots.test.ts (3 tests) 7ms
+ ✓ src/i18n/strings.test.ts (9 tests) 55ms
+ ✓ src/screens/pilot/controlsData.test.ts (3 tests) 4ms
+ ✓ src/data/statbars.test.ts (10 tests) 38ms
+ ✓ src/screens/spectator/audience.test.ts (6 tests) 8ms
+ ✓ src/minigames/MG-09/model.test.ts (24 tests) 3574ms
+   ✓ MG-09 modes and difficulty > makes Relaxed easier: larger allowed deviation, slower scroll, smaller corrections  515ms
+   ✓ MG-09 modes and difficulty > scales with difficulty: Cadet sees further ahead, Flight Director less, with larger corrections  867ms
+ ✓ src/net/mock.test.ts (5 tests) 924ms
+   ✓ mock session > plays lobby → votes → poll → flight → minigame → debrief with valid frames  735ms
+ ✓ src/screens/pilot/mockSeats.test.ts (10 tests) 1216ms
+   ✓ mock seats > pilot seat: throttle, STAGE, ABORT reach the host and come back in pilot.hud; frames are valid  417ms
+
+ Test Files  46 passed (46)
+      Tests  912 passed (912)
+   Start at  05:24:06
+   Duration  5.53s (transform 11.22s, setup 0ms, collect 29.67s, tests 17.47s, environment 16ms, prepare 15.64s)
+
