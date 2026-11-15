@@ -1,0 +1,17 @@
+2.7 join
+5.6 lobby
+9.3 role
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+locator.click: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for getByTestId('role-ready')[22m
+
+    at C:\Users\moham\Documents\Codex\2026-11-14\https-nasasc-netlify-app-https-nasasc\work\nasa-spaceapps-2026-claude\orchestration\evidence\T052\rehearsal\mock-capture-15.mjs:41:25 {
+  log: [ "  - waiting for getByTestId('role-ready')" ],
+  name: 'TimeoutError'
+}
+
+Node.js v24.16.0

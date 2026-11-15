@@ -46,7 +46,7 @@ remove rows.** The source for each answer is the file or section named.
 | Link to the demo video | upload of the video made from `DEMO_VIDEO_SCRIPT.md` | **Record, edit, upload (YouTube or the platform the form names), set it viewable by judges, paste the link** |
 | Link to the live project or demo | see section 3 | **Redeploy Netlify, decide what the link opens (section 3)** |
 | Link to source code | `https://github.com/momansy/nasa-spaceapps-2026` | **Make public or provide access; add a licence** (section 0, item 1) |
-| Link to presentation / slides | none exist | Skip if optional, or build a short deck from `JUDGES.md` |
+| Link to presentation / slides | `submission/presentation/MissionForge-deck.pdf` (12 slides, 16:9, 2.3 MB; the same deck as a web page is `submission/presentation/deck.html`). Presenter script, live-demo run-sheet and Q&A are in `submission/presentation/` | Upload the PDF to the slides field (or link it from the public repository: `https://github.com/momansy/nasa-spaceapps-2026/blob/main/submission/presentation/MissionForge-deck.pdf` once merged to `main`) |
 | Images / screenshots / logo | `assets/media/key-art/missionforge-16x9.png`, `missionforge-1x1.png`; screenshots under `orchestration/evidence/T015/` (host Build Bay), `T029/` (host title and lobby), `T030/` and `T036/` (phone) | Choose and upload; keep the AI-generated labels in `AI_DISCLOSURE.md` |
 | Licence of the project | none in the repository | **Choose a licence**; check it against third-party licences on `docs/play/credits.html` |
 | Languages / accessibility (if asked) | `PROJECT_DESCRIPTION.md` section 7 | Paste |
