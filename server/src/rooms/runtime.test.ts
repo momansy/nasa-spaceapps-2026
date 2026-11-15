@@ -1,9 +1,9 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import type { VoteOption } from '../../../protocol/ts/messages.js';
-import { fixedClock } from '../timers/clock.js';
+import { fixedClock, type Clock } from '../timers/clock.js';
 import { FakeConnection } from '../wire/connection.js';
 import { wireVoteOrchestration } from './orchestrate.js';
-import { ABILITY_ANSWER_TIMEOUT_MS, Room } from './room.js';
+import { ABILITY_ANSWER_TIMEOUT_MS, Room, TALLY_MIN_GAP_MS } from './room.js';
 
 const AV = { suitId: 'a', patchId: 'b' };
 const opt = (id: string): VoteOption => ({ id, partId: id, label: null, costM: 1, afford: 'OK', overBudgetByM: 0, overScheduleByDays: 0, willNotFly: false, fixExists: false, warnings: [], deltas: [] });
@@ -14,9 +14,9 @@ afterEach(() => {
   vi.useRealTimers();
 });
 
-function setup(n = 3) {
+function setup(n = 3, roomClock?: Clock) {
   const clock = fixedClock(1_000_000);
-  const room = new Room({ code: 'KQXM', clientBaseUrl: 'https://x.example', clock, rng: () => 0 });
+  const room = new Room({ code: 'KQXM', clientBaseUrl: 'https://x.example', clock: roomClock ?? clock, rng: () => 0 });
   rooms.push(room);
   wireVoteOrchestration(room);
   const host = new FakeConnection('host');
@@ -79,6 +79,74 @@ describe('vote.tally', () => {
     expect(host.sent.filter((m) => m.t === 'vote.tally').length).toBe(before);
     vi.advanceTimersByTime(200);
     expect(host.sent.filter((m) => m.t === 'vote.tally').length).toBe(before + 1);
+  });
+});
+
+describe('vote.tally throttle (D-101: leading edge + coalesced trailing edge, at most one per 200 ms)', () => {
+  /** Room clock that follows vitest's fake Date, so setTimeout and clock.nowMs() advance together. */
+  const fakeDateClock: Clock = { nowMs: () => Date.now() };
+
+  /** Opens a VOTE stage and returns the fake-time stamps and counts of every vote.tally the host receives. */
+  function voteStage(n: number) {
+    vi.setSystemTime(1_000_000);
+    const ctx = setup(n, fakeDateClock);
+    const tallies: Array<{ atMs: number; counts: Array<{ optionId: string; n: number }>; votedIds: string[] }> = [];
+    const send = ctx.host.send.bind(ctx.host);
+    ctx.host.send = ((t, d) => {
+      if (t === 'vote.tally') tallies.push({ atMs: Date.now(), ...(d as unknown as { counts: Array<{ optionId: string; n: number }>; votedIds: string[] }) });
+      send(t, d);
+    }) as typeof ctx.host.send;
+    openRound(ctx.room);
+    ctx.room.armStage('VOTE');
+    ctx.room.broadcastExplicit('vote.stage', { roundId: 'r1', stage: 'VOTE' });
+    expect(tallies).toHaveLength(1); // the stage-start tally
+    vi.advanceTimersByTime(1000); // well past the stage-start tally's window
+    return { ...ctx, tallies };
+  }
+
+  it('sends the tally for a single cast immediately (no delay) when no tally went out in the last 200 ms', () => {
+    const { room, ids, tallies } = voteStage(3);
+    const castAt = Date.now();
+    room.castBallot(ids[0]!, 'B', false);
+    expect(tallies).toHaveLength(2);
+    expect(tallies[1]!.atMs - castAt).toBe(0);
+    expect(tallies[1]!.votedIds).toEqual([ids[0]]);
+    vi.advanceTimersByTime(TALLY_MIN_GAP_MS * 5);
+    expect(tallies).toHaveLength(2); // nothing changed, so no trailing tally
+  });
+
+  it('coalesces a burst inside 200 ms into one immediate tally plus one trailing tally with the final counts', () => {
+    const { room, ids, tallies } = voteStage(7); // one voter never casts, so the stage does not close early
+    const burstStart = Date.now();
+    room.castBallot(ids[0]!, 'A', false);
+    for (let i = 1; i < 6; i++) {
+      vi.advanceTimersByTime(30);
+      room.castBallot(ids[i]!, i % 2 === 0 ? 'A' : 'B', false);
+    }
+    vi.advanceTimersByTime(30);
+    room.castBallot(ids[1]!, 'A', false); // a changed ballot at +180 ms
+    vi.advanceTimersByTime(TALLY_MIN_GAP_MS * 5);
+    const burst = tallies.slice(1);
+    expect(burst).toHaveLength(2);
+    expect(burst[0]!.atMs).toBe(burstStart);
+    expect(burst[0]!.votedIds).toEqual([ids[0]]);
+    expect(burst[1]!.atMs).toBe(burstStart + TALLY_MIN_GAP_MS);
+    expect(burst[1]!.counts).toEqual([{ optionId: 'A', n: 4 }, { optionId: 'B', n: 2 }]);
+    expect(burst[1]!.votedIds).toHaveLength(6);
+  });
+
+  it('never sends two tallies closer than 200 ms, and always delivers the final state', () => {
+    const { room, ids, tallies } = voteStage(7); // one voter never casts, so the stage does not close early
+    let rng = 7;
+    const next = () => ((rng = (rng * 1103515245 + 12345) % 2147483648) / 2147483648);
+    for (let k = 0; k < 200; k++) {
+      vi.advanceTimersByTime(Math.floor(next() * 120));
+      room.castBallot(ids[Math.floor(next() * 6)]!, next() < 0.5 ? 'A' : 'B', false);
+    }
+    vi.advanceTimersByTime(TALLY_MIN_GAP_MS * 5);
+    for (let i = 1; i < tallies.length; i++) expect(tallies[i]!.atMs - tallies[i - 1]!.atMs).toBeGreaterThanOrEqual(TALLY_MIN_GAP_MS);
+    expect(tallies.at(-1)!.counts).toEqual(room.buildTally()!.counts);
+    expect(tallies.at(-1)!.votedIds).toEqual(room.buildTally()!.votedIds);
   });
 });
 

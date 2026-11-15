@@ -1,0 +1,155 @@
+{
+  "base": "http://localhost:8080",
+  "phoneBase": "http://10.239.122.192:8080",
+  "server": "ws://localhost:8787",
+  "steps": [
+    {
+      "name": "GET /play/",
+      "ok": true,
+      "status": 200,
+      "contentType": "text/html; charset=utf-8"
+    },
+    {
+      "name": "GET /play/credits.html",
+      "ok": true,
+      "status": 200,
+      "contentType": "text/html; charset=utf-8"
+    },
+    {
+      "name": "GET /play/judges.html",
+      "ok": true,
+      "status": 200,
+      "contentType": "text/html; charset=utf-8"
+    },
+    {
+      "name": "GET /play/client/",
+      "ok": true,
+      "status": 200,
+      "contentType": "text/html; charset=utf-8"
+    },
+    {
+      "name": "GET /play/client/?mock=1",
+      "ok": true,
+      "status": 200,
+      "contentType": "text/html; charset=utf-8"
+    },
+    {
+      "name": "GET /play/client/?watch=1",
+      "ok": true,
+      "status": 200,
+      "contentType": "text/html; charset=utf-8"
+    },
+    {
+      "name": "GET /play/host/",
+      "ok": true,
+      "status": 200,
+      "contentType": "text/html; charset=utf-8"
+    },
+    {
+      "name": "entry page renders (desktop)",
+      "ok": true,
+      "title": "MissionForge | Play",
+      "errors": []
+    },
+    {
+      "name": "entry page has no horizontal scroll on a 390 px phone",
+      "ok": true
+    },
+    {
+      "name": "host page loads (headless, software GL; informational)",
+      "ok": true,
+      "status20": "LOADING MISSION CONTROL",
+      "status45": "LOADING MISSION CONTROL",
+      "loaderVisible45": false,
+      "perf": {
+        "avgFps": 0.18100202722270503,
+        "onePercentLowFps": 0.1038098204090107,
+        "frames": 2,
+        "seconds": 11.049599999999991,
+        "canvasWidth": 1920,
+        "canvasHeight": 1080,
+        "devicePixelRatio": 1
+      },
+      "errors": [],
+      "failedRequests": []
+    },
+    {
+      "name": "phone joins by typed room code (lower case accepted) and shows the lobby",
+      "ok": true,
+      "room": "ZDNT",
+      "players": [
+        "p1"
+      ],
+      "errors": []
+    },
+    {
+      "name": "QR link ?room=CODE shows the room code on the join screen (no code to type)",
+      "ok": true,
+      "room": "ZDNT",
+      "lockedCode": "ZDNT",
+      "codeInputPresent": 0
+    },
+    {
+      "name": "QR link join reaches the lobby",
+      "ok": true,
+      "players": [
+        "p1",
+        "p2"
+      ]
+    },
+    {
+      "name": "wrong room code shows an error, not the lobby",
+      "ok": true,
+      "text": "Skip to content MissionForge Mission Control · crew login Join the mission Take a seat at a Mission Control console. Enter the room code from the big screen. Room code Z Z Z Z No room with that code. Check the host screen. Call sign Quasar Vector Delta-V Juno Shown on the big screen. No real names needed. Your astronaut No account, no email, no tracking. Your call sign lives only in this room. Joi"
+    }
+  ],
+  "notes": [],
+  "entryTitle": "MissionForge | Play",
+  "entryLinks": [
+    {
+      "text": "Big screen Host a mission Open this on the shared screen or ",
+      "href": "host/"
+    },
+    {
+      "text": "Phone Join on your phone Enter the room code from the big sc",
+      "href": "client/"
+    },
+    {
+      "text": "Audience Watch as audience Follow the mission and cast audie",
+      "href": "client/?watch=1"
+    },
+    {
+      "text": "Credits, data sources and licences",
+      "href": "credits.html"
+    },
+    {
+      "text": "For judges (JUDGES.md)",
+      "href": "judges.html"
+    },
+    {
+      "text": "Offline demo (no server)",
+      "href": "client/?mock=1"
+    }
+  ],
+  "realHost": {
+    "room": "TGVW",
+    "phoneReachedLobby": true
+  },
+  "host": {
+    "status20": "LOADING MISSION CONTROL",
+    "status45": "LOADING MISSION CONTROL",
+    "loaderVisible45": false,
+    "perf": {
+      "avgFps": 0.18100202722270503,
+      "onePercentLowFps": 0.1038098204090107,
+      "frames": 2,
+      "seconds": 11.049599999999991,
+      "canvasWidth": 1920,
+      "canvasHeight": 1080,
+      "devicePixelRatio": 1
+    },
+    "errors": [],
+    "failedRequests": []
+  },
+  "wrongCodeText": "Skip to content MissionForge Mission Control · crew login Join the mission Take a seat at a Mission Control console. Enter the room code from the big screen. Room code Z Z Z Z No room with that code. Check the host screen. Call sign Quasar Vector Delta-V Juno Shown on the big screen. No real names needed. Your astronaut No account, no email, no tracking. Your call sign lives only in this room. Joi"
+}

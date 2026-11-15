@@ -18,6 +18,7 @@ const hostMode = value('--host', 'stub');
 const spectatorsArg = Number(value('--spectators', '0'));
 const seed = Number(value('--seed', '2801')) >>> 0;
 const segment = value('--segment', 'full');
+const mgIds = value('--minigames', 'MG-01,MG-02,MG-03,MG-04,MG-05,MG-06,MG-07,MG-08b,MG-08,MG-09,MG-10a,MG-10,MG-11,MG-12,MG-13,MG-14,MG-15,MG-16,MG-17,MG-18,MG-19,MG-20,MG-21,MG-29,MG-30').split(',');
 const unityHeaded = argv.includes('--headed');
 const runStamp = new Date().toISOString().replace(/[:.]/g, '-');
 fs.mkdirSync(path.join(evidenceDir, 'runs'), { recursive: true });
@@ -45,7 +46,7 @@ async function runStub(playerCount) {
   try {
     await host.connect();
     for (let i = 0; i < playerCount; i += 1) {
-      const phone = new PhoneDriver(browser, { webUrl: stack.webUrl, room: host.room, index: i, runDir, cpuThrottle: playerCount === 10 && i === 9 ? 4 : 1 });
+      const phone = new PhoneDriver(browser, { webUrl: stack.webUrl, room: host.room, index: i, runDir, cpuThrottle: playerCount === 10 && i === 9 && !process.env.E2E_NO_THROTTLE ? 4 : 1 });
       await phone.open();
       phones.push(phone);
     }
@@ -55,7 +56,7 @@ async function runStub(playerCount) {
       await spectator.open(); spectators.push(spectator);
     }
     const onMilestone = async (name, data) => {
-      milestones.push({ name, at: new Date().toISOString(), ...data });
+      if (name !== 'minigame_summary') milestones.push({ name, at: new Date().toISOString(), ...data });
       try {
         if (name === 'lobby') { await phones[0].shot('lobby'); if (phones[1]) await phones[1].reloadResume(); }
         if (name === 'briefing') await phones[0].shot('briefing');
@@ -74,15 +75,19 @@ async function runStub(playerCount) {
         }
         if (name === 'poll') { await Promise.all(phones.map((p) => p.handlePoll(data.round))); await phones[0].shot(`frr-${data.round}`); }
         if (name === 'minigame') {
-          await Promise.all(phones.map((p) => p.handleMinigame(data)));
-          if (data.id === 'MG-08') await Promise.all(phones.map((p) => p.sampleFps('MG-08')));
+          const records = (await Promise.all(phones.map((p) => p.handleMinigame(data)))).filter(Boolean);
+          await Promise.all(phones.map((p) => p.sampleFps(data.id)));
+          return records;
         }
+        if (name === 'minigame_summary') await Promise.all(phones.map((p, i) => p.finishMinigame(data.records.find((r) => r.phone === i + 1), data.id)));
         if (name === 'alert') await Promise.all(phones.map((p) => p.handleAlert()));
         if (name === 'blackout') await phones[0].shot('blackout');
         if (name === 'debrief') await phones[0].shot('debrief');
       } catch (error) { failures.push(`${name}: ${error.stack ?? error.message}`); }
     };
-    if (segment === 'smoke') await host.smoke(onMilestone); else await host.full({ onMilestone });
+    if (segment === 'smoke') await host.smoke(onMilestone);
+    else if (segment === 'minigames') await host.minigames(mgIds, { onMilestone });
+    else await host.full({ onMilestone });
     await Promise.all(phones.map((p) => p.sampleFps('mission-end')));
   } catch (error) {
     failures.push(error.stack ?? error.message);
@@ -94,7 +99,7 @@ async function runStub(playerCount) {
     await recorder.close();
   }
   const metrics = calculateMetrics(frameFile);
-  const summary = { runId, playerCount, spectatorCount: spectators.length, seed, host: 'stub', segment, fixtureNumbers: 'fixture (not Core)', milestones, failures, segments: host.segments, frameCounts: metrics.frames };
+  const summary = { runId, playerCount, spectatorCount: spectators.length, seed, host: 'stub', segment, fixtureNumbers: 'fixture (not Core)', milestones, failures, segments: host.segments, minigames: host.mgLog, frameCounts: metrics.frames };
   fs.writeFileSync(path.join(runDir, 'metrics.json'), JSON.stringify(metrics, null, 2));
   fs.writeFileSync(path.join(runDir, 'run-summary.json'), JSON.stringify(summary, null, 2));
   return { summary, metrics, runDir };

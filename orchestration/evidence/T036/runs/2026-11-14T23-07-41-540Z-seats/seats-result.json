@@ -1,0 +1,106 @@
+{
+  "runId": "2026-11-14T23-07-41-540Z-seats",
+  "mock": {
+    "pilot": {
+      "seat": "pilot",
+      "errors": [],
+      "screenShown": true,
+      "throttleBefore": "0 %",
+      "touchAttempts": [
+        {
+          "attempt": 1,
+          "afterS": 1.9,
+          "cmd": "80 %"
+        }
+      ],
+      "throttleAfterDrag": "80 %",
+      "throttleReadback": "72 %",
+      "hudAlt": "Altitude240.9km",
+      "stageButton": true
+    },
+    "copilot": {
+      "seat": "copilot",
+      "errors": [],
+      "screenShown": true,
+      "readback": "Pilot's throttle0 %Pilot's attitude holdOff",
+      "stageEnabled": true
+    },
+    "booster": {
+      "seat": "booster",
+      "errors": [],
+      "screenShown": true,
+      "throttleBefore": "0 %",
+      "touchAttempts": [
+        {
+          "attempt": 1,
+          "afterS": 2.4,
+          "cmd": "80 %"
+        }
+      ],
+      "throttleAfterDrag": "80 %",
+      "throttleReadback": "72 %",
+      "hudAlt": "Altitude218.9km",
+      "stageButton": true
+    },
+    "spectator": {
+      "errors": [],
+      "watchShown": true,
+      "padVisible": true,
+      "reactButtons": 5,
+      "audienceSizeChip": "1 in the audience",
+      "bursts": 16
+    }
+  },
+  "real": {
+    "pilotScreen": true,
+    "copilotScreen": true,
+    "pilotInputRelays": 13,
+    "throttleCmd": "80 %",
+    "throttleReadback": "71 %",
+    "hudAlt": "Altitude12.8km",
+    "stageEnabled": true,
+    "copilotActionRelays": 1,
+    "spectatorScreen": true,
+    "reactButtons": 5,
+    "errors": {
+      "pilot": [],
+      "copilot": [],
+      "spectator": []
+    },
+    "frames": {
+      "react.send": 1,
+      "react.audience": 4,
+      "react.event": 0,
+      "pilot.input": 53,
+      "pilot.hud": 54
+    }
+  },
+  "serverOverride": {
+    "lanIp": "172.27.32.1",
+    "lan": {
+      "query": "&server=ws%3A%2F%2F172.27.32.1%3A57191",
+      "expectJoin": true,
+      "phoneShowsLobby": true,
+      "hostSawNewPlayer": true
+    },
+    "loopback": {
+      "query": "&server=ws%3A%2F%2F127.0.0.1%3A57191",
+      "expectJoin": true,
+      "phoneShowsLobby": true,
+      "hostSawNewPlayer": true
+    },
+    "internet-ignored": {
+      "query": "&server=ws%3A%2F%2Fexample.com%3A9",
+      "expectJoin": true,
+      "phoneShowsLobby": true,
+      "hostSawNewPlayer": true
+    },
+    "garbage-ignored": {
+      "query": "&server=not-a-url",
+      "expectJoin": true,
+      "phoneShowsLobby": true,
+      "hostSawNewPlayer": true
+    }
+  },
+  "failures": []
+}

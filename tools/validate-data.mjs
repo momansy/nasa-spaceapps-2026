@@ -320,9 +320,24 @@ for (const [rel, doc] of stringDocs) {
     if (typeof text === 'string' && text !== text.trim()) warning(rel, `string "${key}" has leading or trailing whitespace`);
   }
   if (!isEnglish(rel) && en) {
-    for (const key of enKeys) if (!(key in doc.value)) soft(rel, `missing translation for "${key}"`);
     for (const key of Object.keys(doc.value)) if (!enKeys.has(key)) warning(rel, `key "${key}" does not exist in strings/en.json`);
   }
+}
+// A translation may be split into fragments like English (strings/ar.json, strings/ar.parts_a.json):
+// the fragments of one language are merged before they are compared with the English keys.
+const translations = new Map();
+for (const [rel, doc] of stringDocs) {
+  if (isEnglish(rel) || !en) continue;
+  const lang = /^strings\/([A-Za-z-]+)(?:\.[a-z0-9_]+)?\.json$/.exec(rel)?.[1];
+  if (!lang) continue;
+  if (!translations.has(lang)) translations.set(lang, { keys: new Set(), files: [] });
+  const entry = translations.get(lang);
+  entry.files.push(rel);
+  for (const key of Object.keys(doc.value)) entry.keys.add(key);
+}
+for (const [lang, { keys, files }] of translations) {
+  const rel = files.includes(`strings/${lang}.json`) ? `strings/${lang}.json` : files[0];
+  for (const key of enKeys) if (!keys.has(key)) soft(rel, `missing translation for "${key}"`);
 }
 
 // 3c. References.
