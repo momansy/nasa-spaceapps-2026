@@ -641,7 +641,7 @@
 
 .stat__btn {
   width: 100%;
-  min-height: 40px;
+  min-height: 44px; /* T043: 44 px touch target (T038 had 40) */
   display: grid;
   grid-template-columns: minmax(4.2rem, 26%) minmax(0, 1fr) minmax(3rem, 22%);
   align-items: center;
