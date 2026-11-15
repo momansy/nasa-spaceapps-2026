@@ -75,11 +75,11 @@ original 120 BPM track (1 beat = 0.5 s), so every shot is 0.5 to 2 s long (the e
 | 17 | 18.0-19.0 | whip | Phone | %TEMP%/demo-video/rec/MG-14.mp4 @ 0.6s x1.3 (Debris Dodge) | ORBIT. |  |
 | 18 | 19.0-20.0 | cut | Host | T054 capture 01-title-rocket-over-earth.mp4 @ 2.5s |  |  |
 | 19 | 20.0-21.0 | whip | Phone | %TEMP%/demo-video/rec/MG-13.mp4 @ 6s x1.4 (Ground Station Pass) | COMMS. |  |
-| 20 | 21.0-22.0 | cut | Host | evidence/T027/briefing_frame1.png |  | AI-generated |
+| 20 | 21.0-22.0 | cut | Host | evidence/T027/briefing_frame1.png |  | Big screen, AI-generated |
 | 21 | 22.0-24.0 | zoom | Phone | %TEMP%/demo-video/rec/session.mp4 @ 45.5s; %TEMP%/demo-video/rec/session.mp4 @ 49s; %TEMP%/demo-video/rec/session.mp4 @ 63.5s | VOTE TOGETHER. | Scripted demo session |
 | 22 | 24.0-25.0 | cut | Host | T054 capture 06-build-bay-vote-tally.mp4 @ 1s x2 |  |  |
 | 23 | 25.0-26.0 | whip | Phone | %TEMP%/demo-video/rec/session.mp4 @ 180.5s; %TEMP%/demo-video/rec/session.mp4 @ 188s | GO / NO-GO? | Scripted demo session |
-| 24 | 26.0-27.0 | cut | Host | evidence/T027/frr_go.png |  |  |
+| 24 | 26.0-27.0 | cut | Host | evidence/T027/frr_go.png |  | Big screen |
 | 25 | 27.0-28.0 | cut | Phone | %TEMP%/demo-video/rec/session.mp4 @ 191.5s |  | Scripted demo session |
 | 26 | 28.0-29.0 | flash | AI | assets/media/style/frames/03-ascent.png | LAUNCH. | AI-generated |
 | 27 | 29.0-30.0 | cut | Phone | %TEMP%/demo-video/rec/session.mp4 @ 205.6s |  | Scripted demo session |
@@ -125,7 +125,7 @@ original 120 BPM track (1 beat = 0.5 s), so every shot is 0.5 to 2 s long (the e
 | 11 | 10.0-11.0 | zoom | Phone | %TEMP%/demo-video/rec/session.mp4 @ 45.5s; %TEMP%/demo-video/rec/session.mp4 @ 63.5s | VOTE TOGETHER. | Scripted demo session |
 | 12 | 11.0-12.0 | cut | Host | T054 capture 06-build-bay-vote-tally.mp4 @ 1s x2 | ON THE / BIG SCREEN. |  |
 | 13 | 12.0-13.0 | cut | Phone | %TEMP%/demo-video/rec/session.mp4 @ 180.5s | GO / NO-GO? | Scripted demo session |
-| 14 | 13.0-14.0 | cut | Host | evidence/T027/frr_go.png | GO FOR / LAUNCH. |  |
+| 14 | 13.0-14.0 | cut | Host | evidence/T027/frr_go.png | GO FOR / LAUNCH. | Big screen |
 | 15 | 14.0-15.0 | flash | AI | assets/media/style/frames/03-ascent.png | LAUNCH. | AI-generated |
 | 16 | 15.0-15.5 | cut | Phone | %TEMP%/demo-video/rec/session.mp4 @ 221s x1.5 (Max Q Throttle Bucket) |  | Scripted demo session |
 | 17 | 15.5-16.0 | whip | Phone | %TEMP%/demo-video/rec/MG-16.mp4 @ 13s x1.6 (Station Docking) |  |  |

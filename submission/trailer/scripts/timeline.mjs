@@ -7,6 +7,7 @@
 // are placeholders in the published build, so launch and orbit beats use the phone flight console, the
 // minigames and labelled AI mood shots instead. The Scale view and the "Fuel cells" vote card are avoided
 // (missing glyphs in the host font).
+import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -36,6 +37,13 @@ const H = {
   briefing: r('orchestration/evidence/T027/briefing_frame1.png'),
   frrGo: r('orchestration/evidence/T027/frr_go.png'),
 };
+// T056 Higgsfield trailer shots (assets/media/trailer-ai/NN-name.mp4), used by keyword when present on main.
+const TAI = r('assets/media/trailer-ai');
+const taiFiles = fs.existsSync(TAI) ? fs.readdirSync(TAI).filter((f) => f.endsWith('.mp4')).sort() : [];
+const tai = (re) => { const f = taiFiles.find((n) => re.test(n)); return f ? `${TAI}/${f}` : null; };
+const AIX = { team: tai(/team|screen|room/i), liftoff: tai(/lift|launch|pad/i), panels: tai(/panel|unfold|deploy|wing/i), night: tai(/night|city|glid/i) };
+// clip from T056 if present (ss into the clip), else the fallback
+const X = (clip, ss, o, fallback) => (clip ? V(clip, ss, o) : fallback);
 // AI-generated mood material (already disclosed in submission/AI_DISCLOSURE.md and assets/media/CREDITS.md).
 const AI = {
   c1: r('assets/media/cinematics/c1-earth-watch-briefing.mp4'),
@@ -61,7 +69,7 @@ export const LONG = [
   { b: 2, src: V(H.title, 0.5, { z: [2.0, 1.65], fx: 1.0, fy: 0.42 }), punch: 0.06 },
   { b: 1, src: V(H.stack, 1.0, { z: [2.6, 2.7], fx: 0.41, fy: 0.45 }) },
   { b: 1, src: V(H.boosters, 2.0, { z: [2.6, 2.7], fx: 0.41, fy: 0.45 }) },
-  { b: 4, tr: 'flash', src: V(AI.c1, 1.0, { z: [1.0, 1.08] }), ov: { ai: true, scrim: 'soft', words: [W1('Design it.', 0, { until: 0.5 }), W1('Build it.', 0.5, { until: 1.0 }), W1('Fly it.', 1.0, { amber: true })] } },
+  { b: 4, tr: 'flash', src: X(AIX.team, 0.5, { z: [1.0, 1.08] }, V(AI.c1, 1.0, { z: [1.0, 1.08] })), ov: { ai: true, scrim: 'soft', words: [W1('Design it.', 0, { until: 0.5 }), W1('Build it.', 0.5, { until: 1.0 }), W1('Fly it.', 1.0, { amber: true })] } },
   // One big screen, every phone a console (bars 2-3)
   { b: 2, tr: 'whip', src: V(H.room, 0.4, { z: [1.0, 1.08] }), ov: { scrim: 'heavy', words: [W1('One big screen.', 0.05, { size: 150 })] }, punch: 0.05 },
   { b: 2, src: V(H.crew, 1.2, { ramp: [2.5, 1.0, 2.0], z: [1.06, 1.0] }) },
@@ -73,7 +81,7 @@ export const LONG = [
   // Trade-offs as kinetic type (bars 6-11)
   { b: 2, tr: 'whip', src: P('R', [['session', 54.5, 0.8]], { bg: BG.bay }), ov: { ...DEMO, words: [W1('Mass.', 0, { x: 0.1, size: 230 })] }, punch: 0.06 },
   { b: 2, src: V(H.boosters, 0.3, { speed: 1.3, z: [1.0, 1.06] }) },
-  { b: 2, src: S(AI.orbit, { z: [1.05, 1.16] }), ov: { ai: true, words: [W1('Power.', 0, { size: 230, y: 0.78 })] }, punch: 0.06 },
+  { b: 2, src: X(AIX.panels, 0.5, { z: [1.0, 1.06] }, S(AI.orbit, { z: [1.05, 1.16] })), ov: { ai: true, words: [W1('Power.', 0, { size: 230, y: 0.78 })] }, punch: 0.06 },
   { b: 2, src: P('C', [['MG-18', 3.0, 1.2, 'Eclipse Power Juggle']], { bg: BG.earth }), ov: {} },
   { b: 2, tr: 'whip', src: P('R', [['session', 31.0]], { bg: BG.bay }), ov: { ...DEMO, words: [W1('Budget.', 0, { x: 0.08, size: 230 })] }, punch: 0.06 },
   // exploded-view capture before the parts separate: full frame, readiness panel and budget bar
@@ -90,14 +98,14 @@ export const LONG = [
   { b: 2, src: S(H.frrGo, { z: [1.0, 1.05] }), ov: { host: 'Big screen' } },
   { b: 2, src: P('C', [['session', 191.5]], { bg: BG.pad }), ov: { ...DEMO } },
   // Launch + minigame montage (bars 14-19)
-  { b: 2, tr: 'flash', src: S(AI.ascent, { z: [1.0, 1.25], fy: 0.4 }), ov: { ai: true, words: [W1('Launch.', 0, { size: 230, y: 0.8, amber: true })] }, punch: 0.08 },
+  { b: 2, tr: 'flash', src: X(AIX.liftoff, 0.5, { z: [1.0, 1.1] }, S(AI.ascent, { z: [1.0, 1.25], fy: 0.4 })), ov: { ai: true, words: [W1('Launch.', 0, { size: 230, y: 0.8, amber: true })] }, punch: 0.08 },
   { b: 2, src: P('C', [['session', 205.6]], { bg: BG.earth }), ov: { ...DEMO } },
   { b: 2, src: P('C', [['session', 221.0, 1.5, 'Max Q Throttle Bucket']], { bg: BG.earth }), ov: { ...DEMO } },
   { b: 2, src: V(H.title, 4.0, { z: [1.7, 1.9], fx: 1.0, fy: 0.35 }) },
   ...MONTAGE.map(([n, ss, lay, tag], i) => ({ b: 1, tr: i % 4 === 0 ? 'whip' : undefined, src: P('m' + lay, [[n, ss, 1.6, tag]], { bg: i % 2 ? BG.earth : BG.bay }), punch: 0.07 })),
   { b: 4, src: P('3top', [['MG-16', 21.0], ['MG-21', 11.0], ['MG-06', 6.0]], { bg: BG.earth }), ov: { words: [W1('32 minigames.', 0, { size: 110, y: 0.115, amber: true })] }, punch: 0.05 },
   // Orbit (bars 20-21)
-  { b: 4, tr: 'fade', src: V(AI.c1, 4.0, { z: [1.0, 1.06] }), ov: { ai: true, words: [W1('Reach orbit.', 0.3, { size: 160 })] } },
+  { b: 4, tr: 'fade', src: X(AIX.night, 0.5, { z: [1.0, 1.06] }, V(AI.c1, 4.0, { z: [1.0, 1.06] })), ov: { ai: true, words: [W1('Reach orbit.', 0.3, { size: 160 })] } },
   { b: 4, src: P('C', [['MG-15', 2.6, 1.0, 'Solar Wing Deploy']], { bg: BG.earth }), ov: {} },
   // Debrief, accessibility, build-up (bars 22-23)
   { b: 2, tr: 'whip', src: P('C', [['session', 261.0, 1.0]], { bg: BG.earth }), ov: { ...DEMO } },
@@ -111,7 +119,7 @@ export const LONG = [
 // ─────────────────────────── 9:16, 52 beats = 26 s ───────────────────────────
 export const SHORT = [
   { b: 2, src: V(H.title, 0.5, { cx: 0.8, z: [1.4, 1.15], fy: 0.3 }), punch: 0.06 },
-  { b: 2, tr: 'flash', src: V(AI.c1, 1.0, { cx: 0.5 }), ov: { ai: true, scrim: 'soft', words: [W1('Build it.', 0, { until: 0.5, size: 170 }), W1('Fly it.', 0.5, { amber: true, size: 170 })] } },
+  { b: 2, tr: 'flash', src: X(AIX.team, 0.5, { cx: 0.5 }, V(AI.c1, 1.0, { cx: 0.5 })), ov: { ai: true, scrim: 'soft', words: [W1('Build it.', 0, { until: 0.5, size: 170 }), W1('Fly it.', 0.5, { amber: true, size: 170 })] } },
   { b: 2, tr: 'whip', src: V(H.room, 0.4, { fit: true, z: [1.0, 1.0] }), ov: { words: [W1('One big', 0, { size: 130, y: 0.2 }), W1('screen.', 0.25, { size: 130, y: 0.275 })] } },
   { b: 2, src: P('p1', [['session', 1.0]], { bg: BG.bay }), ov: { ...DEMO, words: [W1('Every phone', 0, { size: 90, y: 0.07 }), W1('a console.', 0.25, { size: 90, y: 0.125 })] } },
   { b: 2, tr: 'whip', src: P('p1', [['session', 54.5, 0.8]], { bg: BG.bay }), ov: { ...DEMO, words: [W1('Mass.', 0, { size: 120, y: 0.09 })] }, punch: 0.05 },
@@ -124,7 +132,7 @@ export const SHORT = [
   { b: 2, src: V(H.tally, 1.0, { speed: 2, fit: true, z: [1.0, 1.0] }), ov: { words: [W1('On the', 0, { size: 120, y: 0.2 }), W1('big screen.', 0.2, { size: 120, y: 0.275 })] } },
   { b: 2, src: P('p1', [['session', 180.5]], { bg: BG.pad }), ov: { ...DEMO, words: [W1('GO / NO-GO?', 0, { size: 110, y: 0.09, amber: true })] } },
   { b: 2, src: S(H.frrGo, { fit: true, z: [1.0, 1.0] }), ov: { host: 'Big screen', words: [W1('GO for', 0, { size: 130, y: 0.2, amber: true }), W1('launch.', 0.2, { size: 130, y: 0.275, amber: true })] } },
-  { b: 2, tr: 'flash', src: S(AI.ascent, { cx: 0.5, z: [1.0, 1.25], fy: 0.4 }), ov: { ai: true, words: [W1('Launch.', 0, { size: 170, y: 0.8, amber: true })] }, punch: 0.08 },
+  { b: 2, tr: 'flash', src: X(AIX.liftoff, 0.5, { cx: 0.5, z: [1.0, 1.1] }, S(AI.ascent, { cx: 0.5, z: [1.0, 1.25], fy: 0.4 })), ov: { ai: true, words: [W1('Launch.', 0, { size: 170, y: 0.8, amber: true })] }, punch: 0.08 },
   { b: 1, src: P('p1', [['session', 221.0, 1.5, 'Max Q Throttle Bucket']], { bg: BG.earth }), ov: { ...DEMO }, punch: 0.07 },
   ...[['MG-16', 13.0, 'Station Docking'], ['MG-20', 3.0, 'Deorbit Burn'], ['MG-21', 5.0, 'Science Capture'], ['MG-06', 3.0, 'Shake Table'], ['MG-03', 1.5, 'Weld Inspector'], ['MG-16', 19.0, 'Station Docking']]
     .map(([n, ss, tag], i) => ({ b: 1, tr: i % 3 === 0 ? 'whip' : undefined, src: P('p1', [[n, ss, 1.6, tag]], { bg: i % 2 ? BG.earth : BG.bay }), punch: 0.07 })),

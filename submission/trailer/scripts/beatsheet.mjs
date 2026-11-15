@@ -18,13 +18,13 @@ for (const [i, s] of cut.shots.entries()) {
     what = src.phones.map((p) => `${rel(p.file)} @ ${p.ss}s${p.speed !== 1 ? ` x${p.speed}` : ''}${p.tag ? ` (${p.tag})` : ''}`).join('; ');
   } else {
     const f = src.still ?? src.video;
-    kind = s.ov?.end ? 'End card' : /assets\/media\/(key-art|style|cinematics)/.test(f) ? 'AI' : 'Host';
+    kind = s.ov?.end ? 'End card' : /assets\/media\/(key-art|style|cinematics|trailer-ai)/.test(f) ? 'AI' : 'Host';
     what = `${rel(f)}${src.video ? ` @ ${src.ss}s${src.speed ? ` x${src.speed}` : ''}${src.ramp ? ` ramp x${src.ramp[0]}→x${src.ramp[1]}` : ''}` : ''}`;
   }
   if (kind === 'Phone') kinds.phone++; else if (kind === 'Host') kinds.host++; else if (kind === 'AI') kinds.ai++; else kinds.card++;
   const text = [...(s.ov?.words ?? []).map((w) => w.w.toUpperCase()), s.ov?.title ? 'MissionForge title' : '', s.ov?.end ? 'URL, QR, credits line' : '']
     .filter(Boolean).join(' / ');
-  const labels = [s.ov?.ai ? 'AI-generated' : '', s.ov?.demo ? 'Scripted demo session' : ''].filter(Boolean).join(', ');
+  const labels = [s.ov?.host ?? '', s.ov?.ai ? 'AI-generated' : '', s.ov?.demo ? 'Scripted demo session' : ''].filter(Boolean).join(', ');
   rows.push(`| ${i + 1} | ${t.toFixed(1)}-${(t + d).toFixed(1)} | ${s.tr ?? 'cut'} | ${kind} | ${what} | ${text} | ${labels} |`);
   t += d;
 }
