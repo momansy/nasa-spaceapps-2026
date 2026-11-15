@@ -1,0 +1,22 @@
+VSTest version 17.11.2 (arm64)
+
+Starting test execution, please wait...
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:04.54]     MissionForge.Core.Tests.Flight.Mission.DeterminismTests.Complete_C1_flight_has_a_repeatable_snapshot_and_event_hash [FAIL]
+  Failed MissionForge.Core.Tests.Flight.Mission.DeterminismTests.Complete_C1_flight_has_a_repeatable_snapshot_and_event_hash [4 s]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "C55B910B89825D78343AD4EC0093E45FD09355322"···
+Actual:   "5F3266F16464C7591E3ECB66F34E07EF86387D455"···
+           ↑ (pos 0)
+  Stack Trace:
+     at MissionForge.Core.Tests.Flight.Mission.DeterminismTests.Complete_C1_flight_has_a_repeatable_snapshot_and_event_hash() in /Users/alainieh/Developer/Nasa/core/dotnet~/Tests/Flight/Mission/DeterminismTests.cs:line 23
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+  Standard Output Messages:
+ C1 snapshot/event SHA-256: 5F3266F16464C7591E3ECB66F34E07EF86387D45519974ED757937423A23DF71
+
+
+
+Failed!  - Failed:     1, Passed:   566, Skipped:     0, Total:   567, Duration: 4 s - MissionForge.Core.Tests.dll (net8.0)

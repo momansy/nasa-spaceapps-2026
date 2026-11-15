@@ -2,7 +2,7 @@
 
 | Asset | Path | Source | Licence |
 |---|---|---|---|
-| Earth day map (Blue Marble Next Generation, December, topography + bathymetry), resized to 4096×2048 | `Assets/MissionForge/Art/Textures/Earth/earth_day_4k.jpg` | NASA Earth Observatory / Visible Earth, `world.topo.bathy.200412.3x5400x2700.jpg` from <https://assets.science.nasa.gov/content/dam/science/esd/eo/images/bmng/bmng-topography-bathymetry/december/> | Public domain (NASA) |
+| Earth day map (Blue Marble Next Generation, December, topography + bathymetry), resized to 4096×2048 | `Assets/MissionForge/Art/Textures/Earth/earth_day_4k.jpg` | NASA Earth Observatory / Visible Earth, `world.topo.bathy.200412.3x5400x2700.jpg` from the NASA Science page <https://science.nasa.gov/earth/earth-observatory/blue-marble-next-generation/base-topography-bathymetry/> (file path `.../images/bmng/bmng-topography-bathymetry/december/`) | Public domain (NASA) |
 | Earth night lights (Black Marble 2012, 0.1°), resized to 2048×1024 | `.../earth_night_2k.jpg` | NASA Earth Observatory, `BlackMarble_2012_01deg.jpg` (image record 144875) | Public domain (NASA) |
 | Bathymetry (GEBCO 08 via Blue Marble Next Generation), resized to 2048×1024, used as the ocean mask | `.../earth_ocean_2k.jpg` | NASA Earth Observatory, `gebco_08_rev_bath_5400x2700.jpg` | Public domain (NASA / GEBCO) |
 | Cloud map 2048×1024 | `.../earth_clouds_2k.jpg` | Solar System Scope, <https://www.solarsystemscope.com/textures/> (`2k_earth_clouds.jpg`, derived from NASA data) | CC BY 4.0 |
