@@ -70,9 +70,10 @@ Full runbook: `RELEASE.md` section 5 and `JUDGES.md`.
    six-person playtest).
 5. **No network or no server:** open `/play/client/?mock=1` on a phone or laptop for a scripted phone session.
 
-The hosted address <https://nasasc.netlify.app/play/> is meant to serve only the entry, credits and judges pages and
-the mock phone demo (it returned HTTP 404 on 2026-11-15 until the Netlify site is redeployed from `main`). The game
-needs a room server, so the full game is played from the local launcher (see section 8).
+**Hosted, no install:** <https://missionforge-spaceapps.onrender.com/play/> runs the full game (big-screen host, phone client and room server on one
+free Render service). Open it on a laptop, click **Host a mission**, and join from phones on any network with the QR code or
+room code. Checked live on 2026-11-15. The free instance sleeps after 15 minutes without visitors and takes about a
+minute to wake; rooms are kept in memory only, so a restart of the service ends open rooms.
 
 ## 5. Technology
 
