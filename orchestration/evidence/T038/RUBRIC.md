@@ -21,3 +21,23 @@ visible). Standard-mode MG-03/MG-04 end at 75 % of the window, so the readout ca
 about a quarter of the window when play ends. Not run: the other lab specs (ascent, orbit,
 entry) and T037's committed Arabic evidence (the Arabic spec now writes to `AR_SHOTS_DIR` when
 set; T038 used `orchestration/evidence/T038/after/`).
+
+## Rework 1 (issue #161): i18n parity after merging `main`
+
+`origin/main` (with the es/fr/pt/hi string files from T039/T041) was merged into the T038
+work (the rework branch `agentmesh/mohammed-alainieh/issue-161` starts at `main` `9cf9dfb` and
+merges the T038 branch `issue-136`; no conflicts). `src/i18n/parity.test.ts` then failed for
+es, fr, pt and hi (4 failures, 912 passed) because `ui.card.more` and `ui.card.more_stats` existed
+only in en/ar. Fixed by adding both keys to `{es,fr,pt,hi}.vote.json` and changing
+`minigame.MG-03.hud.left` in `{es,fr,pt,hi}.mg_build.json` to the "Time left" meaning:
+
+| Lang | `ui.card.more` | `minigame.MG-03.hud.left` |
+|------|----------------|---------------------------|
+| es | Más | Tiempo restante |
+| fr | Plus | Temps restant |
+| pt | Mais | Tempo restante |
+| hi | और | बचा हुआ समय |
+
+Counts (in `client/`): `npm ci` ok; `npx vitest run` 47 files, **916 passed, 0 failed**
+(was 912 passed + 4 failed); `npm run build` ok. `session.spec.ts` not rerun: no code, CSS or
+English/Arabic string changed in this rework.
