@@ -13,6 +13,7 @@
 }
 .fl-clock {
     -unity-font-definition: var(--mf-font-display);
+    text-shadow: 0px 2px 14px var(--mf-space);
     font-size: var(--mf-fs-kpi-l);
     color: var(--mf-ceramic);
 }
@@ -46,6 +47,7 @@
 .fl-metric--hero { flex-direction: column; align-items: flex-start; margin-bottom: var(--mf-sp-3); }
 .fl-metric__name { color: var(--mf-muted); }
 .fl-metric__value { color: var(--mf-ceramic); }
+.fl-metric__value--note { font-size: var(--mf-fs-label); color: var(--mf-marginal); }
 
 .fl-section {
     -unity-font-definition: var(--mf-font-mono-bold);

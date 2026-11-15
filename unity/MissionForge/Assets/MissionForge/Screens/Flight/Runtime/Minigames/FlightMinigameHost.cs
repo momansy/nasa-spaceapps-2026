@@ -40,6 +40,9 @@ namespace MissionForge.Screens.Flight
         private readonly IMinigameChannel _channel;
         private readonly SeededRandom _rng;
         private int _runCount;
+
+        /// <summary>Run-id prefix; the session sets "m{missionSeq}f" so ids are never reused in a room (DUPLICATE_ID).</summary>
+        public string RunIdPrefix { get; set; } = "f";
         private long _lastNowMs;
         private Run _run;
 
@@ -83,7 +86,7 @@ namespace MissionForge.Screens.Flight
             if (!_channel.IsConnected) return false;
 
             _runCount++;
-            string runId = "f" + _runCount + "." + minigameId.ToLowerInvariant();
+            string runId = RunIdPrefix + _runCount + "." + minigameId.ToLowerInvariant();
             uint seed = (uint)(_rng.ForStream("minigame:" + runId).NextUInt64() & 0xFFFFFFFFUL);
             long nowMs = _channel.NowMs();
             long startAtMs = nowMs + IntroLeadMs;
@@ -199,7 +202,7 @@ namespace MissionForge.Screens.Flight
             }
 
             TierResult tier;
-            if (active.Count == 1)
+            if (active.Count == 1 && (_channel.PlayerIds?.Count ?? 0) <= 1)
             {
                 _run.Results.TryGetValue(active[0], out PlayerResult solo);
                 tier = Tiers.ComputeSolo(_scoring, solo?.Score ?? 0.0, solo?.Perfect ?? false);

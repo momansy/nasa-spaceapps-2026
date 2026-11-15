@@ -23,15 +23,12 @@ namespace MissionForge.Screens.Flight
 
         private FlightHudView _hud;
         private MinigameBannerView _banner;
-        private FlightMinigameHost _minigames;
-        private RehearsalMinigameChannel _rehearsalChannel;
-        private RoomMinigameChannel _roomChannel;
         private float _nextHudSend;
         private bool _started;
         private float _endedAt = -1f;
 
         public FlightHudView Hud => _hud;
-        public FlightMinigameHost Minigames => _minigames;
+        public FlightMinigameHost Minigames => FlightMinigames.Host;
         public FlightCameraDirector Cameras => cameraDirector;
 
         public void ConfigureWorld(FlightWorld flightWorld, FlightCameraDirector director)
@@ -48,10 +45,6 @@ namespace MissionForge.Screens.Flight
         protected override void OnExit()
         {
             FlightSession.EventRaised -= OnFlightEvent;
-            _minigames?.Dispose();
-            _roomChannel?.Dispose();
-            _minigames = null;
-            if (FlightSession.Feed != null) FlightSession.Feed.BulletTime = false;
         }
 
         private bool Begin()
@@ -68,25 +61,10 @@ namespace MissionForge.Screens.Flight
             if (bannerSheet != null) Screen.styleSheets.Add(bannerSheet);
             _banner = new MinigameBannerView(Screen);
 
-            ulong seed = FlightSession.Build != null ? FlightSession.Build.Seed : FlightSession.RehearsalSeed;
-            IMinigameChannel channel;
-            if (FlightSession.IsRehearsal)
-            {
-                _rehearsalChannel = new RehearsalMinigameChannel(seed, NowMs);
-                channel = _rehearsalChannel;
-            }
-            else
-            {
-                _roomChannel = new RoomMinigameChannel(App.Room.Client);
-                channel = _roomChannel;
-            }
-            _minigames = new FlightMinigameHost(FlightSession.JsonByPath, channel, seed);
-            if (_roomChannel != null && !string.IsNullOrEmpty(_roomChannel.AssistLevel)) _minigames.AssistLevel = _roomChannel.AssistLevel;
+            FlightMinigames.Ensure(App);
             FlightSession.Run();
             return true;
         }
-
-        private static long NowMs() => (long)(Time.realtimeSinceStartupAsDouble * 1000.0);
 
         private void Update()
         {
@@ -98,11 +76,7 @@ namespace MissionForge.Screens.Flight
             IFlightFeed feed = FlightSession.Feed;
             if (feed == null) return;
 
-            long now = _roomChannel != null ? _roomChannel.NowMs() : NowMs();
-            _rehearsalChannel?.Tick(now);
-            _minigames?.Tick(now);
-            if (_minigames != null) feed.BulletTime = _minigames.IsBulletTime;
-            _banner?.Show(_minigames?.Current, now);
+            _banner?.Show(FlightMinigames.Host?.Current, FlightMinigames.NowMs());
 
             FlightTelemetry t = feed.Current;
             HandleKeys();
@@ -119,18 +93,17 @@ namespace MissionForge.Screens.Flight
         {
             Keyboard kb = Keyboard.current;
             if (kb == null) return;
-            if (kb.vKey.wasPressedThisFrame) _hud.ShowOrbitalVelocity = !_hud.ShowOrbitalVelocity;
+            if (kb.vKey.wasPressedThisFrame)
+            {
+                bool now = _hud.ShowOrbitalVelocity ?? FlightSession.Feed.Current.altitudeM >= FlightHudMessage.OrbitalVelocityAboveM;
+                _hud.ShowOrbitalVelocity = !now;
+            }
             if (kb.mKey.wasPressedThisFrame && App != null) App.Flow.ShowWithinPhase(ScreenId.OrbitMap);
         }
 
         private void OnFlightEvent(FlightTelemetryEvent e, FlightTelemetry t)
         {
             if (_hud == null) return;
-            if (e.kind == FlightEventKind.MinigameCue && t.IsLifted && _minigames != null)
-            {
-                _minigames.TryStartFromCue(e);
-                return;
-            }
             string key = e.kind switch
             {
                 FlightEventKind.Ignition => "ui.flight.event.ignition",
@@ -144,7 +117,9 @@ namespace MissionForge.Screens.Flight
                 FlightEventKind.MissionEnd => "ui.flight.event.mission_end",
                 _ => null,
             };
-            if (key != null) _hud.Callout(FlightText.Get(key));
+            if (key == null) return;
+            _hud.Callout(FlightText.Get(key));
+            Debug.Log("[MissionForge] Flight event " + e.kind + " at MET " + t.metS.ToString("0.0") + " s, " + (t.altitudeM / 1000).ToString("0.0") + " km");
         }
 
         private void SendHud(FlightTelemetry t)

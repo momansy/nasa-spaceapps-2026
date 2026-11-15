@@ -94,7 +94,7 @@ namespace MissionForge.Screens.Flight
                     fov = 62f;
                     break;
                 default:
-                    pos = mid + v.Pivot.right * (-len * 0.55f) + v.Pivot.forward * (-len * 1.6f) + v.Pivot.up * (-len * 0.25f);
+                    pos = mid + v.Pivot.right * (-len * 0.7f) + v.Pivot.forward * (-len * 2.3f) + v.Pivot.up * (-len * 0.35f);
                     look = v.AxisPoint(0.55f);
                     fov = 38f;
                     break;

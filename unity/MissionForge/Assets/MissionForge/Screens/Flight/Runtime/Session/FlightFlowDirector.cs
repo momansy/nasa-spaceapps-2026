@@ -51,6 +51,8 @@ namespace MissionForge.Screens.Flight
             {
                 _client = _app.Room.Client;
                 _client.MessageReceived += OnMessage;
+                _client.GamePaused += OnPaused;
+                _client.GameResumed += OnResumed;
             }
 
             SceneFlow flow = _app.Flow;
@@ -71,8 +73,17 @@ namespace MissionForge.Screens.Flight
                 _app.Flow.ScreenChanged -= OnScreenChanged;
                 _app.Flow.PhaseChanged -= OnPhaseChanged;
             }
-            if (_client != null) _client.MessageReceived -= OnMessage;
+            if (_client != null)
+            {
+                _client.MessageReceived -= OnMessage;
+                _client.GamePaused -= OnPaused;
+                _client.GameResumed -= OnResumed;
+            }
         }
+
+        // game.pause (host away / operator): the flight and its minigame clock stop; resume continues.
+        private static void OnPaused(GamePausedDto _) => FlightSession.Pause();
+        private static void OnResumed(GameResumedDto _) { if (FlightSession.Feed != null) FlightSession.Run(); }
 
         private bool IsRehearsal() => FlightSession.Arg("-mfRehearsal") != null || _client == null || string.IsNullOrEmpty(_client.RoomCode);
 

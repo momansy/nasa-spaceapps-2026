@@ -145,7 +145,7 @@ namespace MissionForge.Screens.Flight.Tests
             double high = 40 * R;
             OrbitConic far = OrbitMapMath.ConicFrom(high, 0, 0, Math.Sqrt(Mu / high), Mu, R);
 
-            Assert.That(OrbitMapMath.FitRadiusM(low, R + 400_000, R), Is.EqualTo(2 * R).Within(1.0));
+            Assert.That(OrbitMapMath.FitRadiusM(low, R + 400_000, R), Is.EqualTo(OrbitMapMath.MinViewRadiusBodyRadii * R).Within(1.0));
             Assert.That(OrbitMapMath.FitRadiusM(far, high, R), Is.EqualTo(12 * R).Within(1.0));
         }
 

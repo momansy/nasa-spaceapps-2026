@@ -9,7 +9,7 @@
     flex-direction: column;
     padding-left: var(--mf-sp-safe-x);
     padding-right: var(--mf-sp-safe-x);
-    padding-top: var(--mf-sp-safe-y);
+    padding-top: 128px; /* below the 110 px chrome top bar */
     padding-bottom: var(--mf-sp-safe-y);
     background-color: var(--mf-space-80);
 }

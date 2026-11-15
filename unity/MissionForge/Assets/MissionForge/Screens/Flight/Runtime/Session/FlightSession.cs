@@ -137,6 +137,7 @@ namespace MissionForge.Screens.Flight
         /// <summary>Ends the session (leaving the flight phase). The next countdown starts a new flight.</summary>
         public static void End()
         {
+            FlightMinigames.End();
             if (Runner != null) UnityEngine.Object.Destroy(Runner.gameObject);
             Runner = null;
             Feed = null;
@@ -257,9 +258,12 @@ namespace MissionForge.Screens.Flight
             while (_accumulatorS >= stepS && steps < MaxStepsPerFrame && !feed.IsFinished)
             {
                 _accumulatorS -= stepS;
-                FlightSession.Raise(feed.Step());
+                FlightTelemetry stepped = feed.Step();
+                foreach (FlightTelemetryEvent e in stepped.events) FlightMinigames.OnFlightEvent(e, stepped);
+                FlightSession.Raise(stepped);
                 steps++;
             }
+            FlightMinigames.Tick();
             if (steps >= MaxStepsPerFrame || feed.IsFinished) _accumulatorS = 0;
             Alpha = Mathf.Clamp01((float)(_accumulatorS / stepS));
         }

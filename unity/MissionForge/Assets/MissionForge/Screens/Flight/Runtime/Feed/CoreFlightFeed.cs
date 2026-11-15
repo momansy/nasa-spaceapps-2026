@@ -26,7 +26,7 @@ namespace MissionForge.Screens.Flight
         private readonly double _rotationSpeedMs;
         private FlightControlCommand _pending;
         private double _lastThrottle;
-        private bool _orbitReported;
+        private bool _orbitReported, _secoReported;
         private double _simTimeS;
 
         public CoreFlightFeed(BuildState build, GameCatalog catalog, IReadOnlyDictionary<string, string> jsonByPath,
@@ -149,7 +149,7 @@ namespace MissionForge.Screens.Flight
                 missionEnded = _sim.Result != null,
             };
             foreach (FlightEvent e in coreEvents) Map(e, t);
-            if (t.throttle01 <= 0 && _lastThrottle > 0 && (t.phase == "F7" || t.phase == "F8"))
+            if (!_secoReported && t.throttle01 <= 0 && _lastThrottle > 0 && t.phase == "F8" && (_secoReported = true))
                 t.events.Add(new FlightTelemetryEvent(FlightEventKind.Seco, "seco", t.phase, t.metS));
             _lastThrottle = t.throttle01;
             return t;
@@ -168,7 +168,7 @@ namespace MissionForge.Screens.Flight
                     else if (e.Id == "F8" && !_orbitReported) { kind = FlightEventKind.Orbit; _orbitReported = true; }
                     else return;
                     break;
-                case "staging":
+                case "staging" when e.Id != "scripted_transfer_coast":
                     // MECO and separation happen on the same Core step; the view plays shutdown tail-off then the drop.
                     t.events.Add(new FlightTelemetryEvent(FlightEventKind.Meco, e.Id, e.Phase, e.MetS));
                     kind = FlightEventKind.Staging;

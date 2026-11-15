@@ -59,6 +59,7 @@ namespace MissionForge.Screens.Flight
             // The flight scene has taken over: switch this world off so the two pads never double their lights.
             if (info != null && info.Id != ScreenId.Countdown && world != null && FlightWorld.Active != world)
                 world.gameObject.SetActive(false);
+            if (info != null && info.Id != ScreenId.Countdown && Screen != null) Screen.style.display = DisplayStyle.None;
         }
 
         private void Update()

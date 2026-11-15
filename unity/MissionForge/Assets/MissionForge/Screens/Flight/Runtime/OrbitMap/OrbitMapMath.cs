@@ -132,8 +132,8 @@ namespace MissionForge.Screens.Flight
     {
         /// <summary>Map never zooms out beyond this many body radii, so escape cases stay readable (game_value).</summary>
         public const double MaxViewRadiusBodyRadii = 12;
-        /// <summary>Minimum view radius: the Earth fills about half the map (game_value).</summary>
-        public const double MinViewRadiusBodyRadii = 2;
+        /// <summary>Minimum view radius: a low orbit still separates from the limb (game_value).</summary>
+        public const double MinViewRadiusBodyRadii = 1.3;
 
         private const double CircularEccentricity = 1e-12; // Core's own circular threshold
         private const double AsymptoteGuardRad = 1e-6;

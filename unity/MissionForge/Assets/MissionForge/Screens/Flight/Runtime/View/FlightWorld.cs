@@ -18,6 +18,7 @@ namespace MissionForge.Screens.Flight
         [SerializeField] private Transform vehicleAnchor;
         [SerializeField] private FlightVehicleView vehicle;
 
+        private Light _flightSun;
         private Vector3 _environmentHome;
         private Vector3 _anchorHome;
         private bool _homed;
@@ -68,9 +69,32 @@ namespace MissionForge.Screens.Flight
         {
             if (environment == null) return;
             bool show = altitudeM < EnvironmentOffAltitudeM;
-            if (environment.gameObject.activeSelf != show) environment.gameObject.SetActive(show);
+            if (environment.gameObject.activeSelf != show)
+            {
+                environment.gameObject.SetActive(show);
+                FlightSun().enabled = !show;
+            }
             if (!show) return;
             environment.position = _environmentHome - Vector3.up * (float)altitudeM - Downrange * (float)downrangeM;
+        }
+
+        /// <summary>
+        /// Key light above the pad environment (the dusk rig's lights switch off with it): sunlight from the camera's
+        /// side so the vehicle reads against space. 5800 K-ish warm white, intensity 2 (game_value, as MF_Rig_Orbit).
+        /// </summary>
+        private Light FlightSun()
+        {
+            if (_flightSun != null) return _flightSun;
+            var go = new GameObject("FlightSun");
+            go.transform.SetParent(transform, false);
+            go.transform.rotation = Quaternion.LookRotation(new Vector3(0.55f, -0.3f, 0.78f));
+            _flightSun = go.AddComponent<Light>();
+            _flightSun.type = LightType.Directional;
+            _flightSun.color = new Color(1f, 0.95f, 0.88f);
+            _flightSun.intensity = 2.2f;
+            _flightSun.shadows = LightShadows.None;
+            _flightSun.enabled = false;
+            return _flightSun;
         }
 
         public Vector3 AnchorHome => _anchorHome;

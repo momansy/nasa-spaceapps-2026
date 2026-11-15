@@ -33,7 +33,8 @@ namespace MissionForge.Screens.Flight
         private readonly Label _callout;
         private float _calloutUntil;
 
-        public bool ShowOrbitalVelocity { get; set; }
+        /// <summary>Operator override from V; null = automatic (surface below 70 km, orbital above, as flight.hud).</summary>
+        public bool? ShowOrbitalVelocity { get; set; }
         public VisualElement Root => _root;
 
         public FlightHudView(VisualElement parent, int stageCount)
@@ -131,12 +132,15 @@ namespace MissionForge.Screens.Flight
             _speed.style.display = string.IsNullOrEmpty(_speed.text) ? DisplayStyle.None : DisplayStyle.Flex;
 
             Set("altitude", FlightUnits.Altitude(t.altitudeM));
-            _names["velocity"].text = FlightText.Get(ShowOrbitalVelocity ? "ui.flight.velocity.orbital" : "ui.flight.velocity.surface");
-            Set("velocity", FlightUnits.Speed(ShowOrbitalVelocity ? t.orbitalSpeedMs : t.surfaceSpeedMs));
+            bool orbital = ShowOrbitalVelocity ?? t.altitudeM >= FlightHudMessage.OrbitalVelocityAboveM;
+            _names["velocity"].text = FlightText.Get(orbital ? "ui.flight.velocity.orbital" : "ui.flight.velocity.surface");
+            Set("velocity", FlightUnits.Speed(orbital ? t.orbitalSpeedMs : t.surfaceSpeedMs));
             Set("vspeed", FlightUnits.VerticalSpeed(t.verticalSpeedMs));
             Set("q", FlightUnits.DynamicPressure(t.dynamicPressurePa));
             Set("g", FlightUnits.GLoad(t.gLoad));
             _values["mach"].text = t.mach.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture);
+            // Mach has no meaning without air: the row is hidden above the 70 km protocol switch.
+            _values["mach"].parent.style.display = t.altitudeM < FlightHudMessage.OrbitalVelocityAboveM ? DisplayStyle.Flex : DisplayStyle.None;
             Set("throttle", FlightUnits.Percent(t.throttle01));
             _throttleFill.style.width = Length.Percent((float)(Mathf.Clamp01((float)t.throttle01) * 100f));
 
@@ -154,7 +158,10 @@ namespace MissionForge.Screens.Flight
             double activeProp = t.stageIndex < t.stagePropellant01.Length ? t.stagePropellant01[t.stageIndex] : 0;
             Set("propellant", FlightUnits.Percent(activeProp));
             Set("apo", FlightUnits.Apsis(t.apoapsisM));
-            Set("peri", FlightUnits.Apsis(t.periapsisM));
+            bool below = t.HasPeriapsis && t.periapsisM < 0;
+            _values["peri"].EnableInClassList("fl-metric__value--note", below);
+            if (below) _values["peri"].text = FlightText.Get("ui.flight.suborbital");
+            else Set("peri", FlightUnits.Apsis(t.periapsisM));
             Set("incl", FlightUnits.Degrees(t.inclinationRad));
             Set("heat", FlightUnits.Percent(t.heatLoad01));
 

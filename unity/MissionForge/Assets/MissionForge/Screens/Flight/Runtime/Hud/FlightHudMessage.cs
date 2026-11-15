@@ -43,7 +43,8 @@ namespace MissionForge.Screens.Flight
                 apoapsisKm = t.HasApoapsis ? Round(FlightUnits.MetresToKm(t.apoapsisM), 2) : (double?)null,
                 periapsisKm = t.HasPeriapsis ? Round(FlightUnits.MetresToKm(t.periapsisM), 2) : (double?)null,
                 heatLoadPct = Round(Math.Max(0, FlightUnits.FractionToPercent(t.heatLoad01)), 1),
-                warp = Clamp(t.warp, 0, 1000),
+                // Phones show the same time factor as the big screen, including the presentation fast-forward.
+                warp = Clamp(t.warp * FlightSession.FastForward(t), 0, 1000),
             };
         }
 
