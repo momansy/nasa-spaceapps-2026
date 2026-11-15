@@ -1,0 +1,36 @@
+=== raw traversal (--path-as-is)
+/play/../server/package.json -> 404 9
+Not found
+/play/../../server/package.json -> 404 9
+Not found
+/play/host/../../../server/package.json -> 404 9
+Not found
+/../server/package.json -> 404 9
+Not found
+/play/%2e%2e%2fserver/package.json -> 404 9
+Not found
+/play/..%252f..%252fserver/package.json -> 404 9
+Not found
+/play/host/Build/../../../../server/package.json -> 404 9
+Not found
+=== conditional GET
+HTTP/1.1 304 Not Modified
+Content-Type: application/wasm
+Cache-Control: no-cache
+=== body integrity: GET wasm with Accept-Encoding gzip (raw), gunzip, magic
+-rw-r--r-- 1 moham 197609 12653328 Nov 15 10:40 /tmp/t048.wasm.gz
+IDENTICAL_TO_DISK
+=== client to non-gzip Accept-Encoding (identity) on unityweb
+HTTP/1.1 200 OK
+Content-Encoding: gzip
+=== Range
+200
+=== POST/OPTIONS
+POST /play/ 405
+OPTIONS /play/ 405
+=== long/odd URLs
+long 404
+query 200
+ws path as http 404
+=== healthz after abuse
+{"ok":true,"commit":null,"startedAt":"2026-11-15T07:39:38.749Z"}

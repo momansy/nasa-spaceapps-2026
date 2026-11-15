@@ -1,0 +1,199 @@
+[4.7s] host: ws open ws://localhost:10000/ws
+[6.5s] host: sent hello
+[9.0s] host: recv hello.ok
+[26.2s] host: sent room.create
+[26.2s] host: recv room.created
+[26.2s] host: recv settings.state
+[26.2s] host: recv room.state
+[26.2s] host: recv roles.state
+[26.2s] host: recv snapshot.end
+[28.9s] harness: room NGAH joinUrl http://localhost:10000/play/client/?room=NGAH
+[31.4s] phone1: ws open ws://localhost:10000/ws
+[31.4s] phone1: sent hello
+[31.4s] phone1: recv hello.ok
+[31.4s] phone1: sent room.join
+[31.4s] host: recv room.state
+[31.4s] phone1: recv room.state
+[31.4s] host: recv roles.state
+[31.4s] phone1: recv roles.state
+[31.4s] phone1: recv room.joined
+[31.4s] phone1: recv settings.state
+[31.4s] phone1: recv room.state
+[31.4s] phone1: recv roles.state
+[31.4s] phone1: recv snapshot.end
+[34.9s] phone2: ws open ws://localhost:10000/ws
+[34.9s] phone2: sent hello
+[34.9s] phone2: recv hello.ok
+[34.9s] phone2: sent room.join
+[34.9s] host: recv room.state
+[34.9s] phone2: recv room.state
+[34.9s] host: recv roles.state
+[34.9s] phone1: recv room.state
+[34.9s] phone1: recv roles.state
+[34.9s] phone2: recv roles.state
+[34.9s] phone2: recv room.joined
+[34.9s] phone2: recv settings.state
+[34.9s] phone2: recv room.state
+[34.9s] phone2: recv roles.state
+[34.9s] phone2: recv snapshot.end
+[84.0s] harness: KILL: killed pid 150828
+[84.0s] host: ws closed
+[84.0s] phone1: ws closed
+[84.0s] phone2: ws closed
+[84.4s] phone1: ws open ws://localhost:10000/ws
+[84.4s] phone1: ws error Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[84.4s] phone2: ws open ws://localhost:10000/ws
+[84.4s] phone2: ws error Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[84.5s] phone1: ws closed
+[84.5s] phone2: ws closed
+[85.4s] phone2: ws open ws://localhost:10000/ws
+[85.4s] phone2: ws error Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[85.4s] phone1: ws open ws://localhost:10000/ws
+[85.4s] phone1: ws error Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[85.4s] host: ws open ws://localhost:10000/ws
+[85.4s] host: ws error Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[85.4s] host: ws closed
+[85.4s] phone1: ws closed
+[85.4s] phone2: ws closed
+[87.6s] phone2: ws open ws://localhost:10000/ws
+[87.6s] phone2: ws error Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[87.6s] phone1: ws open ws://localhost:10000/ws
+[87.6s] phone1: ws error Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[87.6s] host: ws open ws://localhost:10000/ws
+[87.6s] host: ws error Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[87.6s] host: ws closed
+[87.6s] phone2: ws closed
+[87.6s] phone1: ws closed
+[91.4s] host: ws open ws://localhost:10000/ws
+[91.4s] host: ws error Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[91.4s] host: ws closed
+[91.6s] phone1: ws open ws://localhost:10000/ws
+[91.6s] phone1: ws error Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[91.6s] phone2: ws open ws://localhost:10000/ws
+[91.6s] phone2: ws error Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[91.6s] phone1: ws closed
+[91.6s] phone2: ws closed
+[94.0s] harness: RESTARTED pid 146668 (down for 10.0 s)
+[96.6s] phone2: ws open ws://localhost:10000/ws
+[96.6s] phone1: ws open ws://localhost:10000/ws
+[96.6s] phone2: sent hello
+[97.4s] host: ws open ws://localhost:10000/ws
+[97.5s] phone2: recv hello.ok
+[97.5s] phone2: sent room.resume
+[97.5s] phone1: sent hello
+[97.5s] phone2: recv error {"t":"error","seq":2,"d":{"code":"ROOM_NOT_FOUND","fatal":false,"re":2,"reT":"room.resume"}}
+[97.5s] phone2: ws closed
+[97.5s] phone1: recv hello.ok
+[97.5s] phone1: sent room.resume
+[97.5s] phone1: recv error {"t":"error","seq":2,"d":{"code":"ROOM_NOT_FOUND","fatal":false,"re":2,"reT":"room.resume"}}
+[97.5s] phone1: ws closed
+[98.4s] host: sent hello
+[98.4s] host: recv hello.ok
+[99.0s] harness: +5s phone texts: ["Skip to content Room NGAH Connection lost. Reconnecting… No room with that code. Check the host screen. You are in Restart1 Waiting for the host to start the mission Edit call sign Crew · 2 Restart1 Y","Skip to content Room NGAH Connection lost. Reconnecting… No room with that code. Check the host screen. You are in Restart2 Waiting for the host to start the mission Edit call sign Crew · 2 Restart1 0"]
+[99.4s] host: sent room.resume
+[99.4s] host: recv error {"t":"error","seq":2,"d":{"code":"ROOM_NOT_FOUND","fatal":false,"re":2,"reT":"room.resume"}}
+[127.5s] host: recv bye {"t":"bye","seq":10,"d":{"reason":"HANDSHAKE_TIMEOUT","closeCode":4005,"canResume":false}}
+[127.5s] host: ws closed
+[130.4s] host: ws open ws://localhost:10000/ws
+[131.4s] host: sent hello
+[131.4s] host: recv hello.ok
+[160.5s] host: recv bye {"t":"bye","seq":9,"d":{"reason":"HANDSHAKE_TIMEOUT","closeCode":4005,"canResume":false}}
+[160.5s] host: ws closed
+[162.5s] host: ws open ws://localhost:10000/ws
+[163.4s] host: sent hello
+[163.4s] host: recv hello.ok
+[192.5s] host: recv bye {"t":"bye","seq":9,"d":{"reason":"HANDSHAKE_TIMEOUT","closeCode":4005,"canResume":false}}
+[192.5s] host: ws closed
+[194.4s] host: ws open ws://localhost:10000/ws
+[195.4s] host: sent hello
+[195.4s] host: recv hello.ok
+[224.4s] host: recv bye {"t":"bye","seq":9,"d":{"reason":"HANDSHAKE_TIMEOUT","closeCode":4005,"canResume":false}}
+[224.4s] host: ws closed
+[226.4s] host: ws open ws://localhost:10000/ws
+[227.4s] host: sent hello
+[227.4s] host: recv hello.ok
+[250.6s] harness: +30s phone texts: ["Skip to content Room NGAH Connection lost. Reconnecting… You are in Restart1 Waiting for the host to start the mission Edit call sign Crew · 2 Restart1 You 01 Restart2 02 Consoles are dealt at random ","Skip to content Room NGAH Connection lost. Reconnecting… You are in Restart2 Waiting for the host to start the mission Edit call sign Crew · 2 Restart1 01 Restart2 You 02 Consoles are dealt at random "]
+[256.5s] host: recv bye {"t":"bye","seq":9,"d":{"reason":"HANDSHAKE_TIMEOUT","closeCode":4005,"canResume":false}}
+[256.5s] host: ws closed
+[258.4s] host: ws open ws://localhost:10000/ws
+[259.4s] host: sent hello
+[259.4s] host: recv hello.ok
+[288.4s] host: recv bye {"t":"bye","seq":9,"d":{"reason":"HANDSHAKE_TIMEOUT","closeCode":4005,"canResume":false}}
+[288.4s] host: ws closed
+[290.2s] host: ws open ws://localhost:10000/ws
+[291.4s] host: sent hello
+[291.4s] host: recv hello.ok
+[320.2s] host: recv bye {"t":"bye","seq":9,"d":{"reason":"HANDSHAKE_TIMEOUT","closeCode":4005,"canResume":false}}
+[320.2s] host: ws closed
+[321.4s] host: ws open ws://localhost:10000/ws
+[322.4s] host: sent hello
+[322.4s] host: recv hello.ok
+[351.4s] host: recv bye {"t":"bye","seq":9,"d":{"reason":"HANDSHAKE_TIMEOUT","closeCode":4005,"canResume":false}}
+[351.5s] host: ws closed
+[353.4s] host: ws open ws://localhost:10000/ws
+[354.4s] host: sent hello
+[354.4s] host: recv hello.ok
+[383.5s] host: recv bye {"t":"bye","seq":9,"d":{"reason":"HANDSHAKE_TIMEOUT","closeCode":4005,"canResume":false}}
+[383.5s] host: ws closed
+[385.4s] host: ws open ws://localhost:10000/ws
+[386.4s] host: sent hello
+[386.4s] host: recv hello.ok
+[415.5s] host: recv bye {"t":"bye","seq":9,"d":{"reason":"HANDSHAKE_TIMEOUT","closeCode":4005,"canResume":false}}
+[415.5s] host: ws closed
+[417.4s] host: ws open ws://localhost:10000/ws
+[418.4s] host: sent hello
+[418.4s] host: recv hello.ok
+[447.5s] host: recv bye {"t":"bye","seq":9,"d":{"reason":"HANDSHAKE_TIMEOUT","closeCode":4005,"canResume":false}}
+[447.5s] host: ws closed
+[449.5s] host: ws open ws://localhost:10000/ws
+[450.4s] host: sent hello
+[450.5s] host: recv hello.ok
+[479.5s] host: recv bye {"t":"bye","seq":9,"d":{"reason":"HANDSHAKE_TIMEOUT","closeCode":4005,"canResume":false}}
+[479.5s] host: ws closed
+[481.5s] host: ws open ws://localhost:10000/ws
+[482.5s] host: sent hello
+[482.5s] host: recv hello.ok
+[511.5s] host: recv bye {"t":"bye","seq":9,"d":{"reason":"HANDSHAKE_TIMEOUT","closeCode":4005,"canResume":false}}
+[511.5s] host: ws closed
+[513.5s] host: ws open ws://localhost:10000/ws
+[514.5s] host: sent hello
+[514.5s] host: recv hello.ok
+[519.2s] harness: +90s phone texts: ["Skip to content Room NGAH Connection lost. Reconnecting… You are in Restart1 Waiting for the host to start the mission Edit call sign Crew · 2 Restart1 You 01 Restart2 02 Consoles are dealt at random ","Skip to content Room NGAH Connection lost. Reconnecting… You are in Restart2 Waiting for the host to start the mission Edit call sign Crew · 2 Restart1 01 Restart2 You 02 Consoles are dealt at random "]
+[543.5s] host: recv bye {"t":"bye","seq":9,"d":{"reason":"HANDSHAKE_TIMEOUT","closeCode":4005,"canResume":false}}
+[543.5s] host: ws closed
+[545.5s] host: ws open ws://localhost:10000/ws
+[546.4s] host: sent hello
+[546.4s] host: recv hello.ok
+[575.5s] host: recv bye {"t":"bye","seq":9,"d":{"reason":"HANDSHAKE_TIMEOUT","closeCode":4005,"canResume":false}}
+[575.5s] host: ws closed
+[577.4s] host: ws open ws://localhost:10000/ws
+[578.4s] host: sent hello
+[578.4s] host: recv hello.ok
+[607.4s] host: recv bye {"t":"bye","seq":9,"d":{"reason":"HANDSHAKE_TIMEOUT","closeCode":4005,"canResume":false}}
+[607.4s] host: ws closed
+[609.4s] host: ws open ws://localhost:10000/ws
+[610.4s] host: sent hello
+[610.4s] host: recv hello.ok
+[639.5s] host: recv bye {"t":"bye","seq":9,"d":{"reason":"HANDSHAKE_TIMEOUT","closeCode":4005,"canResume":false}}
+[639.5s] host: ws closed
+[641.5s] host: ws open ws://localhost:10000/ws
+[642.4s] host: sent hello
+[642.4s] host: recv hello.ok
+[671.5s] host: recv bye {"t":"bye","seq":9,"d":{"reason":"HANDSHAKE_TIMEOUT","closeCode":4005,"canResume":false}}
+[671.5s] host: ws closed
+[673.4s] host: ws open ws://localhost:10000/ws
+[674.4s] host: sent hello
+[674.4s] host: recv hello.ok
+[705.5s] host: recv bye {"t":"bye","seq":9,"d":{"reason":"HANDSHAKE_TIMEOUT","closeCode":4005,"canResume":false}}
+[705.5s] host: ws closed
+[707.7s] host: ws open ws://localhost:10000/ws
+[709.5s] host: sent hello
+[709.5s] host: recv hello.ok
+[710.4s] host: sent room.create
+[710.4s] host: recv room.created
+[710.4s] host: recv settings.state
+[710.4s] host: recv room.state
+[710.4s] host: recv roles.state
+[710.4s] host: recv snapshot.end
+[890.3s] harness: New mission after restart: NO room.created within 180 s
+C:\Users\moham\Documents\Codex\2026-11-14\https-nasasc-netlify-app-https-nasasc\work\nasa-spaceapps-2026-claude\orchestration\evidence\T048\runs\2026-11-15T08-17-14-685Z-hosted-restart
