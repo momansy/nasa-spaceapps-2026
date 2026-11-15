@@ -1,0 +1,29 @@
+{
+    "name": "MissionForge.Screens.Flight.Tests",
+    "rootNamespace": "MissionForge.Screens.Flight.Tests",
+    "references": [
+        "MissionForge.Core",
+        "MissionForge.Screens.Flight",
+        "MissionForge.App",
+        "MissionForge.Net",
+        "MissionForge.Data",
+        "MissionForge.Data.Editor",
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll",
+        "Newtonsoft.Json.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "noEngineReferences": false
+}

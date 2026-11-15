@@ -1,0 +1,146 @@
+/* T016 flight HUD (design 9.6). Layout only, on T031 tokens; 1920 x 1080 reference. The middle 52 % stays the
+   3-D scene: panels sit in the outer columns, the clock top-left, the phase strip along the bottom edge. */
+
+.fl-hud {
+    position: absolute;
+    left: 0; top: 0; right: 0; bottom: 0;
+}
+
+.fl-top {
+    position: absolute;
+    left: var(--mf-sp-safe-x);
+    top: 120px;
+}
+.fl-clock {
+    -unity-font-definition: var(--mf-font-display);
+    font-size: var(--mf-fs-kpi-l);
+    color: var(--mf-ceramic);
+}
+.fl-phase-name { color: var(--mf-sunlight); margin-top: var(--mf-sp-1); }
+.fl-feed-tag { color: var(--mf-muted); margin-top: var(--mf-sp-1); }
+
+.fl-col {
+    position: absolute;
+    top: 330px;
+    width: 400px;
+    padding: var(--mf-sp-panel-padding);
+    border-radius: var(--mf-radius-panel);
+}
+.fl-col--left { left: var(--mf-sp-safe-x); }
+.fl-col--right { right: var(--mf-sp-safe-x); top: 120px; }
+
+.fl-metric { margin-bottom: var(--mf-sp-3); }
+.fl-metric--hero { margin-bottom: var(--mf-sp-4); }
+.fl-metric__name { color: var(--mf-muted); }
+.fl-metric__value { color: var(--mf-ceramic); }
+
+.fl-section {
+    -unity-font-definition: var(--mf-font-mono-bold);
+    color: var(--mf-muted);
+    margin-bottom: var(--mf-sp-2);
+}
+
+.fl-bar {
+    height: 12px;
+    border-radius: 6px;
+    background-color: var(--mf-ceramic-10);
+    overflow: hidden;
+    margin-top: var(--mf-sp-1);
+}
+.fl-bar--thin { height: 8px; border-radius: 4px; }
+.fl-bar__fill {
+    height: 100%;
+    width: 0;
+    background-color: var(--mf-sunlight);
+    border-radius: 6px;
+}
+.fl-bar__fill--prop { background-color: var(--mf-signal); }
+
+.fl-stages { margin-bottom: var(--mf-sp-4); }
+.fl-stage { margin-bottom: var(--mf-sp-3); opacity: 0.85; }
+.fl-stage__head { flex-direction: row; justify-content: space-between; }
+.fl-stage__name { color: var(--mf-muted); }
+.fl-stage__value { color: var(--mf-ceramic); }
+.fl-stage--active { opacity: 1; }
+.fl-stage--active .fl-stage__name { color: var(--mf-signal); }
+.fl-stage--spent { opacity: 0.45; }
+
+.fl-bottom {
+    position: absolute;
+    left: var(--mf-sp-safe-x);
+    right: var(--mf-sp-safe-x);
+    bottom: var(--mf-sp-safe-y);
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+.fl-strip { flex-direction: row; flex-shrink: 1; }
+.fl-step {
+    width: 150px;
+    padding: var(--mf-sp-2) var(--mf-sp-2);
+    margin-right: var(--mf-sp-1);
+    border-top-width: 4px;
+    border-color: var(--mf-ceramic-16);
+    background-color: var(--mf-console-60);
+    border-radius: var(--mf-radius-control);
+}
+.fl-step__id { color: var(--mf-muted); }
+.fl-step__name { color: var(--mf-muted); font-size: var(--mf-fs-meta); white-space: normal; }
+.fl-step--done { border-color: var(--mf-meets); }
+.fl-step--done .fl-step__name { color: var(--mf-ceramic); }
+.fl-step--current { border-color: var(--mf-sunlight); background-color: var(--mf-console-92); }
+.fl-step--current .fl-step__name { color: var(--mf-sunlight); }
+.fl-step--current .fl-step__id { color: var(--mf-sunlight); }
+
+.fl-boosts { align-items: flex-end; }
+.fl-boosts__title { color: var(--mf-muted); }
+.fl-boosts__slots { flex-direction: row; margin-top: var(--mf-sp-1); }
+.fl-boost-slot {
+    width: 56px; height: 56px;
+    margin-left: var(--mf-sp-2);
+    border-radius: 28px;
+    border-width: 2px;
+    border-color: var(--mf-ceramic-32);
+    background-color: var(--mf-console-60);
+}
+.fl-boosts__empty { color: var(--mf-muted); margin-top: var(--mf-sp-1); }
+
+.fl-callout {
+    position: absolute;
+    left: 560px; right: 560px;
+    top: 200px;
+    -unity-text-align: middle-center;
+    color: var(--mf-ceramic);
+    background-color: var(--mf-console-76);
+    border-radius: var(--mf-radius-card);
+    padding: var(--mf-sp-3) var(--mf-sp-5);
+}
+
+/* Accessibility (MfAccessibility root classes). */
+.mf-rtl .fl-col--left { left: auto; right: var(--mf-sp-safe-x); }
+.mf-rtl .fl-col--right { right: auto; left: var(--mf-sp-safe-x); }
+.mf-rtl .fl-top { left: auto; right: 470px; align-items: flex-end; }
+.mf-rtl .fl-bottom { flex-direction: row-reverse; }
+.mf-rtl .fl-strip { flex-direction: row-reverse; }
+.mf-hc .fl-col { background-color: var(--mf-console); border-width: 2px; border-color: var(--mf-ceramic-56); }
+.mf-hc .fl-metric__name, .mf-hc .fl-stage__name, .mf-hc .fl-step__name { color: var(--mf-ceramic); }
+.mf-text-200 .fl-col { width: 560px; }
+.mf-text-200 .fl-step { width: 200px; }
+
+/* Countdown screen (MF_Countdown). */
+.fl-cd {
+    position: absolute;
+    left: var(--mf-sp-safe-x);
+    top: 120px;
+}
+.fl-cd__title { color: var(--mf-muted); }
+.fl-cd__clock {
+    -unity-font-definition: var(--mf-font-display);
+    font-size: 132px;
+    color: var(--mf-ceramic);
+}
+.fl-cd__status { color: var(--mf-sunlight); margin-top: var(--mf-sp-2); }
+.fl-cd__seq { margin-top: var(--mf-sp-4); }
+.fl-cd__item { color: var(--mf-muted); margin-bottom: var(--mf-sp-1); }
+.fl-cd__item--done { color: var(--mf-meets); }
+.fl-cd__item--now { color: var(--mf-sunlight); }

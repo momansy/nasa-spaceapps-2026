@@ -1,0 +1,99 @@
+/* Minigame banner on the host flight view (T026). Layout only; type and colour come from MissionForge tokens/classes. */
+
+.fl-slowmo-tint {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--mf-ocean-24);
+    border-width: 6px;
+    border-color: var(--mf-ocean-48);
+}
+
+.fl-mg-banner {
+    position: absolute;
+    top: 140px;
+    left: 50%;
+    width: 900px;
+    translate: -50% 0;
+    flex-direction: column;
+    padding: var(--mf-sp-5) var(--mf-sp-6);
+    background-color: var(--mf-console-92);
+    border-radius: var(--mf-radius-card);
+    border-width: 1px;
+    border-color: var(--mf-ceramic-16);
+}
+
+.fl-mg-header {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--mf-sp-2);
+}
+
+.fl-mg-name {
+    flex-shrink: 1;
+    margin: 0;
+    padding: 0;
+}
+
+.fl-mg-slowmo {
+    align-self: center;
+    margin-left: var(--mf-sp-4);
+    padding: 0 var(--mf-sp-4);
+    border-color: var(--mf-ocean-48);
+}
+
+.fl-mg-howto {
+    margin: 0 0 var(--mf-sp-4) 0;
+    padding: 0;
+    color: var(--mf-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.fl-mg-status {
+    margin: 0 0 var(--mf-sp-3) 0;
+    padding: 0;
+}
+
+.fl-mg-meter {
+    height: var(--mf-bar-height);
+    border-radius: var(--mf-bar-radius);
+    background-color: var(--mf-ceramic-10);
+    overflow: hidden;
+    margin-bottom: var(--mf-sp-2);
+}
+
+.fl-mg-meter__fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: var(--mf-meets);
+    transform-origin: left center;
+    transition-property: scale;
+    transition-duration: var(--mf-dur-state);
+}
+
+.fl-mg-meter__label {
+    margin: 0;
+    padding: 0;
+}
+
+.fl-mg-result {
+    margin: 0;
+    padding: 0;
+}
+
+.fl-mg-tier--gold .fl-mg-result,
+.fl-mg-tier--platinum .fl-mg-result {
+    color: var(--mf-marginal);
+}
+
+.fl-mg-tier--none .fl-mg-result {
+    color: var(--mf-muted);
+}
