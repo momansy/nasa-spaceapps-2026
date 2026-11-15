@@ -83,7 +83,8 @@ if (!skipOv && !joinOnly) {
     const dir = `${WORK}/ov${p.i}`;
     fs.rmSync(dir, { recursive: true, force: true });
     fs.mkdirSync(dir, { recursive: true });
-    const shot = { D: p.L / FPS, ov: p.ov?.end ? { ...p.ov, end: { url: URL, qr, fine: FINE } } : p.ov };
+    // words end where the transition into the next shot begins (no text from two shots during a whip)
+    const shot = { D: p.N / FPS, ov: p.ov?.end ? { ...p.ov, end: { url: URL, qr, fine: FINE } } : p.ov };
     const frames = isAnimated(p) ? p.L : 1;
     for (let f = 0; f < frames; f++) {
       await page.evaluate(([s, tt, g]) => window.draw(s, tt, g), [shot, f / FPS, { W, H, phones: p.rects ?? [] }]);
