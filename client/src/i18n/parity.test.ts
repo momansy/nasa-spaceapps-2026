@@ -17,7 +17,7 @@ function table(dir: string, lang: string) {
 
 const placeholders = (s: string) => (s.match(/\{[a-z][A-Za-z0-9_]*\}/g) ?? []).sort().join(',');
 
-const languages = ['ar'] as const;
+const languages = ['ar', 'es', 'fr', 'pt'] as const;
 
 describe.each(roots.flatMap((dir) => languages.map((lang) => [lang, dir] as const)))('%s strings in %s', (lang, dir) => {
   const en = table(dir, 'en');

@@ -27,9 +27,9 @@ for (const lang of LANGS) test(`mock session in ${lang}`, async ({ page }) => {
     if (m.type() === 'error') consoleErrors.push(m.text());
   });
   page.on('pageerror', (e) => consoleErrors.push(String(e)));
-  await page.addInitScript(() => {
-    localStorage.setItem('mf.prefs', JSON.stringify({ lang }));
-  });
+  await page.addInitScript((code: string) => {
+    localStorage.setItem('mf.prefs', JSON.stringify({ lang: code }));
+  }, lang);
 
   await page.goto('/?mock=1&speed=2&room=KQXM');
   await expect(page.getByTestId('screen-join')).toBeVisible();
