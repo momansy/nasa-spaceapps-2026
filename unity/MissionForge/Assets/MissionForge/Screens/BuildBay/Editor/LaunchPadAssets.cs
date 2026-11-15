@@ -26,7 +26,7 @@ namespace MissionForge.Screens.BuildBay.Editor
             ("concrete", "#7A7872", 0f, 0.22f, 0f),
             ("concrete_dark", "#34363A", 0f, 0.14f, 0f),
             ("marking", "#C9A15A", 0f, 0.30f, 0f),
-            ("steel", "#112B40", 0.2f, 0.38f, 0f),
+            ("steel", "#40606E", 0.7f, 0.55f, 0f),     // T034 rework: metallic blue-grey so the low sun rims the jib and masts (M2)
             ("grating", "#1C2833", 0.3f, 0.32f, 0f),
             ("detail_dark", "#2A3036", 0.2f, 0.38f, 0f),
             ("lamp", "#FFE9C8", 0f, 0.6f, 8f),
@@ -160,7 +160,9 @@ namespace MissionForge.Screens.BuildBay.Editor
             importer.importBlendShapes = false;
             importer.materialImportMode = ModelImporterMaterialImportMode.ImportViaMaterialDescription;
             importer.materialLocation = ModelImporterMaterialLocation.InPrefab;
-            importer.importNormals = ModelImporterNormals.Calculate;
+            // T034 hero pieces carry bevels with hardened, area-weighted normals from build_hero_pad.py: keep them.
+            bool hero = assetPath.StartsWith(LaunchPadAssets.ModelsDir + "/Hero/", StringComparison.Ordinal);
+            importer.importNormals = hero ? ModelImporterNormals.Import : ModelImporterNormals.Calculate;
             importer.normalSmoothingAngle = 30f;
             importer.isReadable = false;
         }

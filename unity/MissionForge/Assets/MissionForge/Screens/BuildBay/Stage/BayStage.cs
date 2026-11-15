@@ -44,6 +44,8 @@ namespace MissionForge.Screens.BuildBay
             if (_screen != null && _screen.Session != null) _screen.Session.Changed -= OnBuildChanged;
             StopAllCoroutines();
             _assembling = false;
+            _assemblyHeadroomM = 0f;
+            SetWorkLight(Vector3.zero, 0f, false);
             ShowGhost(null, null);
             _screen = null;
         }
