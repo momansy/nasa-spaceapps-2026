@@ -103,6 +103,66 @@ To rebuild: `npm run build` and `npx vite preview --port 4173` in `client/` (and
 `node record-session.mjs`, `node record-labs.mjs MG-15 MG-13 MG-21 ar`, and `node build.mjs 2min` / `node build.mjs 30s`.
 The scripts use absolute paths under `%TEMP%\demo-video\`; adjust `W`, `REC` and `FFMPEG` at the top of each file.
 
+## Subtitles
+
+Four SubRip files in `subtitles/`, one per cut and language:
+
+| File | Cues | Language |
+|---|---|---|
+| `missionforge-demo-2min.en.srt` | 54 | English |
+| `missionforge-demo-2min.ar.srt` | 54 | Modern Standard Arabic |
+| `missionforge-demo-30s.en.srt` | 14 | English |
+| `missionforge-demo-30s.ar.srt` | 14 | Modern Standard Arabic |
+
+- **What they say.** The headline and body text of each on-screen caption, in the same words. Left out: the small source and
+  disclosure labels ("Big screen - Unity Build Bay, rehearsal build...", "Phone client, scripted demo session..."), the kicker lines,
+  and the small print on the end cards except the two sentences that say the key art is AI-generated and that the project is not
+  affiliated with NASA. Those labels stay readable on screen. Each cue is at most two lines of about 42 characters and 1 to 7 s long;
+  a long caption is split into several cues, so reading speed is high on the short scenes (it mirrors the captions on screen).
+- **Timing.** Scene `i` starts at the sum of the earlier scene lengths minus 0.5 s per crossfade (`XF` in `scripts/build.mjs`); a cue
+  window runs from one crossfade midpoint to the next. The timeline was checked against the finished MP4 files: the position of
+  all 27 crossfades (20 in the 2-minute cut, 7 in the 30-second cut) was measured from the pixels and is within 0.05 s of the
+  computed one (`orchestration/evidence/T049/timeline-check.txt`). Both files are exactly 120.0 s and 30.0 s long.
+- **Arabic.** Same cue times as English. Game terms follow `data/strings/ar*.json` and `client/src/i18n/strings/ar.*.json`
+  (Build Bay = ورشة البناء, call sign = الاسم الرمزي, role card = بطاقة الدور, control console = وحدة التحكم, crew = الطاقم,
+  "If chosen" = إن تم اختياره, minigame names as in `ar.minigame.json`). MissionForge, NASA, Unity, Team Winton, the role names
+  (FLIGHT, BOOSTER, ...), GO / NO-GO, Max Q, Isp, Δv and the units (km, kg, M, °, %) stay in Latin script. A left-to-right mark
+  is placed around every number with a unit so that "550 km" is not shown as "km 550" in right-to-left text. Translated by an AI
+  coding agent, not reviewed by a native speaker.
+- **Regenerate and check:** `node submission/video/subtitles/build-srt.mjs` (text in `cues.mjs`, durations imported from
+  `scripts/scenes.mjs`), then `node submission/video/subtitles/validate-srt.mjs` (numbering, time format, no overlaps, 1-7 s cues,
+  two lines of at most 44 characters, same cue times in both languages).
+- **Upload to YouTube:** YouTube Studio, Content, open the video, Subtitles, Add language, English (or Arabic), Upload file,
+  With timing, choose the matching `.srt`, Publish. Use the `2min` files for the 2-minute video and the `30s` files for the
+  30-second video. The files are UTF-8 and use `\n` line ends.
+- **Known limitation.** The videos already carry on-screen captions and no narration, so the subtitles repeat them. On the
+  big-screen stills the caption sits in the bottom band, which is also where subtitles appear, so the two overlap while the subtitle
+  track is on (see `orchestration/evidence/T049/30s-en-11s.png`). On the phone scenes the captions are in the left column and do not
+  collide. Viewers can drag the caption on YouTube; the subtitles are there for accessibility and for the Arabic translation, not as
+  the primary reading layer.
+- **Proof.** Burned-in 20 s low-resolution previews (not committed): `ffmpeg -ss <t> -t 20 ... -vf scale=960:540,subtitles=<file>.srt`
+  of the 30-second cut (0 to 20 s) and the 2-minute cut (60 to 80 s), three frames each, in `orchestration/evidence/T049/`
+  (`30s-en-*.png`, `2min-en-*.png`). The cue changes line up with the on-screen scene changes. Arabic frames
+  (`2min-ar-11s.png`, `2min-ar-50s.png`, `30s-ar-11s.png`) were drawn with `orchestration/evidence/T049/render-ar-frame.mjs`
+  (Chromium over the real video frame), because the ffmpeg-static build used for the previews has no complex text shaping and draws a
+  box inside words with the lam-alef letter pair; a browser, YouTube and VLC shape them correctly.
+
+## Cover image
+
+`submission/media/cover-16x9.png` (1920x1080 PNG) and `submission/media/thumbnail-1280x720.jpg` (1280x720 JPEG, about 0.2 MB,
+for the YouTube thumbnail and the submission form). Built only from material in the repository:
+
+- the key art `assets/media/key-art/missionforge-16x9.png` (AI-generated, already listed in `AI_DISCLOSURE.md` and
+  `assets/media/CREDITS.md`),
+- a real Unity host capture, `orchestration/evidence/T031/after/buildbay-assembly-1920x1080.png` (Build Bay, rehearsal build with
+  simulated voters, labelled as such on the cover),
+- a real phone-client screenshot, `orchestration/evidence/T038/after/09-part-card.png`,
+- the title "MissionForge" and the line "Design a satellite mission together. Phones in hand, one big screen."
+
+No new AI-generated element was added, so `AI_DISCLOSURE.md` is unchanged. To rebuild: `cd client && npm ci` once, then
+`npx playwright install chromium` if Chromium is missing, then `node submission/media/build-cover.mjs` (layout in
+`submission/media/cover.html`; the script writes both files and lowers the JPEG quality if it ever exceeds 1.8 MB).
+
 ## Not included, and what would improve it
 
 - **No live big-screen video.** The Unity host appears only as stills; a 1920x1080 screen recording of the host on a GPU laptop
