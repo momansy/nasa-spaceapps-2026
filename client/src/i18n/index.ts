@@ -71,7 +71,7 @@ async function loadTable(next: string): Promise<StringTable> {
 
 function apply(next: string, table: StringTable) {
   lang = next;
-  translator = createTranslator(table, warnMissing);
+  translator = createTranslator(table, warnMissing, dirOf(next) === 'rtl');
   if (typeof document !== 'undefined') {
     document.documentElement.lang = next;
     // `?dir=rtl` forces the direction so the right-to-left layout can be checked before a

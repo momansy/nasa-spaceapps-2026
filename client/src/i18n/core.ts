@@ -65,12 +65,22 @@ export function layerTables(...tables: StringTable[]): StringTable {
 
 export type Args = Record<string, string | number>;
 
-/** Replaces `{name}` placeholders. Unknown placeholders are left as they are. */
-export function format(template: string, args?: Args): string {
+/** First-strong isolate and pop-directional isolate: keep a value's own direction inside a sentence. */
+const FSI = '\u2068';
+const PDI = '\u2069';
+
+/**
+ * Replaces `{name}` placeholders. Unknown placeholders are left as they are. With `isolate`
+ * (right-to-left languages) every substituted value is wrapped in a bidi isolate, so that
+ * "$3 M", "850 kN" or a call sign keeps its own reading order inside an Arabic sentence.
+ */
+export function format(template: string, args?: Args, isolate = false): string {
   if (!args) return template;
-  return template.replace(/\{([a-z][A-Za-z0-9_]*)\}/g, (whole, name: string) =>
-    name in args ? String(args[name]) : whole,
-  );
+  return template.replace(/\{([a-z][A-Za-z0-9_]*)\}/g, (whole, name: string) => {
+    if (!(name in args)) return whole;
+    const value = String(args[name]);
+    return isolate && value ? `${FSI}${value}${PDI}` : value;
+  });
 }
 
 export interface Translator {
@@ -93,7 +103,7 @@ export function humanise(key: string): string {
   return words.charAt(0).toUpperCase() + words.slice(1);
 }
 
-export function createTranslator(table: StringTable, onMissing?: (key: string) => void): Translator {
+export function createTranslator(table: StringTable, onMissing?: (key: string) => void, isolate = false): Translator {
   const missing = new Set<string>();
   const t = ((key: string, args?: Args) => {
     const template = table[key];
@@ -104,7 +114,7 @@ export function createTranslator(table: StringTable, onMissing?: (key: string) =
       }
       return humanise(key);
     }
-    return format(template, args);
+    return format(template, args, isolate);
   }) as Translator;
   t.has = (key: string) => key in table;
   t.missing = missing;
