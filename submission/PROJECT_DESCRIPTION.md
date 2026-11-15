@@ -5,7 +5,7 @@ Team name on the credits and judges pages: **Winton**. Every claim below was che
 (see `orchestration/evidence/T042/README.md`). Anything not built yet is marked **planned**.
 
 Status date: 2026-11-15, repository `main` at commit `001652e` (consistency check T058, `orchestration/evidence/T058/FACTS.md`; earlier refresh T046 at `568ee98`).
-Merged since T046: the big-screen pre-flight screens (T027), the end-screen translations (issue #206), the hosted smoke test (T048) and the phone viewer fix (T050). Not merged when this was checked: the WebGL host rebuild (T055) and the pre-flight translations (T057); see section 8.
+Merged since T046: the big-screen pre-flight screens (T027), the end-screen translations (issue #206), the hosted smoke test (T048) and the phone viewer fix (T050). Merged after T058: the pre-flight translations (T057, #239). The WebGL host rebuild (T055) is merged just before this text (T062 update, written from T055's progress reports on issue #215 and its evidence in `orchestration/evidence/T055/`); see section 8.
 
 ---
 
@@ -25,14 +25,14 @@ with a 90 M game-dollar budget. A debrief explains what happened, and the Codex 
   (launch site, payload bay instruments, satellite power, attitude control, engines, tanks, material,
   fairing, separation, communications and more). Each option card shows its mass, power, cost and risk,
   and its drawbacks, before the vote.
-- **The build is checked like a real program.** A live dashboard on the big screen shows delta-v and thrust-to-weight, budget and schedule, and a success estimate. Test campaigns, design reviews and a Flight Readiness Review (GO/NO-GO poll) sit between design and launch. Built today: the dashboard, the Build Bay, the phone GO/NO-GO poll and the Core rules for tests and reviews. The Unity source on `main` now also has big-screen **Mission Briefing, Contract Vote, Test Stand, Design Review and Flight Readiness Review** screens (T027) that run the room's votes and polls through Core; the Build Bay does not yet open the Test Stand or Design Review by itself, and they are not in the committed WebGL build (section 8).
+- **The build is checked like a real program.** A live dashboard on the big screen shows delta-v and thrust-to-weight, budget and schedule, and a success estimate. Test campaigns, design reviews and a Flight Readiness Review (GO/NO-GO poll) sit between design and launch. Built today: the dashboard, the Build Bay, the phone GO/NO-GO poll and the Core rules for tests and reviews. The Unity source on `main` now also has big-screen **Mission Briefing, Contract Vote, Test Stand, Design Review and Flight Readiness Review** screens (T027) that run the room's votes and polls through Core; the Build Bay does not yet open the Test Stand or Design Review by itself. The screens are in the rebuilt WebGL host (T055; section 8).
 - **The mission is flown.** Phones take pilot, co-pilot, booster and console seats. Short minigames
   (32 are implemented on the phone client) turn the real constraints into play: Max Q throttle,
   gravity turn, ground-station pass, solar-wing deploy, eclipse power juggling, science capture and more.
   On the big screen, the Unity project now has a **countdown, flight view and orbit map** (T016: pad at dusk, engine plumes, staging,
-  Earth and atmosphere, flight HUD, orbit map) driven by the Core flight model and a minigame host with bullet-time. This is in the source on `main`;
-  the committed WebGL build in `docs/play/host/` was made earlier and does not contain it (section 8).
-- **A debrief explains the result.** The phone debrief shows score, grade, objectives, awards, facts, lessons and a comparison of your rocket with a real one (real figures are marked approximate). The Codex has a "What the game simplifies" section. A debrief that tags every number as physical, approximate or game value is **planned**; today that tagging is in the data files and `GAME_DESIGN.md` 19. The Unity source on `main` now also has **big-screen end screens** (T024): a Debrief (score formula count-up, grade, objectives, awards, cited facts, timeline, instant replay and a fail-forward investigation board), a Campaign Hub, a Codex and a Settings and Accessibility overlay, all calculated by Core. They are shown in the evidence builds in `orchestration/evidence/T024/` from rehearsal fixtures, and read the live mission record when a flight ends; **they are not in the committed WebGL build** and a full room session ending in the big-screen debrief has not been run (section 8).
+  Earth and atmosphere, flight HUD, orbit map) driven by the Core flight model and a minigame host with bullet-time. It is in the
+  WebGL host rebuilt from `main` (T055, `docs/play/host/`), where a live room's countdown and flight showed real HUD data (section 8).
+- **A debrief explains the result.** The phone debrief shows score, grade, objectives, awards, facts, lessons and a comparison of your rocket with a real one (real figures are marked approximate). The Codex has a "What the game simplifies" section. A debrief that tags every number as physical, approximate or game value is **planned**; today that tagging is in the data files and `GAME_DESIGN.md` 19. The Unity source on `main` now also has **big-screen end screens** (T024): a Debrief (score formula count-up, grade, objectives, awards, cited facts, timeline, instant replay and a fail-forward investigation board), a Campaign Hub, a Codex and a Settings and Accessibility overlay, all calculated by Core. They are shown in the evidence builds in `orchestration/evidence/T024/` from rehearsal fixtures, and read the live mission record when a flight ends. They are in the rebuilt WebGL host (T055), whose live run on a local copy of the hosted service ended in the big-screen Debrief with the real score; the Campaign Hub, Codex and Settings were not part of that run (section 8).
 - **Nine contracts** are defined in `data/contracts.json`, from the tutorial C0 First Light to C7 Red Landing
   (Mars) and C8 Comeback Kid (booster landing). C1 Earth Watch is the one prepared end to end for demos.
 
@@ -69,9 +69,9 @@ Full runbook: `RELEASE.md` section 5 and `JUDGES.md`.
 2. Open the big-screen URL in a desktop Chromium or Chrome browser and press **New mission**.
    A 4-letter room code and QR code appear.
 3. Phones on the same Wi-Fi scan the QR code (or open the phone URL and type the code). Pick a nickname.
-4. Play: lobby, vote on each part, GO/NO-GO review, flight minigames on the phones, phone debrief. (In the committed WebGL host only the title and lobby work: a live room stops at its placeholder briefing and contract vote, so its Build Bay is not reached and the phones carry the session; the briefing, contract vote, test stand, reviews, countdown, flight, orbit map, debrief, codex, campaign hub and settings are in the Unity source but not in that build, see section 8.)
+4. Play: lobby, briefing and contract vote, vote on each part, GO/NO-GO review, countdown and flight with minigames on the phones, debrief on the big screen and the phones. (The committed WebGL host was rebuilt from `main` by T055; in its live run on a local copy of the hosted service a room went from the lobby to the big-screen debrief, with the FRR panel empty in that first run, see section 8.)
    A session is planned at 25 to 40 minutes (design estimate, not a measured six-person playtest); the 22 C1
-   part votes take about 17 minutes at the lobby's default timers (46 s a round) or about 8 minutes at the shortest timers on `main` (21 s; the hosted lobby's shortest vote timer is 20 s).
+   part votes take about 17 minutes at the lobby's default timers (46 s a round) or about 8 minutes at the shortest timers (inspect 5 s, vote 10 s: 21 s a round; the earlier hosted build's shortest vote timer was 20 s).
 5. **No network or no server:** open `/play/client/?mock=1` on a phone or laptop for a scripted phone session.
 
 **Hosted:** <https://missionforge-spaceapps.onrender.com/play/> serves the entry page, the Unity host, the phone client and the room
@@ -80,7 +80,9 @@ server from one free Render service, so a judge can press **Host a mission** on 
 returned HTTP 200 and the Unity `.wasm.unityweb` file came with `Content-Encoding: gzip`. The hosted smoke test (T048, merged) ran the same service on a local machine: the judge path (entry page, Unity host,
 New mission, three phones join) passed, and a full C1 session reached the debrief with a scripted stand-in host, 6 phones and
 5 spectators; the real Unity host was not played to the debrief (`orchestration/evidence/T048/RESULTS.md`). What T058 saw on
-the public URL is in `orchestration/evidence/T058/live/LIVE_CHECK.md`. The free instance
+the public URL (with the earlier host build) is in `orchestration/evidence/T058/live/LIVE_CHECK.md`. The rebuilt Unity host (T055) was then played
+with three phones on a local copy of the hosted service from the lobby to the big-screen debrief (`orchestration/evidence/T055/`); it has not been
+played through on the public URL. The free instance
 sleeps after 15 minutes without traffic and takes about a minute to wake. The older static site `nasasc.netlify.app/play/` still returned HTTP 404 and is not
 used. The local launcher above remains the fallback.
 
@@ -88,7 +90,7 @@ used. The local launcher above remains the fallback.
 
 | Part | Technology | Role |
 |---|---|---|
-| Big-screen host | Unity 6000.6.9f1, Universal Render Pipeline, UI Toolkit, Cinemachine; WebGL build in `docs/play/host/` | 3D Build Bay with live vehicle assembly from Blender-scripted 3D part models (149 GLB files for the phone viewer; 11 remade engines and a PBR material library), dashboard, timeline, lobby (with inspect-timer and audience-as-one-player controls) and room QR; briefing, contract vote, test stand, design review, flight readiness review, countdown, flight view, orbit map, debrief, campaign hub, codex and settings screens (in the source, not in the committed WebGL build). Calls Core for rules |
+| Big-screen host | Unity 6000.6.9f1, Universal Render Pipeline, UI Toolkit, Cinemachine; WebGL build in `docs/play/host/` | 3D Build Bay with live vehicle assembly from Blender-scripted 3D part models (149 GLB files for the phone viewer; 11 remade engines and a PBR material library), dashboard, timeline, lobby (with inspect-timer and audience-as-one-player controls) and room QR; briefing, contract vote, test stand, design review, flight readiness review, countdown, flight view, orbit map, debrief, campaign hub, codex and settings screens (all in the WebGL build rebuilt by T055). Calls Core for rules |
 | Phone client | TypeScript, React 18, Vite, three.js (part viewer) | Join, role cards, part votes, consoles, pilot seats, 32 minigames, codex, debrief, settings. Runs minigames locally and reports compact results |
 | Room server | Node 20+, TypeScript, `ws` | Rooms, roles, vote collection and resolution, timers, reconnect (10 min host hold, 3 min phone hold), spectators; also serves the static site on one port for hosting. No accounts, no stored data |
 | Core rules | C# (`netstandard2.1`, tested on .NET 8), Newtonsoft.Json | Dashboard, budget and schedule, reliability, tests, anomalies, validation, flight model (RK4 and Kepler), scoring, session state machine, campaign. Deterministic from a seed, no Unity dependency |
@@ -98,7 +100,7 @@ used. The local launcher above remains the fallback.
 
 Verification re-run for this check (2026-11-15, T058, Windows 11, Node 24, `main` `001652e`; logs in `orchestration/evidence/T058/tests/`):
 `npx vitest run` in `client/` **922 of 927** passed (48 files, 47 passing files); the 5 failures are the translation-parity tests, which report the new
-pre-flight host strings (`data/strings/en.host_preflight.json`, T027) missing from ar, es, fr, pt and hi (fix queued as task T057; the end-screen
+pre-flight host strings (`data/strings/en.host_preflight.json`, T027) missing from ar, es, fr, pt and hi (T057, #239, has since added these translations; not re-run; the end-screen
 translations of issue #206 are merged); `npm test` in `server/` **247 of 247** (17 files); `node protocol/check.mjs` agrees on 105 message types;
 `node tools/validate-data.mjs` passes (0 errors, 994 warnings) but `--strict` **fails** (985 errors, 9 warnings): the errors are the missing
 translations of the same pre-flight strings (`ui.host.*`). From the T046 run (Apple-silicon Mac, `568ee98`), not re-run by T058 (no .NET on that machine):
@@ -156,28 +158,36 @@ entry speeds.
   Design Review and Flight Readiness Review** (T027), **Countdown, Flight and Orbit Map** (T016), and **Debrief, Campaign Hub, Codex and
   Settings** (T024): 15 of the 16 host screens. The minigame overlay has no screen of its own (the flight view shows a minigame banner and
   bullet-time). Gaps: the Build Bay does not yet open the Test Stand or Design Review by itself, it builds C1 Earth Watch whatever contract
-  wins the Contract Vote, and it does not yet hand its build to the Flight Readiness Review (`MissionContext.Build` is not set; the FRR logs
-  "no build to review"), so a live room on `main` stops at the FRR and the countdown, flight and end screens have only been shown with rehearsal data. The pre-flight screens were captured in a Mac development build with a rehearsal driver, plus one run against the real
+  wins the Contract Vote. On `main` at `001652e` it did not hand its build to the Flight Readiness Review (`MissionContext.Build` not set; the FRR
+  logs "no build to review"); in T055's first live run the FRR showed an empty panel for that reason, and the fix (the "Build Bay hook" of
+  `unity/MissionForge/Assets/MissionForge/Screens/Preflight/README.md`) was added to T055 afterwards: whether the merged build has it is in
+  `orchestration/evidence/T055/`. The pre-flight screens were captured in a Mac development build with a rehearsal driver, plus one run against the real
   room server with four scripted phones (`orchestration/evidence/T027/`, Unity EditMode 466 passed, 1 pre-existing skip); the end screens
-  from rehearsal fixtures (`orchestration/evidence/T024/`). None has been run in a real room session end to end.
-  The full lobby-to-debrief runs in `orchestration/evidence/T036/` and `T048/` used a **scripted stand-in host** with the real room server and the real phone client.
+  from rehearsal fixtures (`orchestration/evidence/T024/`). The first real room session through the big screen was T055's run of the rebuilt
+  WebGL host on a local copy of the hosted service with three phones: briefing and contract vote with real data, 22 Build Bay votes, countdown,
+  flight with real HUD data and the debrief with the real score, no host disconnects (EditMode 467 of 467 with the new fonts). The Test Stand,
+  Design Review, Campaign Hub, Codex and Settings were not part of that run.
+  The earlier full lobby-to-debrief runs in `orchestration/evidence/T036/` and `T048/` used a **scripted stand-in host** with the real room server and the real phone client.
 - **Host UI polish is partial.** The T035 review (`orchestration/evidence/T035/RUBRIC.md`) scored the Lobby controls 4 of 5 and the Build Bay
   layout 4 of 5, but accessibility modes and polish 3 of 5: at 200 % text with right-to-left layout the Build Bay still drops or splits some text.
-- **The committed WebGL host (`docs/play/host/`, and so the hosted site) is older than the flight view.** It was built on 2026-11-15
-  at about 06:32 (+03:00, T040); the Countdown, Flight and Orbit Map screens (T016), the last Build Bay environment pass (T034), the end screens (T024), the host UI polish (T035)
-  and the pre-flight screens (T027) were merged after that. Until the lock holder rebuilds it in Unity (task T055, not merged when this was checked), the hosted host has Title, Lobby and the earlier Build Bay only, and a live room stops at its placeholder briefing and contract vote (`submission/presentation/LIVE_DEMO.md` section 0).
+- **The committed WebGL host (`docs/play/host/`, and so the hosted site) was rebuilt from `main` by T055 on 2026-11-15.** The build it replaced
+  (about 06:32 +03:00, T040) had only Title, Lobby and an earlier Build Bay, and a live room stopped at its placeholder briefing. The rebuild adds
+  the pre-flight screens (T027), Countdown, Flight and Orbit Map (T016), the end screens (T024), the T034 environment pass and the T035 lobby
+  controls, and fixes missing characters (≈, ₂, ×, ±, ° showed as boxes; full IBM Plex Sans font files plus an Oxanium fallback). It has not yet been played
+  through on the public URL, and its frame rate has not been measured.
   The flight view was measured in its own WebGL release build: median 59.9 fps in Chrome at 1920x1080 on an Apple M4 Mac
   (`orchestration/evidence/T016/webgl-fps-run-a.json`). In the flight rehearsal the phones' pilot seats are not wired to the flight; rehearsal phones are simulated.
-- The WebGL host was otherwise observed in headless Chromium with software rendering (0.1 to 0.5 fps there); the Build Bay rehearsal build ran at a median
+- The earlier WebGL host was otherwise observed in headless Chromium with software rendering (0.1 to 0.5 fps there); the Build Bay rehearsal build ran at a median
   59.9 fps in Chrome on an Apple M4 Mac (`orchestration/evidence/T015/webgl-fps.json`). A frame rate on a
   typical Windows laptop with a GPU has not been measured.
 - **Hosting is set up but only partly tested.** The Render site answers on every page above. T048 tested the hosted service on a local machine (section 4);
   its open defects are about a server restart mid-session (the phones keep showing "Reconnecting…", D-110; the host stays "reconnecting" until New mission
   is pressed, D-111) and two missing 3D models that fall back (D-112) (`orchestration/evidence/T048/DEFECTS.md`). The free instance sleeps after 15 minutes idle
   (about 1 minute to wake) and a redeploy drops every room.
-- **Pre-flight host text is English only.** The strings of the T027 screens are not yet translated (task T057), so `validate-data --strict` and five phone
-  translation-parity tests fail (section 5).
-- The audience "counts as one vote" mode is now a lobby control in the Unity source (T035: "Audience counts as one player", plus an inspect timer of 5 to 60 s), but not in the committed WebGL build, where the audience is advisory.
+- **Pre-flight host translations are new.** When T058 checked, the strings of the T027 screens were English only, so `validate-data --strict` and five phone
+  translation-parity tests failed (section 5). T057 (#239) has since added Arabic, Spanish, French, Hindi and Portuguese; the two checks were not re-run
+  after that, and the translations have not been checked on the big screen.
+- The audience "counts as one vote" mode is a lobby control (T035: "Audience counts as one player", plus an inspect timer of 5 to 60 s and a 10 s vote timer) and is in the rebuilt WebGL host; it is off by default (audience advisory) and has not been tried in a real hosted session.
 - A phone-side performance defect (D-102: the 3D part viewer could stall the vote screen on a slow CPU with many phones) was isolated by T047 and fixed by T050 (one shared WebGL renderer for the part viewer, merged).
 - Balance is checked by a search script and by scripted phones, not by a large human playtest. Minigame
   difficulty for human players is unmeasured.
@@ -186,10 +196,10 @@ entry speeds.
 
 ## 9. What is next (planned)
 
-1. Rebuild the WebGL host so the hosted site contains the pre-flight, flight and end screens (T055); connect the Build Bay to the Test Stand,
-   Design Review, Flight Readiness Review and the voted contract; translate the pre-flight host text (T057); accessibility polish at 200 % text (T035 follow-up), effects and audio (T023).
+1. Play the rebuilt host (T055) through on the public URL; connect the Build Bay to the Test Stand,
+   Design Review and the voted contract (and confirm its hand-over to the Flight Readiness Review); check the pre-flight translations (T057) on the big screen; accessibility polish at 200 % text (T035 follow-up), effects and audio (T023).
 2. Measure a full hosted session and a full session on a GPU laptop; run a playtest with six people.
-3. Run the audience-as-one-vote and inspect-timer lobby controls in a real hosted session (they exist in the source, T035).
+3. Run the audience-as-one-vote and inspect-timer lobby controls in a real hosted session (they are in the rebuilt host, T035 and T055).
 4. Native-speaker review of the Arabic, Spanish, French, Portuguese and Hindi text.
 5. Recorded voice lines with subtitles, and adaptive audio.
 6. More contracts played end to end (C2 to C8 are defined and balance-checked; only C1 is rehearsed).
