@@ -1,0 +1,997 @@
+{
+  "origin": "http://localhost:10000",
+  "room": "NGAH",
+  "killedToUpSeconds": 10.022,
+  "timeline": [
+    {
+      "tS": 4.7,
+      "who": "host",
+      "what": "ws open ws://localhost:10000/ws"
+    },
+    {
+      "tS": 6.5,
+      "who": "host",
+      "what": "sent hello"
+    },
+    {
+      "tS": 9,
+      "who": "host",
+      "what": "recv hello.ok"
+    },
+    {
+      "tS": 26.2,
+      "who": "host",
+      "what": "sent room.create"
+    },
+    {
+      "tS": 26.2,
+      "who": "host",
+      "what": "recv room.created"
+    },
+    {
+      "tS": 26.2,
+      "who": "host",
+      "what": "recv settings.state"
+    },
+    {
+      "tS": 26.2,
+      "who": "host",
+      "what": "recv room.state"
+    },
+    {
+      "tS": 26.2,
+      "who": "host",
+      "what": "recv roles.state"
+    },
+    {
+      "tS": 26.2,
+      "who": "host",
+      "what": "recv snapshot.end"
+    },
+    {
+      "tS": 28.9,
+      "who": "harness",
+      "what": "room NGAH joinUrl http://localhost:10000/play/client/?room=NGAH"
+    },
+    {
+      "tS": 31.4,
+      "who": "phone1",
+      "what": "ws open ws://localhost:10000/ws"
+    },
+    {
+      "tS": 31.4,
+      "who": "phone1",
+      "what": "sent hello"
+    },
+    {
+      "tS": 31.4,
+      "who": "phone1",
+      "what": "recv hello.ok"
+    },
+    {
+      "tS": 31.4,
+      "who": "phone1",
+      "what": "sent room.join"
+    },
+    {
+      "tS": 31.4,
+      "who": "host",
+      "what": "recv room.state"
+    },
+    {
+      "tS": 31.4,
+      "who": "phone1",
+      "what": "recv room.state"
+    },
+    {
+      "tS": 31.4,
+      "who": "host",
+      "what": "recv roles.state"
+    },
+    {
+      "tS": 31.4,
+      "who": "phone1",
+      "what": "recv roles.state"
+    },
+    {
+      "tS": 31.4,
+      "who": "phone1",
+      "what": "recv room.joined"
+    },
+    {
+      "tS": 31.4,
+      "who": "phone1",
+      "what": "recv settings.state"
+    },
+    {
+      "tS": 31.4,
+      "who": "phone1",
+      "what": "recv room.state"
+    },
+    {
+      "tS": 31.4,
+      "who": "phone1",
+      "what": "recv roles.state"
+    },
+    {
+      "tS": 31.4,
+      "who": "phone1",
+      "what": "recv snapshot.end"
+    },
+    {
+      "tS": 34.9,
+      "who": "phone2",
+      "what": "ws open ws://localhost:10000/ws"
+    },
+    {
+      "tS": 34.9,
+      "who": "phone2",
+      "what": "sent hello"
+    },
+    {
+      "tS": 34.9,
+      "who": "phone2",
+      "what": "recv hello.ok"
+    },
+    {
+      "tS": 34.9,
+      "who": "phone2",
+      "what": "sent room.join"
+    },
+    {
+      "tS": 34.9,
+      "who": "host",
+      "what": "recv room.state"
+    },
+    {
+      "tS": 34.9,
+      "who": "phone2",
+      "what": "recv room.state"
+    },
+    {
+      "tS": 34.9,
+      "who": "host",
+      "what": "recv roles.state"
+    },
+    {
+      "tS": 34.9,
+      "who": "phone1",
+      "what": "recv room.state"
+    },
+    {
+      "tS": 34.9,
+      "who": "phone1",
+      "what": "recv roles.state"
+    },
+    {
+      "tS": 34.9,
+      "who": "phone2",
+      "what": "recv roles.state"
+    },
+    {
+      "tS": 34.9,
+      "who": "phone2",
+      "what": "recv room.joined"
+    },
+    {
+      "tS": 34.9,
+      "who": "phone2",
+      "what": "recv settings.state"
+    },
+    {
+      "tS": 34.9,
+      "who": "phone2",
+      "what": "recv room.state"
+    },
+    {
+      "tS": 34.9,
+      "who": "phone2",
+      "what": "recv roles.state"
+    },
+    {
+      "tS": 34.9,
+      "who": "phone2",
+      "what": "recv snapshot.end"
+    },
+    {
+      "tS": 84,
+      "who": "harness",
+      "what": "KILL: killed pid 150828"
+    },
+    {
+      "tS": 84,
+      "who": "host",
+      "what": "ws closed"
+    },
+    {
+      "tS": 84,
+      "who": "phone1",
+      "what": "ws closed"
+    },
+    {
+      "tS": 84,
+      "who": "phone2",
+      "what": "ws closed"
+    },
+    {
+      "tS": 84.4,
+      "who": "phone1",
+      "what": "ws open ws://localhost:10000/ws"
+    },
+    {
+      "tS": 84.4,
+      "who": "phone1",
+      "what": "ws error Error in connection establishment: net::ERR_CONNECTION_REFUSED"
+    },
+    {
+      "tS": 84.4,
+      "who": "phone2",
+      "what": "ws open ws://localhost:10000/ws"
+    },
+    {
+      "tS": 84.4,
+      "who": "phone2",
+      "what": "ws error Error in connection establishment: net::ERR_CONNECTION_REFUSED"
+    },
+    {
+      "tS": 84.5,
+      "who": "phone1",
+      "what": "ws closed"
+    },
+    {
+      "tS": 84.5,
+      "who": "phone2",
+      "what": "ws closed"
+    },
+    {
+      "tS": 85.4,
+      "who": "phone2",
+      "what": "ws open ws://localhost:10000/ws"
+    },
+    {
+      "tS": 85.4,
+      "who": "phone2",
+      "what": "ws error Error in connection establishment: net::ERR_CONNECTION_REFUSED"
+    },
+    {
+      "tS": 85.4,
+      "who": "phone1",
+      "what": "ws open ws://localhost:10000/ws"
+    },
+    {
+      "tS": 85.4,
+      "who": "phone1",
+      "what": "ws error Error in connection establishment: net::ERR_CONNECTION_REFUSED"
+    },
+    {
+      "tS": 85.4,
+      "who": "host",
+      "what": "ws open ws://localhost:10000/ws"
+    },
+    {
+      "tS": 85.4,
+      "who": "host",
+      "what": "ws error Error in connection establishment: net::ERR_CONNECTION_REFUSED"
+    },
+    {
+      "tS": 85.4,
+      "who": "host",
+      "what": "ws closed"
+    },
+    {
+      "tS": 85.4,
+      "who": "phone1",
+      "what": "ws closed"
+    },
+    {
+      "tS": 85.4,
+      "who": "phone2",
+      "what": "ws closed"
+    },
+    {
+      "tS": 87.6,
+      "who": "phone2",
+      "what": "ws open ws://localhost:10000/ws"
+    },
+    {
+      "tS": 87.6,
+      "who": "phone2",
+      "what": "ws error Error in connection establishment: net::ERR_CONNECTION_REFUSED"
+    },
+    {
+      "tS": 87.6,
+      "who": "phone1",
+      "what": "ws open ws://localhost:10000/ws"
+    },
+    {
+      "tS": 87.6,
+      "who": "phone1",
+      "what": "ws error Error in connection establishment: net::ERR_CONNECTION_REFUSED"
+    },
+    {
+      "tS": 87.6,
+      "who": "host",
+      "what": "ws open ws://localhost:10000/ws"
+    },
+    {
+      "tS": 87.6,
+      "who": "host",
+      "what": "ws error Error in connection establishment: net::ERR_CONNECTION_REFUSED"
+    },
+    {
+      "tS": 87.6,
+      "who": "host",
+      "what": "ws closed"
+    },
+    {
+      "tS": 87.6,
+      "who": "phone2",
+      "what": "ws closed"
+    },
+    {
+      "tS": 87.6,
+      "who": "phone1",
+      "what": "ws closed"
+    },
+    {
+      "tS": 91.4,
+      "who": "host",
+      "what": "ws open ws://localhost:10000/ws"
+    },
+    {
+      "tS": 91.4,
+      "who": "host",
+      "what": "ws error Error in connection establishment: net::ERR_CONNECTION_REFUSED"
+    },
+    {
+      "tS": 91.4,
+      "who": "host",
+      "what": "ws closed"
+    },
+    {
+      "tS": 91.6,
+      "who": "phone1",
+      "what": "ws open ws://localhost:10000/ws"
+    },
+    {
+      "tS": 91.6,
+      "who": "phone1",
+      "what": "ws error Error in connection establishment: net::ERR_CONNECTION_REFUSED"
+    },
+    {
+      "tS": 91.6,
+      "who": "phone2",
+      "what": "ws open ws://localhost:10000/ws"
+    },
+    {
+      "tS": 91.6,
+      "who": "phone2",
+      "what": "ws error Error in connection establishment: net::ERR_CONNECTION_REFUSED"
+    },
+    {
+      "tS": 91.6,
+      "who": "phone1",
+      "what": "ws closed"
+    },
+    {
+      "tS": 91.6,
+      "who": "phone2",
+      "what": "ws closed"
+    },
+    {
+      "tS": 94,
+      "who": "harness",
+      "what": "RESTARTED pid 146668 (down for 10.0 s)"
+    },
+    {
+      "tS": 96.6,
+      "who": "phone2",
+      "what": "ws open ws://localhost:10000/ws"
+    },
+    {
+      "tS": 96.6,
+      "who": "phone1",
+      "what": "ws open ws://localhost:10000/ws"
+    },
+    {
+      "tS": 96.6,
+      "who": "phone2",
+      "what": "sent hello"
+    },
+    {
+      "tS": 97.4,
+      "who": "host",
+      "what": "ws open ws://localhost:10000/ws"
+    },
+    {
+      "tS": 97.5,
+      "who": "phone2",
+      "what": "recv hello.ok"
+    },
+    {
+      "tS": 97.5,
+      "who": "phone2",
+      "what": "sent room.resume"
+    },
+    {
+      "tS": 97.5,
+      "who": "phone1",
+      "what": "sent hello"
+    },
+    {
+      "tS": 97.5,
+      "who": "phone2",
+      "what": "recv error {\"t\":\"error\",\"seq\":2,\"d\":{\"code\":\"ROOM_NOT_FOUND\",\"fatal\":false,\"re\":2,\"reT\":\"room.resume\"}}"
+    },
+    {
+      "tS": 97.5,
+      "who": "phone2",
+      "what": "ws closed"
+    },
+    {
+      "tS": 97.5,
+      "who": "phone1",
+      "what": "recv hello.ok"
+    },
+    {
+      "tS": 97.5,
+      "who": "phone1",
+      "what": "sent room.resume"
+    },
+    {
+      "tS": 97.5,
+      "who": "phone1",
+      "what": "recv error {\"t\":\"error\",\"seq\":2,\"d\":{\"code\":\"ROOM_NOT_FOUND\",\"fatal\":false,\"re\":2,\"reT\":\"room.resume\"}}"
+    },
+    {
+      "tS": 97.5,
+      "who": "phone1",
+      "what": "ws closed"
+    },
+    {
+      "tS": 98.4,
+      "who": "host",
+      "what": "sent hello"
+    },
+    {
+      "tS": 98.4,
+      "who": "host",
+      "what": "recv hello.ok"
+    },
+    {
+      "tS": 99,
+      "who": "harness",
+      "what": "+5s phone texts: [\"Skip to content Room NGAH Connection lost. Reconnecting… No room with that code. Check the host screen. You are in Restart1 Waiting for the host to start the mission Edit call sign Crew · 2 Restart1 Y\",\"Skip to content Room NGAH Connection lost. Reconnecting… No room with that code. Check the host screen. You are in Restart2 Waiting for the host to start the mission Edit call sign Crew · 2 Restart1 0\"]"
+    },
+    {
+      "tS": 99.4,
+      "who": "host",
+      "what": "sent room.resume"
+    },
+    {
+      "tS": 99.4,
+      "who": "host",
+      "what": "recv error {\"t\":\"error\",\"seq\":2,\"d\":{\"code\":\"ROOM_NOT_FOUND\",\"fatal\":false,\"re\":2,\"reT\":\"room.resume\"}}"
+    },
+    {
+      "tS": 127.5,
+      "who": "host",
+      "what": "recv bye {\"t\":\"bye\",\"seq\":10,\"d\":{\"reason\":\"HANDSHAKE_TIMEOUT\",\"closeCode\":4005,\"canResume\":false}}"
+    },
+    {
+      "tS": 127.5,
+      "who": "host",
+      "what": "ws closed"
+    },
+    {
+      "tS": 130.4,
+      "who": "host",
+      "what": "ws open ws://localhost:10000/ws"
+    },
+    {
+      "tS": 131.4,
+      "who": "host",
+      "what": "sent hello"
+    },
+    {
+      "tS": 131.4,
+      "who": "host",
+      "what": "recv hello.ok"
+    },
+    {
+      "tS": 160.5,
+      "who": "host",
+      "what": "recv bye {\"t\":\"bye\",\"seq\":9,\"d\":{\"reason\":\"HANDSHAKE_TIMEOUT\",\"closeCode\":4005,\"canResume\":false}}"
+    },
+    {
+      "tS": 160.5,
+      "who": "host",
+      "what": "ws closed"
+    },
+    {
+      "tS": 162.5,
+      "who": "host",
+      "what": "ws open ws://localhost:10000/ws"
+    },
+    {
+      "tS": 163.4,
+      "who": "host",
+      "what": "sent hello"
+    },
+    {
+      "tS": 163.4,
+      "who": "host",
+      "what": "recv hello.ok"
+    },
+    {
+      "tS": 192.5,
+      "who": "host",
+      "what": "recv bye {\"t\":\"bye\",\"seq\":9,\"d\":{\"reason\":\"HANDSHAKE_TIMEOUT\",\"closeCode\":4005,\"canResume\":false}}"
+    },
+    {
+      "tS": 192.5,
+      "who": "host",
+      "what": "ws closed"
+    },
+    {
+      "tS": 194.4,
+      "who": "host",
+      "what": "ws open ws://localhost:10000/ws"
+    },
+    {
+      "tS": 195.4,
+      "who": "host",
+      "what": "sent hello"
+    },
+    {
+      "tS": 195.4,
+      "who": "host",
+      "what": "recv hello.ok"
+    },
+    {
+      "tS": 224.4,
+      "who": "host",
+      "what": "recv bye {\"t\":\"bye\",\"seq\":9,\"d\":{\"reason\":\"HANDSHAKE_TIMEOUT\",\"closeCode\":4005,\"canResume\":false}}"
+    },
+    {
+      "tS": 224.4,
+      "who": "host",
+      "what": "ws closed"
+    },
+    {
+      "tS": 226.4,
+      "who": "host",
+      "what": "ws open ws://localhost:10000/ws"
+    },
+    {
+      "tS": 227.4,
+      "who": "host",
+      "what": "sent hello"
+    },
+    {
+      "tS": 227.4,
+      "who": "host",
+      "what": "recv hello.ok"
+    },
+    {
+      "tS": 250.6,
+      "who": "harness",
+      "what": "+30s phone texts: [\"Skip to content Room NGAH Connection lost. Reconnecting… You are in Restart1 Waiting for the host to start the mission Edit call sign Crew · 2 Restart1 You 01 Restart2 02 Consoles are dealt at random \",\"Skip to content Room NGAH Connection lost. Reconnecting… You are in Restart2 Waiting for the host to start the mission Edit call sign Crew · 2 Restart1 01 Restart2 You 02 Consoles are dealt at random \"]"
+    },
+    {
+      "tS": 256.5,
+      "who": "host",
+      "what": "recv bye {\"t\":\"bye\",\"seq\":9,\"d\":{\"reason\":\"HANDSHAKE_TIMEOUT\",\"closeCode\":4005,\"canResume\":false}}"
+    },
+    {
+      "tS": 256.5,
+      "who": "host",
+      "what": "ws closed"
+    },
+    {
+      "tS": 258.4,
+      "who": "host",
+      "what": "ws open ws://localhost:10000/ws"
+    },
+    {
+      "tS": 259.4,
+      "who": "host",
+      "what": "sent hello"
+    },
+    {
+      "tS": 259.4,
+      "who": "host",
+      "what": "recv hello.ok"
+    },
+    {
+      "tS": 288.4,
+      "who": "host",
+      "what": "recv bye {\"t\":\"bye\",\"seq\":9,\"d\":{\"reason\":\"HANDSHAKE_TIMEOUT\",\"closeCode\":4005,\"canResume\":false}}"
+    },
+    {
+      "tS": 288.4,
+      "who": "host",
+      "what": "ws closed"
+    },
+    {
+      "tS": 290.2,
+      "who": "host",
+      "what": "ws open ws://localhost:10000/ws"
+    },
+    {
+      "tS": 291.4,
+      "who": "host",
+      "what": "sent hello"
+    },
+    {
+      "tS": 291.4,
+      "who": "host",
+      "what": "recv hello.ok"
+    },
+    {
+      "tS": 320.2,
+      "who": "host",
+      "what": "recv bye {\"t\":\"bye\",\"seq\":9,\"d\":{\"reason\":\"HANDSHAKE_TIMEOUT\",\"closeCode\":4005,\"canResume\":false}}"
+    },
+    {
+      "tS": 320.2,
+      "who": "host",
+      "what": "ws closed"
+    },
+    {
+      "tS": 321.4,
+      "who": "host",
+      "what": "ws open ws://localhost:10000/ws"
+    },
+    {
+      "tS": 322.4,
+      "who": "host",
+      "what": "sent hello"
+    },
+    {
+      "tS": 322.4,
+      "who": "host",
+      "what": "recv hello.ok"
+    },
+    {
+      "tS": 351.4,
+      "who": "host",
+      "what": "recv bye {\"t\":\"bye\",\"seq\":9,\"d\":{\"reason\":\"HANDSHAKE_TIMEOUT\",\"closeCode\":4005,\"canResume\":false}}"
+    },
+    {
+      "tS": 351.5,
+      "who": "host",
+      "what": "ws closed"
+    },
+    {
+      "tS": 353.4,
+      "who": "host",
+      "what": "ws open ws://localhost:10000/ws"
+    },
+    {
+      "tS": 354.4,
+      "who": "host",
+      "what": "sent hello"
+    },
+    {
+      "tS": 354.4,
+      "who": "host",
+      "what": "recv hello.ok"
+    },
+    {
+      "tS": 383.5,
+      "who": "host",
+      "what": "recv bye {\"t\":\"bye\",\"seq\":9,\"d\":{\"reason\":\"HANDSHAKE_TIMEOUT\",\"closeCode\":4005,\"canResume\":false}}"
+    },
+    {
+      "tS": 383.5,
+      "who": "host",
+      "what": "ws closed"
+    },
+    {
+      "tS": 385.4,
+      "who": "host",
+      "what": "ws open ws://localhost:10000/ws"
+    },
+    {
+      "tS": 386.4,
+      "who": "host",
+      "what": "sent hello"
+    },
+    {
+      "tS": 386.4,
+      "who": "host",
+      "what": "recv hello.ok"
+    },
+    {
+      "tS": 415.5,
+      "who": "host",
+      "what": "recv bye {\"t\":\"bye\",\"seq\":9,\"d\":{\"reason\":\"HANDSHAKE_TIMEOUT\",\"closeCode\":4005,\"canResume\":false}}"
+    },
+    {
+      "tS": 415.5,
+      "who": "host",
+      "what": "ws closed"
+    },
+    {
+      "tS": 417.4,
+      "who": "host",
+      "what": "ws open ws://localhost:10000/ws"
+    },
+    {
+      "tS": 418.4,
+      "who": "host",
+      "what": "sent hello"
+    },
+    {
+      "tS": 418.4,
+      "who": "host",
+      "what": "recv hello.ok"
+    },
+    {
+      "tS": 447.5,
+      "who": "host",
+      "what": "recv bye {\"t\":\"bye\",\"seq\":9,\"d\":{\"reason\":\"HANDSHAKE_TIMEOUT\",\"closeCode\":4005,\"canResume\":false}}"
+    },
+    {
+      "tS": 447.5,
+      "who": "host",
+      "what": "ws closed"
+    },
+    {
+      "tS": 449.5,
+      "who": "host",
+      "what": "ws open ws://localhost:10000/ws"
+    },
+    {
+      "tS": 450.4,
+      "who": "host",
+      "what": "sent hello"
+    },
+    {
+      "tS": 450.5,
+      "who": "host",
+      "what": "recv hello.ok"
+    },
+    {
+      "tS": 479.5,
+      "who": "host",
+      "what": "recv bye {\"t\":\"bye\",\"seq\":9,\"d\":{\"reason\":\"HANDSHAKE_TIMEOUT\",\"closeCode\":4005,\"canResume\":false}}"
+    },
+    {
+      "tS": 479.5,
+      "who": "host",
+      "what": "ws closed"
+    },
+    {
+      "tS": 481.5,
+      "who": "host",
+      "what": "ws open ws://localhost:10000/ws"
+    },
+    {
+      "tS": 482.5,
+      "who": "host",
+      "what": "sent hello"
+    },
+    {
+      "tS": 482.5,
+      "who": "host",
+      "what": "recv hello.ok"
+    },
+    {
+      "tS": 511.5,
+      "who": "host",
+      "what": "recv bye {\"t\":\"bye\",\"seq\":9,\"d\":{\"reason\":\"HANDSHAKE_TIMEOUT\",\"closeCode\":4005,\"canResume\":false}}"
+    },
+    {
+      "tS": 511.5,
+      "who": "host",
+      "what": "ws closed"
+    },
+    {
+      "tS": 513.5,
+      "who": "host",
+      "what": "ws open ws://localhost:10000/ws"
+    },
+    {
+      "tS": 514.5,
+      "who": "host",
+      "what": "sent hello"
+    },
+    {
+      "tS": 514.5,
+      "who": "host",
+      "what": "recv hello.ok"
+    },
+    {
+      "tS": 519.2,
+      "who": "harness",
+      "what": "+90s phone texts: [\"Skip to content Room NGAH Connection lost. Reconnecting… You are in Restart1 Waiting for the host to start the mission Edit call sign Crew · 2 Restart1 You 01 Restart2 02 Consoles are dealt at random \",\"Skip to content Room NGAH Connection lost. Reconnecting… You are in Restart2 Waiting for the host to start the mission Edit call sign Crew · 2 Restart1 01 Restart2 You 02 Consoles are dealt at random \"]"
+    },
+    {
+      "tS": 543.5,
+      "who": "host",
+      "what": "recv bye {\"t\":\"bye\",\"seq\":9,\"d\":{\"reason\":\"HANDSHAKE_TIMEOUT\",\"closeCode\":4005,\"canResume\":false}}"
+    },
+    {
+      "tS": 543.5,
+      "who": "host",
+      "what": "ws closed"
+    },
+    {
+      "tS": 545.5,
+      "who": "host",
+      "what": "ws open ws://localhost:10000/ws"
+    },
+    {
+      "tS": 546.4,
+      "who": "host",
+      "what": "sent hello"
+    },
+    {
+      "tS": 546.4,
+      "who": "host",
+      "what": "recv hello.ok"
+    },
+    {
+      "tS": 575.5,
+      "who": "host",
+      "what": "recv bye {\"t\":\"bye\",\"seq\":9,\"d\":{\"reason\":\"HANDSHAKE_TIMEOUT\",\"closeCode\":4005,\"canResume\":false}}"
+    },
+    {
+      "tS": 575.5,
+      "who": "host",
+      "what": "ws closed"
+    },
+    {
+      "tS": 577.4,
+      "who": "host",
+      "what": "ws open ws://localhost:10000/ws"
+    },
+    {
+      "tS": 578.4,
+      "who": "host",
+      "what": "sent hello"
+    },
+    {
+      "tS": 578.4,
+      "who": "host",
+      "what": "recv hello.ok"
+    },
+    {
+      "tS": 607.4,
+      "who": "host",
+      "what": "recv bye {\"t\":\"bye\",\"seq\":9,\"d\":{\"reason\":\"HANDSHAKE_TIMEOUT\",\"closeCode\":4005,\"canResume\":false}}"
+    },
+    {
+      "tS": 607.4,
+      "who": "host",
+      "what": "ws closed"
+    },
+    {
+      "tS": 609.4,
+      "who": "host",
+      "what": "ws open ws://localhost:10000/ws"
+    },
+    {
+      "tS": 610.4,
+      "who": "host",
+      "what": "sent hello"
+    },
+    {
+      "tS": 610.4,
+      "who": "host",
+      "what": "recv hello.ok"
+    },
+    {
+      "tS": 639.5,
+      "who": "host",
+      "what": "recv bye {\"t\":\"bye\",\"seq\":9,\"d\":{\"reason\":\"HANDSHAKE_TIMEOUT\",\"closeCode\":4005,\"canResume\":false}}"
+    },
+    {
+      "tS": 639.5,
+      "who": "host",
+      "what": "ws closed"
+    },
+    {
+      "tS": 641.5,
+      "who": "host",
+      "what": "ws open ws://localhost:10000/ws"
+    },
+    {
+      "tS": 642.4,
+      "who": "host",
+      "what": "sent hello"
+    },
+    {
+      "tS": 642.4,
+      "who": "host",
+      "what": "recv hello.ok"
+    },
+    {
+      "tS": 671.5,
+      "who": "host",
+      "what": "recv bye {\"t\":\"bye\",\"seq\":9,\"d\":{\"reason\":\"HANDSHAKE_TIMEOUT\",\"closeCode\":4005,\"canResume\":false}}"
+    },
+    {
+      "tS": 671.5,
+      "who": "host",
+      "what": "ws closed"
+    },
+    {
+      "tS": 673.4,
+      "who": "host",
+      "what": "ws open ws://localhost:10000/ws"
+    },
+    {
+      "tS": 674.4,
+      "who": "host",
+      "what": "sent hello"
+    },
+    {
+      "tS": 674.4,
+      "who": "host",
+      "what": "recv hello.ok"
+    },
+    {
+      "tS": 705.5,
+      "who": "host",
+      "what": "recv bye {\"t\":\"bye\",\"seq\":9,\"d\":{\"reason\":\"HANDSHAKE_TIMEOUT\",\"closeCode\":4005,\"canResume\":false}}"
+    },
+    {
+      "tS": 705.5,
+      "who": "host",
+      "what": "ws closed"
+    },
+    {
+      "tS": 707.7,
+      "who": "host",
+      "what": "ws open ws://localhost:10000/ws"
+    },
+    {
+      "tS": 709.5,
+      "who": "host",
+      "what": "sent hello"
+    },
+    {
+      "tS": 709.5,
+      "who": "host",
+      "what": "recv hello.ok"
+    },
+    {
+      "tS": 710.4,
+      "who": "host",
+      "what": "sent room.create"
+    },
+    {
+      "tS": 710.4,
+      "who": "host",
+      "what": "recv room.created"
+    },
+    {
+      "tS": 710.4,
+      "who": "host",
+      "what": "recv settings.state"
+    },
+    {
+      "tS": 710.4,
+      "who": "host",
+      "what": "recv room.state"
+    },
+    {
+      "tS": 710.4,
+      "who": "host",
+      "what": "recv roles.state"
+    },
+    {
+      "tS": 710.4,
+      "who": "host",
+      "what": "recv snapshot.end"
+    },
+    {
+      "tS": 890.3,
+      "who": "harness",
+      "what": "New mission after restart: NO room.created within 180 s"
+    }
+  ]
+}

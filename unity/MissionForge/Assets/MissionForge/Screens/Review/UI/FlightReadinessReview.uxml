@@ -1,0 +1,20 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:mf="MissionForge.UI">
+    <Style src="../../Preflight/UI/Preflight.uss" />
+    <!-- Flight Readiness Review (screen 8, T027). Left: lifecycle tag, title and the readiness summary (Core dashboard
+         numbers, open issues by severity). Right: the GO/NO-GO console board in call order. The callout subtitle runs
+         along the bottom; the overlay carries the NO-GO discussion, "Rework required" and the GO moment. Every
+         player-visible string is set from data/strings by FrrScreen; text here is empty. -->
+    <ui:VisualElement name="screen" class="mf-screen pf-screen pf-frr">
+        <ui:VisualElement name="pf-shade" class="pf-shade pf-shade--deep" picking-mode="Ignore" />
+        <ui:VisualElement name="pf-frr-row" class="pf-frr-row">
+            <ui:VisualElement name="pf-frr-left" class="pf-frr-left">
+                <ui:VisualElement name="pf-head" class="pf-head" />
+                <mf:MfGlassPanel name="pf-summary" class="mf-glass pf-summary" />
+            </ui:VisualElement>
+            <ui:VisualElement name="pf-board" class="pf-board" />
+        </ui:VisualElement>
+        <ui:Label name="pf-callout" class="pf-callout" />
+        <ui:VisualElement name="pf-overlay" class="pf-overlay" />
+        <ui:VisualElement name="pf-rehearsal-host" class="pf-rehearsal-host" picking-mode="Ignore" />
+    </ui:VisualElement>
+</ui:UXML>

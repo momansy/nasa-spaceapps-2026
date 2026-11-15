@@ -4,6 +4,11 @@
 // separate chunk fetched only then. Otherwise, and always until the model has loaded, it shows
 // a canvas-2D wireframe of the part built from the catalog stats. Both renderers share one
 // view (yaw, pitch, zoom) and the same drag / pinch / wheel / keyboard controls.
+//
+// T050 (D-102): every viewer draws through one shared WebGL renderer (threeScene.ts). Only a
+// viewer that is active, on screen and not covered by the full viewer animates (it shows the
+// shared WebGL canvas; cards at most 30 fps, and slower when frames are expensive); the others
+// keep their last frame as a 2D still. Changing `active` no longer rebuilds the scene.
 import { useEffect, useMemo, useRef, useState, type MouseEvent as ReactMouseEvent } from 'react';
 import { getPart } from '../data/catalog';
 import { fmt } from '../data/format';
@@ -21,8 +26,9 @@ export interface PartViewerProps {
   /** 'card' = compact header of a Part Card; 'full' = fills its container. */
   size?: 'card' | 'full';
   /**
-   * False draws one still frame and runs no animation loop and no WebGL context (cards that
-   * are off screen in a carousel). Default true.
+   * False shows a still and runs no animation loop (cards that are off screen in a carousel):
+   * the last 3D frame if the model was already shown, else the wireframe. A viewer that was
+   * never active does not load the model. Default true.
    */
   active?: boolean;
   /** Card size only: shows the expand button and calls this when it (or the stage) is tapped. */
@@ -34,6 +40,19 @@ const ZOOM_MAX = 2.6;
 const PITCH_MAX = 1.25;
 const AUTO_SPEED = 0.32; // rad/s
 const IDLE_AFTER_INPUT_MS = 2600;
+/** Turntable frame interval (24 fps) and the card cap while dragged (30 fps). */
+const IDLE_FRAME_MS = 41;
+const CARD_FRAME_MS = 33;
+/** Idle frames are spaced at least this many times the measured draw cost apart. */
+const IDLE_COST_FACTOR = 4;
+
+// Full-screen viewers currently open: cards under the sheet stop animating meanwhile.
+let fullViewers = 0;
+const fullListeners = new Set<() => void>();
+function setFullOpen(delta: number) {
+  fullViewers = Math.max(0, fullViewers + delta);
+  for (const fn of fullListeners) fn();
+}
 
 const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v));
 
@@ -41,15 +60,23 @@ function isReducedMotion(): boolean {
   return document.documentElement.dataset.motion === 'reduced';
 }
 
+// Style reads force a style recalculation (T047: 470 ms under CPU x4); the colours are theme
+// variables that only change with the contrast mode, so they are read once per mode.
+const colorCache = new Map<string, WireColors>();
 function readColors(el: HTMLElement): WireColors {
+  const mode = document.documentElement.dataset.contrast ?? '';
+  const hit = colorCache.get(mode);
+  if (hit) return hit;
   const cs = getComputedStyle(el);
   const v = (name: string, fallback: string) => cs.getPropertyValue(name).trim() || fallback;
-  return {
+  const colors = {
     line: v('--accent', '#55c5cd'),
     bright: v('--accent-strong', '#8fe0e6'),
     dim: v('--accent', '#55c5cd'),
     text: v('--text', '#e8eef0'),
   };
+  colorCache.set(mode, colors);
+  return colors;
 }
 
 export function PartViewer({ partId, size = 'card', active = true, onExpand }: PartViewerProps) {
@@ -60,6 +87,11 @@ export function PartViewer({ partId, size = 'card', active = true, onExpand }: P
   // Read through a ref so a new callback identity never rebuilds the viewer.
   const onExpandRef = useRef(onExpand);
   onExpandRef.current = onExpand;
+  // Read through a ref too: toggling `active` (swiping the carousel) keeps the scene.
+  const activeRef = useRef(active);
+  activeRef.current = active;
+  /** Set by the effect: loads the model once the viewer is active and re-evaluates animation. */
+  const activeChanged = useRef<(() => void) | null>(null);
 
   const part = getPart(partId);
   const name = part ? t(part.name_key) : partId;
@@ -90,12 +122,21 @@ export function PartViewer({ partId, size = 'card', active = true, onExpand }: P
     let raf = 0;
     let lastT = 0;
     let lastDraw = 0;
+    /** Smoothed cost of one draw, ms: a slow phone gets a slower turntable, not a busier thread. */
+    let drawCost = 0;
+    let lastSyncCost = 0;
+    let drewLastFrame = false;
     let dirty = true;
     let idleUntil = 0;
     let disposed = false;
     const pointers = new Map<number, { x: number; y: number }>();
     let pinchDist = 0;
     let moved = false;
+    let visible = true;
+    let glRequested = false;
+    const isActive = () => activeRef.current;
+    // Inactive viewers, off-screen ones and cards behind an open full viewer hold a still.
+    const animating = () => isActive() && visible && !(size === 'card' && fullViewers > 0) && !isReducedMotion();
 
     const draw = (timeMs: number) => {
       if (width === 0 || height === 0) return;
@@ -105,27 +146,41 @@ export function PartViewer({ partId, size = 'card', active = true, onExpand }: P
         colors = readColors(stage);
       }
       if (scene) {
-        scene.draw(view);
+        // A moving viewer draws straight into the shared WebGL canvas; others get a still.
+        scene.draw(view, animating() || pointers.size > 0);
         return;
       }
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const pulse = active && !isReducedMotion() ? (timeMs % 1700) / 1700 : 0;
+      const pulse = animating() ? (timeMs % 1700) / 1700 : 0;
       drawWire(ctx, width, height, model, view, colors, pulse);
     };
 
     const frame = (timeMs: number) => {
       raf = 0;
       if (disposed) return;
-      const dt = lastT ? Math.min(0.1, (timeMs - lastT) / 1000) : 0;
+      const gapMs = lastT ? timeMs - lastT : 0;
+      const dt = Math.min(0.1, gapMs / 1000);
       lastT = timeMs;
-      const auto = active && !isReducedMotion() && pointers.size === 0;
+      if (drewLastFrame) {
+        // Part of a WebGL frame's cost lands after the callback (the canvas is presented with
+        // the frame), so a late next frame counts as cost too.
+        drewLastFrame = false;
+        drawCost = drawCost * 0.7 + Math.max(lastSyncCost, gapMs - 17) * 0.3;
+      }
+      const auto = animating() && pointers.size === 0;
       if (auto && timeMs >= idleUntil) {
         view.yaw += AUTO_SPEED * dt;
         dirty = true;
       }
-      // While only idling (the turntable), 24 frames per second are plenty (old phones, battery).
-      if (dirty && (pointers.size > 0 || timeMs - lastDraw >= 41)) {
+      // While only idling (the turntable), 24 frames per second are plenty (old phones, battery);
+      // a dragged card is capped at 30, the full viewer follows the finger every frame.
+      // The idle spin also leaves at least three quarters of the main thread to the game.
+      const minGap = pointers.size > 0 ? (size === 'card' ? CARD_FRAME_MS : 0) : Math.max(IDLE_FRAME_MS, drawCost * IDLE_COST_FACTOR);
+      if (dirty && timeMs - lastDraw >= minGap) {
+        const t0 = performance.now();
         draw(timeMs);
+        lastSyncCost = performance.now() - t0;
+        drewLastFrame = true;
         lastDraw = timeMs;
         dirty = false;
       }
@@ -162,6 +217,21 @@ export function PartViewer({ partId, size = 'card', active = true, onExpand }: P
     ro.observe(stage);
     resize();
 
+    // Off-screen viewers (scrolled away) do not animate.
+    let io: IntersectionObserver | null = null;
+    if (typeof IntersectionObserver !== 'undefined') {
+      io = new IntersectionObserver((entries) => {
+        const e = entries[entries.length - 1];
+        if (!e) return;
+        const was = visible;
+        visible = e.isIntersecting;
+        if (visible && !was) invalidate();
+      });
+      io.observe(stage);
+    }
+    if (size === 'full') setFullOpen(1);
+    else fullListeners.add(invalidate);
+
     // Restart the idle spin when the motion preference is switched back on.
     const mo = new MutationObserver(invalidate);
     mo.observe(document.documentElement, { attributes: true, attributeFilter: ['data-motion', 'data-contrast'] });
@@ -189,7 +259,7 @@ export function PartViewer({ partId, size = 'card', active = true, onExpand }: P
     // the page there (a tap expands); the full viewer takes every gesture.
     const takesTouch = size === 'full';
     const onDown = (e: PointerEvent) => {
-      if (!active) return;
+      if (!isActive()) return;
       if (e.pointerType === 'touch' && !takesTouch) return;
       if (e.button !== 0 && e.pointerType === 'mouse') return;
       pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
@@ -237,7 +307,7 @@ export function PartViewer({ partId, size = 'card', active = true, onExpand }: P
       moved = false;
     };
     const onWheel = (e: WheelEvent) => {
-      if (!takesTouch || !active) return;
+      if (!takesTouch || !isActive()) return;
       e.preventDefault();
       view.zoom = clamp(view.zoom * Math.exp(-e.deltaY * 0.0015), ZOOM_MIN, ZOOM_MAX);
       touched();
@@ -287,12 +357,15 @@ export function PartViewer({ partId, size = 'card', active = true, onExpand }: P
     stage.addEventListener('keydown', onKey);
 
     // ───────────── GLB model, when there is one ─────────────
-    if (active) {
+    // Loaded once the viewer has been active; afterwards it stays until unmount.
+    const requestGl = () => {
+      if (glRequested || !isActive()) return;
+      glRequested = true;
       void loadModel(partId).then(async (bytes) => {
         if (disposed || !bytes || !hasWebGL()) return;
         try {
           const { createThreeScene } = await import('./threeScene');
-          const made = await createThreeScene(bytes);
+          const made = await createThreeScene(bytes, partId);
           if (disposed) {
             made.destroy();
             return;
@@ -308,13 +381,22 @@ export function PartViewer({ partId, size = 'card', active = true, onExpand }: P
           /* unreadable model or no GPU: the wireframe stays */
         }
       });
-    }
+    };
+    requestGl();
+    activeChanged.current = () => {
+      requestGl();
+      invalidate();
+    };
 
     return () => {
       disposed = true;
+      activeChanged.current = null;
       if (raf) cancelAnimationFrame(raf);
       ro.disconnect();
       mo.disconnect();
+      io?.disconnect();
+      if (size === 'full') setFullOpen(-1);
+      else fullListeners.delete(invalidate);
       stage.removeEventListener('pointerdown', onDown);
       stage.removeEventListener('pointermove', onMove);
       stage.removeEventListener('pointerup', onUp);
@@ -328,7 +410,11 @@ export function PartViewer({ partId, size = 'card', active = true, onExpand }: P
       scene = null;
       setWebgl(false);
     };
-  }, [partId, model, active, size]);
+  }, [partId, model, size]);
+
+  useEffect(() => {
+    activeChanged.current?.();
+  }, [active]);
 
   const stop = (fn: () => void) => (e: ReactMouseEvent) => {
     e.stopPropagation();

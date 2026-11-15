@@ -1,0 +1,20 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:mf="MissionForge.UI">
+    <Style src="../../Preflight/UI/Preflight.uss" />
+    <!-- Design Review PDR / CDR (screen 7, T027). Left: lifecycle tag, title and the checklist of the rules Core checks.
+         Right: findings grouped by severity, then the REVIEW vote (Pass / Rework) and, on Rework, the category vote.
+         Every player-visible string is set from data/strings by DesignReviewScreen; text here is empty. -->
+    <ui:VisualElement name="screen" class="mf-screen pf-screen pf-review">
+        <ui:VisualElement name="pf-shade" class="pf-shade pf-shade--deep" picking-mode="Ignore" />
+        <ui:VisualElement name="pf-review-row" class="pf-review-row">
+            <ui:VisualElement name="pf-review-left" class="pf-review-left">
+                <ui:VisualElement name="pf-head" class="pf-head" />
+                <mf:MfGlassPanel name="pf-checklist" class="mf-glass pf-checklist" />
+            </ui:VisualElement>
+            <ui:ScrollView name="pf-review-right" mode="Vertical" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" class="pf-review-right pf-scroll">
+                <mf:MfGlassPanel name="pf-findings" class="mf-glass pf-findings" />
+                <ui:VisualElement name="pf-review-vote" class="pf-review-vote" />
+            </ui:ScrollView>
+        </ui:VisualElement>
+        <ui:VisualElement name="pf-rehearsal-host" class="pf-rehearsal-host" picking-mode="Ignore" />
+    </ui:VisualElement>
+</ui:UXML>

@@ -1,0 +1,222 @@
+[4.6s] host: ws open ws://localhost:10000/ws
+[4.7s] host: sent hello
+[4.7s] host: recv hello.ok
+[27.4s] host: sent room.create
+[27.4s] host: recv room.created
+[27.4s] host: recv settings.state
+[27.4s] host: recv room.state
+[27.4s] host: recv roles.state
+[27.4s] host: recv snapshot.end
+[28.8s] harness: room WELU joinUrl http://localhost:10000/play/client/?room=WELU
+[31.7s] phone1: ws open ws://localhost:10000/ws
+[31.7s] phone1: sent hello
+[31.7s] host: recv room.state
+[31.7s] host: recv roles.state
+[31.7s] phone1: recv hello.ok
+[31.7s] phone1: sent room.join
+[31.7s] phone1: recv room.state
+[31.7s] phone1: recv roles.state
+[31.7s] phone1: recv room.joined
+[31.7s] phone1: recv settings.state
+[31.7s] phone1: recv room.state
+[31.7s] phone1: recv roles.state
+[31.7s] phone1: recv snapshot.end
+[35.0s] phone2: ws open ws://localhost:10000/ws
+[35.0s] phone2: sent hello
+[35.0s] host: recv room.state
+[35.0s] host: recv roles.state
+[35.0s] phone2: recv hello.ok
+[35.0s] phone1: recv room.state
+[35.0s] phone2: sent room.join
+[35.0s] phone1: recv roles.state
+[35.0s] phone2: recv room.state
+[35.0s] phone2: recv roles.state
+[35.0s] phone2: recv room.joined
+[35.0s] phone2: recv settings.state
+[35.0s] phone2: recv room.state
+[35.0s] phone2: recv roles.state
+[35.0s] phone2: recv snapshot.end
+[105.0s] harness: KILL: killed pid 154268
+[105.1s] host: ws closed
+[105.1s] phone2: ws closed
+[105.1s] phone1: ws closed
+[105.4s] phone1: ws open ws://localhost:10000/ws
+[105.4s] phone1: ws error Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[105.4s] phone2: ws open ws://localhost:10000/ws
+[105.4s] phone2: ws error Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[105.4s] phone2: ws closed
+[105.4s] phone1: ws closed
+[106.3s] host: ws open ws://localhost:10000/ws
+[106.3s] host: ws error Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[106.3s] host: ws closed
+[106.4s] phone1: ws open ws://localhost:10000/ws
+[106.4s] phone1: ws error Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[106.4s] phone1: ws closed
+[106.4s] phone2: ws open ws://localhost:10000/ws
+[106.4s] phone2: ws error Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[106.4s] phone2: ws closed
+[108.5s] phone1: ws open ws://localhost:10000/ws
+[108.5s] phone1: ws error Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[108.5s] phone2: ws open ws://localhost:10000/ws
+[108.5s] phone2: ws error Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[108.5s] phone2: ws closed
+[108.5s] phone1: ws closed
+[108.7s] host: ws open ws://localhost:10000/ws
+[108.7s] host: ws error Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[108.7s] host: ws closed
+[112.5s] phone1: ws open ws://localhost:10000/ws
+[112.5s] phone1: ws error Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[112.5s] phone2: ws open ws://localhost:10000/ws
+[112.5s] phone2: ws error Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[112.5s] phone1: ws closed
+[112.5s] phone2: ws closed
+[113.3s] host: ws open ws://localhost:10000/ws
+[113.3s] host: ws error Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[113.3s] host: ws closed
+[117.5s] phone2: ws open ws://localhost:10000/ws
+[117.5s] phone2: ws error Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[117.5s] phone1: ws open ws://localhost:10000/ws
+[117.5s] phone1: ws error Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[117.5s] phone2: ws closed
+[117.5s] phone1: ws closed
+[118.3s] host: ws open ws://localhost:10000/ws
+[118.3s] host: ws error Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[118.3s] host: ws closed
+[122.5s] phone1: ws open ws://localhost:10000/ws
+[122.5s] phone1: ws error Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[122.5s] phone2: ws open ws://localhost:10000/ws
+[122.5s] phone2: ws error Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[122.5s] phone1: ws closed
+[122.5s] phone2: ws closed
+[127.6s] phone2: ws open ws://localhost:10000/ws
+[127.6s] phone2: ws error Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[127.6s] phone1: ws open ws://localhost:10000/ws
+[127.6s] phone1: ws error Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[127.6s] phone1: ws closed
+[127.6s] phone2: ws closed
+[128.0s] host: ws open ws://localhost:10000/ws
+[128.0s] host: ws error Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[128.0s] host: ws closed
+[132.6s] phone2: ws open ws://localhost:10000/ws
+[132.6s] phone2: ws error Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[132.6s] phone1: ws open ws://localhost:10000/ws
+[132.6s] phone1: ws error Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[132.6s] phone2: ws closed
+[132.6s] phone1: ws closed
+[137.6s] phone2: ws open ws://localhost:10000/ws
+[137.6s] phone2: ws error Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[137.6s] phone2: ws closed
+[137.6s] phone1: ws open ws://localhost:10000/ws
+[137.6s] phone1: ws error Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[137.6s] phone1: ws closed
+[142.6s] phone2: ws open ws://localhost:10000/ws
+[142.6s] phone2: ws error Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[142.6s] phone2: ws closed
+[142.6s] phone1: ws open ws://localhost:10000/ws
+[142.6s] phone1: ws error Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[142.6s] phone1: ws closed
+[144.3s] host: ws open ws://localhost:10000/ws
+[144.3s] host: ws error Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[144.3s] host: ws closed
+[147.6s] phone2: ws open ws://localhost:10000/ws
+[147.6s] phone2: ws error Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[147.6s] phone2: ws closed
+[147.6s] phone1: ws open ws://localhost:10000/ws
+[147.6s] phone1: ws error Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[147.6s] phone1: ws closed
+[150.2s] harness: RESTARTED pid 134016 (down for 45.1 s)
+[152.6s] phone2: ws open ws://localhost:10000/ws
+[152.6s] phone2: sent hello
+[152.7s] phone1: ws open ws://localhost:10000/ws
+[153.5s] phone2: recv hello.ok
+[153.5s] phone2: sent room.resume
+[153.5s] phone1: sent hello
+[153.5s] phone1: recv hello.ok
+[153.5s] phone1: sent room.resume
+[153.5s] phone2: recv error {"t":"error","seq":2,"d":{"code":"ROOM_NOT_FOUND","fatal":false,"re":2,"reT":"room.resume"}}
+[153.5s] phone1: recv error {"t":"error","seq":2,"d":{"code":"ROOM_NOT_FOUND","fatal":false,"re":2,"reT":"room.resume"}}
+[153.5s] phone1: ws closed
+[153.6s] phone2: ws closed
+[155.2s] harness: +5s phone texts: ["Skip to content Room WELU Connection lost. Reconnecting… No room with that code. Check the host screen. You are in Restart1 Waiting for the host to start the mission Edit call sign Crew · 2 Restart1 Y","Skip to content Room WELU Connection lost. Reconnecting… No room with that code. Check the host screen. You are in Restart2 Waiting for the host to start the mission Edit call sign Crew · 2 Restart1 0"]
+[160.4s] host: ws open ws://localhost:10000/ws
+[161.3s] host: sent hello
+[161.3s] host: recv hello.ok
+[162.3s] host: sent room.resume
+[162.3s] host: recv error {"t":"error","seq":2,"d":{"code":"ROOM_NOT_FOUND","fatal":false,"re":2,"reT":"room.resume"}}
+[190.4s] host: recv bye {"t":"bye","seq":10,"d":{"reason":"HANDSHAKE_TIMEOUT","closeCode":4005,"canResume":false}}
+[190.4s] host: ws closed
+[192.3s] host: ws open ws://localhost:10000/ws
+[193.3s] host: sent hello
+[193.3s] host: recv hello.ok
+[222.3s] host: recv bye {"t":"bye","seq":9,"d":{"reason":"HANDSHAKE_TIMEOUT","closeCode":4005,"canResume":false}}
+[222.3s] host: ws closed
+[224.4s] host: ws open ws://localhost:10000/ws
+[224.7s] host: sent hello
+[224.7s] host: recv hello.ok
+[254.4s] host: recv bye {"t":"bye","seq":9,"d":{"reason":"HANDSHAKE_TIMEOUT","closeCode":4005,"canResume":false}}
+[254.4s] host: ws closed
+[256.3s] host: ws open ws://localhost:10000/ws
+[257.3s] host: sent hello
+[257.3s] host: recv hello.ok
+[286.3s] host: recv bye {"t":"bye","seq":9,"d":{"reason":"HANDSHAKE_TIMEOUT","closeCode":4005,"canResume":false}}
+[286.3s] host: ws closed
+[288.3s] host: ws open ws://localhost:10000/ws
+[289.3s] host: sent hello
+[289.3s] host: recv hello.ok
+[318.3s] host: recv bye {"t":"bye","seq":9,"d":{"reason":"HANDSHAKE_TIMEOUT","closeCode":4005,"canResume":false}}
+[318.3s] host: ws closed
+[320.3s] host: ws open ws://localhost:10000/ws
+[320.5s] host: sent hello
+[320.5s] host: recv hello.ok
+[328.4s] harness: +30s phone texts: ["Skip to content Room WELU Connection lost. Reconnecting… You are in Restart1 Waiting for the host to start the mission Edit call sign Crew · 2 Restart1 You 01 Restart2 02 Consoles are dealt at random ","Skip to content Room WELU Connection lost. Reconnecting… You are in Restart2 Waiting for the host to start the mission Edit call sign Crew · 2 Restart1 01 Restart2 You 02 Consoles are dealt at random "]
+[350.3s] host: recv bye {"t":"bye","seq":9,"d":{"reason":"HANDSHAKE_TIMEOUT","closeCode":4005,"canResume":false}}
+[350.3s] host: ws closed
+[352.3s] host: ws open ws://localhost:10000/ws
+[353.3s] host: sent hello
+[353.3s] host: recv hello.ok
+[382.4s] host: recv bye {"t":"bye","seq":10,"d":{"reason":"HANDSHAKE_TIMEOUT","closeCode":4005,"canResume":false}}
+[382.4s] host: ws closed
+[384.3s] host: ws open ws://localhost:10000/ws
+[385.3s] host: sent hello
+[385.3s] host: recv hello.ok
+[414.3s] host: recv bye {"t":"bye","seq":9,"d":{"reason":"HANDSHAKE_TIMEOUT","closeCode":4005,"canResume":false}}
+[414.3s] host: ws closed
+[416.3s] host: ws open ws://localhost:10000/ws
+[417.3s] host: sent hello
+[417.3s] host: recv hello.ok
+[446.4s] host: recv bye {"t":"bye","seq":10,"d":{"reason":"HANDSHAKE_TIMEOUT","closeCode":4005,"canResume":false}}
+[446.4s] host: ws closed
+[448.3s] host: ws open ws://localhost:10000/ws
+[449.3s] host: sent hello
+[449.3s] host: recv hello.ok
+[478.3s] host: recv bye {"t":"bye","seq":9,"d":{"reason":"HANDSHAKE_TIMEOUT","closeCode":4005,"canResume":false}}
+[478.3s] host: ws closed
+[480.1s] host: ws open ws://localhost:10000/ws
+[481.3s] host: sent hello
+[481.3s] host: recv hello.ok
+[510.1s] host: recv bye {"t":"bye","seq":9,"d":{"reason":"HANDSHAKE_TIMEOUT","closeCode":4005,"canResume":false}}
+[510.1s] host: ws closed
+[511.3s] host: ws open ws://localhost:10000/ws
+[512.9s] host: sent hello
+[512.9s] host: recv hello.ok
+[541.3s] host: recv bye {"t":"bye","seq":9,"d":{"reason":"HANDSHAKE_TIMEOUT","closeCode":4005,"canResume":false}}
+[541.3s] host: ws closed
+[543.3s] host: ws open ws://localhost:10000/ws
+[544.3s] host: sent hello
+[544.3s] host: recv hello.ok
+[573.4s] host: recv bye {"t":"bye","seq":9,"d":{"reason":"HANDSHAKE_TIMEOUT","closeCode":4005,"canResume":false}}
+[573.4s] host: ws closed
+[575.4s] host: ws open ws://localhost:10000/ws
+[576.3s] host: sent hello
+[576.3s] host: recv hello.ok
+[606.3s] host: recv bye {"t":"bye","seq":9,"d":{"reason":"HANDSHAKE_TIMEOUT","closeCode":4005,"canResume":false}}
+[606.3s] host: ws closed
+[608.3s] host: ws open ws://localhost:10000/ws
+[609.3s] host: sent hello
+[609.3s] host: recv hello.ok
+[612.1s] harness: +90s phone texts: ["Skip to content Room WELU Connection lost. Reconnecting… You are in Restart1 Waiting for the host to start the mission Edit call sign Crew · 2 Restart1 You 01 Restart2 02 Consoles are dealt at random ","Skip to content Room WELU Connection lost. Reconnecting… You are in Restart2 Waiting for the host to start the mission Edit call sign Crew · 2 Restart1 01 Restart2 You 02 Consoles are dealt at random "]
+[638.4s] host: recv bye {"t":"bye","seq":9,"d":{"reason":"HANDSHAKE_TIMEOUT","closeCode":4005,"canResume":false}}
+[638.4s] host: ws closed
+[641.1s] host: ws open ws://localhost:10000/ws
+[642.3s] host: sent hello
+[642.3s] host: recv hello.ok

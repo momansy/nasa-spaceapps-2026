@@ -1,0 +1,14 @@
+T027 frame rate (median of per-frame times; target 60 fps at 1920 x 1080; below 45 fps counts as failing)
+
+Machine: Apple M4 (Mac mini), macOS 26.6.2, Metal, Unity 6000.6.9f1.
+
+macOS development player (MF_REHEARSAL), 1920 x 1080, windowed, PreflightEvidence runner:
+- Briefing (C1 cinematic VideoPlayer + full UI):   60.0 fps median over 301 frames (5 s)
+- Test Stand during the engine hot-fire test cell:  60.0 fps median over 78 frames (1.3 s)
+
+WebGL release build (Builds/T027-webgl, 137 s build, 67.2 MiB), Chromium (Playwright, headed) at 1920 x 1080:
+- Briefing reached via Page Down from the title (no room, Earth backdrop, multi-offer intro): 59.9 fps median over 301 frames (5 s)
+  Screenshot: webgl_briefing.png
+
+Not measured:
+- The WebGL hot-fire. A release build has no rehearsal driver and needs a room plus a Build Bay hand-over to reach the Test Stand.
