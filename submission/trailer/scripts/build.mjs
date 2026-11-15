@@ -156,7 +156,10 @@ if (!joinOnly) for (const p of plan) {
     fc.push(`[fb]scale=${2 * W}:${2 * Hf}:flags=bicubic,setsar=1,zoompan=z='${zz}':x='(iw-iw/zoom)*${base.fx ?? 0.5}':y='(ih-ih/zoom)*${base.fy ?? 0.5}':d=1:s=${W}x${Hf}:fps=${FPS}[ffg]`);
     fc.push(`[fbg][ffg]overlay=0:${(H - Hf) / 2}[b0]`);
   } else {
-    fc.push(camera(srcLab, '[b0]', base, sw, sh, T));
+    // upscaled 720p AI clips (T056) get extra film grain so they sit next to the 1080p captures
+    const grain = /trailer-ai/.test(base.video ?? '') ? ',noise=c0s=9:c0f=t+u' : '';
+    fc.push(camera(srcLab, grain ? '[b00]' : '[b0]', base, sw, sh, T));
+    if (grain) fc.push(`[b00]format=yuv420p${grain}[b0]`);
   }
   n++;
   let cur = '[b0]';

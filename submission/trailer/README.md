@@ -3,7 +3,7 @@
 | File | Length | Format | Size |
 |---|---|---|---|
 | `missionforge-trailer-16x9.mp4` | 56.0 s | H.264 High, 1920x1080, 30 fps; AAC 48 kHz stereo 192 kb/s | 25.8 MB |
-| `missionforge-trailer-9x16.mp4` | 26.0 s | H.264 High, 1080x1920, 30 fps; AAC 48 kHz stereo 192 kb/s | 13.7 MB |
+| `missionforge-trailer-9x16.mp4` | 26.0 s | H.264 High, 1080x1920, 30 fps; AAC 48 kHz stereo 192 kb/s | 13.6 MB |
 
 A fast, music-driven trailer for social media, the submission page and the start of the pitch. It cuts on the beat of an
 original 120 BPM track (1 beat = 0.5 s), so every shot is 0.5 to 2 s long (the end card is longer). Review contact sheets
@@ -11,10 +11,7 @@ original 120 BPM track (1 beat = 0.5 s), so every shot is 0.5 to 2 s long (the e
 
 ## Decisions (made without asking, as instructed)
 
-- **No new AI shots.** Higgsfield was not available on this machine. Mood shots reuse the AI material that is already
-  in the repository and already disclosed: the 16:9 key art, style frames `03-ascent.png`, `04-orbit-operations.png` and
-  `06-mission-control.png`, and the C1 briefing cinematic. Each has a small **"AI-generated"** label in the bottom-right
-  corner while it is on screen. They are never presented as gameplay.
+- **AI mood shots.** I generated no new AI material myself, because Higgsfield was not available on this machine. Two T056 Higgsfield clips landed on main at 11:22 UTC and are used: `assets/media/trailer-ai/01-rocket-liftoff.mp4` for the "LAUNCH." beat and `04-satellite-glide.mp4` for "REACH ORBIT.". They are 720p, so each is on screen for only 1 to 2 s, with extra film grain. They are picked up by filename keyword in `scripts/timeline.mjs`. If they are missing, the build falls back to the style frame `03-ascent.png` and the C1 cinematic. T056's fairing-separation and stage-separation clips are not used. The other mood shots reuse already-disclosed material: the 16:9 key art, style frame `04-orbit-operations.png`, and the C1 briefing cinematic. Every AI shot has a small **"AI-generated"** label in the corner while it is on screen, and none is presented as gameplay.
 - **Big-screen footage comes only from the current WebGL host.** Most of it is the T054 1080p60 GPU captures
   (`assets/media/trailer-captures/`, merged in #211): the title with the rocket over Earth, room open with its QR code, crew joining the lobby,
   Build Bay arrival, a vote tally, the first 0.6 s of the exploded-view clip (before the parts separate, because their labels overlap), boosters
@@ -81,7 +78,7 @@ original 120 BPM track (1 beat = 0.5 s), so every shot is 0.5 to 2 s long (the e
 | 23 | 25.0-26.0 | whip | Phone | %TEMP%/demo-video/rec/session.mp4 @ 180.5s; %TEMP%/demo-video/rec/session.mp4 @ 188s | GO / NO-GO? | Scripted demo session |
 | 24 | 26.0-27.0 | cut | Host | evidence/T027/frr_go.png |  | Big screen |
 | 25 | 27.0-28.0 | cut | Phone | %TEMP%/demo-video/rec/session.mp4 @ 191.5s |  | Scripted demo session |
-| 26 | 28.0-29.0 | flash | AI | assets/media/style/frames/03-ascent.png | LAUNCH. | AI-generated |
+| 26 | 28.0-29.0 | flash | AI | assets/media/trailer-ai/01-rocket-liftoff.mp4 @ 0.5s | LAUNCH. | AI-generated |
 | 27 | 29.0-30.0 | cut | Phone | %TEMP%/demo-video/rec/session.mp4 @ 205.6s |  | Scripted demo session |
 | 28 | 30.0-31.0 | cut | Phone | %TEMP%/demo-video/rec/session.mp4 @ 221s x1.5 (Max Q Throttle Bucket) |  | Scripted demo session |
 | 29 | 31.0-32.0 | cut | Host | T054 capture 01-title-rocket-over-earth.mp4 @ 4s |  |  |
@@ -98,7 +95,7 @@ original 120 BPM track (1 beat = 0.5 s), so every shot is 0.5 to 2 s long (the e
 | 40 | 37.0-37.5 | cut | Phone | %TEMP%/demo-video/rec/MG-16.mp4 @ 19s x1.6 (Station Docking) |  |  |
 | 41 | 37.5-38.0 | cut | Phone | %TEMP%/demo-video/rec/MG-21.mp4 @ 9s x1.6 (Science Capture) |  |  |
 | 42 | 38.0-40.0 | cut | Phone | %TEMP%/demo-video/rec/MG-16.mp4 @ 21s; %TEMP%/demo-video/rec/MG-21.mp4 @ 11s; %TEMP%/demo-video/rec/MG-06.mp4 @ 6s | 32 MINIGAMES. |  |
-| 43 | 40.0-42.0 | fade | AI | assets/media/cinematics/c1-earth-watch-briefing.mp4 @ 4s | REACH ORBIT. | AI-generated |
+| 43 | 40.0-42.0 | fade | AI | assets/media/trailer-ai/04-satellite-glide.mp4 @ 0.5s | REACH ORBIT. | AI-generated |
 | 44 | 42.0-44.0 | cut | Phone | %TEMP%/demo-video/rec/MG-15.mp4 @ 2.6s (Solar Wing Deploy) |  |  |
 | 45 | 44.0-45.0 | whip | Phone | %TEMP%/demo-video/rec/session.mp4 @ 261s |  | Scripted demo session |
 | 46 | 45.0-46.0 | cut | Phone | %TEMP%/demo-video/rec/ar.mp4 @ 26s; %TEMP%/demo-video/rec/session.mp4 @ 296s | 6 LANGUAGES. | Scripted demo session |
@@ -126,7 +123,7 @@ original 120 BPM track (1 beat = 0.5 s), so every shot is 0.5 to 2 s long (the e
 | 12 | 11.0-12.0 | cut | Host | T054 capture 06-build-bay-vote-tally.mp4 @ 1s x2 | ON THE / BIG SCREEN. |  |
 | 13 | 12.0-13.0 | cut | Phone | %TEMP%/demo-video/rec/session.mp4 @ 180.5s | GO / NO-GO? | Scripted demo session |
 | 14 | 13.0-14.0 | cut | Host | evidence/T027/frr_go.png | GO FOR / LAUNCH. | Big screen |
-| 15 | 14.0-15.0 | flash | AI | assets/media/style/frames/03-ascent.png | LAUNCH. | AI-generated |
+| 15 | 14.0-15.0 | flash | AI | assets/media/trailer-ai/01-rocket-liftoff.mp4 @ 0.5s | LAUNCH. | AI-generated |
 | 16 | 15.0-15.5 | cut | Phone | %TEMP%/demo-video/rec/session.mp4 @ 221s x1.5 (Max Q Throttle Bucket) |  | Scripted demo session |
 | 17 | 15.5-16.0 | whip | Phone | %TEMP%/demo-video/rec/MG-16.mp4 @ 13s x1.6 (Station Docking) |  |  |
 | 18 | 16.0-16.5 | cut | Phone | %TEMP%/demo-video/rec/MG-20.mp4 @ 3s x1.6 (Deorbit Burn) |  |  |
@@ -200,7 +197,7 @@ Tools: Node 22+, Playwright Chromium from `client/node_modules`, and ffmpeg 6.1.
 
 ## Known weaknesses
 
-- **No host flight footage.** The biggest gap. Launch and orbit are carried by the phone flight console, the minigames, the title-screen rocket over Earth and AI mood shots, because the host flight, orbit and debrief screens are placeholders in the published WebGL build. When a host build with the real flight view (T016) is published and captured, it should replace the AI ascent frame (`03-ascent.png`, the "LAUNCH." beat) and the AI cinematic under "REACH ORBIT.".
+- **No host flight footage.** The biggest gap. Launch and orbit are carried by the phone flight console, the minigames, the title-screen rocket over Earth and AI mood shots, because the host flight, orbit and debrief screens are placeholders in the published WebGL build. When a host build with the real flight view (T016) is published and captured, it should replace the AI liftoff clip (the "LAUNCH." beat) and the AI satellite clip under "REACH ORBIT.".
 - **Share of AI imagery by time.** AI shots are 5 of 49 shots, but about 8 s of the 50 s before the end card (16 %) in 16:9, and about 4 s of 22 s in 9:16. All of them are labelled.
 - **Phone footage is the scripted demo session**, not a real room. Every shot from it is labelled, but a recording of real phones in a real room would be stronger.
 - **Host close-ups are upscaled.** The 0.5 s close-ups of the rocket in the hook are crops of the 1080p capture zoomed 2.6x, so they are slightly soft. Elsewhere the host UI is shown nearly full frame, so that no UI text is cut.
