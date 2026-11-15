@@ -1,5 +1,5 @@
 // Small shared components used by every screen.
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
 import type { Avatar as AvatarData } from '@protocol';
 import { patchById, suitById } from '../data/cosmetics';
 import { useT } from '../i18n';
@@ -22,6 +22,23 @@ export function useRemaining(endsAtMs: number | null | undefined, hz = 5): numbe
   const now = useServerNow(hz);
   if (endsAtMs == null) return null;
   return Math.max(0, endsAtMs - now);
+}
+
+/**
+ * Screen-reader-only announcement. The live region is mounted empty and filled a moment later, so
+ * screen readers that ignore a region inserted with text in it still announce the change.
+ */
+export function Announce({ text, testId }: { text: string; testId?: string }) {
+  const [shown, setShown] = useState('');
+  useEffect(() => {
+    const id = setTimeout(() => setShown(text), 120);
+    return () => clearTimeout(id);
+  }, [text]);
+  return (
+    <p className="sr-only" role="status" data-testid={testId}>
+      {shown}
+    </p>
+  );
 }
 
 export interface CountdownProps {
@@ -61,8 +78,13 @@ export function Countdown({ startedAtMs, endsAtMs, label, paused }: CountdownPro
   const secs = Math.ceil(left / 1000);
   const tone = secs <= 3 ? 'bad' : secs <= 7 ? 'warn' : '';
   const C = 2 * Math.PI * 15.5;
+  // Screen readers hear the time left once at 10 s and once at 5 s (the timer itself is silent).
+  const warnAt = secs <= 0 ? 0 : secs <= 5 ? 5 : secs <= 10 ? 10 : 0;
   return (
     <span className={`timer ${tone ? `timer--${tone}` : ''}`} role="timer" aria-label={`${label}: ${secs} ${t('ui.unit.seconds')}`}>
+      <span className="sr-only" role="status">
+        {warnAt > 0 && !paused ? `${label}: ${warnAt} ${t('ui.unit.seconds')}` : ''}
+      </span>
       <svg viewBox="0 0 36 36" aria-hidden="true">
         <circle className="timer__track" cx="18" cy="18" r="15.5" />
         <circle
@@ -148,6 +170,7 @@ export interface SheetProps {
 /** Bottom sheet (or full-screen page) over the current screen. Escape and the scrim close it. */
 export function Sheet({ title, onClose, children, full, footer, testId }: SheetProps) {
   const t = useT();
+  const titleId = useId();
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const prev = document.activeElement as HTMLElement | null;
@@ -168,12 +191,15 @@ export function Sheet({ title, onClose, children, full, footer, testId }: SheetP
         className={`sheet ${full ? 'sheet--full' : ''}`}
         role="dialog"
         aria-modal="true"
+        aria-labelledby={titleId}
         tabIndex={-1}
         data-testid={testId}
         onClick={(e) => e.stopPropagation()}
       >
         <div className="sheet__head">
-          <h2 className="title title--sm grow">{title}</h2>
+          <h2 id={titleId} className="title title--sm grow">
+            {title}
+          </h2>
           <button type="button" className="iconbtn" onClick={onClose} aria-label={t('ui.common.close')}>
             <Icon name="cross" />
           </button>

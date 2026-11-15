@@ -241,7 +241,7 @@ function IntroView(props: {
 
   return (
     <div className="screen mg" data-testid="mg-intro">
-      <div className="screen__scroll mg-intro">
+      <div className="screen__scroll mg-intro" tabIndex={0}>
         <div className="mg-intro__head">
           <span className="eyebrow">
             {t('ui.mg.eyebrow')}
@@ -403,7 +403,7 @@ function PlayStage(props: {
   return (
     <div className="screen mg mg-play" data-testid="mg-play" data-mode={mode}>
       <div className="mg-play__head">
-        <span className="mg-play__name">{name}</span>
+        <h1 className="mg-play__name">{name}</h1>
         {mode !== 'STANDARD' && (
           <Chip tone="accent" icon={mode === 'RELAXED' ? 'scale' : 'hand'}>
             {t(`ui.mg.mode.${mode}`)}
@@ -438,7 +438,7 @@ function WaitingLine() {
 function WaitView({ name, icon, title, body, testId }: { name: string; icon: IconName; title: string; body: string; testId: string }) {
   return (
     <div className="screen mg" data-testid={testId}>
-      <div className="screen__scroll screen__scroll--center mg-wait">
+      <div className="screen__scroll screen__scroll--center mg-wait" tabIndex={0}>
         <span className="eyebrow">{name}</span>
         <span className="mg-badge mg-badge--neutral">
           <Icon name={icon} size="2.6rem" />
@@ -475,7 +475,7 @@ function OwnResultView({ name, outcome }: { name: string; outcome: MinigameOutco
   const tone = outcome.success ? 'good' : 'neutral';
   return (
     <div className="screen mg" data-testid="mg-own-result">
-      <div className="screen__scroll screen__scroll--center mg-wait">
+      <div className="screen__scroll screen__scroll--center mg-wait" tabIndex={0}>
         <span className="eyebrow">{name}</span>
         <span className={`mg-badge mg-badge--${tone}`}>
           <Icon name={outcome.perfect ? 'sparkle' : outcome.success ? 'check' : 'rocket'} size="2.8rem" strokeWidth={outcome.success && !outcome.perfect ? 2.6 : 2} />
@@ -557,7 +557,7 @@ function ResultView({ name, summary, outcome, onContinue }: { name: string; summ
 
   return (
     <div className="screen mg" data-testid="mg-result" data-tier={tier}>
-      <div className="screen__scroll mg-result">
+      <div className="screen__scroll mg-result" tabIndex={0}>
         <span className="eyebrow center">{name}</span>
         <TierEmblem tier={tier} />
         <h1 className="title center mg-result__headline">{t(headlineKey)}</h1>

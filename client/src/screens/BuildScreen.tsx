@@ -185,7 +185,7 @@ export function BuildScreen() {
 
   return (
     <div className="screen" data-testid="screen-build" data-phase={p}>
-      <div className="screen__scroll">
+      <div className="screen__scroll" tabIndex={0}>
         <header className="stack stack--sm">
           <p className="eyebrow">{t(`ui.phase.${p}`)}</p>
           {contractId ? (

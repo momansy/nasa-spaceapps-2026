@@ -238,7 +238,7 @@
 }
 
 .btn--sm {
-  min-height: max(40px, 2.5rem);
+  min-height: max(44px, 2.75rem); /* T043: 44 CSS px touch target */
   font-size: 0.875rem;
   padding: 0.35rem 0.85rem;
   border-radius: var(--radius-sm);
@@ -979,7 +979,7 @@
 .segmented__opt {
   flex: 1 1 0;
   min-width: 0;
-  min-height: calc(var(--tap) - 8px);
+  min-height: max(44px, calc(var(--tap) - 4px)); /* T043: 44 CSS px touch target */
   padding: 0.25rem 0.5rem;
   border-radius: var(--radius-sm);
   border: var(--border-w) solid transparent;

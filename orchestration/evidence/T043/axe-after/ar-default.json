@@ -1,0 +1,3737 @@
+{
+  "config": {
+    "id": "ar-default",
+    "lang": "ar",
+    "highContrast": false,
+    "textScalePct": 100
+  },
+  "screens": [
+    "join",
+    "lobby",
+    "role-card",
+    "briefing",
+    "vote-reveal",
+    "predict",
+    "predict-result",
+    "part-card",
+    "stat-explain",
+    "part-card-warnings",
+    "part-viewer",
+    "vote-cast",
+    "vote-result",
+    "build",
+    "quick-vote",
+    "veto-flash",
+    "veto-confirm",
+    "pings",
+    "trivia",
+    "pick",
+    "poll-waiting",
+    "poll-my-call",
+    "poll-result",
+    "console-countdown",
+    "console-alert",
+    "minigame-intro",
+    "minigame-play",
+    "minigame-result",
+    "blackout",
+    "debrief",
+    "codex",
+    "codex-entry",
+    "settings"
+  ],
+  "nodesByImpact": {
+    "critical": 0,
+    "serious": 0,
+    "moderate": 0,
+    "minor": 0
+  },
+  "findings": [],
+  "smallTargets": [],
+  "contrastIncomplete": [
+    {
+      "screen": "join",
+      "count": 10
+    },
+    {
+      "screen": "lobby",
+      "count": 3
+    },
+    {
+      "screen": "role-card",
+      "count": 12
+    },
+    {
+      "screen": "briefing",
+      "count": 8
+    },
+    {
+      "screen": "vote-reveal",
+      "count": 18
+    },
+    {
+      "screen": "predict",
+      "count": 14
+    },
+    {
+      "screen": "predict-result",
+      "count": 0
+    },
+    {
+      "screen": "part-card",
+      "count": 0
+    },
+    {
+      "screen": "stat-explain",
+      "count": 0
+    },
+    {
+      "screen": "part-card-warnings",
+      "count": 0
+    },
+    {
+      "screen": "part-viewer",
+      "count": 0
+    },
+    {
+      "screen": "vote-cast",
+      "count": 0
+    },
+    {
+      "screen": "vote-result",
+      "count": 17
+    },
+    {
+      "screen": "build",
+      "count": 25
+    },
+    {
+      "screen": "quick-vote",
+      "count": 15
+    },
+    {
+      "screen": "veto-flash",
+      "count": 0
+    },
+    {
+      "screen": "veto-confirm",
+      "count": 0
+    },
+    {
+      "screen": "pings",
+      "count": 0
+    },
+    {
+      "screen": "trivia",
+      "count": 12
+    },
+    {
+      "screen": "pick",
+      "count": 11
+    },
+    {
+      "screen": "poll-waiting",
+      "count": 15
+    },
+    {
+      "screen": "poll-my-call",
+      "count": 19
+    },
+    {
+      "screen": "poll-result",
+      "count": 20
+    },
+    {
+      "screen": "console-countdown",
+      "count": 26
+    },
+    {
+      "screen": "console-alert",
+      "count": 28
+    },
+    {
+      "screen": "minigame-intro",
+      "count": 12
+    },
+    {
+      "screen": "minigame-play",
+      "count": 4
+    },
+    {
+      "screen": "minigame-result",
+      "count": 13
+    },
+    {
+      "screen": "blackout",
+      "count": 6
+    },
+    {
+      "screen": "debrief",
+      "count": 12
+    },
+    {
+      "screen": "codex",
+      "count": 29
+    },
+    {
+      "screen": "codex-entry",
+      "count": 15
+    },
+    {
+      "screen": "settings",
+      "count": 21
+    }
+  ],
+  "contrastSamples": [
+    {
+      "screen": "join",
+      "target": ".brand__word",
+      "text": "MissionForge",
+      "fontPx": 19.2,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "join",
+      "target": ".brand__forge",
+      "text": "Forge",
+      "fontPx": 19.2,
+      "color": "rgb(85, 197, 205)",
+      "worstRatio": 5.61,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "join",
+      "target": ".join__tile.is-set:nth-child(1)",
+      "text": "K",
+      "fontPx": 35.1,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "join",
+      "target": ".join__tile.is-set:nth-child(2)",
+      "text": "Q",
+      "fontPx": 35.1,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "join",
+      "target": ".join__tile.is-set:nth-child(3)",
+      "text": "X",
+      "fontPx": 35.1,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "join",
+      "target": ".join__tile.is-set:nth-child(4)",
+      "text": "M",
+      "fontPx": 35.1,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "join",
+      "target": ".join__pill[type=\"button\"]:nth-child(1)",
+      "text": "Apogee",
+      "fontPx": 15,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "join",
+      "target": ".join__pill[type=\"button\"]:nth-child(2)",
+      "text": "Gimbal",
+      "fontPx": 15,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "join",
+      "target": ".join__pill[type=\"button\"]:nth-child(3)",
+      "text": "Lumen",
+      "fontPx": 15,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "lobby",
+      "target": ".roomcode__v",
+      "text": "KQXM",
+      "fontPx": 17,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "lobby",
+      "target": "h1",
+      "text": "Ada",
+      "fontPx": 32,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "lobby",
+      "target": "h2",
+      "text": "الطاقم · ⁨5⁩",
+      "fontPx": 14,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "role-card",
+      "target": ".roomcode__v",
+      "text": "KQXM",
+      "fontPx": 17,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "role-card",
+      "target": ".rolebtn > .callsign",
+      "text": "BOOSTER",
+      "fontPx": 13,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "role-card",
+      "target": ".rolebtn__more",
+      "text": "+1",
+      "fontPx": 13,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "role-card",
+      "target": ".toast__kind",
+      "text": "CAPCOM",
+      "fontPx": 14,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "role-card",
+      "target": "h1",
+      "text": "وحدات التحكم الخاصة بك (⁨2⁩)",
+      "fontPx": 24,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "role-card",
+      "target": "article:nth-child(1) > .rolecard__head > .rolecard__title > .callsign",
+      "text": "BOOSTER",
+      "fontPx": 13,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "role-card",
+      "target": "article:nth-child(1) > .rolecard__head > .rolecard__title > h2",
+      "text": "دفع مركبة الإطلاق",
+      "fontPx": 20,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "role-card",
+      "target": "article:nth-child(1) > .rolecard__origin > span",
+      "text": "الأصل في الواقع وحدة تحكم BOOSTER في عصر",
+      "fontPx": 14,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "role-card",
+      "target": "article:nth-child(1) > .rolecard__ability > .row.row--between > .rolecard__abilitytag.eyebrow",
+      "text": "مرة واحدة في المهمة",
+      "fontPx": 14,
+      "color": "rgb(255, 206, 131)",
+      "worstRatio": 7.88,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "role-card",
+      "target": "article:nth-child(1) > .rolecard__ability > .row.row--between > .chip.chip--good > span",
+      "text": "جاهزة",
+      "fontPx": 13,
+      "color": "rgb(119, 214, 161)",
+      "worstRatio": 6.52,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "briefing",
+      "target": ".roomcode__v",
+      "text": "KQXM",
+      "fontPx": 17,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "briefing",
+      "target": ".callsign",
+      "text": "BOOSTER",
+      "fontPx": 13,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "briefing",
+      "target": ".rolebtn__more",
+      "text": "+1",
+      "fontPx": 13,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "briefing",
+      "target": ".toast__kind",
+      "text": "CAPCOM",
+      "fontPx": 14,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "briefing",
+      "target": "header > .eyebrow",
+      "text": "الإحاطة",
+      "fontPx": 14,
+      "color": "rgb(85, 197, 205)",
+      "worstRatio": 5.61,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "briefing",
+      "target": ".lede",
+      "text": "مدار متزامن مع الشمس، 550 km، ~97.6°",
+      "fontPx": 16,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "briefing",
+      "target": "p:nth-child(5)",
+      "text": "بلوغ مدار متزامن مع الشمس على ارتفاع 550",
+      "fontPx": 16,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "briefing",
+      "target": "h2",
+      "text": "سجل المهمة",
+      "fontPx": 14,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "vote-reveal",
+      "target": ".roomcode__v",
+      "text": "KQXM",
+      "fontPx": 17,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "vote-reveal",
+      "target": ".callsign",
+      "text": "BOOSTER",
+      "fontPx": 13,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "vote-reveal",
+      "target": ".rolebtn__more",
+      "text": "+1",
+      "fontPx": 13,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "vote-reveal",
+      "target": ".timer__label",
+      "text": "1s",
+      "fontPx": 18,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "vote-reveal",
+      "target": ".timer__unit",
+      "text": "s",
+      "fontPx": 9.9,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "vote-reveal",
+      "target": ".eyebrow--dim",
+      "text": "⁨4⁩ خيارات",
+      "fontPx": 14,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "vote-reveal",
+      "target": "li:nth-child(1) > .reveal__n.num",
+      "text": "01",
+      "fontPx": 14,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "vote-reveal",
+      "target": "li:nth-child(1) > .grow > .reveal__name",
+      "text": "Kerolox Workhorse",
+      "fontPx": 18,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "vote-reveal",
+      "target": "li:nth-child(1) > .grow > .reveal__twin",
+      "text": "النظير في الواقع: ⁨Merlin 1D⁩",
+      "fontPx": 14,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "vote-reveal",
+      "target": "li:nth-child(2) > .reveal__n.num",
+      "text": "02",
+      "fontPx": 14,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "vote-reveal",
+      "target": "li:nth-child(2) > .grow > .reveal__name",
+      "text": "Kerolox Staged-Combustion",
+      "fontPx": 18,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "vote-reveal",
+      "target": "li:nth-child(2) > .grow > .reveal__twin",
+      "text": "النظير في الواقع: ⁨فئة RD-180⁩",
+      "fontPx": 14,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "vote-reveal",
+      "target": "li:nth-child(3) > .reveal__n.num",
+      "text": "03",
+      "fontPx": 14,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "vote-reveal",
+      "target": "li:nth-child(3) > .grow > .reveal__name",
+      "text": "Hydrolox High-Efficiency",
+      "fontPx": 18,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "vote-reveal",
+      "target": "li:nth-child(3) > .grow > .reveal__twin",
+      "text": "النظير في الواقع: ⁨RS-25⁩",
+      "fontPx": 14,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "vote-reveal",
+      "target": "li:nth-child(4) > .reveal__n.num",
+      "text": "04",
+      "fontPx": 14,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "vote-reveal",
+      "target": "li:nth-child(4) > .grow > .reveal__name",
+      "text": "Methalox Full-Flow",
+      "fontPx": 18,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "vote-reveal",
+      "target": "li:nth-child(4) > .grow > .reveal__twin",
+      "text": "النظير في الواقع: ⁨فئة Raptor⁩",
+      "fontPx": 14,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "predict",
+      "target": ".roomcode__v",
+      "text": "KQXM",
+      "fontPx": 17,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "predict",
+      "target": ".callsign",
+      "text": "BOOSTER",
+      "fontPx": 13,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "predict",
+      "target": ".rolebtn__more",
+      "text": "+1",
+      "fontPx": 13,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "predict",
+      "target": ".timer__label",
+      "text": "7s",
+      "fontPx": 18,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "predict",
+      "target": ".timer__unit",
+      "text": "s",
+      "fontPx": 9.9,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "predict",
+      "target": "h2",
+      "text": "أي هذه المحركات هو الأكثر كفاءة في الفرا",
+      "fontPx": 20,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "predict",
+      "target": "button[data-testid=\"predict-0\"] > .choice__letter.num",
+      "text": "A",
+      "fontPx": 16,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "predict",
+      "target": "button[data-testid=\"predict-0\"] > .grow",
+      "text": "Kerolox Workhorse",
+      "fontPx": 16,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "predict",
+      "target": "button[data-testid=\"predict-1\"] > .choice__letter.num",
+      "text": "B",
+      "fontPx": 16,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "predict",
+      "target": "button[data-testid=\"predict-1\"] > .grow",
+      "text": "Kerolox Staged-Combustion",
+      "fontPx": 16,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "predict",
+      "target": "button[data-testid=\"predict-2\"] > .choice__letter.num",
+      "text": "C",
+      "fontPx": 16,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "predict",
+      "target": "button[data-testid=\"predict-2\"] > .grow",
+      "text": "Hydrolox High-Efficiency",
+      "fontPx": 16,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "predict",
+      "target": "button[data-testid=\"predict-3\"] > .choice__letter.num",
+      "text": "D",
+      "fontPx": 16,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "predict",
+      "target": "button[data-testid=\"predict-3\"] > .grow",
+      "text": "Methalox Full-Flow",
+      "fontPx": 16,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "vote-result",
+      "target": ".roomcode__v",
+      "text": "KQXM",
+      "fontPx": 17,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "vote-result",
+      "target": ".callsign",
+      "text": "BOOSTER",
+      "fontPx": 13,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "vote-result",
+      "target": ".rolebtn__more",
+      "text": "+1",
+      "fontPx": 13,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "vote-result",
+      "target": "h2",
+      "text": "Methalox Full-Flow",
+      "fontPx": 24,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "vote-result",
+      "target": ".chip--accent > span",
+      "text": "الأكثر أصواتًا",
+      "fontPx": 13,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "vote-result",
+      "target": ".resulthero > .body-sm",
+      "text": "اختيارك: Methalox Full-Flow",
+      "fontPx": 14,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "vote-result",
+      "target": "strong",
+      "text": "Methalox Full-Flow",
+      "fontPx": 14,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "vote-result",
+      "target": "li:nth-child(1) > .counts__name",
+      "text": "Kerolox Workhorse",
+      "fontPx": 14,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "vote-result",
+      "target": "li:nth-child(1) > .counts__n.num",
+      "text": "2",
+      "fontPx": 14,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "vote-result",
+      "target": "li:nth-child(2) > .counts__name",
+      "text": "Kerolox Staged-Combustion",
+      "fontPx": 14,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "vote-result",
+      "target": "li:nth-child(2) > .counts__n.num",
+      "text": "0",
+      "fontPx": 14,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "vote-result",
+      "target": "li:nth-child(3) > .counts__name",
+      "text": "Hydrolox High-Efficiency",
+      "fontPx": 14,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "vote-result",
+      "target": "li:nth-child(3) > .counts__n.num",
+      "text": "0",
+      "fontPx": 14,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "vote-result",
+      "target": ".counts__row--win > .counts__name",
+      "text": "Methalox Full-Flow",
+      "fontPx": 14,
+      "color": "rgb(119, 214, 161)",
+      "worstRatio": 6.52,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "vote-result",
+      "target": ".counts__row--win > .counts__n.num",
+      "text": "3",
+      "fontPx": 14,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "vote-result",
+      "target": ".chip--good.chip:nth-child(1) > span",
+      "text": "Δv +610 m/s",
+      "fontPx": 13,
+      "color": "rgb(119, 214, 161)",
+      "worstRatio": 6.52,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "vote-result",
+      "target": ".chip--good.chip:nth-child(1) > span > .num",
+      "text": "+610 m/s",
+      "fontPx": 13,
+      "color": "rgb(119, 214, 161)",
+      "worstRatio": 6.52,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "build",
+      "target": ".roomcode__v",
+      "text": "KQXM",
+      "fontPx": 17,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "build",
+      "target": ".callsign",
+      "text": "BOOSTER",
+      "fontPx": 13,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "build",
+      "target": ".rolebtn__more",
+      "text": "+1",
+      "fontPx": 13,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "build",
+      "target": ".lede",
+      "text": "مدار متزامن مع الشمس، 550 km، ~97.6°",
+      "fontPx": 16,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "build",
+      "target": ".row > .body-sm",
+      "text": "خطوة البناء ⁨2⁩ من ⁨12⁩",
+      "fontPx": 14,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "build",
+      "target": ".row > .dim.num",
+      "text": "17 %",
+      "fontPx": 16,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "build",
+      "target": ".banner > .grow",
+      "text": "آخر قرارمحرك المرحلة الأولى: Methalox Fu",
+      "fontPx": 15,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "build",
+      "target": ".toast__kind",
+      "text": "آخر قرار",
+      "fontPx": 14,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "build",
+      "target": "strong",
+      "text": "محرك المرحلة الأولى:",
+      "fontPx": 15,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "build",
+      "target": ".stack--sm.stack:nth-child(1) > .kv > .kv__v.num",
+      "text": "$10.8 M / $90 M",
+      "fontPx": 16,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "build",
+      "target": ".stack--sm.stack:nth-child(1) > .kv > .kv__v.num > .dim",
+      "text": "/ $90 M",
+      "fontPx": 16,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "build",
+      "target": ".stack--sm.stack:nth-child(2) > .kv > .kv__k",
+      "text": "الجدول الزمني",
+      "fontPx": 15,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "build",
+      "target": ".stack--sm.stack:nth-child(2) > .kv > .kv__v.num",
+      "text": "32 / 180 أيام",
+      "fontPx": 16,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "build",
+      "target": ".stack--sm.stack:nth-child(2) > .kv > .kv__v.num > .dim",
+      "text": "/ 180 أيام",
+      "fontPx": 16,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "build",
+      "target": "section:nth-child(6) > h2",
+      "text": "لوحة الجاهزية",
+      "fontPx": 14,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "build",
+      "target": ".dash__cell--warn > .dash__k",
+      "text": "Δv",
+      "fontPx": 14,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "build",
+      "target": ".dash__cell--warn > .dash__v.num",
+      "text": "9,240 m/s",
+      "fontPx": 24,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "build",
+      "target": ".tone-warn",
+      "text": "يحتاج ⁨9,700 m/s⁩",
+      "fontPx": 14,
+      "color": "rgb(255, 209, 102)",
+      "worstRatio": 7.96,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "build",
+      "target": ".dash__cell--good.dash__cell:nth-child(2) > .dash__v.num",
+      "text": "1.31",
+      "fontPx": 24,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "build",
+      "target": ".dash__cell--good.dash__cell:nth-child(2) > .dash__r.tone-good",
+      "text": "يحتاج ⁨1.20⁩",
+      "fontPx": 14,
+      "color": "rgb(119, 214, 161)",
+      "worstRatio": 6.52,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "build",
+      "target": ".dash__cell--good.dash__cell:nth-child(3) > .dash__v.num",
+      "text": "$79.2 M",
+      "fontPx": 24,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "build",
+      "target": ".dash__cell--good.dash__cell:nth-child(3) > .dash__r.tone-good",
+      "text": "يحتاج ⁨$0 M⁩",
+      "fontPx": 14,
+      "color": "rgb(119, 214, 161)",
+      "worstRatio": 6.52,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "build",
+      "target": ".dash__cell--good.dash__cell:nth-child(4) > .dash__v.num",
+      "text": "96.5 %",
+      "fontPx": 24,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "build",
+      "target": ".dash__cell--good.dash__cell:nth-child(4) > .dash__r.tone-good",
+      "text": "يحتاج ⁨90 %⁩",
+      "fontPx": 14,
+      "color": "rgb(119, 214, 161)",
+      "worstRatio": 6.52,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "build",
+      "target": "section:nth-child(7) > h2",
+      "text": "صاروخنا · ⁨1⁩ قطع",
+      "fontPx": 14,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "quick-vote",
+      "target": ".roomcode__v",
+      "text": "KQXM",
+      "fontPx": 17,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "quick-vote",
+      "target": ".callsign",
+      "text": "BOOSTER",
+      "fontPx": 13,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "quick-vote",
+      "target": ".rolebtn__more",
+      "text": "+1",
+      "fontPx": 13,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "quick-vote",
+      "target": ".timer__label",
+      "text": "8s",
+      "fontPx": 18,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "quick-vote",
+      "target": ".timer__unit",
+      "text": "s",
+      "fontPx": 9.9,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "quick-vote",
+      "target": ".ballotline > .grow",
+      "text": "تصويتك: ⁨أجرِ الاختبار⁩",
+      "fontPx": 14,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "quick-vote",
+      "target": ".dim",
+      "text": "صوّت ⁨3⁩ من ⁨5⁩",
+      "fontPx": 14,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "quick-vote",
+      "target": ".chip--good.chip:nth-child(1) > span",
+      "text": "الميزانية المتبقية −$2 M",
+      "fontPx": 13,
+      "color": "rgb(119, 214, 161)",
+      "worstRatio": 6.52,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "quick-vote",
+      "target": ".chip--good.chip:nth-child(1) > span > .num",
+      "text": "−$2 M",
+      "fontPx": 13,
+      "color": "rgb(119, 214, 161)",
+      "worstRatio": 6.52,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "quick-vote",
+      "target": ".chip--warn > span",
+      "text": "الجدول الزمني +7 d",
+      "fontPx": 13,
+      "color": "rgb(255, 209, 102)",
+      "worstRatio": 7.96,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "quick-vote",
+      "target": ".chip--warn > span > .num",
+      "text": "+7 d",
+      "fontPx": 13,
+      "color": "rgb(255, 209, 102)",
+      "worstRatio": 7.96,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "quick-vote",
+      "target": ".chip--good.chip:nth-child(3) > span",
+      "text": "احتمال النجاح +1 %",
+      "fontPx": 13,
+      "color": "rgb(119, 214, 161)",
+      "worstRatio": 6.52,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "quick-vote",
+      "target": ".chip--good.chip:nth-child(3) > span > .num",
+      "text": "+1 %",
+      "fontPx": 13,
+      "color": "rgb(119, 214, 161)",
+      "worstRatio": 6.52,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "quick-vote",
+      "target": ".quickopt--mine > .quickopt__tally > .num",
+      "text": "⁨3⁩ أصوات",
+      "fontPx": 14,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "quick-vote",
+      "target": "button[data-testid=\"quick-SKIP\"] > .quickopt__tally > .num",
+      "text": "⁨0⁩ أصوات",
+      "fontPx": 14,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "trivia",
+      "target": ".roomcode__v",
+      "text": "KQXM",
+      "fontPx": 17,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "trivia",
+      "target": ".callsign",
+      "text": "BOOSTER",
+      "fontPx": 13,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "trivia",
+      "target": ".rolebtn__more",
+      "text": "+1",
+      "fontPx": 13,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "trivia",
+      "target": ".timer__label",
+      "text": "9s",
+      "fontPx": 18,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "trivia",
+      "target": ".timer__unit",
+      "text": "s",
+      "fontPx": 9.9,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "trivia",
+      "target": ".tone-warn",
+      "text": "تعادل! سؤال الموت المفاجئ",
+      "fontPx": 14,
+      "color": "rgb(255, 209, 102)",
+      "worstRatio": 7.96,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "trivia",
+      "target": ".body-sm:nth-child(2)",
+      "text": "متعادلة: ⁨غطاء صغير · غطاء كبير⁩",
+      "fontPx": 14,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "trivia",
+      "target": "h2",
+      "text": "فُقد قمران اصطناعيان للمناخ تابعان لناسا",
+      "fontPx": 20,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "trivia",
+      "target": "button[data-testid=\"trivia-0\"] > .choice__letter.num",
+      "text": "A",
+      "fontPx": 16,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "trivia",
+      "target": "button[data-testid=\"trivia-1\"] > .choice__letter.num",
+      "text": "B",
+      "fontPx": 16,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "trivia",
+      "target": "button[data-testid=\"trivia-2\"] > .choice__letter.num",
+      "text": "C",
+      "fontPx": 16,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "trivia",
+      "target": "button[data-testid=\"trivia-3\"] > .choice__letter.num",
+      "text": "D",
+      "fontPx": 16,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "pick",
+      "target": ".roomcode__v",
+      "text": "KQXM",
+      "fontPx": 17,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "pick",
+      "target": ".callsign",
+      "text": "BOOSTER",
+      "fontPx": 13,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "pick",
+      "target": ".rolebtn__more",
+      "text": "+1",
+      "fontPx": 13,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "pick",
+      "target": ".toast > .grow",
+      "text": "+⁨30⁩ KP · ⁨حسم التعادل بسؤال معلومات⁩",
+      "fontPx": 15,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "pick",
+      "target": ".timer__label",
+      "text": "4s",
+      "fontPx": 18,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "pick",
+      "target": ".timer__unit",
+      "text": "s",
+      "fontPx": 9.9,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "pick",
+      "target": "h2",
+      "text": "اختر الفائز",
+      "fontPx": 20,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "pick",
+      "target": "button[data-testid=\"pick-fairing_small\"] > .row.row--between > .quickopt__name",
+      "text": "غطاء صغير",
+      "fontPx": 20,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "pick",
+      "target": "button[data-testid=\"pick-fairing_small\"] > .quickopt__detail",
+      "text": "النظير في الواقع: ⁨قاذفات صغيرة⁩",
+      "fontPx": 14,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "pick",
+      "target": "button[data-testid=\"pick-fairing_large\"] > .row.row--between > .quickopt__name",
+      "text": "غطاء كبير",
+      "fontPx": 20,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "pick",
+      "target": "button[data-testid=\"pick-fairing_large\"] > .quickopt__detail",
+      "text": "النظير في الواقع: ⁨صواريخ ثقيلة الحمولة⁩",
+      "fontPx": 14,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "poll-waiting",
+      "target": ".roomcode__v",
+      "text": "KQXM",
+      "fontPx": 17,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "poll-waiting",
+      "target": ".callsign",
+      "text": "BOOSTER",
+      "fontPx": 13,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "poll-waiting",
+      "target": ".rolebtn__more",
+      "text": "+1",
+      "fontPx": 13,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "poll-waiting",
+      "target": ".toast__kind",
+      "text": "CAPCOM",
+      "fontPx": 14,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "poll-waiting",
+      "target": ".votehead__text > .eyebrow",
+      "text": "GO / NO-GO · الجولة ⁨1⁩",
+      "fontPx": 14,
+      "color": "rgb(85, 197, 205)",
+      "worstRatio": 5.61,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "poll-waiting",
+      "target": "h1",
+      "text": "مراجعة الجاهزية للطيران",
+      "fontPx": 20,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "poll-waiting",
+      "target": ".timer__label",
+      "text": "5s",
+      "fontPx": 18,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "poll-waiting",
+      "target": ".timer__unit",
+      "text": "s",
+      "fontPx": 9.9,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "poll-waiting",
+      "target": ".pollrow--good > .pollrow__who.grow > .pollrow__name",
+      "text": "Vega",
+      "fontPx": 16,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "poll-waiting",
+      "target": ".pollrow--good > .pollrow__who.grow > .pollrow__roles",
+      "text": "FLIGHT · PM",
+      "fontPx": 14,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "poll-waiting",
+      "target": ".chip--good > span",
+      "text": "GO",
+      "fontPx": 13,
+      "color": "rgb(119, 214, 161)",
+      "worstRatio": 6.52,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "poll-waiting",
+      "target": ".pollrow--now > .pollrow__who.grow > .pollrow__name",
+      "text": "Ada",
+      "fontPx": 16,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "poll-waiting",
+      "target": ".pollrow--now > .pollrow__who.grow > .pollrow__roles",
+      "text": "BOOSTER · STRUCT",
+      "fontPx": 14,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "poll-my-call",
+      "target": ".roomcode__v",
+      "text": "KQXM",
+      "fontPx": 17,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "poll-my-call",
+      "target": ".rolebtn > .callsign",
+      "text": "BOOSTER",
+      "fontPx": 13,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "poll-my-call",
+      "target": ".rolebtn__more",
+      "text": "+1",
+      "fontPx": 13,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "poll-my-call",
+      "target": ".votehead__text > .eyebrow",
+      "text": "GO / NO-GO · الجولة ⁨1⁩",
+      "fontPx": 14,
+      "color": "rgb(85, 197, 205)",
+      "worstRatio": 5.61,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "poll-my-call",
+      "target": "h1",
+      "text": "مراجعة الجاهزية للطيران",
+      "fontPx": 20,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "poll-my-call",
+      "target": ".timer__label",
+      "text": "4s",
+      "fontPx": 18,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "poll-my-call",
+      "target": ".timer__unit",
+      "text": "s",
+      "fontPx": 9.9,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "poll-my-call",
+      "target": "section > .eyebrow",
+      "text": "النداء ⁨2⁩ من ⁨5⁩",
+      "fontPx": 14,
+      "color": "rgb(85, 197, 205)",
+      "worstRatio": 5.61,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "poll-my-call",
+      "target": ".pollcall__roles > .callsign:nth-child(1)",
+      "text": "BOOSTER",
+      "fontPx": 13,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "poll-my-call",
+      "target": ".callsign:nth-child(2)",
+      "text": "STRUCT",
+      "fontPx": 13,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "poll-my-call",
+      "target": "h2",
+      "text": "⁨BOOSTER · STRUCT⁩، هل أنتم GO؟",
+      "fontPx": 32,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "poll-my-call",
+      "target": ".body-sm",
+      "text": "أجب عن وحدات التحكم الخاصة بك. NO-GO توق",
+      "fontPx": 14,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "poll-my-call",
+      "target": ".pollrow--good > .pollrow__who.grow > .pollrow__name",
+      "text": "Vega",
+      "fontPx": 16,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "poll-my-call",
+      "target": ".pollrow--good > .pollrow__who.grow > .pollrow__roles",
+      "text": "FLIGHT · PM",
+      "fontPx": 14,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "poll-my-call",
+      "target": ".chip--good > span",
+      "text": "GO",
+      "fontPx": 13,
+      "color": "rgb(119, 214, 161)",
+      "worstRatio": 6.52,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "poll-my-call",
+      "target": ".pollrow--now > .pollrow__who.grow > .pollrow__name",
+      "text": "Ada",
+      "fontPx": 16,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "poll-my-call",
+      "target": ".pollrow--now > .pollrow__who.grow > .pollrow__roles",
+      "text": "BOOSTER · STRUCT",
+      "fontPx": 14,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "poll-result",
+      "target": ".roomcode__v",
+      "text": "KQXM",
+      "fontPx": 17,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "poll-result",
+      "target": ".callsign",
+      "text": "BOOSTER",
+      "fontPx": 13,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "poll-result",
+      "target": ".rolebtn__more",
+      "text": "+1",
+      "fontPx": 13,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "poll-result",
+      "target": ".eyebrow",
+      "text": "GO / NO-GO · الجولة ⁨1⁩",
+      "fontPx": 14,
+      "color": "rgb(85, 197, 205)",
+      "worstRatio": 5.61,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "poll-result",
+      "target": "h1",
+      "text": "مراجعة الجاهزية للطيران",
+      "fontPx": 20,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "poll-result",
+      "target": "li:nth-child(1) > .pollrow__who.grow > .pollrow__name",
+      "text": "Vega",
+      "fontPx": 16,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "poll-result",
+      "target": "li:nth-child(1) > .pollrow__who.grow > .pollrow__roles",
+      "text": "FLIGHT · PM",
+      "fontPx": 14,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "poll-result",
+      "target": "li:nth-child(1) > .chip.chip--good > span",
+      "text": "GO",
+      "fontPx": 13,
+      "color": "rgb(119, 214, 161)",
+      "worstRatio": 6.52,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "poll-result",
+      "target": "li:nth-child(2) > .pollrow__who.grow > .pollrow__name",
+      "text": "Ada",
+      "fontPx": 16,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "poll-result",
+      "target": "li:nth-child(2) > .pollrow__who.grow > .pollrow__roles",
+      "text": "BOOSTER · STRUCT",
+      "fontPx": 14,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "poll-result",
+      "target": "li:nth-child(2) > .chip.chip--good > span",
+      "text": "GO",
+      "fontPx": 13,
+      "color": "rgb(119, 214, 161)",
+      "worstRatio": 6.52,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "poll-result",
+      "target": "li:nth-child(3) > .pollrow__who.grow > .pollrow__name",
+      "text": "Kepler",
+      "fontPx": 16,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "poll-result",
+      "target": "li:nth-child(3) > .pollrow__who.grow > .pollrow__roles",
+      "text": "GUIDO · FIDO",
+      "fontPx": 14,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "poll-result",
+      "target": "li:nth-child(3) > .chip.chip--good > span",
+      "text": "GO",
+      "fontPx": 13,
+      "color": "rgb(119, 214, 161)",
+      "worstRatio": 6.52,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "poll-result",
+      "target": "li:nth-child(4) > .pollrow__who.grow > .pollrow__name",
+      "text": "Nova",
+      "fontPx": 16,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "poll-result",
+      "target": "li:nth-child(4) > .pollrow__who.grow > .pollrow__roles",
+      "text": "EECOM · INCO",
+      "fontPx": 14,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "poll-result",
+      "target": "li:nth-child(4) > .chip.chip--good > span",
+      "text": "GO",
+      "fontPx": 13,
+      "color": "rgb(119, 214, 161)",
+      "worstRatio": 6.52,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "poll-result",
+      "target": "li:nth-child(5) > .pollrow__who.grow > .pollrow__name",
+      "text": "Rio",
+      "fontPx": 16,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "poll-result",
+      "target": "li:nth-child(5) > .pollrow__who.grow > .pollrow__roles",
+      "text": "PAYLOAD · RETRO",
+      "fontPx": 14,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "poll-result",
+      "target": "li:nth-child(5) > .chip.chip--good > span",
+      "text": "GO",
+      "fontPx": 13,
+      "color": "rgb(119, 214, 161)",
+      "worstRatio": 6.52,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "console-countdown",
+      "target": ".roomcode__v",
+      "text": "KQXM",
+      "fontPx": 17,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "console-countdown",
+      "target": ".rolebtn > .callsign",
+      "text": "BOOSTER",
+      "fontPx": 13,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "console-countdown",
+      "target": ".rolebtn__more",
+      "text": "+1",
+      "fontPx": 13,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "console-countdown",
+      "target": ".hud__clock",
+      "text": "T−00:07",
+      "fontPx": 52,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "console-countdown",
+      "target": ".callsign--plain",
+      "text": "F1",
+      "fontPx": 13,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "console-countdown",
+      "target": "button[aria-label=\"وحدة تحكم ⁨BOOSTER⁩\"] > .mono",
+      "text": "BOOSTER",
+      "fontPx": 15,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "console-countdown",
+      "target": "button[aria-label=\"وحدة تحكم ⁨STRUCT⁩\"] > .mono",
+      "text": "STRUCT",
+      "fontPx": 15,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "console-countdown",
+      "target": ".consolehead > .callsign",
+      "text": "BOOSTER",
+      "fontPx": 13,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "console-countdown",
+      "target": ".gauge--none > .gauge__scale[aria-hidden=\"true\"] > span:nth-child(1)",
+      "text": "0 %",
+      "fontPx": 12,
+      "color": "rgb(147, 170, 185)",
+      "worstRatio": 4.75,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "console-countdown",
+      "target": ".gauge--none > .gauge__scale[aria-hidden=\"true\"] > span:nth-child(2)",
+      "text": "120 %",
+      "fontPx": 12,
+      "color": "rgb(147, 170, 185)",
+      "worstRatio": 4.75,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "console-countdown",
+      "target": "div[data-channel=\"engine_health_pct\"] > .gauge__row > .gauge__value > .num",
+      "text": "97",
+      "fontPx": 24,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "console-countdown",
+      "target": "div[data-channel=\"engine_health_pct\"] > .gauge__scale[aria-hidden=\"true\"] > span:nth-child(1)",
+      "text": "0 %",
+      "fontPx": 12,
+      "color": "rgb(147, 170, 185)",
+      "worstRatio": 4.75,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "console-countdown",
+      "target": "div[data-channel=\"engine_health_pct\"] > .gauge__scale[aria-hidden=\"true\"] > span:nth-child(2)",
+      "text": "100 %",
+      "fontPx": 12,
+      "color": "rgb(147, 170, 185)",
+      "worstRatio": 4.75,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "console-countdown",
+      "target": "div[data-channel=\"throttle_pct\"] > .gauge__row > .gauge__value > .num",
+      "text": "100",
+      "fontPx": 24,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "console-countdown",
+      "target": "div[data-channel=\"throttle_pct\"] > .gauge__scale[aria-hidden=\"true\"] > span:nth-child(1)",
+      "text": "0 %",
+      "fontPx": 12,
+      "color": "rgb(147, 170, 185)",
+      "worstRatio": 4.75,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "console-countdown",
+      "target": "div[data-channel=\"throttle_pct\"] > .gauge__scale[aria-hidden=\"true\"] > span:nth-child(2)",
+      "text": "110 %",
+      "fontPx": 12,
+      "color": "rgb(147, 170, 185)",
+      "worstRatio": 4.75,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "console-countdown",
+      "target": "div[data-channel=\"prop_stage1_pct\"] > .gauge__head > .gauge__label",
+      "text": "وقود المرحلة 1",
+      "fontPx": 14,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "console-countdown",
+      "target": "div[data-channel=\"prop_stage1_pct\"] > .gauge__row > .gauge__value > .num",
+      "text": "100",
+      "fontPx": 24,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "console-countdown",
+      "target": "div[data-channel=\"prop_stage1_pct\"] > .gauge__scale[aria-hidden=\"true\"] > span:nth-child(1)",
+      "text": "0 %",
+      "fontPx": 12,
+      "color": "rgb(147, 170, 185)",
+      "worstRatio": 4.75,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "console-countdown",
+      "target": "div[data-channel=\"prop_stage1_pct\"] > .gauge__scale[aria-hidden=\"true\"] > span:nth-child(2)",
+      "text": "100 %",
+      "fontPx": 12,
+      "color": "rgb(147, 170, 185)",
+      "worstRatio": 4.75,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "console-countdown",
+      "target": "div[data-channel=\"prop_stage2_pct\"] > .gauge__head > .gauge__label",
+      "text": "وقود المرحلة 2",
+      "fontPx": 14,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "console-countdown",
+      "target": "div[data-channel=\"prop_stage2_pct\"] > .gauge__row > .gauge__value > .num",
+      "text": "100",
+      "fontPx": 24,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "console-countdown",
+      "target": "div[data-channel=\"prop_stage2_pct\"] > .gauge__scale[aria-hidden=\"true\"] > span:nth-child(1)",
+      "text": "0 %",
+      "fontPx": 12,
+      "color": "rgb(147, 170, 185)",
+      "worstRatio": 4.75,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "console-countdown",
+      "target": "div[data-channel=\"prop_stage2_pct\"] > .gauge__scale[aria-hidden=\"true\"] > span:nth-child(2)",
+      "text": "100 %",
+      "fontPx": 12,
+      "color": "rgb(147, 170, 185)",
+      "worstRatio": 4.75,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "console-countdown",
+      "target": ".stack.stack--sm:nth-child(6) > h2",
+      "text": "اطلب من الطيار",
+      "fontPx": 14,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "console-countdown",
+      "target": "button[data-testid=\"callout-chamber_pressure_low\"] > span",
+      "text": "ضغط الغرفة منخفض",
+      "fontPx": 14,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "console-alert",
+      "target": ".roomcode__v",
+      "text": "KQXM",
+      "fontPx": 17,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "console-alert",
+      "target": ".rolebtn > .callsign",
+      "text": "BOOSTER",
+      "fontPx": 13,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "console-alert",
+      "target": ".rolebtn__more",
+      "text": "+1",
+      "fontPx": 13,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "console-alert",
+      "target": ".grow",
+      "text": "CAPCOMنقترب من Max Q. يا STRUCT، راقب ال",
+      "fontPx": 15,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "console-alert",
+      "target": ".toast__kind",
+      "text": "CAPCOM",
+      "fontPx": 14,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "console-alert",
+      "target": ".alert--bad > .alert__head > .callsign",
+      "text": "STRUCT",
+      "fontPx": 13,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "console-alert",
+      "target": ".alert--bad > .alert__head > .alert__left.num[aria-label=\"نافذة القرار الموفق\"]",
+      "text": "6.2s",
+      "fontPx": 24,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "console-alert",
+      "target": ".alert--bad > .alert__head > .alert__left.num[aria-label=\"نافذة القرار الموفق\"] > .unit",
+      "text": "s",
+      "fontPx": 17.76,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "console-alert",
+      "target": ".btn--sm",
+      "text": "اعرض ⁨STRUCT⁩",
+      "fontPx": 14,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "console-alert",
+      "target": ".alert--warn > .alert__head > .callsign",
+      "text": "BOOSTER",
+      "fontPx": 13,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "console-alert",
+      "target": ".alert--warn > .alert__head > .alert__left.num[aria-label=\"نافذة القرار الموفق\"]",
+      "text": "6.2s",
+      "fontPx": 24,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "console-alert",
+      "target": ".alert--warn > .alert__head > .alert__left.num[aria-label=\"نافذة القرار الموفق\"] > .unit",
+      "text": "s",
+      "fontPx": 17.76,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "console-alert",
+      "target": ".hud__clock",
+      "text": "T+01:19",
+      "fontPx": 40,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "console-alert",
+      "target": ".callsign--plain",
+      "text": "F4",
+      "fontPx": 13,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "console-alert",
+      "target": ".hud__phasename",
+      "text": "Max Q",
+      "fontPx": 14,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "console-alert",
+      "target": ".hud__stat:nth-child(1) > dd > .num",
+      "text": "28.7",
+      "fontPx": 20,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "console-alert",
+      "target": ".hud__stat:nth-child(1) > dd > .unit",
+      "text": "km",
+      "fontPx": 14.8,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "console-alert",
+      "target": ".hud__stat:nth-child(2) > dd > .num",
+      "text": "2,065",
+      "fontPx": 20,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "console-alert",
+      "target": ".hud__stat:nth-child(2) > dd > .unit",
+      "text": "m/s",
+      "fontPx": 14.8,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "console-alert",
+      "target": ".hud__stat:nth-child(3) > dd > .num",
+      "text": "100",
+      "fontPx": 20,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "console-alert",
+      "target": ".hud__warp",
+      "text": "تسريع الزمن ×⁨11⁩",
+      "fontPx": 14,
+      "color": "rgb(255, 209, 102)",
+      "worstRatio": 7.96,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "console-alert",
+      "target": "button[aria-label=\"وحدة تحكم ⁨BOOSTER⁩، تنبيه نشط\"] > .mono",
+      "text": "BOOSTER",
+      "fontPx": 15,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "console-alert",
+      "target": "button[aria-label=\"وحدة تحكم ⁨STRUCT⁩، تنبيه نشط\"] > .mono",
+      "text": "STRUCT",
+      "fontPx": 15,
+      "color": "rgb(255, 143, 143)",
+      "worstRatio": 5.24,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "console-alert",
+      "target": ".consolehead > .callsign",
+      "text": "BOOSTER",
+      "fontPx": 13,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "console-alert",
+      "target": "button[data-testid=\"callout-chamber_pressure_low\"] > span",
+      "text": "ضغط الغرفة منخفض",
+      "fontPx": 14,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "minigame-intro",
+      "target": ".roomcode__v",
+      "text": "KQXM",
+      "fontPx": 17,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "minigame-intro",
+      "target": ".callsign",
+      "text": "BOOSTER",
+      "fontPx": 13,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "minigame-intro",
+      "target": ".rolebtn__more",
+      "text": "+1",
+      "fontPx": 13,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "minigame-intro",
+      "target": ".mg-intro__head > .eyebrow",
+      "text": "لعبة مصغّرة · F4",
+      "fontPx": 14,
+      "color": "rgb(85, 197, 205)",
+      "worstRatio": 5.61,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "minigame-intro",
+      "target": ".mg-intro__time",
+      "text": "20 s",
+      "fontPx": 14.4,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "minigame-intro",
+      "target": ".mg-intro__goal > span",
+      "text": "داخل النطاق ≥ 85% من الوقت.",
+      "fontPx": 15.2,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "minigame-intro",
+      "target": ".chip > span",
+      "text": "عادي",
+      "fontPx": 13,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "minigame-intro",
+      "target": "button[data-testid=\"mg-relaxed\"] > .switch__text > .switch__desc",
+      "text": "مناطق آمنة أوسع ودليل مساعد.",
+      "fontPx": 14,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "minigame-intro",
+      "target": "button[data-testid=\"mg-one-button\"] > .switch__text > .switch__title",
+      "text": "وضع الزر الواحد",
+      "fontPx": 16,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "minigame-intro",
+      "target": "button[data-testid=\"mg-one-button\"] > .switch__text > .switch__desc",
+      "text": "العب بضغطة واحدة في أي مكان.",
+      "fontPx": 14,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "minigame-intro",
+      "target": ".mg-count__num",
+      "text": "3",
+      "fontPx": 40,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "minigame-intro",
+      "target": ".mg-count__unit",
+      "text": "s",
+      "fontPx": 14.4,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "minigame-play",
+      "target": ".roomcode__v",
+      "text": "KQXM",
+      "fontPx": 17,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "minigame-play",
+      "target": ".callsign",
+      "text": "BOOSTER",
+      "fontPx": 13,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "minigame-play",
+      "target": ".rolebtn__more",
+      "text": "+1",
+      "fontPx": 13,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "minigame-play",
+      "target": ".mg-play__left",
+      "text": "19 s",
+      "fontPx": 18.4,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "minigame-result",
+      "target": ".roomcode__v",
+      "text": "KQXM",
+      "fontPx": 17,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "minigame-result",
+      "target": ".callsign",
+      "text": "BOOSTER",
+      "fontPx": 13,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "minigame-result",
+      "target": ".rolebtn__more",
+      "text": "+1",
+      "fontPx": 13,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "minigame-result",
+      "target": ".mg-crew__text",
+      "text": "نجح ⁨3⁩ من ⁨5⁩",
+      "fontPx": 18.4,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "minigame-result",
+      "target": ".mg-crew__you > span",
+      "text": "لم تنجح في هذا التحدي · 23 %",
+      "fontPx": 14.72,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "minigame-result",
+      "target": "span > .num",
+      "text": "23 %",
+      "fontPx": 14.72,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "minigame-result",
+      "target": "li:nth-child(1) > .grow > .mg-reward__name",
+      "text": "هامش الحمل",
+      "fontPx": 16,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "minigame-result",
+      "target": "li:nth-child(1) > .mg-reward__amount.num",
+      "text": "+6 %",
+      "fontPx": 17.6,
+      "color": "rgb(119, 214, 161)",
+      "worstRatio": 6.52,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "minigame-result",
+      "target": "li:nth-child(2) > .mg-reward__amount.num",
+      "text": "+1 %",
+      "fontPx": 17.6,
+      "color": "rgb(119, 214, 161)",
+      "worstRatio": 6.52,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "minigame-result",
+      "target": "li:nth-child(3) > .mg-reward__amount.num",
+      "text": "+8 %",
+      "fontPx": 17.6,
+      "color": "rgb(119, 214, 161)",
+      "worstRatio": 6.52,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "minigame-result",
+      "target": "li:nth-child(4) > .mg-reward__amount.num",
+      "text": "+60 pts",
+      "fontPx": 17.6,
+      "color": "rgb(119, 214, 161)",
+      "worstRatio": 6.52,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "minigame-result",
+      "target": ".grow > .eyebrow",
+      "text": "هل تعلم؟",
+      "fontPx": 14,
+      "color": "rgb(85, 197, 205)",
+      "worstRatio": 5.61,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "minigame-result",
+      "target": ".grow > p",
+      "text": "تخفض صواريخ كثيرة دفعها قرب Max Q، لحظة ",
+      "fontPx": 15,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "blackout",
+      "target": ".roomcode__v",
+      "text": "KQXM",
+      "fontPx": 17,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "blackout",
+      "target": ".callsign",
+      "text": "BOOSTER",
+      "fontPx": 13,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "blackout",
+      "target": ".rolebtn__more",
+      "text": "+1",
+      "fontPx": 13,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "blackout",
+      "target": ".toast__kind",
+      "text": "CAPCOM",
+      "fontPx": 14,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "blackout",
+      "target": ".blackout__time",
+      "text": "4s",
+      "fontPx": 40,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "blackout",
+      "target": ".unit",
+      "text": "s",
+      "fontPx": 29.6,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "debrief",
+      "target": ".roomcode__v",
+      "text": "KQXM",
+      "fontPx": 17,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "debrief",
+      "target": ".rolebtn > .callsign",
+      "text": "BOOSTER",
+      "fontPx": 13,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "debrief",
+      "target": ".rolebtn__more",
+      "text": "+1",
+      "fontPx": 13,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "debrief",
+      "target": ".eyebrow",
+      "text": "المهمة ⁨1⁩ · تقرير ما بعد المهمة",
+      "fontPx": 14,
+      "color": "rgb(85, 197, 205)",
+      "worstRatio": 5.61,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "debrief",
+      "target": ".chip > span",
+      "text": "نجاح المهمة",
+      "fontPx": 13,
+      "color": "rgb(119, 214, 161)",
+      "worstRatio": 6.52,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "debrief",
+      "target": ".db-grade__letter",
+      "text": "A",
+      "fontPx": 68,
+      "color": "rgb(255, 206, 131)",
+      "worstRatio": 7.88,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "debrief",
+      "target": "h1",
+      "text": "أُنجزت المهمة",
+      "fontPx": 32,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "debrief",
+      "target": ".db-score__value",
+      "text": "8,516",
+      "fontPx": 56,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "debrief",
+      "target": ".db-stat:nth-child(1) > .db-stat__value.num",
+      "text": "80",
+      "fontPx": 24,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "debrief",
+      "target": ".db-stat:nth-child(2) > .db-stat__value.num",
+      "text": "1",
+      "fontPx": 24,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "debrief",
+      "target": ".db-stat:nth-child(3) > .db-stat__value.num",
+      "text": "0",
+      "fontPx": 24,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "debrief",
+      "target": ".db-stat:nth-child(4) > .db-stat__value.num",
+      "text": "1",
+      "fontPx": 24,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex",
+      "target": ".roomcode__v",
+      "text": "KQXM",
+      "fontPx": 17,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "codex",
+      "target": ".rolebtn > .callsign",
+      "text": "BOOSTER",
+      "fontPx": 13,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "codex",
+      "target": ".rolebtn__more",
+      "text": "+1",
+      "fontPx": 13,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "codex",
+      "target": ".eyebrow",
+      "text": "المهمة ⁨1⁩ · تقرير ما بعد المهمة",
+      "fontPx": 14,
+      "color": "rgb(85, 197, 205)",
+      "worstRatio": 5.61,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "codex",
+      "target": ".chip > span",
+      "text": "نجاح المهمة",
+      "fontPx": 13,
+      "color": "rgb(119, 214, 161)",
+      "worstRatio": 6.52,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "codex",
+      "target": ".db-grade__letter",
+      "text": "A",
+      "fontPx": 68,
+      "color": "rgb(255, 206, 131)",
+      "worstRatio": 7.88,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex",
+      "target": "h1",
+      "text": "أُنجزت المهمة",
+      "fontPx": 32,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex",
+      "target": ".db-score__value",
+      "text": "8,516",
+      "fontPx": 56,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex",
+      "target": ".db-stat:nth-child(1) > .db-stat__value.num",
+      "text": "80",
+      "fontPx": 24,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex",
+      "target": ".db-stat:nth-child(2) > .db-stat__value.num",
+      "text": "1",
+      "fontPx": 24,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex",
+      "target": ".db-stat:nth-child(3) > .db-stat__value.num",
+      "text": "0",
+      "fontPx": 24,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex",
+      "target": ".db-stat:nth-child(4) > .db-stat__value.num",
+      "text": "1",
+      "fontPx": 24,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex",
+      "target": "#\\:r4a\\:",
+      "text": "موسوعة المهمة",
+      "fontPx": 20,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex",
+      "target": ".cx-tile:nth-child(1) > .cx-tile__v.num",
+      "text": "6",
+      "fontPx": 24,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex",
+      "target": ".cx-tile:nth-child(2) > .cx-tile__k",
+      "text": "KP الخاصة بك",
+      "fontPx": 14,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "codex",
+      "target": ".cx-tile:nth-child(2) > .cx-tile__v.num",
+      "text": "80KP",
+      "fontPx": 24,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex",
+      "target": ".cx-tile:nth-child(2) > .cx-tile__v.num > .unit",
+      "text": "KP",
+      "fontPx": 17.76,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "codex",
+      "target": ".cx-tile:nth-child(3) > .cx-tile__k",
+      "text": "KP الفريق",
+      "fontPx": 14,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "codex",
+      "target": ".cx-tile:nth-child(3) > .cx-tile__v.num",
+      "text": "180KP",
+      "fontPx": 24,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex",
+      "target": ".cx-tile:nth-child(3) > .cx-tile__v.num > .unit",
+      "text": "KP",
+      "fontPx": 17.76,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "codex",
+      "target": ".stack--sm:nth-child(2) > .stack--sm.stack > li:nth-child(1) > .cx-item.cx-item--new[data-testid=\"codex-item\"] > .cx-item__text.grow > .cx-item__title",
+      "text": "غطاء صغيرجديد",
+      "fontPx": 16,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "codex",
+      "target": ".stack--sm:nth-child(2) > .stack--sm.stack > li:nth-child(1) > .cx-item.cx-item--new[data-testid=\"codex-item\"] > .cx-item__text.grow > .cx-item__sub",
+      "text": "النظير في الواقع: ⁨قاذفات صغيرة⁩",
+      "fontPx": 14,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "codex",
+      "target": ".stack--sm:nth-child(2) > .stack--sm.stack > li:nth-child(2) > .cx-item.cx-item--new[data-testid=\"codex-item\"] > .cx-item__text.grow > .cx-item__title",
+      "text": "Kerolox Vacuumجديد",
+      "fontPx": 16,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "codex",
+      "target": ".stack--sm:nth-child(2) > .stack--sm.stack > li:nth-child(2) > .cx-item.cx-item--new[data-testid=\"codex-item\"] > .cx-item__text.grow > .cx-item__sub",
+      "text": "النظير في الواقع: ⁨Merlin Vacuum⁩",
+      "fontPx": 14,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "codex",
+      "target": ".stack--sm:nth-child(2) > .stack--sm.stack > li:nth-child(3) > .cx-item.cx-item--new[data-testid=\"codex-item\"] > .cx-item__text.grow > .cx-item__title",
+      "text": "Methalox Full-Flowجديد",
+      "fontPx": 16,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "codex",
+      "target": ".stack--sm:nth-child(2) > .stack--sm.stack > li:nth-child(3) > .cx-item.cx-item--new[data-testid=\"codex-item\"] > .cx-item__text.grow > .cx-item__sub",
+      "text": "النظير في الواقع: ⁨فئة Raptor⁩",
+      "fontPx": 14,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "codex",
+      "target": ".stack--sm:nth-child(3) > .stack--sm.stack > li:nth-child(1) > .cx-item.cx-item--new[data-testid=\"codex-item\"] > .cx-item__text.grow > .cx-item__title",
+      "text": "سرعة المدارجديد",
+      "fontPx": 16,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "codex",
+      "target": ".stack--sm:nth-child(3) > .stack--sm.stack > li:nth-child(3) > .cx-item.cx-item--new[data-testid=\"codex-item\"] > .cx-item__text.grow > .cx-item__title",
+      "text": "Max Qجديد",
+      "fontPx": 16,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "codex",
+      "target": ".cx-note > span",
+      "text": "مجموعتك محفوظة على هذا الهاتف فقط.",
+      "fontPx": 14,
+      "color": "rgb(147, 170, 185)",
+      "worstRatio": 4.75,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "codex-entry",
+      "target": ".roomcode__v",
+      "text": "KQXM",
+      "fontPx": 17,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "codex-entry",
+      "target": ".rolebtn > .callsign",
+      "text": "BOOSTER",
+      "fontPx": 13,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "codex-entry",
+      "target": ".rolebtn__more",
+      "text": "+1",
+      "fontPx": 13,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "codex-entry",
+      "target": ".db-hero > .eyebrow",
+      "text": "المهمة ⁨1⁩ · تقرير ما بعد المهمة",
+      "fontPx": 14,
+      "color": "rgb(85, 197, 205)",
+      "worstRatio": 5.61,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "codex-entry",
+      "target": ".chip > span",
+      "text": "نجاح المهمة",
+      "fontPx": 13,
+      "color": "rgb(119, 214, 161)",
+      "worstRatio": 6.52,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "codex-entry",
+      "target": ".db-grade__letter",
+      "text": "A",
+      "fontPx": 68,
+      "color": "rgb(255, 206, 131)",
+      "worstRatio": 7.88,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex-entry",
+      "target": "h1",
+      "text": "أُنجزت المهمة",
+      "fontPx": 32,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex-entry",
+      "target": ".db-score__value",
+      "text": "8,516",
+      "fontPx": 56,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex-entry",
+      "target": ".db-stat:nth-child(1) > .db-stat__value.num",
+      "text": "80",
+      "fontPx": 24,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex-entry",
+      "target": ".db-stat:nth-child(2) > .db-stat__value.num",
+      "text": "1",
+      "fontPx": 24,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex-entry",
+      "target": ".db-stat:nth-child(3) > .db-stat__value.num",
+      "text": "0",
+      "fontPx": 24,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex-entry",
+      "target": ".db-stat:nth-child(4) > .db-stat__value.num",
+      "text": "1",
+      "fontPx": 24,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex-entry",
+      "target": "#\\:r4a\\:",
+      "text": "موسوعة المهمة",
+      "fontPx": 20,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex-entry",
+      "target": "h3",
+      "text": "غطاء صغير",
+      "fontPx": 24,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "codex-entry",
+      "target": ".cx-bullets > li:nth-child(2)",
+      "text": "رخيص",
+      "fontPx": 15.04,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "settings",
+      "target": ".roomcode__v",
+      "text": "KQXM",
+      "fontPx": 17,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "settings",
+      "target": ".rolebtn > .callsign",
+      "text": "BOOSTER",
+      "fontPx": 13,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "settings",
+      "target": ".rolebtn__more",
+      "text": "+1",
+      "fontPx": 13,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "settings",
+      "target": ".eyebrow",
+      "text": "المهمة ⁨1⁩ · تقرير ما بعد المهمة",
+      "fontPx": 14,
+      "color": "rgb(85, 197, 205)",
+      "worstRatio": 5.61,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "settings",
+      "target": ".chip > span",
+      "text": "نجاح المهمة",
+      "fontPx": 13,
+      "color": "rgb(119, 214, 161)",
+      "worstRatio": 6.52,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "settings",
+      "target": ".db-grade__letter",
+      "text": "A",
+      "fontPx": 68,
+      "color": "rgb(255, 206, 131)",
+      "worstRatio": 7.88,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "settings",
+      "target": "h1",
+      "text": "أُنجزت المهمة",
+      "fontPx": 32,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "settings",
+      "target": ".db-score__value",
+      "text": "8,516",
+      "fontPx": 56,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "settings",
+      "target": ".db-stat:nth-child(1) > .db-stat__value.num",
+      "text": "80",
+      "fontPx": 24,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "settings",
+      "target": ".db-stat:nth-child(2) > .db-stat__value.num",
+      "text": "1",
+      "fontPx": 24,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "settings",
+      "target": ".db-stat:nth-child(3) > .db-stat__value.num",
+      "text": "0",
+      "fontPx": 24,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "settings",
+      "target": ".db-stat:nth-child(4) > .db-stat__value.num",
+      "text": "1",
+      "fontPx": 24,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "settings",
+      "target": "#\\:r4b\\:",
+      "text": "الإعدادات",
+      "fontPx": 20,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 3,
+      "pass": true
+    },
+    {
+      "screen": "settings",
+      "target": ".stack--sm:nth-child(1) > h3 > span",
+      "text": "العرض",
+      "fontPx": 14,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "settings",
+      "target": ".st-text__head > .switch__title",
+      "text": "حجم النص",
+      "fontPx": 16,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "settings",
+      "target": ".st-text__value",
+      "text": "100%",
+      "fontPx": 18.4,
+      "color": "rgb(143, 224, 230)",
+      "worstRatio": 7.64,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "settings",
+      "target": ".st-stepper__a--lg",
+      "text": "A",
+      "fontPx": 22,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "settings",
+      "target": "button[data-testid=\"pref-relaxed\"] > .switch__text > .switch__title",
+      "text": "ألعاب مصغرة مريحة",
+      "fontPx": 16,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "settings",
+      "target": "button[data-testid=\"pref-oneButton\"] > .switch__text > .switch__title",
+      "text": "ألعاب مصغرة بزر واحد",
+      "fontPx": 16,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "settings",
+      "target": "button[data-testid=\"pref-holdToToggle\"] > .switch__text > .switch__title",
+      "text": "المس بدل الضغط المطول",
+      "fontPx": 16,
+      "color": "rgb(232, 238, 240)",
+      "worstRatio": 9.8,
+      "need": 4.5,
+      "pass": true
+    },
+    {
+      "screen": "settings",
+      "target": "button[data-testid=\"pref-holdToToggle\"] > .switch__text > .switch__desc",
+      "text": "تتحول أدوات التحكم بالضغط المطول إلى مفا",
+      "fontPx": 14,
+      "color": "rgb(182, 199, 211)",
+      "worstRatio": 6.62,
+      "need": 4.5,
+      "pass": true
+    }
+  ]
+}

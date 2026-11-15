@@ -462,7 +462,6 @@ function RoleTabs({ roles, selected, onSelect }: { roles: RoleId[]; selected: Ro
             type="button"
             role="tab"
             aria-selected={r === selected}
-            aria-pressed={r === selected}
             aria-label={t(alerting ? 'ui.console.tab_alert' : 'ui.console.tab', { role: r })}
             className={`segmented__opt consoletabs__tab ${alerting ? 'consoletabs__tab--alert' : ''}`}
             onClick={() => onSelect(r)}
@@ -674,7 +673,8 @@ export function ConsoleScreen() {
   const staffed = player && selected != null;
   return (
     <div className="screen console" data-testid="console-screen">
-      <div className="screen__scroll console__scroll">
+      <div className="screen__scroll console__scroll" tabIndex={0}>
+        <h1 className="sr-only">{t('ui.console.mission_view')}</h1>
         {/* Alerts come first and stay pinned while the console scrolls: a Good Call window is short. */}
         {staffed && <Alerts roles={roles} selected={selected} onSelect={setPicked} />}
         <Hud />
