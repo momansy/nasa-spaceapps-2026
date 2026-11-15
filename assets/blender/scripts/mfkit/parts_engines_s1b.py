@@ -488,14 +488,15 @@ def gen_electric_pump_mini(ctx):
     length = e["length"]
     r_exit = e["exit_d"] / 2.0
 
-    # ---- nozzle: 24 printed coolant channels (game_value: ~3.3 cm per channel at the 0.25 m exit, so the wall
-    # reads like the bigger engines), two slim dark stiffeners, a rolled exit rim and the regen inlet manifold
+    # ---- nozzle: 32 printed coolant channels (game_value: ~2.5 cm per channel at the 0.25 m exit, so the wall
+    # reads like the bigger engines), two slim dark stiffeners, a rolled exit rim and the regen inlet manifold.
+    # 96 radial segments = 3 per channel: at 40 segments (< 2 per channel) the bell shaded as flat staves (RUBRIC M6)
     noz_len = 0.335
     r_throat = 0.040
-    r_at = bell_nozzle(mb, z_exit=0.0, length=noz_len, r_throat=r_throat, r_exit=r_exit, seg=40, steps=12,
+    r_at = bell_nozzle(mb, z_exit=0.0, length=noz_len, r_throat=r_throat, r_exit=r_exit, seg=96, steps=14,
                        wall=0.006, theta_n=30.0, theta_e=10.0, bands=2, band_size=0.004, band_z0=0.14,
-                       band_z1=0.48, tubes=24, band_mat="nozzle_hot", stiffener_trim=None, heat_exit=0.35)
-    s_n = mb.seg(40, 12)
+                       band_z1=0.48, tubes=32, band_mat="nozzle_hot", stiffener_trim=None, heat_exit=0.35)
+    s_n = mb.seg(64, 12)
     mb.torus(r_at(0.006) + 0.001, 0.0055, 0.006, s_n, _minor(mb, 6), "engine_metal")
     z_man = 0.27
     r_man = r_at(z_man) + 0.010

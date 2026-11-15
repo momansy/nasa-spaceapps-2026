@@ -123,11 +123,15 @@ def _smooth(a: np.ndarray, passes: int) -> np.ndarray:
 
 def _compress(mask: np.ndarray) -> np.ndarray:
     """Keep the repo small (VISUAL_TARGET 2.6: about 60 MB of textures per task): blur the sampling noise out of
-    AO (R) and cavity (A) and quantise to 5 bits. Masks are low-frequency multipliers, so nothing visible is lost."""
+    AO (R) and cavity (A) and quantise R, G and A to 5 bits. Masks are low-frequency multipliers, so nothing visible
+    is lost; B stays 8-bit (it drives the heat-tint gradient and would band at 5 bits)."""
     out = mask.copy()
     for ch in (0, 3):
         out[..., ch] = _smooth(out[..., ch], 3)
-    return np.round(np.clip(out, 0.0, 1.0) * 31.0) / 31.0
+    out = np.clip(out, 0.0, 1.0)
+    for ch in (0, 1, 3):                    # B (heat) keeps 8 bits: it drives a smooth axial tint gradient
+        out[..., ch] = np.round(out[..., ch] * 31.0) / 31.0
+    return out
 
 
 def _heat_mask(me, res: int) -> np.ndarray:
@@ -139,6 +143,16 @@ def _heat_mask(me, res: int) -> np.ndarray:
     arr = np.empty(len(attr.data) * 4, dtype=np.float32)
     attr.data.foreach_get("color", arr)
     return uv.rasterize_corner_scalar(me, arr.reshape(-1, 4)[:, 0], res)
+
+
+SOOT_EXEMPT = ("nozzle_inner", "decal")
+SOOT_FADE_IN = 0.25          # game_value: share of the soot fade spent ramping in (soft upper edge of the ring)
+
+
+def _ranks(totals: np.ndarray) -> np.ndarray:
+    """0..n-1 within each polygon's loop run (so loop_start + rank enumerates every loop)."""
+    starts = np.cumsum(totals) - totals
+    return np.arange(int(totals.sum())) - np.repeat(starts, totals)
 
 
 def _soot_mask(me, res: int, soot: dict | None) -> np.ndarray:
@@ -154,8 +168,26 @@ def _soot_mask(me, res: int, soot: dict | None) -> np.ndarray:
     z = co.reshape(-1, 3)[vidx, 2]
     t = np.clip((z1 - z) / max(z1 - z0, 1e-6), 0.0, 1.0)
     s = t * t * (3.0 - 2.0 * t)                                     # smoothstep fade up the bell
+    # the bronze liner (nozzle_inner: inside of the bell and the exit lip) and decals stay clean, so the inner rim of
+    # frames 01 and 02 survives on kerolox engines; the soot sits on the outer wall as a readable dark ring
+    clean = {i for i, m in enumerate(me.materials) if m is not None and m.name in SOOT_EXEMPT}
+    if clean:
+        pmat = np.empty(len(me.polygons), dtype=np.int64)
+        me.polygons.foreach_get("material_index", pmat)
+        lstart = np.empty(len(me.polygons), dtype=np.int64)
+        ltotal = np.empty(len(me.polygons), dtype=np.int64)
+        me.polygons.foreach_get("loop_start", lstart)
+        me.polygons.foreach_get("loop_total", ltotal)
+        loop_mat = np.repeat(pmat, ltotal)[np.argsort(np.repeat(lstart, ltotal) + _ranks(ltotal), kind="stable")]
+        s = np.where(np.isin(loop_mat, list(clean)), 0.0, s)
+    # encoding: the first SOOT_FADE_IN of the fade ramps A from 0 up to SOOT_START (read as a soft grime darkening),
+    # the rest runs SOOT_START -> top (real soot: dark, matte, non-metallic), so the ring has a soft upper edge and
+    # a solid band at the exit instead of only the last few centimetres
     top = materials.SOOT_START + (1.0 - materials.SOOT_START) * k  # strength sets how far past SOOT_START it goes
-    return uv.rasterize_corner_scalar(me, (s * top).astype(np.float32), res)
+    fade = np.clip(s / SOOT_FADE_IN, 0.0, 1.0)
+    fade = fade * fade * (3.0 - 2.0 * fade)
+    a = materials.SOOT_START * fade + (top - materials.SOOT_START) * np.clip((s - SOOT_FADE_IN) / (1.0 - SOOT_FADE_IN), 0.0, 1.0)
+    return uv.rasterize_corner_scalar(me, a.astype(np.float32), res)
 
 
 def _configure(scene):

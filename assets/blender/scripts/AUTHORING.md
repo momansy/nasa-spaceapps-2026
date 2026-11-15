@@ -147,6 +147,26 @@ the solid kick motor), at least 4 `duct()`s with 2 bellows and flanged ends (≥
 least 8 `harness()` lines with clamps. Kerolox engines set `meta["soot"] = {z0_m, z1_m, strength}`;
 the bake writes it into mask A above `materials.SOOT_START`.
 
+Checklist exception: `eng_hypergolic_storable` has no turbopump, volute, inducer or gas generator. Its
+real-world class (AJ10 / Apollo SPS) is pressure-fed: helium pressurises the propellant tanks, so the feed
+lines run from the stage interface through the bipropellant ball-valve packages straight into the injector.
+
+Detail helpers (T032 requeue, RUBRIC M3/M5/M6), all in `engine_common.py`:
+- `mount_plate()` (used by `gimbal_mount()`): the top face stays the interface disc (`z_top`, mount radius);
+  pockets, ribs, bolt circle, chamfer and the stepped rim are on the underside and rim only. LOD1 is a
+  chamfered disc.
+- `actuator()`: the frame-side pin sits `CLEVIS_SETBACK` clevis radii in from the bracket point, so the fork
+  (rounded cheeks, pin, rod eye, base boss) shows below the pad or outrigger block. Do not centre a block
+  bigger than the fork on that pin. The engine-side end and LOD1 use plain plates.
+- `extension_joint()`: two bolted flanges with a parting line, plus a weld bead on metal extensions. Use it
+  where a regen bell meets its extension. `weld_seams()` adds longitudinal sheet seams (LOD0) on radiative
+  extensions. Keep extension stiffeners at or below 2 plus the exit ring, above 0.05 × length, so the exit
+  radius is untouched.
+- `volute(housing=True, sec_scale=...)` builds a cast D-section scroll case fused to the barrel. It reads at
+  3q distance but costs about 400 triangles more than the pipe scroll, so it is opt-in (workhorse).
+- Bells: if a small bell shades as flat staves, raise its radial segments. The electric-pump bell now uses
+  96 segments for 32 tubes; at 40 segments for 24 tubes it read as staves.
+
 ### Bakes
 
 `kit.py bake '<pattern>'` writes `materials/bakes/<id>/<id>_lod{0,1}_mask.png` (2048 / 1024 px
@@ -170,3 +190,37 @@ the phone GLB (`phone_bake.py`: one 512² albedo/ORM/normal set on UV1, alpha MA
 embedded) and the `.blend`. `kit.py attachdiff '<pattern>'` must print `SAME` for every part:
 attach points, `length_m` and diameters never change. `kit.py t032 sheets|cluster|table|manifestdiff`
 writes the T032 evidence. Look-dev for previews: `--lookdev studio|dusk` (Cycles, AgX).
+
+### Engine materials (T032 requeue, RUBRIC M2 / M5 / M7)
+
+- `engine_metal` is now procedural (`materials/source/mat_metal.py`): fine brushing at 1024 px per 0.5 m,
+  streaks about 12 mm and 31 mm long, ±1.2 % albedo and ±0.022 roughness (about a third of the old ambientCG
+  Metal009 length and contrast). **The brushing runs along UV0 v**, which `tube()` writes along the pipe and
+  `lathe()` along the meridian, so streaks follow ducts and turn with elbows. Box faces keep metric UVs.
+- Library variants (append only, mapped to a slot like `nozzle_radiative`; `core.VARIANT_SLOTS`):
+  - `engine_metal_satin` → `engine_metal`: isotropic satin (roughness 0.36–0.52, slightly darker). It is the
+    default for `pump()` housings (`housing_mat`), `volute()`, `gimbal_mount(plate_mat=…)` and the kick-motor
+    case, so the housings read against the brushed ducts and spheres cannot band.
+  - `nozzle_inner` → `nozzle_hot`: bronze copper-alloy liner (tint `#B57A45`, game_value). It is the default
+    `mat_in` and `lip_mat` of `bell_nozzle` and the inner wall of the regen section in `_vac_bell`. This gives
+    the bronze inner rim of frames 01 and 02. The physical basis is the copper-alloy liner of regen chambers;
+    the tone is stylised.
+- `nozzle_radiative` has a fine hoop spin finish and one faint seam per repeat. `nozzle_ablative` is a
+  28-ply tape wrap of varying overlap. Neither has the cloudy mottle any more: wear stays on the mask edges.
+- **Heat tint** is read from the baked mask B (UV1), not from the `heat` corner colour. Cycles returned 0 for
+  that attribute, which is why the T032 tint never showed. Each library entry with `heat_tint` has a
+  `heat_range` [lo, hi]. The tint fades in over the first 35 % of the range, then runs straw → bronze →
+  blue-violet (`materials.HEAT_RAMP`, dark oxide colours, game_value). Values:
+
+  | Entry | heat_range | strength | Effect |
+  |---|---|---|---|
+  | `nozzle_hot` | 0.45–0.66 | 0.55 | Only the top third of a regen bell |
+  | `nozzle_radiative` | 0.58–1.0 | 0.45 | Grey niobium at the exit, bronze, then violet at the joint |
+  | `nozzle_inner` | 0.55–1.0 | 0.35 | |
+
+  The bake keeps B at 8 bits (R, G and A are quantised to 5), so the gradient does not band.
+- **Soot.** `meta["soot"]` is set on the workhorse, giant, staged combustion and kerolox vacuum engines.
+  - Encoding: the first 25 % of the fade ramps A up to `SOOT_START` (a soft upper edge). The rest is real
+    soot: albedo × 0.15, roughness 0.85 and metallic × 0.15.
+  - `nozzle_inner` and `decal` faces never get soot (`bake.SOOT_EXEMPT`), so the bronze lip survives.
+  - Size the band to the bell: about 0.3 m on 1–1.5 m bells and about 0.85 m on 3 m bells.

@@ -37,7 +37,10 @@ def builders():
     import mat_decals
     import mat_trim
     import mat_nozzle
-    table = {"hull": mat_basic.build_hull, "engine_metal": mat_basic.build_engine_metal,
+    import mat_metal
+    mat_metal.drop_stale_provenance()
+    table = {"hull": mat_basic.build_hull, "engine_metal": mat_metal.build_engine_metal,
+             "engine_metal_satin": mat_metal.build_engine_metal_satin, "nozzle_inner": mat_nozzle.build_nozzle_inner,
              "detail_dark": mat_basic.build_detail_dark,
              "nozzle_hot": mat_nozzle.build_nozzle_hot, "nozzle_radiative": mat_nozzle.build_nozzle_radiative,
              "nozzle_ablative": mat_nozzle.build_nozzle_ablative,

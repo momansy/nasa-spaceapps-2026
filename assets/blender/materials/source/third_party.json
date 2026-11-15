@@ -23,15 +23,6 @@
   "author": "MissionForge team",
   "licence": "CC0 1.0",
   "date": "2026-11-15",
-  "path": "textures/nozzle_ablative/",
-  "changes": "Generated: diagonal ply bands, weave, mottling"
- },
- {
-  "name": "Procedural (numpy generator in assets/blender/materials/source/mat_nozzle.py)",
-  "url": "https://github.com/momansy/nasa-spaceapps-2026",
-  "author": "MissionForge team",
-  "licence": "CC0 1.0",
-  "date": "2026-11-15",
   "path": "textures/livery/",
   "changes": "Generated: tileable noise mottling"
  },
@@ -52,15 +43,6 @@
   "date": "2026-11-15",
   "path": "textures/foam/",
   "changes": "Generated: tileable Worley cells + low-frequency mottling"
- },
- {
-  "name": "Procedural (numpy generator in assets/blender/materials/source/mat_nozzle.py)",
-  "url": "https://github.com/momansy/nasa-spaceapps-2026",
-  "author": "MissionForge team",
-  "licence": "CC0 1.0",
-  "date": "2026-11-15",
-  "path": "textures/nozzle_radiative/",
-  "changes": "Generated: smeared noise streaks, one longitudinal seam"
  },
  {
   "name": "Procedural (numpy generator in assets/blender/materials/source/mat_nozzle.py)",
@@ -90,6 +72,42 @@
   "changes": "Generated: tile artwork (bands, hazard chevrons, lift point, CG marker)"
  },
  {
+  "name": "Procedural (numpy generator in assets/blender/materials/source/mat_metal.py)",
+  "url": "https://github.com/momansy/nasa-spaceapps-2026",
+  "author": "MissionForge team",
+  "licence": "CC0 1.0",
+  "date": "2026-11-15",
+  "path": "textures/engine_metal/",
+  "changes": "Generated: two-scale streak noise smeared along v (12 mm and 31 mm), low contrast (+-1.2 % albedo, +-0.022 roughness); replaces the ambientCG Metal009 set"
+ },
+ {
+  "name": "Procedural (numpy generator in assets/blender/materials/source/mat_metal.py)",
+  "url": "https://github.com/momansy/nasa-spaceapps-2026",
+  "author": "MissionForge team",
+  "licence": "CC0 1.0",
+  "date": "2026-11-15",
+  "path": "textures/engine_metal_satin/",
+  "changes": "Generated: isotropic fine grain and shallow pits, no direction"
+ },
+ {
+  "name": "Procedural (numpy generator in assets/blender/materials/source/mat_nozzle.py)",
+  "url": "https://github.com/momansy/nasa-spaceapps-2026",
+  "author": "MissionForge team",
+  "licence": "CC0 1.0",
+  "date": "2026-11-15",
+  "path": "textures/nozzle_inner/",
+  "changes": "Generated: soft tube-wall height field, bronze tint in library.json"
+ },
+ {
+  "name": "Procedural (numpy generator in assets/blender/materials/source/mat_nozzle.py)",
+  "url": "https://github.com/momansy/nasa-spaceapps-2026",
+  "author": "MissionForge team",
+  "licence": "CC0 1.0",
+  "date": "2026-11-15",
+  "path": "textures/nozzle_ablative/",
+  "changes": "Generated: 28 varying-width tape plies, fine weave and grain, no large-scale mottle (T032 requeue)"
+ },
+ {
   "name": "Procedural (numpy generator in assets/blender/materials/source/mat_nozzle.py)",
   "url": "https://github.com/momansy/nasa-spaceapps-2026",
   "author": "MissionForge team",
@@ -99,13 +117,13 @@
   "changes": "Generated: tube-wall height field, braze grooves, faint weld seam (even albedo)"
  },
  {
-  "name": "ambientCG Metal009 (2K-JPG)",
-  "url": "https://ambientcg.com/a/Metal009",
-  "author": "ambientCG (Lennart Demes and contributors)",
+  "name": "Procedural (numpy generator in assets/blender/materials/source/mat_nozzle.py)",
+  "url": "https://github.com/momansy/nasa-spaceapps-2026",
+  "author": "MissionForge team",
   "licence": "CC0 1.0",
   "date": "2026-11-15",
-  "path": "textures/engine_metal/",
-  "changes": "Colour reduced to neutral luminance; roughness remapped to 0.15-0.42; metallic from procedural noise around 0.93; normal unchanged"
+  "path": "textures/nozzle_radiative/",
+  "changes": "Generated: fine hoop-direction spin marks, one faint panel seam per repeat (cloudy mottle removed in the T032 requeue)"
  },
  {
   "name": "Poly Haven studio_small_09 (2K HDR)",

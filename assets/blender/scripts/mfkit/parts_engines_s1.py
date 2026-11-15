@@ -151,7 +151,10 @@ def gen_workhorse(ctx):
                  "engine_metal", crease=40.0)
         if mb.want(0):
             mb.bolt_ring(0.142, 1.43, 12, 0.008, 0.012)
-    v_out, v_dir = volute(mb, p_lo, p_hi, pr, z_frac=0.64, turns=0.85, end_angle=100.0, outlet_len=0.05)
+    # cast scroll case (housing=True) instead of a free pipe so the volute and its tongue read in the 3q view; the
+    # big end of the scroll sits at world azimuth -80 deg, facing the 3q camera (-51 deg)
+    v_out, v_dir = volute(mb, p_lo, p_hi, pr, z_frac=0.64, turns=0.95, end_angle=100.0, outlet_len=0.05,
+                          housing=True, sec_scale=1.7)
     for z in (1.62, 2.02):
         mb.strut((0.18, 0.07, z), (px - 0.10, 0.07, z + 0.03), 0.018, seg=6)
         mb.strut((0.18, -0.07, z), (px - 0.10, -0.07, z + 0.03), 0.018, seg=6)
@@ -191,7 +194,10 @@ def gen_workhorse(ctx):
     v0 = Vector(v_out)
     lox = [v0, Vector((0.27, 0.285, v0.z + 0.04)), Vector((0.13, 0.31, 2.00)), Vector(_pol(0.236, 70.0, 1.99))]
     duct(mb, lox, 0.040, bellows_at=(0.30, 0.70))
-    mb.cyl((0.20, 0.365, 2.115), (0.30, 0.345, 2.14), 0.062, mb.seg(12, 6), "engine_metal")   # main oxidiser valve
+    # main oxidiser valve: a body coaxial with the second run of the LOX line (it floated beside the line once the
+    # cast volute moved the discharge; T032 requeue)
+    va, vb = lox[1].lerp(lox[2], 0.22), lox[1].lerp(lox[2], 0.62)
+    mb.cyl(va, vb, 0.062, mb.seg(12, 6), "engine_metal_satin")
 
     # ---- duct 5: high-pressure fuel line, pump -> regen manifold at the nozzle exit (-Y side)
     az = -52.0
@@ -209,7 +215,7 @@ def gen_workhorse(ctx):
         mb.strut(_pol(0.17, a_deg, 1.84), lug, 0.020, seg=6)
         actuator(mb, lug, top, 0.036)
         if mb.want(0):
-            _lug(mb, top, 0.07)
+            _lug(mb, top, 0.06)
 
     # ---- harness: 8 small lines (rubber and braided) with clamps, each ending on a connector block
     runs = [
@@ -236,7 +242,7 @@ def gen_workhorse(ctx):
               center=(px, 0.0), z_max=length)
 
     _finish(ctx, pid, z_piv, dict(cycle="gas generator",
-                                  soot=dict(z0_m=0.0, z1_m=0.32, strength=0.75)))
+                                  soot=dict(z0_m=0.0, z1_m=0.30, strength=1.0)))
 
 
 def _xz_plane():
@@ -428,7 +434,8 @@ def gen_giant(ctx):
               z_max=length)
 
     _finish(ctx, pid, z_piv, dict(cycle="gas generator",
-                                  exhaust_manifold_z_m=z_man))
+                                  exhaust_manifold_z_m=z_man,
+                                  soot=dict(z0_m=0.0, z1_m=0.85, strength=0.9)))
 
 
 # --------------------------------------------------------------------------- Kerolox Staged-Combustion
@@ -585,7 +592,8 @@ def gen_staged(ctx):
     ctx.empty("gimbal_pivot_1", (cx, 0.0, round(z_piv, 4)))
     ctx.empty("gimbal_pivot_2", (-cx, 0.0, round(z_piv, 4)))
     _finish(ctx, pid, z_piv, dict(cycle="oxidiser-rich staged combustion", nozzles=2,
-                                  nozzle_spacing_m=e["nozzle_spacing"]))
+                                  nozzle_spacing_m=e["nozzle_spacing"],
+                                  soot=dict(z0_m=0.0, z1_m=0.30, strength=0.9)))
 
 
 register("eng_kerolox_workhorse", "engine_s1", gen_workhorse, "7.7")

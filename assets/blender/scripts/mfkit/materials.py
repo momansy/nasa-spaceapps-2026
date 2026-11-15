@@ -5,7 +5,8 @@
     UV0 -> Mapping (1 / tiling_m, or u already angle-normalised) -> albedo (sRGB) x tint
                                                                   -> ORM  (R occlusion, G roughness, B metallic)
                                                                   -> normal map (OpenGL +Y, strength)
-    UV1 -> "mf_mask" image (R AO, G edge wear, B heat or frost, A grime) multiplied into AO and roughness
+    UV1 -> "mf_mask" image (R AO, G edge wear, B heat or frost, A grime) multiplied into AO and roughness;
+           B drives the heat-tint ramp on entries with `heat_tint` (range `heat_range`), A > SOOT_START is soot
 
 Slots with no library entry keep the flat ``MATERIAL_LOOK`` colour (the T009 behaviour). The per-part mask is
 bound with ``bind_part_mask`` (one part per render); materials stay shared and named by slot.
@@ -24,7 +25,7 @@ WHITE_MASK = "mf_mask_white"
 WEAR_ROUGHNESS_GAIN = 0.25     # game_value: edge-wear (mask G) raises roughness by up to this much
 GRIME_DARKEN = 0.35            # game_value: grime (mask A) darkens albedo by up to this fraction
 SOOT_START = 0.82              # game_value: mask A above this is soot (cavity grime is baked at <= 0.8)
-SOOT_DARKEN = 0.80             # game_value: full soot keeps 20 % of the (already grimed) albedo
+SOOT_DARKEN = 0.85             # game_value: full soot keeps 15 % of the (already grimed) albedo
 HEAT_TINT_START = 0.35         # game_value: heat below this shows no tint (the tint sits near the throat only)
 
 _LIB: dict | None = None
@@ -158,7 +159,7 @@ def _build_textured(slot: str, entry: dict, look: dict) -> bpy.types.Material:
     nt.links.new(shade.outputs[0], col.inputs[7])
     base_out = col.outputs[2]
     if entry.get("heat_tint", 0.0) > 0.0:
-        base_out = _heat_tint(nt, base_out, float(entry["heat_tint"]))
+        base_out = _heat_tint(nt, base_out, float(entry["heat_tint"]), entry.get("heat_range"), msep.outputs["Blue"])
     nt.links.new(base_out, bsdf.inputs["Base Color"])
 
     # roughness = orm.G + WEAR_ROUGHNESS_GAIN * mask.G
@@ -185,8 +186,17 @@ def _build_textured(slot: str, entry: dict, look: dict) -> bpy.types.Material:
             mat.surface_render_method = "DITHERED"
         except (AttributeError, TypeError):
             pass
-    if entry["metallic"][1] > 0.0:
-        nt.links.new(osep.outputs["Blue"], bsdf.inputs["Metallic"])
+    if entry["metallic"][1] > 0.0:                  # soot is a dielectric deposit: it kills the metallic response
+        mdrop = nt.nodes.new("ShaderNodeMath")
+        mdrop.operation = "MULTIPLY_ADD"            # 1 - SOOT_METAL_DROP * soot
+        nt.links.new(soot_r.outputs["Result"], mdrop.inputs[0])
+        mdrop.inputs[1].default_value = -SOOT_METAL_DROP
+        mdrop.inputs[2].default_value = 1.0
+        metal = nt.nodes.new("ShaderNodeMath")
+        metal.operation = "MULTIPLY"
+        nt.links.new(osep.outputs["Blue"], metal.inputs[0])
+        nt.links.new(mdrop.outputs[0], metal.inputs[1])
+        nt.links.new(metal.outputs[0], bsdf.inputs["Metallic"])
     else:
         bsdf.inputs["Metallic"].default_value = 0.0
 
@@ -202,32 +212,47 @@ def _build_textured(slot: str, entry: dict, look: dict) -> bpy.types.Material:
     return mat
 
 
-HEAT_RAMP = ((0.0, (0.55, 0.40, 0.16, 1.0)),      # straw
-             (0.5, (0.30, 0.15, 0.06, 1.0)),      # bronze
-             (1.0, (0.10, 0.09, 0.24, 1.0)))      # blue-violet (restrained; linear RGB, game_value)
+# Heat tint (VISUAL_TARGET 2.2, RUBRIC M5): a smooth AXIAL gradient driven by the `heat` corner colour (also baked
+# into mask B for the GLB / Unity path). Each library entry sets `heat_range` [lo, hi] in heat units: the tint fades in
+# from the base metal over the first HEAT_FADE of that range, then runs straw -> bronze -> blue-violet up to hi.
+# Linear RGB, game_value (temper colours of steel / niobium, brightened so they read at Build Bay distance).
+HEAT_RAMP = ((0.0, (0.30, 0.21, 0.08, 1.0)),      # straw
+             (0.45, (0.22, 0.11, 0.04, 1.0)),     # bronze
+             (1.0, (0.09, 0.08, 0.20, 1.0)))      # blue-violet  (oxide colours stay dark: they tint, not paint)
+HEAT_FADE = 0.35                                  # fraction of heat_range over which the tint fades in
+SOOT_METAL_DROP = 0.85                            # game_value: full soot removes 85 % of the metallic response
 
 
-def _heat_tint(nt, colour_out, strength: float):
-    """Mix a straw -> bronze -> blue-violet gradient into the colour, driven by the `heat` vertex colour (R)."""
-    vc = nt.nodes.new("ShaderNodeVertexColor")
-    vc.layer_name = "heat"
-    sep = nt.nodes.new("ShaderNodeSeparateColor")
-    nt.links.new(vc.outputs["Color"], sep.inputs["Color"])
+def _heat_tint(nt, colour_out, strength: float, heat_range, heat_socket):
+    """Mix a straw -> bronze -> blue-violet gradient into the colour, driven by the baked heat (mask B on UV1, the
+    same data the GLB and Unity use). The `heat` corner colour is not read here: Cycles returned 0 for it in
+    headless renders, which is why the T032 heat tint never showed."""
+    lo, hi = heat_range if heat_range else (HEAT_TINT_START, 1.0)
+
+    class _Sep:                                   # keep the code below reading `sep.outputs["Red"]`
+        outputs = {"Red": heat_socket}
+    sep = _Sep()
     ramp = nt.nodes.new("ShaderNodeValToRGB")
+    ramp.color_ramp.interpolation = "EASE"
     ramp.color_ramp.elements[0].position, ramp.color_ramp.elements[0].color = HEAT_RAMP[0]
     ramp.color_ramp.elements[1].position, ramp.color_ramp.elements[1].color = HEAT_RAMP[2]
     mid = ramp.color_ramp.elements.new(HEAT_RAMP[1][0])
     mid.color = HEAT_RAMP[1][1]
-    hot = nt.nodes.new("ShaderNodeMapRange")       # 0 below HEAT_TINT_START, 1 at full heat
-    hot.inputs["From Min"].default_value = HEAT_TINT_START
-    hot.inputs["From Max"].default_value = 1.0
-    nt.links.new(sep.outputs["Red"], hot.inputs["Value"])
-    nt.links.new(hot.outputs["Result"], ramp.inputs["Fac"])
+    pos = nt.nodes.new("ShaderNodeMapRange")       # position along the ramp: 0 at lo, 1 at hi
+    pos.inputs["From Min"].default_value = lo
+    pos.inputs["From Max"].default_value = hi
+    nt.links.new(sep.outputs["Red"], pos.inputs["Value"])
+    nt.links.new(pos.outputs["Result"], ramp.inputs["Fac"])
+    fade = nt.nodes.new("ShaderNodeMapRange")      # smooth fade-in of the tint above lo
+    fade.interpolation_type = "SMOOTHSTEP"
+    fade.inputs["From Min"].default_value = lo
+    fade.inputs["From Max"].default_value = lo + (hi - lo) * HEAT_FADE
+    nt.links.new(sep.outputs["Red"], fade.inputs["Value"])
     fac = nt.nodes.new("ShaderNodeMath")
     fac.operation = "MULTIPLY"
     fac.use_clamp = True
     fac.inputs[1].default_value = strength
-    nt.links.new(hot.outputs["Result"], fac.inputs[0])
+    nt.links.new(fade.outputs["Result"], fac.inputs[0])
     mix = nt.nodes.new("ShaderNodeMix")
     mix.data_type = "RGBA"
     nt.links.new(fac.outputs[0], mix.inputs[0])

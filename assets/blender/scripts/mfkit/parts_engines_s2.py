@@ -13,8 +13,8 @@ from mathutils import Matrix, Vector
 
 from . import spec
 from .core import TAU, bell_profile
-from .engine_common import (TUBES_PER_TILE, actuator, bellows, chamber, gimbal_mount, harness, inducer,
-                            pipe_flange, pump, stiffener, volute)
+from .engine_common import (TUBES_PER_TILE, actuator, bellows, chamber, extension_joint, gimbal_mount, harness,
+                            inducer, mount_plate, pipe_flange, pump, stiffener, volute, weld_seams)
 from .pipeline import register
 
 FAMILY = "engine_s2"
@@ -60,7 +60,8 @@ def _vac_bell(mb, *, z_th, r_th, r_exit, seg, steps, wall, theta_n, theta_e, z_s
         mb.lathe(pts, s, mat, crease=60.0, heat=[min(1.0, heat_at(z) * hk) for _, z in pts], uv_u_repeat=rep)
     for pts, mat, rep, _hk in reversed(parts):
         inner = [(max(r - wall, 0.002), z) for r, z in reversed(pts)]
-        mb.lathe(inner, s, mat, crease=60.0, heat=[heat_at(z) for _, z in inner], uv_u_repeat=rep)
+        mat_in = "nozzle_inner" if mat == "nozzle_hot" else mat       # bronze copper-alloy liner inside regen sections
+        mb.lathe(inner, s, mat_in, crease=60.0, heat=[heat_at(z) for _, z in inner], uv_u_repeat=rep)
     r0 = prof[0][0]
     mb.lathe([(r0 - wall, 0.0), (r0, 0.0)], s, lip_mat or parts[0][1], heat=heat_exit)
     return r_at
@@ -201,10 +202,10 @@ def gen_hydrolox_vacuum(ctx):
                      low_repeat=5, heat_exit=0.15, lip_mat="nozzle_ablative")
     for z in (1.00, 1.24):                                     # two dark hat-band stiffeners on the tube wall
         stiffener(mb, r_at, z, 0.032, 0.008, s_main, "nozzle_hot", trim=None, heat=0.25)
-    # bolted joint ring between the tube wall and the extension + regen fuel inlet manifold just above it
-    stiffener(mb, r_at, z_split + 0.012, 0.044, 0.016, s_main, "engine_metal", trim="bolt_flange")
-    if mb.want(0):
-        mb.bolt_ring(r_at(z_split + 0.012) + 0.016, z_split + 0.012, 48, 0.0055, 0.007, axis="R")
+    stiffener(mb, r_at, 0.37, 0.030, 0.007, s_main, "nozzle_ablative", trim=None, heat=0.15)   # one on the extension
+    # bolted joint between the tube wall and the carbon extension (two flanges, bolt heads on top, nuts below; no
+    # weld on carbon) + regen fuel inlet manifold just above it
+    extension_joint(mb, r_at, z_split + 0.012, s_main, width=0.044, t=0.016, bolts=40, weld=False)
     z_m = z_split + 0.075
     r_m = r_at(z_m) + 0.030
     mb.torus(r_m, 0.026, z_m, s_main, 8 if mb.lod == 0 else 5, "engine_metal")
@@ -348,13 +349,15 @@ def gen_kerolox_vacuum(ctx):
     r_at = _vac_bell(mb, z_th=z_th, r_th=r_th, r_exit=r_exit, seg=80, steps=30, wall=0.008, theta_n=th_n,
                      theta_e=th_e, z_split=z_split, mat_up="nozzle_hot", mat_low="nozzle_radiative", tubes=72,
                      low_repeat=6, heat_exit=0.30, heat_throat=1.0, low_heat=1.15, lip_mat="nozzle_radiative")
+    # extension: exit ring + two unevenly spaced stiffeners (VISUAL_TARGET 2.2: no hoop stack), four longitudinal
+    # sheet weld seams (LOD0) between the joint weld and the exit ring
     stiffener(mb, r_at, 1.05, 0.06, 0.012, s_main, "nozzle_radiative", trim=None, heat=0.45)
+    stiffener(mb, r_at, 1.74, 0.045, 0.010, s_main, "nozzle_radiative", trim=None, heat=0.6)
     stiffener(mb, r_at, 0.085, 0.05, 0.008, s_main, "nozzle_radiative", trim=None, heat=0.2)   # inside the 3.0 m envelope
+    weld_seams(mb, r_at, 0.20, z_split - 0.06, 4, width=0.028, t=0.004, phase=math.radians(20.0), heat=0.5)
     stiffener(mb, r_at, z_split + 0.20, 0.04, 0.008, mb.seg(48, 12), "nozzle_hot", trim=None, heat=0.3)
-    # joint flange (regen bell <-> extension)
-    stiffener(mb, r_at, z_split + 0.005, 0.05, 0.020, s_main, "engine_metal", trim="bolt_flange")
-    if mb.want(0):
-        mb.bolt_ring(r_at(z_split) + 0.020, z_split + 0.005, 44, 0.007, 0.008, axis="R")
+    # joint (regen bell <-> extension): two bolted flanges, parting line, weld bead on the extension side
+    extension_joint(mb, r_at, z_split + 0.005, s_main, width=0.05, t=0.020, bolts=44)
     # turbine exhaust manifold on the top of the extension, regen fuel inlet manifold just above the joint
     z_xm = z_split - 0.13
     r_xm = r_at(z_xm) + 0.058
@@ -471,7 +474,7 @@ def gen_kerolox_vacuum(ctx):
     ctx.decal("fluid_rp1", 3.10, math.radians(-30.0), (0.12, 0.03), r_at=lambda z: pr + 0.001, center=(px, 0.0),
               z_max=length)
     _finish(ctx, pid, z_piv, dict(cycle="gas generator", regen_tubes=72,
-                                  soot=dict(z0_m=0.0, z1_m=0.45, strength=0.6)))
+                                  soot=dict(z0_m=0.0, z1_m=0.85, strength=0.9)))
 
 
 # --------------------------------------------------------------------------- 3. Raptor Vacuum class
@@ -644,14 +647,16 @@ def gen_hypergolic_storable(ctx):
     r_at = _vac_bell(mb, z_th=z_th, r_th=r_th, r_exit=r_exit, seg=72, steps=26, wall=0.010, theta_n=th_n,
                      theta_e=th_e, z_split=z_split, mat_up="nozzle_ablative", mat_low="nozzle_radiative",
                      low_repeat=6, heat_exit=0.30, heat_throat=1.0, low_heat=1.15, lip_mat="nozzle_radiative")
+    # extension: exit ring + two unevenly spaced stiffeners (no hoop stack), four sheet weld seams (LOD0)
     stiffener(mb, r_at, 1.05, 0.06, 0.012, s_main, "nozzle_radiative", trim=None, heat=0.5)
+    stiffener(mb, r_at, 1.82, 0.045, 0.010, s_main, "nozzle_radiative", trim=None, heat=0.65)
     stiffener(mb, r_at, 0.085, 0.05, 0.008, s_main, "nozzle_radiative", trim=None, heat=0.2)
-    # bolted joint between ablative chamber and extension
+    weld_seams(mb, r_at, 0.20, z_split - 0.07, 4, width=0.026, t=0.004, phase=math.radians(0.0), heat=0.5)
+    # bolted joint between ablative chamber and extension: two flanges, parting line, nuts below and a weld bead on
+    # the extension side (no bolt heads on top: the chamber overwrap starts on the upper flange)
     r_s = r_at(z_split)
     seg_c = mb.seg(40, 12)
-    stiffener(mb, r_at, z_split + 0.008, 0.052, 0.034, s_main, "engine_metal", trim="bolt_flange")
-    if mb.want(0):
-        mb.bolt_ring(r_s + 0.034, z_split + 0.008, 36, 0.008, 0.010, axis="R")
+    extension_joint(mb, r_at, z_split + 0.008, s_main, width=0.052, t=0.034, bolts=36, top_bolts=False)
     # thick carbon-phenolic chamber (nozzle_ablative wrap) with two retention bands
     z0 = z_split + 0.034
     mb.lathe([(r_at(z0), z0), (r_at(z0) + 0.04, z0), (0.255, z_th - 0.07), (0.245, z_th + 0.03),
@@ -684,11 +689,9 @@ def gen_hypergolic_storable(ctx):
     # thrust mount plate (top face = mount plane) and the strut cone
     r_pl = e["mount_d"] / 2.0
     z_pl = length - 0.06
-    mb.lathe([(0.0, z_pl), (r_pl, z_pl), (r_pl, length), (0.0, length)], mb.seg(32, 12), "engine_metal")
+    mount_plate(mb, z_top=length, r=r_pl, plate_h=length - z_pl, seg=mb.seg(32, 12), r_hub=0.215)
     mb.lathe([(0.12, z_pl - 0.10), (0.20, z_pl)], mb.seg(24, 10), "engine_metal")
     mb.lathe([(0.0, z_pl - 0.10), (0.12, z_pl - 0.10)], mb.seg(24, 10), "engine_metal")
-    if mb.want(0):
-        mb.bolt_ring(r_pl * 0.86, z_pl, 16, 0.012, -0.014)
     with mb.radial(4, phase=math.pi / 4.0):
         apex = (r_pl - 0.03, 0.0, z_pl + 0.01)
         mb.box((0.07, 0.10, 0.07), "engine_metal", center=(r_pl - 0.03, 0.0, z_pl - 0.025))
@@ -699,17 +702,21 @@ def gen_hypergolic_storable(ctx):
 
     # ---- bipropellant valve packages (fuel +Y, oxidiser -Y): radial valve body, two ball valves with GN2 actuators,
     # D1/D2 feed from the stage interface (2 bellows each), D3/D4 valve -> injector manifold (2 bellows each)
+    # game_value: the valve bodies and actuator cans are drawn ~35 % larger than a scaled AJ10 so the packages read
+    # from the 3/4 Build Bay camera (RUBRIC M3); the cans stand 0.25 m proud of the injector top, under the plate.
     z_v = 3.55
     for sg in (1.0, -1.0):
-        mb.cyl((0.0, sg * 0.40, z_v), (0.0, sg * 0.61, z_v), 0.045, mb.seg(12, 8), "engine_metal", caps=True)
+        mb.cyl((0.0, sg * 0.40, z_v), (0.0, sg * 0.61, z_v), 0.052, mb.seg(12, 8), "engine_metal", caps=True)
+        mb.box((0.075, 0.20, 0.085), "engine_metal", center=(0.0, sg * 0.5075, z_v - 0.035))         # valve block
         for yv in (0.45, 0.565):
-            mb.sphere((0.0, sg * yv, z_v), 0.070, mb.seg(14, 8), mb.steps(7, 4), "engine_metal", scale=(1.0, 0.85, 1.0))
-            mb.cyl((0.0, sg * yv, z_v + 0.06), (0.0, sg * yv, z_v + 0.09), 0.018, mb.seg(8, 6), "engine_metal")
-            mb.cyl((0.0, sg * yv, z_v + 0.09), (0.0, sg * yv, z_v + 0.17), 0.040, mb.seg(12, 8), "detail_dark")
-            mb.cyl((0.0, sg * yv, z_v + 0.17), (0.0, sg * yv, z_v + 0.18), 0.044, mb.seg(12, 8), "engine_metal")
+            mb.sphere((0.0, sg * yv, z_v), 0.092, mb.seg(16, 8), mb.steps(8, 4), "engine_metal", scale=(1.0, 0.62, 1.0))
+            mb.cyl((0.0, sg * yv, z_v + 0.07), (0.0, sg * yv, z_v + 0.11), 0.022, mb.seg(8, 6), "engine_metal")
+            mb.cyl((0.0, sg * yv, z_v + 0.11), (0.0, sg * yv, z_v + 0.23), 0.052, mb.seg(14, 8), "detail_dark")
+            mb.cyl((0.0, sg * yv, z_v + 0.23), (0.0, sg * yv, z_v + 0.245), 0.057, mb.seg(14, 8), "engine_metal")
+            mb.cyl((0.0, sg * yv, z_v + 0.105), (0.0, sg * yv, z_v + 0.118), 0.057, mb.seg(14, 8), "engine_metal")
             if mb.want(0):
                 with mb.xform(rot_z=math.pi / 2.0 * sg):
-                    mb.box((0.03, 0.05, 0.04), "engine_metal", center=(yv, 0.07, z_v + 0.11))   # position switch
+                    mb.box((0.04, 0.06, 0.05), "engine_metal", center=(yv, 0.085, z_v + 0.15))   # position switch
         pipe_flange(mb, (0.0, sg * 0.405, z_v), (0, sg, 0), 0.045)
         pipe_flange(mb, (0.0, sg * 0.605, z_v), (0, sg, 0), 0.045)
         mb.tube([(0.0, sg * 0.61, z_v), (0.0, sg * 0.66, z_v), (0.0, sg * 0.66, z_v + 0.06)], 0.04,
@@ -732,7 +739,8 @@ def gen_hypergolic_storable(ctx):
         actuator(mb, lug, top, 0.042)
         with mb.xform(rot_z=a):
             mb.box((0.15, 0.06, 0.07), "engine_metal", center=(r_s + 0.075, 0.0, z_split + 0.01))
-            mb.box((0.44, 0.09, 0.06), "engine_metal", center=(0.545, 0.0, length - 0.03))      # outrigger arm
+            mb.box((0.44, 0.09, 0.056), "engine_metal", center=(0.545, 0.0, length - 0.032))    # outrigger arm (top
+            # 4 mm under the mount plane: no coplanar faces with the plate top)
             mb.box((0.10, 0.08, 0.05), "engine_metal", center=(0.70, 0.0, length - 0.085))
 
     # ---- lines: 4 GN2 actuation lines (braided), chamber pressure + 2 extension temperature lines, purge
@@ -802,7 +810,7 @@ def gen_solid_kick_motor(ctx):
         mb.bolt_ring(0.165, 0.68, 20, 0.011, -0.014)
 
     # ---- titanium case: girth weld at the equator, bolted flange where the payload attach skirt joins
-    mb.sphere((0.0, 0.0, zc), r_case, seg, mb.steps(24, 10), "engine_metal")
+    mb.sphere((0.0, 0.0, zc), r_case, seg, mb.steps(24, 10), "engine_metal_satin")   # satin: no brushing to band (M2)
     stiffener(mb, r_sph, zc, 0.030, 0.004, seg, "engine_metal", trim="weld_bead")
     z_fl = zc + 0.37
     stiffener(mb, r_sph, z_fl, 0.040, 0.016, seg, "engine_metal", trim="bolt_flange")

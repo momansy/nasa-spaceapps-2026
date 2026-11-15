@@ -41,26 +41,27 @@
    "albedo": "textures/engine_metal/engine_metal_albedo.jpg",
    "normal": "textures/engine_metal/engine_metal_normal.png",
    "orm": "textures/engine_metal/engine_metal_orm.jpg",
-   "tiling_m": 1.0,
-   "tint": "#8F949B",
+   "tiling_m": 0.5,
+   "tint": "#878C93",
    "metallic": [
-    0.88,
-    0.97
+    0.94,
+    0.94
    ],
    "roughness": [
-    0.15,
-    0.42
+    0.24,
+    0.4
    ],
-   "normal_strength": 1.0,
+   "normal_strength": 0.6,
    "hero": true,
    "source": [
     {
-     "name": "ambientCG Metal009 (2K-JPG)",
-     "url": "https://ambientcg.com/a/Metal009",
+     "name": "Procedural (numpy generator in assets/blender/materials/source/mat_metal.py)",
+     "url": "https://github.com/momansy/nasa-spaceapps-2026",
      "licence": "CC0 1.0"
     }
    ],
-   "value_type": "game_value"
+   "value_type": "game_value",
+   "note": "fine brushed steel; streaks run along UV0 v (along pipes and meridians)"
   },
   "detail_dark": {
    "albedo": "textures/detail_dark/detail_dark_albedo.jpg",
@@ -114,6 +115,10 @@
    "uv_mode": "angle",
    "tubes_per_tile": 12,
    "heat_tint": 0.55,
+   "heat_range": [
+    0.45,
+    0.66
+   ],
    "note": "regen tube wall; u repeats around the bell, v is metres along the meridian"
   },
   "nozzle_radiative": {
@@ -121,16 +126,16 @@
    "normal": "textures/nozzle_radiative/nozzle_radiative_normal.png",
    "orm": "textures/nozzle_radiative/nozzle_radiative_orm.jpg",
    "tiling_m": 1.0,
-   "tint": "#58555A",
+   "tint": "#5E5B5E",
    "metallic": [
-    0.6,
-    0.8
+    0.78,
+    0.78
    ],
    "roughness": [
     0.3,
-    0.7
+    0.5
    ],
-   "normal_strength": 0.8,
+   "normal_strength": 0.7,
    "hero": true,
    "source": [
     {
@@ -142,8 +147,12 @@
    "value_type": "game_value",
    "uv_mode": "angle",
    "slot": "nozzle_hot",
-   "heat_tint": 1.0,
-   "note": "radiatively cooled extension; vertex heat drives straw-bronze-violet tint"
+   "heat_tint": 0.45,
+   "heat_range": [
+    0.58,
+    1.0
+   ],
+   "note": "radiatively cooled extension; smooth axial straw-bronze-violet heat tint from the heat mask; fine hoop finish, no mottle"
   },
   "nozzle_ablative": {
    "albedo": "textures/nozzle_ablative/nozzle_ablative_albedo.jpg",
@@ -156,10 +165,10 @@
     0.05
    ],
    "roughness": [
-    0.6,
-    0.9
+    0.65,
+    0.88
    ],
-   "normal_strength": 1.0,
+   "normal_strength": 0.9,
    "hero": false,
    "source": [
     {
@@ -172,7 +181,7 @@
    "uv_mode": "angle",
    "slot": "nozzle_hot",
    "heat_tint": 0.0,
-   "note": "carbon-phenolic layered wrap; solid and ablative nozzles"
+   "note": "carbon-phenolic tape wrap (28 plies of varying overlap per repeat)"
   },
   "livery": {
    "albedo": "textures/livery/livery_albedo.jpg",
@@ -307,6 +316,67 @@
    "uv_mode": "atlas",
    "alpha": "clip",
    "alpha_cutoff": 0.5
+  },
+  "engine_metal_satin": {
+   "albedo": "textures/engine_metal_satin/engine_metal_satin_albedo.jpg",
+   "normal": "textures/engine_metal_satin/engine_metal_satin_normal.png",
+   "orm": "textures/engine_metal_satin/engine_metal_satin_orm.jpg",
+   "tiling_m": 0.5,
+   "tint": "#7E838A",
+   "metallic": [
+    0.9,
+    0.9
+   ],
+   "roughness": [
+    0.36,
+    0.52
+   ],
+   "normal_strength": 0.5,
+   "hero": false,
+   "source": [
+    {
+     "name": "Procedural (numpy generator in assets/blender/materials/source/mat_metal.py)",
+     "url": "https://github.com/momansy/nasa-spaceapps-2026",
+     "licence": "CC0 1.0"
+    }
+   ],
+   "value_type": "game_value",
+   "slot": "engine_metal",
+   "note": "satin cast / bead-blasted finish; variant of engine_metal (not a new slot)"
+  },
+  "nozzle_inner": {
+   "albedo": "textures/nozzle_inner/nozzle_inner_albedo.jpg",
+   "normal": "textures/nozzle_inner/nozzle_inner_normal.png",
+   "orm": "textures/nozzle_inner/nozzle_inner_orm.jpg",
+   "tiling_m": 0.5,
+   "tint": "#B57A45",
+   "metallic": [
+    0.92,
+    0.92
+   ],
+   "roughness": [
+    0.28,
+    0.5
+   ],
+   "normal_strength": 1.2,
+   "hero": false,
+   "source": [
+    {
+     "name": "Procedural (numpy generator in assets/blender/materials/source/mat_nozzle.py)",
+     "url": "https://github.com/momansy/nasa-spaceapps-2026",
+     "licence": "CC0 1.0"
+    }
+   ],
+   "value_type": "game_value",
+   "uv_mode": "angle",
+   "slot": "nozzle_hot",
+   "tubes_per_tile": 12,
+   "heat_tint": 0.35,
+   "heat_range": [
+    0.55,
+    1.0
+   ],
+   "note": "bronze copper-alloy liner inside regen bells and at the exit lip"
   }
  },
  "trim": {

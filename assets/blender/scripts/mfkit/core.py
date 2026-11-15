@@ -29,9 +29,13 @@ SLOTS = ("hull", "livery", "engine_metal", "nozzle_hot", "thermal", "detail_dark
          "trim", "decal", "foam")
 
 
-# Library-only material variants (T032): mapped from an engine's params, they are NOT new game slots. They share the
-# `nozzle_hot` slot semantics (heat mask, recolour); library.json gives each its own texture set.
-VARIANT_SLOTS = {"nozzle_radiative": "nozzle_hot", "nozzle_ablative": "nozzle_hot"}
+# Library-only material variants (T032): mapped from an engine's params, they are NOT new game slots. Each shares the
+# semantics of the slot it maps to (heat mask, recolour); library.json gives each its own texture set. Append only.
+#   nozzle_inner       copper-alloy hot-gas liner (bronze) on the inside of regen bells and at the exit lip
+#   engine_metal_satin bead-blasted / cast satin finish for pump housings, volutes and mount plates, so it reads
+#                      against the brushed ducts (T032 requeue, RUBRIC M2)
+VARIANT_SLOTS = {"nozzle_radiative": "nozzle_hot", "nozzle_ablative": "nozzle_hot",
+                 "nozzle_inner": "nozzle_hot", "engine_metal_satin": "engine_metal"}
 ALL_SLOTS = SLOTS + tuple(VARIANT_SLOTS)
 
 

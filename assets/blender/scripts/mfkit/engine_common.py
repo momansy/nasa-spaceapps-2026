@@ -34,9 +34,9 @@ def _interp(profile, z):
 
 
 def bell_nozzle(mb, *, z_exit, length, r_throat, r_exit, seg=48, steps=14, wall=0.012,
-                theta_n=32.0, theta_e=8.0, mat_out="nozzle_hot", mat_in="nozzle_hot",
+                theta_n=32.0, theta_e=8.0, mat_out="nozzle_hot", mat_in="nozzle_inner",
                 bands=0, band_mat="engine_metal", band_size=None, band_z0=0.08, band_z1=0.92,
-                heat_exit=0.30, heat_throat=1.0, lip_mat="engine_metal", z_split=None,
+                heat_exit=0.30, heat_throat=1.0, lip_mat="nozzle_inner", z_split=None,
                 mat_out_lower=None, tubes=None, u_repeat=None, stiffener_trim="hat_stringer"):
     """Double-walled bell from the exit plane (z_exit) up to the throat (z_exit + length).
 
@@ -100,6 +100,59 @@ def stiffener(mb, r_at, z, width, t, seg, mat="engine_metal", *, trim="hat_strin
     mb.lathe([(rb + t, z1), (rb, z1)], seg, mat, heat=heat)
 
 
+def extension_joint(mb, r_at, z, seg, *, width=0.05, t=0.02, bolts=36, mat="engine_metal", top_bolts=True,
+                    weld=True, heat=0.3):
+    """Bolted joint between a regen bell and its nozzle extension (RUBRIC M3), centred at height z.
+
+    Two flanges (bell side above, extension side below) with a dark parting gap between them, both rims on the
+    bolt_flange trim row; at LOD0 bolt heads on top of the upper flange (`top_bolts`) and nuts under the lower one,
+    plus a weld bead where the extension skin meets its flange (`weld`, metal extensions only)."""
+    gap = max(0.003, width * 0.06)
+    hw = (width - gap) / 4.0
+    z_lo, z_hi = z - gap / 2.0 - hw, z + gap / 2.0 + hw
+    stiffener(mb, r_at, z_lo, hw * 2.0, t, seg, mat, trim="bolt_flange", heat=heat)
+    stiffener(mb, r_at, z_hi, hw * 2.0, t * 0.92, seg, mat, trim="bolt_flange", heat=heat)
+    mb.lathe([(r_at(z - gap / 2.0) + t * 0.5, z - gap / 2.0), (r_at(z + gap / 2.0) + t * 0.5, z + gap / 2.0)], seg,
+             "detail_dark", heat=heat)                                              # parting line
+    if weld:
+        stiffener(mb, r_at, z - width / 2.0 - 0.010, 0.014, 0.0035, seg, mat, trim="weld_bead", heat=heat)
+    if not mb.want(0):
+        return
+    br = min(t * 0.30, 0.009)
+    z_top, z_bot = z + width / 2.0, z - width / 2.0
+    if top_bolts:
+        mb.bolt_ring(r_at(z_top) + t * 0.5, z_top, bolts, br, br * 1.2, mat)
+    mb.bolt_ring(r_at(z_bot) + t * 0.5, z_bot, bolts, br, -br * 1.2, mat, phase=math.pi / bolts)
+
+
+def weld_seams(mb, r_at, z0, z1, n, *, width=0.022, t=0.004, steps=12, phase=0.0, heat=0.3):
+    """`n` longitudinal weld seams on a surface of revolution between z0 and z1 (sheet-metal extensions, RUBRIC M3):
+    a low trapezoid bead of constant metric width on the weld_bead trim row (u along the seam), tapering to the wall
+    at both ends so it needs no end caps. LOD0 only."""
+    if not mb.want(0) or z1 <= z0:
+        return
+    v0, v1 = trim_range("weld_bead")
+    vs = (v0, v0 + (v1 - v0) * 0.2, v0 + (v1 - v0) * 0.8, v1)
+    ns = mb.steps(steps, 4)
+    zs = [z0 + (z1 - z0) * i / ns for i in range(ns + 1)]
+    for k in range(n):
+        ang = phase + TAU * k / n
+        rows, us = [], [0.0]
+        for i, z in enumerate(zs):
+            r = r_at(z)
+            hw = width / (2.0 * r)
+            tt = 0.0 if i in (0, ns) else t
+            pts = ((r, ang - hw), (r + tt, ang - hw * 0.55), (r + tt, ang + hw * 0.55), (r, ang + hw))
+            rows.append([mb._vert((rr * math.cos(a), rr * math.sin(a), z), heat) for rr, a in pts])
+            if i:
+                us.append(us[-1] + math.hypot(r - r_at(zs[i - 1]), z - zs[i - 1]))
+        for i in range(ns):
+            lo, hi = rows[i], rows[i + 1]
+            for j in range(3):
+                mb._face([lo[j], lo[j + 1], hi[j + 1], hi[j]], "trim", True,
+                         [(us[i], vs[j]), (us[i], vs[j + 1]), (us[i + 1], vs[j + 1]), (us[i + 1], vs[j])])
+
+
 def chamber(mb, *, z_throat, r_throat, r_chamber, length, seg=32, mat="engine_metal",
             dome=True, heat=0.5, flange=True):
     """Combustion chamber above the throat: converging cone, barrel, injector head.
@@ -128,7 +181,7 @@ def chamber(mb, *, z_throat, r_throat, r_chamber, length, seg=32, mat="engine_me
     return z_top
 
 
-def gimbal_mount(mb, *, z_top, d, h, seg=24, mat="engine_metal", plate_mat="engine_metal"):
+def gimbal_mount(mb, *, z_top, d, h, seg=24, mat="engine_metal", plate_mat="engine_metal_satin"):
     """Gimbal bearing + thrust mount plate whose top face is exactly at z_top.
 
     d: mount plate diameter, h: total height. Returns z of the gimbal pivot."""
@@ -136,48 +189,114 @@ def gimbal_mount(mb, *, z_top, d, h, seg=24, mat="engine_metal", plate_mat="engi
     r = d / 2.0
     plate_h = min(h * 0.22, 0.08)
     z_plate = z_top - plate_h
-    # mount plate (closed puck, top face = interface plane)
-    mb.lathe([(0.0, z_plate), (r, z_plate), (r, z_top), (0.0, z_top)], s, plate_mat)
-    if mb.want(0):
-        mb.bolt_ring(r * 0.82, z_plate - 0.0, max(8, int(r * 36)), max(0.006, r * 0.05),
-                     -max(0.008, r * 0.06), mat)
-    # bearing block: two stacked spherical-ish pieces
+    # mount plate (top face = interface plane; pockets, bolt circle and chamfer on the underside / rim only)
+    mount_plate(mb, z_top=z_top, r=r, plate_h=plate_h, seg=s, mat=plate_mat, bolt_mat=mat)
+    # bearing block: two stacked spherical-ish pieces (the flare stops inside the pocket ring)
     z_piv = z_top - h * 0.55
-    mb.lathe([(r * 0.42, z_piv), (r * 0.60, z_piv + (z_plate - z_piv) * 0.5), (r * 0.72, z_plate)], s, mat,
+    mb.lathe([(r * 0.42, z_piv), (r * 0.54, z_piv + (z_plate - z_piv) * 0.5), (r * 0.61, z_plate)], s, mat,
              crease=60.0)
     mb.sphere((0, 0, z_piv), r * 0.46, s, mb.steps(6, 4), mat)
     mb.lathe([(r * 0.55, z_top - h), (r * 0.50, z_piv - r * 0.15), (r * 0.40, z_piv)], s, mat, crease=60.0)
     return z_piv
 
 
+def mount_plate(mb, *, z_top, r, plate_h, seg, mat="engine_metal_satin", bolt_mat="engine_metal", r_hub=None,
+                pockets=None):
+    """Thrust mount plate. The top face is exactly the interface disc (height z_top, radius r) and nothing rises
+    above it: the detail lives on the underside and the rim (RUBRIC M3). LOD0: an annular lightening recess split
+    into `pockets` bays by radial ribs, a bolt circle (nuts hanging below), a chamfered lower edge with a stepped
+    rim. LOD1: the chamfered disc. `seg` is a radial count already passed through mb.seg()."""
+    zp = z_top - plate_h
+    c = plate_h * 0.30                                           # lower-edge chamfer
+    if not mb.want(0):
+        mb.lathe([(0.0, zp), (r - c, zp), (r, zp + c), (r, z_top), (0.0, z_top)], seg, mat)
+        return
+    r_in = r_hub if r_hub is not None else r * 0.64
+    r_out = r * 0.80
+    dep = plate_h * 0.45                                         # pocket depth (stays 55 % below the top face)
+    r_low = r - plate_h * 0.12                                   # stepped lower rim
+    z_step = zp + plate_h * 0.55
+    mb.lathe([(0.0, zp), (r_in, zp), (r_in, zp + dep), (r_out, zp + dep), (r_out, zp), (r_low - c, zp),
+              (r_low, zp + c), (r_low, z_step), (r, z_step), (r, z_top), (0.0, z_top)], seg, mat)
+    n = pockets or (8 if r > 0.15 else 6)
+    w = max(0.004, (r_out - r_in) * 0.32)
+    emb = min(0.004, (r_out - r_in) * 0.1)                       # ribs bite into the hub and the outer ring
+    with mb.radial(n, phase=math.pi / n):
+        mb.box((r_out - r_in + 2.0 * emb, w, dep + 0.002), mat, center=((r_in + r_out) / 2.0, 0.0, zp + dep / 2.0 + 0.001))
+    mb.bolt_ring((r_out + r_low - c) / 2.0, zp, max(8, min(20, int(r * 40))), max(0.005, r * 0.035),
+                 -max(0.007, r * 0.05), bolt_mat)
+
+
+CLEVIS_SETBACK = 2.0          # pin distance from the bracket point, in clevis radii (the fork stays outside the bracket)
+
+
 def actuator(mb, p_engine, p_frame, r, mat="engine_metal", rod_mat="engine_metal", seg=8):
-    """Gimbal actuator (hydraulic/electric strut): fat barrel + thin rod + clevis ends (two plates and a pin)."""
+    """Gimbal actuator (hydraulic/electric strut): fat barrel + thin rod + clevis ends.
+
+    p_engine / p_frame are the bracket points (engine lug, frame pad or outrigger). At LOD0 the frame-side pin sits
+    CLEVIS_SETBACK clevis radii in from its bracket point and a full fork (rounded cheeks, pin, rod eye, base boss
+    reaching back to the bracket) shows outside the bracket block instead of being buried in it (RUBRIC M5). The
+    engine-side end (usually hidden in its lug block) and LOD1 keep simple plates and a pin."""
     a, b = Vector(p_engine), Vector(p_frame)
     d = b - a
     length = d.length
     if length < 1e-6:
         return
     u = d / length
-    s = mb.seg(seg, 6)
-    mid = a + u * (length * 0.55)
-    mb.cyl(b, mid, r, s, mat, caps=True)
+    s = mb.seg(max(seg, 10), 6)
+    re, rf = r * 0.75, r * 1.10
+    kb = min(CLEVIS_SETBACK * rf, length * 0.18) if mb.want(0) else 0.0
+    pb = b - u * kb
+    mid = a + (pb - a) * 0.55
+    if mb.want(0):
+        mb.cyl(pb - u * rf * 0.78, mid, r, s, mat, caps=True)      # barrel stops short of the fork cheeks
+        with mb.xform(frame(mid, u)):                              # barrel collar at the rod seal
+            mb.band(r, -r * 0.16, r * 0.16, r * 0.06, s, mat)
+        clevis(mb, pb, u, rf, mat, reach=kb)
+    else:
+        mb.cyl(b, mid, r, s, mat, caps=True)
+        _clevis_simple(mb, b, u, rf * 0.86, mat)
     mb.cyl(mid, a, r * 0.45, s, rod_mat, caps=(False, True))
-    with mb.xform(frame(mid, u)):                                  # barrel collar at the rod seal
-        mb.band(r, -r * 0.16, r * 0.16, r * 0.06, s, mat)
-    for end, rr in ((a, r * 0.75), (b, r * 0.95)):
-        clevis(mb, end, u, rr, mat)
+    _clevis_simple(mb, a, u, re, mat)
 
 
-def clevis(mb, p, axis, r, mat="engine_metal"):
-    """U-shaped clevis at point p: two cheek plates with a cross pin, plates perpendicular to the strut."""
+def _clevis_axes(axis):
+    """(strut axis, pin axis, third axis): the pin is kept horizontal where possible so forks read consistently."""
     ax = Vector(axis).normalized()
-    side = ax.orthogonal().normalized()
-    other = ax.cross(side)
+    side = ax.cross(Vector((0.0, 0.0, 1.0)))
+    side = side.normalized() if side.length > 1e-3 else ax.orthogonal().normalized()
+    return ax, side, ax.cross(side)
+
+
+def _clevis_simple(mb, p, axis, r, mat):
+    """LOD1 clevis: two cheek plates and a cross pin centred on p."""
+    ax, side, other = _clevis_axes(axis)
     t = r * 0.28
     for k in (-1, 1):
         c = Vector(p) + side * (k * r * 0.62)
         mb.box((t, r * 1.5, r * 1.9), mat, matrix=_box_frame(c, ax, other, side))
     mb.cyl(Vector(p) - side * r * 0.95, Vector(p) + side * r * 0.95, r * 0.26, mb.seg(8, 6), mat, caps=True)
+
+
+def clevis(mb, p, axis, r, mat="engine_metal", *, reach=None):
+    """Clevis fork with its pin at p. `axis` points from the pin toward the bracket the fork is fixed to.
+
+    Two cheeks with rounded ends around the pin, a cross pin with proud ends, the strut's rod eye between the
+    cheeks with a short neck back toward the strut, and a round base boss that reaches `reach` (default 1.6 r)
+    toward the bracket. ~170 triangles."""
+    ax, side, other = _clevis_axes(axis)
+    p = Vector(p)
+    t = r * 0.28
+    reach = max(reach if reach is not None else r * 1.6, r * 1.3)
+    s8 = mb.seg(8, 6)
+    for k in (-1, 1):
+        c = p + side * (k * r * 0.62)
+        mb.cyl(c - side * (t / 2.0), c + side * (t / 2.0), r * 0.62, s8, mat, caps=True)        # rounded cheek end
+        mb.box((t, r * 1.24, r * 1.05), mat, matrix=_box_frame(c + ax * (r * 0.52), ax, other, side))
+    mb.cyl(p - side * r * 0.95, p + side * r * 0.95, r * 0.24, s8, mat, caps=True)              # cross pin
+    mb.cyl(p - side * r * 0.44, p + side * r * 0.44, r * 0.50, s8, mat, caps=False)             # rod eye
+    mb.cyl(p - ax * r * 0.80, p - ax * r * 0.35, r * 0.30, 6, mat, caps=False)                 # eye neck
+    mb.cyl(p + ax * r * 1.0, p + ax * reach, r * 0.86, s8, mat, caps=True)                      # base boss
 
 
 def _box_frame(c, ax, other, side):
@@ -271,14 +390,22 @@ def harness(mb, path, r=0.008, *, clamps=3, mat="detail_dark", braided=False):
             acc += seg_len
 
 
-def volute(mb, p0, p1, r_pump, mat="engine_metal", *, z_frac=0.36, turns=0.88, outlet_len=None, end_angle=90.0):
+def volute(mb, p0, p1, r_pump, mat="engine_metal_satin", *, z_frac=0.36, turns=0.88, outlet_len=None, end_angle=90.0,
+           housing=False, sec_scale=1.0):
     """Scroll (volute) case around a turbopump axis p0->p1: a tube whose section and distance from the axis grow
-    along the spiral, ending in a tangential discharge. Returns (outlet point, outlet direction) in world space."""
+    along the spiral, ending in a tangential discharge. Returns (outlet point, outlet direction) in world space.
+
+    housing=True builds the scroll as a cast case fused to the barrel instead of a free pipe: a D-section (flat
+    top and bottom faces running into the barrel, round outer wall) whose height and reach grow around the spiral,
+    so the scroll and its tongue read at Build Bay distance (RUBRIC M5). sec_scale scales the scroll section."""
     a, b = Vector(p0), Vector(p1)
     length = (b - a).length
     n = 22 if mb.lod == 0 else 12
     r0, r1 = r_pump * 1.05, r_pump * 1.55
-    sec0, sec1 = r_pump * 0.16, r_pump * 0.34
+    sec0, sec1 = r_pump * 0.16 * sec_scale, r_pump * 0.34 * sec_scale
+    if housing:
+        return _volute_case(mb, a, b, r_pump, mat, n, r0, r1, sec0, sec1, length * z_frac, turns, end_angle,
+                            outlet_len)
     path, radii = [], []
     for i in range(n + 1):
         k = i / n
@@ -298,6 +425,41 @@ def volute(mb, p0, p1, r_pump, mat="engine_metal", *, z_frac=0.36, turns=0.88, o
     return m @ p_end, (m.to_3x3() @ tang).normalized()
 
 
+def _volute_case(mb, a, b, r_pump, mat, n, r0, r1, sec0, sec1, zc, turns, end_angle, outlet_len):
+    """Cast scroll case for volute(housing=True): a lofted D-section around the pump axis plus the discharge."""
+    m_sec = 7 if mb.lod == 0 else 4                     # points on the round outer wall (bottom -> top)
+    r_in = r_pump * 0.9                                 # flat faces start inside the barrel
+    tot = turns * TAU
+    profs = []
+    for i in range(n + 1):
+        k = i / n
+        ang = math.radians(end_angle) - tot * (1.0 - k)
+        rr, s = r0 + (r1 - r0) * k, sec0 + (sec1 - sec0) * k
+        wall = [(rr + s * math.cos(th), zc + s * math.sin(th))
+                for th in (-math.pi / 2.0 + math.pi * j / m_sec for j in range(m_sec + 1))]
+        profs.append((ang, [(r_in, zc - s)] + wall + [(r_in, zc + s)]))
+    with mb.xform(frame(a, b - a)):
+        # three runs with their own vertices so the flat faces keep hard edges: bottom face, outer wall, top face
+        # (ring i -> i+1 runs counter-clockwise; each run's profile runs bottom -> outer wall -> top: outward faces)
+        for j0, j1, smooth in ((0, 1, False), (1, m_sec + 1, True), (m_sec + 1, m_sec + 2, False)):
+            rings = [[mb._vert((rho * math.cos(ang), rho * math.sin(ang), z)) for rho, z in prof[j0:j1 + 1]]
+                     for ang, prof in profs]
+            for lo, hi in zip(rings, rings[1:]):
+                for j in range(j1 - j0):
+                    mb._face([lo[j], hi[j], hi[j + 1], lo[j + 1]], mat, smooth)
+        for (ang, prof), rev in ((profs[0], False), (profs[-1], True)):   # flat end caps (tongue / discharge face)
+            idx = [mb._vert((rho * math.cos(ang), rho * math.sin(ang), z)) for rho, z in prof]
+            mb._face(list(reversed(idx)) if rev else idx, mat, False)
+        last_ang = math.radians(end_angle)
+        tang = Vector((-math.sin(last_ang), math.cos(last_ang), 0.0))
+        p_start = Vector((r1 * math.cos(last_ang), r1 * math.sin(last_ang), zc))
+        out_len = outlet_len or r_pump * 1.3
+        p_end = p_start + tang * (out_len + sec1 * 0.5)
+        mb.tube([p_start - tang * sec1 * 0.3, p_end], sec1, mb.seg(12, 8), mat, radii=[sec1 * 0.92, sec1 * 0.85])
+    m = frame(a, b - a)
+    return m @ p_end, (m.to_3x3() @ tang).normalized()
+
+
 def inducer(mb, p, axis, r, mat="engine_metal"):
     """Pump inlet: a dark bore with a hub cone and four swept inducer blades visible inside the throat."""
     ax = Vector(axis).normalized()
@@ -310,7 +472,7 @@ def inducer(mb, p, axis, r, mat="engine_metal"):
                 mb.box((r * 0.72, r * 0.07, r * 0.18), mat, center=(r * 0.55, 0, -r * 0.12))
 
 
-def pump(mb, p0, p1, r, mat="engine_metal", *, volute=True, seg=16, ribs=0):
+def pump(mb, p0, p1, r, mat="engine_metal", *, volute=True, seg=16, ribs=0, housing_mat="engine_metal_satin"):
     """Turbopump body between two points: barrel with end bells, a weld-bead band and ribs. Add the scroll
     case with `volute()` (kept separate so the caller can route the discharge)."""
     a, b = Vector(p0), Vector(p1)
@@ -324,7 +486,7 @@ def pump(mb, p0, p1, r, mat="engine_metal", *, volute=True, seg=16, ribs=0):
     with mb.xform(m):
         prof = [(0.0, 0.0), (r * 0.55, 0.0), (r * 0.9, length * 0.08), (r, length * 0.18),
                 (r, length * 0.82), (r * 0.9, length * 0.92), (r * 0.55, length), (0.0, length)]
-        mb.lathe(prof, s, mat, crease=40.0)
+        mb.lathe(prof, s, housing_mat, crease=40.0)               # satin housing against brushed ducts (M2)
         if volute:
             mb.band(r, length * 0.60, length * 0.68, r * 0.14, s, mat, trim="weld_bead")
         if ribs and mb.want(0):

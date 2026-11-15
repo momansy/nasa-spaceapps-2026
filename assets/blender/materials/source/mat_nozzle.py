@@ -57,58 +57,101 @@ def build_nozzle_hot(lib, size=2048):
     R.record_material(lib, mid, albedo=a_p, normal=n_p, orm=o_p, tiling_m=0.5, tint="#4F5155",
                       metallic=(0.8, 0.9), roughness=(0.2, 0.6), normal_strength=2.0, hero=True,
                       sources=[PROC])
-    lib["materials"][mid].update(uv_mode="angle", tubes_per_tile=TUBES_PER_TILE, heat_tint=0.55,
+    lib["materials"][mid].update(uv_mode="angle", tubes_per_tile=TUBES_PER_TILE, heat_tint=0.55, heat_range=[0.45, 0.66],
                                  note="regen tube wall; u repeats around the bell, v is metres along the meridian")
     R.note_assets([PROC], f"textures/{mid}/", "Generated: tube-wall height field, braze grooves, faint weld seam (even albedo)")
     return sizes
 
 
-def build_nozzle_radiative(lib, size=2048):
-    """Smooth rolled dark sheet (niobium or carbon-carbon look) with faint hoop streaks and one longitudinal seam."""
+def _smear_cols(a: np.ndarray, k: int) -> np.ndarray:
+    """Tileable box blur of length k along axis 1 (u): streaks running around the bell (spin-forming marks)."""
+    ext = np.concatenate([a, a[:, :k]], axis=1)
+    c = np.cumsum(ext, axis=1, dtype=np.float64)
+    c = np.concatenate([np.zeros((a.shape[0], 1)), c], axis=1)
+    return ((c[:, k:k + a.shape[1]] - c[:, :a.shape[1]]) / k).astype(np.float32)
+
+
+def build_nozzle_radiative(lib, size=1024):
+    """Smooth spun niobium-alloy sheet: a fine hoop-direction finish, one faint panel seam per repeat, NO cloudy
+    mottle (T032 requeue, RUBRIC M2/M7). The colour story (straw -> bronze -> blue-violet heat tint, axial and
+    smooth) comes from the shader's heat ramp on the vertex / mask heat, not from this texture."""
     mid = "nozzle_radiative"
     a_p, n_p, o_p = _paths(mid)
     n = size
-    streak = T.fbm(n, 21, f_lo=1, f_hi=60, slope=1.0)
-    # anisotropic streaks along u: smear noise along the columns by averaging neighbours in one direction
-    k = 24
-    streak = sum(np.roll(streak, s, axis=1) for s in range(k)) / k
-    streak = T.zscore(streak)
+    rng = np.random.default_rng(21)
+    spin = T.zscore(_smear_cols(rng.standard_normal((n, n)).astype(np.float32), 96))
+    spin = (np.roll(spin, 1, 0) + 2.0 * spin + np.roll(spin, -1, 0)) / 4.0
+    spin = T.zscore(spin)
     u = (np.arange(n, dtype=np.float32) + 0.5) / n
-    seam = np.exp(-((u[None, :] - 0.5) / 0.004) ** 2) * np.ones((n, 1), np.float32)
-    patch = T.fbm(n, 22, f_lo=1, f_hi=5, slope=1.3)
-    lum = 0.62 + 0.05 * streak + 0.03 * patch - 0.12 * seam
-    rough = np.clip(0.46 + 0.05 * streak + 0.03 * patch, 0.3, 0.7)
-    height = 0.15 * streak + 0.6 * seam
-    sizes = [T.save(_grey(lum), a_p), T.save(T.normal_from_height(height.astype(np.float32), 1.2), n_p),
-             T.save(T.orm(np.clip(1 - 0.4 * seam, 0, 1), rough, 0.75), o_p)]
-    R.record_material(lib, mid, albedo=a_p, normal=n_p, orm=o_p, tiling_m=1.0, tint="#58555A",
-                      metallic=(0.6, 0.8), roughness=(0.3, 0.7), normal_strength=0.8, hero=True, sources=[PROC])
-    lib["materials"][mid].update(uv_mode="angle", slot="nozzle_hot", heat_tint=1.0,
-                                 note="radiatively cooled extension; vertex heat drives straw-bronze-violet tint")
-    R.note_assets([PROC], f"textures/{mid}/", "Generated: smeared noise streaks, one longitudinal seam")
+    seam = np.exp(-((u[None, :] - 0.5) / 0.0025) ** 2) * np.ones((n, 1), np.float32)
+    lum = 0.66 + 0.010 * spin - 0.06 * seam
+    rough = np.clip(0.38 + 0.020 * spin + 0.06 * seam, 0.30, 0.50)
+    height = 0.20 * spin + 0.45 * seam
+    sizes = [T.save(_grey(lum), a_p), T.save(T.normal_from_height(height.astype(np.float32), 0.9), n_p),
+             T.save(T.orm(np.clip(1 - 0.25 * seam, 0, 1), rough, 0.78), o_p)]
+    R.record_material(lib, mid, albedo=a_p, normal=n_p, orm=o_p, tiling_m=1.0, tint="#5E5B5E",
+                      metallic=(0.78, 0.78), roughness=(0.30, 0.50), normal_strength=0.7, hero=True, sources=[PROC])
+    lib["materials"][mid].update(uv_mode="angle", slot="nozzle_hot", heat_tint=0.45, heat_range=[0.58, 1.0],
+                                 note="radiatively cooled extension; smooth axial straw-bronze-violet heat tint from "
+                                      "the heat mask; fine hoop finish, no mottle")
+    R.note_assets([PROC], f"textures/{mid}/", "Generated: fine hoop-direction spin marks, one faint panel seam "
+                                              "per repeat (cloudy mottle removed in the T032 requeue)")
     return sizes
 
 
 def build_nozzle_ablative(lib, size=1024):
-    """Matte carbon-phenolic with layered tape wrap at 35 degrees."""
+    """Matte carbon-phenolic tape wrap: many narrow plies of varying width at a shallow angle, low contrast, no
+    large-scale mottle, so the wrap reads as material rather than as a repeating tile."""
     mid = "nozzle_ablative"
     a_p, n_p, o_p = _paths(mid)
     n = size
     u = (np.arange(n, dtype=np.float32) + 0.5) / n
     uu, vv = np.meshgrid(u, u)
-    phase = (uu * 6.0 + vv * 6.0 * 0.7) % 1.0                        # diagonal ply bands, wraps in both axes
-    ply = T.smoothstep(0.0, 0.06, phase) * (1.0 - T.smoothstep(0.94, 1.0, phase))
-    edge = 1.0 - ply
-    weave = 0.5 + 0.5 * np.sin(uu * 2 * np.pi * 96) * np.sin(vv * 2 * np.pi * 96)
-    mott = T.fbm(n, 31, f_lo=2, f_hi=20)
-    lum = 0.36 + 0.05 * mott + 0.03 * (weave - 0.5) - 0.12 * edge
-    rough = np.clip(0.74 + 0.05 * mott + 0.04 * edge, 0.6, 0.9)
-    height = ply * 0.6 + 0.12 * weave
-    sizes = [T.save(_grey(lum), a_p), T.save(T.normal_from_height(height.astype(np.float32), 1.6), n_p),
-             T.save(T.orm(1.0 - 0.5 * edge, rough, 0.0), o_p)]
+    plies = 28
+    phase = uu * 1.0 + vv * plies                                     # one turn per repeat in u, 28 plies in v
+    idx = np.floor(phase)
+    frac = phase - idx
+    width = 0.80 + 0.18 * ((idx * 0.6180339) % 1.0)                   # each ply overlaps the next by a varying amount
+    edge = T.smoothstep(width - 0.08, width, frac) * (1.0 - T.smoothstep(0.98, 1.0, frac))
+    tone = ((idx * 0.7548776) % 1.0) - 0.5                            # tiny per-ply tone change
+    weave = 0.5 + 0.5 * np.sin(uu * 2 * np.pi * 160) * np.sin(vv * 2 * np.pi * 160)
+    grain = T.fbm(n, 31, f_lo=60, f_hi=240, slope=0.5)
+    lum = 0.38 + 0.025 * tone + 0.015 * (weave - 0.5) + 0.008 * grain - 0.07 * edge
+    rough = np.clip(0.76 + 0.03 * grain + 0.05 * edge, 0.65, 0.88)
+    height = 0.5 * (1.0 - edge) + 0.10 * weave + 0.05 * grain
+    sizes = [T.save(_grey(lum), a_p), T.save(T.normal_from_height(height.astype(np.float32), 1.2), n_p),
+             T.save(T.orm(1.0 - 0.35 * edge, rough, 0.0), o_p)]
     R.record_material(lib, mid, albedo=a_p, normal=n_p, orm=o_p, tiling_m=0.8, tint="#40342C",
-                      metallic=(0.0, 0.05), roughness=(0.6, 0.9), normal_strength=1.0, hero=False, sources=[PROC])
+                      metallic=(0.0, 0.05), roughness=(0.65, 0.88), normal_strength=0.9, hero=False, sources=[PROC])
     lib["materials"][mid].update(uv_mode="angle", slot="nozzle_hot", heat_tint=0.0,
-                                 note="carbon-phenolic layered wrap; solid and ablative nozzles")
-    R.note_assets([PROC], f"textures/{mid}/", "Generated: diagonal ply bands, weave, mottling")
+                                 note="carbon-phenolic tape wrap (28 plies of varying overlap per repeat)")
+    R.note_assets([PROC], f"textures/{mid}/", "Generated: 28 varying-width tape plies, fine weave and grain, "
+                                              "no large-scale mottle (T032 requeue)")
+    return sizes
+
+
+def build_nozzle_inner(lib, size=1024):
+    """Copper-alloy hot-gas liner on the inside of regen bells and the exit lip (frames 01 and 02 show a warm bronze
+    inner rim). Physical basis: regen chambers use copper-alloy liners (e.g. NARloy-Z, GRCop-84); the bronze tone
+    is stylised (game_value). Same tube pattern as nozzle_hot, softer."""
+    mid = "nozzle_inner"
+    a_p, n_p, o_p = _paths(mid)
+    n = size
+    u = (np.arange(n, dtype=np.float32) + 0.5) / n
+    uu, vv = np.meshgrid(u, u)
+    f = (uu * TUBES_PER_TILE) % 1.0
+    tube = np.sqrt(np.clip(1.0 - (2.0 * f - 1.0) ** 2, 0.0, 1.0))
+    groove = 1.0 - T.smoothstep(0.0, 0.10, tube)
+    grain = T.fbm(n, 41, f_lo=40, f_hi=200, slope=0.6)
+    lum = 0.86 + 0.012 * grain - 0.12 * groove
+    rough = np.clip(0.34 + 0.02 * grain + 0.12 * groove, 0.28, 0.50)
+    height = 0.5 * tube - 0.3 * groove
+    sizes = [T.save(_grey(lum), a_p), T.save(T.normal_from_height(height.astype(np.float32), 2.0), n_p),
+             T.save(T.orm(np.clip(1.0 - 0.4 * groove, 0, 1), rough, 0.92), o_p)]
+    R.record_material(lib, mid, albedo=a_p, normal=n_p, orm=o_p, tiling_m=0.5, tint="#B57A45",
+                      metallic=(0.92, 0.92), roughness=(0.28, 0.50), normal_strength=1.2, hero=False, sources=[PROC])
+    lib["materials"][mid].update(uv_mode="angle", slot="nozzle_hot", tubes_per_tile=TUBES_PER_TILE, heat_tint=0.35,
+                                 heat_range=[0.55, 1.0],
+                                 note="bronze copper-alloy liner inside regen bells and at the exit lip")
+    R.note_assets([PROC], f"textures/{mid}/", "Generated: soft tube-wall height field, bronze tint in library.json")
     return sizes

@@ -58,6 +58,8 @@ MATERIAL_LOOK = {
     "foam": dict(color=(0.30, 0.16, 0.065), metallic=0.0, roughness=0.80),                   # burnt amber SOFI
     "nozzle_radiative": dict(color=(0.10, 0.10, 0.11), metallic=0.70, roughness=0.46),     # T032 variants
     "nozzle_ablative": dict(color=(0.050, 0.040, 0.034), metallic=0.0, roughness=0.75),
+    "nozzle_inner": dict(color=(0.46, 0.20, 0.07), metallic=0.92, roughness=0.36),         # T032 requeue variants
+    "engine_metal_satin": dict(color=(0.42, 0.44, 0.47), metallic=0.90, roughness=0.44),
     # T017 slots (style guide materials table; linear RGB, game_value art choices)
     "gantry": dict(color=(0.0056, 0.0242, 0.0513), metallic=0.20, roughness=0.62),       # Console navy #112B40
     "concrete": dict(color=(0.20, 0.205, 0.20), metallic=0.0, roughness=0.88),
