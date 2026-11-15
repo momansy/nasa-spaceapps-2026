@@ -1,14 +1,15 @@
-// T039: the scripted mock session in Spanish, French and Portuguese (set LANGS=es to pick one).
-// Saves screenshots of the join screen, role card, part card, flight console and debrief to
-// orchestration/evidence/T039/<lang>/, and fails on a missing string, a console error or any
+// T039/T041: the scripted mock session in Spanish, French, Portuguese and Hindi (LANGS=fr,hi picks
+// some; EVIDENCE=T041 picks the evidence folder, default T039). Saves screenshots of the join
+// screen, role card, part card, flight console and debrief to
+// orchestration/evidence/<id>/<lang>/, and fails on a missing string, a console error or any
 // horizontal overflow. Run with `npx playwright test session-lang`.
 import { expect, test, type Page } from '@playwright/test';
 import { mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const SHOTS = join(dirname(fileURLToPath(import.meta.url)), '../../orchestration/evidence/T039');
-const LANGS = (process.env.LANGS ?? 'es,fr,pt').split(',');
+const SHOTS = join(dirname(fileURLToPath(import.meta.url)), `../../orchestration/evidence/${process.env.EVIDENCE ?? 'T039'}`);
+const LANGS = (process.env.LANGS ?? 'es,fr,pt,hi').split(',');
 
 async function shot(page: Page, lang: string, name: string) {
   const dir = join(SHOTS, lang);

@@ -11,7 +11,6 @@
   "ui.vote.kind.ABORT": "Voto rápido · aborto",
   "ui.vote.kind.FLIGHT_DECISION": "Voto rápido · vuelo",
   "ui.vote.kind.MCM": "Momento de Control de Misión",
-
   "ui.vote.stage.REVEAL": "Revelar",
   "ui.vote.stage.PREDICT": "Predecir",
   "ui.vote.stage.INSPECT": "Inspeccionar",
@@ -21,7 +20,6 @@
   "ui.vote.stage.TIEBREAK_PICK": "Desempate: elección",
   "ui.vote.stage.RESULT": "Resultado",
   "ui.vote.stage.CLOSED": "Cerrada",
-
   "ui.vote.timer": "Tiempo restante en esta etapa",
   "ui.vote.options_count": "{n} opciones",
   "ui.vote.reveal_hint": "Las tarjetas se abren en un momento. Mira la pantalla grande.",
@@ -32,7 +30,6 @@
   "ui.vote.spectator_hint": "Voto del público: solo consultivo.",
   "ui.vote.card_of": "Opción {i} de {n}",
   "ui.vote.go_to": "Mostrar la opción {i}",
-
   "ui.vote.cast": "Votar",
   "ui.vote.change": "Cambiar mi voto a esta",
   "ui.vote.yours": "Tu voto",
@@ -44,7 +41,6 @@
   "ui.vote.runoff_reset": "Segunda vuelta: se reiniciaron todos los votos. Vota de nuevo.",
   "ui.vote.ballot_none": "Aún no has votado",
   "ui.vote.ballot_is": "Tu voto: {name}",
-
   "ui.vote.veto": "Vetar",
   "ui.vote.veto_used": "Veto usado",
   "ui.vote.veto_title": "¿Vetar {name}?",
@@ -53,14 +49,12 @@
   "ui.vote.vetoed": "Vetada",
   "ui.vote.vetoed_by": "Vetada por {name}",
   "ui.vote.veto_banner": "VETO · {role}",
-
   "ui.vote.tally": "{n} votos",
   "ui.vote.tally_one": "1 voto",
   "ui.vote.tally_hidden": "Conteos ocultos",
   "ui.vote.voted_count": "{n} de {total} votaron",
   "ui.vote.leading": "Va ganando",
   "ui.vote.audience_says": "El público dice: {name}",
-
   "ui.vote.tags.title": "Etiquetas de rol",
   "ui.vote.tag.RECOMMENDED": "Recomendada",
   "ui.vote.tag.CONCERN": "Preocupación",
@@ -70,7 +64,6 @@
   "ui.vote.tag_clear": "Quitar etiqueta",
   "ui.vote.tag_as": "Etiquetar como {role}",
   "ui.vote.insight_title": "Visión de {role}",
-
   "ui.vote.predict.title": "Predecir",
   "ui.vote.predict.hint": "Tu primera respuesta es definitiva. Las predicciones correctas dan 50 KP.",
   "ui.vote.predict.locked": "Respuesta fijada. Esperando a los demás.",
@@ -78,7 +71,6 @@
   "ui.vote.predict.wrong": "Esta vez no. La respuesta era {answer}.",
   "ui.vote.predict.missed": "Sin respuesta. La respuesta era {answer}.",
   "ui.vote.predict.crew_right": "{n} de {total} acertaron",
-
   "ui.vote.trivia.title": "¡Empate! Trivia de muerte súbita",
   "ui.vote.trivia.hint": "La primera respuesta correcta elige al ganador entre las opciones empatadas.",
   "ui.vote.trivia.tied": "Empatadas: {names}",
@@ -88,7 +80,6 @@
   "ui.vote.trivia.nobody": "Nadie acertó. Decide la moneda.",
   "ui.vote.trivia.pick_title": "Elige al ganador",
   "ui.vote.trivia.waiting_pick": "Esperando a que {name} elija…",
-
   "ui.vote.result.title": "Decisión",
   "ui.vote.result.winner": "Elegida",
   "ui.vote.result.your_pick": "Tu elección",
@@ -106,15 +97,13 @@
   "ui.vote.method.ABSTAIN_RECOMMENDED": "Nadie votó: la recomendación del responsable",
   "ui.vote.method.ABSTAIN_DEFAULT": "Nadie votó: la opción por defecto",
   "ui.vote.method.ABSTAIN_CHEAPEST": "Nadie votó: la opción más barata",
-
   "ui.vote.decision_time": "Tiempo de decisión",
   "ui.vote.decision_time_hint": "Habilidad de FLIGHT: termina esta votación ya. Una vez por misión.",
   "ui.vote.decision_time_confirm": "Terminar la votación ya",
   "ui.vote.hint_title": "El Director de vuelo sugiere",
   "ui.vote.unknown_player": "Miembro de la tripulación",
-
   "ui.vote.option.TEST": "Hacer la prueba",
-  "ui.vote.option.TEST.detail": "Cuesta dinero y días, y puede revelar un fallo oculto.",
+  "ui.vote.option.TEST.detail": "Cuesta dinero y días, y puede revelar una falla oculta.",
   "ui.vote.option.SKIP": "Omitirla",
   "ui.vote.option.SKIP.detail": "Ahorra dinero y días, pero mantiene el riesgo.",
   "ui.vote.option.PASS": "Aprobar",
@@ -126,7 +115,6 @@
   "ui.vote.option.PERFECT_PHASE": "Fase perfecta",
   "ui.vote.option.SAVE_THE_MISSION": "Salvar la misión",
   "ui.vote.option.GOLDEN_WINDOW": "Ventana dorada",
-
   "ui.card.twin": "Gemelo real: {name}",
   "ui.card.drawbacks": "Desventajas",
   "ui.card.strengths": "Ventajas",
@@ -153,11 +141,9 @@
   "ui.card.explain_reliability": "Probabilidad de que la pieza funcione en este vuelo. La banda muestra qué tan seguros estamos.",
   "ui.card.better": "mejor",
   "ui.card.worse": "peor",
-
   "ui.maturity.proven": "Probada",
   "ui.maturity.mature": "Madura",
   "ui.maturity.new": "Nueva",
-
   "ui.stat.thrust.label": "Empuje",
   "ui.stat.thrust.explain": "Fuerza del motor al nivel del mar / en el vacío. Más empuje levanta más masa.",
   "ui.stat.isp.label": "Isp",
@@ -182,7 +168,7 @@
   "ui.stat.pointing_accuracy_deg.label": "Precisión de apuntado",
   "ui.stat.pointing_accuracy_deg.explain": "Con qué precisión puede apuntar la nave. Menor es mejor para cámaras y antenas.",
   "ui.stat.computer_count.label": "Computadoras",
-  "ui.stat.computer_count.explain": "Computadoras de vuelo redundantes. Con más, el sistema resiste un solo fallo.",
+  "ui.stat.computer_count.explain": "Computadoras de vuelo redundantes. Con más, el sistema resiste una sola falla.",
   "ui.stat.radiation_hardened.label": "Resistente a la radiación",
   "ui.stat.radiation_hardened.explain": "La electrónica endurecida resiste los cambios de bit causados por rayos cósmicos.",
   "ui.stat.crew_capacity.label": "Tripulación",
@@ -202,7 +188,7 @@
   "ui.stat.stage.label": "Etapa",
   "ui.stat.stage.explain": "A qué etapa pertenece esta opción.",
   "ui.stat.engine_count.label": "Motores",
-  "ui.stat.engine_count.explain": "Más motores suman empuje y resisten el fallo de uno, pero añaden masa y piezas.",
+  "ui.stat.engine_count.explain": "Más motores suman empuje y resisten la falla de uno, pero añaden masa y piezas.",
   "ui.stat.engine_out_capability.label": "Motor apagado",
   "ui.stat.engine_out_capability.explain": "Si la etapa aún puede llegar a órbita cuando falla un motor.",
   "ui.stat.engine_out_bonus.label": "Margen con motor apagado",
@@ -277,7 +263,6 @@
   "ui.stat.upper_stage_propellant_t.explain": "Propelente cargado en la etapa superior.",
   "ui.stat.fixed_propellant_t.label": "Propelente fijo",
   "ui.stat.fixed_propellant_t.explain": "Un motor sólido lleva una carga fija de propelente.",
-
   "ui.enum.propellant.RP1_LOX": "Queroseno + oxígeno líquido",
   "ui.enum.propellant.LH2_LOX": "Hidrógeno líquido + oxígeno líquido",
   "ui.enum.propellant.CH4_LOX": "Metano + oxígeno líquido",
@@ -312,14 +297,12 @@
   "ui.enum.size.M": "M",
   "ui.enum.size.L": "L",
   "ui.enum.size.XL": "XL",
-
   "ui.ping.title": "Señales rápidas",
   "ui.ping.open": "Señales y reacciones",
   "ui.ping.about": "Sobre {name}",
   "ui.ping.react": "Reaccionar",
   "ui.ping.sent": "Enviada",
   "ui.ping.feed": "Señales de la tripulación",
-
   "ui.poll.title.FRR": "Revisión de preparación para el vuelo",
   "ui.poll.title.LAUNCH": "Consulta de lanzamiento",
   "ui.poll.eyebrow": "GO / NO-GO · ronda {round}",
