@@ -92,4 +92,4 @@ All from `data/` and `submission/PROJECT_DESCRIPTION.md` (15 Nov 2026).
 | 9 contracts | `data/contracts.json` |
 | 40 facts, each with a source; 25 confirmed, 15 corrected | `data/facts.json`; `orchestration/evidence/T025/fact-sources.md` |
 | 6 languages | `data/strings/` |
-| Core 567, phone client 916, server 240 tests passing | `submission/PROJECT_DESCRIPTION.md` section 5 (T042, T044). About 1,700 in total |
+| Core 568, server 247, phone client 916 tests passing | `submission/PROJECT_DESCRIPTION.md` section 5 (T042, T044). About 1,700 in total |
