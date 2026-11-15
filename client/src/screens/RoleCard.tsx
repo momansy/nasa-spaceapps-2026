@@ -7,6 +7,7 @@ import { myRoles, rolesSignature } from '../state/selectors';
 import { useSel, useStore } from '../state/store';
 import { Icon, type IconName } from '../ui/Icon';
 import { CallSign, Chip, Dialog } from '../ui/kit';
+import { prewarmViewer } from '../viewer/prewarm';
 import './role.css';
 
 export const ROLE_ICON: Record<RoleId, IconName> = {
@@ -183,6 +184,7 @@ export function RoleCardScreen() {
   const store = useStore();
   const roles = useSel(myRoles);
   const signature = useSel(rolesSignature);
+  prewarmViewer(); // T050: idle-time 3D viewer warm-up before the first vote (runs once per page)
   return (
     <div className="screen" data-testid="screen-role">
       <div className="screen__scroll" tabIndex={0}>

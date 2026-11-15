@@ -88,7 +88,7 @@ vi.mock('three/examples/jsm/loaders/GLTFLoader.js', async () => {
   return { GLTFLoader };
 });
 
-const { createThreeScene, viewerServiceStats, resetViewerServiceForTests, MODEL_CACHE_SIZE } = await import('./threeScene');
+const { createThreeScene, viewerServiceStats, resetViewerServiceForTests, MODEL_CACHE_SIZE, warmUp } = await import('./threeScene');
 
 interface FakeCanvas {
   width: number;
@@ -285,5 +285,32 @@ describe('no-WebGL fallback', () => {
     expect(fx.FakeRenderer.attempts).toBe(1);
     expect(fx.gltf.parses).toBe(0);
     expect(viewerServiceStats().hasRenderer).toBe(false);
+  });
+});
+
+describe('prewarm (T050 follow-up)', () => {
+  it('is idempotent, creates no second context, and leaves the model cached for the first viewer', async () => {
+    const p1 = warmUp([{ key: 'eng_first', glb: glb() }]);
+    const p2 = warmUp([{ key: 'eng_first', glb: glb() }]);
+    expect(p2).toBe(p1);
+    await p1;
+    await warmUp([{ key: 'eng_other', glb: glb() }]);
+    expect(fx.FakeRenderer.instances).toHaveLength(1);
+    expect(fx.pmrem.bakes).toBe(1);
+    expect(fx.gltf.parses).toBe(1);
+    // Drawn once off screen so programs and textures are ready.
+    expect(renderer().rendered).toHaveLength(1);
+    expect(viewerServiceStats().cachedModels).toEqual(['eng_first']);
+    const s = await createThreeScene(glb(), 'eng_first');
+    expect(fx.gltf.parses).toBe(1);
+    expect(fx.FakeRenderer.instances).toHaveLength(1);
+    expect(renderer().forceContextLoss).not.toHaveBeenCalled();
+    s.destroy();
+  });
+
+  it('rejects without WebGL and parses nothing (the viewer keeps its fallback)', async () => {
+    fx.FakeRenderer.fail = true;
+    await expect(warmUp([{ key: 'eng_first', glb: glb() }])).rejects.toThrow(/WebGL/);
+    expect(fx.gltf.parses).toBe(0);
   });
 });
