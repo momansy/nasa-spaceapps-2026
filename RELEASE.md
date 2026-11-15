@@ -4,6 +4,8 @@ For the team. Part 1 is how to rebuild and publish; part 2 is the minute-by-minu
 judging-day demo. **Status on 2026-11-15:** the free Render deployment described in [`HOSTING.md`](HOSTING.md) is live at
 `https://missionforge-spaceapps.onrender.com/play/` (health check and all pages returned HTTP 200, Unity files carry `Content-Encoding: gzip`).
 A complete session through that public URL (laptop host plus phones) has **not been verified by the documentation task**: rehearse it once.
+Once T055 is merged and Render has redeployed, the big-screen host it serves is the WebGL build rebuilt from `main` by T055; T055 ran a room on a local copy of the hosted service
+(lobby, briefing, contract vote, 22 Build Bay votes, countdown, flight, debrief; see `orchestration/evidence/T055/`), not on the public URL.
 The older Netlify site (`nasasc.netlify.app/play/`) returned HTTP 404 and is not used. The Netlify and general-host notes in section 3 are background only.
 
 Deadline reminder: the NASA Space Apps submission closes **15 Nov 2026, 23:59 local**. The local demo
@@ -44,7 +46,7 @@ and the builds itself (about 2 minutes, needs internet once for `npm ci`).
 
 | Part | Source | Published to | Who builds it |
 |---|---|---|---|
-| Unity host (big screen) | `unity/MissionForge/` | `docs/play/host/` (Gzip `.unityweb`) | The Unity settings-lock holder, in Unity 6000.6.9f1 (WebGL). Not rebuilt by these tools. **The committed build dates from 2026-11-15 06:32 (+03:00) and predates the Countdown, Flight and Orbit Map screens (T016), the last Build Bay environment pass (T034), the end screens (Debrief, Campaign Hub, Codex, Settings; T024) and the host UI polish and lobby controls (T035): rebuild it to publish them.** |
+| Unity host (big screen) | `unity/MissionForge/` | `docs/play/host/` (Gzip `.unityweb`) | The Unity settings-lock holder, in Unity 6000.6.9f1 (WebGL). Not rebuilt by these tools. **Rebuilt from `main` by T055 on 2026-11-15** (Gzip; the documented entry point is `-executeMethod MissionForge.Build.WebGL` in `Assets/MissionForge/Editor/Build.cs`), so it contains the pre-flight screens (T027), Countdown, Flight and Orbit Map (T016), the end screens (T024), the T034 environment pass, the T035 lobby controls and full fonts for ≈, ₂, ×, ±, °. The build it replaced dated from 06:32 (+03:00) and had only Title, Lobby and an earlier Build Bay. Rebuild again after any later host change. |
 | Phone client | `client/` | `docs/play/client/` | `node tools/demo/build-client.mjs` |
 | Entry page | written by hand | `docs/play/index.html` | not generated |
 | Credits, judges page | generated | `docs/play/credits.html`, `docs/play/judges.html` | `node tools/demo/build-credits.mjs` |
@@ -125,7 +127,7 @@ From `server/README.md`:
 - [ ] `node tools/demo/build-credits.mjs` run after the last dependency, media or fact change; Team block filled.
 - [ ] No secrets in the diff (`git grep -n -i "api_key\|secret\|token=" -- . ':!*.lock'` finds only documentation text).
 - [ ] No `Library/`, `node_modules/`, `dist/`, `bin/` or `obj/` committed (they are git-ignored; `git status` is clean of them).
-- [ ] No file over 50 MB (`docs/play/host/Build/host.data.unityweb` is about 33 MB, the wasm file about 13 MB).
+- [ ] No file over 50 MB (T055's first rebuild reported `host.data.unityweb` at 50.3 MiB, about 52.7 MB, and the wasm file at 12.3 MiB; the earlier build was 31.6 and 12.1 MiB. A data file over 50 MB breaks this rule and draws a GitHub warning (the hard limit is 100 MB): check the size T055 committed).
 - [ ] Hosting headers verified with `curl -sI` (section 3.1). Done for the Render site on 2026-11-15: `curl -s -D - -o /dev/null -H "Accept-Encoding: gzip" https://missionforge-spaceapps.onrender.com/play/host/Build/host.wasm.unityweb` showed `content-encoding: gzip` and `content-type: application/wasm` (a bare `curl -sI` request did not show the gzip header; ask with `Accept-Encoding: gzip`).
 - [ ] Rehearsed the runbook below once end to end, including one fallback.
 
@@ -151,38 +153,51 @@ The timings in 5.3 are a **plan**, not measured in a full live playtest, so rehe
 
 ### 5.2 Lobby settings (what the host UI offers, and what it does not)
 
-The host lobby (read from `unity/MissionForge/Assets/MissionForge/App/Screens/LobbyScreen.cs`; the shipped WebGL build was
-not clicked through by this task) offers: role assignment (Random / Player pick / Vote), assist level, **vote timer 20, 30,
-45 or 60 s**, and **tallies Open / Hidden**. Set:
+**Which build this describes.** The lobby below is the one on `main` (read from
+`unity/MissionForge/Assets/MissionForge/App/Screens/LobbyScreen.cs`, lines 68–87; not clicked through by the documentation
+task). The rebuilt WebGL host of T055 was built from `main`, so once T055 is merged and Render has redeployed, the hosted big
+screen and the local demo (`tools/demo` serves the committed `docs/play/host/`) both offer it. The **earlier** committed WebGL
+build (2026-11-15 06:32, before T055) offered only role assignment, assist level, **vote timer 20, 30, 45 or 60 s** (no 10 s,
+no inspect timer, no audience switch) and tallies; if you are on that build, use its 20 s vote timer and expect the audience
+to be advisory.
+
+The lobby on `main` offers: role assignment (Random / Player pick / Vote), assist level (Cadet / Engineer / Flight Director),
+**vote timer 10, 20, 30, 45 or 60 s** (default 20 s), **inspect timer 5, 10, 20, 30 or 60 s** (default 20 s),
+**audience counts as one player: Off / One player** (`audienceVoteWeight` 0 or 1, default 0) and **tallies Open / Hidden**.
+These are the protocol ranges (`voteTimerS` 10 to 60 s, `inspectTimerS` 5 to 60 s; `protocol/messages.md` 4.x, 7.4); the
+preset values inside them are game values. Set:
 
 | Setting | Value | Why |
 |---|---|---|
-| Vote timer | 20 s (the shortest the UI offers) | Keeps rounds short |
+| Vote timer | 10 s (the shortest the lobby on `main` offers; 20 s on the earlier build) | Keeps rounds short |
+| Inspect timer | 5 or 10 s | Judges see the cards for a few seconds; 20 s is the default |
+| Audience counts as one player | One player (or Off to keep the audience advisory) | The judging-day mode of design 13.7: the audience's combined favourite adds one ballot |
 | Tallies | Open | The audience sees live bars: that is the demo |
 | Assist level | Cadet or Engineer | Judges are new to the game |
 
-The protocol allows more (`voteTimerS` 10 to 60 s, `inspectTimerS` 5 to 60 s, `audienceVoteWeight` 0 or 1;
-`protocol/messages.md` 4.x, 7.4) but **the lobby has no control for `inspectTimerS` (default 20 s) or
-`audienceVoteWeight` (default 0)**. So with the current host UI the audience stays **advisory**: its favourite shows as
-the "Audience says" bar and does not add a ballot. The "audience counts as one voice" judging-day mode of design 13.7
-needs the lobby change proposed in section 6.4. Do not promise it to judges until then.
+With the audience switch Off, the audience is **advisory**: its favourite shows as the "Audience says" bar and does not add a
+ballot. The switch has not been tried in a real hosted session yet (rehearse it once before promising it to judges).
 
 ### 5.3 The session, minute by minute
 
-Length: a round is REVEAL 3 s + PREDICT 8 s + INSPECT 20 s + VOTE 20 s + RESULT 3 s, about **54 s** with the UI's shortest
-timers. C1 has **22 votes**, so the build alone is about **20 minutes**, and the whole session about **35 minutes**
-(a plan from the protocol timers and the design's segment lengths; not measured in a live playtest). For a **20-minute
-slot** do one of: (a) play the lobby, briefing and the first 6 to 8 votes live, then show the flight from a recording;
-(b) agree a 35-minute slot with the organisers. Rehearse once and pick; the table below is the full session.
+Length: a part-vote round is REVEAL 3 s + INSPECT + VOTE + RESULT 3 s (`server/src/votes/rules.ts`). A PREDICT step (8 s) is
+in the rules but the Build Bay does not ask for it, so it is not part of a round today. That gives **46 s a round at the
+default timers** (inspect 20 s, vote 20 s) and **21 s at the shortest timers on `main`** (inspect 5 s, vote 10 s); on the earlier
+hosted build (shortest vote timer 20 s, no inspect control) a round is 46 s. C1 has **22 votes**, so the build alone takes about
+**17 minutes** at the defaults or about **8 minutes** at the shortest timers, before animation and runoffs. The whole session is
+planned at **25 to 40 minutes**: that is the design estimate (`GAME_DESIGN.md`), not measured in a live playtest. For a
+**20-minute slot** do one of: (a) use the shortest timers and play the whole session live (about 24 minutes by the same plan, so shorten the flight talk or the debrief); (b) play the lobby, briefing and the
+first 6 to 8 votes live, then show the flight from a recording; (c) agree a 40-minute slot with the organisers. Rehearse once and
+pick; the minute column below is the plan at the default timers.
 
 | Min | Segment | Who | What happens | Talking point (challenge emphasis, design 20.1) |
 |---|---|---|---|---|
 | 0-2 | **Audience QR moment** | Presenter | Show the lobby QR. The audience scans (it opens the phone page with the room code filled in) and joins as spectators; the 4-6 players (team or judges) join as players. | Phones are the controls: no app, no account. |
 | 2-4 | **Briefing** | Presenter | C1 briefing: 550 km Sun-synchronous orbit, 150 kg observation satellite, 90 M budget, 180 days. | **Orbit** (altitude and inclination from the contract), **budget**. |
-| 4-24 | **Build: 22 part votes** (early: payload bay, satellite power, attitude control; late: communications) | Players vote; audience watches the "Audience says" bar | Each round shows part cards with mass, power, cost and risk deltas. Run one deliberate trade-off aloud: a cheaper engine that misses the thrust-to-weight rule against a dearer one that flies. | **Mass** (delta-v and thrust-to-weight on the dashboard), **budget** (cost deltas, Emergency Funding), **instruments** (data multiplier) and **power** (payload power balance must stay positive) in the payload votes, **communication** (downlink GB) at the comms vote, **meaningful decisions** (stats plus drawbacks, Predict before vote). |
-| 24-25 | **Flight Readiness Review** | Everyone | GO/NO-GO poll: each console calls GO or NO-GO. | Systems-engineering review gates (Systems Engineering Handbook, design 20.2). |
-| 25-32 | **Flight** | Pilot plus consoles | Countdown to orbit insertion, then orbital operations. Everyone plays the minigames in 5.4. On the committed (hosted) WebGL host the big screen has no flight view yet, so the flight is carried by the phones; a rebuilt host with the Countdown, Flight and Orbit Map screens (in the source since T016) and the Debrief (T024) changes this. | **Orbit** (apogee/perigee), **power** (eclipse, solar wings), **instruments** (science capture). |
-| 32-35 | **Debrief** | Presenter | Score, grade, timeline, facts collected, awards. Then open the **assumptions register** (`GAME_DESIGN.md` 19) and the Codex. | **Education**: which numbers are physical, which are real-world approximate, which are game values. |
+| 4-21 | **Build: 22 part votes** (early: payload bay, satellite power, attitude control; late: communications) | Players vote; audience watches the "Audience says" bar | Each round shows part cards with mass, power, cost and risk deltas. Run one deliberate trade-off aloud: a cheaper engine that misses the thrust-to-weight rule against a dearer one that flies. | **Mass** (delta-v and thrust-to-weight on the dashboard), **budget** (cost deltas, Emergency Funding), **instruments** (data multiplier) and **power** (payload power balance must stay positive) in the payload votes, **communication** (downlink GB) at the comms vote, **meaningful decisions** (stats plus drawbacks, Predict before vote). |
+| 21-22 | **Flight Readiness Review** | Everyone | GO/NO-GO poll: each console calls GO or NO-GO. In T055's first local run the big-screen FRR panel was empty because the Build Bay did not hand over its build (the "Build Bay hook" was added to T055's scope afterwards; check T055's evidence). If the panel is empty, run the poll from the phones and talk over it. | Systems-engineering review gates (Systems Engineering Handbook, design 20.2). |
+| 22-29 | **Flight** | Pilot plus consoles | Countdown to orbit insertion, then orbital operations. Everyone plays the minigames in 5.4. The rebuilt WebGL host (T055) has the Countdown, Flight and Orbit Map screens (T016) and the big-screen Debrief (T024); T055's local run of the hosted service showed the countdown, the flight with live telemetry and the debrief with the real score. On the earlier build the big screen has no flight view and the phones carry the flight. | **Orbit** (apogee/perigee), **power** (eclipse, solar wings), **instruments** (science capture). |
+| 29-32 | **Debrief** | Presenter | Score, grade, timeline, facts collected, awards. Then open the **assumptions register** (`GAME_DESIGN.md` 19) and the Codex. | **Education**: which numbers are physical, which are real-world approximate, which are game values. |
 
 ### 5.4 Minigames everyone plays
 
@@ -271,7 +286,7 @@ only a nickname and votes, but consider an allow-list before enabling it on a pu
 
 ### 6.3 Host lobby controls (Unity `LobbyScreen.cs`, for the settings-lock holder)
 
-**Done in the source** (T035, merged 2026-11-15; checked from `orchestration/evidence/T035/RUBRIC.md` and the code, not run in Unity by T046): the Lobby has "Inspect timer" (5, 10, 20, 30, 60 s), "Audience counts as one player" (Off / One player) and a 10 s vote-timer segment, sent as `settings.set`. They are **not in the committed WebGL host** until it is rebuilt. The text below is the original proposal.
+**Done in the source** (T035, merged 2026-11-15; checked from `orchestration/evidence/T035/RUBRIC.md` and the code, not run in Unity by T046): the Lobby has "Inspect timer" (5, 10, 20, 30, 60 s), "Audience counts as one player" (Off / One player) and a 10 s vote-timer segment, sent as `settings.set`. They are in the WebGL host rebuilt from `main` by T055 (not yet tried in a real hosted session). The text below is the original proposal.
 
 Add lobby controls for `audienceVoteWeight` (0 or 1, "Audience counts as one player"), `inspectTimerS` (5 to 60 s) and a
 10 s option in the vote-timer segment. The protocol already accepts all three and `RoomClient` already sends `settings.set`.
