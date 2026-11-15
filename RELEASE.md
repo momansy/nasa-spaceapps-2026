@@ -44,7 +44,7 @@ and the builds itself (about 2 minutes, needs internet once for `npm ci`).
 
 | Part | Source | Published to | Who builds it |
 |---|---|---|---|
-| Unity host (big screen) | `unity/MissionForge/` | `docs/play/host/` (Gzip `.unityweb`) | The Unity settings-lock holder, in Unity 6000.6.9f1 (WebGL). Not rebuilt by these tools. **The committed build dates from 2026-11-15 06:32 (+03:00) and predates the Countdown, Flight and Orbit Map screens (T016) and the last Build Bay environment pass (T034): rebuild it to publish them.** |
+| Unity host (big screen) | `unity/MissionForge/` | `docs/play/host/` (Gzip `.unityweb`) | The Unity settings-lock holder, in Unity 6000.6.9f1 (WebGL). Not rebuilt by these tools. **The committed build dates from 2026-11-15 06:32 (+03:00) and predates the Countdown, Flight and Orbit Map screens (T016), the last Build Bay environment pass (T034), the end screens (Debrief, Campaign Hub, Codex, Settings; T024) and the host UI polish and lobby controls (T035): rebuild it to publish them.** |
 | Phone client | `client/` | `docs/play/client/` | `node tools/demo/build-client.mjs` |
 | Entry page | written by hand | `docs/play/index.html` | not generated |
 | Credits, judges page | generated | `docs/play/credits.html`, `docs/play/judges.html` | `node tools/demo/build-credits.mjs` |
@@ -181,7 +181,7 @@ slot** do one of: (a) play the lobby, briefing and the first 6 to 8 votes live, 
 | 2-4 | **Briefing** | Presenter | C1 briefing: 550 km Sun-synchronous orbit, 150 kg observation satellite, 90 M budget, 180 days. | **Orbit** (altitude and inclination from the contract), **budget**. |
 | 4-24 | **Build: 22 part votes** (early: payload bay, satellite power, attitude control; late: communications) | Players vote; audience watches the "Audience says" bar | Each round shows part cards with mass, power, cost and risk deltas. Run one deliberate trade-off aloud: a cheaper engine that misses the thrust-to-weight rule against a dearer one that flies. | **Mass** (delta-v and thrust-to-weight on the dashboard), **budget** (cost deltas, Emergency Funding), **instruments** (data multiplier) and **power** (payload power balance must stay positive) in the payload votes, **communication** (downlink GB) at the comms vote, **meaningful decisions** (stats plus drawbacks, Predict before vote). |
 | 24-25 | **Flight Readiness Review** | Everyone | GO/NO-GO poll: each console calls GO or NO-GO. | Systems-engineering review gates (Systems Engineering Handbook, design 20.2). |
-| 25-32 | **Flight** | Pilot plus consoles | Countdown to orbit insertion, then orbital operations. Everyone plays the minigames in 5.4. On the committed (hosted) WebGL host the big screen has no flight view yet, so the flight is carried by the phones; a rebuilt host with the Countdown, Flight and Orbit Map screens (in the source since T016) changes this. | **Orbit** (apogee/perigee), **power** (eclipse, solar wings), **instruments** (science capture). |
+| 25-32 | **Flight** | Pilot plus consoles | Countdown to orbit insertion, then orbital operations. Everyone plays the minigames in 5.4. On the committed (hosted) WebGL host the big screen has no flight view yet, so the flight is carried by the phones; a rebuilt host with the Countdown, Flight and Orbit Map screens (in the source since T016) and the Debrief (T024) changes this. | **Orbit** (apogee/perigee), **power** (eclipse, solar wings), **instruments** (science capture). |
 | 32-35 | **Debrief** | Presenter | Score, grade, timeline, facts collected, awards. Then open the **assumptions register** (`GAME_DESIGN.md` 19) and the Codex. | **Education**: which numbers are physical, which are real-world approximate, which are game values. |
 
 ### 5.4 Minigames everyone plays
@@ -208,7 +208,7 @@ parachute phase, so the parachute minigame (MG-23) never appears. The demo uses:
 | Default port 8080 or 8787 busy | `--port 8081` and/or `--server-port 8788`. |
 | Terminal QR unreadable | Use the lobby QR on the big screen, or type the URL printed under it. |
 
-## 6. Interface changes proposed (6.1, 6.2 and 6.4 are done; 6.3 is not made, outside the owning task's paths)
+## 6. Interface changes proposed (6.1, 6.2, 6.3 and 6.4 are done in the source)
 
 ### 6.1 Netlify headers for the Unity Gzip files (`netlify.toml`)
 
@@ -270,6 +270,8 @@ Security note: an attacker-controlled link could point a phone at a hostile serv
 only a nickname and votes, but consider an allow-list before enabling it on a public build.
 
 ### 6.3 Host lobby controls (Unity `LobbyScreen.cs`, for the settings-lock holder)
+
+**Done in the source** (T035, merged 2026-11-15; checked from `orchestration/evidence/T035/RUBRIC.md` and the code, not run in Unity by T046): the Lobby has "Inspect timer" (5, 10, 20, 30, 60 s), "Audience counts as one player" (Off / One player) and a 10 s vote-timer segment, sent as `settings.set`. They are **not in the committed WebGL host** until it is rebuilt. The text below is the original proposal.
 
 Add lobby controls for `audienceVoteWeight` (0 or 1, "Audience counts as one player"), `inspectTimerS` (5 to 60 s) and a
 10 s option in the vote-timer segment. The protocol already accepts all three and `RoomClient` already sends `settings.set`.

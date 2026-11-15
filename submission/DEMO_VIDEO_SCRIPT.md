@@ -13,8 +13,8 @@ stand-in that shows the same screen, and is what to match.
 - Record the phone screen with the phone's own screen recorder. Hold the phone upright, 390 x 844 style framing.
 - **Status note (2026-11-15, T046):** the two cuts described below were produced; see `submission/video/README.md` for the finished files
   and what is real versus scripted. This file stays as the script they follow.
-- **Do not show or say anything that is not built.** The big-screen briefing and debrief screens are placeholders in this repository, and the
-  countdown, flight view and orbit map are in the Unity source but not in the committed WebGL build (see `PROJECT_DESCRIPTION.md` section 8). The cuts below therefore show the
+- **Do not show or say anything that is not built.** The big-screen briefing is a placeholder in this repository, and the
+  countdown, flight view, orbit map and debrief are in the Unity source but not in the committed WebGL build (see `PROJECT_DESCRIPTION.md` section 8). The cuts below therefore show the
   big screen only at title, lobby and Build Bay, and show flight and debrief **on the phones**.
 - No audio is bundled. Use the narration below (voice recorded by a team member) and, if wanted, royalty-free music you
   have the licence for; add it to `NASA_RESOURCES.md` and `AI_DISCLOSURE.md` if you do. Burn in subtitles; the

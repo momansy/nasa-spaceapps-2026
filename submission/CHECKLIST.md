@@ -20,13 +20,16 @@ Still open, owner or team only:
 
 1. **Netlify**: `https://nasasc.netlify.app/play/` still returned HTTP 404 on this date. Do not put it on the form; use the Render URL, or redeploy Netlify and re-check
    with `curl -sI` if you want it (`RELEASE.md` 3.1).
-2. **The committed WebGL host is older than the flight view.** The hosted big screen shows Title, Lobby and the earlier Build Bay; the Countdown, Flight and Orbit Map
-   screens are in the Unity source on `main` but need a Unity rebuild of `docs/play/host/` by the lock holder (`PROJECT_DESCRIPTION.md` section 8).
-   The description text already says so; keep it unless the build is refreshed.
+2. **The committed WebGL host is older than the flight view and the end screens.** The hosted big screen shows Title, Lobby and the earlier Build Bay; the Countdown, Flight,
+   Orbit Map (T016), Debrief, Campaign Hub, Codex, Settings (T024) and the lobby judging-day controls (T035) are in the Unity source on `main` but need a Unity rebuild of
+   `docs/play/host/` by the lock holder (`PROJECT_DESCRIPTION.md` section 8). The description text already says so; keep it unless the build is refreshed.
+   A rebuild changes `docs/play/`, so Render redeploys and drops open rooms: do it when nobody is playing, then re-run the smoke test.
 3. **Upload the demo video**, set it viewable by judges, and paste the link.
 4. **Team members and team name** on the form (the repository does not list members).
-5. Pull requests that were still open when this was written (T024 end screens, T035 host UI polish, T050 phone viewer fix, T048 hosted smoke test): if they merge before you
-   submit, re-read `PROJECT_DESCRIPTION.md` sections 2, 4 and 8 and `JUDGES.md` "Known limitations" and update the sentences that name them.
+5. Pull requests that were still open when this was written (T050 phone viewer fix, T048 hosted smoke test; T024 and T035 are merged): if they merge before you
+   submit, re-read `PROJECT_DESCRIPTION.md` sections 2 and 8 and `JUDGES.md` "Known limitations" and update the sentences that name them.
+6. **Translations of the new host end-screen strings** (`data/strings/en.host_end.json`, T024) are missing in the five other languages, so `node tools/validate-data.mjs --strict` and
+   5 phone-client parity tests fail on `main` (fix queued as issue #206). Do not claim the strict validation passes until that merges.
 
 ## 1. The form: field by field
 
@@ -99,5 +102,5 @@ Recommended: **B** as the live link with the video (**C**) next to it, and the l
 - [ ] Music or voice used in the video added to `AI_DISCLOSURE.md` and `NASA_RESOURCES.md` if it needs a credit
 - [ ] Form field list compared with the live form (this file's section 1 is a guess)
 - [ ] Known limits (`PROJECT_DESCRIPTION.md` section 8) left in the text: do not remove the statements about the host screens that are not built, or about the WebGL build being older than the flight view
-- [ ] Final read of the pasted text for anything not true on the day (hosted URL status, repository visibility, which of T024, T035, T048 and T050 have merged)
+- [ ] Final read of the pasted text for anything not true on the day (hosted URL status, repository visibility, whether T048 and T050 have merged)
 - [ ] Submitted before 23:59 local; screenshot of the confirmation saved

@@ -239,12 +239,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 1920247283}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 831fe5ec03a4346de909ef9ed68b4be3, type: 3}
+  m_Script: {fileID: 11500000, guid: 18e3958796a44db898f7e9c3b36b7843, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: MissionForge.App::MissionForge.App.Screens.RegionScreen
+  m_EditorClassIdentifier: MissionForge.Screens.Debrief::MissionForge.Screens.Debrief.DebriefScreen
   screenId: 12
   document: {fileID: 1920247285}
   vantage: {fileID: 1745707498}
+  fixtures:
+  - {fileID: 4900000, guid: af8e81542c4849b3920adc7a2f47f36b, type: 3}
+  - {fileID: 4900000, guid: db3d456bd1754fbdbffa20ac2619588c, type: 3}
+  - {fileID: 4900000, guid: 0b649fd7065445f79efe840584f91fba, type: 3}
+  - {fileID: 4900000, guid: 3f2be5f90b90459a90d846302a56e666, type: 3}
+  flightRecording: {fileID: 4900000, guid: 20d73f684da1448958739c9d4045b3ae, type: 3}
+  replayFixture: {fileID: 4900000, guid: 7f24c4dc61cb4a81a5ff8ec87cf0b2cc, type: 3}
+  clueTable: {fileID: 4900000, guid: 2f408f534fe546a181a15bd257210f55, type: 3}
+  codexLinks: {fileID: 4900000, guid: bbf5020bc85c44b0b5d1124d76bc06d7, type: 3}
 --- !u!114 &1920247285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,7 +268,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.UIElements.UIDocument
   m_PanelSettings: {fileID: 11400000, guid: 5d430196715a54314b42f5fd2a13b0b6, type: 2}
   m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 9197481963319205126, guid: 0ae1cb1097c0f4c8a8df665dde7eb58f, type: 3}
+  sourceAsset: {fileID: 9197481963319205126, guid: 550d756f001a439b80bf8ce69eb14bda, type: 3}
   m_SortingOrder: 10
   m_Position: 0
   m_WorldSpaceSizeMode: 1

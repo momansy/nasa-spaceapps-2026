@@ -1,0 +1,51 @@
+{
+  "design_notes": [
+    "T024: the table the synthesised Codex uses until data/codex.json exists (proposed under Interface changes).",
+    "simplifications: the ten rows of design section 8.3, in order; their text keys are ui.host.codex.simplification.<id>.title/.reality/.why.",
+    "lesson_parallels: failure mode -> the verified fact (data/facts.json) that is its real-world parallel (design 8.4, teaching-point column). Modes without a sourced fact show no parallel rather than an unsourced claim.",
+    "milestones: the five campaign milestones of Core CampaignRules (design 13.2)."
+  ],
+  "simplifications": [
+    "plane_2d",
+    "inclination",
+    "atmosphere",
+    "spherical_earth",
+    "engine_spool",
+    "slosh",
+    "costs",
+    "reliability_rolls",
+    "time_compression",
+    "transfers"
+  ],
+  "lesson_parallels": {
+    "pogo_oscillation": [
+      "F07"
+    ],
+    "software_overflow": [
+      "F22"
+    ],
+    "fairing_stuck": [
+      "F23"
+    ],
+    "engine_shutdown": [
+      "F08",
+      "F37"
+    ],
+    "parachute_failure": [
+      "F21"
+    ],
+    "combustion_instability": [
+      "F26"
+    ],
+    "structural_failure": [
+      "F04"
+    ]
+  },
+  "milestones": [
+    "first_orbit",
+    "first_recovery",
+    "first_crew",
+    "first_lunar_flyby",
+    "first_mars_landing"
+  ]
+}

@@ -1,0 +1,155 @@
+{
+  "fixture": "c1_failure_pogo",
+  "design_notes": [
+    "Rehearsal fixture (T024): the same C1 mission lost to pogo oscillation at Max Q, 74.2 s after lift-off. Data only: Core computes the score, grade and awards.",
+    "Every number is a game_value invented for rehearsal. The vehicle is uncrewed; nothing in this fixture depicts people.",
+    "The vehicle was lost before orbit, so the mission records no final budget figure (budget_remaining_M is absent and the under-budget objective counts as not met)."
+  ],
+  "contractId": "C1",
+  "assistLevel": "engineer",
+  "seed": "4022",
+  "crewed": false,
+  "crewLost": false,
+  "crewSafe": false,
+  "boosterRecovered": false,
+  "capsuleRecovered": false,
+  "budgetRemainingFraction": 0.18,
+  "scheduleMarginFraction": 0.2,
+  "scienceFraction": 0.0,
+  "goodCalls": 2,
+  "correctPredictions": 2,
+  "triviaTiebreaks": 0,
+  "scoreBoostMultiplier": 1.0,
+  "metrics": {
+    "orbit_altitude_km": 0,
+    "inclination_deg": 0,
+    "payload_power_balance_W": 0,
+    "science_targets_captured": 0,
+    "data_downlinked_GB": 0
+  },
+  "minigames": [
+    {
+      "id": "MG-07",
+      "tier": "gold",
+      "golden": false
+    },
+    {
+      "id": "MG-08",
+      "tier": "bronze",
+      "golden": false
+    }
+  ],
+  "missionLengthS": 90,
+  "timeline": [
+    {
+      "t": 0,
+      "kind": "phase",
+      "key": "flight_phase.F2.name"
+    },
+    {
+      "t": 18,
+      "kind": "minigame",
+      "key": "minigame.MG-07.name",
+      "tier": "gold"
+    },
+    {
+      "t": 42,
+      "kind": "phase",
+      "key": "flight_phase.F3.name"
+    },
+    {
+      "t": 58,
+      "kind": "good_call",
+      "key": "ui.host.debrief.timeline.good_call"
+    },
+    {
+      "t": 66,
+      "kind": "anomaly",
+      "key": "ui.host.debrief.timeline.vibration_rising"
+    },
+    {
+      "t": 70,
+      "kind": "phase",
+      "key": "flight_phase.F4.name"
+    },
+    {
+      "t": 71,
+      "kind": "minigame",
+      "key": "minigame.MG-08.name",
+      "tier": "bronze"
+    },
+    {
+      "t": 74.2,
+      "kind": "failure",
+      "key": "ui.host.debrief.failure_mode.pogo_oscillation"
+    }
+  ],
+  "facts": [
+    "F04",
+    "F07",
+    "F02"
+  ],
+  "kpEarned": 5,
+  "failure": {
+    "mode": "pogo_oscillation",
+    "phase": "F4",
+    "slot": "first_stage_engine",
+    "atS": 74.2
+  },
+  "retryAvailable": true,
+  "players": [
+    {
+      "id": "p1",
+      "nickname": "Amal",
+      "avatar": "av_03",
+      "roles": [
+        "PM"
+      ],
+      "stats": {
+        "budget_saved_M": 6.2,
+        "good_calls": 1,
+        "predictions_correct": 1,
+        "minigame_successes": 3
+      }
+    },
+    {
+      "id": "p2",
+      "nickname": "Diego",
+      "avatar": "av_07",
+      "roles": [
+        "FLIGHT"
+      ],
+      "stats": {
+        "good_calls": 1,
+        "pilot_precision": 0.62,
+        "minigame_successes": 2
+      }
+    },
+    {
+      "id": "p3",
+      "nickname": "Mei",
+      "avatar": "av_11",
+      "roles": [
+        "BOOSTER"
+      ],
+      "stats": {
+        "predictions_correct": 2,
+        "minigame_score": 0.88,
+        "minigame_successes": 2
+      }
+    },
+    {
+      "id": "p4",
+      "nickname": "Kofi",
+      "avatar": "av_02",
+      "roles": [
+        "PAYLOAD"
+      ],
+      "stats": {
+        "good_calls": 1,
+        "minigame_successes": 2,
+        "minigame_score": 0.74
+      }
+    }
+  ]
+}

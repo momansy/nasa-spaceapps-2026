@@ -28,7 +28,7 @@ GitHub issues (`CLAUDE.md`, `AGENTS.md`, `orchestration/STANDING_ORDERS.md`). Th
 a worker process committed their branch and opened the pull request, and the orchestrator and team owner reviewed
 and merged.
 
-What the code claims are backed by: `dotnet test core/dotnet~` (568 tests), `npx vitest run` in `client/` (916),
+What the code claims are backed by: `dotnet test core/dotnet~` (568 tests), `npx vitest run` in `client/` (911 of 916 pass; the 5 failures are translation-parity checks for new host strings),
 `npm test` in `server/` (247), `node tools/validate-data.mjs` and the fact check, re-run on 2026-11-15
 (`orchestration/evidence/T046/README.md`; earlier runs in `T042/` and `T044/`). Passing tests show the code does what the tests say; they are not a human playtest.
 

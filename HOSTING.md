@@ -7,7 +7,7 @@ Researched on 15 Nov 2026. **Status (T046 check, 2026-11-15): deployed.** The se
 the Unity `.wasm.unityweb` and `.js.unityweb` files came with `content-encoding: gzip` when the request sent `Accept-Encoding: gzip`.
 The section 3 WebSocket handshake (`hello` then `hello.ok` over `wss://.../ws`) also worked.
 **Not verified:** a full play test through the public URL (host a mission, phones join, votes; section 3, "Play test") was not run by that check; the hosted
-Unity host is the build committed in `docs/play/host/`, which predates the flight view (`submission/PROJECT_DESCRIPTION.md` section 8).
+Unity host is the build committed in `docs/play/host/`, which predates the flight view and the end screens (`submission/PROJECT_DESCRIPTION.md` section 8).
 Section 2 below is the record of the human steps that were needed.
 
 ## 1. What was chosen and why

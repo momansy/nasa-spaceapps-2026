@@ -58,6 +58,14 @@
                         <ui:Label text="Vote timer" class="mf-setting__label" />
                         <ui:VisualElement name="seg-vote-timer" class="mf-segmented" />
                     </ui:VisualElement>
+                    <ui:VisualElement class="mf-setting">
+                        <ui:Label text="Inspect timer" class="mf-setting__label" />
+                        <ui:VisualElement name="seg-inspect-timer" class="mf-segmented" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="mf-setting">
+                        <ui:Label text="Audience counts as one player" class="mf-setting__label" />
+                        <ui:VisualElement name="seg-audience" class="mf-segmented" />
+                    </ui:VisualElement>
                     <ui:VisualElement class="mf-setting mf-setting--last">
                         <ui:Label text="Vote tallies" class="mf-setting__label" />
                         <ui:VisualElement name="seg-tallies" class="mf-segmented" />

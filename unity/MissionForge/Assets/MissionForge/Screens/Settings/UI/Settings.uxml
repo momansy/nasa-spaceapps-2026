@@ -1,0 +1,41 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:mf="MissionForge.UI">
+    <Style src="Settings.uss" />
+    <!-- Settings & Accessibility overlay (design 14.1 screen 16, 16; T024). Three glass panels: this screen's preferences
+         (HostPreferences, saved on this computer), room-wide accessibility flags (settings.set → every phone) and the
+         lobby rules. Rows are built by SettingsScreen from data/strings; nothing here is player text. -->
+    <ui:VisualElement name="screen" class="mf-screen mf-settings">
+        <ui:VisualElement class="mf-settings__head">
+            <ui:Label name="settings-title" class="mf-h1" />
+            <ui:VisualElement class="mf-grow" />
+            <ui:Button name="btn-reset" class="mf-btn mf-btn--ghost mf-btn--l" />
+            <ui:Button name="btn-close" class="mf-btn mf-btn--primary mf-btn--l" />
+        </ui:VisualElement>
+        <ui:VisualElement class="mf-settings__columns">
+            <mf:MfGlassPanel name="host-panel" class="mf-glass mf-settings__panel">
+                <ui:ScrollView mode="Vertical" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" class="mf-settings__scroll">
+                    <ui:Label name="host-title" class="mf-h2" />
+                    <ui:Label name="host-sub" class="mf-label mf-settings__sub" />
+                    <ui:VisualElement name="host-rows" />
+                </ui:ScrollView>
+            </mf:MfGlassPanel>
+            <mf:MfGlassPanel name="room-panel" class="mf-glass mf-settings__panel">
+                <ui:ScrollView mode="Vertical" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" class="mf-settings__scroll">
+                    <ui:Label name="room-title" class="mf-h2" />
+                    <ui:Label name="room-sub" class="mf-label mf-settings__sub" />
+                    <ui:VisualElement name="room-status" class="mf-settings__status">
+                        <mf:MfIcon name="room-status-icon" kind="wifi-off" class="mf-icon--24" />
+                        <ui:Label name="room-status-text" class="mf-label" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="room-rows" />
+                </ui:ScrollView>
+            </mf:MfGlassPanel>
+            <mf:MfGlassPanel name="lobby-panel" class="mf-glass mf-settings__panel mf-settings__panel--last">
+                <ui:ScrollView mode="Vertical" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" class="mf-settings__scroll">
+                    <ui:Label name="lobby-title" class="mf-h2" />
+                    <ui:Label name="lobby-sub" class="mf-label mf-settings__sub" />
+                    <ui:VisualElement name="lobby-rows" />
+                </ui:ScrollView>
+            </mf:MfGlassPanel>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

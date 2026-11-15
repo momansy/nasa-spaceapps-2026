@@ -102,7 +102,7 @@ namespace MissionForge.Screens.BuildBay
             MetricStatus s = m.TotalDvMps < m.DvRequiredMps ? MetricStatus.Fails
                 : margin < DvMarginalFraction ? MetricStatus.Marginal : MetricStatus.Meets;
             string detail = t.Format("ui.buildbay.metric.dv.detail",
-                t.WithUnit(UiText.Number(m.DvRequiredMps, 0), unit), UiText.Signed(margin * 100, 1) + " %");
+                t.WithUnit(UiText.Number(m.DvRequiredMps, 0), unit), UiText.Signed(margin * 100, 1) + "\u00A0%");
             return new MetricRow("dv", Name(t, "dv"), UiText.Number(m.TotalDvMps, 0), t.Get(unit), s, detail,
                 Ratio(m.TotalDvMps, m.DvRequiredMps * 1.25), DeltaText(d?.TotalDvMps, 0, t, unit, true), Sign(d?.TotalDvMps, true))
             {
@@ -193,8 +193,8 @@ namespace MissionForge.Screens.BuildBay
             const string unit = "ui.buildbay.unit.percent";
             ReliabilityEstimate r = m.Success;
             string value = UiText.Number(r.Success * 100, 1);
-            string detail = t.Format("ui.buildbay.metric.success.detail", UiText.Number(r.BandHalfWidth * 100, 1) + " %",
-                UiText.Number(r.Low * 100, 1), UiText.Number(r.High * 100, 1) + " %");
+            string detail = t.Format("ui.buildbay.metric.success.detail", UiText.Number(r.BandHalfWidth * 100, 1) + "\u00A0%",
+                UiText.Number(r.Low * 100, 1), UiText.Number(r.High * 100, 1) + "\u00A0%");
             return new MetricRow("success", Name(t, "success"), value, t.Get(unit), MetricStatus.Info, detail,
                 (float)r.Success, DeltaText(d == null ? (double?)null : d.Success * 100, 1, t, unit, true), Sign(d?.Success, true))
             {

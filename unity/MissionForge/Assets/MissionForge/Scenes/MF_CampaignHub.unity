@@ -239,12 +239,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1824494464}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 831fe5ec03a4346de909ef9ed68b4be3, type: 3}
+  m_Script: {fileID: 11500000, guid: 056d606b57164df4afa82645aafd2f1c, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: MissionForge.App::MissionForge.App.Screens.RegionScreen
+  m_EditorClassIdentifier: MissionForge.Screens.Campaign::MissionForge.Screens.Campaign.CampaignHubScreen
   screenId: 14
   document: {fileID: 1824494466}
   vantage: {fileID: 651326384}
+  rehearsalFixture: {fileID: 4900000, guid: 7ea2d68647b5400aa5e49ad47d7898f2, type: 3}
 --- !u!114 &1824494466
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,7 +260,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.UIElements.UIDocument
   m_PanelSettings: {fileID: 11400000, guid: 5d430196715a54314b42f5fd2a13b0b6, type: 2}
   m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 9197481963319205126, guid: 0d3050d8dbfa8449593a94cbe4095b3d, type: 3}
+  sourceAsset: {fileID: 9197481963319205126, guid: f5a15ffaf6a64d38b9ef820378fb86c1, type: 3}
   m_SortingOrder: 10
   m_Position: 0
   m_WorldSpaceSizeMode: 1

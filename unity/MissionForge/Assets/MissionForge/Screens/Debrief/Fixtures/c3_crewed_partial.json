@@ -1,0 +1,200 @@
+{
+  "fixture": "c3_crewed_partial",
+  "design_notes": [
+    "Rehearsal fixture (T024): a crewed C3 station resupply. The capsule docks but the cargo transfer does not complete; the secondary objectives and a recovered capsule make it a partial success. Data only: Core computes the score.",
+    "Every number is a game_value invented for rehearsal. The crew returns safely."
+  ],
+  "contractId": "C3",
+  "assistLevel": "flight_director",
+  "seed": "4023",
+  "crewed": true,
+  "crewLost": false,
+  "crewSafe": true,
+  "boosterRecovered": false,
+  "capsuleRecovered": true,
+  "budgetRemainingFraction": 0.05,
+  "scheduleMarginFraction": 0.1,
+  "scienceFraction": 0.4,
+  "goodCalls": 6,
+  "correctPredictions": 4,
+  "triviaTiebreaks": 0,
+  "scoreBoostMultiplier": 1.1,
+  "metrics": {
+    "docked_with_station": true,
+    "cargo_delivered": false,
+    "cargo_returned_t": 1.2,
+    "launch_scrubs": 0,
+    "docking_contact_speed_m_s": 0.07
+  },
+  "minigames": [
+    {
+      "id": "MG-08",
+      "tier": "gold",
+      "golden": false
+    },
+    {
+      "id": "MG-16",
+      "tier": "silver",
+      "golden": true
+    },
+    {
+      "id": "MG-23",
+      "tier": "gold",
+      "golden": false
+    },
+    {
+      "id": "MG-27",
+      "tier": "bronze",
+      "golden": false
+    }
+  ],
+  "missionLengthS": 1500,
+  "timeline": [
+    {
+      "t": 0,
+      "kind": "phase",
+      "key": "flight_phase.F2.name"
+    },
+    {
+      "t": 72,
+      "kind": "phase",
+      "key": "flight_phase.F4.name"
+    },
+    {
+      "t": 75,
+      "kind": "minigame",
+      "key": "minigame.MG-08.name",
+      "tier": "gold"
+    },
+    {
+      "t": 480,
+      "kind": "phase",
+      "key": "flight_phase.F7.name"
+    },
+    {
+      "t": 610,
+      "kind": "phase",
+      "key": "flight_phase.F8.name"
+    },
+    {
+      "t": 700,
+      "kind": "minigame",
+      "key": "minigame.MG-16.name",
+      "tier": "silver"
+    },
+    {
+      "t": 760,
+      "kind": "anomaly",
+      "key": "ui.host.debrief.timeline.cargo_hatch"
+    },
+    {
+      "t": 900,
+      "kind": "good_call",
+      "key": "ui.host.debrief.timeline.good_call"
+    },
+    {
+      "t": 1100,
+      "kind": "phase",
+      "key": "flight_phase.F10.name"
+    },
+    {
+      "t": 1220,
+      "kind": "phase",
+      "key": "flight_phase.F12.name"
+    },
+    {
+      "t": 1240,
+      "kind": "minigame",
+      "key": "minigame.MG-23.name",
+      "tier": "gold"
+    },
+    {
+      "t": 1400,
+      "kind": "phase",
+      "key": "flight_phase.F13.name"
+    },
+    {
+      "t": 1420,
+      "kind": "minigame",
+      "key": "minigame.MG-27.name",
+      "tier": "bronze"
+    }
+  ],
+  "facts": [
+    "F12",
+    "F17",
+    "F18",
+    "F19",
+    "F24"
+  ],
+  "kpEarned": 7,
+  "failure": null,
+  "retryAvailable": false,
+  "players": [
+    {
+      "id": "p1",
+      "nickname": "Sana",
+      "avatar": "av_05",
+      "roles": [
+        "PM"
+      ],
+      "stats": {
+        "budget_saved_M": 1.4,
+        "good_calls": 2,
+        "minigame_successes": 3
+      }
+    },
+    {
+      "id": "p2",
+      "nickname": "Tomás",
+      "avatar": "av_09",
+      "roles": [
+        "FLIGHT"
+      ],
+      "stats": {
+        "pilot_precision": 0.83,
+        "good_calls": 2,
+        "minigame_successes": 4,
+        "gold_during_blackout_or_abort": 1
+      }
+    },
+    {
+      "id": "p3",
+      "nickname": "Ife",
+      "avatar": "av_01",
+      "roles": [
+        "INCO"
+      ],
+      "stats": {
+        "predictions_correct": 3,
+        "good_calls": 2,
+        "minigame_successes": 3
+      }
+    },
+    {
+      "id": "p4",
+      "nickname": "Ravi",
+      "avatar": "av_12",
+      "roles": [
+        "EECOM"
+      ],
+      "stats": {
+        "predictions_correct": 1,
+        "minigame_score": 0.81,
+        "minigame_successes": 2
+      }
+    },
+    {
+      "id": "p5",
+      "nickname": "Lena",
+      "avatar": "av_06",
+      "roles": [
+        "PAYLOAD"
+      ],
+      "stats": {
+        "minigame_successes": 4,
+        "minigame_score": 0.9
+      }
+    }
+  ]
+}

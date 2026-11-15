@@ -1,0 +1,40 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:mf="MissionForge.UI">
+    <Style src="Codex.uss" />
+    <!-- Mission Codex overlay (design 14.1 screen 14, 12.2, 8.3, 14.4; T024). Categories on the left, the entries of the
+         chosen category in the middle (locked ones show how they unlock), the entry on the right: illustration slot,
+         body, what the game simplifies, key numbers (SI, imperial on request), citations with verification badges.
+         Rows are built by CodexScreen from data/strings; nothing here is player text. -->
+    <ui:VisualElement name="screen" class="mf-screen mf-codex">
+        <ui:VisualElement class="mf-codex__head">
+            <ui:VisualElement class="mf-codex__head-text">
+                <ui:Label name="codex-title" class="mf-h1" />
+                <ui:Label name="codex-progress" class="mf-label" />
+            </ui:VisualElement>
+            <ui:VisualElement class="mf-grow" />
+            <ui:VisualElement name="rehearsal-tag" class="mf-codex__rehearsal" picking-mode="Ignore">
+                <mf:MfIcon kind="info" class="mf-icon--24" />
+                <ui:Label name="rehearsal-text" class="mf-codex__rehearsal-text" />
+            </ui:VisualElement>
+            <mf:MfToggle name="imperial-toggle" class="mf-codex__imperial" />
+            <ui:Button name="btn-close" class="mf-btn mf-btn--primary mf-btn--l" />
+        </ui:VisualElement>
+        <ui:VisualElement class="mf-codex__columns">
+            <mf:MfGlassPanel name="nav-panel" class="mf-glass mf-codex__nav">
+                <ui:ScrollView mode="Vertical" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" class="mf-codex__scroll">
+                    <ui:VisualElement name="categories" />
+                </ui:ScrollView>
+            </mf:MfGlassPanel>
+            <mf:MfGlassPanel name="list-panel" class="mf-glass mf-codex__list">
+                <ui:Label name="list-title" class="mf-h3 mf-codex__list-title" />
+                <ui:ScrollView name="list-scroll" mode="Vertical" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" class="mf-codex__scroll">
+                    <ui:VisualElement name="entries" />
+                </ui:ScrollView>
+            </mf:MfGlassPanel>
+            <mf:MfGlassPanel name="entry-panel" class="mf-glass mf-codex__entry">
+                <ui:ScrollView name="entry-scroll" mode="Vertical" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" class="mf-codex__scroll">
+                    <ui:VisualElement name="entry" />
+                </ui:ScrollView>
+            </mf:MfGlassPanel>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

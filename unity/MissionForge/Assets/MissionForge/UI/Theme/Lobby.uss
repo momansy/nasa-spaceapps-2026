@@ -18,9 +18,21 @@
 .mf-lobby__settings { flex-grow: 1; padding: var(--mf-sp-5) var(--mf-sp-panel-padding) var(--mf-sp-5) var(--mf-sp-panel-padding); }
 .mf-lobby__settings .mf-panel__header { margin-bottom: var(--mf-sp-2); }
 .mf-lobby__settings .mf-setting { margin-bottom: var(--mf-sp-3); }
-.mf-lobby__join .mf-join__text { margin-left: var(--mf-sp-5); }
+.mf-lobby__join .mf-join__text { margin-left: var(--mf-sp-5); min-width: 0; }
+.mf-lobby__join .mf-h3, .mf-lobby__join .mf-label { white-space: normal; }
 .mf-lobby__join .mf-roomcode-big { font-size: 88px; margin: -4px 0 -4px 0; }
 .mf-lobby__settings .mf-setting--last { margin-bottom: 0; }
+
+/* Judging-day settings (T035): six settings rows plus the join card must fit the 1080 p side column without scrolling at
+   100 % text, so the join card and the segmented rows are compact (game_value: 144 px QR, 64 px code, 40 px segments). */
+.mf-lobby__join { padding: var(--mf-sp-4) var(--mf-sp-5) var(--mf-sp-4) var(--mf-sp-5); margin-bottom: var(--mf-sp-4); }
+.mf-lobby__join .mf-qrcard--s { width: 144px; height: 144px; padding: 10px; }
+.mf-lobby__join .mf-roomcode-big { font-size: 64px; margin: -2px 0 -2px 0; }
+.mf-lobby__settings { padding: var(--mf-sp-4) var(--mf-sp-panel-padding) var(--mf-sp-4) var(--mf-sp-panel-padding); }
+.mf-lobby__settings .mf-panel__header { margin-bottom: var(--mf-sp-1); }
+.mf-lobby__settings .mf-setting { margin-bottom: var(--mf-sp-2); }
+.mf-lobby__settings .mf-setting__label { margin-bottom: 4px; }
+.mf-lobby__settings .mf-segmented__item { height: 40px; }
 
 /* Scroll regions (crew panel body, side column): the content container fills the viewport and never shrinks, so at
    100 % text it lays out exactly like a plain column (the footer stays pinned by .mf-grow) and the scroller stays hidden;
@@ -45,7 +57,7 @@
 .mf-rtl .mf-lobby__tally-unit { margin: 0 var(--mf-sp-2) 8px 0; }
 /* RTL: every heading, the room code and the setting labels align right, and the setting blocks hug the right edge. */
 .mf-rtl .mf-lobby .mf-panel__title, .mf-rtl .mf-lobby .mf-roomcode-big, .mf-rtl .mf-lobby .mf-setting__label,
-.mf-rtl .mf-lobby .mf-joinurl, .mf-rtl .mf-lobby .mf-kpi { -unity-text-align: upper-right; }
+.mf-rtl .mf-lobby .mf-joinurl, .mf-rtl .mf-lobby .mf-kpi, .mf-rtl .mf-lobby .mf-h3, .mf-rtl .mf-lobby .mf-label, .mf-rtl .mf-lobby .mf-panel__tag { -unity-text-align: upper-right; }
 .mf-rtl .mf-lobby__join .mf-join__text, .mf-rtl .mf-lobby__settings .mf-setting { align-items: flex-end; }
 
 /* ---------- 200 % text: rows wrap, three seat columns, the panels scroll ---------- */
@@ -56,9 +68,13 @@
 .mf-text-200 .mf-lobby__grid > .mf-seat { width: 32%; height: auto; min-height: 300px; margin-bottom: var(--mf-sp-4); }
 .mf-text-200 .mf-lobby__footer { flex-wrap: wrap; }
 .mf-text-200 .mf-lobby__hintrow { flex-basis: 100%; margin: 0 0 var(--mf-sp-4) 0; }
-.mf-text-200 .mf-lobby__join .mf-join { flex-direction: column; align-items: flex-start; }
-.mf-rtl.mf-text-200 .mf-lobby__join .mf-join, .mf-rtl .mf-text-200 .mf-lobby__join .mf-join, .mf-text-200 .mf-rtl .mf-lobby__join .mf-join { align-items: flex-end; }
-.mf-text-200 .mf-lobby__join .mf-join__text { margin: var(--mf-sp-4) 0 0 0; }
+/* 200 %: the QR and the code stay side by side (a stacked card took half the column and pushed every setting off-screen). */
+.mf-text-200 .mf-lobby__join .mf-join { flex-direction: row; align-items: center; }
+.mf-text-200 .mf-lobby__join .mf-qrcard--s { width: 128px; height: 128px; padding: 8px; }
+.mf-text-200 .mf-lobby__join .mf-roomcode-big { font-size: 96px; }
+.mf-rtl.mf-text-200 .mf-lobby__join .mf-join, .mf-rtl .mf-text-200 .mf-lobby__join .mf-join, .mf-text-200 .mf-rtl .mf-lobby__join .mf-join { flex-direction: row-reverse; }
+.mf-text-200 .mf-lobby__join .mf-join__text { margin: 0 0 0 var(--mf-sp-4); }
+.mf-rtl.mf-text-200 .mf-lobby__join .mf-join__text, .mf-rtl .mf-text-200 .mf-lobby__join .mf-join__text, .mf-text-200 .mf-rtl .mf-lobby__join .mf-join__text { margin: 0 var(--mf-sp-4) 0 0; }
 .mf-text-200 .mf-lobby__settings .mf-setting { margin-bottom: var(--mf-sp-4); }
 .mf-text-200 .mf-segmented { flex-wrap: wrap; }
 .mf-text-200 .mf-segmented__item { height: auto; min-height: 72px; padding-top: 4px; padding-bottom: 4px; }

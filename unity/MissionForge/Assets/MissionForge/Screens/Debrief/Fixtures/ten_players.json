@@ -1,0 +1,241 @@
+{
+  "fixture": "ten_players",
+  "design_notes": [
+    "Rehearsal fixture (T024): the C1 success flown by a full room of 10 players, to show the award spread (every player at least one positive award). Data only: Core assigns the awards."
+  ],
+  "contractId": "C1",
+  "assistLevel": "engineer",
+  "seed": "4024",
+  "crewed": false,
+  "crewLost": false,
+  "crewSafe": false,
+  "boosterRecovered": false,
+  "capsuleRecovered": false,
+  "budgetRemainingFraction": 0.18,
+  "scheduleMarginFraction": 0.2,
+  "scienceFraction": 0.8,
+  "goodCalls": 4,
+  "correctPredictions": 3,
+  "triviaTiebreaks": 1,
+  "scoreBoostMultiplier": 1.2,
+  "metrics": {
+    "orbit_altitude_km": 552,
+    "inclination_deg": 97.55,
+    "payload_power_balance_W": 42,
+    "science_targets_captured": 12,
+    "data_downlinked_GB": 9.4,
+    "budget_remaining_M": 6.2
+  },
+  "minigames": [
+    {
+      "id": "MG-07",
+      "tier": "gold",
+      "golden": false
+    },
+    {
+      "id": "MG-08",
+      "tier": "silver",
+      "golden": false
+    },
+    {
+      "id": "MG-09",
+      "tier": "platinum",
+      "golden": false
+    }
+  ],
+  "missionLengthS": 620,
+  "timeline": [
+    {
+      "t": 0,
+      "kind": "phase",
+      "key": "flight_phase.F2.name"
+    },
+    {
+      "t": 18,
+      "kind": "minigame",
+      "key": "minigame.MG-07.name",
+      "tier": "gold"
+    },
+    {
+      "t": 42,
+      "kind": "phase",
+      "key": "flight_phase.F3.name"
+    },
+    {
+      "t": 61,
+      "kind": "good_call",
+      "key": "ui.host.debrief.timeline.good_call"
+    },
+    {
+      "t": 72,
+      "kind": "phase",
+      "key": "flight_phase.F4.name"
+    },
+    {
+      "t": 76,
+      "kind": "minigame",
+      "key": "minigame.MG-08.name",
+      "tier": "silver"
+    },
+    {
+      "t": 81,
+      "kind": "boost",
+      "key": "boost.score_multiplier.name"
+    },
+    {
+      "t": 150,
+      "kind": "phase",
+      "key": "flight_phase.F5.name"
+    },
+    {
+      "t": 205,
+      "kind": "phase",
+      "key": "flight_phase.F6.name"
+    },
+    {
+      "t": 214,
+      "kind": "minigame",
+      "key": "minigame.MG-09.name",
+      "tier": "platinum"
+    },
+    {
+      "t": 300,
+      "kind": "good_call",
+      "key": "ui.host.debrief.timeline.good_call"
+    },
+    {
+      "t": 480,
+      "kind": "phase",
+      "key": "flight_phase.F7.name"
+    },
+    {
+      "t": 590,
+      "kind": "phase",
+      "key": "flight_phase.F8.name"
+    }
+  ],
+  "facts": [
+    "F02",
+    "F04",
+    "F05",
+    "F11",
+    "F16"
+  ],
+  "kpEarned": 9,
+  "failure": null,
+  "retryAvailable": false,
+  "players": [
+    {
+      "id": "p1",
+      "nickname": "Amal",
+      "avatar": "av_03",
+      "roles": [
+        "PM"
+      ],
+      "stats": {
+        "budget_saved_M": 6.2,
+        "good_calls": 1
+      }
+    },
+    {
+      "id": "p2",
+      "nickname": "Diego",
+      "avatar": "av_07",
+      "roles": [
+        "FLIGHT"
+      ],
+      "stats": {
+        "pilot_precision": 0.91,
+        "good_calls": 1
+      }
+    },
+    {
+      "id": "p3",
+      "nickname": "Mei",
+      "avatar": "av_11",
+      "roles": [
+        "BOOSTER"
+      ],
+      "stats": {
+        "predictions_correct": 3
+      }
+    },
+    {
+      "id": "p4",
+      "nickname": "Kofi",
+      "avatar": "av_02",
+      "roles": [
+        "PAYLOAD"
+      ],
+      "stats": {
+        "minigame_successes": 3,
+        "minigame_score": 0.6
+      }
+    },
+    {
+      "id": "p5",
+      "nickname": "Sana",
+      "avatar": "av_05",
+      "roles": [
+        "INCO"
+      ],
+      "stats": {
+        "good_calls": 3
+      }
+    },
+    {
+      "id": "p6",
+      "nickname": "Tomás",
+      "avatar": "av_09",
+      "roles": [
+        "EECOM"
+      ],
+      "stats": {
+        "vetoed_option_would_have_failed": 1
+      }
+    },
+    {
+      "id": "p7",
+      "nickname": "Ife",
+      "avatar": "av_01",
+      "roles": [
+        "STRUCT"
+      ],
+      "stats": {
+        "minigame_score": 0.95
+      }
+    },
+    {
+      "id": "p8",
+      "nickname": "Ravi",
+      "avatar": "av_12",
+      "roles": [
+        "GUIDO"
+      ],
+      "stats": {
+        "predictions_correct": 1,
+        "good_calls": 1
+      }
+    },
+    {
+      "id": "p9",
+      "nickname": "Lena",
+      "avatar": "av_06",
+      "roles": [
+        "RETRO"
+      ],
+      "stats": {
+        "minigame_successes": 2
+      }
+    },
+    {
+      "id": "p10",
+      "nickname": "Yuki",
+      "avatar": "av_08",
+      "roles": [
+        "FIDO"
+      ],
+      "stats": {}
+    }
+  ]
+}

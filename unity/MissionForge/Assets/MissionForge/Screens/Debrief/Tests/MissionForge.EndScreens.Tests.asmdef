@@ -1,0 +1,31 @@
+{
+    "name": "MissionForge.EndScreens.Tests",
+    "rootNamespace": "MissionForge.EndScreens.Tests",
+    "references": [
+        "MissionForge.EndScreens.Sources",
+        "MissionForge.EndScreens.Investigation",
+        "MissionForge.Screens.Flight",
+        "MissionForge.Screens.Debrief",
+        "MissionForge.Core",
+        "MissionForge.Data",
+        "MissionForge.Data.Editor",
+        "MissionForge.Net",
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll",
+        "Newtonsoft.Json.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "noEngineReferences": false
+}
