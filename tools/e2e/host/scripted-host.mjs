@@ -3,11 +3,13 @@ import path from 'node:path';
 import WebSocket from 'ws';
 import { e2eDir, schemaDir } from '../lib/paths.mjs';
 
+const minigameData = new Map(JSON.parse(fs.readFileSync(path.join(e2eDir, '..', '..', 'data', 'minigames.json'), 'utf8')).minigames.map((m) => [m.id, m]));
+const MG_TYPE = { parallel_solo: 'PARALLEL_SOLO', cooperative_split: 'COOP_SPLIT', cooperative: 'COOP_SPLIT', team_sync: 'TEAM_SYNC', relay: 'RELAY' };
 const fixture = JSON.parse(fs.readFileSync(path.join(e2eDir, 'fixtures', 'c1', 'script.json'), 'utf8'));
 const ROLES = ['FLIGHT', 'BOOSTER', 'STRUCT', 'GUIDO', 'FIDO', 'EECOM', 'INCO', 'PAYLOAD', 'RETRO', 'PM'];
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-function schemaExample(type) {
+export function schemaExample(type) {
   const schema = JSON.parse(fs.readFileSync(path.join(schemaDir, `${type}.schema.json`), 'utf8'));
   if (!schema.examples?.[0]) throw new Error(`No schema example for ${type}`);
   return structuredClone(schema.examples[0]);
@@ -47,6 +49,9 @@ export class ScriptedHost {
     this.outcomeSeq = 0;
     this.heartbeat = null;
     this.segments = [];
+    this.mgResults = new Map();
+    this.mgLog = [];
+    this.relayCounts = {};
   }
 
   async connect({ resume = false } = {}) {
@@ -77,6 +82,11 @@ export class ScriptedHost {
 
   #receive(msg) {
     if (msg.d?.outcomeSeq) this.outcomeSeq = Math.max(this.outcomeSeq, msg.d.outcomeSeq);
+    if (msg.t === 'relay') this.relayCounts[msg.d?.t] = (this.relayCounts[msg.d?.t] ?? 0) + 1;
+    if (msg.t === 'relay' && msg.d?.t === 'mg.result') {
+      const rows = this.mgResults.get(msg.d.d.runId) ?? new Map();
+      rows.set(msg.d.from, msg.d.d); this.mgResults.set(msg.d.d.runId, rows);
+    }
     if (msg.t === 'room.state') this.playerIds = msg.d.players.map((p) => p.id);
     const waiter = this.waiters.find((w) => w.type === msg.t && (!w.predicate || w.predicate(msg.d)));
     if (waiter) {
@@ -152,24 +162,53 @@ export class ScriptedHost {
     return result;
   }
 
-  async minigame(id, flightPhase, hook = null) {
+  /**
+   * Start one real minigame on the phones, collect the real `mg.result` relays, and send an honest
+   * `mg.summary` built from them (fraction, tier and points are the T011 rules' job in the real host;
+   * here tier uses fraction thresholds and points are fixtures, "fixture (not Core)").
+   */
+  async minigame(id, flightPhase, hook = null, { playMs = null, after = null } = {}) {
+    const def = minigameData.get(id);
+    if (!def) throw new Error(`unknown minigame ${id}`);
+    const type = MG_TYPE[def.type] ?? 'PARALLEL_SOLO';
     const runId = `m1.${id.replace('-', '').toLowerCase()}.${this.segments.length}`;
-    const implemented = id === 'MG-08';
+    const players = [...this.playerIds];
+    const durationMs = playMs ?? (type === 'RELAY' ? Math.max(5000, 5000 * players.length) : Math.max(5000, def.duration_s * 1000));
+    const startAtMs = Date.now() + 3300;
+    const assignments = type === 'PARALLEL_SOLO' ? [] : players.map((playerId, index) => ({ playerId, index, params: {} }));
     this.send('mg.start', {
-      runId, minigameId: id, type: 'PARALLEL_SOLO', seed: (this.seed + this.segments.length) >>> 0,
-      startAtMs: Date.now() + 3100, durationMs: implemented ? 5000 : 5000, assistLevel: 'CADET',
-      flightPhase, audience: false, params: { fixture_not_core: true }, assignments: [],
+      runId, minigameId: id, type, seed: (this.seed + this.segments.length) >>> 0,
+      startAtMs, durationMs, assistLevel: 'CADET', flightPhase, audience: false,
+      params: type === 'RELAY' ? { turnMs: Math.floor(durationMs / Math.max(1, players.length)) } : {}, assignments,
     });
-    await hook?.({ runId, id, implemented });
-    await sleep(implemented ? 8500 : 1200);
-    const ids = implemented ? this.playerIds : [];
+    const records = (await hook?.({ runId, id, durationMs })) ?? [];
+    const deadline = startAtMs + durationMs + 2000;
+    while (Date.now() < deadline && (this.mgResults.get(runId)?.size ?? 0) < players.length) await sleep(100);
+    const results = [...(this.mgResults.get(runId)?.entries() ?? [])];
+    const succeededIds = results.filter(([, r]) => r.success).map(([pid]) => pid);
+    const perfectIds = results.filter(([, r]) => r.perfect).map(([pid]) => pid);
+    const fraction = players.length ? succeededIds.length / players.length : 0;
+    const tier = perfectIds.length === players.length && players.length ? 'PLATINUM' : fraction >= 1 ? 'GOLD' : fraction >= 0.5 ? 'SILVER' : fraction > 0 ? 'BRONZE' : 'NONE';
     this.send('mg.summary', {
-      runId, minigameId: id, active: ids.length, succeeded: ids.length, fraction: ids.length ? 1 : 0,
-      tier: ids.length ? 'GOLD' : 'NONE', succeededIds: ids, perfectIds: [], sparkle: false, boosts: [],
-      syncDelta: ids.length ? 25 : 0, points: ids.length ? 200 : 0, factId: null,
+      runId, minigameId: id, active: players.length, succeeded: succeededIds.length, fraction, tier,
+      succeededIds, perfectIds, sparkle: false, boosts: [], syncDelta: succeededIds.length ? 5 : 0, points: succeededIds.length * 100, factId: null,
     });
+    this.mgLog.push({ id, runId, type, durationMs, expectedResults: players.length, resultsReceived: results.length, succeeded: succeededIds.length, perfect: perfectIds.length, tier, results: results.map(([pid, r]) => ({ playerId: pid, success: r.success, perfect: r.perfect, score: r.score, value: r.value ?? null, elapsedMs: r.elapsedMs, mode: r.mode })), records });
+    await after?.({ runId, id, records });
     await sleep(350);
-    this.segments.push(`minigame:${id}:${implemented ? 'played' : 'not_bundled'}`);
+    this.segments.push(`minigame:${id}:${results.length}/${players.length}results`);
+  }
+
+  /** The minigame-only segment: every implemented minigame (or the ids given) through the real phones. */
+  async minigames(ids, { onMilestone = null } = {}) {
+    this.phase('LOBBY');
+    await sleep(500);
+    this.send('roles.lock', {});
+    await sleep(500);
+    this.phase('FLIGHT', { sub: 'FLYING', flightPhase: 'F8', segment: 'ORBIT', contractId: 'C1' });
+    for (const id of ids) {
+      await this.minigame(id, minigameData.get(id).stage === 'flight' ? 'F8' : null, (d) => onMilestone?.('minigame', d), { after: (d) => onMilestone?.('minigame_summary', d) });
+    }
   }
 
   async full({ onMilestone = null } = {}) {
@@ -202,7 +241,7 @@ export class ScriptedHost {
     await this.poll(1, (d) => hit('poll', d));
     await this.poll(2, (d) => hit('poll', d));
     this.phase('COUNTDOWN', { flightPhase: 'F0', contractId: 'C1' });
-    await this.minigame('MG-07', 'F0', (d) => hit('minigame', d));
+    await this.minigame('MG-07', 'F0', (d) => hit('minigame', d), { after: (d) => hit('minigame_summary', d) });
     this.send('pilot.assign', { segment: 'ASCENT', pilotId: null, pilotInput: 'HOST_DEVICE', copilotId: null, boosterPilotId: null, boosterInput: null });
     for (const role of ROLES) {
       const config = schemaExample('console.config'); config.role = role;
@@ -228,7 +267,7 @@ export class ScriptedHost {
         await hit('blackout'); await sleep(700);
         this.send('blackout.set', { active: false, cause: null, expectedEndAtMs: null });
       }
-      await this.minigame(mg, fp, (d) => hit('minigame', d));
+      await this.minigame(mg, fp, (d) => hit('minigame', d), { after: (d) => hit('minigame_summary', d) });
     }
     this.send('sync.meter', { value: 50, delta: 25, reason: 'GOLD', momentReady: false });
     this.phase('DEBRIEF', { sub: 'SUMMARY', contractId: 'C1' });
