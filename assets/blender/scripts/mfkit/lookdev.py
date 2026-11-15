@@ -34,7 +34,7 @@ FLOOR_RADIUS_M = 400.0
 # Brightest pixel of belfast_sunset_puresky_2k.hdr (measured once with numpy), equirectangular uv.
 DUSK_SUN_UV = (0.604736, 0.511230)
 DUSK_SUN_ELEVATION_TARGET_DEG = 5.0   # inside the 3..8 degree window
-DUSK_SUN_AZIMUTH_DEG = 115.0          # world azimuth of the sun: behind and to the side of the 3q camera
+DUSK_SUN_AZIMUTH_DEG = 70.0           # world azimuth of the sun: a warm 3/4 rim, about 120 deg from the 3q camera (frame 02)
 FLOOR_NAME = "mf_lookdev_floor"
 _COL = "lookdev"
 
@@ -293,7 +293,7 @@ def _wet_concrete():
     nmap.inputs["Strength"].default_value = 0.25
     nt.links.new(nrm.outputs["Color"], nmap.inputs["Color"])
     nt.links.new(nmap.outputs["Normal"], bsdf.inputs["Normal"])
-    bsdf.inputs["Specular IOR Level"].default_value = 0.7
+    bsdf.inputs["Specular IOR Level"].default_value = 0.3        # T032: 0.7 washed the pad out to lavender
     return mat
 
 
@@ -303,7 +303,7 @@ def setup_dusk_pad(scene=None, *, samples: int = DEFAULT_SAMPLES):
     _reset(scene)
     col = _col(scene)
     rot = _dusk_rotation()
-    scene.world = _world_with_hdri("mf_world_dusk", HDRI_DUSK, rot, strength=0.32, camera_mode="hdri")
+    scene.world = _world_with_hdri("mf_world_dusk", HDRI_DUSK, rot, strength=0.55, camera_mode="hdri")
     sun_dir = dusk_sun_direction(rot)
     elev = math.degrees(math.asin(sun_dir.z))
     if not 3.0 <= elev <= 8.0:

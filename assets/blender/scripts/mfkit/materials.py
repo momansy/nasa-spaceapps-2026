@@ -23,6 +23,9 @@ MASK_NODE = "mf_mask"
 WHITE_MASK = "mf_mask_white"
 WEAR_ROUGHNESS_GAIN = 0.25     # game_value: edge-wear (mask G) raises roughness by up to this much
 GRIME_DARKEN = 0.35            # game_value: grime (mask A) darkens albedo by up to this fraction
+SOOT_START = 0.82              # game_value: mask A above this is soot (cavity grime is baked at <= 0.8)
+SOOT_DARKEN = 0.80             # game_value: full soot keeps 20 % of the (already grimed) albedo
+HEAT_TINT_START = 0.35         # game_value: heat below this shows no tint (the tint sits near the throat only)
 
 _LIB: dict | None = None
 
@@ -132,6 +135,17 @@ def _build_textured(slot: str, entry: dict, look: dict) -> bpy.types.Material:
     nt.links.new(mask.outputs["Alpha"], grime.inputs[0])
     grime.inputs[1].default_value = -GRIME_DARKEN
     grime.inputs[2].default_value = 1.0
+    soot = nt.nodes.new("ShaderNodeMapRange")       # soot (mask A above SOOT_START) darkens much harder
+    soot.inputs["From Min"].default_value = SOOT_START
+    soot.inputs["From Max"].default_value = 1.0
+    soot.inputs["To Min"].default_value = 1.0
+    soot.inputs["To Max"].default_value = 1.0 - SOOT_DARKEN
+    nt.links.new(mask.outputs["Alpha"], soot.inputs["Value"])
+    grime_soot = nt.nodes.new("ShaderNodeMath")
+    grime_soot.operation = "MULTIPLY"
+    nt.links.new(grime.outputs[0], grime_soot.inputs[0])
+    nt.links.new(soot.outputs["Result"], grime_soot.inputs[1])
+    grime = grime_soot
     shade = nt.nodes.new("ShaderNodeMath")
     shade.operation = "MULTIPLY"
     nt.links.new(ao.outputs[0], shade.inputs[0])
@@ -153,7 +167,16 @@ def _build_textured(slot: str, entry: dict, look: dict) -> bpy.types.Material:
     nt.links.new(msep.outputs["Green"], rough.inputs[0])
     rough.inputs[1].default_value = WEAR_ROUGHNESS_GAIN
     nt.links.new(osep.outputs["Green"], rough.inputs[2])
-    nt.links.new(rough.outputs[0], bsdf.inputs["Roughness"])
+    soot_r = nt.nodes.new("ShaderNodeMapRange")     # soot is matte: roughness rises towards 0.85
+    soot_r.inputs["From Min"].default_value = SOOT_START
+    soot_r.inputs["From Max"].default_value = 1.0
+    nt.links.new(mask.outputs["Alpha"], soot_r.inputs["Value"])
+    rmix = nt.nodes.new("ShaderNodeMix")
+    rmix.data_type = "FLOAT"
+    nt.links.new(soot_r.outputs["Result"], rmix.inputs["Factor"])
+    nt.links.new(rough.outputs[0], rmix.inputs["A"])
+    rmix.inputs["B"].default_value = 0.85
+    nt.links.new(rmix.outputs["Result"], bsdf.inputs["Roughness"])
 
     if entry.get("alpha") == "clip":                # decal atlas: RGBA albedo, alpha carries the stencil shape
         nt.links.new(alb.outputs["Alpha"], bsdf.inputs["Alpha"])
@@ -195,12 +218,16 @@ def _heat_tint(nt, colour_out, strength: float):
     ramp.color_ramp.elements[1].position, ramp.color_ramp.elements[1].color = HEAT_RAMP[2]
     mid = ramp.color_ramp.elements.new(HEAT_RAMP[1][0])
     mid.color = HEAT_RAMP[1][1]
-    nt.links.new(sep.outputs["Red"], ramp.inputs["Fac"])
+    hot = nt.nodes.new("ShaderNodeMapRange")       # 0 below HEAT_TINT_START, 1 at full heat
+    hot.inputs["From Min"].default_value = HEAT_TINT_START
+    hot.inputs["From Max"].default_value = 1.0
+    nt.links.new(sep.outputs["Red"], hot.inputs["Value"])
+    nt.links.new(hot.outputs["Result"], ramp.inputs["Fac"])
     fac = nt.nodes.new("ShaderNodeMath")
     fac.operation = "MULTIPLY"
     fac.use_clamp = True
     fac.inputs[1].default_value = strength
-    nt.links.new(sep.outputs["Red"], fac.inputs[0])
+    nt.links.new(hot.outputs["Result"], fac.inputs[0])
     mix = nt.nodes.new("ShaderNodeMix")
     mix.data_type = "RGBA"
     nt.links.new(fac.outputs[0], mix.inputs[0])

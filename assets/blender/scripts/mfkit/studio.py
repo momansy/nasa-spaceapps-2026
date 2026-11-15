@@ -228,6 +228,8 @@ def preview(scene, objs, out_path, views=("3q", "side", "low"), size=640, ortho_
     """Render objs from several views and stitch them into one PNG row."""
     paths = []
     stem = os.path.splitext(out_path)[0]
+    scene.render.resolution_x = scene.render.resolution_y = size     # frame with the aspect actually rendered
+    scene.render.resolution_percentage = 100
     for v in views:
         frame_camera(scene, objs, v, ortho=(ortho_side and v in ("side", "front")))
         if bpy.data.objects.get("mf_lookdev_floor") is not None:     # HDRI look-dev: floor follows the part

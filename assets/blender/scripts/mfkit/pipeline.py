@@ -434,7 +434,7 @@ def export_fbx(path: str, objs, scene) -> None:
     bpy.ops.export_scene.fbx(
         filepath=path, use_selection=True, object_types={"EMPTY", "MESH"},
         apply_scale_options="FBX_SCALE_UNITS", bake_space_transform=True,
-        axis_forward="-Z", axis_up="Y", mesh_smooth_type="OFF", use_mesh_modifiers=True,
+        axis_forward="-Z", axis_up="Y", mesh_smooth_type="OFF", use_mesh_modifiers=True, use_tspace=True,
         add_leaf_bones=False, bake_anim=False, colors_type="LINEAR", use_custom_props=False)
 
 
@@ -501,6 +501,11 @@ def build_part(part_id: str, *, scene=None, export=True, save_blend=True) -> dic
         export_fbx(fbx, host, scene)
         phone = make_phone_meshes(inst, scene.collection)
         phone_tris = sum(tri_count(o.data) for o in phone)
+        if uvmod.wants_uv1(PARTS[part_id].family) and materials.has_entry("engine_metal"):
+            from . import phone_bake
+            lod = 0 if inst["tris"].get(0, 1e9) <= PHONE_TRI_BUDGET else 1       # same pick as make_phone_meshes
+            for o in phone:
+                phone_bake.bake_phone(part_id, o, scene, lod)
         glb = os.path.join(GLB_DIR, part_id + ".glb")
         sel = [inst["root"], *inst["subs"].values(), *phone, *inst["empties"].values()]
         export_glb(glb, list(dict.fromkeys(sel)), scene)

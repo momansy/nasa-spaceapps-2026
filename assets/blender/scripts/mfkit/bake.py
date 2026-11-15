@@ -22,8 +22,9 @@ from . import materials, pipeline, uv
 BAKES_DIR = os.path.join(materials.MATERIALS_DIR, "bakes")
 BAKE_SAMPLES = 48
 MARGIN_PX = 16
-AO_DISTANCE_FRACTION = 0.20      # of the part's bounding-box diagonal
+AO_DISTANCE_FRACTION = 0.10      # of the part bounding-box diagonal (0.20 crushed engine interiors)
 CAVITY_DISTANCE_M = 0.02
+CAVITY_GRIME = 0.5               # game_value: cavity grime in A stays well below materials.SOOT_START
 EDGE_RADIUS_M = 0.004
 EDGE_GAIN = 40.0
 EDGE_MAX = 0.8                   # game_value: wear never exceeds 80 %, kept sparse by the noise gate
@@ -90,12 +91,21 @@ def _bake_pass(scene, ob, me, kind: str, res: int, *, ao_distance: float = 0.5):
     me.materials.append(mat)
     me.polygons.foreach_set("material_index", [0] * len(me.polygons))
     scene.world.light_settings.distance = ao_distance
+    # Only the bake object may occlude: the source LOD objects sit in exactly the same place and would turn every
+    # AO and cavity ray into a hit (T032: masks baked with them averaged AO 0.27).
+    hidden = [o for o in scene.objects if o is not ob and not o.hide_render]
+    for o in hidden:
+        o.hide_render = True
     for o in bpy.context.view_layer.objects:
         o.select_set(False)
     ob.select_set(True)
     bpy.context.view_layer.objects.active = ob
-    bpy.ops.object.bake(type="AO" if kind == "ao" else "EMIT", margin=MARGIN_PX, margin_type="EXTEND",
-                        use_clear=True, target="IMAGE_TEXTURES")
+    try:
+        bpy.ops.object.bake(type="AO" if kind == "ao" else "EMIT", margin=MARGIN_PX, margin_type="EXTEND",
+                            use_clear=True, target="IMAGE_TEXTURES")
+    finally:
+        for o in hidden:
+            o.hide_render = False
     arr = np.empty(res * res * 4, dtype=np.float32)
     img.pixels.foreach_get(arr)
     arr = arr.reshape(res, res, 4)[..., 0].copy()
@@ -129,6 +139,23 @@ def _heat_mask(me, res: int) -> np.ndarray:
     arr = np.empty(len(attr.data) * 4, dtype=np.float32)
     attr.data.foreach_get("color", arr)
     return uv.rasterize_corner_scalar(me, arr.reshape(-1, 4)[:, 0], res)
+
+
+def _soot_mask(me, res: int, soot: dict | None) -> np.ndarray:
+    """Soot for kerolox exits (VISUAL_TARGET 2.2), from meta `soot` = {z0_m, z1_m, strength}: 1 at z0 fading to 0 at
+    z1, rasterised on UV1. Stored in A above materials.SOOT_START, where the material darkens and roughens hard."""
+    if not soot:
+        return np.zeros((res, res), dtype=np.float32)
+    z0, z1, k = float(soot["z0_m"]), float(soot["z1_m"]), float(soot.get("strength", 1.0))
+    co = np.empty(len(me.vertices) * 3, dtype=np.float32)
+    me.vertices.foreach_get("co", co)
+    vidx = np.empty(len(me.loops), dtype=np.int64)
+    me.loops.foreach_get("vertex_index", vidx)
+    z = co.reshape(-1, 3)[vidx, 2]
+    t = np.clip((z1 - z) / max(z1 - z0, 1e-6), 0.0, 1.0)
+    s = t * t * (3.0 - 2.0 * t)                                     # smoothstep fade up the bell
+    top = materials.SOOT_START + (1.0 - materials.SOOT_START) * k  # strength sets how far past SOOT_START it goes
+    return uv.rasterize_corner_scalar(me, (s * top).astype(np.float32), res)
 
 
 def _configure(scene):
@@ -177,9 +204,11 @@ def bake_part(part_id: str, scene=None) -> dict:
         edge = _bake_pass(scene, ob, me, "edge", res)
         heat = _heat_mask(me, res)
         cav = _bake_pass(scene, ob, me, "ao", res, ao_distance=CAVITY_DISTANCE_M)
+        soot = _soot_mask(me, res, inst["meta"].get("soot"))
         bpy.data.objects.remove(ob)
         bpy.data.meshes.remove(me)
-        mask = _compress(np.stack([ao, edge, heat, np.clip(1.0 - cav, 0.0, 1.0) * 0.8], axis=2))
+        grime = np.maximum(np.clip(1.0 - cav, 0.0, 1.0) * CAVITY_GRIME, soot)
+        mask = _compress(np.stack([ao, edge, heat, grime], axis=2))
         out_dir = os.path.join(BAKES_DIR, part_id)
         os.makedirs(out_dir, exist_ok=True)
         path = os.path.join(out_dir, f"{part_id}_lod{lod}_mask.png")

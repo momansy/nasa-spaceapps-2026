@@ -44,20 +44,22 @@ def build_nozzle_hot(lib, size=2048):
     f = (f + wobble) % 1.0
     tube = np.sqrt(np.clip(1.0 - (2.0 * f - 1.0) ** 2, 0.0, 1.0))    # round tube section
     groove = 1.0 - T.smoothstep(0.0, 0.10, tube)                     # braze seam between tubes
-    seam = np.exp(-((vv - 0.5) / 0.006) ** 2) * 0.5                  # circumferential weld, one per tile
+    seam = np.exp(-((vv - 0.5) / 0.004) ** 2) * 0.25                 # faint circumferential weld, normal map only
     height = 0.8 * tube - 0.5 * groove - seam
-    per_tube = (np.floor(uu * TUBES_PER_TILE) * 0.6180339) % 1.0     # each tube has its own tone and roughness
-    lum = 0.70 + 0.05 * (per_tube - 0.5) + 0.05 * T.fbm(n, 4, f_lo=2, f_hi=12) - 0.35 * groove - 0.10 * seam
-    rough = np.clip(0.34 + 0.07 * (per_tube - 0.5) + 0.05 * T.fbm(n, 6, f_lo=3, f_hi=30) + 0.18 * groove, 0.2, 0.75)
-    ao = np.clip(1.0 - 0.55 * groove - 0.3 * (seam > 0.2), 0.0, 1.0)
+    per_tube = (np.floor(uu * TUBES_PER_TILE) * 0.6180339) % 1.0     # each tube: a slight roughness offset only
+    # albedo stays even (a plank-like tone per tube read as wood grain in T032 step 9): the tubes read through the
+    # normal map and the specular ridge highlights, not through colour
+    lum = 0.72 + 0.025 * T.fbm(n, 4, f_lo=1, f_hi=6) - 0.22 * groove
+    rough = np.clip(0.24 + 0.025 * (per_tube - 0.5) + 0.04 * T.fbm(n, 6, f_lo=2, f_hi=12) + 0.16 * groove, 0.2, 0.6)
+    ao = np.clip(1.0 - 0.5 * groove, 0.0, 1.0)
     normal = T.normal_from_height(height.astype(np.float32), 3.2)
     sizes = [T.save(_grey(lum), a_p), T.save(normal, n_p), T.save(T.orm(ao, rough, 0.88), o_p)]
-    R.record_material(lib, mid, albedo=a_p, normal=n_p, orm=o_p, tiling_m=0.5, tint="#6A5648",
-                      metallic=(0.8, 0.9), roughness=(0.2, 0.75), normal_strength=1.0, hero=True,
+    R.record_material(lib, mid, albedo=a_p, normal=n_p, orm=o_p, tiling_m=0.5, tint="#4F5155",
+                      metallic=(0.8, 0.9), roughness=(0.2, 0.6), normal_strength=2.0, hero=True,
                       sources=[PROC])
     lib["materials"][mid].update(uv_mode="angle", tubes_per_tile=TUBES_PER_TILE, heat_tint=0.55,
                                  note="regen tube wall; u repeats around the bell, v is metres along the meridian")
-    R.note_assets([PROC], f"textures/{mid}/", "Generated: tube-wall height field, braze grooves, weld seam")
+    R.note_assets([PROC], f"textures/{mid}/", "Generated: tube-wall height field, braze grooves, faint weld seam (even albedo)")
     return sizes
 
 

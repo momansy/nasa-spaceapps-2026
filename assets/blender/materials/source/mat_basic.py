@@ -56,16 +56,16 @@ def build_engine_metal(lib, size=2048):
     lum = T.luma(T.load(R.src("Metal009", "Color")))
     rgh = T.load(R.src("Metal009", "Roughness"))[..., 0]
     albedo = _neutral_albedo(lum, 0.90, 0.045)
-    rough = np.clip(0.34 + 0.07 * T.zscore(rgh), 0.22, 0.52)
+    rough = np.clip(0.25 + 0.06 * T.zscore(rgh), 0.15, 0.42)   # T032: 0.34 read as satin-white plastic at engine scale
     metal = np.clip(0.93 + 0.02 * T.fbm(lum.shape[0], 5, f_lo=2, f_hi=10), 0.88, 0.97)
     normal = T.load(R.src("Metal009", "NormalGL"))
     sizes = [T.save(T.resize(albedo, size), a_p), T.save(T.resize(normal[..., :3], size), n_p),
              T.save(T.resize(T.orm(1.0, rough, metal), size), o_p)]
-    R.record_material(lib, mid, albedo=a_p, normal=n_p, orm=o_p, tiling_m=1.0, tint="#BEC1C6",
-                      metallic=(0.88, 0.97), roughness=(0.22, 0.52), normal_strength=1.0, hero=True,
+    R.record_material(lib, mid, albedo=a_p, normal=n_p, orm=o_p, tiling_m=1.0, tint="#8F949B",
+                      metallic=(0.88, 0.97), roughness=(0.15, 0.42), normal_strength=1.0, hero=True,
                       sources=[R.ambientcg("Metal009")])
     R.note_assets([R.ambientcg("Metal009")], f"textures/{mid}/",
-                  "Colour reduced to neutral luminance; roughness remapped to 0.22-0.52; metallic from "
+                  "Colour reduced to neutral luminance; roughness remapped to 0.15-0.42; metallic from "
                   "procedural noise around 0.93; normal unchanged")
     return sizes
 

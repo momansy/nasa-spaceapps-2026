@@ -42,14 +42,14 @@
    "normal": "textures/engine_metal/engine_metal_normal.png",
    "orm": "textures/engine_metal/engine_metal_orm.jpg",
    "tiling_m": 1.0,
-   "tint": "#BEC1C6",
+   "tint": "#8F949B",
    "metallic": [
     0.88,
     0.97
    ],
    "roughness": [
-    0.22,
-    0.52
+    0.15,
+    0.42
    ],
    "normal_strength": 1.0,
    "hero": true,
@@ -92,16 +92,16 @@
    "normal": "textures/nozzle_hot/nozzle_hot_normal.png",
    "orm": "textures/nozzle_hot/nozzle_hot_orm.jpg",
    "tiling_m": 0.5,
-   "tint": "#6A5648",
+   "tint": "#4F5155",
    "metallic": [
     0.8,
     0.9
    ],
    "roughness": [
     0.2,
-    0.75
+    0.6
    ],
-   "normal_strength": 1.0,
+   "normal_strength": 2.0,
    "hero": true,
    "source": [
     {
@@ -672,6 +672,76 @@
    "channels": "R ao, G edge wear, B heat, A cavity and grime",
    "lod0_mask": "bakes/eng_kerolox_workhorse/eng_kerolox_workhorse_lod0_mask.png",
    "lod1_mask": "bakes/eng_kerolox_workhorse/eng_kerolox_workhorse_lod1_mask.png"
+  },
+  "eng_kerolox_giant": {
+   "mask_res": 2048,
+   "mask_b": "heat",
+   "channels": "R ao, G edge wear, B heat, A cavity and grime",
+   "lod0_mask": "bakes/eng_kerolox_giant/eng_kerolox_giant_lod0_mask.png",
+   "lod1_mask": "bakes/eng_kerolox_giant/eng_kerolox_giant_lod1_mask.png"
+  },
+  "eng_kerolox_staged_combustion": {
+   "mask_res": 2048,
+   "mask_b": "heat",
+   "channels": "R ao, G edge wear, B heat, A cavity and grime",
+   "lod0_mask": "bakes/eng_kerolox_staged_combustion/eng_kerolox_staged_combustion_lod0_mask.png",
+   "lod1_mask": "bakes/eng_kerolox_staged_combustion/eng_kerolox_staged_combustion_lod1_mask.png"
+  },
+  "eng_hydrolox_high_efficiency": {
+   "mask_res": 2048,
+   "mask_b": "heat",
+   "channels": "R ao, G edge wear, B heat, A cavity and grime",
+   "lod0_mask": "bakes/eng_hydrolox_high_efficiency/eng_hydrolox_high_efficiency_lod0_mask.png",
+   "lod1_mask": "bakes/eng_hydrolox_high_efficiency/eng_hydrolox_high_efficiency_lod1_mask.png"
+  },
+  "eng_methalox_full_flow": {
+   "mask_res": 2048,
+   "mask_b": "heat",
+   "channels": "R ao, G edge wear, B heat, A cavity and grime",
+   "lod0_mask": "bakes/eng_methalox_full_flow/eng_methalox_full_flow_lod0_mask.png",
+   "lod1_mask": "bakes/eng_methalox_full_flow/eng_methalox_full_flow_lod1_mask.png"
+  },
+  "eng_electric_pump_mini": {
+   "mask_res": 2048,
+   "mask_b": "heat",
+   "channels": "R ao, G edge wear, B heat, A cavity and grime",
+   "lod0_mask": "bakes/eng_electric_pump_mini/eng_electric_pump_mini_lod0_mask.png",
+   "lod1_mask": "bakes/eng_electric_pump_mini/eng_electric_pump_mini_lod1_mask.png"
+  },
+  "eng_hydrolox_vacuum": {
+   "mask_res": 2048,
+   "mask_b": "heat",
+   "channels": "R ao, G edge wear, B heat, A cavity and grime",
+   "lod0_mask": "bakes/eng_hydrolox_vacuum/eng_hydrolox_vacuum_lod0_mask.png",
+   "lod1_mask": "bakes/eng_hydrolox_vacuum/eng_hydrolox_vacuum_lod1_mask.png"
+  },
+  "eng_kerolox_vacuum": {
+   "mask_res": 2048,
+   "mask_b": "heat",
+   "channels": "R ao, G edge wear, B heat, A cavity and grime",
+   "lod0_mask": "bakes/eng_kerolox_vacuum/eng_kerolox_vacuum_lod0_mask.png",
+   "lod1_mask": "bakes/eng_kerolox_vacuum/eng_kerolox_vacuum_lod1_mask.png"
+  },
+  "eng_methalox_vacuum": {
+   "mask_res": 2048,
+   "mask_b": "heat",
+   "channels": "R ao, G edge wear, B heat, A cavity and grime",
+   "lod0_mask": "bakes/eng_methalox_vacuum/eng_methalox_vacuum_lod0_mask.png",
+   "lod1_mask": "bakes/eng_methalox_vacuum/eng_methalox_vacuum_lod1_mask.png"
+  },
+  "eng_hypergolic_storable": {
+   "mask_res": 2048,
+   "mask_b": "heat",
+   "channels": "R ao, G edge wear, B heat, A cavity and grime",
+   "lod0_mask": "bakes/eng_hypergolic_storable/eng_hypergolic_storable_lod0_mask.png",
+   "lod1_mask": "bakes/eng_hypergolic_storable/eng_hypergolic_storable_lod1_mask.png"
+  },
+  "eng_solid_kick_motor": {
+   "mask_res": 2048,
+   "mask_b": "heat",
+   "channels": "R ao, G edge wear, B heat, A cavity and grime",
+   "lod0_mask": "bakes/eng_solid_kick_motor/eng_solid_kick_motor_lod0_mask.png",
+   "lod1_mask": "bakes/eng_solid_kick_motor/eng_solid_kick_motor_lod1_mask.png"
   }
  }
 }
