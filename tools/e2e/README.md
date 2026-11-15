@@ -81,3 +81,51 @@ product defects remain visible in evidence and do not get hidden by the harness.
 - `node run.mjs --hosted http://localhost:10000 --players 6 --spectators 5`: run the C1 session against an already running `npm --prefix server run start:hosted` process. A recording proxy forwards pages to `<origin>/play/client/` and WebSocket frames to `<origin>/ws`, so frames are still recorded and schema-checked (latency is measured on loopback, before the real network).
 - `node hosted-judge-path.mjs [--origin …] [--phones 3]`: entry page → Host a mission → real Unity host → New mission → phones join from the `joinUrl` only.
 - `node hosted-restart.mjs [--origin …] [--down-seconds 10]`: kill and restart the hosted process in a lobby and record how host and phones recover (needs PowerShell on Windows to find the listener).
+
+## Real-host mode (T061): scripted phones against the real Unity host
+
+The Unity host is the authority. This mode **never sends a host message and never drives a phase**: it joins N real
+390 × 844 Chromium phones to a room that a real host already created, answers what the host asks, and tells you where the
+session stops. Use it so the Unity machine only has to run the host.
+
+**One command** (3 phones, server from `npm --prefix server run start:hosted`, which also serves the phone build):
+
+```sh
+node tools/e2e/run.mjs --real-host --room CODE --server ws://localhost:10000/ws --phones 3
+```
+
+`--room` is the 4-letter code on the host's lobby, `--server` the room server (`ws://…/ws`, `http://…` or `host:port`),
+`--phones` is 1, 3 or 6. Start it **while the host is in its lobby**; phones that join later are pending spectators.
+The phone page defaults to `<server origin>/play/client/` (the hosted layout). Any other layout needs `--phone-base URL`
+(the phones then also get `?server=` when they cannot reach the room server on their own origin).
+
+| Option | Default | Meaning |
+|---|---|---|
+| `--stall-seconds` | 180 | no progress frame for this long outside the lobby = verdict `stalled` |
+| `--lobby-wait-minutes` | 30 | the lobby waits for a human, so it gets a long allowance |
+| `--timeout-minutes` | 60 | hard stop = verdict `timeout` |
+| `--debrief-linger-seconds` | 20 | how long to watch the debrief before verdict `completed` |
+| `--headed` | off | show the phone browsers |
+| `--out DIR` | `orchestration/evidence/T061/real-host-runs/` (`E2E_EVIDENCE_TASK` changes `T061`) | evidence folder |
+
+What the phones answer, through the real phone UI (generic input, not tuned to win): every `vote.stage` VOTE / RUNOFF
+(contract, parts, TEST, PDR), PREDICT, tie-break trivia and pick; every FRR poll call with GO (a phone holding several roles
+answers each call); every minigame (`mg.start` → play → own result → `mg.summary` → continue); console alert call-outs; and
+the "role ready" acknowledgement. Nothing else is pressed, so a host screen that waits for something else shows up as a stall.
+
+Output, to stdout and to `run-summary.json`, `timeline.log` and `frames.ndjson` (every frame, schema-checked) in the run folder:
+
+- a timestamped line for each phase the phones see (`phase.set`: phase, sub-state, review, flight phase, step), each vote stage,
+  poll, minigame and summary, and each phone's visible screen when it changes; screenshots of phone 1 at each new screen;
+- a verdict: `completed` (debrief reached), `stalled` (with the last phase, the seconds since it, the last progress frame and
+  what each phone shows), `room_ended` (every phone shows the lost-connection / room-ended banner for over 30 s), or `timeout`.
+  Exit code 0 only for `completed`; 1 for the others; 2 when the harness could not start or a phone could not join (bad code).
+
+Helpers used to test it without a Unity machine:
+
+- `node tools/e2e/open-webgl-host.mjs [--origin http://localhost:10000] [--control-file FILE]`: opens the committed WebGL host in
+  headless software-GL Chromium, presses New mission, prints `ROOM=XXXX` and stays open. Lines appended to the control file
+  (`click X Y` on the 1920 × 1080 canvas, `key Enter`, `shot NAME`) act as the person at the host. Software GL runs at about
+  0.1–0.5 fps, so a click takes tens of seconds to show.
+- `node tools/e2e/room-ended.mjs [--docs-dir DIR]` (D-110): kills and restarts a hosted server under a phone and checks that it
+  shows "This room has ended." with a Rejoin button instead of an endless "Reconnecting…".

@@ -1,0 +1,28 @@
+{
+  "origin": "http://127.0.0.1:10010",
+  "docsDir": null,
+  "steps": [
+    {
+      "name": "phone is in the lobby of a live room",
+      "ok": true,
+      "room": "HYYH"
+    },
+    {
+      "name": "server gone: phone shows the reconnecting banner while it retries",
+      "ok": true
+    },
+    {
+      "name": "room is gone after restart: phone shows \"This room has ended.\" with Rejoin",
+      "ok": false,
+      "bodyText": "Skip to content Room HYYH Connection lost. Reconnecting… You are in E2E01 Waiting for the host to start the mission Edit call sign Crew · 1 E2E01 You 01 Consoles are dealt at random when the host lock"
+    },
+    {
+      "name": "the \"Reconnecting…\" banner is gone",
+      "ok": false
+    },
+    {
+      "name": "Rejoin returns to the join screen",
+      "ok": false
+    }
+  ]
+}

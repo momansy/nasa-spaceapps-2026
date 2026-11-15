@@ -233,6 +233,19 @@ function ReconnectBar() {
       </div>
     );
   }
+  // D-110: the client has stopped for good (the server no longer knows the room or the seat). Nothing is reconnecting,
+  // so say that the room ended and offer the way back to the join screen instead of an endless "Reconnecting…".
+  if (phase === 'closed' && (reason === 'ROOM_NOT_FOUND' || reason === 'TOKEN_INVALID')) {
+    return (
+      <div className="reconnect reconnect--bad" role="alert" data-testid="room-ended">
+        <Icon name="signalOff" size="1.1rem" />
+        <span className="grow">{t('ui.conn.room_ended')}</span>
+        <button type="button" className="btn btn--sm" onClick={() => store.leave()} data-testid="room-ended-rejoin">
+          {t('ui.conn.rejoin')}
+        </button>
+      </div>
+    );
+  }
   return (
     <div className="reconnect" role="status" data-testid="reconnecting">
       <span className="spinner" aria-hidden="true" />

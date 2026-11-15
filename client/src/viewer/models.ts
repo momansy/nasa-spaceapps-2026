@@ -22,8 +22,19 @@ function rememberMissing(partId: string) {
   }
 }
 
+/**
+ * D-112: data part ids whose model file is named differently or does not exist yet. The probe for them used to end in a
+ * 404 console error on every phone. `tank_s` is the small tank family: its kit model is `tank_s1_s` (assets/blender/
+ * data_part_map.json). A null alias means "no model yet": the wireframe viewer is used without asking the server.
+ */
+export const MODEL_ALIAS: Readonly<Record<string, string | null>> = {
+  tank_s: 'tank_s1_s',
+  inst_wide_field_optical_camera: null,
+};
+
 export function modelUrl(partId: string): string {
-  return `${import.meta.env.BASE_URL}models/${encodeURIComponent(partId)}.glb`;
+  const file = Object.prototype.hasOwnProperty.call(MODEL_ALIAS, partId) ? MODEL_ALIAS[partId] : partId;
+  return `${import.meta.env.BASE_URL}models/${encodeURIComponent(file ?? partId)}.glb`;
 }
 
 /** True when the bytes start with the binary glTF magic "glTF". */
@@ -42,7 +53,7 @@ export function loadModel(partId: string): Promise<ArrayBuffer | null> {
   let p = cache.get(partId);
   if (!p) {
     p = (async () => {
-      if (!/^[A-Za-z0-9][A-Za-z0-9_.-]{0,47}$/.test(partId) || readMissing().has(partId)) return null;
+      if (!/^[A-Za-z0-9][A-Za-z0-9_.-]{0,47}$/.test(partId) || readMissing().has(partId) || (Object.prototype.hasOwnProperty.call(MODEL_ALIAS, partId) && MODEL_ALIAS[partId] === null)) return null;
       try {
         const res = await fetch(modelUrl(partId), { credentials: 'omit' });
         if (!res.ok) {

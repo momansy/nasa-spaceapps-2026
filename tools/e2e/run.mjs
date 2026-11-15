@@ -13,7 +13,12 @@ import { evidenceDir, repoDir, schemaDir } from './lib/paths.mjs';
 import { ScriptedHost } from './host/scripted-host.mjs';
 
 const argv = process.argv.slice(2);
-const value = (name, fallback) => { const i = argv.indexOf(name); return i >= 0 ? argv[i + 1] : fallback; };
+// T061: scripted phones against a room created by a real (Unity) host. See README "Real-host mode".
+if (argv.includes('--real-host')) {
+  await (await import('./real-host.mjs')).main(argv);
+  process.exit(process.exitCode ?? 0);
+}
+const value =(name, fallback) => { const i = argv.indexOf(name); return i >= 0 ? argv[i + 1] : fallback; };
 const playerCounts = value('--players', '1,3,6,10').split(',').map(Number).filter((n) => Number.isInteger(n) && n >= 1 && n <= 10);
 const hostMode = value('--host', 'stub');
 const spectatorsArg = Number(value('--spectators', '0'));
