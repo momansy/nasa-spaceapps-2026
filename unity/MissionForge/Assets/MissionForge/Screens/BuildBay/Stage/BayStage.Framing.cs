@@ -14,8 +14,36 @@ namespace MissionForge.Screens.BuildBay
     {
         /// <summary>Azimuth of the vantage around the vehicle, degrees (0 = from −Z). A slight three-quarter view.</summary>
         public const float VantageAzimuthDeg = -14f;
-        /// <summary>Smallest framed height, m, so a one-part stack is not an extreme close-up of a bell.</summary>
-        public const float MinFramedHeightM = 12f;
+        /// <summary>
+        /// Smallest framed height, m. Rework 2 (U7): 5 m (was 12 m) so a landed 1.5 m small fairing fills about 16 % of
+        /// the screen height instead of 8 %; a 3 m engine-only stack is still framed with room above it.
+        /// </summary>
+        public const float MinFramedHeightM = 5f;
+        /// <summary>
+        /// Pad shot (rework 2, U7/U11): with choices made but no modelled part yet, the frame starts at the deck and
+        /// spans this height, so the open launch table, its lit exhaust pit, the stairs and the payload stand-in fill the
+        /// free column instead of an empty table top. m, game_value.
+        /// </summary>
+        public const float PadShotHeightM = 24f;
+        /// <summary>Room kept beside the stack and the smallest framed half width, m (rework 2; was 3 m and 8 m). game_value.</summary>
+        public const float MinSideRoomM = 2f, MinHalfWidthM = 3.5f;
+        /// <summary>
+        /// Lowest camera eye above the vehicle mount for stacks framed from the mount, m (rework 2): the table top is
+        /// <see cref="MountTableAboveMountM"/> above the mount, so with a short stack the low 14 % eye sat below the table
+        /// top and filmed its underside. 2.5 m above the table top keeps the stack base in view. game_value.
+        /// </summary>
+        public const float MinEyeAboveMountM = MountTableAboveMountM + 2.5f;
+
+        /// <summary>
+        /// Eye height fraction for a framed height whose base is <paramref name="baseDropM"/> below the mount, raised so
+        /// the eye clears the table top by 2.5 m (pure, unit-tested). In the pad shot this keeps the vote ghost and the
+        /// stand-in on the table in view (the independent review caught the ghost hidden behind the rail).
+        /// </summary>
+        public static float EyeFracFor(float framedHeightM, float baseDropM)
+        {
+            float minFrac = (MinEyeAboveMountM + Mathf.Max(0f, baseDropM)) / Mathf.Max(0.5f, framedHeightM);
+            return Mathf.Clamp(Mathf.Max(BayFraming.DefaultEyeFrac, minFrac), BayFraming.DefaultEyeFrac, 0.85f);
+        }
         /// <summary>Framed height with nothing on the pad yet, m: the mount, the lower tower and the crane hook.</summary>
         public const float EmptyPadFramedHeightM = 42f;
         /// <summary>Idle orbit: ± sweep around the vantage azimuth, degrees, and its period, s.</summary>
@@ -39,7 +67,7 @@ namespace MissionForge.Screens.BuildBay
 
         private float _extraWidthM;
         private float _assemblyHeadroomM;
-        private float _shownHeightM = -1f, _shownHalfWidthM, _shownCentreX;
+        private float _shownHeightM = -1f, _shownHalfWidthM, _shownCentreX, _shownBaseDropM;
         private float _orbitClock;
         private float _punchClock = -1f;
 
@@ -75,13 +103,31 @@ namespace MissionForge.Screens.BuildBay
 
         /// <summary>
         /// True once any slot has a choice. The payload (the first vote) has no kit model, so a satellite-only build
-        /// has an empty rig; it is still framed as a short stack (<see cref="MinFramedHeightM"/>) on the mount top,
-        /// where the next part's ghost and the crane hook appear, instead of the 42 m empty pad (rework, U7).
+        /// has an empty rig; rework 2 frames it as the pad shot (<see cref="PadShotHeightM"/> from the deck, with the
+        /// payload stand-in on the table) instead of the 42 m empty pad or an empty table top (U7, U11).
         /// </summary>
         private bool HasChoices()
         {
             return _screen != null && _screen.Session != null && _screen.Session.Build != null && _screen.Session.Build.Choices.Count > 0;
         }
+
+        /// <summary>
+        /// Height of the stack on the pad, m. <see cref="VehicleRig.LengthM"/> is measured between kit attach points and is
+        /// 0 for a single part (a landed fairing alone), so below 1 m the rendered height is used (rework 2, U7: the
+        /// landed small fairing was framed as an empty pad).
+        /// </summary>
+        private float StackHeightM()
+        {
+            if (Rig == null) return 0f;
+            if (Rig.LengthM >= 1f || Rig.Root == null || Rig.Root.GetComponentInChildren<Renderer>() == null) return Rig.LengthM;
+            return Mathf.Max(Rig.LengthM, Vehicle.VehicleAssembler.RendererBounds(Rig.Root).size.y);
+        }
+
+        /// <summary>Framing state for the evidence log (rework 2 diagnostics): shown height and base drop, stack height, pad shot, headroom, eye.</summary>
+        public string FramingState => "framedHeight=" + _shownHeightM.ToString("0.0") + " baseDrop=" + _shownBaseDropM.ToString("0.0") +
+            " stack=" + StackHeightM().ToString("0.00") + " lengthM=" + (Rig != null ? Rig.LengthM : 0f).ToString("0.00") + " padShot=" + PadShotWanted() +
+            " headroom=" + _assemblyHeadroomM.ToString("0.0") + " eyeFrac=" + EyeFracFor(_shownHeightM, _shownBaseDropM).ToString("0.00") +
+            (_screen != null && _screen.Vantage != null ? " camY=" + _screen.Vantage.transform.position.y.ToString("0.0") : "");
 
         private float RigRadius()
         {
@@ -104,14 +150,22 @@ namespace MissionForge.Screens.BuildBay
                 _shownHeightM = TargetHeightM();
                 _shownHalfWidthM = TargetHalfWidthM();
                 _shownCentreX = TargetCentreXM();
+                _shownBaseDropM = TargetBaseDropM();
                 ApplyPose();
             }
+        }
+
+        /// <summary>How far below the vehicle mount the framed subject starts, m: the deck for the pad shot, else 0.</summary>
+        private float TargetBaseDropM()
+        {
+            if (!PadShotWanted() || vehicleMount == null) return 0f;
+            return Mathf.Max(0f, vehicleMount.position.y - (transform.position.y + LaunchPadRig.DeckTopM));
         }
 
         /// <summary>Framed height above the mount: the stack (stretched when exploded), headroom for a part being lowered, the scale references.</summary>
         private float TargetHeightM()
         {
-            float length = Rig != null ? Rig.LengthM : 0f;
+            float length = StackHeightM();
             if (_compareA != null || _compareB != null)
             {
                 length = Mathf.Max(_compareA != null ? _compareA.LengthM : 0f, _compareB != null ? _compareB.LengthM : 0f);
@@ -123,7 +177,7 @@ namespace MissionForge.Screens.BuildBay
                 foreach (Transform g in GroupsBottomUp(Rig)) if (g.name != "Boosters") groups++;
                 length *= (1f + ExplodeGapFraction * Mathf.Max(0, groups - 1)) * ExplodedMargin;
             }
-            if (length < 1f && _extraHeightM <= 0f) return HasChoices() ? MinFramedHeightM : EmptyPadFramedHeightM;
+            if (length < 1f && _extraHeightM <= 0f) return HasChoices() ? PadShotHeightM : EmptyPadFramedHeightM;
             float h = length + _assemblyHeadroomM;
             if (_extraHeightM > 0f && vehicleMount != null)
             {
@@ -139,7 +193,9 @@ namespace MissionForge.Screens.BuildBay
         /// </summary>
         private float TargetHalfWidthM()
         {
-            float own = Mathf.Max(RigRadius() + 3f, 8f);
+            // Rework 2 (U7): the minimum was 8 m, which made every short stack width-bound (the camera stood about 2.3x
+            // farther than the height solve and a landed 3.6 m small fairing showed about 7 % of the screen height).
+            float own = Mathf.Max(RigRadius() + MinSideRoomM, MinHalfWidthM);
             return own + _extraWidthM * (ScaleViewOn ? 0.25f : 0.5f);
         }
 
@@ -163,10 +219,12 @@ namespace MissionForge.Screens.BuildBay
                 azimuth += OrbitAmplitudeDeg * Mathf.Sin(2f * Mathf.PI * _orbitClock / OrbitPeriodS);
                 scale = Mathf.Lerp(1f, PunchDepth, PunchEnvelope(_punchClock));
             }
-            Vector3 basePoint = vehicleMount.position + Vector3.right * _shownCentreX;
+            Vector3 basePoint = vehicleMount.position + Vector3.right * _shownCentreX + Vector3.down * _shownBaseDropM;
             var shot = new BayShot(basePoint, _shownHeightM, _shownHalfWidthM, azimuth);
             float aspect = _screen.Vantage.Lens.Aspect > 0.1f ? _screen.Vantage.Lens.Aspect : 16f / 9f;
             BayFrameLayout layout = BayFraming.DefaultLayout(_screen.Vantage.Lens.FieldOfView, aspect);
+            layout = new BayFrameLayout(layout.TopFrac, layout.BottomFrac, layout.HalfColumnFrac, EyeFracFor(_shownHeightM, _shownBaseDropM),
+                layout.VerticalFovDeg, layout.Aspect);
             if (_compareA != null || _compareB != null)
             {
                 // The compare stat table covers the lower middle of the screen: both candidates sit above it.
@@ -199,6 +257,7 @@ namespace MissionForge.Screens.BuildBay
         {
             TickAssembly();
             TickTools();
+            TickStandIn();
             if (_screen == null || _screen.Vantage == null) return;
             float dt = Time.unscaledDeltaTime;
             if (_a11y.ReducedMotion)
@@ -206,6 +265,7 @@ namespace MissionForge.Screens.BuildBay
                 _shownHeightM = TargetHeightM();
                 _shownHalfWidthM = TargetHalfWidthM();
                 _shownCentreX = TargetCentreXM();
+                _shownBaseDropM = TargetBaseDropM();
             }
             else
             {
@@ -214,6 +274,7 @@ namespace MissionForge.Screens.BuildBay
                 _shownHeightM = Mathf.Lerp(_shownHeightM, TargetHeightM(), k);
                 _shownHalfWidthM = Mathf.Lerp(_shownHalfWidthM, TargetHalfWidthM(), k);
                 _shownCentreX = Mathf.Lerp(_shownCentreX, TargetCentreXM(), k);
+                _shownBaseDropM = Mathf.Lerp(_shownBaseDropM, TargetBaseDropM(), k);
                 _orbitClock += dt;
                 if (_punchClock >= 0f)
                 {

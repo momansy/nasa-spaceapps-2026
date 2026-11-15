@@ -16,10 +16,13 @@ const browser = await chromium.launch({
 const page = await browser.newPage({ viewport: { width: 1920, height: 1080 }, deviceScaleFactor: 1 });
 const events = [];
 const errors = [];
+const postWarnings = [];
 page.on('console', (m) => {
   const t = m.text();
   if (t.includes('Assembly start') || t.includes('Assembly end')) events.push({ t: Date.now(), kind: t.includes('start') ? 'start' : 'end' });
   if (m.type() === 'error') errors.push(t.slice(0, 300));
+  // T034 rework 2: record the URP post-processing strip warning if it ever comes back.
+  if (/stripped|PostProcessing render passes/i.test(t)) postWarnings.push(t.slice(0, 300));
 });
 page.on('pageerror', (e) => errors.push(String(e).slice(0, 300)));
 await page.goto(url, { waitUntil: 'load' });
@@ -50,6 +53,7 @@ const result = {
   worstFrameMsDuringAssembly: inAssembly.length ? +Math.max(...inAssembly).toFixed(1) : null,
   p95FrameMsDuringAssembly: inAssembly.length ? +[...inAssembly].sort((a, b) => a - b)[Math.floor(inAssembly.length * 0.95)].toFixed(1) : null,
   consoleErrors: errors,
+  postProcessingStripWarnings: postWarnings,
 };
 fs.writeFileSync(out, JSON.stringify(result, null, 2));
 console.log(JSON.stringify(result, null, 2));

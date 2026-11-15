@@ -10,11 +10,17 @@ SETS=(${@:-full vote early sat mid late rm seq seqrm})
 BAY=$(ls $ROOT/unity/MissionForge/Builds/BayEvidence/BayEvidence.app/Contents/MacOS/*)
 L=$OUT/logs; mkdir -p $L
 W=(-screen-fullscreen 0 -screen-width 1920 -screen-height 1080 -window-mode windowed)
-run() { # name only extra...
+run() { # name only extra...  (rework 2: retried up to twice if the window was resized and a shot is not 1920x1080)
   local name=$1 only=$2; shift 2
-  rm -rf $OUT/$name
-  "$BAY" $W -mfBayShots $OUT/$name -mfBayOnly $only "$@" -logFile $L/$name.log >/dev/null 2>&1
-  echo "$name exit=$? -> $(ls $OUT/$name 2>/dev/null | tr '\n' ' ')"
+  local try
+  for try in 1 2 3; do
+    rm -rf $OUT/$name
+    "$BAY" $W -mfBayShots $OUT/$name -mfBayOnly $only "$@" -logFile $L/$name.log >/dev/null 2>&1
+    local code=$?
+    if ! grep "Evidence shot" $L/$name.log | grep -qv "1920x1080"; then break; fi
+    echo "$name: a shot was not 1920x1080 (window resized), retry $try"
+  done
+  echo "$name exit=$code -> $(ls $OUT/$name 2>/dev/null | tr '\n' ' ')"
 }
 for s in $SETS; do
   case $s in

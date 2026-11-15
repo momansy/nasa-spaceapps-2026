@@ -1,8 +1,8 @@
 """T034 evidence composites. Usage: python compose.py <evidence_dir> <before_dir|-> <after_dir> <frame02_png>
 Copies the 1920x1080 captures into before/ and after/ (PNG) and writes side-by-side composites
 (left labelled, right labelled, each 936 x 526 on a 1920 x 1080 navy canvas, as in T031).
-Rework: "-" as before_dir keeps the existing before/*.jpg (the T034 base, bb8faa3d); when round1/ exists (the
-first T034 submission, PR #128), round1-vs-rework pairs are written to pairs/ as well."""
+Rework: "-" as before_dir keeps the existing before/*.jpg (the T034 base, bb8faa3d). Rework 2 (issue #147): when
+round2/ exists (rework 1, PR #146), round2-vs-rework2 pairs are written to pairs/ as JPEG q90, including the stage shots."""
 import shutil
 import sys
 from pathlib import Path
@@ -59,7 +59,10 @@ def side_by_side(left, right, out, left_label, right_label):
         x = 12 + i * (W // 2)
         canvas.paste(im, (x, y))
         ImageDraw.Draw(canvas).text((x, y - 48), label, fill=(232, 238, 240), font=font(30))
-    canvas.save(out)
+    if str(out).endswith(".jpg"):
+        canvas.save(out, quality=90)
+    else:
+        canvas.save(out)
     print("wrote", out)
 
 
@@ -76,18 +79,19 @@ def main():
     pairs.mkdir(exist_ok=True)
     for name in ("idle-ui", "beauty-no-ui", "complete-vehicle-beauty", "assembly-crane-sparks", "compare", "exploded", "scale-reference"):
         side_by_side(shot(ev / "before", name), shot(ev / "after", name),
-                     pairs / f"{name}-before-after.png", "Before (main, T031 state)", "After (T034 rework)")
-        if (ev / "round1").exists() and shot(ev / "round1", name):
-            side_by_side(shot(ev / "round1", name), shot(ev / "after", name),
-                         pairs / f"{name}-round1-vs-rework.png", "T034 round 1 (PR #128)", "T034 rework")
+                     pairs / f"{name}-before-after.png", "Before (main, T031 state)", "After (T034 rework 2)")
+    for name in SHOTS:
+        if (ev / "round2").exists() and shot(ev / "round2", name) and shot(ev / "after", name):
+            side_by_side(shot(ev / "round2", name), shot(ev / "after", name),
+                         pairs / f"{name}-round2-vs-rework2.jpg", "T034 rework 1 (PR #146)", "T034 rework 2 (issue #147)")
     side_by_side(shot(ev / "after", "complete-vehicle-beauty"), frame, ev / "complete-beauty-vs-frame02.png",
-                 "MissionForge Build Bay, T034 rework (Unity capture)", "Reference frame 02")
+                 "MissionForge Build Bay, T034 rework 2 (Unity capture)", "Reference frame 02")
     side_by_side(shot(ev / "after", "idle-ui"), frame, ev / "buildbay-ui-vs-frame02.png",
-                 "Build Bay with UI, T034 rework (Unity capture)", "Reference frame 02")
+                 "Build Bay with UI, T034 rework 2 (Unity capture)", "Reference frame 02")
     # Three assembly stages with the UI on, in one strip (each 624 x 351).
     strip = Image.new("RGB", (W, H), NAVY)
     d = ImageDraw.Draw(strip)
-    for i, (name, label) in enumerate((("vote5-short-stack-ui", "Vote 5 of 22: satellite chosen (short stack)"),
+    for i, (name, label) in enumerate((("vote5-short-stack-ui", "Vote 5 of 22: satellite chosen (pad shot, stand-in)"),
                                        ("stage2-mid-ui", "Vote 6 of 22: fairing on the pad"),
                                        ("stage3-late-ui", "Vote 8 of 22: stack growing"))):
         im = Image.open(shot(ev / "after", name)).convert("RGB").resize((624, 351), Image.LANCZOS)

@@ -108,14 +108,15 @@ namespace MissionForge.Screens.BuildBay
             // the tank so the plume is seen against the low sun (backlit look; the particles are unlit).
             main.startLifetime = new ParticleSystem.MinMaxCurve(5f, 8f);
             main.startSpeed = new ParticleSystem.MinMaxCurve(0.8f * s, 1.6f * s);
-            main.startSize = new ParticleSystem.MinMaxCurve(1.1f * s, 2.2f * s);
+            // Rework 2 (M7): warmer and denser again (alpha 0.34 -> 0.55, 12 -> 20 puffs/s, larger puffs at the vent).
+            main.startSize = new ParticleSystem.MinMaxCurve(1.4f * s, 2.6f * s);
             main.startRotation = new ParticleSystem.MinMaxCurve(0f, 2f * Mathf.PI);
-            main.startColor = new Color(1f, 0.94f, 0.85f, 0.34f);
-            main.maxParticles = 96;
+            main.startColor = new Color(1f, 0.88f, 0.72f, 0.55f);
+            main.maxParticles = 160;
             main.simulationSpace = ParticleSystemSimulationSpace.World;
             main.gravityModifier = -0.1f;   // boil-off vapour is buoyant at first, then drifts with the breeze
             var emission = ps.emission;
-            emission.rateOverTime = 12f;
+            emission.rateOverTime = 20f;
             var shape = ps.shape;
             shape.shapeType = ParticleSystemShapeType.Cone;
             shape.angle = 18f;
@@ -134,7 +135,7 @@ namespace MissionForge.Screens.BuildBay
             var g = new Gradient();
             g.SetKeys(
                 new[] { new GradientColorKey(Color.white, 0f), new GradientColorKey(Color.white, 1f) },
-                new[] { new GradientAlphaKey(0f, 0f), new GradientAlphaKey(1f, 0.12f), new GradientAlphaKey(0.7f, 0.55f), new GradientAlphaKey(0f, 1f) });
+                new[] { new GradientAlphaKey(0f, 0f), new GradientAlphaKey(1f, 0.08f), new GradientAlphaKey(0.8f, 0.5f), new GradientAlphaKey(0f, 1f) });
             colour.color = g;
             var rot = ps.rotationOverLifetime;
             rot.enabled = true;

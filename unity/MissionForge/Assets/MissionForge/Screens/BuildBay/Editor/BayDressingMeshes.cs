@@ -297,16 +297,33 @@ namespace MissionForge.Screens.BuildBay.Editor
 
         /// <summary>
         /// Copy of <paramref name="source"/> with box-projected metric UV0 (each vertex projected along its dominant normal
-        /// axis), so the untextured Blender pad pieces can take tiling PBR sets. Submeshes are kept.
+        /// axis), so the untextured Blender pad pieces can take tiling PBR sets. Submeshes are kept. With
+        /// <paramref name="onlySubmesh"/> ≥ 0 only that submesh's vertices are re-projected and every other vertex keeps
+        /// its authored UV (rework 2: the hero pieces' atlas UVs must survive the concrete projection).
         /// </summary>
-        public static Mesh WithBoxUv(Mesh source)
+        public static Mesh WithBoxUv(Mesh source, int onlySubmesh = -1)
         {
             var m = Object.Instantiate(source);
             Vector3[] v = m.vertices;
             Vector3[] n = m.normals;
+            Vector2[] authored = m.uv;
             var uv = new Vector2[v.Length];
+            bool[] project = new bool[v.Length];
+            if (onlySubmesh < 0 || onlySubmesh >= m.subMeshCount || authored.Length != v.Length)
+            {
+                for (int i = 0; i < v.Length; i++) project[i] = true;
+            }
+            else
+            {
+                foreach (int i in m.GetTriangles(onlySubmesh)) project[i] = true;
+            }
             for (int i = 0; i < v.Length; i++)
             {
+                if (!project[i])
+                {
+                    uv[i] = authored[i];
+                    continue;
+                }
                 Vector3 a = new Vector3(Mathf.Abs(n[i].x), Mathf.Abs(n[i].y), Mathf.Abs(n[i].z));
                 uv[i] = a.y >= a.x && a.y >= a.z ? new Vector2(v[i].x, v[i].z)
                     : a.x >= a.z ? new Vector2(v[i].z, v[i].y) : new Vector2(v[i].x, v[i].y);

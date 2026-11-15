@@ -1,24 +1,18 @@
 {
-  "url": "http://127.0.0.1:8971/index.html?mfBayVotes=12&mfRehearsalPace=0.5",
+  "url": "http://localhost:8971/?mfBayVotes=12&mfRehearsalPace=0.5",
   "seconds": 60,
   "mode": "uncapped",
-  "frames": 15741,
-  "medianFpsAll": 161.3,
+  "frames": 12965,
+  "medianFpsAll": 114.9,
   "assemblyWindows": 0,
   "assemblyFrames": 0,
   "medianFpsDuringAssembly": null,
   "worstFrameMsDuringAssembly": null,
   "p95FrameMsDuringAssembly": null,
   "consoleErrors": [
-    "Failed to load resource: the server responded with a status of 404 (File not found)",
-    "WebSocket connection to 'ws://localhost:8787/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED",
-    "WebSocket connection to 'ws://localhost:8787/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED",
-    "WebSocket connection to 'ws://localhost:8787/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED",
-    "WebSocket connection to 'ws://localhost:8787/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED",
-    "WebSocket connection to 'ws://localhost:8787/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED",
-    "WebSocket connection to 'ws://localhost:8787/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED",
-    "WebSocket connection to 'ws://localhost:8787/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED",
-    "WebSocket connection to 'ws://localhost:8787/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED",
-    "WebSocket connection to 'ws://localhost:8787/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED"
+    "Failed to load resource: the server responded with a status of 404 (File not found)"
+  ],
+  "postProcessingStripWarnings": [
+    "Shader 'Hidden/Universal Render Pipeline/Edge Adaptive Spatial Upsampling' is not supported or has been stripped from the build (in 'Blit FSR Upscaling'). PostProcessing render passes will not execute.\n"
   ]
 }

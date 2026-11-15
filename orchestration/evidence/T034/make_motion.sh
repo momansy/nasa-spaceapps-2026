@@ -9,7 +9,7 @@ FRAMES=$1; OUT=$2
 HERE=${0:A:h}
 mkdir -p ${OUT:h}
 LIST=$(mktemp -t t034concat)
-python3 - "$FRAMES" "$LIST" <<'EOF'
+${PYTHON:-python3} - "$FRAMES" "$LIST" <<'EOF'
 import os, sys
 frames, out = sys.argv[1], sys.argv[2]
 rows = [line.split() for line in open(os.path.join(frames, "timestamps.txt")) if line.strip()]
@@ -24,5 +24,5 @@ EOF
 ffmpeg -y -loglevel error -f concat -safe 0 -i "$LIST" -vf "fps=30,scale=1280:720" -c:v libx264 -preset slow -crf 24 \
   -pix_fmt yuv420p -movflags +faststart "$OUT.mp4"
 rm -f "$LIST"
-python3 "$HERE/contact_sheet.py" "$FRAMES" "$OUT-contact.jpg"
+${PYTHON:-python3} "$HERE/contact_sheet.py" "$FRAMES" "$OUT-contact.jpg"
 echo "$OUT.mp4 $(du -h "$OUT.mp4" | cut -f1); $OUT-contact.jpg"

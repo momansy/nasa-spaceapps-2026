@@ -56,10 +56,10 @@ namespace MissionForge.Screens.BuildBay
 
         private void OnEnable()
         {
-            _tris = ProfilerRecorder.StartNew(ProfilerCategory.Render, "Triangles Count");
-            _draws = ProfilerRecorder.StartNew(ProfilerCategory.Render, "Draw Calls Count");
-            _batches = ProfilerRecorder.StartNew(ProfilerCategory.Render, "Batches Count");
-            _setPass = ProfilerRecorder.StartNew(ProfilerCategory.Render, "SetPass Calls Count");
+            _tris = ProfilerRecorder.StartNew(ProfilerCategory.Render, "Triangles Count", StatFrames);
+            _draws = ProfilerRecorder.StartNew(ProfilerCategory.Render, "Draw Calls Count", StatFrames);
+            _batches = ProfilerRecorder.StartNew(ProfilerCategory.Render, "Batches Count", StatFrames);
+            _setPass = ProfilerRecorder.StartNew(ProfilerCategory.Render, "SetPass Calls Count", StatFrames);
         }
 
         private void OnDisable()
@@ -76,10 +76,35 @@ namespace MissionForge.Screens.BuildBay
         /// camera frustum (what VISUAL_TARGET's "visible triangles / draw calls" budget describes), plus the five
         /// heaviest of them.
         /// </summary>
+        /// <summary>Frames the counters are kept for; the log reports their median (and draw-call min/max). Rework 2.</summary>
+        public const int StatFrames = 30;
+
+        /// <summary>Median, min and max of the non-zero samples (the screenshot frame and idle frames read 0).</summary>
+        public static (long median, long min, long max) Summary(IReadOnlyList<long> samples)
+        {
+            var v = new List<long>();
+            foreach (long s in samples) if (s > 0) v.Add(s);
+            if (v.Count == 0) return (0, 0, 0);
+            v.Sort();
+            return (v[v.Count / 2], v[0], v[v.Count - 1]);
+        }
+
+        private static List<long> Samples(ProfilerRecorder r)
+        {
+            var list = new List<long>(r.Count);
+            for (int i = 0; i < r.Count; i++) list.Add(r.GetSample(i).Value);
+            return list;
+        }
+
         private void LogRenderStats(string shot)
         {
-            Debug.Log("[MissionForge] Render stats " + shot + ": triangles=" + _tris.LastValue + " drawCalls=" + _draws.LastValue +
-                      " batches=" + _batches.LastValue + " setPass=" + _setPass.LastValue + " valid=" + _tris.Valid);
+            // Rework 2: the median of the last 30 frames, not the last frame (it sometimes read 0, or a doubled frame).
+            var allTris = Summary(Samples(_tris));
+            var allDraws = Summary(Samples(_draws));
+            var allSetPass = Summary(Samples(_setPass));
+            Debug.Log("[MissionForge] Render stats " + shot + ": triangles=" + allTris.median + " drawCalls=" + allDraws.median +
+                      " (min " + allDraws.min + ", max " + allDraws.max + " over " + _draws.Count + " frames) batches=" +
+                      Summary(Samples(_batches)).median + " setPass=" + allSetPass.median + " valid=" + _tris.Valid);
             Camera cam = Camera.main;
             if (cam == null) return;
             Plane[] planes = GeometryUtility.CalculateFrustumPlanes(cam);
@@ -99,6 +124,25 @@ namespace MissionForge.Screens.BuildBay
                 heavy.Add((t, r.name));
             }
             heavy.Sort((a, b) => b.tris.CompareTo(a.tris));
+            // Rework 2 (M9): shadow-caster submeshes over the whole scene (each draws once per cascade it touches).
+            long casterDraws = 0;
+            var byRoot = new Dictionary<string, long>();
+            foreach (MeshRenderer r in FindObjectsByType<MeshRenderer>())
+            {
+                if (!r.enabled || !r.gameObject.activeInHierarchy || r.shadowCastingMode == UnityEngine.Rendering.ShadowCastingMode.Off) continue;
+                var f = r.GetComponent<MeshFilter>();
+                if (f == null || f.sharedMesh == null) continue;
+                casterDraws += f.sharedMesh.subMeshCount;
+                Transform t = r.transform;
+                while (t.parent != null && t.parent.parent != null && t.parent.parent.parent != null) t = t.parent;
+                byRoot.TryGetValue(t.name, out long n);
+                byRoot[t.name] = n + f.sharedMesh.subMeshCount;
+            }
+            var roots = new List<KeyValuePair<string, long>>(byRoot);
+            roots.Sort((a, b) => b.Value.CompareTo(a.Value));
+            var rootText = new System.Text.StringBuilder();
+            for (int i = 0; i < Mathf.Min(8, roots.Count); i++) rootText.Append(roots[i].Key).Append('=').Append(roots[i].Value).Append(' ');
+            Debug.Log("[MissionForge] Shadow casters " + shot + ": submeshes=" + casterDraws + " by group: " + rootText);
             var top = new System.Text.StringBuilder();
             for (int i = 0; i < Mathf.Min(5, heavy.Count); i++) top.Append(heavy[i].name).Append('=').Append(heavy[i].tris).Append(' ');
             Debug.Log("[MissionForge] Main-view stats " + shot + ": visibleTriangles=" + tris + " visibleDraws=" + draws +

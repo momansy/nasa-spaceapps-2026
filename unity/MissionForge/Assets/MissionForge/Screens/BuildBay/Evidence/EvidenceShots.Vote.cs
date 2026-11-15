@@ -68,6 +68,7 @@ namespace MissionForge.Screens.BuildBay
                 File.WriteAllBytes(Path.Combine(dir, "frame_" + i.ToString("000") + ".jpg"), full.EncodeToJPG(88));
                 Object.Destroy(full);
                 stamps.Append(i.ToString("000")).Append(' ').Append(t.ToString("0.000", System.Globalization.CultureInfo.InvariantCulture)).Append('\n');
+                if (i % 30 == 0) Debug.Log("[MissionForge] Evidence sequence t=" + t.ToString("0.0") + " " + s.Stage.FramingState);
                 if (wasAssembling && !s.Stage.IsAssembling)
                     Debug.Log("[MissionForge] Evidence sequence: assembly ended at frame " + i + ", t = " + t.ToString("0.00") + " s");
                 wasAssembling = s.Stage.IsAssembling;

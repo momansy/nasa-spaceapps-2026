@@ -25,6 +25,11 @@ namespace MissionForge.Screens.BuildBay.Editor
         /// <summary>Haze for the bay (BayEnvironment): a dusky mauve that sits between the warm horizon and the blue sky.</summary>
         public static readonly Color Haze = new Color(0.80f, 0.60f, 0.42f);
         public const float HazeDensity = 0.001f;
+        /// <summary>
+        /// Main-light shadow distance on High, m (rework 2, M9; was 320 m). The camera stands 60–130 m from the pad, so
+        /// 200 m still shadows everything near the vehicle while the far cascades stop drawing distant casters.
+        /// </summary>
+        public const float HighShadowDistanceM = 200f;
 
         [MenuItem("MissionForge/Build Bay/Apply Environment Dressing (T034)")]
         public static void Run()
@@ -46,6 +51,7 @@ namespace MissionForge.Screens.BuildBay.Editor
             RetexturePad(pad);
             BuildLaunchMount(dressing, pad);
             BuildHeroTower(pad);
+            BuildHeroArms(pad);
             var highOnly = new List<GameObject>();
             BuildGround(dressing, highOnly);
             highOnly.Add(BuildSilhouettes(dressing));
@@ -54,7 +60,14 @@ namespace MissionForge.Screens.BuildBay.Editor
             HideRigWetSheen(scene);
             highOnly.AddRange(BuildPracticals(dressing, pad));
             BuildCrew(dressing);
-            dressing.gameObject.AddComponent<BayQualityGroup>().Configure(highOnly);
+            TrimShadowCasters(pad, dressing);
+            foreach (string group in new[] { "Ground/ApronPaint", "Ground/Soot", "WetSheen", "LampReflections", "Practicals/FloodCones" })
+                MergeChildren(dressing.Find(group));
+            var quality = dressing.gameObject.AddComponent<BayQualityGroup>();
+            quality.Configure(highOnly);
+            var qso = new SerializedObject(quality);
+            qso.FindProperty("highShadowDistanceM").floatValue = HighShadowDistanceM;
+            qso.ApplyModifiedPropertiesWithoutUndo();
             dressing.gameObject.AddComponent<BayFrameGrade>().Configure(BayDressingAssets.Load("LP_frame_grade"),
                 BayDressingMeshes.Save(BayDressingMeshes.Card(), "bay_card"));
             var volume = dressing.gameObject.AddComponent<Volume>();
@@ -136,9 +149,9 @@ namespace MissionForge.Screens.BuildBay.Editor
                 r.enabled = false;
                 Record(r);
             }
-            var hero = Group(dressing, "LaunchMount");
-            float baseY = dressing.InverseTransformPoint(pad.VehicleMount.position).y - 9.0f;   // T017 vehicle_base is 9.0 m up
-            Model(hero, "world_flame_trench", new Vector3(0f, baseY, 0f), 90f, 1f, boxUv: true, castShadows: true);
+            // Rework 2 (M1): T017's world_flame_trench is no longer placed. With the plinth walls gone it stood under the
+            // open table as a solid 8 m concrete block; the hero mount now carries its own exhaust pit and deflector.
+            Group(dressing, "LaunchMount");
             HeroPiece(mount, "hero_launch_mount");
         }
 
@@ -183,6 +196,27 @@ namespace MissionForge.Screens.BuildBay.Editor
             }
         }
 
+        /// <summary>
+        /// Rework 2 (M3): each T015 umbilical arm (a stretched truss ending in a plain near-black box) gets the hero truss,
+        /// which stretches with the arm, and the modelled arm-end plate (hinge yoke, curved connector plate, couplers,
+        /// hose loops, lamp), which <see cref="BayArmEnd"/> keeps at the tip at true size. The T015 meshes are hidden.
+        /// The arm ends cast no shadow (small parts, rubric M9 shadow-caster budget).
+        /// </summary>
+        private static void BuildHeroArms(LaunchPadRig pad)
+        {
+            foreach (string name in new[] { "Arm_Upper", "Arm_Lower" })
+            {
+                Transform arm = BayEnvironmentBuilder.FindDeep(pad.transform, name);
+                if (arm == null) throw new System.InvalidOperationException("LaunchPadRig has no " + name);
+                RemoveHero(arm);
+                HideOwn(arm, null);
+                HeroPiece(arm, "hero_umbilical_truss");
+                GameObject end = HeroPiece(arm, "hero_umbilical_end", castShadows: false);
+                end.transform.localPosition = new Vector3(LaunchPadRig.ArmModelLengthM, 0f, 0f);
+                end.AddComponent<BayArmEnd>();
+            }
+        }
+
         /// <summary>Hides the renderers of a T015 piece, skipping hero children and the subtree under <paramref name="keep"/>.</summary>
         private static void HideOwn(Transform piece, string keep)
         {
@@ -217,7 +251,7 @@ namespace MissionForge.Screens.BuildBay.Editor
         /// Instantiates a hero model as a child at local zero and maps its slots to LP_hero_* (concrete to the ambientCG
         /// set with box-projected metric UVs; lamp, grating and warning_red are already mapped by the importer).
         /// </summary>
-        private static GameObject HeroPiece(Transform parent, string model)
+        private static GameObject HeroPiece(Transform parent, string model, bool castShadows = true)
         {
             var asset = AssetDatabase.LoadAssetAtPath<GameObject>(HeroModelsDir + "/" + model + ".fbx");
             if (asset == null) throw new System.InvalidOperationException("Hero model missing: " + model + " (run build_hero_pad.py)");
@@ -229,7 +263,7 @@ namespace MissionForge.Screens.BuildBay.Editor
             foreach (MeshRenderer r in go.GetComponentsInChildren<MeshRenderer>(true))
             {
                 Material[] mats = r.sharedMaterials;
-                bool concrete = false;
+                int concreteSlot = -1;
                 for (int i = 0; i < mats.Length; i++)
                 {
                     string n = mats[i] != null ? mats[i].name : "";
@@ -237,14 +271,15 @@ namespace MissionForge.Screens.BuildBay.Editor
                     else if (n.StartsWith("concrete") || n == "LP_concrete")
                     {
                         mats[i] = BayDressingAssets.Load("LP_Concrete034");
-                        concrete = true;
+                        concreteSlot = i;
                     }
                 }
+                bool concrete = concreteSlot >= 0;
                 r.sharedMaterials = mats;
-                r.shadowCastingMode = ShadowCastingMode.On;
+                r.shadowCastingMode = castShadows ? ShadowCastingMode.On : ShadowCastingMode.Off;
                 var filter = r.GetComponent<MeshFilter>();
                 if (concrete && filter != null && filter.sharedMesh != null)
-                    filter.sharedMesh = BayDressingMeshes.Save(BayDressingMeshes.WithBoxUv(filter.sharedMesh), filter.sharedMesh.name + "_uv");
+                    filter.sharedMesh = BayDressingMeshes.Save(BayDressingMeshes.WithBoxUv(filter.sharedMesh, concreteSlot), filter.sharedMesh.name + "_uv");
             }
             return go;
         }
@@ -300,8 +335,9 @@ namespace MissionForge.Screens.BuildBay.Editor
         {
             var site = Group(dressing, "SiteSilhouettes");
             float g = BayDressingMeshes.GradeY;
-            Model(site, "world_site_subtropical_assembly", new Vector3(-470f, g, 660f), 18f, 1f);
-            Model(site, "world_site_equatorial_hall", new Vector3(-330f, g, 540f), 8f, 1f);
+            // Rework 2 (M1/M10): the far hall is the detailed hero_far_hall, on land (430 m out along the view, 21 deg
+            // left, where T017's plain assembly box stood in the sea band 750 m out), its door facing the bay.
+            FarHall(site, 430f, -170f);
             Model(site, "world_site_subtropical_water_tower", new Vector3(360f, g, 470f), 0f, 1f);
             Model(site, "world_site_polar_blockhouse", new Vector3(190f, g, 230f), -32f, 1f);
             Model(site, "world_lightning_mast", new Vector3(-210f, g, 390f), 0f, 1f);
@@ -315,6 +351,18 @@ namespace MissionForge.Screens.BuildBay.Editor
                 Model(site, "world_site_subtropical_dunes", p, BayStage.VantageAzimuthDeg + s * 0.03f, 1.3f);
             }
             return site.gameObject;
+        }
+
+        /// <summary>Places hero_far_hall <paramref name="alongM"/> out along the view axis and <paramref name="acrossM"/> to its right, on the terrain, facing the pad.</summary>
+        private static void FarHall(Transform site, float alongM, float acrossM)
+        {
+            Vector3 right = Vector3.Cross(Vector3.up, BayDressingMeshes.Forward);
+            Vector3 p = BayDressingMeshes.Forward * alongM + right * acrossM;
+            p.y = BayDressingMeshes.Height(p.x, p.z) - 0.3f;
+            GameObject hall = HeroPiece(site, "hero_far_hall", castShadows: false);
+            hall.transform.localPosition = p;
+            // Its camera face is local -Z (Blender -Y); turn it toward the pad.
+            hall.transform.localRotation = Quaternion.LookRotation(new Vector3(p.x, 0f, p.z).normalized, Vector3.up);
         }
 
         // ------------------------------------------------------------------ distance: headlands, haze band, sun glint (rework, M8)
@@ -345,10 +393,13 @@ namespace MissionForge.Screens.BuildBay.Editor
                 new[] { land }, castShadows: false);
             var band = MeshObject(distance, "HorizonHaze", BayDressingMeshes.Save(BayDressingMeshes.HorizonArc(1700f, 80f, -12f, 150f), "bay_horizon_haze"),
                 new[] { BayDressingAssets.Load("LP_horizon_haze") }, castShadows: false);
+            // Rework 2 (M8): a second, low and dense haze card just past the shore blurs the hard sea-sky line itself.
+            var low = MeshObject(distance, "HorizonHazeLow", BayDressingMeshes.Save(BayDressingMeshes.HorizonArc(1250f, 80f, -8f, 34f), "bay_horizon_haze_low"),
+                new[] { BayDressingAssets.Load("LP_horizon_haze") }, castShadows: false);
             var glint = MeshObject(distance, "SunGlint",
                 BayDressingMeshes.Save(BayDressingMeshes.GlintPath(toSun, BayDressingMeshes.ShoreM + 90f, 4200f, 14f, 170f), "bay_sun_glint"),
                 new[] { BayDressingAssets.Load("LP_glint") }, castShadows: false);
-            return new[] { band, glint };
+            return new[] { band, low, glint };
         }
 
         // ------------------------------------------------------------------ wet sheen in the lamp pools (rework, M8)
@@ -401,6 +452,65 @@ namespace MissionForge.Screens.BuildBay.Editor
                     Vector3 at = c + new Vector3(Rand(-3f, 3f), 0.002f * i, Rand(-3f, 3f));
                     Decal(wet, quad, mat, at, Rand(0f, 180f), new Vector2(Rand(9f, 15f), Rand(6f, 11f)));
                 }
+            }
+            BuildLampReflections(dressing, pad, wet, quad, mat);
+        }
+
+        /// <summary>Reflection streak length and width on wet concrete, m (rework 2, M2). game_value.</summary>
+        public const float ReflectionLengthM = 11f, ReflectionWidthM = 1.5f;
+
+        /// <summary>
+        /// Lamp reflections in the wet patches (rework 2, M2, frame 02's bright streaks under every lamp). A smooth
+        /// transparent patch cannot reliably mirror a 0.5 m lamp head at this distance, so each floodlight gets the
+        /// streak a wet surface shows: a soft warm additive card on the ground from the pole foot toward the camera,
+        /// lying on its own wet patch. Seen from the vantage (azimuth −14° ± 7° orbit) it reads as the lamp mirrored in
+        /// the wet ground. All streaks merge into one mesh (one draw).
+        /// </summary>
+        private static void BuildLampReflections(Transform dressing, LaunchPadRig pad, Transform wet, Mesh quad, Material wetMat)
+        {
+            var group = Group(dressing, "LampReflections");
+            Material streak = BayDressingAssets.Load("LP_lamp_reflection");
+            Vector3 toCamera = -BayDressingMeshes.Forward;
+            float yaw = Mathf.Atan2(toCamera.x, toCamera.z) * Mathf.Rad2Deg;
+            foreach (Light l in pad.GetComponentsInChildren<Light>(true).Where(l => l.name == "Flood"))
+            {
+                Vector3 head = dressing.InverseTransformPoint(l.transform.position);
+                Vector3 foot = new Vector3(head.x, LaunchPadRig.DeckTopM + 0.03f, head.z);
+                // Rework 2 review: keep the streak on the apron (two ran past its edge onto the lower terrain).
+                float length = ReflectionLengthM;
+                while (length > 3f && new Vector2((foot + toCamera * length).x, (foot + toCamera * length).z).magnitude > BayDressingMeshes.ApronR - 3f)
+                    length -= 1f;
+                Vector3 centre = foot + toCamera * (length * 0.5f);
+                Decal(wet, quad, wetMat, centre, yaw, new Vector2(ReflectionWidthM * 4f, length * 1.1f));
+                Decal(group, quad, streak, centre + Vector3.up * 0.01f, yaw, new Vector2(ReflectionWidthM, length));
+            }
+        }
+
+        /// <summary>
+        /// Merges the child decals and cards of <paramref name="group"/> into one mesh per material (rework 2, M9): the
+        /// paint, soot, wet, reflection and cone groups were one draw per quad. Children are removed.
+        /// </summary>
+        private static void MergeChildren(Transform group)
+        {
+            if (group == null) return;
+            var byMaterial = new Dictionary<Material, List<CombineInstance>>();
+            var children = group.GetComponentsInChildren<MeshFilter>(true).Where(f => f.transform != group).ToList();
+            foreach (MeshFilter f in children)
+            {
+                var r = f.GetComponent<MeshRenderer>();
+                if (r == null || f.sharedMesh == null || r.sharedMaterial == null) continue;
+                if (!byMaterial.TryGetValue(r.sharedMaterial, out var list)) byMaterial[r.sharedMaterial] = list = new List<CombineInstance>();
+                list.Add(new CombineInstance { mesh = f.sharedMesh, transform = group.worldToLocalMatrix * f.transform.localToWorldMatrix });
+            }
+            foreach (MeshFilter f in children) if (f != null) Object.DestroyImmediate(f.gameObject);
+            string prefix = "bay_merged_" + group.name.ToLowerInvariant();
+            foreach (var kv in byMaterial)
+            {
+                var mesh = new Mesh { indexFormat = UnityEngine.Rendering.IndexFormat.UInt32 };
+                mesh.CombineMeshes(kv.Value.ToArray(), true, true);
+                mesh.RecalculateBounds();
+                string name = prefix + "_" + kv.Key.name.ToLowerInvariant();
+                MeshObject(group, "Merged_" + kv.Key.name, BayDressingMeshes.Save(mesh, name), new[] { kv.Key }, false);
             }
         }
 
@@ -500,6 +610,36 @@ namespace MissionForge.Screens.BuildBay.Editor
         {
             var g = MeshObject(parent, "Glow", card, new[] { mat }, false, local, Quaternion.LookRotation(BayDressingMeshes.Forward, Vector3.up));
             g.transform.localScale = Vector3.one * size;
+        }
+
+        /// <summary>
+        /// Rework 2 (M9): thin or tiny props stop casting shadows (crew figures, lamp poles, lightning masts); each of
+        /// their submeshes drew once per shadow cascade, about a fifth of the frame's draws, for shadows that are a few
+        /// pixels wide at bay distance. The hero tower, mount, arm trusses and the vehicle keep theirs.
+        /// </summary>
+        private static void TrimShadowCasters(LaunchPadRig pad, Transform dressing)
+        {
+            var renderers = new List<MeshRenderer>();
+            renderers.AddRange(pad.GetComponentsInChildren<MeshRenderer>(true)
+                .Where(r => HasAncestor(r.transform, "pad_floodlight", "pad_lightning_mast")));
+            foreach (string group in new[] { "Crew", "Practicals" })
+            {
+                Transform t = dressing.Find(group);
+                if (t != null) renderers.AddRange(t.GetComponentsInChildren<MeshRenderer>(true));
+            }
+            foreach (MeshRenderer r in renderers)
+            {
+                if (r.shadowCastingMode == ShadowCastingMode.Off) continue;
+                r.shadowCastingMode = ShadowCastingMode.Off;
+                Record(r);
+            }
+        }
+
+        private static bool HasAncestor(Transform t, params string[] names)
+        {
+            for (Transform p = t; p != null; p = p.parent)
+                foreach (string n in names) if (p.name.StartsWith(n)) return true;
+            return false;
         }
 
         // ------------------------------------------------------------------ people for scale

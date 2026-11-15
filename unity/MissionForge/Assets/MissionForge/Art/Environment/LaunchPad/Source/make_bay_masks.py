@@ -4,8 +4,9 @@ Usage: python make_bay_masks.py   (needs numpy and Pillow; writes into ../Textur
 
     Macro_variation_mask.png  512 x 512 tileable low-frequency brightness noise around linear 0.5, used as a URP Lit
                               detail albedo (x2 multiply) at a 150-180 m tile to break the ground repeat (rubric M2/M8).
-    Frame_grade.png           512 x 256 navy (#071522) with an alpha ramp at the left and right edges and the top
-                              corners: the camera-attached framing card that pulls the frame edges to navy (frame 02).
+    Frame_grade.png           512 x 256 framing card: slate (#2A323E) ramps at the left and right edges and the
+                              top corners, and a dusky blue (#2E485E) band across the top centre (rework 2), pulling the
+                              frame edges and the saturated upper sky toward frame 02.
     Glint_streaks.png         256 x 512 sparkle streaks for the sun-glint path on the sea (additive).
     Horizon_band.png          16 x 256 vertical alpha band for the haze card that softens the sea-sky line.
 All values are game_value art direction.
@@ -49,18 +50,33 @@ def macro_variation() -> None:
 
 
 def frame_grade() -> None:
+    """Rework 2 (M8): the card's colour now varies. Sides and top corners pull to a slate (#2A323E, more red
+    than #071522, so the saturated royal-blue corners grade toward frame 02's #0A2236), and a soft band across the
+    top centre (alpha up to 0.5) pulls the saturated #005AB0 upper sky toward a dusky #2A4258. Side alpha reaches 0.9
+    at the very edge so the mid edges read navy, not grey-mauve."""
     w, h = 512, 256
     u = (np.arange(w) + 0.5) / w
     v = 1.0 - (np.arange(h) + 0.5) / h                    # v = 1 at the top row
     uu, vv = np.meshgrid(u, v)
     edge = np.minimum(uu, 1.0 - uu)                       # 0 at the side edges, 0.5 at the centre
-    side = smoothstep(0.30, 0.0, edge) ** 1.4             # side falloff over the outer 30 % of each half
+    side = smoothstep(0.30, 0.0, edge) ** 1.3             # side falloff over the outer 30 % of each half
     corner = smoothstep(0.42, 0.05, edge) * smoothstep(0.45, 1.0, vv)
+    top = smoothstep(0.62, 1.0, vv) ** 1.2                # top band over the upper 38 % of the frame
     bottom = smoothstep(0.22, 0.0, vv) * 0.25             # a little weight at the very bottom
-    alpha = np.clip(0.78 * side + 0.38 * corner + bottom * side, 0.0, 0.86)
-    navy = np.array([7, 21, 34], dtype=np.float32)
+    edge_a = np.clip(0.9 * side + 0.42 * corner + bottom * side, 0.0, 0.92)
+    top_a = 0.6 * top
+    alpha = np.maximum(edge_a, top_a)
+    navy = np.array([42, 50, 62], dtype=np.float32)      # #2A323E: the dusk grade takes it to a navy near #0A2236
+    dusk = np.array([46, 72, 94], dtype=np.float32)      # #2E485E: graded toward frame 02 upper sky (#17466A)
+    k = np.clip(top_a / np.maximum(alpha, 1e-4), 0.0, 1.0)[..., None] * (1.0 - smoothstep(0.0, 0.3, 0.5 - edge))[..., None]
+    # Rework 2 review: the mid and lower edges sit over warm haze and read grey-brown with the slate; below the top
+    # corners the side colour shifts to a deeper navy (#0C2038).
+    low_navy = np.array([12, 32, 56], dtype=np.float32)
+    up = smoothstep(0.45, 0.8, vv)[..., None]
+    side_rgb = low_navy * (1.0 - up) + navy * up
+    rgb = side_rgb * (1.0 - k) + dusk * k
     rgba = np.zeros((h, w, 4), dtype=np.uint8)
-    rgba[..., :3] = navy
+    rgba[..., :3] = (rgb + 0.5).astype(np.uint8)
     rgba[..., 3] = (alpha * 255 + 0.5).astype(np.uint8)
     Image.fromarray(rgba, "RGBA").save(os.path.join(OUT, "Frame_grade.png"))
 

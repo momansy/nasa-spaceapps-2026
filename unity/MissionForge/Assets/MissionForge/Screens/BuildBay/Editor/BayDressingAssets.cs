@@ -80,6 +80,24 @@ namespace MissionForge.Screens.BuildBay.Editor
             vignette.intensity.Override(0.18f);
             vignette.smoothness.Override(0.5f);
             vignette.color.Override(new Color(7f / 255f, 21f / 255f, 34f / 255f));
+            // Rework 2 (M8): T031's global grade tints the shadows blue (split-toning shadows 0.40/0.47/0.62, lift
+            // 0.897/0.939/1), which drove the red channel of the dark upper sky to 0 (royal-blue corners, #001C43 against
+            // frame 02's #092034). For the bay only, the shadow tint is eased toward a grey navy and the lift neutralised;
+            // the T031 profiles are not edited. game_value art direction.
+            if (!profile.TryGet(out SplitToning split))
+            {
+                split = profile.Add<SplitToning>(false);
+                AssetDatabase.AddObjectToAsset(split, profile);
+            }
+            split.shadows.Override(new Color(0.5f, 0.5f, 0.55f));
+            split.highlights.Override(new Color(0.62f, 0.55f, 0.44f));
+            split.balance.Override(-10f);
+            if (!profile.TryGet(out LiftGammaGain lgg))
+            {
+                lgg = profile.Add<LiftGammaGain>(false);
+                AssetDatabase.AddObjectToAsset(lgg, profile);
+            }
+            lgg.lift.Override(new Vector4(1f, 1f, 1f, 0f));
             EditorUtility.SetDirty(profile);
             AssetDatabase.SaveAssets();
             return profile;
@@ -88,12 +106,14 @@ namespace MissionForge.Screens.BuildBay.Editor
         public static void EnsureAll()
         {
             Directory.CreateDirectory(MeshesDir);
+            MakeHeroModelsReadable();
             ConfigureTextures();
             foreach (var g in Ground) GroundMaterial(g.set, g.tileM, g.tint, g.smoothness, g.normal);
             OceanMaterial();
             Particle("LP_flood_cone", null, new Color(1f, 0.82f, 0.58f, 1f), additive: true, cullOff: true);
             Particle("LP_glow", Tex("Soft_puff.png"), new Color(2.6f, 1.9f, 1.2f, 1f), additive: true, cullOff: true);
-            Particle("LP_steam", Tex("Soft_puff.png"), new Color(1f, 0.93f, 0.84f, 1f), additive: false, cullOff: false);   // warm white (rework, M7)
+            // Rework 2 (M7): warmer and slightly HDR, so the backlit plume reads sunlit (#F2E6D8-ish after ACES), not cool grey.
+            Particle("LP_steam", Tex("Soft_puff.png"), new Color(1.25f, 1.05f, 0.86f, 1f), additive: false, cullOff: false);
             Particle("LP_soot", Tex("Soft_puff.png"), new Color(0.04f, 0.035f, 0.03f, 0.75f), additive: false, cullOff: false);
             // Rework (M8): framing card, sun-glint path, horizon haze band; wet sheen and headland lit materials.
             Particle("LP_frame_grade", Tex("Frame_grade.png"), Color.white, additive: false, cullOff: true);
@@ -107,8 +127,25 @@ namespace MissionForge.Screens.BuildBay.Editor
             LitColour("LP_paint", "#D9D4C8", 0.35f);
             LitColour("LP_foliage", "#2E3A2C", 0.2f);
             foreach (var h in Hero) LitMetal(h.name, h.hex, h.metallic, h.smoothness);
+            HeroAtlasMaterial();
+            Particle("LP_lamp_reflection", Tex("Soft_puff.png"), new Color(1.6f, 1.1f, 0.62f, 0.8f), additive: true, cullOff: true);
             LitMetal("LP_steel", "#40606E", 0.7f, 0.55f);   // same as LaunchPadAssets' steel recipe (crane jib, masts)
             AssetDatabase.SaveAssets();
+        }
+
+        /// <summary>
+        /// The hero pieces with concrete get a box-UV copy of their mesh (BayDressingBuilder.HeroPiece), which needs CPU
+        /// access to the imported mesh; the builder failed with "isReadable is false" on the mount (rework 2).
+        /// </summary>
+        private static void MakeHeroModelsReadable()
+        {
+            foreach (string guid in AssetDatabase.FindAssets("t:Model", new[] { LaunchPadAssets.ModelsDir + "/Hero" }))
+            {
+                var imp = AssetImporter.GetAtPath(AssetDatabase.GUIDToAssetPath(guid)) as ModelImporter;
+                if (imp == null || imp.isReadable) continue;
+                imp.isReadable = true;
+                imp.SaveAndReimport();
+            }
         }
 
         private static Texture2D Tex(string file) => AssetDatabase.LoadAssetAtPath<Texture2D>(TexturesDir + "/" + file);
@@ -132,10 +169,17 @@ namespace MissionForge.Screens.BuildBay.Editor
                 Set(imp.textureType, normal ? TextureImporterType.NormalMap : TextureImporterType.Default, v => imp.textureType = v);
                 Set(imp.sRGBTexture, !normal && !mask, v => imp.sRGBTexture = v);
                 bool card = file == "Frame_grade" || file == "Horizon_band";
-                Set(imp.wrapMode, card ? TextureWrapMode.Clamp : TextureWrapMode.Repeat, v => imp.wrapMode = v);
+                bool atlas = file.StartsWith("Hero_atlas_");
+                if (atlas)
+                {
+                    // Swatch atlas (hero_atlas.py): exact colours, no filtering across swatches, no compression.
+                    Set(imp.filterMode, FilterMode.Point, v => imp.filterMode = v);
+                    Set(imp.textureCompression, TextureImporterCompression.Uncompressed, v => imp.textureCompression = v);
+                }
+                Set(imp.wrapMode, card || atlas ? TextureWrapMode.Clamp : TextureWrapMode.Repeat, v => imp.wrapMode = v);
                 Set(imp.maxTextureSize, 1024, v => imp.maxTextureSize = v);
                 Set(imp.alphaIsTransparency, file == "Soft_puff" || card || file == "Glint_streaks", v => imp.alphaIsTransparency = v);
-                Set(imp.mipmapEnabled, file != "Frame_grade", v => imp.mipmapEnabled = v);
+                Set(imp.mipmapEnabled, file != "Frame_grade" && !atlas, v => imp.mipmapEnabled = v);
                 Set(imp.anisoLevel, 8, v => imp.anisoLevel = v);
                 TextureImporterPlatformSettings web = imp.GetPlatformTextureSettings("WebGL");
                 if (!web.overridden || web.maxTextureSize != 1024)
@@ -228,6 +272,33 @@ namespace MissionForge.Screens.BuildBay.Editor
             m.SetFloat("_Metallic", 0f);
             m.SetFloat("_Smoothness", 0.86f);
             m.SetTextureScale("_BaseMap", Vector2.one / 140f);   // rework: larger swell so the sea stops tiling (was 46 m)
+            m.SetFloat("_EnvironmentReflections", 1f);
+            m.SetFloat("_SpecularHighlights", 1f);
+            EditorUtility.SetDirty(m);
+        }
+
+        /// <summary>Emission multiplier of the atlas (hero_atlas.py EMISSION_INTENSITY): the lamp swatch emits 8x HDR.</summary>
+        public const float HeroAtlasEmission = 8f;
+
+        /// <summary>
+        /// One URP Lit material for every painted and metal face of the hero pieces (rework 2, M9): base colour, metallic
+        /// (R) and smoothness (A), and emission come from the 64 px swatch atlas written by hero_atlas.py, so a hero piece
+        /// draws as two submeshes (atlas + concrete) instead of up to eleven.
+        /// </summary>
+        private static void HeroAtlasMaterial()
+        {
+            Material m = LoadOrCreate("LP_hero_atlas", Shader.Find("Universal Render Pipeline/Lit"));
+            m.SetColor("_BaseColor", Color.white);
+            m.SetTexture("_BaseMap", Tex("Hero_atlas_albedo.png"));
+            m.SetTexture("_MetallicGlossMap", Tex("Hero_atlas_mask.png"));
+            m.EnableKeyword("_METALLICSPECGLOSSMAP");
+            m.SetFloat("_Smoothness", 1f);
+            m.SetFloat("_GlossMapScale", 1f);
+            m.SetFloat("_SmoothnessTextureChannel", 0f);
+            m.SetTexture("_EmissionMap", Tex("Hero_atlas_emission.png"));
+            m.SetColor("_EmissionColor", Color.white * HeroAtlasEmission);
+            m.EnableKeyword("_EMISSION");
+            m.globalIlluminationFlags = MaterialGlobalIlluminationFlags.None;
             m.SetFloat("_EnvironmentReflections", 1f);
             m.SetFloat("_SpecularHighlights", 1f);
             EditorUtility.SetDirty(m);
