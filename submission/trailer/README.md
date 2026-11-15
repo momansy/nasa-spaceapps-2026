@@ -3,7 +3,7 @@
 | File | Length | Format | Size |
 |---|---|---|---|
 | `missionforge-trailer-16x9.mp4` | 56.0 s | H.264 High, 1920x1080, 30 fps; AAC 48 kHz stereo 192 kb/s | 25.8 MB |
-| `missionforge-trailer-9x16.mp4` | 26.0 s | H.264 High, 1080x1920, 30 fps; AAC 48 kHz stereo 192 kb/s | 13.6 MB |
+| `missionforge-trailer-9x16.mp4` | 26.0 s | H.264 High, 1080x1920, 30 fps; AAC 48 kHz stereo 192 kb/s | 13.7 MB |
 
 A fast, music-driven trailer for social media, the submission page and the start of the pitch. It cuts on the beat of an
 original 120 BPM track (1 beat = 0.5 s), so every shot is 0.5 to 2 s long (the end card is longer). Review contact sheets

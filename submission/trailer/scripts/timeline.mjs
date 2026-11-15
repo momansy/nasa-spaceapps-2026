@@ -132,7 +132,7 @@ export const SHORT = [
   { b: 2, src: V(H.tally, 1.0, { speed: 2, fit: true, z: [1.0, 1.0] }), ov: { words: [W1('On the', 0, { size: 120, y: 0.2 }), W1('big screen.', 0.2, { size: 120, y: 0.275 })] } },
   { b: 2, src: P('p1', [['session', 180.5]], { bg: BG.pad }), ov: { ...DEMO, words: [W1('GO / NO-GO?', 0, { size: 110, y: 0.09, amber: true })] } },
   { b: 2, src: S(H.frrGo, { fit: true, z: [1.0, 1.0] }), ov: { host: 'Big screen', words: [W1('GO for', 0, { size: 130, y: 0.2, amber: true }), W1('launch.', 0.2, { size: 130, y: 0.275, amber: true })] } },
-  { b: 2, tr: 'flash', src: X(AIX.liftoff, 0.5, { cx: 0.5, z: [1.0, 1.1] }, S(AI.ascent, { cx: 0.5, z: [1.0, 1.25], fy: 0.4 })), ov: { ai: true, words: [W1('Launch.', 0, { size: 170, y: 0.8, amber: true })] }, punch: 0.08 },
+  { b: 2, tr: 'flash', src: X(AIX.liftoff, 0.5, { cx: 0.5, z: [1.0, 1.1] }, S(AI.ascent, { cx: 0.68, z: [1.0, 1.2], fy: 0.3 })), ov: { ai: true, words: [W1('Launch.', 0, { size: 170, y: 0.8, amber: true })] }, punch: 0.08 },
   { b: 1, src: P('p1', [['session', 221.0, 1.5, 'Max Q Throttle Bucket']], { bg: BG.earth }), ov: { ...DEMO }, punch: 0.07 },
   ...[['MG-16', 13.0, 'Station Docking'], ['MG-20', 3.0, 'Deorbit Burn'], ['MG-21', 5.0, 'Science Capture'], ['MG-06', 3.0, 'Shake Table'], ['MG-03', 1.5, 'Weld Inspector'], ['MG-16', 19.0, 'Station Docking']]
     .map(([n, ss, tag], i) => ({ b: 1, tr: i % 3 === 0 ? 'whip' : undefined, src: P('p1', [[n, ss, 1.6, tag]], { bg: i % 2 ? BG.earth : BG.bay }), punch: 0.07 })),
