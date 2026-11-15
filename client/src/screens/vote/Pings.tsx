@@ -87,7 +87,7 @@ export function PingSheet({ optionId, optionLabel, onClose }: { optionId: Option
   );
 }
 
-/** The latest pings and reactions of the crew, newest first, fading out after a few seconds. */
+/** The latest ping or reaction of the crew, in its own lane above the card, fading out after a few seconds. */
 export function PingFeed({ nameOf }: { nameOf: (optionId: OptionId) => string }) {
   const t = useT();
   const social = useSel((s) => s.social);
@@ -95,7 +95,7 @@ export function PingFeed({ nameOf }: { nameOf: (optionId: OptionId) => string })
   const meId = useSel((s) => s.me?.id ?? null);
   const now = useServerNow(2);
   // Items carry the server time at which they arrived; each stays up for six seconds.
-  const recent = social.filter((s) => s.playerId !== meId && s.atMs > now - 6000).slice(-2).reverse();
+  const recent = social.filter((s) => s.playerId !== meId && s.atMs > now - 6000).slice(-1);
   if (recent.length === 0) return null;
   return (
     <ul className="pingfeed" aria-live="polite" aria-label={t('ui.ping.feed')}>

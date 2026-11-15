@@ -5,11 +5,13 @@ import { expect, test, type Page } from '@playwright/test';
 import { mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { settle } from './lib/settle';
 
-const SHOTS = join(dirname(fileURLToPath(import.meta.url)), '../../orchestration/evidence/T037');
+const SHOTS = process.env.AR_SHOTS_DIR ?? join(dirname(fileURLToPath(import.meta.url)), '../../orchestration/evidence/T037');
 mkdirSync(SHOTS, { recursive: true });
 
 async function shot(page: Page, name: string) {
+  await settle(page);
   await page.screenshot({ path: join(SHOTS, `${name}.png`) });
 }
 

@@ -18,6 +18,7 @@ import { fmtMetricDelta, fmtMetricValue, METRIC_SPECS } from '../../data/format'
 import { optionDetail, optionName, optionNameById } from './names';
 import { PartCard } from './PartCard';
 import { PingFeed, PingSheet } from './Pings';
+import { tName } from '../../ui/NameText';
 import { AudienceSays } from '../spectator/AudienceSays';
 import './vote.css';
 
@@ -112,8 +113,8 @@ function PredictBanner({ round }: { round: VoteRound }) {
           {myResult?.correct
             ? t('ui.vote.predict.correct')
             : myResult?.choiceIndex == null
-              ? t('ui.vote.predict.missed', { answer: correctText })
-              : t('ui.vote.predict.wrong', { answer: correctText })}
+              ? tName(t, 'ui.vote.predict.missed', 'answer', correctText)
+              : tName(t, 'ui.vote.predict.wrong', 'answer', correctText)}
         </strong>
         <div className="body-sm">{t('ui.vote.predict.crew_right', { n: crewRight, total: result.results.length })}</div>
       </div>
@@ -352,6 +353,8 @@ function PartStage({ round }: { round: VoteRound }) {
   const vetoOk = useSel((s) => canVeto(s, round, option));
   const candidate = isCandidate(round, option.id);
   const name = optionName(t, round.opened, option, players);
+  // The prediction outcome strip replaces the plain hint line so the card keeps its height (T038).
+  const showPredict = !!round.opened.predict && !!round.predict.result;
 
   // Start on the player's own ballot, else on the first candidate (runoff: the two finalists).
   const startIdx = useMemo(() => {
@@ -384,7 +387,7 @@ function PartStage({ round }: { round: VoteRound }) {
             </p>
           ) : voting ? (
             <BallotLine round={round} />
-          ) : (
+          ) : stage === 'INSPECT' && showPredict ? null : (
             <p className="body-sm">{t(stage === 'INSPECT' ? 'ui.vote.inspect_hint' : 'ui.vote.vote_hint')}</p>
           )}
           {stage === 'INSPECT' && <PredictBanner round={round} />}
@@ -433,7 +436,7 @@ function PartStage({ round }: { round: VoteRound }) {
             <Icon name="ban" size="2rem" strokeWidth={2.2} />
           </span>
           <h2 id="veto-title" className="title title--sm">
-            {t('ui.vote.veto_title', { name: optionName(t, round.opened, confirmVeto, players) })}
+            {tName(t, 'ui.vote.veto_title', 'name', optionName(t, round.opened, confirmVeto, players))}
           </h2>
           <p className="lede">{t('ui.vote.veto_body')}</p>
           <div className="row">
