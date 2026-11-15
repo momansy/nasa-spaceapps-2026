@@ -187,7 +187,7 @@ th{color:var(--sunlight);font:700 32px "Oxanium",sans-serif}
         <li><b>Science Capture:</b> instruments</li>
       </ul>
       <div class="card" style="margin-top:26px"><h3>A fact inside the mechanic</h3><p>"Many rockets throttle down near Max Q, the moment of peak aerodynamic stress, often about a minute after liftoff." <span class="muted">Source: NASA, Space Shuttle Day-of-Launch Trajectory Design, 2011, and others.</span></p></div>
-      <div class="card warn" style="margin-top:22px"><p><b>32 minigames</b> run on the phones. Each has a Relaxed mode and a One-Button mode. The big-screen flight view is <b>in development</b>.</p></div>
+      <div class="card warn" style="margin-top:22px"><p><b>32 minigames</b> run on the phones. Each has a Relaxed mode and a One-Button mode. The big-screen flight screen is in the main code, <b>not yet in the hosted build</b>.</p></div>
     </div>
     <div style="width:380px;margin-left:50px"><img class="phone" src="img/phone-maxq.jpg" width="380" height="822" alt="Max Q Throttle Bucket minigame on a phone"></div>
   </div>
@@ -260,12 +260,12 @@ th{color:var(--sunlight);font:700 32px "Oxanium",sans-serif}
     <div class="link">WebSocket<br>JSON<br>⇄</div>
     <div class="box"><h3>Room server</h3><p>Node. Rooms in memory only</p></div>
     <div class="link">WebSocket<br>JSON<br>⇄</div>
-    <div class="box"><h3>Big screen</h3><p>Unity 6 WebGL host. Lobby, Build Bay</p></div>
+    <div class="box"><h3>Big screen</h3><p>Unity 6 host. 15 of 16 screens in code; title and lobby hosted</p></div>
   </div>
   <p style="margin-top:30px;font-size:36px"><b class="sig">Core rules:</b> C#, no Unity dependency, deterministic from a seed. <b class="sig">Data:</b> JSON, 26 part categories, 9 contracts.</p>
-  <p style="margin-top:14px;font-size:36px"><b class="sun">Tests, 15 Nov 2026:</b> Core 568, server 247, phone client 916, all passing on Windows; data validator: 0 errors in normal mode.</p>
+  <p style="margin-top:14px;font-size:36px"><b class="sun">Tests, 15 Nov 2026:</b> server 247 of 247; phone client 922 of 927 (5 translation-parity failures, fix queued); Core 568 (T046); Unity EditMode 466 (T027). Data validator: 0 errors in normal mode.</p>
   <div class="card warn" style="margin-top:22px;padding:28px 32px"><p style="font-size:34px"><b>Built by a human team directing AI coding agents</b> (Claude Code, OpenAI Codex). Images from Higgsfield, briefing video from Gemini. Fully disclosed in AI_DISCLOSURE.md.</p></div>
-  <div class="foot"><span>Evidence: orchestration/evidence/T042, T044</span><span>10 / 12</span></div>
+  <div class="foot"><span>Evidence: orchestration/evidence/T027, T046, T058</span><span>10 / 12</span></div>
 </section>
 
 <!-- 11 WHAT'S NEXT -->
@@ -274,11 +274,11 @@ th{color:var(--sunlight);font:700 32px "Oxanium",sans-serif}
   <h1 style="font-size:62px">Built today, and planned</h1>
   <div class="row" style="gap:40px">
     <div class="card" style="width:870px;font-size:36px"><h3>Built</h3>
-      <ul style="font-size:36px"><li style="font-size:36px">Big screen: title, lobby, QR join</li><li style="font-size:36px;margin-bottom:12px">Build Bay scene (shown with simulated voters)</li><li style="font-size:36px;margin-bottom:12px">Full phone session: votes, 32 minigames, debrief</li><li style="font-size:36px;margin-bottom:12px">Hosted online, six languages</li></ul></div>
+      <ul style="font-size:36px"><li style="font-size:36px">Hosted big screen: title, lobby, QR join</li><li style="font-size:36px;margin-bottom:12px">In the code: 15 of 16 big-screen screens, briefing to debrief</li><li style="font-size:36px;margin-bottom:12px">Full phone session: votes, 32 minigames, debrief</li><li style="font-size:36px;margin-bottom:12px">Hosted online, six languages</li></ul></div>
     <div class="card warn" style="width:870px"><h3>Planned</h3>
-      <ul><li style="font-size:36px;margin-bottom:12px">Big screen: contract data in the briefing, live Build Bay, flight, orbit map, debrief</li><li style="font-size:36px;margin-bottom:12px">Frame rate on a GPU laptop; six-person playtest</li><li style="font-size:36px;margin-bottom:12px">Native-speaker review; recorded voice lines</li></ul></div>
+      <ul><li style="font-size:36px;margin-bottom:12px">Rebuild the hosted big screen; chain Build Bay into tests and reviews; play it to the debrief</li><li style="font-size:36px;margin-bottom:12px">Frame rate on a GPU laptop; six-person playtest</li><li style="font-size:36px;margin-bottom:12px">Native-speaker review; recorded voice lines</li></ul></div>
   </div>
-  <div class="card" style="margin-top:30px"><p style="font-size:34px">Today the big-screen briefing and contract-vote screens show the layout only, and the contract numbers appear on the phones. Only contract C1 is rehearsed end to end; C2 to C8 are defined and balance-checked.</p></div>
+  <div class="card" style="margin-top:30px"><p style="font-size:34px">Today the hosted big screen is an older build: its briefing and contract vote show the layout only, so the contract numbers appear on the phones. Only contract C1 is rehearsed end to end; C2 to C8 are defined and balance-checked.</p></div>
   <div class="foot"><span>Honest status: submission/PROJECT_DESCRIPTION.md, sections 8 and 9</span><span>11 / 12</span></div>
 </section>
 

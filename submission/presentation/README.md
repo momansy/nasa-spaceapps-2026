@@ -9,6 +9,6 @@
 | `QA.md` | 15 likely judges' questions with short, honest answers |
 | `build-qr.mjs`, `build-images.mjs`, `image-sources.json`, `build-pdf.mjs` | Rebuild the QR code, the deck images, the slide screenshots and the PDF (see `orchestration/evidence/T052/README.md`) |
 
-Every number in the deck comes from `data/` or `submission/PROJECT_DESCRIPTION.md`. The deck says what is built and what is planned; it shows
+Every number in the deck comes from `data/`, `submission/PROJECT_DESCRIPTION.md` or the test evidence named on slide 10. The deck says what is built and what is planned; it shows
 real screenshots only (the Build Bay is a rehearsal build with simulated voters, and the phone part card, debrief and settings come from the
 scripted demo session `?mock=1`; each slide says so). Not affiliated with or endorsed by NASA.
