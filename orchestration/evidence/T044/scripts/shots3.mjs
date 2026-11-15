@@ -1,0 +1,13 @@
+import { createRequire } from 'node:module';
+const require = createRequire('/tmp/t044/clone2/tools/e2e/x.js');
+const { chromium } = require('@playwright/test');
+const out = '/Users/alainieh/Developer/Nasa/orchestration/evidence/T044/';
+const b = await chromium.launch({ headless: true });
+const ctx = await b.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true });
+const p = await ctx.newPage();
+const errs = []; p.on('pageerror', e => errs.push(e.message)); p.on('console', m => { if (m.type()==='error') errs.push(m.text()); });
+await p.goto('http://localhost:8080/play/client/?mock=1', { waitUntil: 'networkidle' });
+await p.waitForTimeout(6000);
+await p.screenshot({ path: out+'07-phone-mock-mode.png' });
+console.log('errs', errs.join(' | '));
+await b.close();
