@@ -146,12 +146,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1824494464}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 831fe5ec03a4346de909ef9ed68b4be3, type: 3}
+  m_Script: {fileID: 11500000, guid: ef1c66320b984f098c17b07194693f14, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: MissionForge.App::MissionForge.App.Screens.RegionScreen
+  m_EditorClassIdentifier: MissionForge.Screens.Codex::MissionForge.Screens.Codex.CodexScreen
   screenId: 13
   document: {fileID: 1824494466}
   vantage: {fileID: 0}
+  links: {fileID: 4900000, guid: bbf5020bc85c44b0b5d1124d76bc06d7, type: 3}
+  rehearsalUnlocks: {fileID: 4900000, guid: 595dbeeb4c0943dd921eed4791f7131f, type: 3}
 --- !u!114 &1824494466
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,7 +168,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.UIElements.UIDocument
   m_PanelSettings: {fileID: 11400000, guid: 5d430196715a54314b42f5fd2a13b0b6, type: 2}
   m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 9197481963319205126, guid: c04f127731d334708848f0b8a214916d, type: 3}
+  sourceAsset: {fileID: 9197481963319205126, guid: d471e21a8ffe4fb5b5d22ddc9c5e30ff, type: 3}
   m_SortingOrder: 50
   m_Position: 0
   m_WorldSpaceSizeMode: 1

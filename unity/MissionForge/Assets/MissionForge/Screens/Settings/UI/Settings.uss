@@ -1,0 +1,60 @@
+/* Settings & Accessibility overlay sheet (T024). Regions and the screen's own rows only, with design tokens; toggles,
+   segmented controls, buttons and glass come from the shared components. The slider skin is local because the design
+   system has no slider component yet (listed as a follow-up). */
+.mf-settings { flex-direction: column; }
+.mf-settings__head { flex-direction: row; align-items: center; flex-shrink: 0; margin-bottom: var(--mf-sp-5); }
+.mf-settings__head > .mf-h1 { flex-shrink: 1; white-space: normal; }
+.mf-settings .mf-h2 { white-space: normal; }
+.mf-settings__head > .mf-btn { flex-shrink: 0; }
+.mf-settings__head > .mf-btn { margin-left: var(--mf-sp-3); }
+.mf-settings__columns { flex-direction: row; flex-grow: 1; min-height: 0; }
+.mf-settings__panel { flex-grow: 1; flex-basis: 0; min-width: 0; padding: var(--mf-sp-panel-padding); margin-right: var(--mf-sp-gutter); }
+.mf-settings__panel--last { margin-right: 0; }
+.mf-settings__scroll { flex-grow: 1; }
+.mf-settings__scroll .unity-scroll-view__content-container { flex-shrink: 0; }
+.mf-settings__sub { margin: var(--mf-sp-1) 0 var(--mf-sp-5) 0; }
+
+.mf-settings-row { margin-bottom: var(--mf-sp-5); }
+.mf-settings-row__head { flex-direction: row; align-items: center; justify-content: space-between; margin-bottom: var(--mf-sp-2); }
+.mf-settings-row__label { -unity-font-definition: var(--mf-font-body-medium); font-size: var(--mf-fs-label); color: var(--mf-ceramic); margin: 0; padding: 0; white-space: normal; flex-shrink: 1; }
+.mf-settings-row__value { -unity-font-definition: var(--mf-font-body-bold); font-size: var(--mf-fs-label); color: var(--mf-signal); margin: 0 0 0 var(--mf-sp-3); padding: 0; }
+.mf-settings-row__note { -unity-font-definition: var(--mf-font-body); font-size: var(--mf-fs-meta); color: var(--mf-muted); margin: var(--mf-sp-1) 0 0 0; padding: 0; white-space: normal; }
+.mf-settings-row > .mf-segmented { flex-wrap: wrap; }
+.mf-settings-row > .mf-toggle { margin: 0; }
+.mf-settings-row--toggle { margin-bottom: var(--mf-sp-4); }
+
+.mf-settings__status {
+    flex-direction: row; align-items: center; padding: var(--mf-sp-3) var(--mf-sp-4); margin-bottom: var(--mf-sp-5);
+    border-radius: var(--mf-radius-control); border-width: 2px; border-color: var(--mf-marginal); background-color: var(--mf-space-40);
+}
+.mf-settings__status > .mf-icon, .mf-settings__status > MfIcon { color: var(--mf-marginal); margin-right: var(--mf-sp-3); flex-shrink: 0; }
+.mf-settings__status > .mf-label { color: var(--mf-ceramic); flex-shrink: 1; margin: 0; }
+.mf-settings__status--online { border-color: var(--mf-meets-56); }
+.mf-settings__status--online > .mf-icon, .mf-settings__status--online > MfIcon { color: var(--mf-meets); }
+
+/* Slider skin: 12 px track in Ceramic 16 %, Signal fill, 32 px knob, 3 px Signal focus ring. */
+.mf-slider { margin: 0; padding: 0; height: 40px; }
+.mf-slider .unity-base-slider__input { height: 40px; }
+.mf-slider .unity-base-slider__tracker { height: 12px; margin-top: -6px; border-radius: 6px; border-width: 0; background-color: var(--mf-ceramic-16); }
+.mf-slider .unity-base-slider__dragger { width: 32px; height: 32px; margin-top: -16px; border-radius: 16px; border-width: 0; background-color: var(--mf-ceramic); }
+.mf-slider .unity-base-slider__dragger-border { width: 40px; height: 40px; margin-top: -20px; margin-left: -4px; border-radius: 20px; border-width: 0; }
+.mf-slider:focus .unity-base-slider__dragger-border { border-width: 3px; border-color: var(--mf-signal); }
+.mf-slider:hover .unity-base-slider__dragger { background-color: var(--mf-signal); }
+.mf-slider .unity-base-slider__fill { background-color: var(--mf-signal); border-radius: 6px; height: 12px; }
+
+/* accessibility */
+.mf-rtl .mf-settings__head, .mf-rtl .mf-settings__columns, .mf-rtl .mf-settings-row__head, .mf-rtl .mf-settings__status,
+.mf-rtl .mf-settings-row > .mf-segmented, .mf-rtl .mf-toggle { flex-direction: row-reverse; }
+.mf-rtl .mf-settings__panel { margin-right: 0; margin-left: var(--mf-sp-gutter); }
+.mf-rtl .mf-settings__panel--last { margin-left: 0; }
+.mf-rtl .mf-settings__head > .mf-btn { margin-left: 0; margin-right: var(--mf-sp-3); }
+.mf-rtl .mf-settings-row__value { margin-left: 0; margin-right: var(--mf-sp-3); }
+.mf-rtl .mf-settings__status > MfIcon, .mf-rtl .mf-settings__status > .mf-icon { margin-right: 0; margin-left: var(--mf-sp-3); }
+.mf-rtl .mf-settings-row__label, .mf-rtl .mf-settings__sub, .mf-rtl .mf-settings-row__note, .mf-rtl .mf-h2, .mf-rtl .mf-h1 { -unity-text-align: upper-right; }
+.mf-rtl .mf-slider { scale: -1 1; }
+
+.mf-text-200 .mf-settings__head > .mf-h1 { font-size: var(--mf-fs-h2); }
+.mf-text-200 .mf-slider, .mf-text-200 .mf-slider .unity-base-slider__input { height: 64px; }
+
+.mf-hc .mf-settings__status { background-color: var(--mf-console); }
+.mf-hc .mf-slider .unity-base-slider__tracker { background-color: var(--mf-ceramic-56); }

@@ -1,0 +1,123 @@
+{
+  "design_notes": [
+    "Rehearsal fixture (T024): a mid-campaign agency after four missions, as T014's CampaignState would hold it. Data only: Core offers the contracts, prices the tech tree and the hardware.",
+    "All numbers are game_value."
+  ],
+  "seed": "7014",
+  "state": {
+    "Version": 1,
+    "AgencyName": "Aurora Launch Collective",
+    "LogoId": "patch_aurora",
+    "HomeLaunchSite": "site_subtropical_coast",
+    "Reputation": 34,
+    "KnowledgePoints": 15,
+    "CarriedBudgetM": 6.5,
+    "UnlockedParts": [
+      "sep_hot_staging"
+    ],
+    "PurchasedTech": [
+      "hot_staging"
+    ],
+    "InventoryItems": [
+      {
+        "ItemId": "inv_booster_1",
+        "PartId": "eng_kerolox_workhorse",
+        "Flights": 2,
+        "Refurbished": false,
+        "Available": true
+      },
+      {
+        "ItemId": "inv_fairing_1",
+        "PartId": "fairing_reusable_large",
+        "Flights": 1,
+        "Refurbished": true,
+        "Available": true
+      },
+      {
+        "ItemId": "inv_capsule_1",
+        "PartId": "cap_standard",
+        "Flights": 1,
+        "Refurbished": false,
+        "Available": true
+      }
+    ],
+    "Milestones": [
+      "first_orbit",
+      "first_recovery"
+    ],
+    "Missions": [
+      {
+        "ContractId": "C0",
+        "Mode": "CAMPAIGN",
+        "Outcome": "Success",
+        "Score": 7920,
+        "Grade": "A",
+        "BudgetRemainingM": 6.0,
+        "BudgetInitialM": 25,
+        "ScheduleMarginDays": 12,
+        "OnTime": true,
+        "KnowledgePointsEarned": 6,
+        "RecoveredHardware": [],
+        "FailureMode": "",
+        "MetObjectives": [
+          "reach_space"
+        ]
+      },
+      {
+        "ContractId": "C1",
+        "Mode": "CAMPAIGN",
+        "Outcome": "Failure",
+        "Score": 680,
+        "Grade": "D",
+        "BudgetRemainingM": 16.2,
+        "BudgetInitialM": 90,
+        "ScheduleMarginDays": 36,
+        "OnTime": true,
+        "KnowledgePointsEarned": 5,
+        "RecoveredHardware": [],
+        "FailureMode": "pogo_oscillation",
+        "MetObjectives": []
+      },
+      {
+        "ContractId": "C1",
+        "Mode": "CAMPAIGN",
+        "Outcome": "Success",
+        "Score": 8172,
+        "Grade": "A",
+        "BudgetRemainingM": 16.2,
+        "BudgetInitialM": 90,
+        "ScheduleMarginDays": 36,
+        "OnTime": true,
+        "KnowledgePointsEarned": 9,
+        "RecoveredHardware": [
+          "eng_kerolox_workhorse"
+        ],
+        "FailureMode": "",
+        "MetObjectives": [
+          "reach_sso_power_positive"
+        ]
+      },
+      {
+        "ContractId": "C2",
+        "Mode": "CAMPAIGN",
+        "Outcome": "Partial",
+        "Score": 5240,
+        "Grade": "C",
+        "BudgetRemainingM": 4.0,
+        "BudgetInitialM": 120,
+        "ScheduleMarginDays": 8,
+        "OnTime": true,
+        "KnowledgePointsEarned": 7,
+        "RecoveredHardware": [
+          "fairing_reusable_large"
+        ],
+        "FailureMode": "",
+        "MetObjectives": []
+      }
+    ],
+    "Achievements": [
+      "fail_forward"
+    ],
+    "Insured": true
+  }
+}

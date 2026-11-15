@@ -1,0 +1,107 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:mf="MissionForge.UI">
+    <Style src="Debrief.uss" />
+    <!-- Debrief (design 14.1 screen 13, T024). Score column on the left (grade, title, total, the 11.3 formula counting up
+         term by term, multipliers, KP). On the right, objectives and crew recognition + facts side by side, with the mission
+         timeline strip spanning both underneath. The action bar runs along the bottom. Player text is empty here and set
+         from data/strings by DebriefScreen. Column bodies are ScrollViews so 200 % text scrolls instead of overlapping. -->
+    <ui:VisualElement name="screen" class="mf-screen mf-debrief">
+        <ui:VisualElement class="mf-debrief__columns">
+            <mf:MfGlassPanel name="score-panel" class="mf-glass mf-end-panel mf-debrief__score">
+                <ui:ScrollView name="score-scroll" mode="Vertical" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" class="mf-end-scroll">
+                    <ui:VisualElement name="hero" class="mf-debrief__hero">
+                        <ui:VisualElement name="grade-plate" class="mf-debrief__grade-plate">
+                            <ui:Label name="grade-letter" class="mf-debrief__grade" />
+                            <ui:Label name="grade-caption" class="mf-debrief__grade-caption" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="mf-debrief__hero-text">
+                            <ui:VisualElement class="mf-debrief__chips">
+                                <ui:VisualElement name="outcome-chip" class="mf-chip mf-debrief__outcome">
+                                    <mf:MfIcon name="outcome-icon" kind="meets" class="mf-icon--24" />
+                                    <ui:Label name="outcome-text" class="mf-chip__label" />
+                                </ui:VisualElement>
+                                <ui:VisualElement name="kp-chip" class="mf-chip mf-debrief__kp">
+                                    <mf:MfIcon kind="sparkles" class="mf-icon--24 mf-debrief__kp-icon" />
+                                    <ui:Label name="kp-value" class="mf-chip__label mf-debrief__kp-value" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                            <ui:Label name="grade-title" class="mf-h2 mf-debrief__title" />
+                            <ui:Label name="contract-name" class="mf-label" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+
+                    <ui:VisualElement class="mf-debrief__total-row">
+                        <ui:VisualElement class="mf-debrief__total-text">
+                            <ui:Label name="total-caption" class="mf-label mf-label--strong" />
+                            <ui:Label name="breakdown-note" class="mf-meta mf-debrief__note" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="mf-row mf-debrief__total-value">
+                            <ui:Label name="total-value" text="0" class="mf-kpi mf-kpi--l" />
+                            <ui:Label name="total-unit" class="mf-unit mf-debrief__total-unit" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="breakdown" class="mf-debrief__breakdown" />
+
+                </ui:ScrollView>
+            </mf:MfGlassPanel>
+
+            <ui:VisualElement name="right" class="mf-debrief__right">
+                <ui:VisualElement class="mf-debrief__top">
+                    <mf:MfGlassPanel name="objectives-panel" class="mf-glass mf-end-panel mf-debrief__objectives">
+                        <ui:ScrollView name="objectives-scroll" mode="Vertical" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" class="mf-end-scroll">
+                            <ui:Label name="objectives-title" class="mf-h3" />
+                            <ui:VisualElement name="objectives" class="mf-debrief__objective-list" />
+                            <ui:VisualElement name="recovery" class="mf-debrief__recovery" />
+                            <ui:VisualElement name="failure-card" class="mf-debrief__failure">
+                                <ui:VisualElement class="mf-row mf-debrief__failure-head">
+                                    <mf:MfIcon kind="fails" class="mf-icon--32 mf-debrief__failure-icon" />
+                                    <ui:Label name="failure-title" class="mf-h3" />
+                                </ui:VisualElement>
+                                <ui:Label name="failure-what" class="mf-body" />
+                                <ui:Label name="failure-next" class="mf-label" />
+                            </ui:VisualElement>
+                        </ui:ScrollView>
+                    </mf:MfGlassPanel>
+
+                    <mf:MfGlassPanel name="crew-panel" class="mf-glass mf-end-panel mf-debrief__crew">
+                        <ui:ScrollView name="crew-scroll" mode="Vertical" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" class="mf-end-scroll">
+                            <ui:VisualElement class="mf-debrief__crew-head">
+                                <ui:Label name="awards-title" class="mf-h3" />
+                                <ui:Label name="awards-subtitle" class="mf-label mf-debrief__sub" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="awards" class="mf-debrief__awards" />
+                            <ui:Label name="facts-title" class="mf-h3 mf-debrief__facts-title" />
+                            <ui:VisualElement name="facts" class="mf-debrief__facts" />
+                        </ui:ScrollView>
+                    </mf:MfGlassPanel>
+                </ui:VisualElement>
+
+                <mf:MfGlassPanel name="timeline-panel" class="mf-glass mf-end-panel mf-debrief__timeline">
+                    <ui:VisualElement class="mf-row mf-debrief__timeline-head">
+                        <ui:Label name="timeline-title" class="mf-h3" />
+                        <ui:VisualElement name="timeline-legend" class="mf-debrief__legend" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="timeline-track" class="mf-debrief__track" />
+                </mf:MfGlassPanel>
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <ui:VisualElement name="layer-host" class="mf-end-layer-host" />
+
+        <ui:VisualElement name="actions" class="mf-end-actions">
+            <ui:VisualElement name="rehearsal-tag" class="mf-end-rehearsal" picking-mode="Ignore">
+                <mf:MfIcon kind="info" class="mf-icon--24 mf-end-rehearsal__icon" />
+                <ui:Label name="rehearsal-text" class="mf-end-rehearsal__text" />
+            </ui:VisualElement>
+            <ui:VisualElement name="fixture-picker" class="mf-end-actions__fixtures">
+                <mf:MfSegmented name="fixture-seg" />
+            </ui:VisualElement>
+            <ui:VisualElement class="mf-grow" />
+            <ui:Button name="btn-settings" class="mf-btn mf-btn--ghost mf-btn--l" />
+            <ui:Button name="btn-codex" class="mf-btn mf-btn--secondary mf-btn--l" />
+            <ui:Button name="btn-replay" class="mf-btn mf-btn--secondary mf-btn--l" />
+            <ui:Button name="btn-investigate" class="mf-btn mf-btn--secondary mf-btn--l" />
+            <ui:Button name="btn-retry" class="mf-btn mf-btn--secondary mf-btn--l" />
+            <ui:Button name="btn-continue" class="mf-btn mf-btn--primary mf-btn--l" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
