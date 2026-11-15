@@ -1,0 +1,80 @@
+// T055 one-off: creates the UI Toolkit glyph fallback (dynamic FontAsset from the full IBM Plex Sans
+// file) and a PanelTextSettings asset that lists it as the global fallback, then assigns that text
+// settings asset to MissionForgePanelSettings. Temporary: deleted after the build; a copy is kept in
+// orchestration/evidence/T055/ for reproducibility.
+using System.Collections.Generic;
+using System.Reflection;
+using UnityEditor;
+using UnityEngine;
+using UnityEngine.TextCore.LowLevel;
+using UnityEngine.TextCore.Text;
+using UnityEngine.UIElements;
+
+public static class T055FontSetup
+{
+    private const string FontsDir = "Assets/MissionForge/UI/Fonts/";
+    private const string FallbackPath = FontsDir + "MF_GlyphFallback_PlexSans.asset";
+    private const string TextSettingsPath = FontsDir + "MissionForgeTextSettings.asset";
+    private const string PanelSettingsPath = "Assets/MissionForge/UI/MissionForgePanelSettings.asset";
+
+    public static void Setup()
+    {
+        AssetDatabase.Refresh();
+        var font = AssetDatabase.LoadAssetAtPath<Font>(FontsDir + "ibm-plex-sans-400.ttf");
+        if (font == null) throw new System.Exception("T055: ibm-plex-sans-400.ttf not found");
+
+        FontAsset fallback = AssetDatabase.LoadAssetAtPath<FontAsset>(FallbackPath);
+        if (fallback == null)
+        {
+            fallback = FontAsset.CreateFontAsset(font, 90, 9, GlyphRenderMode.SDFAA, 1024, 1024, AtlasPopulationMode.Dynamic, true);
+            if (fallback == null) throw new System.Exception("T055: CreateFontAsset returned null");
+            fallback.name = "MF_GlyphFallback_PlexSans";
+            AssetDatabase.CreateAsset(fallback, FallbackPath);
+            if (fallback.atlasTextures != null && fallback.atlasTextures.Length > 0 && fallback.atlasTextures[0] != null)
+            {
+                fallback.atlasTextures[0].name = fallback.name + " Atlas";
+                AssetDatabase.AddObjectToAsset(fallback.atlasTextures[0], fallback);
+            }
+            if (fallback.material != null)
+            {
+                fallback.material.name = fallback.name + " Material";
+                AssetDatabase.AddObjectToAsset(fallback.material, fallback);
+            }
+            EditorUtility.SetDirty(fallback);
+        }
+
+        PanelTextSettings settings = AssetDatabase.LoadAssetAtPath<PanelTextSettings>(TextSettingsPath);
+        if (settings == null)
+        {
+            PanelTextSettings defaults = null;
+            PropertyInfo prop = typeof(PanelTextSettings).GetProperty("defaultPanelTextSettings", BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public);
+            if (prop != null) defaults = prop.GetValue(null) as PanelTextSettings;
+            Debug.Log("[T055] default PanelTextSettings: " + (defaults == null ? "none" : AssetDatabase.GetAssetPath(defaults) + " fallbacks=" + (defaults.fallbackFontAssets == null ? 0 : defaults.fallbackFontAssets.Count)));
+            settings = defaults != null ? Object.Instantiate(defaults) : ScriptableObject.CreateInstance<PanelTextSettings>();
+            settings.name = "MissionForgeTextSettings";
+            AssetDatabase.CreateAsset(settings, TextSettingsPath);
+        }
+        var list = new List<FontAsset>();
+        if (settings.fallbackFontAssets != null) list.AddRange(settings.fallbackFontAssets);
+        list.RemoveAll(f => f == null);
+        if (!list.Contains(fallback)) list.Insert(0, fallback);
+        settings.fallbackFontAssets = list;
+        EditorUtility.SetDirty(settings);
+
+        var panel = AssetDatabase.LoadAssetAtPath<PanelSettings>(PanelSettingsPath);
+        if (panel == null) throw new System.Exception("T055: panel settings not found");
+        panel.textSettings = settings;
+        EditorUtility.SetDirty(panel);
+        AssetDatabase.SaveAssets();
+
+        foreach (string so in new[] { "fallbackFontAssets" })
+            Debug.Log("[T055] text settings " + TextSettingsPath + " " + so + "=" + settings.fallbackFontAssets.Count + " first=" + settings.fallbackFontAssets[0].name);
+        Debug.Log("[T055] panel textSettings=" + AssetDatabase.GetAssetPath(panel.textSettings));
+    }
+
+    public static void SetupAndBuild()
+    {
+        Setup();
+        MissionForge.Build.WebGL();
+    }
+}
