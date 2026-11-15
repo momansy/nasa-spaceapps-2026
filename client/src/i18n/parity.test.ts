@@ -1,5 +1,5 @@
-// Every English key has an Arabic counterpart with the same placeholders (T037), and the
-// Arabic text keeps Western digits.
+// Every English key has a counterpart in every translated language (Arabic T037; Spanish, French
+// and Portuguese T039) with the same placeholders, and the translated text keeps Western digits.
 import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
@@ -17,9 +17,11 @@ function table(dir: string, lang: string) {
 
 const placeholders = (s: string) => (s.match(/\{[a-z][A-Za-z0-9_]*\}/g) ?? []).sort().join(',');
 
-describe.each(roots)('Arabic strings in %s', (dir) => {
+const languages = ['ar'] as const;
+
+describe.each(roots.flatMap((dir) => languages.map((lang) => [lang, dir] as const)))('%s strings in %s', (lang, dir) => {
   const en = table(dir, 'en');
-  const ar = table(dir, 'ar');
+  const ar = table(dir, lang);
 
   it('has an ar.* key for every en.* key and no extras', () => {
     expect(Object.keys(en.table).length).toBeGreaterThan(100);
@@ -34,7 +36,7 @@ describe.each(roots)('Arabic strings in %s', (dir) => {
     expect(bad).toEqual([]);
   });
 
-  it('has no empty text and no Arabic-Indic digits', () => {
+  it('has no empty text and keeps Western digits', () => {
     const bad = Object.entries(ar.table).filter(([, v]) => !v.trim() || /[٠-٩۰-۹]/.test(v));
     expect(bad.map(([k]) => k)).toEqual([]);
   });
