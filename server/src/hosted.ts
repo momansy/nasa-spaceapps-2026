@@ -42,5 +42,16 @@ function shutdown(): void {
   http.closeAllConnections();
   setTimeout(() => process.exit(0), 5000).unref();
 }
+// A demo server must not drop every room because one timer callback or disconnect handler threw
+// (Render restarts a crashed process, which loses all in-memory rooms). Log the stack for Render's
+// logs and keep serving; per-message errors are already answered with an error frame in wire/server.ts.
+process.on('uncaughtException', (err) => {
+  // eslint-disable-next-line no-console
+  console.error('[hosted] uncaught exception, kept running:', err);
+});
+process.on('unhandledRejection', (reason) => {
+  // eslint-disable-next-line no-console
+  console.error('[hosted] unhandled rejection, kept running:', reason);
+});
 process.on('SIGTERM', shutdown);
 process.on('SIGINT', shutdown);
