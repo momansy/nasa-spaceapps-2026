@@ -1,0 +1,45 @@
+{
+  "runId": "2026-11-15T10-50-33-711Z-real-host-NFAJ-p3",
+  "room": "NFAJ",
+  "phones": 3,
+  "server": "ws://localhost:10000/ws",
+  "phonePage": "http://localhost:10000/play/client",
+  "verdict": "stalled",
+  "reason": "no session progress for 90 s; last progress frame roles.state",
+  "stoppedAt": {
+    "phase": "no phase.set received",
+    "sinceSec": 95.8,
+    "phoneScreens": {
+      "1": "screen-lobby",
+      "2": "screen-lobby",
+      "3": "screen-lobby"
+    }
+  },
+  "durationSec": 95.8,
+  "phasesSeen": [],
+  "answered": {
+    "votes": 0,
+    "polls": 0,
+    "minigames": 0,
+    "trivia": 0,
+    "predictions": 0,
+    "picks": 0
+  },
+  "frameTypeCounts": {
+    "hello.ok": 3,
+    "room.state": 9,
+    "roles.state": 9,
+    "room.joined": 3,
+    "settings.state": 3,
+    "snapshot.end": 3,
+    "clock.pong": 63
+  },
+  "protocolFrames": {
+    "total": 162,
+    "valid": 162,
+    "invalid": 0,
+    "unknownTypes": 0
+  },
+  "failures": [],
+  "note": "The harness only answers; it never sends a host message or drives a phase. Phone input is generic and not tuned to win."
+}

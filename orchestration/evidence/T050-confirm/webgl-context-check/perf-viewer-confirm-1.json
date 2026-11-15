@@ -1,0 +1,710 @@
+{
+  "label": "confirm",
+  "dist": "C:\\Users\\moham\\Documents\\Codex\\2026-11-14\\https-nasasc-netlify-app-https-nasasc\\work\\nasa-spaceapps-2026-claude\\client\\dist",
+  "webgl": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+  "motion": "full",
+  "cpuThrottle": 4,
+  "actions": 24,
+  "elapsedMs": 62605,
+  "swipes": 15,
+  "expands": 3,
+  "stagesSeen": [
+    "INSPECT",
+    "VOTE",
+    "RESULT",
+    "screen-build",
+    "VOTE",
+    "RESULT",
+    "screen-build",
+    "REVEAL",
+    "INSPECT"
+  ],
+  "webglContextsCreatedWhileMeasuring": 0,
+  "webglContextsCreatedPageLifetime": 3,
+  "loseContextCalls": 0,
+  "longTasks": 133,
+  "longTaskTotalMs": 13546,
+  "longTaskMaxMs": 1453,
+  "longTasksOver200ms": 9,
+  "longTaskP50Ms": 74,
+  "longTaskMsPerActionMean": 717,
+  "longestTaskAroundStageChanges": [
+    {
+      "stage": "VOTE",
+      "maxTaskMs": 282
+    },
+    {
+      "stage": "RESULT",
+      "maxTaskMs": 94
+    },
+    {
+      "stage": "screen-build",
+      "maxTaskMs": 94
+    },
+    {
+      "stage": "VOTE",
+      "maxTaskMs": 0
+    },
+    {
+      "stage": "RESULT",
+      "maxTaskMs": 0
+    },
+    {
+      "stage": "screen-build",
+      "maxTaskMs": 54
+    },
+    {
+      "stage": "REVEAL",
+      "maxTaskMs": 0
+    },
+    {
+      "stage": "INSPECT",
+      "maxTaskMs": 281
+    }
+  ],
+  "top10": [
+    1453,
+    282,
+    281,
+    237,
+    223,
+    214,
+    214,
+    210,
+    207,
+    188
+  ],
+  "pageErrors": [],
+  "marks": [
+    {
+      "kind": "swipe",
+      "at": 27446
+    },
+    {
+      "kind": "swipe",
+      "at": 29908
+    },
+    {
+      "kind": "swipe",
+      "at": 32424
+    },
+    {
+      "kind": "swipe+expand",
+      "at": 35015
+    },
+    {
+      "kind": "swipe",
+      "at": 37947
+    },
+    {
+      "kind": "swipe",
+      "at": 39911
+    },
+    {
+      "kind": "swipe",
+      "at": 42416
+    },
+    {
+      "kind": "swipe+expand",
+      "at": 44903
+    },
+    {
+      "kind": "swipe",
+      "at": 47430
+    },
+    {
+      "kind": "swipe",
+      "at": 49904
+    },
+    {
+      "kind": "swipe",
+      "at": 52448
+    },
+    {
+      "kind": "swipe+expand",
+      "at": 54907
+    },
+    {
+      "kind": "swipe",
+      "at": 57564
+    },
+    {
+      "kind": "swipe",
+      "at": 59954
+    },
+    {
+      "kind": "swipe",
+      "at": 62435
+    },
+    {
+      "kind": "none",
+      "at": 64894
+    },
+    {
+      "kind": "none",
+      "at": 67389
+    },
+    {
+      "kind": "none",
+      "at": 69875
+    },
+    {
+      "kind": "none",
+      "at": 72381
+    },
+    {
+      "kind": "none",
+      "at": 74875
+    },
+    {
+      "kind": "none",
+      "at": 77380
+    },
+    {
+      "kind": "none",
+      "at": 79890
+    },
+    {
+      "kind": "none",
+      "at": 82374
+    },
+    {
+      "kind": "none",
+      "at": 84882
+    }
+  ],
+  "longTaskEntries": [
+    {
+      "start": 23402,
+      "ms": 1453
+    },
+    {
+      "start": 26982,
+      "ms": 50
+    },
+    {
+      "start": 27032,
+      "ms": 65
+    },
+    {
+      "start": 27099,
+      "ms": 105
+    },
+    {
+      "start": 27212,
+      "ms": 92
+    },
+    {
+      "start": 27308,
+      "ms": 108
+    },
+    {
+      "start": 27607,
+      "ms": 119
+    },
+    {
+      "start": 27917,
+      "ms": 61
+    },
+    {
+      "start": 28076,
+      "ms": 87
+    },
+    {
+      "start": 28432,
+      "ms": 140
+    },
+    {
+      "start": 29050,
+      "ms": 65
+    },
+    {
+      "start": 30113,
+      "ms": 54
+    },
+    {
+      "start": 30208,
+      "ms": 74
+    },
+    {
+      "start": 30407,
+      "ms": 66
+    },
+    {
+      "start": 30660,
+      "ms": 50
+    },
+    {
+      "start": 30723,
+      "ms": 100
+    },
+    {
+      "start": 30825,
+      "ms": 121
+    },
+    {
+      "start": 30951,
+      "ms": 93
+    },
+    {
+      "start": 31048,
+      "ms": 74
+    },
+    {
+      "start": 31257,
+      "ms": 90
+    },
+    {
+      "start": 31376,
+      "ms": 136
+    },
+    {
+      "start": 32592,
+      "ms": 54
+    },
+    {
+      "start": 32744,
+      "ms": 58
+    },
+    {
+      "start": 32903,
+      "ms": 64
+    },
+    {
+      "start": 33233,
+      "ms": 154
+    },
+    {
+      "start": 33966,
+      "ms": 59
+    },
+    {
+      "start": 34638,
+      "ms": 76
+    },
+    {
+      "start": 34715,
+      "ms": 100
+    },
+    {
+      "start": 34817,
+      "ms": 76
+    },
+    {
+      "start": 34904,
+      "ms": 110
+    },
+    {
+      "start": 35015,
+      "ms": 68
+    },
+    {
+      "start": 35106,
+      "ms": 74
+    },
+    {
+      "start": 35185,
+      "ms": 97
+    },
+    {
+      "start": 35481,
+      "ms": 98
+    },
+    {
+      "start": 35780,
+      "ms": 117
+    },
+    {
+      "start": 35904,
+      "ms": 116
+    },
+    {
+      "start": 36036,
+      "ms": 51
+    },
+    {
+      "start": 36238,
+      "ms": 148
+    },
+    {
+      "start": 36417,
+      "ms": 223
+    },
+    {
+      "start": 36731,
+      "ms": 207
+    },
+    {
+      "start": 37006,
+      "ms": 51
+    },
+    {
+      "start": 37272,
+      "ms": 101
+    },
+    {
+      "start": 37620,
+      "ms": 72
+    },
+    {
+      "start": 37693,
+      "ms": 210
+    },
+    {
+      "start": 38142,
+      "ms": 52
+    },
+    {
+      "start": 38195,
+      "ms": 94
+    },
+    {
+      "start": 38296,
+      "ms": 72
+    },
+    {
+      "start": 38416,
+      "ms": 66
+    },
+    {
+      "start": 38583,
+      "ms": 69
+    },
+    {
+      "start": 39816,
+      "ms": 50
+    },
+    {
+      "start": 40190,
+      "ms": 88
+    },
+    {
+      "start": 40368,
+      "ms": 62
+    },
+    {
+      "start": 40549,
+      "ms": 67
+    },
+    {
+      "start": 41965,
+      "ms": 57
+    },
+    {
+      "start": 42675,
+      "ms": 54
+    },
+    {
+      "start": 42730,
+      "ms": 65
+    },
+    {
+      "start": 42801,
+      "ms": 59
+    },
+    {
+      "start": 42937,
+      "ms": 68
+    },
+    {
+      "start": 43058,
+      "ms": 94
+    },
+    {
+      "start": 43152,
+      "ms": 282
+    },
+    {
+      "start": 43484,
+      "ms": 147
+    },
+    {
+      "start": 43663,
+      "ms": 73
+    },
+    {
+      "start": 43737,
+      "ms": 108
+    },
+    {
+      "start": 43914,
+      "ms": 55
+    },
+    {
+      "start": 44178,
+      "ms": 61
+    },
+    {
+      "start": 44275,
+      "ms": 61
+    },
+    {
+      "start": 45422,
+      "ms": 145
+    },
+    {
+      "start": 45600,
+      "ms": 134
+    },
+    {
+      "start": 45802,
+      "ms": 148
+    },
+    {
+      "start": 45960,
+      "ms": 188
+    },
+    {
+      "start": 46157,
+      "ms": 100
+    },
+    {
+      "start": 46261,
+      "ms": 165
+    },
+    {
+      "start": 46427,
+      "ms": 58
+    },
+    {
+      "start": 46711,
+      "ms": 54
+    },
+    {
+      "start": 46766,
+      "ms": 129
+    },
+    {
+      "start": 47712,
+      "ms": 53
+    },
+    {
+      "start": 47767,
+      "ms": 57
+    },
+    {
+      "start": 47851,
+      "ms": 110
+    },
+    {
+      "start": 47969,
+      "ms": 52
+    },
+    {
+      "start": 48066,
+      "ms": 67
+    },
+    {
+      "start": 49110,
+      "ms": 66
+    },
+    {
+      "start": 49905,
+      "ms": 87
+    },
+    {
+      "start": 50004,
+      "ms": 65
+    },
+    {
+      "start": 50075,
+      "ms": 94
+    },
+    {
+      "start": 50175,
+      "ms": 88
+    },
+    {
+      "start": 50270,
+      "ms": 75
+    },
+    {
+      "start": 50350,
+      "ms": 127
+    },
+    {
+      "start": 50481,
+      "ms": 94
+    },
+    {
+      "start": 50631,
+      "ms": 64
+    },
+    {
+      "start": 50697,
+      "ms": 69
+    },
+    {
+      "start": 50815,
+      "ms": 113
+    },
+    {
+      "start": 50934,
+      "ms": 54
+    },
+    {
+      "start": 51076,
+      "ms": 51
+    },
+    {
+      "start": 51174,
+      "ms": 62
+    },
+    {
+      "start": 52115,
+      "ms": 64
+    },
+    {
+      "start": 52331,
+      "ms": 63
+    },
+    {
+      "start": 52715,
+      "ms": 58
+    },
+    {
+      "start": 52807,
+      "ms": 91
+    },
+    {
+      "start": 55194,
+      "ms": 76
+    },
+    {
+      "start": 55532,
+      "ms": 145
+    },
+    {
+      "start": 55898,
+      "ms": 122
+    },
+    {
+      "start": 56055,
+      "ms": 237
+    },
+    {
+      "start": 56404,
+      "ms": 158
+    },
+    {
+      "start": 56563,
+      "ms": 62
+    },
+    {
+      "start": 56899,
+      "ms": 99
+    },
+    {
+      "start": 57316,
+      "ms": 214
+    },
+    {
+      "start": 57742,
+      "ms": 61
+    },
+    {
+      "start": 57804,
+      "ms": 70
+    },
+    {
+      "start": 57931,
+      "ms": 88
+    },
+    {
+      "start": 58031,
+      "ms": 76
+    },
+    {
+      "start": 58173,
+      "ms": 99
+    },
+    {
+      "start": 58680,
+      "ms": 52
+    },
+    {
+      "start": 59699,
+      "ms": 51
+    },
+    {
+      "start": 59884,
+      "ms": 50
+    },
+    {
+      "start": 60229,
+      "ms": 67
+    },
+    {
+      "start": 60298,
+      "ms": 55
+    },
+    {
+      "start": 60407,
+      "ms": 55
+    },
+    {
+      "start": 60586,
+      "ms": 80
+    },
+    {
+      "start": 61698,
+      "ms": 61
+    },
+    {
+      "start": 62696,
+      "ms": 66
+    },
+    {
+      "start": 62767,
+      "ms": 56
+    },
+    {
+      "start": 63144,
+      "ms": 94
+    },
+    {
+      "start": 63315,
+      "ms": 73
+    },
+    {
+      "start": 63514,
+      "ms": 63
+    },
+    {
+      "start": 63612,
+      "ms": 50
+    },
+    {
+      "start": 64548,
+      "ms": 56
+    },
+    {
+      "start": 66187,
+      "ms": 94
+    },
+    {
+      "start": 80700,
+      "ms": 54
+    },
+    {
+      "start": 86193,
+      "ms": 281
+    },
+    {
+      "start": 86475,
+      "ms": 214
+    },
+    {
+      "start": 86731,
+      "ms": 111
+    },
+    {
+      "start": 86867,
+      "ms": 69
+    },
+    {
+      "start": 87007,
+      "ms": 51
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 # MissionForge: live-demo run-sheet (hosted game)
 
 For demoing <https://missionforge-spaceapps.onrender.com/play/> to judges. It is the short, rehearsable companion to the
-35-minute full-session runbook in `RELEASE.md` section 5. Words to say are in `PRESENTER_SCRIPT.md`; questions are in `QA.md`.
+full-session runbook in `RELEASE.md` section 5. Words to say are in `PRESENTER_SCRIPT.md`; questions are in `QA.md`.
 Every time below was measured on 15 Nov 2026 against the live site unless it says **derived** or **not measured**
 (rehearsal logs and screenshots: `orchestration/evidence/T052/`).
 
@@ -13,10 +13,14 @@ Every time below was measured on 15 Nov 2026 against the live site unless it say
 | Big-screen lobby: crew seats, settings, **Start briefing** | Works. Phones appear as seats within a few seconds | **Live** |
 | Big-screen briefing (`BRIEFING`) and contract vote (`CONTRACT_VOTE`) | **Layout only**: the contract fields show dashes and placeholder text ("CAPCOM briefing line ..."), and "START VOTE" changed nothing on the big screen in 6 minutes of watching. The phones do move on (role card, then a build screen) | Show the briefing for 10 seconds, **do not press START VOTE** |
 | Big-screen Build Bay with live votes | Not reached in a live room. The Build Bay exists as a scene (screenshots with simulated voters in `orchestration/evidence/T015/`) | Slide 5 only |
-| Part votes, minigames, flight, debrief | On the **phones**. With the real host they need the big-screen host to drive them, which it does not do yet | Use the **phone mock session** `/play/client/?mock=1` (scripted bots, invented numbers) |
+| Part votes, minigames, flight, debrief | On the **phones**. With the real host they need the big-screen host to drive them, which the hosted build does not do yet | Use the **phone mock session** `/play/client/?mock=1` (scripted bots, invented numbers) |
 
 So the demo has two honest halves: **live** (big-screen lobby, QR, real phones joining, briefing) and **scripted** (the phone session
 with bots). Say which is which, every time.
+
+This sheet describes the **hosted** build (WebGL built 15 Nov 2026, 06:32, task T040). The main branch now has newer big-screen
+screens (briefing with the contract numbers, contract vote, test stand, design reviews, Flight Readiness Review, countdown,
+flight, orbit map, debrief), but they are not in the hosted build until it is rebuilt. Do not promise them in the live demo.
 
 ## 1. Kit
 
@@ -40,7 +44,7 @@ so a room made earlier is gone if the instance restarted.
 | 15 | On the hotspot, run: `curl -s -o /dev/null -w "%{http_code} %{time_total}s\n" https://missionforge-spaceapps.onrender.com/healthz` (or open the URL in a browser). Repeat every 20 s until it prints `200`. | Awake: `200` in about 1 s (measured 0.8 s). Asleep: a long wait, then `200` |
 | 13 | Open `https://missionforge-spaceapps.onrender.com/play/`, click **Host a mission** (opens the big-screen host). Full screen with F11, browser zoom 100 %. | The Unity host loads: about 20 to 50 s in the rehearsal (software rendering; a GPU laptop is not measured) |
 | 12 | When the title screen shows **Room server: connected**, click **New mission** **within 30 s**. | A 4-letter room code and a QR appear within about 1 s. If nothing happens, wait 5 s and click again (it happened once in six rehearsal runs, after a long idle on the title screen; the server drops a host that has not created a room after 30 s and the host reconnects by itself, `RELEASE.md` 5.5) |
-| 11 | Click **Open lobby**. Check the settings: **Vote timer 20 s** (the shortest the host offers), **Vote tallies Open**, **Assist Engineer**. These were the defaults in every rehearsal run. | The lobby shows "Join this mission", the code, the QR and 10 empty seats |
+| 11 | Click **Open lobby**. Check the settings: **Vote timer 20 s** (the shortest the hosted build offers), **Vote tallies Open**, **Assist Engineer**. These were the defaults in every rehearsal run. | The lobby shows "Join this mission", the code, the QR and 10 empty seats |
 | 10 | Helper joins with one test phone: scan the lobby QR. | The seat fills within a few seconds; the phone shows "You are in" |
 | 8 | Load the phone mock in tab 3 or on the spare phone: `https://missionforge-spaceapps.onrender.com/play/client/?mock=1`. Do **not** start it yet. | The Join screen shows |
 | 6 | Put the deck on slide 1. Use **one browser window with three tabs in this order: 1 deck, 2 host, 3 phone mock** (switch with Ctrl+1/2/3, Cmd+1/2/3 on a Mac). Mute notifications. | |
@@ -123,7 +127,7 @@ Not measured: a full 22-vote live session, frame rate on a GPU laptop, joining f
 | Problem | Do (do not debug on stage) |
 |---|---|
 | **No Wi-Fi or hotspot fails** | The hosted game needs internet. Switch to the hotspot; if that fails, start the local launcher (`RELEASE.md` 1.1: `npm --prefix tools/demo run demo`; install and build it **before** the day because the first run needs internet for `npm ci`). It prints a host URL and a phone URL; phones on the same hotspot or Wi-Fi join with the code. Still nothing: `/play/client/?mock=1` needs no server (open it from the local launcher at `http://<LAN-IP>:8080/play/client/?mock=1`, or from a copy of the build). Last resort: play the video. |
-| **Site asleep** (Render loading page, first visit takes about a minute) | You should have woken it at T-15. If it is still waking: stay on slide 3 and tell the pitch from the deck; refresh the host every 20 s; start the phone mock meanwhile (it is a static page and loads once the instance is up). After 90 s, use the video. |
+| **Site asleep** (Render loading page, first visit takes about a minute) | You should have woken it at T-15. If it is still waking: stay on slide 2 and tell the pitch from the deck; refresh the host every 20 s; start the phone mock meanwhile (it is a static page and loads once the instance is up). After 90 s, use the video. |
 | **Render down or restarted** (room gone, host shows "Reconnecting", 5xx page) | A restart ends every open room (rooms are in memory). Create a new room if the site is back within a minute. Otherwise: the phone mock if the page still loads, and the video `submission/video/missionforge-demo-2min.mp4` (2:00, subtitles in `submission/video/subtitles/`). Say: "The free host restarted; here is the same flow from our recording." |
 | Host will not load or is too slow | Try a second desktop browser (Chrome vs Edge/Firefox), close other tabs, add `?dpr=1` to the host URL (`RELEASE.md` 5.5). Then the deck plus the phone mock. |
 | **New mission** does nothing | Wait 5 s and click again; if the title says the room server is not connected, reload the host page. |
@@ -147,7 +151,7 @@ The room lives only in server memory, so a reset is a new room.
 
 ## 9. Do not say
 
-- That the big screen runs the whole session. Votes, flight and debrief run on the phones today.
-- That the briefing numbers are on the big screen. They are not.
+- That the big screen runs the whole session. In the hosted game, votes, flight and debrief run on the phones today.
+- That the briefing numbers are on the big screen. They are not in the hosted build.
 - That the phone session is a live game with real crew. It is a scripted session with bots and invented demo numbers.
 - That the audience "votes". Today it is an advisory bar (`RELEASE.md` 5.2).

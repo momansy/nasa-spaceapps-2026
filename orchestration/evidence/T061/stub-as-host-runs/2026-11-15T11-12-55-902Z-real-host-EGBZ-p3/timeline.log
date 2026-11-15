@@ -1,0 +1,278 @@
+2026-11-15T11:13:01.125Z +5.2s start: room EGBZ, 3 phones, server ws://localhost:10000/ws, phone page http://localhost:10000/play/client/?room=EGBZ
+2026-11-15T11:13:04.043Z +8.1s phone1 phase: LOBBY mission 1 mode QUICK
+2026-11-15T11:13:04.079Z +8.2s phone1 joined: phone is in the lobby
+2026-11-15T11:13:05.015Z +9.1s phone2 joined: phone is in the lobby
+2026-11-15T11:13:06.219Z +10.3s phone3 joined: phone is in the lobby
+2026-11-15T11:13:06.256Z +10.4s phone1 screen: screen-lobby
+2026-11-15T11:13:07.880Z +12s phone2 screen: screen-lobby
+2026-11-15T11:13:07.897Z +12s phone3 screen: screen-lobby
+2026-11-15T11:13:08.056Z +12.2s phone1 phase: BRIEFING mission 1 mode QUICK
+2026-11-15T11:13:08.569Z +12.7s phone2 phase: CONTRACT_VOTE mission 1 mode QUICK
+2026-11-15T11:13:08.678Z +12.8s phone3 vote.stage: m1.contract REVEAL
+2026-11-15T11:13:08.681Z +12.8s phone2 vote.stage: m1.contract REVEAL
+2026-11-15T11:13:08.687Z +12.8s phone1 vote.stage: m1.contract REVEAL
+2026-11-15T11:13:08.717Z +12.8s phone3 vote.stage: m1.contract INSPECT
+2026-11-15T11:13:08.732Z +12.8s phone2 vote.stage: m1.contract INSPECT
+2026-11-15T11:13:08.735Z +12.8s phone1 vote.stage: m1.contract INSPECT
+2026-11-15T11:13:09.132Z +13.2s phone3 vote.stage: m1.contract VOTE
+2026-11-15T11:13:09.135Z +13.2s phone2 vote.stage: m1.contract VOTE
+2026-11-15T11:13:09.141Z +13.2s phone1 vote.stage: m1.contract VOTE
+2026-11-15T11:13:09.918Z +14s phone1 screen: screen-vote
+2026-11-15T11:13:10.641Z +14.7s phone2 screen: screen-vote
+2026-11-15T11:13:10.652Z +14.8s phone3 screen: screen-vote
+2026-11-15T11:13:11.875Z +16s phone1 vote.result: m1.contract winner C1
+2026-11-15T11:13:11.878Z +16s phone2 vote.result: m1.contract winner C1
+2026-11-15T11:13:11.903Z +16s phone3 vote.result: m1.contract winner C1
+2026-11-15T11:13:11.906Z +16s phone3 vote.stage: m1.contract RESULT
+2026-11-15T11:13:11.906Z +16s phone1 vote.stage: m1.contract RESULT
+2026-11-15T11:13:11.907Z +16s phone2 vote.stage: m1.contract RESULT
+2026-11-15T11:13:14.877Z +19s phone3 vote.stage: m1.contract CLOSED
+2026-11-15T11:13:14.878Z +19s phone3 phase: BUILD:VOTE_ROUND (step 1/7) mission 1 mode QUICK
+2026-11-15T11:13:14.878Z +19s phone2 vote.stage: m1.contract CLOSED
+2026-11-15T11:13:14.879Z +19s phone1 vote.stage: m1.contract CLOSED
+2026-11-15T11:13:14.890Z +19s phone1 vote.stage: m1.part.1 REVEAL
+2026-11-15T11:13:14.891Z +19s phone2 vote.stage: m1.part.1 REVEAL
+2026-11-15T11:13:14.892Z +19s phone3 vote.stage: m1.part.1 REVEAL
+2026-11-15T11:13:15.015Z +19.1s phone3 vote.stage: m1.part.1 INSPECT
+2026-11-15T11:13:15.016Z +19.1s phone2 vote.stage: m1.part.1 INSPECT
+2026-11-15T11:13:15.025Z +19.1s phone1 vote.stage: m1.part.1 INSPECT
+2026-11-15T11:13:15.208Z +19.3s phone2 vote.stage: m1.part.1 VOTE
+2026-11-15T11:13:15.223Z +19.3s phone3 vote.stage: m1.part.1 VOTE
+2026-11-15T11:13:15.227Z +19.3s phone1 vote.stage: m1.part.1 VOTE
+2026-11-15T11:13:18.380Z +22.5s phone2 vote.result: m1.part.1 winner site_equatorial_spaceport
+2026-11-15T11:13:18.387Z +22.5s phone2 vote.stage: m1.part.1 RESULT
+2026-11-15T11:13:19.768Z +23.9s phone3 vote.result: m1.part.1 winner site_equatorial_spaceport
+2026-11-15T11:13:19.780Z +23.9s phone3 vote.stage: m1.part.1 RESULT
+2026-11-15T11:13:21.665Z +25.8s phone3 vote.stage: m1.part.1 CLOSED
+2026-11-15T11:13:21.668Z +25.8s phone2 vote.stage: m1.part.1 CLOSED
+2026-11-15T11:13:21.675Z +25.8s phone3 phase: BUILD:VOTE_ROUND (step 2/7) mission 1 mode QUICK
+2026-11-15T11:13:21.683Z +25.8s phone3 vote.stage: m1.part.2 REVEAL
+2026-11-15T11:13:21.695Z +25.8s phone2 vote.stage: m1.part.2 REVEAL
+2026-11-15T11:13:21.710Z +25.8s phone3 vote.stage: m1.part.2 INSPECT
+2026-11-15T11:13:21.719Z +25.8s phone2 vote.stage: m1.part.2 INSPECT
+2026-11-15T11:13:21.763Z +25.9s phone2 vote.stage: m1.part.2 VOTE
+2026-11-15T11:13:21.797Z +25.9s phone3 vote.stage: m1.part.2 VOTE
+2026-11-15T11:13:21.960Z +26.1s phone1 vote.result: m1.part.1 winner site_equatorial_spaceport
+2026-11-15T11:13:21.975Z +26.1s phone1 vote.stage: m1.part.1 RESULT
+2026-11-15T11:13:21.994Z +26.1s phone1 vote.stage: m1.part.1 CLOSED
+2026-11-15T11:13:21.995Z +26.1s phone1 vote.stage: m1.part.2 REVEAL
+2026-11-15T11:13:22.114Z +26.2s phone1 vote.stage: m1.part.2 INSPECT
+2026-11-15T11:13:22.162Z +26.3s phone1 vote.stage: m1.part.2 VOTE
+2026-11-15T11:13:24.567Z +28.7s phone1 vote.result: m1.part.2 winner inst_wide_field_optical_camera
+2026-11-15T11:13:24.567Z +28.7s phone3 vote.result: m1.part.2 winner inst_wide_field_optical_camera
+2026-11-15T11:13:24.567Z +28.7s phone2 vote.result: m1.part.2 winner inst_wide_field_optical_camera
+2026-11-15T11:13:24.572Z +28.7s phone2 vote.stage: m1.part.2 RESULT
+2026-11-15T11:13:24.572Z +28.7s phone3 vote.stage: m1.part.2 RESULT
+2026-11-15T11:13:24.572Z +28.7s phone1 vote.stage: m1.part.2 RESULT
+2026-11-15T11:13:27.592Z +31.7s phone1 vote.stage: m1.part.2 CLOSED
+2026-11-15T11:13:27.593Z +31.7s phone3 vote.stage: m1.part.2 CLOSED
+2026-11-15T11:13:27.595Z +31.7s phone2 vote.stage: m1.part.2 CLOSED
+2026-11-15T11:13:27.600Z +31.7s phone1 phase: BUILD:VOTE_ROUND (step 3/7) mission 1 mode QUICK
+2026-11-15T11:13:27.603Z +31.7s phone1 vote.stage: m1.part.3 REVEAL
+2026-11-15T11:13:27.607Z +31.7s phone3 vote.stage: m1.part.3 REVEAL
+2026-11-15T11:13:27.608Z +31.7s phone2 vote.stage: m1.part.3 REVEAL
+2026-11-15T11:13:27.703Z +31.8s phone1 vote.stage: m1.part.3 INSPECT
+2026-11-15T11:13:27.705Z +31.8s phone2 vote.stage: m1.part.3 INSPECT
+2026-11-15T11:13:27.706Z +31.8s phone3 vote.stage: m1.part.3 INSPECT
+2026-11-15T11:13:28.371Z +32.5s phone2 vote.stage: m1.part.3 VOTE
+2026-11-15T11:13:28.759Z +32.9s phone3 vote.stage: m1.part.3 VOTE
+2026-11-15T11:13:28.864Z +33s phone1 vote.stage: m1.part.3 VOTE
+2026-11-15T11:13:31.019Z +35.1s phone3 vote.result: m1.part.3 winner eng_hydrolox_vacuum
+2026-11-15T11:13:31.019Z +35.1s phone2 vote.result: m1.part.3 winner eng_hydrolox_vacuum
+2026-11-15T11:13:31.019Z +35.1s phone3 vote.stage: m1.part.3 RESULT
+2026-11-15T11:13:31.020Z +35.1s phone2 vote.stage: m1.part.3 RESULT
+2026-11-15T11:13:31.021Z +35.1s phone1 vote.result: m1.part.3 winner eng_hydrolox_vacuum
+2026-11-15T11:13:31.054Z +35.2s phone1 vote.stage: m1.part.3 RESULT
+2026-11-15T11:13:33.904Z +38s phone1 vote.stage: m1.part.3 CLOSED
+2026-11-15T11:13:33.906Z +38s phone3 vote.stage: m1.part.3 CLOSED
+2026-11-15T11:13:33.909Z +38s phone2 vote.stage: m1.part.3 CLOSED
+2026-11-15T11:13:33.918Z +38s phone1 phase: BUILD:VOTE_ROUND (step 4/7) mission 1 mode QUICK
+2026-11-15T11:13:33.921Z +38s phone1 vote.stage: m1.part.4 REVEAL
+2026-11-15T11:13:33.928Z +38s phone2 vote.stage: m1.part.4 REVEAL
+2026-11-15T11:13:33.934Z +38s phone3 vote.stage: m1.part.4 REVEAL
+2026-11-15T11:13:34.024Z +38.1s phone3 vote.stage: m1.part.4 INSPECT
+2026-11-15T11:13:34.032Z +38.1s phone2 vote.stage: m1.part.4 INSPECT
+2026-11-15T11:13:34.036Z +38.1s phone1 vote.stage: m1.part.4 INSPECT
+2026-11-15T11:13:34.271Z +38.4s phone1 vote.stage: m1.part.4 VOTE
+2026-11-15T11:13:34.275Z +38.4s phone3 vote.stage: m1.part.4 VOTE
+2026-11-15T11:13:34.293Z +38.4s phone2 vote.stage: m1.part.4 VOTE
+2026-11-15T11:13:37.191Z +41.3s phone1 vote.result: m1.part.4 winner eng_kerolox_workhorse
+2026-11-15T11:13:37.192Z +41.3s phone3 vote.result: m1.part.4 winner eng_kerolox_workhorse
+2026-11-15T11:13:37.192Z +41.3s phone2 vote.result: m1.part.4 winner eng_kerolox_workhorse
+2026-11-15T11:13:37.210Z +41.3s phone1 vote.stage: m1.part.4 RESULT
+2026-11-15T11:13:37.224Z +41.3s phone2 vote.stage: m1.part.4 RESULT
+2026-11-15T11:13:37.247Z +41.3s phone3 vote.stage: m1.part.4 RESULT
+2026-11-15T11:13:40.192Z +44.3s phone1 vote.stage: m1.part.4 CLOSED
+2026-11-15T11:13:40.194Z +44.3s phone2 vote.stage: m1.part.4 CLOSED
+2026-11-15T11:13:40.194Z +44.3s phone3 vote.stage: m1.part.4 CLOSED
+2026-11-15T11:13:40.202Z +44.3s phone1 phase: BUILD:VOTE_ROUND (step 5/7) mission 1 mode QUICK
+2026-11-15T11:13:40.206Z +44.3s phone1 vote.stage: m1.part.5 REVEAL
+2026-11-15T11:13:40.209Z +44.3s phone3 vote.stage: m1.part.5 REVEAL
+2026-11-15T11:13:40.212Z +44.3s phone2 vote.stage: m1.part.5 REVEAL
+2026-11-15T11:13:40.415Z +44.5s phone3 vote.stage: m1.part.5 INSPECT
+2026-11-15T11:13:40.416Z +44.5s phone2 vote.stage: m1.part.5 INSPECT
+2026-11-15T11:13:40.457Z +44.6s phone1 vote.stage: m1.part.5 INSPECT
+2026-11-15T11:13:40.492Z +44.6s phone3 vote.stage: m1.part.5 VOTE
+2026-11-15T11:13:40.494Z +44.6s phone2 vote.stage: m1.part.5 VOTE
+2026-11-15T11:13:40.514Z +44.6s phone1 vote.stage: m1.part.5 VOTE
+2026-11-15T11:13:43.476Z +47.6s phone3 vote.result: m1.part.5 winner tank_s
+2026-11-15T11:13:43.476Z +47.6s phone2 vote.result: m1.part.5 winner tank_s
+2026-11-15T11:13:43.476Z +47.6s phone1 vote.result: m1.part.5 winner tank_s
+2026-11-15T11:13:43.481Z +47.6s phone3 vote.stage: m1.part.5 RESULT
+2026-11-15T11:13:43.481Z +47.6s phone2 vote.stage: m1.part.5 RESULT
+2026-11-15T11:13:43.483Z +47.6s phone1 vote.stage: m1.part.5 RESULT
+2026-11-15T11:13:46.672Z +50.8s phone3 vote.stage: m1.part.5 CLOSED
+2026-11-15T11:13:46.672Z +50.8s phone2 vote.stage: m1.part.5 CLOSED
+2026-11-15T11:13:46.673Z +50.8s phone3 phase: BUILD:TEST (step 6/7) mission 1 mode QUICK
+2026-11-15T11:13:46.674Z +50.8s phone3 vote.stage: m1.test VOTE
+2026-11-15T11:13:46.682Z +50.8s phone2 vote.stage: m1.test VOTE
+2026-11-15T11:13:46.686Z +50.8s phone1 vote.stage: m1.part.5 CLOSED
+2026-11-15T11:13:46.687Z +50.8s phone1 vote.stage: m1.test VOTE
+2026-11-15T11:13:49.567Z +53.7s phone1 vote.result: m1.test winner TEST
+2026-11-15T11:13:49.568Z +53.7s phone2 vote.result: m1.test winner TEST
+2026-11-15T11:13:49.568Z +53.7s phone3 vote.result: m1.test winner TEST
+2026-11-15T11:13:49.568Z +53.7s phone1 vote.stage: m1.test RESULT
+2026-11-15T11:13:49.569Z +53.7s phone2 vote.stage: m1.test RESULT
+2026-11-15T11:13:49.569Z +53.7s phone3 vote.stage: m1.test RESULT
+2026-11-15T11:13:51.635Z +55.7s phone2 vote.stage: m1.test CLOSED
+2026-11-15T11:13:51.636Z +55.7s phone2 phase: BUILD:REVIEW:PDR (step 7/7) mission 1 mode QUICK
+2026-11-15T11:13:51.636Z +55.7s phone3 vote.stage: m1.test CLOSED
+2026-11-15T11:13:51.639Z +55.7s phone1 vote.stage: m1.test CLOSED
+2026-11-15T11:13:51.652Z +55.8s phone2 vote.stage: m1.pdr VOTE
+2026-11-15T11:13:51.654Z +55.8s phone3 vote.stage: m1.pdr VOTE
+2026-11-15T11:13:51.692Z +55.8s phone1 vote.stage: m1.pdr VOTE
+2026-11-15T11:13:54.598Z +58.7s phone1 vote.result: m1.pdr winner PASS
+2026-11-15T11:13:54.598Z +58.7s phone3 vote.result: m1.pdr winner PASS
+2026-11-15T11:13:54.598Z +58.7s phone2 vote.result: m1.pdr winner PASS
+2026-11-15T11:13:54.599Z +58.7s phone2 vote.stage: m1.pdr RESULT
+2026-11-15T11:13:54.599Z +58.7s phone3 vote.stage: m1.pdr RESULT
+2026-11-15T11:13:54.599Z +58.7s phone1 vote.stage: m1.pdr RESULT
+2026-11-15T11:13:56.638Z +60.7s phone2 vote.stage: m1.pdr CLOSED
+2026-11-15T11:13:56.639Z +60.7s phone3 vote.stage: m1.pdr CLOSED
+2026-11-15T11:13:56.639Z +60.7s phone3 phase: FRR:FRR mission 1 mode QUICK
+2026-11-15T11:13:56.639Z +60.7s phone1 vote.stage: m1.pdr CLOSED
+2026-11-15T11:13:56.732Z +60.8s phone1 poll.call: m1.frr.1 1/3: player p1 (FLIGHT,PM)
+2026-11-15T11:13:56.790Z +60.9s phone1 poll.call: m1.frr.1 2/3: player p2 (BOOSTER,STRUCT,GUIDO,FIDO)
+2026-11-15T11:13:56.827Z +60.9s phone1 poll.call: m1.frr.1 3/3: player p3 (EECOM,INCO,PAYLOAD,RETRO)
+2026-11-15T11:13:56.865Z +61s phone2 poll.result: m1.frr.1 ALL GO
+2026-11-15T11:13:56.866Z +61s phone1 poll.result: m1.frr.1 ALL GO
+2026-11-15T11:13:56.867Z +61s phone1 poll.call: m1.frr.2 1/3: player p1 (FLIGHT,PM)
+2026-11-15T11:13:56.869Z +61s phone3 poll.result: m1.frr.1 ALL GO
+2026-11-15T11:13:56.899Z +61s phone1 poll.call: m1.frr.2 2/3: player p2 (BOOSTER,STRUCT,GUIDO,FIDO)
+2026-11-15T11:13:56.932Z +61s phone1 poll.call: m1.frr.2 3/3: player p3 (EECOM,INCO,PAYLOAD,RETRO)
+2026-11-15T11:13:57.072Z +61.2s phone2 poll.result: m1.frr.2 ALL GO
+2026-11-15T11:13:57.073Z +61.2s phone3 poll.result: m1.frr.2 ALL GO
+2026-11-15T11:13:57.073Z +61.2s phone1 poll.result: m1.frr.2 ALL GO
+2026-11-15T11:13:57.074Z +61.2s phone2 phase: COUNTDOWN:F0 mission 1 mode QUICK
+2026-11-15T11:13:57.095Z +61.2s phone1 mg.start: MG-07 RELAY 15000 ms at flight phase F0
+2026-11-15T11:13:57.114Z +61.2s phone2 mg.start: MG-07 RELAY 15000 ms at flight phase F0
+2026-11-15T11:13:57.122Z +61.2s phone3 mg.start: MG-07 RELAY 15000 ms at flight phase F0
+2026-11-15T11:13:58.055Z +62.2s phone1 screen: mg-intro
+2026-11-15T11:13:58.776Z +62.9s phone2 screen: mg-intro
+2026-11-15T11:13:59.052Z +63.2s phone3 screen: mg-intro
+2026-11-15T11:14:01.059Z +65.2s phone1 screen: mg-play
+2026-11-15T11:14:02.146Z +66.2s phone2 screen: mg-play
+2026-11-15T11:14:02.163Z +66.3s phone3 screen: mg-play
+2026-11-15T11:14:06.843Z +70.9s phone1 screen: none
+2026-11-15T11:14:09.411Z +73.5s phone2 screen: none
+2026-11-15T11:14:10.910Z +75s phone3 mg.summary: MG-07 tier NONE 0/3
+2026-11-15T11:14:10.915Z +75s phone1 mg.summary: MG-07 tier NONE 0/3
+2026-11-15T11:14:10.920Z +75s phone2 mg.summary: MG-07 tier NONE 0/3
+2026-11-15T11:14:11.414Z +75.5s phone2 phase: FLIGHT:FLYING:F2:ASCENT mission 1 mode QUICK
+2026-11-15T11:14:11.482Z +75.6s phone1 screen: console-screen
+2026-11-15T11:14:12.291Z +76.4s phone2 screen: console-screen
+2026-11-15T11:14:12.418Z +76.5s phone3 screen: console-screen
+2026-11-15T11:14:12.607Z +76.7s phone2 console.alert: m1.maxq CAUTION
+2026-11-15T11:14:12.608Z +76.7s phone3 mg.start: MG-08 PARALLEL_SOLO 20000 ms at flight phase F2
+2026-11-15T11:14:12.609Z +76.7s phone2 mg.start: MG-08 PARALLEL_SOLO 20000 ms at flight phase F2
+2026-11-15T11:14:12.610Z +76.7s phone1 mg.start: MG-08 PARALLEL_SOLO 20000 ms at flight phase F2
+2026-11-15T11:14:14.539Z +78.6s phone1 screen: mg-intro
+2026-11-15T11:14:15.142Z +79.2s phone2 screen: mg-intro
+2026-11-15T11:14:15.149Z +79.2s phone3 screen: mg-intro
+2026-11-15T11:14:17.159Z +81.3s phone1 screen: mg-play
+2026-11-15T11:14:17.994Z +82.1s phone2 screen: mg-play
+2026-11-15T11:14:18.010Z +82.1s phone3 screen: mg-play
+2026-11-15T11:14:36.013Z +100.1s phone3 mg.summary: MG-08 tier NONE 0/3
+2026-11-15T11:14:36.013Z +100.1s phone1 mg.summary: MG-08 tier NONE 0/3
+2026-11-15T11:14:36.013Z +100.1s phone2 mg.summary: MG-08 tier NONE 0/3
+2026-11-15T11:14:36.151Z +100.3s phone1 screen: mg-result
+2026-11-15T11:14:36.581Z +100.7s phone1 phase: FLIGHT:FLYING:F3:ASCENT mission 1 mode QUICK
+2026-11-15T11:14:36.651Z +100.8s phone2 screen: console-screen
+2026-11-15T11:14:36.709Z +100.8s phone3 screen: console-screen
+2026-11-15T11:14:37.489Z +101.6s phone3 mg.start: MG-09 PARALLEL_SOLO 25000 ms at flight phase F3
+2026-11-15T11:14:37.490Z +101.6s phone1 mg.start: MG-09 PARALLEL_SOLO 25000 ms at flight phase F3
+2026-11-15T11:14:37.491Z +101.6s phone2 mg.start: MG-09 PARALLEL_SOLO 25000 ms at flight phase F3
+2026-11-15T11:14:38.734Z +102.8s phone1 screen: mg-intro
+2026-11-15T11:14:39.631Z +103.7s phone2 screen: mg-intro
+2026-11-15T11:14:39.636Z +103.7s phone3 screen: mg-intro
+2026-11-15T11:14:42.148Z +106.2s phone1 screen: mg-play
+2026-11-15T11:14:43.593Z +107.7s phone2 screen: mg-play
+2026-11-15T11:14:43.604Z +107.7s phone3 screen: mg-play
+2026-11-15T11:15:06.067Z +130.2s phone3 mg.summary: MG-09 tier NONE 0/3
+2026-11-15T11:15:06.068Z +130.2s phone2 mg.summary: MG-09 tier NONE 0/3
+2026-11-15T11:15:06.068Z +130.2s phone1 mg.summary: MG-09 tier NONE 0/3
+2026-11-15T11:15:06.423Z +130.5s phone1 phase: FLIGHT:FLYING:F4:ASCENT mission 1 mode QUICK
+2026-11-15T11:15:07.280Z +131.4s phone1 screen: mg-result
+2026-11-15T11:15:07.702Z +131.8s phone2 mg.start: MG-10a TEAM_SYNC 10000 ms at flight phase F4
+2026-11-15T11:15:07.703Z +131.8s phone1 mg.start: MG-10a TEAM_SYNC 10000 ms at flight phase F4
+2026-11-15T11:15:07.704Z +131.8s phone3 mg.start: MG-10a TEAM_SYNC 10000 ms at flight phase F4
+2026-11-15T11:15:07.943Z +132s phone2 screen: mg-intro
+2026-11-15T11:15:07.968Z +132.1s phone3 screen: mg-intro
+2026-11-15T11:15:09.988Z +134.1s phone1 screen: mg-intro
+2026-11-15T11:15:10.941Z +135s phone2 screen: mg-play
+2026-11-15T11:15:10.953Z +135.1s phone3 screen: mg-play
+2026-11-15T11:15:13.098Z +137.2s phone1 screen: mg-play
+2026-11-15T11:15:18.466Z +142.6s phone3 screen: none
+2026-11-15T11:15:18.876Z +143s phone3 mg.summary: MG-10a tier NONE 0/3
+2026-11-15T11:15:18.876Z +143s phone2 mg.summary: MG-10a tier NONE 0/3
+2026-11-15T11:15:18.876Z +143s phone1 mg.summary: MG-10a tier NONE 0/3
+2026-11-15T11:15:18.972Z +143.1s phone1 phase: FLIGHT:FLYING:F6:ORBIT mission 1 mode QUICK
+2026-11-15T11:15:20.490Z +144.6s phone1 screen: mg-result
+2026-11-15T11:15:21.008Z +145.1s phone1 mg.start: MG-13 PARALLEL_SOLO 20000 ms at flight phase F6
+2026-11-15T11:15:21.008Z +145.1s phone3 mg.start: MG-13 PARALLEL_SOLO 20000 ms at flight phase F6
+2026-11-15T11:15:21.009Z +145.1s phone2 mg.start: MG-13 PARALLEL_SOLO 20000 ms at flight phase F6
+2026-11-15T11:15:21.102Z +145.2s phone2 screen: mg-intro
+2026-11-15T11:15:21.139Z +145.2s phone3 screen: mg-intro
+2026-11-15T11:15:23.152Z +147.3s phone1 screen: mg-intro
+2026-11-15T11:15:24.540Z +148.6s phone2 screen: mg-play
+2026-11-15T11:15:24.577Z +148.7s phone3 screen: mg-play
+2026-11-15T11:15:26.595Z +150.7s phone1 screen: mg-play
+2026-11-15T11:15:43.870Z +168s phone2 mg.summary: MG-13 tier NONE 0/3
+2026-11-15T11:15:43.870Z +168s phone3 mg.summary: MG-13 tier NONE 0/3
+2026-11-15T11:15:43.870Z +168s phone1 mg.summary: MG-13 tier NONE 0/3
+2026-11-15T11:15:44.509Z +168.6s phone1 phase: FLIGHT:FLYING:F8:ORBIT mission 1 mode QUICK
+2026-11-15T11:15:44.911Z +169s phone1 screen: mg-result
+2026-11-15T11:15:45.661Z +169.8s phone2 mg.start: MG-15 COOP_SPLIT 20000 ms at flight phase F8
+2026-11-15T11:15:45.662Z +169.8s phone1 mg.start: MG-15 COOP_SPLIT 20000 ms at flight phase F8
+2026-11-15T11:15:45.662Z +169.8s phone3 mg.start: MG-15 COOP_SPLIT 20000 ms at flight phase F8
+2026-11-15T11:15:45.712Z +169.8s phone2 screen: mg-intro
+2026-11-15T11:15:45.724Z +169.8s phone3 screen: mg-intro
+2026-11-15T11:15:47.744Z +171.8s phone1 screen: mg-intro
+2026-11-15T11:15:50.402Z +174.5s phone1 screen: mg-play
+2026-11-15T11:15:51.531Z +175.6s phone2 screen: mg-play
+2026-11-15T11:15:51.538Z +175.6s phone3 screen: mg-play
+2026-11-15T11:16:03.587Z +187.7s phone3 mg.summary: MG-15 tier NONE 0/3
+2026-11-15T11:16:03.587Z +187.7s phone1 mg.summary: MG-15 tier NONE 0/3
+2026-11-15T11:16:03.587Z +187.7s phone2 mg.summary: MG-15 tier NONE 0/3
+2026-11-15T11:16:03.984Z +188.1s phone1 phase: FLIGHT:FLYING:F9:ORBIT mission 1 mode QUICK
+2026-11-15T11:16:04.862Z +189s phone1 screen: mg-result
+2026-11-15T11:16:05.149Z +189.2s phone3 mg.start: MG-21 PARALLEL_SOLO 20000 ms at flight phase F9
+2026-11-15T11:16:05.149Z +189.2s phone2 mg.start: MG-21 PARALLEL_SOLO 20000 ms at flight phase F9
+2026-11-15T11:16:05.156Z +189.3s phone1 mg.start: MG-21 PARALLEL_SOLO 20000 ms at flight phase F9
+2026-11-15T11:16:05.938Z +190s phone2 screen: mg-intro
+2026-11-15T11:16:05.945Z +190s phone3 screen: mg-intro
+2026-11-15T11:16:08.000Z +192.1s phone1 screen: mg-intro
+2026-11-15T11:16:08.819Z +192.9s phone2 screen: mg-play
+2026-11-15T11:16:08.844Z +192.9s phone3 screen: mg-play
+2026-11-15T11:16:10.925Z +195s phone1 screen: mg-play
+2026-11-15T11:16:27.908Z +212s phone2 mg.summary: MG-21 tier NONE 0/3
+2026-11-15T11:16:27.908Z +212s phone3 mg.summary: MG-21 tier NONE 0/3
+2026-11-15T11:16:27.908Z +212s phone1 mg.summary: MG-21 tier NONE 0/3
+2026-11-15T11:16:28.666Z +212.8s phone2 phase: DEBRIEF:SUMMARY mission 1 mode QUICK
+2026-11-15T11:16:28.680Z +212.8s phone3 debrief.score: received
+2026-11-15T11:16:28.683Z +212.8s phone1 debrief.score: received
+2026-11-15T11:16:28.683Z +212.8s phone2 debrief.score: received
+2026-11-15T11:16:29.871Z +214s phone1 screen: screen-debrief
+2026-11-15T11:16:31.418Z +215.5s phone2 screen: screen-debrief
+2026-11-15T11:16:31.459Z +215.6s phone3 screen: screen-debrief
+2026-11-15T11:16:49.588Z +233.7s end: completed: debrief reached and shown for 20 s

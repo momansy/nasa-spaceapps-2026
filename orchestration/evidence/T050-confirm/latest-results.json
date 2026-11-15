@@ -1,0 +1,2218 @@
+[
+  {
+    "summary": {
+      "runId": "2026-11-15T10-32-05-194Z-stub-p10-s2801",
+      "playerCount": 10,
+      "spectatorCount": 2,
+      "seed": 2801,
+      "host": "stub",
+      "segment": "full",
+      "phoneProcessMode": "shared",
+      "profileVotePhone": null,
+      "profileCpuRate": null,
+      "fixtureNumbers": "fixture (not Core)",
+      "milestones": [
+        {
+          "name": "lobby",
+          "at": "2026-11-15T10:32:16.834Z"
+        },
+        {
+          "name": "briefing",
+          "at": "2026-11-15T10:32:17.936Z"
+        },
+        {
+          "name": "vote",
+          "at": "2026-11-15T10:32:19.385Z",
+          "roundId": "m1.contract",
+          "kind": "CONTRACT",
+          "ids": [
+            "C1",
+            "C0",
+            "C2"
+          ],
+          "scenario": null
+        },
+        {
+          "name": "build_started",
+          "at": "2026-11-15T10:32:22.586Z"
+        },
+        {
+          "name": "vote",
+          "at": "2026-11-15T10:32:44.002Z",
+          "roundId": "m1.part.1",
+          "kind": "PART",
+          "ids": [
+            "site_equatorial_spaceport",
+            "site_subtropical_coast",
+            "site_west_coast_polar_range"
+          ],
+          "scenario": null
+        },
+        {
+          "name": "vote",
+          "at": "2026-11-15T10:33:08.523Z",
+          "roundId": "m1.part.2",
+          "kind": "PART",
+          "ids": [
+            "inst_wide_field_optical_camera",
+            "inst_multispectral_imager",
+            "inst_thermal_infrared_camera"
+          ],
+          "scenario": null
+        },
+        {
+          "name": "vote",
+          "at": "2026-11-15T10:33:14.930Z",
+          "roundId": "m1.part.3",
+          "kind": "PART",
+          "ids": [
+            "eng_hydrolox_vacuum",
+            "eng_kerolox_vacuum",
+            "eng_methalox_vacuum"
+          ],
+          "scenario": null
+        },
+        {
+          "name": "vote",
+          "at": "2026-11-15T10:33:21.278Z",
+          "roundId": "m1.part.4",
+          "kind": "PART",
+          "ids": [
+            "eng_kerolox_workhorse",
+            "eng_methalox_full_flow",
+            "eng_hydrolox_high_efficiency"
+          ],
+          "scenario": "veto"
+        },
+        {
+          "name": "vote",
+          "at": "2026-11-15T10:33:27.611Z",
+          "roundId": "m1.part.5",
+          "kind": "PART",
+          "ids": [
+            "tank_s",
+            "tank_m",
+            "tank_l"
+          ],
+          "scenario": "forced_tie_when_player_count_allows"
+        },
+        {
+          "name": "vote",
+          "at": "2026-11-15T10:33:33.706Z",
+          "roundId": "m1.test",
+          "kind": "TEST",
+          "ids": [
+            "TEST",
+            "SKIP"
+          ],
+          "scenario": null
+        },
+        {
+          "name": "vote",
+          "at": "2026-11-15T10:33:35.856Z",
+          "roundId": "m1.pdr",
+          "kind": "REVIEW",
+          "ids": [
+            "PASS",
+            "REWORK"
+          ],
+          "scenario": null
+        },
+        {
+          "name": "poll",
+          "at": "2026-11-15T10:33:37.946Z",
+          "pollId": "m1.frr.1",
+          "round": 1
+        },
+        {
+          "name": "poll",
+          "at": "2026-11-15T10:34:08.586Z",
+          "pollId": "m1.frr.2",
+          "round": 2
+        },
+        {
+          "name": "minigame",
+          "at": "2026-11-15T10:34:10.075Z",
+          "runId": "m1.mg07.23",
+          "id": "MG-07",
+          "durationMs": 50000,
+          "implemented": true
+        },
+        {
+          "name": "alert",
+          "at": "2026-11-15T10:35:03.964Z"
+        },
+        {
+          "name": "minigame",
+          "at": "2026-11-15T10:35:03.978Z",
+          "runId": "m1.mg08.25",
+          "id": "MG-08",
+          "durationMs": 20000,
+          "implemented": true
+        },
+        {
+          "name": "minigame",
+          "at": "2026-11-15T10:35:29.710Z",
+          "runId": "m1.mg09.27",
+          "id": "MG-09",
+          "durationMs": 25000,
+          "implemented": true
+        },
+        {
+          "name": "minigame",
+          "at": "2026-11-15T10:36:00.377Z",
+          "runId": "m1.mg10a.29",
+          "id": "MG-10a",
+          "durationMs": 10000,
+          "implemented": true
+        },
+        {
+          "name": "blackout",
+          "at": "2026-11-15T10:36:14.078Z"
+        },
+        {
+          "name": "minigame",
+          "at": "2026-11-15T10:36:15.418Z",
+          "runId": "m1.mg13.31",
+          "id": "MG-13",
+          "durationMs": 20000,
+          "implemented": true
+        },
+        {
+          "name": "minigame",
+          "at": "2026-11-15T10:36:40.836Z",
+          "runId": "m1.mg15.33",
+          "id": "MG-15",
+          "durationMs": 20000,
+          "implemented": true
+        },
+        {
+          "name": "minigame",
+          "at": "2026-11-15T10:37:06.128Z",
+          "runId": "m1.mg21.35",
+          "id": "MG-21",
+          "durationMs": 20000,
+          "implemented": true
+        },
+        {
+          "name": "debrief",
+          "at": "2026-11-15T10:38:00.287Z"
+        }
+      ],
+      "voteMeasurements": [
+        {
+          "roundId": "m1.contract",
+          "kind": "CONTRACT",
+          "startedAtMs": 1794738739385,
+          "startedAt": "2026-11-15T10:32:19.385Z",
+          "endedAtMs": 1794738739597,
+          "endedAt": "2026-11-15T10:32:19.597Z",
+          "machineCpu": {
+            "samples": 1,
+            "meanPct": 48.9,
+            "p95Pct": 48.9,
+            "maxPct": 48.9
+          }
+        },
+        {
+          "roundId": "m1.part.1",
+          "kind": "PART",
+          "startedAtMs": 1794738764002,
+          "startedAt": "2026-11-15T10:32:44.002Z",
+          "endedAtMs": 1794738788225,
+          "endedAt": "2026-11-15T10:33:08.225Z",
+          "machineCpu": {
+            "samples": 91,
+            "meanPct": 35.7,
+            "p95Pct": 65.5,
+            "maxPct": 81
+          }
+        },
+        {
+          "roundId": "m1.part.2",
+          "kind": "PART",
+          "startedAtMs": 1794738788523,
+          "startedAt": "2026-11-15T10:33:08.523Z",
+          "endedAtMs": 1794738789386,
+          "endedAt": "2026-11-15T10:33:09.386Z",
+          "machineCpu": {
+            "samples": 4,
+            "meanPct": 40.3,
+            "p95Pct": 62.7,
+            "maxPct": 62.7
+          }
+        },
+        {
+          "roundId": "m1.part.3",
+          "kind": "PART",
+          "startedAtMs": 1794738794930,
+          "startedAt": "2026-11-15T10:33:14.930Z",
+          "endedAtMs": 1794738799829,
+          "endedAt": "2026-11-15T10:33:19.829Z",
+          "machineCpu": {
+            "samples": 19,
+            "meanPct": 43.7,
+            "p95Pct": 82.1,
+            "maxPct": 82.1
+          }
+        },
+        {
+          "roundId": "m1.part.4",
+          "kind": "PART",
+          "startedAtMs": 1794738801278,
+          "startedAt": "2026-11-15T10:33:21.278Z",
+          "endedAtMs": 1794738802672,
+          "endedAt": "2026-11-15T10:33:22.672Z",
+          "machineCpu": {
+            "samples": 6,
+            "meanPct": 46,
+            "p95Pct": 87.9,
+            "maxPct": 87.9
+          }
+        },
+        {
+          "roundId": "m1.part.5",
+          "kind": "PART",
+          "startedAtMs": 1794738807611,
+          "startedAt": "2026-11-15T10:33:27.611Z",
+          "endedAtMs": 1794738808439,
+          "endedAt": "2026-11-15T10:33:28.439Z",
+          "machineCpu": {
+            "samples": 3,
+            "meanPct": 38.9,
+            "p95Pct": 55.2,
+            "maxPct": 55.2
+          }
+        },
+        {
+          "roundId": "m1.test",
+          "kind": "TEST",
+          "startedAtMs": 1794738813706,
+          "startedAt": "2026-11-15T10:33:33.706Z",
+          "endedAtMs": 1794738813806,
+          "endedAt": "2026-11-15T10:33:33.806Z",
+          "machineCpu": {
+            "samples": 1,
+            "meanPct": 26.9,
+            "p95Pct": 26.9,
+            "maxPct": 26.9
+          }
+        },
+        {
+          "roundId": "m1.pdr",
+          "kind": "REVIEW",
+          "startedAtMs": 1794738815856,
+          "startedAt": "2026-11-15T10:33:35.856Z",
+          "endedAtMs": 1794738815959,
+          "endedAt": "2026-11-15T10:33:35.959Z",
+          "machineCpu": {
+            "samples": 1,
+            "meanPct": 33.1,
+            "p95Pct": 33.1,
+            "maxPct": 33.1
+          }
+        }
+      ],
+      "machineCpu": {
+        "samples": 1361,
+        "meanPct": 26.3,
+        "p95Pct": 49.1,
+        "maxPct": 87.9
+      },
+      "failures": [],
+      "segments": [
+        "LOBBY",
+        "BRIEFING",
+        "CONTRACT_VOTE",
+        "vote:m1.contract:C1:normal",
+        "BUILD:VOTE_ROUND",
+        "BUILD:VOTE_ROUND",
+        "vote:m1.part.1:site_equatorial_spaceport:normal",
+        "BUILD:VOTE_ROUND",
+        "vote:m1.part.2:inst_wide_field_optical_camera:normal",
+        "BUILD:VOTE_ROUND",
+        "vote:m1.part.3:eng_hydrolox_vacuum:normal",
+        "BUILD:VOTE_ROUND",
+        "vote:m1.part.4:eng_methalox_full_flow:veto",
+        "BUILD:VOTE_ROUND",
+        "vote:m1.part.5:tank_s:forced_tie_when_player_count_allows",
+        "BUILD:TEST",
+        "vote:m1.test:TEST:normal",
+        "BUILD:REVIEW",
+        "vote:m1.pdr:PASS:normal",
+        "FRR",
+        "poll:1:all_go",
+        "poll:2:all_go",
+        "COUNTDOWN:F0",
+        "minigame:MG-07:10/10results",
+        "FLIGHT:FLYING:F2",
+        "minigame:MG-08:10/10results",
+        "FLIGHT:FLYING:F3",
+        "minigame:MG-09:10/10results",
+        "FLIGHT:FLYING:F4",
+        "minigame:MG-10a:10/10results",
+        "FLIGHT:FLYING:F6",
+        "minigame:MG-13:10/10results",
+        "FLIGHT:FLYING:F8",
+        "minigame:MG-15:10/10results",
+        "FLIGHT:FLYING:F9",
+        "minigame:MG-21:10/10results",
+        "DEBRIEF:SUMMARY"
+      ],
+      "minigames": [
+        {
+          "id": "MG-07",
+          "runId": "m1.mg07.23",
+          "type": "RELAY",
+          "durationMs": 50000,
+          "implemented": true,
+          "expectedResults": 10,
+          "resultsReceived": 10,
+          "succeeded": 4,
+          "perfect": 3,
+          "tier": "BRONZE",
+          "results": [
+            {
+              "playerId": "p1",
+              "success": false,
+              "perfect": false,
+              "score": 0,
+              "value": null,
+              "elapsedMs": 5031,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p2",
+              "success": true,
+              "perfect": true,
+              "score": 0.8363039999961853,
+              "value": null,
+              "elapsedMs": 7192,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p3",
+              "success": false,
+              "perfect": false,
+              "score": 0,
+              "value": null,
+              "elapsedMs": 10173,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p4",
+              "success": false,
+              "perfect": false,
+              "score": 0,
+              "value": null,
+              "elapsedMs": 18825,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p5",
+              "success": false,
+              "perfect": false,
+              "score": 0,
+              "value": null,
+              "elapsedMs": 25023,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p6",
+              "success": false,
+              "perfect": false,
+              "score": 0,
+              "value": null,
+              "elapsedMs": 29098,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p7",
+              "success": true,
+              "perfect": true,
+              "score": 0.9744639999961853,
+              "value": null,
+              "elapsedMs": 30372,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p8",
+              "success": true,
+              "perfect": false,
+              "score": 0.65964,
+              "value": null,
+              "elapsedMs": 39308,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p9",
+              "success": true,
+              "perfect": true,
+              "score": 0.8720720000076294,
+              "value": null,
+              "elapsedMs": 41675,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p10",
+              "success": false,
+              "perfect": false,
+              "score": 0,
+              "value": null,
+              "elapsedMs": 48506,
+              "mode": "RELAXED"
+            }
+          ],
+          "records": [
+            {
+              "id": "MG-07",
+              "phone": 1,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 6,
+              "consoleErrorsDuring": 0,
+              "tier": "BRONZE"
+            },
+            {
+              "id": "MG-07",
+              "phone": 2,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 10,
+              "consoleErrorsDuring": 0,
+              "tier": "BRONZE"
+            },
+            {
+              "id": "MG-07",
+              "phone": 3,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 14,
+              "consoleErrorsDuring": 0,
+              "tier": "BRONZE"
+            },
+            {
+              "id": "MG-07",
+              "phone": 4,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 30,
+              "consoleErrorsDuring": 0,
+              "tier": "BRONZE"
+            },
+            {
+              "id": "MG-07",
+              "phone": 5,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 50,
+              "consoleErrorsDuring": 0,
+              "tier": "BRONZE"
+            },
+            {
+              "id": "MG-07",
+              "phone": 6,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 49,
+              "consoleErrorsDuring": 0,
+              "tier": "BRONZE"
+            },
+            {
+              "id": "MG-07",
+              "phone": 7,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 62,
+              "consoleErrorsDuring": 0,
+              "tier": "BRONZE"
+            },
+            {
+              "id": "MG-07",
+              "phone": 8,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 86,
+              "consoleErrorsDuring": 0,
+              "tier": "BRONZE"
+            },
+            {
+              "id": "MG-07",
+              "phone": 9,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 76,
+              "consoleErrorsDuring": 0,
+              "tier": "BRONZE"
+            },
+            {
+              "id": "MG-07",
+              "phone": 10,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 91,
+              "consoleErrorsDuring": 0,
+              "tier": "BRONZE"
+            }
+          ]
+        },
+        {
+          "id": "MG-08",
+          "runId": "m1.mg08.25",
+          "type": "PARALLEL_SOLO",
+          "durationMs": 20000,
+          "implemented": true,
+          "expectedResults": 10,
+          "resultsReceived": 10,
+          "succeeded": 0,
+          "perfect": 0,
+          "tier": "NONE",
+          "results": [
+            {
+              "playerId": "p6",
+              "success": false,
+              "perfect": false,
+              "score": 0.46041666666666664,
+              "value": null,
+              "elapsedMs": 20000,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p5",
+              "success": false,
+              "perfect": false,
+              "score": 0.2520833333333333,
+              "value": null,
+              "elapsedMs": 20000,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p7",
+              "success": false,
+              "perfect": false,
+              "score": 0.16125,
+              "value": null,
+              "elapsedMs": 20000,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p10",
+              "success": false,
+              "perfect": false,
+              "score": 0.5420833333333334,
+              "value": null,
+              "elapsedMs": 20000,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p8",
+              "success": false,
+              "perfect": false,
+              "score": 0.285,
+              "value": null,
+              "elapsedMs": 20000,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p9",
+              "success": false,
+              "perfect": false,
+              "score": 0.29291666666666666,
+              "value": null,
+              "elapsedMs": 20000,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p4",
+              "success": false,
+              "perfect": false,
+              "score": 0.11916666666666667,
+              "value": null,
+              "elapsedMs": 20000,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p2",
+              "success": false,
+              "perfect": false,
+              "score": 0.23833333333333334,
+              "value": null,
+              "elapsedMs": 20000,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p1",
+              "success": false,
+              "perfect": false,
+              "score": 0.22041666666666668,
+              "value": null,
+              "elapsedMs": 20000,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p3",
+              "success": false,
+              "perfect": false,
+              "score": 0.18541666666666667,
+              "value": null,
+              "elapsedMs": 20000,
+              "mode": "RELAXED"
+            }
+          ],
+          "records": [
+            {
+              "id": "MG-08",
+              "phone": 1,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 31,
+              "consoleErrorsDuring": 0,
+              "tier": "NONE"
+            },
+            {
+              "id": "MG-08",
+              "phone": 2,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 33,
+              "consoleErrorsDuring": 0,
+              "tier": "NONE"
+            },
+            {
+              "id": "MG-08",
+              "phone": 3,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 33,
+              "consoleErrorsDuring": 0,
+              "tier": "NONE"
+            },
+            {
+              "id": "MG-08",
+              "phone": 4,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 33,
+              "consoleErrorsDuring": 0,
+              "tier": "NONE"
+            },
+            {
+              "id": "MG-08",
+              "phone": 5,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 33,
+              "consoleErrorsDuring": 0,
+              "tier": "NONE"
+            },
+            {
+              "id": "MG-08",
+              "phone": 6,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 26,
+              "consoleErrorsDuring": 0,
+              "tier": "NONE"
+            },
+            {
+              "id": "MG-08",
+              "phone": 7,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 33,
+              "consoleErrorsDuring": 0,
+              "tier": "NONE"
+            },
+            {
+              "id": "MG-08",
+              "phone": 8,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 33,
+              "consoleErrorsDuring": 0,
+              "tier": "NONE"
+            },
+            {
+              "id": "MG-08",
+              "phone": 9,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 33,
+              "consoleErrorsDuring": 0,
+              "tier": "NONE"
+            },
+            {
+              "id": "MG-08",
+              "phone": 10,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 33,
+              "consoleErrorsDuring": 0,
+              "tier": "NONE"
+            }
+          ]
+        },
+        {
+          "id": "MG-09",
+          "runId": "m1.mg09.27",
+          "type": "PARALLEL_SOLO",
+          "durationMs": 25000,
+          "implemented": true,
+          "expectedResults": 10,
+          "resultsReceived": 10,
+          "succeeded": 0,
+          "perfect": 0,
+          "tier": "NONE",
+          "results": [
+            {
+              "playerId": "p4",
+              "success": false,
+              "perfect": false,
+              "score": 0,
+              "value": 29,
+              "elapsedMs": 25000,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p5",
+              "success": false,
+              "perfect": false,
+              "score": 0,
+              "value": 27.78,
+              "elapsedMs": 25000,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p6",
+              "success": false,
+              "perfect": false,
+              "score": 0,
+              "value": 29.62,
+              "elapsedMs": 25000,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p7",
+              "success": false,
+              "perfect": false,
+              "score": 0,
+              "value": 31.06,
+              "elapsedMs": 25000,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p8",
+              "success": false,
+              "perfect": false,
+              "score": 0,
+              "value": 26.08,
+              "elapsedMs": 25000,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p10",
+              "success": false,
+              "perfect": false,
+              "score": 0,
+              "value": 27.69,
+              "elapsedMs": 25000,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p1",
+              "success": false,
+              "perfect": false,
+              "score": 0,
+              "value": 28.12,
+              "elapsedMs": 25000,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p9",
+              "success": false,
+              "perfect": false,
+              "score": 0,
+              "value": 37.72,
+              "elapsedMs": 25000,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p3",
+              "success": false,
+              "perfect": false,
+              "score": 0,
+              "value": 31.28,
+              "elapsedMs": 25000,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p2",
+              "success": false,
+              "perfect": false,
+              "score": 0,
+              "value": 32.18,
+              "elapsedMs": 25000,
+              "mode": "RELAXED"
+            }
+          ],
+          "records": [
+            {
+              "id": "MG-09",
+              "phone": 1,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 47,
+              "consoleErrorsDuring": 0,
+              "tier": "NONE"
+            },
+            {
+              "id": "MG-09",
+              "phone": 2,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 51,
+              "consoleErrorsDuring": 0,
+              "tier": "NONE"
+            },
+            {
+              "id": "MG-09",
+              "phone": 3,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 51,
+              "consoleErrorsDuring": 0,
+              "tier": "NONE"
+            },
+            {
+              "id": "MG-09",
+              "phone": 4,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 40,
+              "consoleErrorsDuring": 0,
+              "tier": "NONE"
+            },
+            {
+              "id": "MG-09",
+              "phone": 5,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 40,
+              "consoleErrorsDuring": 0,
+              "tier": "NONE"
+            },
+            {
+              "id": "MG-09",
+              "phone": 6,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 40,
+              "consoleErrorsDuring": 0,
+              "tier": "NONE"
+            },
+            {
+              "id": "MG-09",
+              "phone": 7,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 40,
+              "consoleErrorsDuring": 0,
+              "tier": "NONE"
+            },
+            {
+              "id": "MG-09",
+              "phone": 8,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 40,
+              "consoleErrorsDuring": 0,
+              "tier": "NONE"
+            },
+            {
+              "id": "MG-09",
+              "phone": 9,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 40,
+              "consoleErrorsDuring": 0,
+              "tier": "NONE"
+            },
+            {
+              "id": "MG-09",
+              "phone": 10,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 40,
+              "consoleErrorsDuring": 0,
+              "tier": "NONE"
+            }
+          ]
+        },
+        {
+          "id": "MG-10a",
+          "runId": "m1.mg10a.29",
+          "type": "TEAM_SYNC",
+          "durationMs": 10000,
+          "implemented": true,
+          "expectedResults": 10,
+          "resultsReceived": 10,
+          "succeeded": 0,
+          "perfect": 0,
+          "tier": "NONE",
+          "results": [
+            {
+              "playerId": "p3",
+              "success": false,
+              "perfect": false,
+              "score": 0.02398888153433809,
+              "value": null,
+              "elapsedMs": 7264,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p5",
+              "success": false,
+              "perfect": false,
+              "score": 0,
+              "value": null,
+              "elapsedMs": 7268,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p10",
+              "success": false,
+              "perfect": false,
+              "score": 0.15278888153433778,
+              "value": null,
+              "elapsedMs": 7267,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p7",
+              "success": false,
+              "perfect": false,
+              "score": 0,
+              "value": null,
+              "elapsedMs": 7275,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p1",
+              "success": false,
+              "perfect": false,
+              "score": 0.49125818549990646,
+              "value": null,
+              "elapsedMs": 7892,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p2",
+              "success": false,
+              "perfect": false,
+              "score": 0,
+              "value": null,
+              "elapsedMs": 7896,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p4",
+              "success": false,
+              "perfect": false,
+              "score": 0,
+              "value": null,
+              "elapsedMs": 7896,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p6",
+              "success": false,
+              "perfect": false,
+              "score": 0,
+              "value": null,
+              "elapsedMs": 7903,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p8",
+              "success": false,
+              "perfect": false,
+              "score": 0,
+              "value": null,
+              "elapsedMs": 7906,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p9",
+              "success": false,
+              "perfect": false,
+              "score": 0,
+              "value": null,
+              "elapsedMs": 7911,
+              "mode": "RELAXED"
+            }
+          ],
+          "records": [
+            {
+              "id": "MG-10a",
+              "phone": 1,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 12,
+              "consoleErrorsDuring": 0,
+              "tier": "NONE"
+            },
+            {
+              "id": "MG-10a",
+              "phone": 2,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 12,
+              "consoleErrorsDuring": 0,
+              "tier": "NONE"
+            },
+            {
+              "id": "MG-10a",
+              "phone": 3,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 10,
+              "consoleErrorsDuring": 0,
+              "tier": "NONE"
+            },
+            {
+              "id": "MG-10a",
+              "phone": 4,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 12,
+              "consoleErrorsDuring": 0,
+              "tier": "NONE"
+            },
+            {
+              "id": "MG-10a",
+              "phone": 5,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 10,
+              "consoleErrorsDuring": 0,
+              "tier": "NONE"
+            },
+            {
+              "id": "MG-10a",
+              "phone": 6,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 12,
+              "consoleErrorsDuring": 0,
+              "tier": "NONE"
+            },
+            {
+              "id": "MG-10a",
+              "phone": 7,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 10,
+              "consoleErrorsDuring": 0,
+              "tier": "NONE"
+            },
+            {
+              "id": "MG-10a",
+              "phone": 8,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 12,
+              "consoleErrorsDuring": 0,
+              "tier": "NONE"
+            },
+            {
+              "id": "MG-10a",
+              "phone": 9,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 12,
+              "consoleErrorsDuring": 0,
+              "tier": "NONE"
+            },
+            {
+              "id": "MG-10a",
+              "phone": 10,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 10,
+              "consoleErrorsDuring": 0,
+              "tier": "NONE"
+            }
+          ]
+        },
+        {
+          "id": "MG-13",
+          "runId": "m1.mg13.31",
+          "type": "PARALLEL_SOLO",
+          "durationMs": 20000,
+          "implemented": true,
+          "expectedResults": 10,
+          "resultsReceived": 10,
+          "succeeded": 0,
+          "perfect": 0,
+          "tier": "NONE",
+          "results": [
+            {
+              "playerId": "p10",
+              "success": false,
+              "perfect": false,
+              "score": 0.04939862542955326,
+              "value": null,
+              "elapsedMs": 19417,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p1",
+              "success": false,
+              "perfect": false,
+              "score": 0.125,
+              "value": null,
+              "elapsedMs": 19421,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p2",
+              "success": false,
+              "perfect": false,
+              "score": 0,
+              "value": null,
+              "elapsedMs": 19425,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p4",
+              "success": false,
+              "perfect": false,
+              "score": 0,
+              "value": null,
+              "elapsedMs": 19430,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p3",
+              "success": false,
+              "perfect": false,
+              "score": 0,
+              "value": null,
+              "elapsedMs": 19437,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p6",
+              "success": false,
+              "perfect": false,
+              "score": 0.11469072164948453,
+              "value": null,
+              "elapsedMs": 19447,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p7",
+              "success": false,
+              "perfect": false,
+              "score": 0.23024054982817868,
+              "value": null,
+              "elapsedMs": 19447,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p8",
+              "success": false,
+              "perfect": false,
+              "score": 0,
+              "value": null,
+              "elapsedMs": 19454,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p9",
+              "success": false,
+              "perfect": false,
+              "score": 0.07130584192439862,
+              "value": null,
+              "elapsedMs": 19459,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p5",
+              "success": false,
+              "perfect": false,
+              "score": 0.17482817869415807,
+              "value": null,
+              "elapsedMs": 19491,
+              "mode": "RELAXED"
+            }
+          ],
+          "records": [
+            {
+              "id": "MG-13",
+              "phone": 1,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 30,
+              "consoleErrorsDuring": 0,
+              "tier": "NONE"
+            },
+            {
+              "id": "MG-13",
+              "phone": 2,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 24,
+              "consoleErrorsDuring": 0,
+              "tier": "NONE"
+            },
+            {
+              "id": "MG-13",
+              "phone": 3,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 25,
+              "consoleErrorsDuring": 0,
+              "tier": "NONE"
+            },
+            {
+              "id": "MG-13",
+              "phone": 4,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 24,
+              "consoleErrorsDuring": 0,
+              "tier": "NONE"
+            },
+            {
+              "id": "MG-13",
+              "phone": 5,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 25,
+              "consoleErrorsDuring": 0,
+              "tier": "NONE"
+            },
+            {
+              "id": "MG-13",
+              "phone": 6,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 24,
+              "consoleErrorsDuring": 0,
+              "tier": "NONE"
+            },
+            {
+              "id": "MG-13",
+              "phone": 7,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 24,
+              "consoleErrorsDuring": 0,
+              "tier": "NONE"
+            },
+            {
+              "id": "MG-13",
+              "phone": 8,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 24,
+              "consoleErrorsDuring": 0,
+              "tier": "NONE"
+            },
+            {
+              "id": "MG-13",
+              "phone": 9,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 24,
+              "consoleErrorsDuring": 0,
+              "tier": "NONE"
+            },
+            {
+              "id": "MG-13",
+              "phone": 10,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 24,
+              "consoleErrorsDuring": 0,
+              "tier": "NONE"
+            }
+          ]
+        },
+        {
+          "id": "MG-15",
+          "runId": "m1.mg15.33",
+          "type": "COOP_SPLIT",
+          "durationMs": 20000,
+          "implemented": true,
+          "expectedResults": 10,
+          "resultsReceived": 10,
+          "succeeded": 0,
+          "perfect": 0,
+          "tier": "NONE",
+          "results": [
+            {
+              "playerId": "p3",
+              "success": false,
+              "perfect": false,
+              "score": 0.12629757785467127,
+              "value": null,
+              "elapsedMs": 19426,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p6",
+              "success": false,
+              "perfect": false,
+              "score": 0.3615916955017301,
+              "value": null,
+              "elapsedMs": 19434,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p5",
+              "success": false,
+              "perfect": false,
+              "score": 0,
+              "value": null,
+              "elapsedMs": 19433,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p7",
+              "success": false,
+              "perfect": false,
+              "score": 0.12802768166089964,
+              "value": null,
+              "elapsedMs": 19440,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p8",
+              "success": false,
+              "perfect": false,
+              "score": 0.2188581314878893,
+              "value": null,
+              "elapsedMs": 19447,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p9",
+              "success": false,
+              "perfect": false,
+              "score": 0,
+              "value": null,
+              "elapsedMs": 19453,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p10",
+              "success": false,
+              "perfect": false,
+              "score": 0,
+              "value": null,
+              "elapsedMs": 19460,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p1",
+              "success": false,
+              "perfect": false,
+              "score": 0.06314878892733564,
+              "value": null,
+              "elapsedMs": 19467,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p2",
+              "success": false,
+              "perfect": false,
+              "score": 0,
+              "value": null,
+              "elapsedMs": 19473,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p4",
+              "success": false,
+              "perfect": false,
+              "score": 0.0527681660899654,
+              "value": null,
+              "elapsedMs": 19479,
+              "mode": "RELAXED"
+            }
+          ],
+          "records": [
+            {
+              "id": "MG-15",
+              "phone": 1,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 26,
+              "consoleErrorsDuring": 0,
+              "tier": "NONE"
+            },
+            {
+              "id": "MG-15",
+              "phone": 2,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 23,
+              "consoleErrorsDuring": 0,
+              "tier": "NONE"
+            },
+            {
+              "id": "MG-15",
+              "phone": 3,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 22,
+              "consoleErrorsDuring": 0,
+              "tier": "NONE"
+            },
+            {
+              "id": "MG-15",
+              "phone": 4,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 30,
+              "consoleErrorsDuring": 0,
+              "tier": "NONE"
+            },
+            {
+              "id": "MG-15",
+              "phone": 5,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 23,
+              "consoleErrorsDuring": 0,
+              "tier": "NONE"
+            },
+            {
+              "id": "MG-15",
+              "phone": 6,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 22,
+              "consoleErrorsDuring": 0,
+              "tier": "NONE"
+            },
+            {
+              "id": "MG-15",
+              "phone": 7,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 23,
+              "consoleErrorsDuring": 0,
+              "tier": "NONE"
+            },
+            {
+              "id": "MG-15",
+              "phone": 8,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 29,
+              "consoleErrorsDuring": 0,
+              "tier": "NONE"
+            },
+            {
+              "id": "MG-15",
+              "phone": 9,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 23,
+              "consoleErrorsDuring": 0,
+              "tier": "NONE"
+            },
+            {
+              "id": "MG-15",
+              "phone": 10,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 30,
+              "consoleErrorsDuring": 0,
+              "tier": "NONE"
+            }
+          ]
+        },
+        {
+          "id": "MG-21",
+          "runId": "m1.mg21.35",
+          "type": "PARALLEL_SOLO",
+          "durationMs": 20000,
+          "implemented": true,
+          "expectedResults": 10,
+          "resultsReceived": 10,
+          "succeeded": 1,
+          "perfect": 0,
+          "tier": "BRONZE",
+          "results": [
+            {
+              "playerId": "p6",
+              "success": false,
+              "perfect": false,
+              "score": 0.003333333333333355,
+              "value": null,
+              "elapsedMs": 19445,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p7",
+              "success": false,
+              "perfect": false,
+              "score": 0.003333333333333355,
+              "value": null,
+              "elapsedMs": 19451,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p8",
+              "success": false,
+              "perfect": false,
+              "score": 0.003333333333333355,
+              "value": null,
+              "elapsedMs": 19457,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p9",
+              "success": false,
+              "perfect": false,
+              "score": 0.003333333333333355,
+              "value": null,
+              "elapsedMs": 19464,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p10",
+              "success": false,
+              "perfect": false,
+              "score": 0.003333333333333355,
+              "value": null,
+              "elapsedMs": 19476,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p1",
+              "success": false,
+              "perfect": false,
+              "score": 0,
+              "value": null,
+              "elapsedMs": 19477,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p2",
+              "success": false,
+              "perfect": false,
+              "score": 0,
+              "value": null,
+              "elapsedMs": 19484,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p4",
+              "success": false,
+              "perfect": false,
+              "score": 0,
+              "value": null,
+              "elapsedMs": 19492,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p3",
+              "success": true,
+              "perfect": false,
+              "score": 0.26,
+              "value": null,
+              "elapsedMs": 19492,
+              "mode": "RELAXED"
+            },
+            {
+              "playerId": "p5",
+              "success": false,
+              "perfect": false,
+              "score": 0,
+              "value": null,
+              "elapsedMs": 19499,
+              "mode": "RELAXED"
+            }
+          ],
+          "records": [
+            {
+              "id": "MG-21",
+              "phone": 1,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 26,
+              "consoleErrorsDuring": 0,
+              "tier": "BRONZE"
+            },
+            {
+              "id": "MG-21",
+              "phone": 2,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 30,
+              "consoleErrorsDuring": 0,
+              "tier": "BRONZE"
+            },
+            {
+              "id": "MG-21",
+              "phone": 3,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 27,
+              "consoleErrorsDuring": 0,
+              "tier": "BRONZE"
+            },
+            {
+              "id": "MG-21",
+              "phone": 4,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 30,
+              "consoleErrorsDuring": 0,
+              "tier": "BRONZE"
+            },
+            {
+              "id": "MG-21",
+              "phone": 5,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 30,
+              "consoleErrorsDuring": 0,
+              "tier": "BRONZE"
+            },
+            {
+              "id": "MG-21",
+              "phone": 6,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 30,
+              "consoleErrorsDuring": 0,
+              "tier": "BRONZE"
+            },
+            {
+              "id": "MG-21",
+              "phone": 7,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 30,
+              "consoleErrorsDuring": 0,
+              "tier": "BRONZE"
+            },
+            {
+              "id": "MG-21",
+              "phone": 8,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 30,
+              "consoleErrorsDuring": 0,
+              "tier": "BRONZE"
+            },
+            {
+              "id": "MG-21",
+              "phone": 9,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 30,
+              "consoleErrorsDuring": 0,
+              "tier": "BRONZE"
+            },
+            {
+              "id": "MG-21",
+              "phone": 10,
+              "sitout": false,
+              "intro": true,
+              "played": true,
+              "ownResult": true,
+              "summaryShown": true,
+              "notes": [],
+              "inputs": 29,
+              "consoleErrorsDuring": 0,
+              "tier": "BRONZE"
+            }
+          ]
+        }
+      ],
+      "frameCounts": {
+        "total": 8773,
+        "valid": 8773,
+        "invalid": 0,
+        "unknownTypes": 0
+      }
+    },
+    "metrics": {
+      "frames": {
+        "total": 8773,
+        "valid": 8773,
+        "invalid": 0,
+        "unknownTypes": 0
+      },
+      "latencyMs": {
+        "voteCastToAck": {
+          "n": 68,
+          "p50": 3.879,
+          "p95": 65.51,
+          "max": 70.806
+        },
+        "voteCastToTally": {
+          "n": 29,
+          "p50": 171.789,
+          "p95": 185.465,
+          "max": 186.755
+        },
+        "pollAnswerToAnswered": {
+          "n": 103,
+          "p50": 284.867,
+          "p95": 3543.62,
+          "max": 3742.104
+        },
+        "mgResultRelayed": {
+          "n": 70,
+          "p50": 0.828,
+          "p95": 7.735,
+          "max": 10.615
+        }
+      },
+      "messageRateHzMax": {
+        "c1:flight.hud": 0,
+        "c1:console.telemetry": 0,
+        "c1:vote.tally": 1,
+        "c1:pilot.hud": 0,
+        "c2:flight.hud": 0,
+        "c2:console.telemetry": 0,
+        "c2:vote.tally": 1,
+        "c2:pilot.hud": 0,
+        "c3:flight.hud": 0,
+        "c3:console.telemetry": 0,
+        "c3:vote.tally": 0,
+        "c3:pilot.hud": 0,
+        "c4:flight.hud": 0,
+        "c4:console.telemetry": 0,
+        "c4:vote.tally": 1,
+        "c4:pilot.hud": 0,
+        "c5:flight.hud": 0,
+        "c5:console.telemetry": 0,
+        "c5:vote.tally": 1,
+        "c5:pilot.hud": 0,
+        "c6:flight.hud": 0,
+        "c6:console.telemetry": 0,
+        "c6:vote.tally": 1,
+        "c6:pilot.hud": 0,
+        "c7:flight.hud": 0,
+        "c7:console.telemetry": 0,
+        "c7:vote.tally": 1,
+        "c7:pilot.hud": 0,
+        "c8:flight.hud": 0,
+        "c8:console.telemetry": 0,
+        "c8:vote.tally": 1,
+        "c8:pilot.hud": 0,
+        "c9:flight.hud": 0,
+        "c9:console.telemetry": 0,
+        "c9:vote.tally": 1,
+        "c9:pilot.hud": 0,
+        "c10:flight.hud": 0,
+        "c10:console.telemetry": 0,
+        "c10:vote.tally": 1,
+        "c10:pilot.hud": 0,
+        "c11:flight.hud": 0,
+        "c11:console.telemetry": 0,
+        "c11:vote.tally": 1,
+        "c11:pilot.hud": 0,
+        "c12:flight.hud": 0,
+        "c12:console.telemetry": 0,
+        "c12:vote.tally": 1,
+        "c12:pilot.hud": 0,
+        "c13:flight.hud": 0,
+        "c13:console.telemetry": 0,
+        "c13:vote.tally": 1,
+        "c13:pilot.hud": 0,
+        "c14:flight.hud": 0,
+        "c14:console.telemetry": 0,
+        "c14:vote.tally": 1,
+        "c14:pilot.hud": 0,
+        "c15:flight.hud": 0,
+        "c15:console.telemetry": 0,
+        "c15:vote.tally": 3,
+        "c15:pilot.hud": 0,
+        "c16:flight.hud": 0,
+        "c16:console.telemetry": 0,
+        "c16:vote.tally": 1,
+        "c16:pilot.hud": 0,
+        "c17:flight.hud": 5,
+        "c17:console.telemetry": 0,
+        "c17:vote.tally": 3,
+        "c17:pilot.hud": 0,
+        "c18:flight.hud": 5,
+        "c18:console.telemetry": 0,
+        "c18:vote.tally": 3,
+        "c18:pilot.hud": 0,
+        "c25:flight.hud": 5,
+        "c25:console.telemetry": 0,
+        "c25:vote.tally": 3,
+        "c25:pilot.hud": 0,
+        "c26:flight.hud": 5,
+        "c26:console.telemetry": 0,
+        "c26:vote.tally": 3,
+        "c26:pilot.hud": 0,
+        "c27:flight.hud": 5,
+        "c27:console.telemetry": 0,
+        "c27:vote.tally": 3,
+        "c27:pilot.hud": 0,
+        "c19:flight.hud": 5,
+        "c19:console.telemetry": 0,
+        "c19:vote.tally": 3,
+        "c19:pilot.hud": 0,
+        "c20:flight.hud": 5,
+        "c20:console.telemetry": 10,
+        "c20:vote.tally": 3,
+        "c20:pilot.hud": 0,
+        "c21:flight.hud": 5,
+        "c21:console.telemetry": 0,
+        "c21:vote.tally": 3,
+        "c21:pilot.hud": 0,
+        "c22:flight.hud": 5,
+        "c22:console.telemetry": 0,
+        "c22:vote.tally": 3,
+        "c22:pilot.hud": 0,
+        "c23:flight.hud": 5,
+        "c23:console.telemetry": 0,
+        "c23:vote.tally": 3,
+        "c23:pilot.hud": 0,
+        "c24:flight.hud": 5,
+        "c24:console.telemetry": 0,
+        "c24:vote.tally": 3,
+        "c24:pilot.hud": 0,
+        "c28:flight.hud": 5,
+        "c28:console.telemetry": 0,
+        "c28:vote.tally": 3,
+        "c28:pilot.hud": 0,
+        "c29:flight.hud": 0,
+        "c29:console.telemetry": 0,
+        "c29:vote.tally": 0,
+        "c29:pilot.hud": 0,
+        "c30:flight.hud": 5,
+        "c30:console.telemetry": 0,
+        "c30:vote.tally": 3,
+        "c30:pilot.hud": 0
+      },
+      "bytesPerSecond": {
+        "c1": 3743.44,
+        "c2": 1759.47,
+        "c3": 7913.15,
+        "c4": 1808.06,
+        "c5": 1872.91,
+        "c6": 1919.58,
+        "c7": 1367.18,
+        "c8": 1398.12,
+        "c9": 1414.02,
+        "c10": 1433.52,
+        "c11": 1440.67,
+        "c12": 1422.25,
+        "c13": 1332.8,
+        "c14": 1157.09,
+        "c15": 939.95,
+        "c16": 2559.81,
+        "c17": 520.23,
+        "c18": 404.54,
+        "c25": 416.9,
+        "c26": 369.59,
+        "c27": 404.83,
+        "c19": 499.52,
+        "c20": 422.9,
+        "c21": 428.72,
+        "c22": 416.82,
+        "c23": 346.74,
+        "c24": 346.18,
+        "c28": 381.75,
+        "c29": 8697,
+        "c30": 264.42
+      },
+      "errors": {
+        "protocolErrorFrames": {},
+        "schemaViolations": [],
+        "unknownTypes": [],
+        "seqGaps": []
+      }
+    }
+  }
+]

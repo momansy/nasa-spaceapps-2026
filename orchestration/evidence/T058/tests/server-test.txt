@@ -1,0 +1,32 @@
+
+> missionforge-server@0.1.0 test
+> vitest run
+
+
+ RUN  v2.1.9 <repo>/server
+
+ ✓ src/rooms/identity.test.ts (35 tests) 47ms
+ ✓ src/votes/resolve.test.ts (34 tests) 34ms
+ ✓ src/limits/messageLimits.test.ts (17 tests) 24ms
+ ✓ src/roles/roles.test.ts (18 tests) 37ms
+ ✓ src/rooms/validation.test.ts (13 tests) 52ms
+ ✓ src/rooms/room.test.ts (13 tests) 54ms
+ ✓ src/rooms/runtime.test.ts (16 tests) 108ms
+ ✓ src/votes/rules.test.ts (25 tests) 33ms
+ ✓ src/timers/reconnect.test.ts (10 tests) 22ms
+ ✓ src/limits/tokenBucket.test.ts (9 tests) 17ms
+ ✓ src/rooms/lifecycle.test.ts (9 tests) 44ms
+ ✓ src/timers/pause.test.ts (13 tests) 23ms
+ ✓ src/rooms/roomCode.test.ts (13 tests) 26ms
+ ✓ src/hosting/staticSite.test.ts (7 tests) 431ms
+ ✓ src/timers/clock.test.ts (7 tests) 15ms
+ ✓ src/wire/dispatch.test.ts (3 tests) 28ms
+ ✓ src/wire/validate.test.ts (5 tests) 494ms
+   ✓ PayloadValidator > accepts every example of every schema (relaxation never rejects valid payloads) 476ms
+
+ Test Files  17 passed (17)
+      Tests  247 passed (247)
+   Start at  13:24:10
+   Duration  9.59s (transform 3.86s, setup 0ms, collect 9.10s, tests 1.49s, environment 23ms, prepare 15.89s)
+
+exit=0

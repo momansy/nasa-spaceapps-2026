@@ -1,0 +1,334 @@
+
+ RUN  v3.2.7 <repo>/client
+
+ ✓ src/state/reducer.test.ts (14 tests) 28ms
+ ✓ src/minigames/MG-08/model.test.ts (26 tests) 116ms
+ ✓ src/minigames/MG-24/model.test.ts (37 tests) 249ms
+ ✓ src/minigames/MG-28/model.test.ts (36 tests) 409ms
+ ✓ src/minigames/MG-27/model.test.ts (26 tests) 920ms
+ ✓ src/minigames/MG-22/model.test.ts (26 tests) 1243ms
+   ✓ MG-22 modes and difficulty > a sloppy player does better in Relaxed than in STANDARD, and better at CADET than at FLIGHT_DIRECTOR  857ms
+ ✓ src/viewer/threeScene.test.ts (11 tests) 138ms
+ ✓ src/minigames/MG-07/model.test.ts (24 tests) 123ms
+ ✓ src/minigames/MG-26/model.test.ts (34 tests) 230ms
+ ✓ src/minigames/MG-25/model.test.ts (31 tests) 291ms
+ ✓ src/screens/pilot/state.test.ts (63 tests) 42ms
+ ✓ src/minigames/MG-14/model.test.ts (26 tests) 171ms
+ ✓ src/minigames/MG-10a/model.test.ts (24 tests) 81ms
+ ✓ src/minigames/MG-04/model.test.ts (14 tests) 174ms
+ ✓ src/minigames/MG-15/model.test.ts (24 tests) 832ms
+ ✓ src/net/mock.test.ts (5 tests) 2662ms
+   ✓ mock session > plays lobby → votes → poll → flight → minigame → debrief with valid frames  1920ms
+   ✓ mock session > relays cooperative moves: env.coop send → mg.action, host mg.state → onState  706ms
+ ✓ src/minigames/MG-23/model.test.ts (22 tests) 466ms
+ ✓ src/minigames/MG-05/model.test.ts (16 tests) 675ms
+   ✓ MG-05 runs > a scripted good player succeeds on 24 seeds in every mode and difficulty  532ms
+ ✓ src/minigames/MG-21/model.test.ts (33 tests) 1281ms
+   ✓ MG-21 scene > radar: no city lights and no clouds in the way  675ms
+ ✓ src/minigames/MG-02/model.test.ts (16 tests) 371ms
+ ✓ src/minigames/MG-08b/model.test.ts (24 tests) 528ms
+ ✓ src/screens/pilot/mockSeats.test.ts (10 tests) 5274ms
+   ✓ mock seats > pilot seat: throttle, STAGE, ABORT reach the host and come back in pilot.hud; frames are valid  1421ms
+   ✓ mock seats > booster seat flies the booster craft  916ms
+   ✓ mock seats > co-pilot seat: STAGE and every DEPLOY target send copilot.action; pilot input is not available  1160ms
+   ✓ mock seats > watcher: joins as spectator, sees audience windows and the audience bar data, reactions are limited to 1/s  987ms
+   ✓ mock seats > profile: changes nickname and avatar in the lobby, shows the server errors, refuses later  520ms
+ ✓ src/minigames/MG-09/model.test.ts (24 tests) 4368ms
+   ✓ MG-09 modes and difficulty > makes Relaxed easier: larger allowed deviation, slower scroll, smaller corrections  581ms
+   ✓ MG-09 modes and difficulty > scales with difficulty: Cadet sees further ahead, Flight Director less, with larger corrections  1029ms
+ ✓ src/minigames/MG-13/model.test.ts (21 tests) 500ms
+ ✓ src/minigames/MG-06/model.test.ts (16 tests) 1398ms
+   ✓ MG-06 runs > a scripted good player succeeds on 24 seeds in every mode and difficulty  1176ms
+ ✓ src/minigames/MG-18/model.test.ts (22 tests) 617ms
+ ✓ src/minigames/MG-03/model.test.ts (15 tests) 314ms
+ ✓ src/minigames/MG-01/model.test.ts (15 tests) 373ms
+ ✓ src/minigames/MG-29/model.test.ts (14 tests) 88ms
+ ✓ src/minigames/MG-30/model.test.ts (13 tests) 232ms
+ ✓ src/minigames/MG-11/model.test.ts (23 tests) 106ms
+ ✓ src/minigames/MG-17/model.test.ts (21 tests) 165ms
+ ✓ src/minigames/MG-10/model.test.ts (22 tests) 1303ms
+ ✓ src/minigames/MG-12/model.test.ts (22 tests) 838ms
+ ✓ src/minigames/MG-19/model.test.ts (22 tests) 327ms
+ ✓ src/minigames/MG-20/model.test.ts (30 tests) 131ms
+ ✓ src/screens/pilot/inputSampler.test.ts (9 tests) 81ms
+ ✓ src/minigames/MG-16/model.test.ts (20 tests) 307ms
+ ✓ src/screens/pilot/holdGesture.test.ts (7 tests) 16ms
+ ✓ src/i18n/strings.test.ts (9 tests) 145ms
+ ✓ src/screens/spectator/audience.test.ts (6 tests) 15ms
+ ❯ src/i18n/parity.test.ts (31 tests | 5 failed) 165ms
+   × ar strings in <repo>\data\strings > has an ar.* key for every en.* key and no extras 53ms
+     → expected { missing: [ …(197) ], extra: [] } to deeply equal { missing: [], extra: [] }
+   ✓ ar strings in <repo>\data\strings > keeps the placeholders of the English text 12ms
+   ✓ ar strings in <repo>\data\strings > has no empty text and keeps Western digits 4ms
+   × es strings in <repo>\data\strings > has an ar.* key for every en.* key and no extras 8ms
+     → expected { missing: [ …(197) ], extra: [] } to deeply equal { missing: [], extra: [] }
+   ✓ es strings in <repo>\data\strings > keeps the placeholders of the English text 3ms
+   ✓ es strings in <repo>\data\strings > has no empty text and keeps Western digits 3ms
+   × fr strings in <repo>\data\strings > has an ar.* key for every en.* key and no extras 7ms
+     → expected { missing: [ …(197) ], extra: [] } to deeply equal { missing: [], extra: [] }
+   ✓ fr strings in <repo>\data\strings > keeps the placeholders of the English text 3ms
+   ✓ fr strings in <repo>\data\strings > has no empty text and keeps Western digits 2ms
+   × pt strings in <repo>\data\strings > has an ar.* key for every en.* key and no extras 10ms
+     → expected { missing: [ …(197) ], extra: [] } to deeply equal { missing: [], extra: [] }
+   ✓ pt strings in <repo>\data\strings > keeps the placeholders of the English text 2ms
+   ✓ pt strings in <repo>\data\strings > has no empty text and keeps Western digits 2ms
+   × hi strings in <repo>\data\strings > has an ar.* key for every en.* key and no extras 5ms
+     → expected { missing: [ …(197) ], extra: [] } to deeply equal { missing: [], extra: [] }
+   ✓ hi strings in <repo>\data\strings > keeps the placeholders of the English text 2ms
+   ✓ hi strings in <repo>\data\strings > has no empty text and keeps Western digits 2ms
+   ✓ ar strings in <repo>\client\src\i18n\strings > has an ar.* key for every en.* key and no extras 2ms
+   ✓ ar strings in <repo>\client\src\i18n\strings > keeps the placeholders of the English text 3ms
+   ✓ ar strings in <repo>\client\src\i18n\strings > has no empty text and keeps Western digits 3ms
+   ✓ es strings in <repo>\client\src\i18n\strings > has an ar.* key for every en.* key and no extras 2ms
+   ✓ es strings in <repo>\client\src\i18n\strings > keeps the placeholders of the English text 3ms
+   ✓ es strings in <repo>\client\src\i18n\strings > has no empty text and keeps Western digits 3ms
+   ✓ fr strings in <repo>\client\src\i18n\strings > has an ar.* key for every en.* key and no extras 2ms
+   ✓ fr strings in <repo>\client\src\i18n\strings > keeps the placeholders of the English text 3ms
+   ✓ fr strings in <repo>\client\src\i18n\strings > has no empty text and keeps Western digits 3ms
+   ✓ pt strings in <repo>\client\src\i18n\strings > has an ar.* key for every en.* key and no extras 2ms
+   ✓ pt strings in <repo>\client\src\i18n\strings > keeps the placeholders of the English text 2ms
+   ✓ pt strings in <repo>\client\src\i18n\strings > has no empty text and keeps Western digits 3ms
+   ✓ hi strings in <repo>\client\src\i18n\strings > has an ar.* key for every en.* key and no extras 2ms
+   ✓ hi strings in <repo>\client\src\i18n\strings > keeps the placeholders of the English text 2ms
+   ✓ hi strings in <repo>\client\src\i18n\strings > has no empty text and keeps Western digits 2ms
+   ✓ bidi isolation of substituted values > wraps values only for right-to-left languages 3ms
+ ✓ src/data/statbars.test.ts (10 tests) 93ms
+ ✓ src/minigames/MG-09/shared/kit.test.ts (3 tests) 13ms
+ ✓ src/net/serverOverride.test.ts (2 tests) 10ms
+ ✓ src/minigames/slots.test.ts (3 tests) 9ms
+ ✓ src/ui/NameText.test.tsx (2 tests) 16ms
+ ✓ src/screens/pilot/controlsData.test.ts (3 tests) 9ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/i18n/parity.test.ts > ar strings in <repo>\data\strings > has an ar.* key for every en.* key and no extras
+ FAIL  src/i18n/parity.test.ts > es strings in <repo>\data\strings > has an ar.* key for every en.* key and no extras
+ FAIL  src/i18n/parity.test.ts > fr strings in <repo>\data\strings > has an ar.* key for every en.* key and no extras
+ FAIL  src/i18n/parity.test.ts > pt strings in <repo>\data\strings > has an ar.* key for every en.* key and no extras
+ FAIL  src/i18n/parity.test.ts > hi strings in <repo>\data\strings > has an ar.* key for every en.* key and no extras
+AssertionError: expected { missing: [ …(197) ], extra: [] } to deeply equal { missing: [], extra: [] }
+
+- Expected
++ Received
+
+  {
+    "extra": [],
+-   "missing": [],
++   "missing": [
++     "ui.host.briefing.lifecycle",
++     "ui.host.briefing.rehearsal",
++     "ui.host.briefing.option_of",
++     "ui.host.briefing.inspired_by",
++     "ui.host.briefing.fact.dv",
++     "ui.host.briefing.fact.budget",
++     "ui.host.briefing.fact.schedule",
++     "ui.host.briefing.game_scaled",
++     "ui.host.briefing.objectives",
++     "ui.host.briefing.objective.primary",
++     "ui.host.briefing.objective.secondary",
++     "ui.host.briefing.objective.stretch",
++     "ui.host.briefing.objective.safety",
++     "ui.host.briefing.constraints",
++     "ui.host.briefing.constraint.inclination",
++     "ui.host.briefing.constraint.diameter",
++     "ui.host.briefing.constraint.crewed",
++     "ui.host.briefing.constraint.heat_shield",
++     "ui.host.briefing.constraint.heat_shield_speed",
++     "ui.host.briefing.constraint.restarts",
++     "ui.host.briefing.constraint.long_coast",
++     "ui.host.briefing.constraint.booster_landing",
++     "ui.host.briefing.constraint.window",
++     "ui.host.briefing.skip",
++     "ui.host.briefing.skip_hint",
++     "ui.host.briefing.difficulty.1",
++     "ui.host.briefing.difficulty.2",
++     "ui.host.briefing.difficulty.3",
++     "ui.host.briefing.orbit_label",
++     "ui.host.briefing.orbit_note",
++     "ui.host.capcom.name",
++     "ui.host.capcom.briefing.C1.1",
++     "ui.host.capcom.briefing.C1.2",
++     "ui.host.capcom.briefing.C1.3",
++     "ui.host.capcom.briefing.C1.4",
++     "ui.host.capcom.briefing.C1.5",
++     "ui.host.capcom.briefing.C1.6",
++     "ui.host.capcom.briefing.C1.7",
++     "ui.host.capcom.template.1",
++     "ui.host.capcom.template.2",
++     "ui.host.capcom.template.3",
++     "ui.host.capcom.template.4",
++     "ui.host.capcom.template.5",
++     "ui.host.capcom.offer.1",
++     "ui.host.capcom.offer.2",
++     "ui.host.contract.title",
++     "ui.host.contract.why",
++     "ui.host.contract.stage.reveal",
++     "ui.host.contract.stage.inspect",
++     "ui.host.contract.stage.vote",
++     "ui.host.contract.stage.runoff",
++     "ui.host.contract.stage.tiebreak",
++     "ui.host.contract.stage.result",
++     "ui.host.contract.stage.closed",
++     "ui.host.contract.lifecycle",
++     "ui.host.contract.awarded",
++     "ui.host.contract.awarded_by",
++     "ui.host.contract.locked",
++     "ui.host.contract.solo_pick",
++     "ui.host.contract.choose",
++     "ui.host.contract.to_build",
++     "ui.host.contract.rehearsal",
++     "ui.host.test.vote.title",
++     "ui.host.review.vote.title",
++     "ui.host.review.rework.title",
++     "ui.host.review.rework.why",
++     "ui.host.review.severity.blocker",
++     "ui.host.review.severity.major",
++     "ui.host.review.severity.minor",
++     "ui.host.review.pass_blocked",
++     "ui.host.review.rework.cost",
++     "ui.host.review.option.pass",
++     "ui.host.review.option.rework",
++     "ui.host.test.option.test",
++     "ui.host.test.option.skip",
++     "ui.host.frr.lifecycle",
++     "ui.host.frr.title",
++     "ui.host.frr.subtitle",
++     "ui.host.frr.rehearsal",
++     "ui.host.frr.summary",
++     "ui.host.frr.kpi.dv",
++     "ui.host.frr.kpi.success",
++     "ui.host.frr.kpi.budget",
++     "ui.host.frr.kpi.left",
++     "ui.host.frr.kpi.schedule",
++     "ui.host.frr.kpi.slips",
++     "ui.host.frr.kpi.on_time",
++     "ui.host.frr.no_issues",
++     "ui.host.frr.state.waiting",
++     "ui.host.frr.state.called",
++     "ui.host.frr.state.go",
++     "ui.host.frr.state.nogo",
++     "ui.host.frr.state.noanswer",
++     "ui.host.frr.callout",
++     "ui.host.frr.item.BOOSTER",
++     "ui.host.frr.item.BOOSTER.none",
++     "ui.host.frr.item.STRUCT",
++     "ui.host.frr.item.STRUCT.none",
++     "ui.host.frr.item.GUIDO",
++     "ui.host.frr.item.FIDO",
++     "ui.host.frr.item.EECOM",
++     "ui.host.frr.item.EECOM.none",
++     "ui.host.frr.item.INCO",
++     "ui.host.frr.item.INCO.none",
++     "ui.host.frr.item.PAYLOAD",
++     "ui.host.frr.item.RETRO",
++     "ui.host.frr.item.PM",
++     "ui.host.frr.item.FLIGHT",
++     "ui.host.frr.go.title",
++     "ui.host.frr.go.body",
++     "ui.host.frr.discuss.title",
++     "ui.host.frr.discuss.body",
++     "ui.host.frr.discuss.repoll_in",
++     "ui.host.frr.rework_required.title",
++     "ui.host.frr.rework_required.body",
++     "ui.host.frr.pass_detail",
++     "ui.host.frr.rework_detail",
++     "ui.host.contract.stage.predict",
++     "ui.host.contract.stage.tiebreak_trivia",
++     "ui.host.contract.stage.tiebreak_pick",
++     "ui.host.review.lifecycle.pdr",
++     "ui.host.review.lifecycle.cdr",
++     "ui.host.review.title.pdr",
++     "ui.host.review.title.cdr",
++     "ui.host.review.subtitle.pdr",
++     "ui.host.review.subtitle.cdr",
++     "ui.host.review.rehearsal",
++     "ui.host.review.checklist",
++     "ui.host.review.check.pass",
++     "ui.host.review.findings",
++     "ui.host.review.fixable_later",
++     "ui.host.review.clean",
++     "ui.host.review.pass_detail",
++     "ui.host.review.rework_detail",
++     "ui.host.review.outcome.pass",
++     "ui.host.review.outcome.rework",
++     "ui.host.review.outcome.reopened",
++     "ui.host.review.rule.rev_over_budget",
++     "ui.host.review.rule.rev_schedule_slip",
++     "ui.host.review.rule.rev_low_success",
++     "ui.host.review.rule.rev_open_flaw",
++     "ui.host.review.rule.rev_incomplete",
++     "ui.host.review.rule.part_requirement",
++     "ui.host.review.rule.part_incompatible",
++     "review.rev_over_budget",
++     "review.rev_schedule_slip",
++     "review.rev_low_success",
++     "review.rev_open_flaw",
++     "review.rev_incomplete",
++     "ui.host.test.lifecycle",
++     "ui.host.test.basis",
++     "ui.host.test.rehearsal",
++     "ui.host.test.cell",
++     "ui.host.test.whole_vehicle",
++     "ui.host.test.step.setup",
++     "ui.host.test.step.run",
++     "ui.host.test.step.data",
++     "ui.host.test.run_detail",
++     "ui.host.test.skip_detail",
++     "ui.host.test.results",
++     "ui.host.test.cost",
++     "ui.host.test.days",
++     "ui.host.test.reliability",
++     "ui.host.test.risks",
++     "ui.host.test.band",
++     "ui.host.test.before",
++     "ui.host.test.after",
++     "ui.host.test.band_range",
++     "ui.host.test.no_flaw",
++     "ui.host.test.flaw",
++     "ui.host.test.reveal_chance",
++     "ui.host.test.response.fix",
++     "ui.host.test.response.fix_cost",
++     "ui.host.test.response.fly_as_is",
++     "ui.host.test.response.swap_part",
++     "ui.host.test.responded.fix",
++     "ui.host.test.responded.fly_as_is",
++     "ui.host.test.responded.swap_part",
++     "ui.host.test.risk.combustion_instability",
++     "ui.host.test.risk.cryogenic_leak",
++     "ui.host.test.risk.engine_shutdown",
++     "ui.host.test.risk.heat_shield_burn_through",
++     "ui.host.test.risk.parachute_failure",
++     "ui.host.test.risk.pogo_oscillation",
++     "ui.host.test.risk.software_overflow",
++     "ui.host.test.band_axis",
++     "ui.host.frr.rework_required.finish_body",
++     "ui.host.review.rule.liftoff_twr_too_low",
++     "ui.host.review.rule.delta_v_below_requirement",
++     "ui.host.review.rule.crewed_without_launch_escape",
++     "ui.host.review.rule.returning_payload_without_heat_shield",
++     "ui.host.review.rule.heat_shield_rating_below_entry_speed",
++     "ui.host.review.rule.payload_does_not_fit_fairing",
++     "ui.host.review.rule.power_negative_in_eclipse",
++     "ui.host.review.rule.upper_stage_restarts_below_required_burns",
++     "ui.host.review.rule.hydrolox_upper_long_coast_without_boiloff_mitigation",
++     "ui.host.review.rule.data_generated_exceeds_downlink",
++   ],
+  }
+
+ ❯ src/i18n/parity.test.ts:30:32
+     28|     const missing = Object.keys(en.table).filter((k) => !(k in ar.tabl…
+     29|     const extra = Object.keys(ar.table).filter((k) => !(k in en.table)…
+     30|     expect({ missing, extra }).toEqual({ missing: [], extra: [] });
+       |                                ^
+     31|     expect(ar.duplicates).toEqual([]);
+     32|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/5]⎯
+
+
+ Test Files  1 failed | 47 passed (48)
+      Tests  5 failed | 922 passed (927)
+   Start at  13:24:27
+   Duration  16.19s (transform 8.84s, setup 0ms, collect 18.44s, tests 27.94s, environment 36ms, prepare 25.59s)
+
+exit=1

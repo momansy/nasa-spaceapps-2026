@@ -10,7 +10,7 @@ This folder holds what shows they were checked. Date: 2026-11-15. Machine: Windo
   (captions, table tags and the diagram labels); footers (page number, source line) are 24 px and are not counted as body text. Text inside the
   embedded screenshots is small because the screenshots are real captures; the words on the slide carry the message.
 - The PDF has 12 pages at 1920x1080 (1440x810 pt), 2.3 MB.
-- `qr-decoded.txt`: the QR on slide 12 decoded with jsQR to `https://missionforge-spaceapps.onrender.com/play/`.
+- `qr-decoded.txt`: the QR on slide 7 decoded with jsQR to `https://missionforge-spaceapps.onrender.com/play/`.
 - `host-lobby-qr-decoded.txt`: the QR on the real host lobby (live capture) decodes to `https://missionforge-spaceapps.onrender.com/play/client/?room=<CODE>`.
 
 ## Rehearsal against the live site (step 6)

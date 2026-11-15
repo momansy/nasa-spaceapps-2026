@@ -7,7 +7,10 @@ Researched on 15 Nov 2026. **Status (T046 check, 2026-11-15): deployed.** The se
 the Unity `.wasm.unityweb` and `.js.unityweb` files came with `content-encoding: gzip` when the request sent `Accept-Encoding: gzip`.
 The section 3 WebSocket handshake (`hello` then `hello.ok` over `wss://.../ws`) also worked.
 **Not verified:** a full play test through the public URL (host a mission, phones join, votes; section 3, "Play test") was not run by that check; the hosted
-Unity host is the build committed in `docs/play/host/`, which predates the flight view and the end screens (`submission/PROJECT_DESCRIPTION.md` section 8).
+Unity host is the build committed in `docs/play/host/`, which predates the pre-flight screens, the flight view and the end screens (`submission/PROJECT_DESCRIPTION.md` section 8).
+The hosted smoke test T048 (merged, run on a local copy of this service, `orchestration/evidence/T048/RESULTS.md`) passed the judge path to the lobby with three phones
+and a full C1 session with a scripted host; its open defects D-110 and D-111 are about what phones and host show after a server restart (section 4).
+T058's check of the public URL: `orchestration/evidence/T058/live/LIVE_CHECK.md`.
 Section 2 below is the record of the human steps that were needed.
 
 ## 1. What was chosen and why
@@ -44,7 +47,7 @@ restarted by Render at any time; public traffic arrives on `PORT` (default 10000
 
 ## 2. Human steps (done once; kept for a redeploy or a second copy)
 
-**Who:** the repository is **private** and owned by `momansy`, so Render can only read it once the Render
+**Who:** the repository was **private** at the time (it is public now) and is owned by `momansy`, so Render can only read it once the Render
 GitHub App is installed on that account. That needs the **owner, `momansy`** (a collaborator with write
 access cannot do it). No credit card, no API key.
 
@@ -118,7 +121,8 @@ Play test:
   for the room server (`server/README.md`); static files are streamed from disk.
 - Each judge's laptop downloads the Unity host (about 46 MB on disk, Gzip) and each phone the client
   (about 36 MB including 3D models, fetched as needed). Watch the bandwidth meter on Render's billing page.
-- If Render restarts the service, all rooms are lost (memory only, by design): press **New mission** again.
+- If Render restarts the service, all rooms are lost (memory only, by design): press **New mission** again, and have the phones reload and rejoin
+  with the new code (they keep showing "Reconnecting…" otherwise, and the host footer stays on "reconnecting" until New mission is pressed: T048 defects D-110, D-111).
 
 ## 5. Fallback: this laptop + a Cloudflare quick tunnel (no account)
 

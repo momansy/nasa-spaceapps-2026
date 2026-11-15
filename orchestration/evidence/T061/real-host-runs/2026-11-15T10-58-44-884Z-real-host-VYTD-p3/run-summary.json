@@ -1,0 +1,83 @@
+{
+  "runId": "2026-11-15T10-58-44-884Z-real-host-VYTD-p3",
+  "room": "VYTD",
+  "phones": 3,
+  "server": "ws://localhost:10000/ws",
+  "phonePage": "http://localhost:10000/play/client",
+  "verdict": "stalled",
+  "reason": "no session progress for 121 s; last progress frame phase.set",
+  "stoppedAt": {
+    "phase": "CONTRACT_VOTE",
+    "sinceSec": 124,
+    "phoneScreens": {
+      "1": "screen-build",
+      "2": "screen-build",
+      "3": "screen-build"
+    }
+  },
+  "durationSec": 336.8,
+  "phasesSeen": [
+    {
+      "signature": "LOBBY",
+      "missionSeq": 0,
+      "step": null,
+      "firstSeenAt": "2026-11-15T10:59:13.034Z",
+      "tSec": 28.1,
+      "phones": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "signature": "BRIEFING",
+      "missionSeq": 1,
+      "step": null,
+      "firstSeenAt": "2026-11-15T11:00:58.662Z",
+      "tSec": 133.8,
+      "phones": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "signature": "CONTRACT_VOTE",
+      "missionSeq": 1,
+      "step": null,
+      "firstSeenAt": "2026-11-15T11:02:17.669Z",
+      "tSec": 212.8,
+      "phones": [
+        1,
+        2,
+        3
+      ]
+    }
+  ],
+  "answered": {
+    "votes": 0,
+    "polls": 0,
+    "minigames": 0,
+    "trivia": 0,
+    "predictions": 0,
+    "picks": 0
+  },
+  "frameTypeCounts": {
+    "hello.ok": 3,
+    "room.state": 9,
+    "roles.state": 12,
+    "room.joined": 3,
+    "settings.state": 3,
+    "snapshot.end": 3,
+    "clock.pong": 207,
+    "phase.set": 9
+  },
+  "protocolFrames": {
+    "total": 462,
+    "valid": 462,
+    "invalid": 0,
+    "unknownTypes": 0
+  },
+  "failures": [],
+  "note": "The harness only answers; it never sends a host message or drives a phase. Phone input is generic and not tuned to win."
+}

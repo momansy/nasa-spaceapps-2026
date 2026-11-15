@@ -41,7 +41,9 @@ different valid architectures and no one build that dominates every contract.
 ### 6. Has anyone actually played it?
 **Short answer:** Not a full session with six humans yet. The phone client has been driven by scripted players through full
 sessions, and the lobby and phone join were checked on the hosted site. A human playtest is the first item on our "next" list.
-**If they push:** The 35-minute session length is an estimate from the timers, not a measurement.
+**If they push:** A session is planned at 25 to 40 minutes; that is a design estimate, not a measured playtest. A scripted
+host with 6 phones and 5 spectators has played a full C1 session to the debrief (T048), but the real big-screen host has not
+yet been played to the debrief.
 
 ### 7. Can it be used in a classroom?
 **Short answer:** That is the target audience (ages 12 to 18, classrooms, clubs). One teacher screen and phones, no app,
@@ -51,9 +53,11 @@ with an educator".
 
 ### 8. How many players, and how long is a session?
 **Short answer:** 1 to 10 players, with 10 mission-control roles that merge when fewer people play, plus any number of
-spectators who see an "Audience says" bar. A full C1 session is about 35 minutes with the shortest timers; a 20-minute
-slot plays the first votes live.
-**If they push:** Making the audience count as one vote is in the protocol but the host lobby has no control for it yet.
+spectators who see an "Audience says" bar. A session is planned at 25 to 40 minutes (a design estimate, not a measured
+playtest); C1's 22 part votes take about 17 minutes at the lobby's default timers (46 s a round) or about 8 minutes at the
+shortest timers on main (21 s; the hosted lobby's shortest is 20 s, so 46 s a round). A 20-minute slot plays the first votes live.
+**If they push:** Making the audience count as one vote is in the protocol and is a lobby setting in the host on main, but the
+hosted build does not have that control yet.
 
 ### 9. Does it scale?
 **Short answer:** Not to a classroom district, and we do not claim it. Rooms live in memory on one free Render instance
@@ -79,9 +83,12 @@ video with Google Gemini. Humans chose the concept and the architecture, assigne
 are not a playtest. The 40 facts were checked against sources by a separate task, with an independent re-check of 10.
 
 ### 13. What is not built yet?
-**Short answer:** The big-screen host has a working title, lobby, briefing frame and Build Bay. The big-screen test stand,
-reviews, flight view, orbit map and debrief are **planned**; flight and debrief run on the phones. Frame rate has not been
-measured on a typical GPU laptop. Only contract C1 is rehearsed end to end.
+**Short answer:** The hosted big screen is an older build: title and lobby work, a live room stops at its placeholder
+briefing, and votes, flight and debrief run on the phones there. On the main branch the Unity host has 15 of its 16 screens, from briefing, contract vote, test stand and
+design reviews to flight, orbit map and debrief (only the minigame overlay has no screen of its own), but that is **not yet
+in the hosted build**, the Build Bay does not yet chain into the test stand and reviews or hand its build to the Flight
+Readiness Review (a live room on main stops there), and the real host has not been played
+to the debrief. Frame rate has not been measured on a typical GPU laptop. Only contract C1 is rehearsed end to end.
 **If they push:** The honest list is `submission/PROJECT_DESCRIPTION.md` section 8.
 
 ### 14. Do you handle real tragedies, like Challenger?
@@ -102,6 +109,6 @@ gone when the server restarts. A player enters a nickname and nothing else.
 
 - Do not say "NASA-validated" or "GMAT-checked". Neither is true.
 - Do not say "tested with six players" or "playtested".
-- Do not say the audience "votes" as a ballot: it is advisory today.
+- Do not say the audience "votes" as a ballot: it is advisory in the hosted game today.
 - Do not call game-dollars real money.
-- Do not say the whole session runs on the big screen. Flight and debrief are on the phones today.
+- Do not say the whole session runs on the hosted big screen. Flight and debrief are on the phones there today.

@@ -3,7 +3,7 @@
 Deadline: **15 Nov 2026, 23:59 in the team's event local time** (`docs/index.html` section 12, `RELEASE.md`).
 Check the live form and the official rules before relying on anything below.
 
-## 0. Status on 2026-11-15 (T046 refresh): what is done and what only the owner can do
+## 0. Status on 2026-11-15 (T046 refresh, re-checked by T058 at `main` `001652e`): what is done and what only the owner can do
 
 Done (checked on this date):
 
@@ -11,8 +11,10 @@ Done (checked on this date):
   GitHub's licence badge shows "Other" because the file's first lines are customised; the text is the standard MIT licence. Still do the
   secrets grep from `RELEASE.md` section 4 before pressing Submit.
 - **Hosting is prepared and live.** `https://missionforge-spaceapps.onrender.com/healthz` returned HTTP 200, and `/play/`, `/play/host/`,
-  `/play/client/`, `/play/judges.html` and `/play/credits.html` returned 200 (`HOSTING.md`). **A full hosted session with a laptop and phones has
-  not been run** (T048 not merged at the time of writing), so test it once yourself (`HOSTING.md` section 3) and wake the instance before judges look.
+  `/play/client/`, `/play/judges.html` and `/play/credits.html` returned 200 (`HOSTING.md`). The hosted smoke test (T048, merged) passed on a local copy
+  of the service (judge path to the lobby with three phones; a full C1 session with a scripted host); T058's check of the public URL is in
+  `orchestration/evidence/T058/live/LIVE_CHECK.md`. **A full session with the real Unity host, a laptop and real phones over the public URL has not been run**,
+  so test it once yourself (`HOSTING.md` section 3) and wake the instance before judges look.
 - **Two demo videos exist** in `submission/video/` (2:00 and 0:30, English and Arabic subtitles) and a cover image in `submission/media/`.
   They still have to be uploaded and linked by hand (section 4).
 
@@ -20,16 +22,17 @@ Still open, owner or team only:
 
 1. **Netlify**: `https://nasasc.netlify.app/play/` still returned HTTP 404 on this date. Do not put it on the form; use the Render URL, or redeploy Netlify and re-check
    with `curl -sI` if you want it (`RELEASE.md` 3.1).
-2. **The committed WebGL host is older than the flight view and the end screens.** The hosted big screen shows Title, Lobby and the earlier Build Bay; the Countdown, Flight,
-   Orbit Map (T016), Debrief, Campaign Hub, Codex, Settings (T024) and the lobby judging-day controls (T035) are in the Unity source on `main` but need a Unity rebuild of
-   `docs/play/host/` by the lock holder (`PROJECT_DESCRIPTION.md` section 8). The description text already says so; keep it unless the build is refreshed.
+2. **The committed WebGL host is older than the pre-flight, flight and end screens.** The hosted big screen has Title, Lobby and the earlier Build Bay, and a live room stops at its placeholder briefing; the Briefing,
+   Contract Vote, Test Stand, Design Review, Flight Readiness Review (T027), Countdown, Flight, Orbit Map (T016), Debrief, Campaign Hub, Codex, Settings (T024) and the
+   lobby judging-day controls (T035) are in the Unity source on `main` but need a Unity rebuild of `docs/play/host/` by the lock holder (task T055;
+   `PROJECT_DESCRIPTION.md` section 8). The description text already says so; keep it unless the build is refreshed.
    A rebuild changes `docs/play/`, so Render redeploys and drops open rooms: do it when nobody is playing, then re-run the smoke test.
 3. **Upload the demo video**, set it viewable by judges, and paste the link.
 4. **Team members and team name** on the form (the repository does not list members).
-5. Pull requests that were still open when this was written (T050 phone viewer fix, T048 hosted smoke test; T024 and T035 are merged): if they merge before you
-   submit, re-read `PROJECT_DESCRIPTION.md` sections 2 and 8 and `JUDGES.md` "Known limitations" and update the sentences that name them.
-6. **Translations of the new host end-screen strings** (`data/strings/en.host_end.json`, T024) are missing in the five other languages, so `node tools/validate-data.mjs --strict` and
-   5 phone-client parity tests fail on `main` (fix queued as issue #206). Do not claim the strict validation passes until that merges.
+5. Work that was not merged when this was checked (T055 WebGL host rebuild, T057 pre-flight translations; T024, T027, T035, T048, T050 and issue #206 are merged): if
+   they merge before you submit, re-read `PROJECT_DESCRIPTION.md` sections 2, 5 and 8, `JUDGES.md` "Known limitations" and `GUIDE.md` section 12 and update the sentences that name them.
+6. **Translations of the new pre-flight host strings** (`data/strings/en.host_preflight.json`, T027) are missing in the five other languages, so `node tools/validate-data.mjs --strict`
+   (985 errors) and 5 phone-client parity tests fail on `main` (fix queued as task T057; the end-screen strings of issue #206 are translated). Do not claim the strict validation passes until T057 merges.
 
 ## 1. The form: field by field
 
@@ -102,5 +105,5 @@ Recommended: **B** as the live link with the video (**C**) next to it, and the l
 - [ ] Music or voice used in the video added to `AI_DISCLOSURE.md` and `NASA_RESOURCES.md` if it needs a credit
 - [ ] Form field list compared with the live form (this file's section 1 is a guess)
 - [ ] Known limits (`PROJECT_DESCRIPTION.md` section 8) left in the text: do not remove the statements about the host screens that are not built, or about the WebGL build being older than the flight view
-- [ ] Final read of the pasted text for anything not true on the day (hosted URL status, repository visibility, whether T048 and T050 have merged)
+- [ ] Final read of the pasted text for anything not true on the day (hosted URL status, repository visibility, whether T055 and T057 have merged)
 - [ ] Submitted before 23:59 local; screenshot of the confirmation saved
