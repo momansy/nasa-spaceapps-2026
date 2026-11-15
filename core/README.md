@@ -54,7 +54,13 @@ their own asmdef. Because the asmdef sets `noEngineReferences`, any use of `Unit
 
 ## How to run the tests
 
-Needs the .NET 8 SDK (`dotnet --version`).
+Needs the **.NET 8 SDK** (`dotnet --version` should print 8.0.x; get it from <https://dotnet.microsoft.com/download/dotnet/8.0>).
+The test project targets `net8.0`, so the test host needs the .NET 8 *runtime*. A machine that has only a newer SDK
+(.NET 9 or 10) builds fine but stops with `Framework 'Microsoft.NETCore.App', version '8.0.0' not found`.
+If you cannot install .NET 8, set `DOTNET_ROLL_FORWARD=Major` to run the tests on the newer runtime instead
+(checked with the .NET 9 runtime: 568 of 568 passed). Install .NET 8 for the official result.
+The determinism test compares exact hashes only between two runs on the same machine and uses a tolerance for recorded
+values (floating-point results differ in the last bits between x64 and arm64), so the suite also passes on Apple silicon.
 
 ```
 dotnet test core/dotnet~

@@ -2,6 +2,8 @@
 
 **Judges:** see [JUDGES.md](JUDGES.md) for a one-page overview of MissionForge, and [RELEASE.md](RELEASE.md) to run the demo.
 
+**Prerequisites for the game tests:** Node 20 or newer for the server, client and demo tools, and the **.NET 8 SDK/runtime** for the Core tests (`dotnet test core/dotnet~`; a machine with only .NET 9 or 10 cannot start the test host). Details: [core/README.md](core/README.md#how-to-run-the-tests).
+
 ## Automatic reconnection after network outages
 
 **New in the worker setup:** The onboarding scripts now launch [mesh_supervisor.py](mesh_supervisor.py), which restarts exited Codex/Claude workers after connection failures using 5–60 second backoff. After internet returns, workers register a fresh heartbeat and appear online again. Existing users must stop their old worker, update the checkout, and start the supervisor once; see [AUTO_RECONNECT.md](AUTO_RECONNECT.md). Shutdown/reboot still needs a user-level startup task or an always-on host. Partially running tasks are never silently replayed.

@@ -9,6 +9,11 @@ Deadline reminder: the NASA Space Apps submission closes **15 Nov 2026, 23:59 lo
 
 ## 1. Quick reference
 
+**Prerequisites.** Node 20 or newer (demo, server, client). To run the Core tests (`dotnet test core/dotnet~`) you also need the
+**.NET 8 SDK/runtime** (the test project targets `net8.0`; with only .NET 9 or 10 installed the test host aborts with
+`Framework 'Microsoft.NETCore.App', version '8.0.0' not found`). See [`core/README.md`](core/README.md) for the
+`DOTNET_ROLL_FORWARD=Major` fallback. The demo itself does not need .NET.
+
 | I want to | Run (from the repository root) |
 |---|---|
 | Run the whole demo on this laptop | `npm --prefix tools/demo install` once, then `npm --prefix tools/demo run demo` |
