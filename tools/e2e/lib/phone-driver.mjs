@@ -4,7 +4,7 @@ import path from 'node:path';
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export class PhoneDriver {
-  constructor(browser, { webUrl, room, index, spectator = false, pending = false, runDir, cpuThrottle = 1, extraQuery = '', tag = null }) {
+  constructor(browser, { webUrl, room, index, spectator = false, pending = false, runDir, cpuThrottle = 1, extraQuery = '', tag = null, measurePerformance = false }) {
     this.browser = browser;
     this.webUrl = webUrl;
     this.room = room;
@@ -13,28 +13,59 @@ export class PhoneDriver {
     this.pending = pending;
     this.runDir = runDir;
     this.cpuThrottle = cpuThrottle;
+    this.measurePerformance = measurePerformance;
     this.context = null;
     this.page = null;
     this.consoleErrors = [];
     this.pageErrors = [];
     this.fps = [];
     this.actions = [];
+    this.screenshots = [];
+    this.performanceSnapshots = [];
+    this.documentNumber = 0;
+    this.cpuProfileSession = null;
+    this.cpuProfileMeta = null;
     this.tag = tag;
     this.url = `${webUrl}/?room=${room}${spectator ? '&watch=1' : ''}${extraQuery}`;
   }
 
   async open() {
     this.context = await this.browser.newContext({ viewport: { width: 390, height: 844 }, screen: { width: 390, height: 844 }, isMobile: true, hasTouch: true, deviceScaleFactor: 2 });
-    await this.context.addInitScript(() => {
+    await this.context.addInitScript(({ measurePerformance }) => {
       const state = { frames: [], last: performance.now() };
       window.__mfE2eFps = state;
+      if (measurePerformance) {
+        const screen = () => document.querySelector('[data-testid="screen-vote"]') ? 'vote' : document.querySelector('[data-testid="watch-screen"]') ? 'watch' : null;
+        const perf = { timeOriginMs: performance.timeOrigin, intervalMs: 50, timerGaps: [], longTasks: [], longTaskObserverSupported: false };
+        window.__mfE2ePerf = perf;
+        let lastTimer = performance.now();
+        setInterval(() => {
+          const now = performance.now();
+          const gapMs = now - lastTimer;
+          if (gapMs > 100) perf.timerGaps.push({ atMs: now, gapMs, excessMs: gapMs - perf.intervalMs, screen: screen() });
+          lastTimer = now;
+        }, perf.intervalMs);
+        try {
+          const observer = new PerformanceObserver((list) => {
+            for (const entry of list.getEntries()) perf.longTasks.push({
+              startMs: entry.startTime,
+              durationMs: entry.duration,
+              name: entry.name,
+              screen: screen(),
+              attribution: (entry.attribution ?? []).map((item) => ({ name: item.name, containerType: item.containerType, containerName: item.containerName, containerId: item.containerId, containerSrc: item.containerSrc })),
+            });
+          });
+          observer.observe({ type: 'longtask', buffered: true });
+          perf.longTaskObserverSupported = true;
+        } catch { /* Browser does not expose the Long Tasks API. */ }
+      }
       const tick = (now) => {
         state.frames.push(now - state.last); state.last = now;
         if (state.frames.length > 1200) state.frames.splice(0, 600);
         requestAnimationFrame(tick);
       };
       requestAnimationFrame(tick);
-    });
+    }, { measurePerformance: this.measurePerformance });
     await this.#newPage();
     await this.page.goto(this.url, { waitUntil: 'domcontentloaded', timeout: 30000 });
     if (!this.spectator) {
@@ -56,6 +87,7 @@ export class PhoneDriver {
   }
 
   async #newPage() {
+    this.documentNumber += 1;
     this.page = await this.context.newPage();
     this.page.on('console', (msg) => { if (msg.type() === 'error') this.consoleErrors.push(msg.text()); });
     this.page.on('pageerror', (error) => this.pageErrors.push(error.message));
@@ -64,23 +96,73 @@ export class PhoneDriver {
   async shot(name) {
     if (!(this.index === 0 || this.tag) || (this.spectator && !this.tag) || this.page.isClosed()) return;
     const file = path.join(this.runDir, `phone-${name}.png`);
+    const timing = { shot: name, document: this.documentNumber, startedAt: new Date().toISOString(), fullPage: true };
+    const start = Date.now();
     try {
       await this.page.screenshot({ path: file, fullPage: true, timeout: 15000 });
+      timing.outcome = 'ok';
     } catch (firstError) {
       // T036: at 10 phones the first screenshot of some vote screens never completes. Probe whether the
       // page main thread is alive, then retry once without full-page capture; record both outcomes.
       const probeStart = Date.now();
       const evalOk = await this.page.evaluate(() => performance.now()).then(() => true, () => false);
       const probe = { shot: name, firstError: String(firstError.message).split(/\r?\n/)[0], evalOk, evalMs: Date.now() - probeStart, visibility: await this.page.evaluate(() => document.visibilityState).catch(() => null) };
+      timing.fullPageError = probe.firstError;
+      timing.probeEvalMs = probe.evalMs;
       try {
         await this.page.screenshot({ path: file, fullPage: false, timeout: 15000, animations: 'disabled' });
         probe.retry = 'ok (viewport only)';
+        timing.outcome = 'viewport-retry-ok';
       } catch (retryError) {
         probe.retry = `failed: ${String(retryError.message).split(/\r?\n/)[0]}`;
+        timing.outcome = 'failed';
         this.actions.push(`screenshot diagnostic ${JSON.stringify(probe)}`);
         throw retryError;
       }
       this.actions.push(`screenshot diagnostic ${JSON.stringify(probe)}`);
+    } finally {
+      timing.durationMs = Date.now() - start;
+      timing.endedAt = new Date().toISOString();
+      this.screenshots.push(timing);
+    }
+  }
+
+  async collectPerformance(label) {
+    if (!this.measurePerformance || !this.page || this.page.isClosed()) return null;
+    const snapshot = await this.page.evaluate(() => ({
+      capturedAtMs: performance.now(),
+      timeOriginMs: performance.timeOrigin,
+      visibility: document.visibilityState,
+      perf: window.__mfE2ePerf ?? null,
+    })).catch((error) => ({ error: String(error.message).split(/\r?\n/)[0] }));
+    const record = { label, document: this.documentNumber, capturedAt: new Date().toISOString(), ...snapshot };
+    this.performanceSnapshots.push(record);
+    return record;
+  }
+
+  async startCpuProfile(label = 'profile') {
+    if (this.cpuProfileSession) return;
+    this.cpuProfileSession = await this.context.newCDPSession(this.page);
+    await this.cpuProfileSession.send('Profiler.enable');
+    await this.cpuProfileSession.send('Profiler.setSamplingInterval', { interval: 1000 });
+    await this.cpuProfileSession.send('Profiler.start');
+    this.cpuProfileMeta = { label, document: this.documentNumber, startedAt: new Date().toISOString(), samplingIntervalUs: 1000 };
+  }
+
+  async stopCpuProfile() {
+    if (!this.cpuProfileSession) return null;
+    const session = this.cpuProfileSession;
+    this.cpuProfileSession = null;
+    try {
+      const { profile } = await session.send('Profiler.stop');
+      const output = { ...this.cpuProfileMeta, endedAt: new Date().toISOString(), profile };
+      const file = path.join(this.runDir, `phone-${this.index + 1}-vote-cpu-profile.json`);
+      fs.writeFileSync(file, JSON.stringify(output));
+      return output;
+    } finally {
+      await session.send('Profiler.disable').catch(() => {});
+      await session.detach().catch(() => {});
+      this.cpuProfileMeta = null;
     }
   }
 
@@ -91,6 +173,7 @@ export class PhoneDriver {
   }
 
   async dropAndResume() {
+    await this.collectPerformance('before-intentional-vote-drop');
     const session = await this.page.evaluate(() => sessionStorage.getItem('mf.session'));
     await this.page.close();
     await sleep(500);
@@ -265,8 +348,10 @@ export class PhoneDriver {
   }
 
   async close() {
+    await this.stopCpuProfile().catch(() => {});
+    await this.collectPerformance('close').catch(() => {});
     await this.sampleFps('end').catch(() => {});
-    fs.writeFileSync(path.join(this.runDir, `phone-${this.index + 1}-diagnostics.json`), JSON.stringify({ consoleErrors: this.consoleErrors, pageErrors: this.pageErrors, fps: this.fps, actions: this.actions }, null, 2));
+    fs.writeFileSync(path.join(this.runDir, `phone-${this.index + 1}-diagnostics.json`), JSON.stringify({ consoleErrors: this.consoleErrors, pageErrors: this.pageErrors, fps: this.fps, actions: this.actions, screenshots: this.screenshots, performanceSnapshots: this.performanceSnapshots }, null, 2));
     await this.context?.close();
   }
 }

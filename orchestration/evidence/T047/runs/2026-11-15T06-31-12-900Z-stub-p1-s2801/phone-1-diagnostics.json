@@ -1,0 +1,72 @@
+{
+  "consoleErrors": [],
+  "pageErrors": [],
+  "fps": [
+    {
+      "label": "mission-end",
+      "avgFps": 57.28856215733881,
+      "onePercentLowFps": 20.04008016032065,
+      "frames": 173
+    },
+    {
+      "label": "end",
+      "avgFps": 57.30470293858929,
+      "onePercentLowFps": 20.04008016032065,
+      "frames": 174
+    }
+  ],
+  "actions": [],
+  "screenshots": [
+    {
+      "shot": "lobby",
+      "document": 1,
+      "startedAt": "2026-11-15T06:31:24.856Z",
+      "fullPage": true,
+      "outcome": "ok",
+      "durationMs": 209,
+      "endedAt": "2026-11-15T06:31:25.065Z"
+    },
+    {
+      "shot": "briefing",
+      "document": 1,
+      "startedAt": "2026-11-15T06:31:25.680Z",
+      "fullPage": true,
+      "outcome": "ok",
+      "durationMs": 409,
+      "endedAt": "2026-11-15T06:31:26.089Z"
+    }
+  ],
+  "performanceSnapshots": [
+    {
+      "label": "close",
+      "document": 1,
+      "capturedAt": "2026-11-15T06:31:27.316Z",
+      "capturedAtMs": 3061.2999999523163,
+      "timeOriginMs": 1794724284251.9,
+      "visibility": "visible",
+      "perf": {
+        "timeOriginMs": 1794724284251.9,
+        "intervalMs": 50,
+        "timerGaps": [],
+        "longTasks": [
+          {
+            "startMs": 105.40000009536743,
+            "durationMs": 54,
+            "name": "self",
+            "screen": null,
+            "attribution": [
+              {
+                "name": "unknown",
+                "containerType": "window",
+                "containerName": "",
+                "containerId": "",
+                "containerSrc": ""
+              }
+            ]
+          }
+        ],
+        "longTaskObserverSupported": true
+      }
+    }
+  ]
+}

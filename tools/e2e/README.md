@@ -27,8 +27,20 @@ Useful options:
 --seed N                deterministic scripted choices (default: 2801)
 --segment smoke|full|minigames   lobby/briefing smoke, the full C1 script, or only the minigames
 --minigames MG-01,MG-08 ids for --segment minigames (default: all 25 implemented minigames)
+--phone-processes shared|separate   one Chromium for all phone pages (default), or one per page
+--measure-vote-performance   record vote long tasks, timer gaps and machine CPU (off by default)
+--profile-vote-phone N   keep phone N on one page and CPU-profile the five part votes
+--profile-cpu-rate N     CPU throttle for the profiled phone (default: 4)
 --headed                headed Chromium for a Unity fallback probe
 ```
+
+`--phone-processes separate` launches every player, spectator and late joiner with its own
+`chromium.launch()` call. This models separate phone browser processes while preserving the shared-browser
+default used by earlier evidence. The run summary records the selected mode as `phoneProcessMode`.
+
+`npm run profile:vote` runs the T047 isolation profile: one rendered phone page at CPU throttle
+×4 plus nine protocol-only players in the room. It covers the five C1 part votes, records the
+browser/WebGL renderer, long tasks, a V8 CPU profile and machine CPU, then stops before TEST.
 
 The stub sends shortened server timers but does not change server or client code. Its C1 preview
 numbers are explicitly labelled `fixture (not Core)`: they are game fixtures, not a physical model.

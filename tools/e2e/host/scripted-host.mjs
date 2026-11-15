@@ -146,6 +146,32 @@ export class ScriptedHost {
     await sleep(1200);
   }
 
+  /** T047: lobby through the five C1 part votes, stopping before TEST for an isolated phone profile. */
+  async partVoteProfile(onMilestone = null) {
+    const hit = async (name, data = {}) => onMilestone?.(name, data);
+    this.phase('LOBBY');
+    await hit('lobby');
+    await sleep(400);
+    this.send('roles.lock', {});
+    await this.waitFor('roles.state', (d) => d.locked === true);
+    this.phase('BRIEFING');
+    await hit('briefing');
+    await sleep(500);
+    this.phase('CONTRACT_VOTE');
+    await this.vote({ roundId: 'm1.contract', kind: 'CONTRACT', subject: 'contract', ids: fixture.contract.options }, (d) => hit('vote', d));
+    this.phase('BUILD', { sub: 'VOTE_ROUND', contractId: 'C1', step: { index: 1, total: 7 } });
+    await hit('build_started');
+    for (let i = 0; i < fixture.part_rounds.length; i += 1) {
+      const r = fixture.part_rounds[i];
+      this.phase('BUILD', { sub: 'VOTE_ROUND', contractId: 'C1', step: { index: i + 1, total: 7 } });
+      await this.vote({ roundId: `m1.part.${i + 1}`, kind: 'PART', subject: r.subject, ids: r.options, owner: r.owner, scenario: r.scenario }, (d) => hit('vote', d));
+      const build = schemaExample('build.state');
+      build.contractId = 'C1'; build.parts = fixture.part_rounds.slice(0, i + 1).map((x) => ({ category: x.subject, partId: x.options[0], count: 1 }));
+      this.send('build.state', build);
+    }
+    await hit('profile_finished');
+  }
+
   async vote({ roundId, kind, subject, ids, owner = 'FLIGHT', scenario = null }, hook = null) {
     this.send('vote.open', {
       roundId,
