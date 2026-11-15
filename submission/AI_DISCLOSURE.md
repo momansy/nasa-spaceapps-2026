@@ -66,6 +66,10 @@ All of it is logged in `assets/media/CREDITS.md` and `assets/media/GENERATION_LO
   AI-generated media is included in this project." That sentence refers to the Unity project's own asset folders and
   predates the key art and video in `assets/media/`; it should not be read as a statement about the whole repository.
 - **No audio is AI-generated.** No audio recordings are bundled.
+- **Trailer music (T053).** The soundtrack of `submission/trailer/` does not come from an AI audio model or from samples. It is
+  synthesized sample by sample by a script, `submission/trailer/scripts/music.mjs`. An AI coding agent (Claude Code) wrote
+  that script, including the chords, drum patterns and sound design. The trailers reuse only the AI images and video listed
+  in the table above, each labelled "AI-generated" on screen.
 
 ## 4. What humans decided and reviewed
 

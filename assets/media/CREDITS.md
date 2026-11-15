@@ -132,3 +132,13 @@ Credits: start 10, spent 10 = 8 approved stills (1 each) + 1 rejected mission-co
 
 Lost attempt: key_art_landscape, first submission, client timeout, charged 1 credit at 2026-11-14T13:26:41Z, job id unknown, output not downloaded.
 Rejected attempt: mission_control job `d747694a-f33a-42ac-b4e7-721e3efca9ce` (big screen showed the title-frame rocket instead of the satellite); file not committed.
+
+## T053 — marketing trailer (2026-11-15)
+
+Files: `submission/trailer/missionforge-trailer-16x9.mp4` and `submission/trailer/missionforge-trailer-9x16.mp4`. The edit scripts are in `submission/trailer/scripts/` and the full shot list is in `submission/trailer/README.md`.
+
+- **Music: original, no licence needed.** I could not download a royalty-free track with a clear licence from this machine. Pixabay returned HTTP 403 to the command-line client, and the public-domain fallback page (FreePD) returned 404. So the soundtrack, "MissionForge Trailer Beat", was synthesized from scratch by `submission/trailer/scripts/music.mjs`. It is 120 BPM in A minor (Am-F-C-G) with kick, clap, hats, sub and saw bass, a 16th-note arpeggio, a detuned saw pad, noise risers and impacts, all generated sample by sample in Node.js. An AI coding agent (Claude Code, T053) wrote the notes, patterns and sound design. No samples, loops, presets, third-party recordings or AI audio models were used. There are two arrangements: 28 bars (56 s) for the 16:9 cut and 13 bars (26 s) for the 9:16 cut. The team may reuse it freely.
+- **No new AI-generated images or video.** The trailer reuses AI material that is already credited above: the 16:9 key art, the style frames `03-ascent.png`, `04-orbit-operations.png` and `06-mission-control.png`, and the C1 briefing cinematic. Each one has an "AI-generated" label in the corner while it is on screen.
+- **Gameplay:** the T054 1080p60 GPU captures of the Unity WebGL host (`assets/media/trailer-captures/`), one T031 Build Bay still (`orchestration/evidence/T031/after/buildbay-beauty-no-ui-after-1920x1080.png`), and real phone-client screen recordings. The phone recordings come from the scripted demo session (`?mock=1`) and the minigame labs; see `submission/video/README.md` and `submission/trailer/scripts/record-minigames.mjs`.
+- **Fonts:** Oxanium 700 and IBM Plex Sans, both SIL OFL. These are the game's own copies in `client/src/assets/fonts/`.
+- **QR code:** generated locally with the `qrcode` npm package (MIT licence) for https://missionforge-spaceapps.onrender.com/play/.
