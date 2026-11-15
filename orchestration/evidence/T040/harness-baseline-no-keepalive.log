@@ -1,0 +1,9 @@
+  [server] MissionForge room server listening on ws://localhost:19721 (clientBaseUrl=http://localhost:5173/)
+[  1.2s] PASS: socket opened
+[  1.4s] PASS: hello.ok received
+[  1.4s] PASS: room.created received
+[  1.4s] C# side goes silent for 40s (frame loop suspended, as in a backgrounded tab); keepalive OFF
+[ 17.5s] events during stall: 9, pongs: 0, first pong: none
+[ 17.5s] server bye: m{"t":"bye","seq":7,"d":{"reason":"IDLE_TIMEOUT","closeCode":4010,"canResume":true}}
+[ 17.5s] PASS: connection closed during stall (c4010|IDLE_TIMEOUT); expected only for the no-keepalive baseline
+[ 17.5s] RESULT: PASS

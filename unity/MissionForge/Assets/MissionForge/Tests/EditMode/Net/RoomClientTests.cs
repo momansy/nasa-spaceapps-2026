@@ -49,6 +49,9 @@ namespace MissionForge.Tests.Net
 
         private const string SnapshotEndFrame = "{\"t\":\"snapshot.end\",\"seq\":6,\"d\":{\"serverTimeMs\":1794650000300,\"lastOutcomeSeq\":0}}";
 
+        private const string KeepalivePongFrame =
+            "{\"t\":\"clock.pong\",\"seq\":9,\"d\":{\"clientTimeMs\":0.25,\"serverTimeMs\":1794650005000}}";
+
         private List<FakeTransport> _transports;
         private List<ConnectionState> _states;
         private List<string> _protocolErrors;
@@ -493,6 +496,57 @@ namespace MissionForge.Tests.Net
             Assert.AreEqual(1, transport.CloseCount, "the silent socket is closed");
             Assert.IsTrue(transport.IsDisposed);
             Assert.AreEqual(1, _protocolErrors.Count);
+        }
+
+        [Test]
+        public void KeepalivePongQueuedWhileBackgrounded_KeepsTheSocketOnTheFirstTickBack()
+        {
+            FakeTransport transport = ConnectAndHandshake();
+            _client.Tick(0);
+            _client.Tick(0.2);
+            _client.Tick(0.4);
+
+            // The tab was backgrounded: the frame loop stood still while browser JavaScript kept pinging.
+            // On return the queued keepalive pong is read in the same Tick that checks for silence.
+            const double returnAt = 60.0;
+            transport.QueueTextForPump(KeepalivePongFrame);
+            _client.Tick(returnAt);
+
+            Assert.AreEqual(ConnectionState.Connected, _client.State, "the keepalive pong proves the socket is alive");
+            Assert.AreEqual(0, transport.CloseCount);
+            Assert.AreEqual(0, _protocolErrors.Count);
+        }
+
+        [Test]
+        public void KeepalivePong_GivesNoClockSample()
+        {
+            FakeTransport transport = ConnectAndHandshake();
+            _client.Tick(0);
+
+            transport.RaiseText(KeepalivePongFrame);
+
+            Assert.IsFalse(_client.HasServerClock, "a keepalive pong must not corrupt the clock estimate");
+            Assert.AreEqual(RoomClient.UnknownRoundTripMs, _client.LastRoundTripMs);
+            Assert.AreEqual(0, _protocolErrors.Count);
+        }
+
+        [Test]
+        public void WithoutAnyPongAfterALongStall_TheSocketIsStillDropped()
+        {
+            FakeTransport transport = ConnectAndHandshake();
+            _client.Tick(0);
+
+            _client.Tick(60.0);
+
+            Assert.AreEqual(ConnectionState.Reconnecting, _client.State);
+            Assert.AreEqual(1, transport.CloseCount);
+        }
+
+        [Test]
+        public void KeepaliveClientTime_IsFractional_SoItCannotBeConfusedWithAClockSample()
+        {
+            Assert.AreNotEqual(System.Math.Floor(RoomClient.KeepaliveClientTimeMs), RoomClient.KeepaliveClientTimeMs);
+            Assert.GreaterOrEqual(RoomClient.KeepaliveClientTimeMs, 0.0, "clock.ping.clientTimeMs has minimum 0");
         }
 
         [Test]

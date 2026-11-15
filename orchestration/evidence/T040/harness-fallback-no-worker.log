@@ -1,0 +1,11 @@
+  [server] MissionForge room server listening on ws://localhost:19332 (clientBaseUrl=http://localhost:5173/)
+[  1.2s] PASS: socket opened
+[  1.4s] PASS: hello.ok received
+[  1.4s] PASS: room.created received
+[  1.4s] C# side goes silent for 40s (frame loop suspended, as in a backgrounded tab); keepalive ON
+[ 41.6s] events during stall: 12, pongs: 5, first pong: m{"t":"clock.pong","seq":7,"d":{"clientTimeMs":0.25,"serverTimeMs":1794710819531}}
+[ 41.6s] PASS: connection survived 40s of silence
+[ 41.6s] PASS: pongs are keepalive pongs (clientTimeMs 0.25)
+[ 41.6s] PASS: first frame after the stall is accepted (C# seq 3, wire seq shifted by 5)
+[ 41.6s] PASS: no error/bye/close after the stall
+[ 41.6s] RESULT: PASS
