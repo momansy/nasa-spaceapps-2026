@@ -1,0 +1,78 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:mf="MissionForge.UI">
+    <Style src="CampaignHub.uss" />
+    <!-- Campaign Hub (design 14.1 screen 15, 13.2; T024). Agency band on top (patch, name, home site, reputation meter,
+         KP, budget carry-over, insurance); contracts board, tech tree and hardware inventory in the middle; milestones and
+         the agency hall of mission patches at the bottom; actions last. Rows are built by CampaignHubScreen. -->
+    <ui:VisualElement name="screen" class="mf-screen mf-hub">
+        <mf:MfGlassPanel name="agency-panel" class="mf-glass mf-hub__agency">
+            <ui:VisualElement name="agency-patch" class="mf-hub__patch" />
+            <ui:VisualElement class="mf-hub__agency-text">
+                <ui:Label name="agency-name" class="mf-h1" />
+                <ui:Label name="agency-site" class="mf-label" />
+            </ui:VisualElement>
+            <ui:VisualElement class="mf-hub__rep">
+                <ui:VisualElement class="mf-row mf-hub__rep-head">
+                    <ui:Label name="rep-title" class="mf-label mf-label--strong" />
+                    <ui:Label name="rep-value" class="mf-h3 mf-hub__rep-value" />
+                </ui:VisualElement>
+                <ui:VisualElement name="rep-bar" class="mf-hub__rep-bar">
+                    <ui:VisualElement name="rep-fill" class="mf-hub__rep-fill" />
+                </ui:VisualElement>
+                <ui:Label name="rep-note" class="mf-meta mf-hub__rep-note" />
+            </ui:VisualElement>
+            <ui:VisualElement name="agency-kpis" class="mf-hub__kpis" />
+        </mf:MfGlassPanel>
+
+        <ui:VisualElement class="mf-hub__body">
+            <mf:MfGlassPanel name="board-panel" class="mf-glass mf-hub__board">
+                <ui:Label name="board-title" class="mf-h3" />
+                <ui:ScrollView mode="Vertical" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" class="mf-hub__scroll">
+                    <ui:VisualElement name="offers" />
+                </ui:ScrollView>
+            </mf:MfGlassPanel>
+            <ui:VisualElement class="mf-hub__right">
+                <ui:VisualElement class="mf-hub__middle">
+                    <mf:MfGlassPanel name="tech-panel" class="mf-glass mf-hub__tech">
+                        <ui:VisualElement class="mf-row mf-hub__tech-head">
+                            <ui:Label name="tech-title" class="mf-h3" />
+                            <ui:Label name="tech-kp" class="mf-label mf-hub__tech-kp" />
+                        </ui:VisualElement>
+                        <ui:ScrollView mode="Vertical" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" class="mf-hub__scroll">
+                            <ui:VisualElement name="tech" class="mf-hub__tech-grid" />
+                        </ui:ScrollView>
+                    </mf:MfGlassPanel>
+                    <mf:MfGlassPanel name="inventory-panel" class="mf-glass mf-hub__inventory">
+                        <ui:Label name="inventory-title" class="mf-h3" />
+                        <ui:ScrollView mode="Vertical" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" class="mf-hub__scroll">
+                            <ui:VisualElement name="inventory" />
+                        </ui:ScrollView>
+                    </mf:MfGlassPanel>
+                </ui:VisualElement>
+                <ui:VisualElement class="mf-hub__bottom">
+                    <mf:MfGlassPanel name="milestones-panel" class="mf-glass mf-hub__milestones">
+                        <ui:Label name="milestones-title" class="mf-h3" />
+                        <ui:VisualElement name="milestones" class="mf-hub__milestone-row" />
+                    </mf:MfGlassPanel>
+                    <mf:MfGlassPanel name="hall-panel" class="mf-glass mf-hub__hall">
+                        <ui:Label name="hall-title" class="mf-h3" />
+                        <ui:ScrollView mode="Horizontal" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" class="mf-hub__hall-scroll">
+                            <ui:VisualElement name="patches" class="mf-hub__patch-row" />
+                        </ui:ScrollView>
+                    </mf:MfGlassPanel>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <ui:VisualElement name="actions" class="mf-hub__actions">
+            <ui:VisualElement name="rehearsal-tag" class="mf-hub__rehearsal" picking-mode="Ignore">
+                <mf:MfIcon kind="info" class="mf-icon--24" />
+                <ui:Label name="rehearsal-text" class="mf-hub__rehearsal-text" />
+            </ui:VisualElement>
+            <ui:VisualElement class="mf-grow" />
+            <ui:Button name="btn-settings" class="mf-btn mf-btn--ghost mf-btn--l" />
+            <ui:Button name="btn-codex" class="mf-btn mf-btn--secondary mf-btn--l" />
+            <ui:Button name="btn-lobby" class="mf-btn mf-btn--secondary mf-btn--l" />
+            <ui:Button name="btn-next" class="mf-btn mf-btn--primary mf-btn--l" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

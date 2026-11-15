@@ -1,0 +1,54 @@
+T024 EditMode test run (Unity 6000.6.9f1, batchmode, every EditMode assembly in the project)
+Command: Unity -batchmode -nographics -projectPath unity/MissionForge -runTests -testPlatform EditMode
+Started 2026-11-15 08:50:51Z, duration 5.7781806 s
+Total 437: passed 436, failed 0, skipped 1 (the skipped test is a pre-existing [Ignore] outside T024)
+Before T024 (preflight on the same checkout): 390 total, 389 passed, 0 failed, 1 skipped.
+
+New T024 tests (47, all passed):
+  Passed  EndScreens.Tests.CampaignSourceTests.Board_IsCoresOffer
+  Passed  EndScreens.Tests.CampaignSourceTests.BuyingTech_GoesThroughCore
+  Passed  EndScreens.Tests.CampaignSourceTests.Inventory_WearAndRefurbishmentComeFromCore
+  Passed  EndScreens.Tests.CampaignSourceTests.MidCampaignFixture_MapsToTheHub
+  Passed  EndScreens.Tests.CampaignSourceTests.TechTree_StatesFollowKpAndPrerequisites
+  Passed  EndScreens.Tests.CodexSourceTests.ADebrief_UnlocksItsFactsMinigamesAndFailureMode
+  Passed  EndScreens.Tests.CodexSourceTests.CodexFile_WhenPresent_IsReadAndRejectedFactsDropped
+  Passed  EndScreens.Tests.CodexSourceTests.EnginePart_HasThrustWithExactImperialConversion
+  Passed  EndScreens.Tests.CodexSourceTests.EveryCodexStringKeyExists
+  Passed  EndScreens.Tests.CodexSourceTests.PhysicsEntries_AlwaysOpen_AndSayWhatTheGameSimplifies
+  Passed  EndScreens.Tests.CodexSourceTests.PogoLesson_CitesItsRealWorldParallel
+  Passed  EndScreens.Tests.CodexSourceTests.Synthesis_FillsEveryCategory
+  Passed  EndScreens.Tests.CodexSourceTests.Unlocks_FollowTheFixture
+  Passed  EndScreens.Tests.DebriefSourceTests.C1Failure_IsAFailureWithRetryAndTheFailurePoint
+  Passed  EndScreens.Tests.DebriefSourceTests.C1Success_MapsToGradeAWithEveryTerm
+  Passed  EndScreens.Tests.DebriefSourceTests.C3CrewedPartial_PaysCrewSafeAndCapsule
+  Passed  EndScreens.Tests.DebriefSourceTests.CoreAdapter_MatchesScoreCalculatorForTheSameInput(&quot;c1_success&quot;)
+  Passed  EndScreens.Tests.DebriefSourceTests.CoreAdapter_MatchesScoreCalculatorForTheSameInput(&quot;c1_failure_pogo&quot;)
+  Passed  EndScreens.Tests.DebriefSourceTests.CoreAdapter_MatchesScoreCalculatorForTheSameInput(&quot;c3_crewed_partial&quot;)
+  Passed  EndScreens.Tests.DebriefSourceTests.CoreAdapter_MatchesScoreCalculatorForTheSameInput(&quot;ten_players&quot;)
+  Passed  EndScreens.Tests.DebriefSourceTests.EveryFixtureStringKeyExists
+  Passed  EndScreens.Tests.DebriefSourceTests.EveryRepositoryFactShownHasASourceUrl
+  Passed  EndScreens.Tests.DebriefSourceTests.Facts_RejectedNeverShown_UnverifiedCarriesBadge
+  Passed  EndScreens.Tests.DebriefSourceTests.MalformedFixture_FailsWithTheFieldName
+  Passed  EndScreens.Tests.DebriefSourceTests.TenPlayers_EveryPlayerGetsAPositiveAward
+  Passed  EndScreens.Tests.InvestigationHostTests.EveryoneVoting_DoesNotFreezeTheChain_UntilTheBoardIsQuiet
+  Passed  EndScreens.Tests.InvestigationHostTests.RehearsalCrew_SolvesTheCase_AndTheHostLocksAndSummarises
+  Passed  EndScreens.Tests.InvestigationHostTests.States_AreSentAtMostTenTimesASecond
+  Passed  EndScreens.Tests.InvestigationTests.Clear_EmptiesAPlace
+  Passed  EndScreens.Tests.InvestigationTests.ClueTable_MirrorsTheClientContract
+  Passed  EndScreens.Tests.InvestigationTests.Lock_FreezesTheBoard
+  Passed  EndScreens.Tests.InvestigationTests.Place_OthersCardsAndBadArguments_AreRejected
+  Passed  EndScreens.Tests.InvestigationTests.Place_PutsACardOnTheChain_AndMovingItLeavesNoCopy
+  Passed  EndScreens.Tests.InvestigationTests.Results_AndSummary_UseCoreTiers
+  Passed  EndScreens.Tests.InvestigationTests.Setup_FollowsCoreAndTheContract
+  Passed  EndScreens.Tests.InvestigationTests.Setup_IsDeterministicFromTheSeed
+  Passed  EndScreens.Tests.InvestigationTests.StaleCounters_AreIgnored_EvenAfterAnInvalidAction
+  Passed  EndScreens.Tests.InvestigationTests.Vote_CountsOnePerPlayer_AndCanChange
+  Passed  Settings.Tests.HostPreferencesTests.Changes_PersistAndReloadFromTheStore
+  Passed  Settings.Tests.HostPreferencesTests.Defaults_AreSubtitlesOnAndLeftToRight
+  Passed  Settings.Tests.HostPreferencesTests.EveryChange_RaisesChangedOnce_AndNoChangeRaisesNothing
+  Passed  Settings.Tests.HostPreferencesTests.Values_AreClampedAndValidated
+  Passed  Settings.Tests.SettingsPatchTests.A11yPatch_CarriesAllSixFlagsAndNothingElse
+  Passed  Settings.Tests.SettingsPatchTests.A11yPatch_DoesNotChangeTheCurrentState
+  Passed  Settings.Tests.SettingsPatchTests.A11yPatch_WithoutKnownState_UsesProtocolDefaults
+  Passed  Settings.Tests.SettingsPatchTests.LobbyPatches_HaveOneFieldEach
+  Passed  Settings.Tests.SettingsPatchTests.LobbyPatches_RejectValuesOutsideTheProtocol
