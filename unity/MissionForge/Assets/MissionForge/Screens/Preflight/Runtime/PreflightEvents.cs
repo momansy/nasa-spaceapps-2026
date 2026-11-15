@@ -10,6 +10,9 @@ namespace MissionForge.Screens.Preflight
     /// </summary>
     public static class PreflightEvents
     {
+        /// <summary>The briefing ended (played out or skipped); true when the contract was locked (no vote follows).</summary>
+        public static event Action<bool> BriefingFinished;
+
         /// <summary>The contract the team chose (or the host locked). Contract id, e.g. <c>C1</c>.</summary>
         public static event Action<string> ContractChosen;
 
@@ -22,9 +25,10 @@ namespace MissionForge.Screens.Preflight
         /// <summary>The FRR poll ended: the outcome and the final <c>poll.result</c> (console call order = <c>answers</c>).</summary>
         public static event Action<PollOutcome, PollResult> FrrConcluded;
 
-        internal static void RaiseContractChosen(string id) => ContractChosen?.Invoke(id);
-        internal static void RaiseTestCompleted(TestOutcome o) => TestCompleted?.Invoke(o);
-        internal static void RaiseReviewClosed(ReviewKind k, bool passed) => ReviewClosed?.Invoke(k, passed);
-        internal static void RaiseFrrConcluded(PollOutcome o, PollResult r) => FrrConcluded?.Invoke(o, r);
+        public static void RaiseBriefingFinished(bool locked) => BriefingFinished?.Invoke(locked);
+        public static void RaiseContractChosen(string id) => ContractChosen?.Invoke(id);
+        public static void RaiseTestCompleted(TestOutcome o) => TestCompleted?.Invoke(o);
+        public static void RaiseReviewClosed(ReviewKind k, bool passed) => ReviewClosed?.Invoke(k, passed);
+        public static void RaiseFrrConcluded(PollOutcome o, PollResult r) => FrrConcluded?.Invoke(o, r);
     }
 }

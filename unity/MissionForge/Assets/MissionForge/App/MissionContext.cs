@@ -27,8 +27,12 @@ namespace MissionForge.App
         /// <summary>The build as the last pre-flight screen left it (null before the first vote).</summary>
         public static BuildState Build { get; set; }
 
+        /// <summary>The category a review's Rework reopened (null when none); the Build Bay re-votes it and calls DesignReview.CompleteRework.</summary>
+        public static string ReworkCategory { get; set; }
+
         public static void Reset()
         {
+            ReworkCategory = null;
             LockedContractId = null;
             OfferedContractIds = null;
             ContractId = null;

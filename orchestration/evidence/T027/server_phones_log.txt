@@ -1,0 +1,37 @@
+10:09:27.392 phone 1 joined room TNDR as p1
+10:09:27.395 phone 2 joined room TNDR as p2
+10:09:27.397 phone 3 joined room TNDR as p3
+10:09:27.398 phone 4 joined room TNDR as p4
+10:09:27.399 4 phones in room TNDR; running 5 min (Ctrl+C to stop)
+10:09:27.896 phase.set LOBBY sub=NONE review=
+10:09:30.651 phase.set BRIEFING sub=NONE review=
+10:09:35.830 vote.opened CONTRACT t027.ad4c896b.contract.1 options=C2,C1,C0
+10:09:35.831 vote.stage t027.ad4c896b.contract.1 REVEAL
+10:09:35.832 phase.set CONTRACT_VOTE sub=NONE review=
+10:09:35.832 vote.cancelled t027.ad4c896b.contract.1 PHASE_CHANGE
+10:09:35.862 vote.opened CONTRACT t027.ad4c896b.contract.2 options=C2,C1,C0
+10:09:35.862 vote.stage t027.ad4c896b.contract.2 REVEAL
+10:09:38.864 vote.stage t027.ad4c896b.contract.2 INSPECT
+10:09:58.865 vote.stage t027.ad4c896b.contract.2 VOTE
+10:10:00.671 vote.result t027.ad4c896b.contract.2 winner=C1 method=FLIGHT_TIEBREAK
+10:10:00.671 vote.stage t027.ad4c896b.contract.2 RESULT
+10:10:03.672 vote.stage t027.ad4c896b.contract.2 CLOSED
+10:10:07.204 phase.set BUILD sub=NONE review=
+10:10:08.730 vote.opened PART m1.b1.launch_site options=site_equatorial_spaceport,site_subtropical_coast,site_west_coast_polar_range,site_inland_steppe_cosmodrome
+10:10:08.730 vote.stage m1.b1.launch_site REVEAL
+10:10:09.734 phase.set FRR sub=NONE review=FRR
+10:10:09.735 vote.cancelled m1.b1.launch_site PHASE_CHANGE
+10:10:09.737 poll.call t027.ad4c896b.frr.3 round 1 1/4 -> p1 [BOOSTER,STRUCT]
+10:10:09.737 phase.set FRR sub=NONE review=FRR
+10:10:10.439 poll.call t027.ad4c896b.frr.3 round 1 2/4 -> p3 [GUIDO,FIDO]
+10:10:11.142 poll.call t027.ad4c896b.frr.3 round 1 3/4 -> p2 [EECOM,INCO,PAYLOAD,RETRO]
+10:10:11.845 poll.call t027.ad4c896b.frr.3 round 1 4/4 -> p4 [PM,FLIGHT]
+10:10:12.547 poll.result t027.ad4c896b.frr.3 round 1 allGo=false noGo=1
+10:10:27.553 poll.call t027.ad4c896b.frr.4 round 2 1/4 -> p1 [BOOSTER,STRUCT]
+10:10:28.256 poll.call t027.ad4c896b.frr.4 round 2 2/4 -> p3 [GUIDO,FIDO]
+10:10:28.959 poll.call t027.ad4c896b.frr.4 round 2 3/4 -> p2 [EECOM,INCO,PAYLOAD,RETRO]
+10:10:29.660 poll.call t027.ad4c896b.frr.4 round 2 4/4 -> p4 [PM,FLIGHT]
+10:10:30.363 poll.result t027.ad4c896b.frr.4 round 2 allGo=true noGo=0
+10:10:34.841 phase.set COUNTDOWN sub=NONE review=
+player exit 0
+10:10:36.348 summary: phone 1 votes 1 answers 2 errors 0; phone 2 votes 1 answers 2 errors 0; phone 3 votes 1 answers 2 errors 0; phone 4 votes 1 answers 2 errors 0

@@ -44,11 +44,12 @@ namespace MissionForge.Screens.Preflight
                     break;
                 }
             }
-            string token = "ui.host.vote.option." + o.Id.ToLowerInvariant();
+            string area = round.Kind == "TEST" ? "test" : round.Kind == "REVIEW" ? "review" : "contract";
+            string token = "ui.host." + area + ".option." + o.Id.ToLowerInvariant();
             return _text.Has(token) ? _text.Get(token) : o.Id;
         }
 
-        public string Stage(string stage) => _text.Get("ui.host.vote.stage." + (stage ?? "reveal").ToLowerInvariant());
+        public string Stage(string stage) => _text.Get("ui.host.contract.stage." + (stage ?? "reveal").ToLowerInvariant());
 
         public string Method(string method) => _text.Get("ui.buildbay.vote.method." + (method ?? "plurality").ToLowerInvariant());
     }

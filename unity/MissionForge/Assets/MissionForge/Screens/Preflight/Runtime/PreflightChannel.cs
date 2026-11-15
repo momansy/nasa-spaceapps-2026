@@ -83,6 +83,12 @@ namespace MissionForge.Screens.Preflight
             if (e?.Type == null) return;
             if (e.Type.StartsWith("vote.", StringComparison.Ordinal) || e.Type.StartsWith("poll.", StringComparison.Ordinal) || e.Type == "ping.event")
                 Received?.Invoke(e.Type, e.Data);
+            else if (e.Type == "error" && e.Data != null)
+            {
+                // A rejected vote.* / poll.* / phase.set of ours: the waiting screen must not hang (protocol section 17.4).
+                string re = (string)e.Data["reT"];
+                if (re != null && (re.StartsWith("vote.", StringComparison.Ordinal) || re.StartsWith("poll.", StringComparison.Ordinal))) Received?.Invoke(e.Type, e.Data);
+            }
         }
 
         public void Dispose() => _client.MessageReceived -= OnMessage;

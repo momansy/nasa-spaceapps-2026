@@ -50,7 +50,7 @@ namespace MissionForge.Screens.Preflight
         public static VisualElement RehearsalBanner(PreflightText t, string detail)
         {
             VisualElement row = El("pf-rehearsal");
-            row.Add(Lbl(t.Get("ui.host.rehearsal"), "mf-chip__label", "pf-rehearsal__title"));
+            row.Add(Lbl(t.Get("ui.buildbay.rehearsal"), "mf-chip__label", "pf-rehearsal__title"));
             row.Add(Lbl(detail, "pf-rehearsal__detail"));
             return row;
         }
@@ -64,7 +64,7 @@ namespace MissionForge.Screens.Preflight
             fill.style.scale = new Scale(new Vector2(f, 1f));
         }
 
-        /// <summary>The label shown beside a lifecycle step (design 2.3).</summary>
-        public static string Lifecycle(PreflightText t, string step) => t.Get("ui.host.lifecycle." + step);
+        /// <summary>The NASA lifecycle tag of a screen (design 2.3); keys ui.host.{briefing,review,frr}.lifecycle*.</summary>
+        public static string Lifecycle(PreflightText t, string key) => t.Get(key);
     }
 }

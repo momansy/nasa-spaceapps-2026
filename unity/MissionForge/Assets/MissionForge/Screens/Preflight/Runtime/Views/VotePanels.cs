@@ -73,6 +73,9 @@ namespace MissionForge.Screens.Preflight
         }
 
         protected PreflightText Text => _text;
+
+        /// <summary>False in narrow review columns: the round's "why" line is left out (the screen explains it already).</summary>
+        public bool ShowWhy { get; set; } = true;
         protected abstract OptionView Build(OptionState option, VoteRoundModel round);
         protected abstract void Update(OptionView view, OptionState option, VoteRoundModel round);
 
@@ -85,9 +88,9 @@ namespace MissionForge.Screens.Preflight
                 _roundId = round.RoundId;
                 _options.Clear();
                 _views.Clear();
-                _title.text = _text.Get(round.TitleKey ?? "ui.host.vote.title");
+                _title.text = _text.Get(round.TitleKey ?? "ui.buildbay.vote.title");
                 _why.text = round.WhyKey != null ? _text.Get(round.WhyKey) : "";
-                PfUi.Show(_why, round.WhyKey != null);
+                PfUi.Show(_why, ShowWhy && round.WhyKey != null);
                 foreach (OptionState o in round.Options)
                 {
                     OptionView v = Build(o, round);
@@ -180,7 +183,7 @@ namespace MissionForge.Screens.Preflight
                     frames++;
                     float spin = reducedMotion ? 1f : Mathf.Abs(Mathf.Cos(frames * 0.35f));
                     _coin.style.scale = new Scale(new Vector2(1f, Mathf.Max(0.08f, spin)));
-                    face.text = frames < 18 && !reducedMotion ? (frames % 2 == 0 ? "A" : "B") : (w != null ? _text.OptionName(round, w).Substring(0, 1) : "");
+                    face.text = frames < 18 && !reducedMotion ? (frames % 2 == 0 ? "A" : "B") : (w != null && _text.OptionName(round, w).Length > 0 ? _text.OptionName(round, w).Substring(0, 1) : "");
                 }).Every(40).Until(() => frames >= 22 || reducedMotion);
             }
         }

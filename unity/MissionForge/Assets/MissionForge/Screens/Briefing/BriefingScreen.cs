@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using MissionForge.App;
-using MissionForge.Core.Campaign;
 using MissionForge.Core.Data;
 using MissionForge.Screens.Preflight;
 using MissionForge.UI;
@@ -54,7 +53,6 @@ namespace MissionForge.Screens.Briefing
         private VisualElement _objectivesEl;
         private VisualElement _constraintsEl;
         private VisualElement _factsEl;
-        private Label _capcomAll;
         private Button _skipButton;
 
         public IReadOnlyList<string> PageContractIds
@@ -72,6 +70,11 @@ namespace MissionForge.Screens.Briefing
 
         protected override void OnReady()
         {
+            // A briefing starts a mission: forget the previous mission's build state (the host's lobby lock stays).
+            MissionContext.Build = null;
+            MissionContext.ReworkCategory = null;
+            MissionContext.ContractId = null;
+            MissionContext.OfferedContractIds = null;
             _videoEl = Screen.Q<VisualElement>("pf-video");
             _left = Screen.Q<VisualElement>("pf-brief-left");
             _card = Screen.Q<MfGlassPanel>("pf-brief-card");
@@ -115,16 +118,7 @@ namespace MissionForge.Screens.Briefing
         }
 
         /// <summary>The contracts to brief: the host's locked contract, else the offered ones (Core's ContractsBoard, 2–3 ids).</summary>
-        private IReadOnlyList<string> ContractIds(out bool locked)
-        {
-            string forced = PreflightArgs.Value("-mfContract");
-            string fixedId = forced ?? MissionContext.LockedContractId;
-            locked = fixedId != null;
-            if (locked) return new[] { fixedId };
-            if (MissionContext.OfferedContractIds == null || MissionContext.OfferedContractIds.Count == 0)
-                MissionContext.OfferedContractIds = ContractsBoard.Offer(CampaignState.New("MissionForge", "default", "site"), MissionContext.Seed);
-            return MissionContext.OfferedContractIds;
-        }
+        private static IReadOnlyList<string> ContractIds(out bool locked) => ContractOffer.Resolve(out locked);
 
         private void ShowPage(int index)
         {
@@ -153,7 +147,7 @@ namespace MissionForge.Screens.Briefing
         {
             ContractBriefing b = page.Brief;
             VisualElement kicker = PfUi.El("pf-kicker");
-            kicker.Add(PfUi.Lbl(Text.Get("ui.host.lifecycle.pre_a"), "pf-lifecycle"));
+            kicker.Add(PfUi.Lbl(Text.Get("ui.host.briefing.lifecycle"), "pf-lifecycle"));
             kicker.Add(PfUi.Lbl(b.ContractId, "pf-idchip"));
             if (_pages.Count > 1) kicker.Add(PfUi.Lbl(Text.Format("ui.host.briefing.option_of", _pageIndex + 1, _pages.Count), "pf-pagechip"));
             _left.Add(kicker);
@@ -224,7 +218,6 @@ namespace MissionForge.Screens.Briefing
             _capcom.Add(PfUi.Lbl(Text.Get("ui.host.capcom.name"), "pf-capcom__who"));
             _capcomLine = PfUi.Lbl("", "pf-capcom__line");
             _capcom.Add(_capcomLine);
-            _capcomAll = null;
             Hide(_capcom);
         }
 
@@ -239,7 +232,7 @@ namespace MissionForge.Screens.Briefing
 #if UNITY_EDITOR || MF_REHEARSAL
             VisualElement host = Screen.Q<VisualElement>("pf-rehearsal-host");
             host.Clear();
-            if (IsRehearsal) host.Add(PfUi.RehearsalBanner(Text, Text.Get("ui.host.rehearsal.briefing")));
+            if (IsRehearsal) host.Add(PfUi.RehearsalBanner(Text, Text.Get("ui.host.briefing.rehearsal")));
 #endif
         }
 
@@ -370,7 +363,7 @@ namespace MissionForge.Screens.Briefing
             if (_handedOver) return;
             _handedOver = true;
             PreflightEvents.RaiseBriefingFinished(_locked);
-            if (App?.Flow != null) App.Flow.GoToPhase(GamePhase.ContractVote);
+            if (App?.Flow != null) _ = NavigateAsync(() => App != null && App.Flow.GoToPhase(GamePhase.ContractVote));
         }
 
         // ------------------------------------------------------------------ reveal helpers

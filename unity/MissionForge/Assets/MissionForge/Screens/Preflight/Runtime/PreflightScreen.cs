@@ -26,10 +26,71 @@ namespace MissionForge.Screens.Preflight
         /// <summary>True while the screen is fed by the rehearsal driver instead of the room server.</summary>
         protected bool IsRehearsal => Session != null && Session.Channel.IsRehearsal;
 
+        /// <summary>The current vote round as the server reported it (read-only view for evidence and tests).</summary>
+        public VoteRoundModel CurrentRound => Session?.Round;
+
+        /// <summary>The current GO/NO-GO poll as the server reported it.</summary>
+        public PollModel CurrentPoll => Session?.Poll;
+
+        public bool IsBound => IsReady;
+
         /// <summary>Raised once the screen is bound and running (evidence tooling waits for it).</summary>
         public event Action Ready;
 
+        /// <summary>A cancelled or rejected round is reopened at most this many times (game_value).</summary>
+        public const int MaxReopens = 2;
+
         protected abstract void OnReady();
+
+        /// <summary>
+        /// Runs one vote the protocol way: opens a round with a fresh id, renders through <paramref name="panel"/>, and on
+        /// <c>vote.result</c> sends <c>vote.commit</c> and returns the winner. A cancelled or rejected round is never committed:
+        /// it is reopened up to <see cref="MaxReopens"/> times, then <paramref name="fallback"/> is applied without a vote.
+        /// Fewer than <see cref="PreflightSession.MinOptions"/> options: no vote, the only option is the decision.
+        /// Returns null when the screen closed meanwhile.
+        /// </summary>
+        protected async System.Threading.Tasks.Task<string> DecideAsync(string prefix, Func<string, Newtonsoft.Json.Linq.JObject> open, string fallback)
+        {
+            for (int attempt = 0; attempt <= MaxReopens; attempt++)
+            {
+                if (Session == null) return null;
+                string roundId = PreflightSession.NewId(prefix);
+                Newtonsoft.Json.Linq.JObject payload = open(roundId);
+                var options = payload["options"] as Newtonsoft.Json.Linq.JArray;
+                if (options == null || options.Count < PreflightSession.MinOptions)
+                    return options != null && options.Count == 1 ? (string)options[0]["id"] : fallback;
+                VoteOutcome o = await Session.RunVoteAsync(payload);
+                if (Session == null) return null;
+                if (o.Cancelled || string.IsNullOrEmpty(o.WinnerId))
+                {
+                    Debug.LogWarning("[MissionForge] " + ScreenId + ": vote " + roundId + " ended without a result (" + o.CancelReason + "); reopening.");
+                    continue;
+                }
+                Session.Commit(roundId, o.WinnerId);
+                return o.WinnerId;
+            }
+            return fallback;
+        }
+
+        /// <summary>Navigates once the flow is free (a busy flow refuses; retried every frame for up to 10 s).</summary>
+        protected async System.Threading.Tasks.Task<bool> NavigateAsync(Func<bool> go)
+        {
+            float until = Time.realtimeSinceStartup + 10f;
+            while (Time.realtimeSinceStartup < until)
+            {
+                if (go()) return true;
+                await System.Threading.Tasks.Task.Yield();
+            }
+            Debug.LogError("[MissionForge] " + ScreenId + ": the scene flow refused to move on.");
+            return false;
+        }
+
+        /// <summary>Announces this screen's phase / sub-state to the phones (protocol section 6); no-op in rehearsal.</summary>
+        protected void AnnouncePhase(string phase, string sub, string review)
+        {
+            if (Session == null || IsRehearsal || App == null) return;
+            Session.SetPhase(App.MissionSeq, phase, sub, review, MissionContext.ContractId);
+        }
         protected virtual void OnTick() { }
         protected virtual void OnClose() { }
 
@@ -69,6 +130,8 @@ namespace MissionForge.Screens.Preflight
             }
 
             Text = PreflightText.From(Catalog.Strings);
+            string seedArg = PreflightArgs.Value("-mfSeed"); // demos and evidence: another seeded rehearsal session
+            if (seedArg != null && ulong.TryParse(seedArg, out ulong seed)) MissionContext.Seed = seed;
             IPreflightChannel channel = CreateChannel();
             if (channel != null) Session = new PreflightSession(channel);
             A11y.ApplyCommandLine();
@@ -103,6 +166,7 @@ namespace MissionForge.Screens.Preflight
             {
                 HiddenTallies = PreflightArgs.Flag("-mfHiddenTallies"),
                 NoGoRounds = (int)PreflightArgs.Float("-mfNoGoRounds", 1),
+                LeanOptionId = PreflightArgs.Value("-mfRehearsalLean"),
             };
         }
 #endif

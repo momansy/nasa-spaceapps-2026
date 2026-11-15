@@ -25,6 +25,12 @@ namespace MissionForge.Screens.Preflight
     public sealed class PreflightSession : IDisposable
     {
         private static int s_sequence;
+        /// <summary>Per-process nonce so round and poll ids stay unique across host restarts (server rejects DUPLICATE_ID).</summary>
+        private static readonly string s_nonce = Guid.NewGuid().ToString("N").Substring(0, 8);
+
+        /// <summary>Protocol limits on a vote's options (protocol section 7): fewer than 2 is decided without a vote.</summary>
+        public const int MinOptions = 2;
+        public const int MaxOptions = 10;
         private TaskCompletionSource<VoteOutcome> _voteTask;
         private TaskCompletionSource<PollResult> _pollTask;
         private string _voteRoundId;
@@ -56,7 +62,7 @@ namespace MissionForge.Screens.Preflight
 
         public void Tick() => Channel.Tick();
 
-        public static string NewId(string prefix) => "m.t027." + prefix + "." + (++s_sequence);
+        public static string NewId(string prefix) => "t027." + s_nonce + "." + prefix + "." + (++s_sequence);
 
         /// <summary>Opens a round and completes when the server resolves or cancels it. The caller sends <see cref="Commit"/>.</summary>
         public Task<VoteOutcome> RunVoteAsync(JObject voteOpen)
@@ -82,7 +88,7 @@ namespace MissionForge.Screens.Preflight
             if (Round.RoundId != null && Round.IsOpen) Channel.Send("vote.cancel", new JObject { ["roundId"] = Round.RoundId });
         }
 
-        /// <summary>Opens one GO/NO-GO poll round and completes with the server's <c>poll.result</c>.</summary>
+        /// <summary>Opens one GO/NO-GO poll round and completes with the server's <c>poll.result</c> (null when the room rejected it or the screen closed).</summary>
         public Task<PollResult> RunPollAsync(string pollId, string context, int round, string[] order, int perCallMs = 5000)
         {
             _pollTask = new TaskCompletionSource<PollResult>(TaskCreationOptions.RunContinuationsAsynchronously);
@@ -110,7 +116,7 @@ namespace MissionForge.Screens.Preflight
                 ["missionSeq"] = missionSeq,
                 ["mode"] = mode,
                 ["phase"] = phase,
-                ["sub"] = sub,
+                ["sub"] = sub ?? "NONE",
                 ["review"] = review,
                 ["flightPhase"] = null,
                 ["segment"] = null,
@@ -124,11 +130,21 @@ namespace MissionForge.Screens.Preflight
         {
             Channel.Received -= OnReceived;
             _voteTask?.TrySetResult(new VoteOutcome { RoundId = _voteRoundId, Cancelled = true, CancelReason = "DISPOSED" });
+            _pollTask?.TrySetResult(null);
             Channel.Dispose();
         }
 
         private void OnReceived(string type, JObject data)
         {
+            if (type == "error")
+            {
+                string re = (string)data["reT"];
+                string code = (string)data["code"];
+                UnityEngine.Debug.LogWarning("[MissionForge] Pre-flight: the room rejected " + re + " (" + code + ").");
+                if (re == "vote.open") _voteTask?.TrySetResult(new VoteOutcome { RoundId = _voteRoundId, Cancelled = true, CancelReason = code });
+                else if (re == "poll.open") _pollTask?.TrySetResult(null);
+                return;
+            }
             if (type.StartsWith("poll.", StringComparison.Ordinal))
             {
                 if (Poll.Apply(type, data, Channel.ServerNowMs()))

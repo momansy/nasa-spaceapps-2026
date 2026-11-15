@@ -45,6 +45,11 @@ namespace MissionForge.Screens.Preflight
         public string NoGoRole = "EECOM";
         /// <summary>A player who is disconnected during polls (recorded NO_ANSWER); null for none.</summary>
         public string DisconnectedPlayerId;
+        /// <summary>
+        /// Rehearsal only: an option id listed first for the synthetic voters (their ballots favour the first option), so a
+        /// demo can show e.g. a Rework. Display order is free in the protocol; null keeps the host's order.
+        /// </summary>
+        public string LeanOptionId;
         public float Pace { get; set; }
         public bool HiddenTallies { get => _votes.HiddenTallies; set => _votes.HiddenTallies = value; }
 
@@ -65,7 +70,7 @@ namespace MissionForge.Screens.Preflight
             {
                 case "vote.open":
                     Shape((string)payload["kind"]);
-                    _votes.Send(type, payload);
+                    _votes.Send(type, Lean(payload));
                     break;
                 case "poll.open": OpenPoll(payload); break;
                 case "vote.cancel": _votes.Send(type, payload); break;
@@ -86,6 +91,20 @@ namespace MissionForge.Screens.Preflight
                 _queue.RemoveAt(next);
                 act();
             }
+        }
+
+        private JObject Lean(JObject open)
+        {
+            if (LeanOptionId == null || !(open["options"] is JArray options)) return open;
+            int index = -1;
+            for (int i = 0; i < options.Count; i++) if ((string)options[i]["id"] == LeanOptionId) index = i;
+            if (index <= 0) return open;
+            var copy = (JObject)open.DeepClone();
+            var opts = (JArray)copy["options"];
+            JToken lead = opts[index];
+            opts.RemoveAt(index);
+            opts.Insert(0, lead);
+            return copy;
         }
 
         // ------------------------------------------------------------------ roster
