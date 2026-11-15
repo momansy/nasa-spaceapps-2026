@@ -4,7 +4,7 @@ Paste-ready text for the NASA Space Apps Challenge 2026 project page, challenge 
 Team name on the credits and judges pages: **Winton**. Every claim below was checked against the repository
 (see `orchestration/evidence/T042/README.md`). Anything not built yet is marked **planned**.
 
-Status date: 2026-11-15, repository `main` at commit `24e2e7c` plus this branch.
+Status date: 2026-11-15, repository `main` at commit `a23d580` (re-verified by T044, `orchestration/evidence/T044/REPORT.md`).
 
 ---
 
@@ -86,8 +86,9 @@ needs a room server, so the full game is played from the local launcher (see sec
 | Protocol | JSON over WebSocket, JSON Schemas in `protocol/schema/` | One contract for host, server and phones |
 | Tools | Node scripts, Playwright | Balance search (`tools/balance~`), end-to-end phone harness (`tools/e2e`), demo launcher (`tools/demo`) |
 
-Verification run for this package (2026-11-15, this checkout): `dotnet test core/dotnet~` 567 of 567 passed;
-`npx vitest run` in `client/` 912 of 912 passed; `npm test` in `server/` 240 of 240 passed;
+Verification run for this package (2026-11-15, T042 on Windows x64, re-run by T044 on `main` a23d580): `dotnet test core/dotnet~` 567 of 567 passed on Windows x64
+(on an Apple-silicon Mac 566 of 567: the golden flight hash in `DeterminismTests` differs per CPU architecture, see the T044 report);
+`npx vitest run` in `client/` 916 of 916 passed (912 at T042, before T038); `npm test` in `server/` 240 of 240 passed;
 `node tools/validate-data.mjs` passed with 0 errors and 4 warnings; the 40-fact check passed. Outputs are in
 `orchestration/evidence/T042/`.
 

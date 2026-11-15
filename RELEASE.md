@@ -25,7 +25,9 @@ npm --prefix tools/demo run demo         # builds anything missing, then starts 
 ```
 
 It prints the host URL, phone URL, audience URL, a QR code for the phone URL and the offline fallback.
-Every flag is in [`tools/demo/README.md`](tools/demo/README.md). Needs Node 20 or newer on Windows
+**Before judging day, rebuild the phone client:** `node tools/demo/build-client.mjs` (the demo only builds `docs/play/client/` when
+it is missing, so a stale committed build is served as it is; on 2026-11-15 the committed build predated the languages and
+minigames MG-22 to MG-30, see `orchestration/evidence/T044/REPORT.md`). Every flag is in [`tools/demo/README.md`](tools/demo/README.md). Needs Node 20 or newer on Windows
 (PowerShell) or macOS; on a first run with no `server/dist` or `docs/play/client/` it runs `npm ci`
 and the builds itself (about 2 minutes, needs internet once for `npm ci`).
 
@@ -197,11 +199,11 @@ parachute phase, so the parachute minigame (MG-23) never appears. The demo uses:
 | Default port 8080 or 8787 busy | `--port 8081` and/or `--server-port 8788`. |
 | Terminal QR unreadable | Use the lobby QR on the big screen, or type the URL printed under it. |
 
-## 6. Interface changes proposed (not made; outside this task's owned paths)
+## 6. Interface changes proposed (6.1 and 6.4 are done; 6.2 and 6.3 are not made, outside the owning task's paths)
 
 ### 6.1 Netlify headers for the Unity Gzip files (`netlify.toml`)
 
-Add to the repository's `netlify.toml` (the existing `[[headers]]` block for `/*` stays):
+**Done** (checked 2026-11-15, T044): these three blocks are already in the repository's `netlify.toml`. The text below is kept for reference and for the `docs/_headers` variant, which is not in the repository. The blocks are:
 
 ```toml
 [[headers]]
@@ -263,4 +265,4 @@ Without them the judging-day mode of design 13.7 and a 20-minute session are not
 
 ### 6.4 Root `README.md`
 
-One line to add near the top: `Judges: see [JUDGES.md](JUDGES.md) for a one-page overview of MissionForge.`
+**Done** (checked 2026-11-15, T044): the line is now at the top of `README.md`. It was: `Judges: see [JUDGES.md](JUDGES.md) for a one-page overview of MissionForge.`
