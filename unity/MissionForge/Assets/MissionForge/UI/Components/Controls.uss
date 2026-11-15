@@ -255,9 +255,18 @@
 .mf-text-200 .mf-chip, .mf-text-200 .mf-status { height: auto; min-height: 40px; padding-top: 6px; padding-bottom: 6px; }
 .mf-text-200 .mf-tag--key { width: 60px; height: 60px; }
 .mf-text-200 .mf-btn { height: auto; min-height: 56px; padding-top: 8px; padding-bottom: 8px; }
+/* Large buttons carry a fixed 30 px label: double it, or the Title actions stay at 100 % size (T035). */
+.mf-text-200 .mf-btn--l { font-size: 48px; min-height: 88px; padding-left: var(--mf-sp-6); padding-right: var(--mf-sp-6); }
+.mf-text-200 .mf-btn--l.mf-btn--icon { padding-left: 96px; }
+.mf-rtl.mf-text-200 .mf-btn--l.mf-btn--icon, .mf-rtl .mf-text-200 .mf-btn--l.mf-btn--icon, .mf-text-200 .mf-rtl .mf-btn--l.mf-btn--icon { padding-left: var(--mf-sp-6); padding-right: 96px; }
+.mf-text-200 .mf-btn--l .mf-btn__icon { width: 48px; height: 48px; left: 28px; }
+.mf-rtl.mf-text-200 .mf-btn--l .mf-btn__icon, .mf-rtl .mf-text-200 .mf-btn--l .mf-btn__icon, .mf-text-200 .mf-rtl .mf-btn--l .mf-btn__icon { left: auto; right: 28px; }
 /* Status and chip icons scale with the text (a 24 px check beside 48 px text reads as a dot). */
 .mf-text-200 .mf-status__icon { width: 44px; height: 44px; }
 .mf-text-200 .mf-chip > .mf-icon, .mf-text-200 .mf-chip > MfIcon { width: 40px; height: 40px; }
 .mf-text-200 .mf-btn__icon { width: 44px; height: 44px; }
 .mf-text-200 .mf-btn--icon { padding-left: 80px; }
 .mf-rtl.mf-text-200 .mf-btn--icon, .mf-rtl .mf-text-200 .mf-btn--icon, .mf-text-200 .mf-rtl .mf-btn--icon { padding-left: var(--mf-sp-5); padding-right: 80px; }
+
+/* Overflow cue (MfScrollFade): the chevron sits at the bottom centre of the faded band. */
+.mf-scrollfade__icon { position: absolute; bottom: 2px; left: 50%; width: 28px; height: 28px; margin-left: -14px; color: var(--mf-ceramic-56); }

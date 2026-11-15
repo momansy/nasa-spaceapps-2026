@@ -34,6 +34,8 @@
 .mf-rtl .mf-topbar, .mf-rtl .mf-roomcode { flex-direction: row-reverse; }
 .mf-rtl .mf-topbar { padding: 0 var(--mf-sp-7) 0 var(--mf-sp-safe-x); }
 .mf-rtl .mf-topbar__title { margin: 0 var(--mf-sp-5) 0 0; }
+/* RTL: the room code and the connection chip keep a clear gap from the wordmark on their right (T035). */
+.mf-rtl .mf-roomcode, .mf-rtl .mf-topbar__conn { margin: 0 var(--mf-sp-5) 0 var(--mf-sp-5); }
 .mf-rtl .mf-roomcode { margin-right: 0; margin-left: var(--mf-sp-5); }
 .mf-rtl .mf-roomcode__label { margin: 0 0 0 var(--mf-sp-3); }
 

@@ -17,13 +17,16 @@ namespace MissionForge.UI
         public const string IconUssClassName = "mf-scrollfade__icon";
 
         /// <summary>Fade height in px at 1920 x 1080 (game_value).</summary>
-        public const float FadeHeight = 64f;
+        public const float FadeHeight = 72f;
 
         /// <summary>Share of the fade that is a gradient; the rest is solid surface colour.</summary>
-        private const float GradientFraction = 0.55f;
+        private const float GradientFraction = 0.4f;
 
         /// <summary>Overflow below this many px is treated as fitting (layout rounding).</summary>
         private const float FitTolerance = 1f;
+
+        /// <summary>How often the cue re-checks for overflow (ms).</summary>
+        private const long RefreshIntervalMs = 250;
 
         private static readonly CustomStyleProperty<Color> s_ColourProperty = new CustomStyleProperty<Color>("--mf-fade-colour");
         private static readonly Color DefaultColour = new Color(17f / 255f, 43f / 255f, 64f / 255f, 1f);
@@ -52,6 +55,9 @@ namespace MissionForge.UI
             scroll.contentContainer.RegisterCallback<GeometryChangedEvent>(_ => Refresh());
             scroll.contentViewport.RegisterCallback<GeometryChangedEvent>(_ => Refresh());
             scroll.verticalScroller.valueChanged += _ => Refresh();
+            // Layout can settle after the geometry events (screens that apply a text-size class on entry), so the cue also
+            // re-checks a few times a second; Refresh is a cheap comparison and only changes style when the state flips.
+            schedule.Execute(Refresh).Every(RefreshIntervalMs);
         }
 
         /// <summary>Adds the fade to <paramref name="scroll"/> (once) and returns it.</summary>
@@ -84,8 +90,11 @@ namespace MissionForge.UI
         {
             bool overflow = HasOverflowBelow(_scroll.contentContainer.layout.height,
                 _scroll.contentViewport.layout.height, _scroll.scrollOffset.y);
-            style.display = overflow ? DisplayStyle.Flex : DisplayStyle.None;
+            DisplayStyle wanted = overflow ? DisplayStyle.Flex : DisplayStyle.None;
+            if (style.display == wanted) return;
+            style.display = wanted;
             BringToFront();
+            MarkDirtyRepaint();
         }
 
         private void OnCustomStyleResolved(CustomStyleResolvedEvent evt)

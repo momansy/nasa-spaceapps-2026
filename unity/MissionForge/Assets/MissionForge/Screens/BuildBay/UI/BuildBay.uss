@@ -1,22 +1,22 @@
 /* Build Bay layout (reference frame 02). T031: styling uses only the design-system tokens (UI/Theme/Tokens.uss) and
    components (UI/Components/*.uss); this sheet only places regions and styles the Build Bay-specific pieces.
-   Layout (game_value, 1920 x 1080): side glass panels 440 px wide from a 48 px edge (the outer ~25 % columns, text
+   Layout (game_value, 1920 x 1080): side glass panels 420 px wide from a 40 px edge (outside the middle 52 %, x 461-1459; text
    starts ~4 % in); the centre column keeps the pad scene visible, with the timeline strip along its bottom edge.
    Modes: .mf-rtl (panels swap), .mf-text-200 (token sizes double, rows wrap, panels scroll), .mf-hc (opaque surfaces,
    no imagery behind text), .mf-reduced-motion. The legacy bb-* mode classes stay for T015 code. */
 
-.bb-screen { padding: 116px 48px 24px 48px; }
+.bb-screen { padding: 116px 40px 16px 40px; }
 .bb-hidden { display: none; }
 
 /* ---------- regions ---------- */
 .bb-row { flex-direction: row; flex-grow: 1; }
 .mf-rtl .bb-row { flex-direction: row-reverse; }
-.bb-side { width: 440px; flex-shrink: 0; }
+.bb-side { width: 420px; flex-shrink: 0; } /* 40 px edge + 420 px: the side panels end at x 460 and start at x 1460 of 1920 (the middle 52 % is x 461-1459) */
 .bb-centre { flex-grow: 1; flex-direction: column; margin: 0 var(--mf-sp-gutter) 0 var(--mf-sp-gutter); }
-.bb-panel { padding: 20px 28px var(--mf-sp-3) 28px; }
+.bb-panel { padding: 16px 24px var(--mf-sp-3) 24px; }
 .bb-panel__head { margin-bottom: var(--mf-sp-2); flex-shrink: 0; }
 .bb-panel__title { -unity-font-definition: var(--mf-font-display); font-size: var(--mf-fs-h2); color: var(--mf-ceramic); margin: 0; padding: 0; white-space: normal; }
-.bb-panel__title--small { font-size: 30px; }
+.bb-panel__title--small { font-size: 26px; }
 .bb-panel__sub { -unity-font-definition: var(--mf-font-body-medium); font-size: var(--mf-fs-label); color: var(--mf-muted); margin: 0; padding: 0; white-space: normal; }
 .mf-rtl .bb-panel__title, .mf-rtl .bb-panel__sub, .mf-rtl .bb-objectives__text, .mf-rtl .bb-card__name, .mf-rtl .bb-card__line { -unity-text-align: upper-right; }
 
@@ -26,7 +26,7 @@
    If a state still overflows, MfScrollFade fades the last row out with a "more below" chevron (no hard slice). */
 .bb-panel--dashboard .bb-panel__title { font-size: var(--mf-fs-h3); }
 .bb-panel--dashboard .bb-panel__head { margin-bottom: var(--mf-sp-1); }
-.bb-metrics .mf-metric { padding: 1px 0 2px 0; }
+.bb-metrics .mf-metric { padding: 0 0 1px 0; }
 .bb-metrics .mf-metric__value { font-size: 28px; }
 .bb-metrics .mf-metricbar--compact { height: 16px; } /* 4 px cap headroom above the 12 px bar; the marker stays inside */
 .bb-metrics .mf-metric__bar { margin-top: 0; }
@@ -35,7 +35,6 @@
 .bb-metrics .mf-metric--empty .mf-metric__pending { flex-basis: auto; flex-grow: 1; flex-shrink: 0; white-space: nowrap; margin: 0 0 0 var(--mf-sp-3); -unity-text-align: middle-right; }
 .mf-text-200 .bb-metrics .mf-metric--empty .mf-metric__pending { white-space: normal; flex-shrink: 1; flex-basis: 100%; margin: 0 0 4px 34px; -unity-text-align: middle-left; }
 .mf-rtl .bb-metrics .mf-metric--empty .mf-metric__pending { margin: 0 var(--mf-sp-3) 0 0; -unity-text-align: middle-left; }
-.mf-scrollfade__icon { position: absolute; bottom: 2px; left: 50%; width: 28px; height: 28px; margin-left: -14px; color: var(--mf-ceramic-56); }
 
 /* ---------- top: contract + phase stepper (small glass-free chips over the scene, on a Space 92 % scrim) ---------- */
 .bb-top { flex-direction: row; align-items: flex-start; justify-content: space-between; margin-bottom: var(--mf-sp-3); }
@@ -98,10 +97,14 @@
 .bb-compare__cell--name { -unity-text-align: middle-left; color: var(--mf-muted); }
 
 /* ---------- bottom: timeline + budget (glass strip along the bottom of the centre column) ---------- */
-.bb-bottom { flex-shrink: 0; padding: var(--mf-sp-3) var(--mf-sp-5) var(--mf-sp-3) var(--mf-sp-5); }
-.bb-bottom__head { flex-direction: row; justify-content: space-between; align-items: center; margin-bottom: var(--mf-sp-3); }
+/* Compact strip (T035): the timeline sits low so the pad base and the near ground stay visible above it (about 195 px tall
+   at 100 % text, against 257 px before). */
+.bb-bottom { flex-shrink: 0; padding: 10px var(--mf-sp-5) 8px var(--mf-sp-5); }
+.bb-bottom__head { flex-direction: row; justify-content: space-between; align-items: center; margin-bottom: 4px; }
 .mf-rtl .bb-bottom__head, .mf-rtl .bb-budget { flex-direction: row-reverse; }
-.bb-gantt { margin-bottom: var(--mf-sp-2); }
+.mf-rtl .bb-budget__title { margin: 0 0 0 var(--mf-sp-4); }
+.mf-rtl .bb-budget__text { margin: 0 var(--mf-sp-4) 0 0; }
+.bb-gantt { margin-bottom: 2px; }
 .mf-legend__swatch--critical { background-color: var(--mf-signal); border-width: 2px; border-color: var(--mf-sunlight); }
 .mf-legend__swatch--slack { background-color: rgba(0, 0, 0, 0); border-width: 2px; border-color: var(--mf-meets); }
 .mf-legend__swatch--late { background-color: var(--mf-fails-16); border-width: 2px; border-color: var(--mf-fails); }
@@ -152,6 +155,10 @@
 .bb-card__strike { position: absolute; left: 12px; right: 12px; top: 28px; height: 3px; background-color: var(--mf-fails); }
 .bb-card__head { flex-direction: row; align-items: center; }
 .mf-rtl .bb-card__head, .mf-rtl .bb-card__row { flex-direction: row-reverse; }
+.mf-rtl .bb-card__key { margin: 0 0 0 var(--mf-sp-3); }
+.mf-rtl .bb-card__count, .mf-rtl .bb-card__state { margin: 0 var(--mf-sp-2) 0 0; }
+.mf-rtl .bb-objectives__id { margin: 0 0 0 var(--mf-sp-2); }
+.mf-rtl .bb-rehearsal__title { margin: 0 0 0 var(--mf-sp-2); }
 .bb-card__key { -unity-font-definition: var(--mf-font-body-bold); font-size: var(--mf-fs-label); color: var(--mf-space); background-color: var(--mf-ceramic); border-radius: var(--mf-radius-control); width: 36px; height: 36px; -unity-text-align: middle-center; margin: 0 var(--mf-sp-3) 0 0; padding: 0; flex-shrink: 0; }
 .bb-card__name { -unity-font-definition: var(--mf-font-body-bold); font-size: 28px; color: var(--mf-ceramic); flex-grow: 1; flex-shrink: 1; margin: 0; padding: 0; white-space: normal; }
 .bb-card__count { -unity-font-definition: var(--mf-font-body-bold); font-size: 36px; color: var(--mf-ceramic); margin: 0 0 0 var(--mf-sp-2); padding: 0; }
@@ -249,3 +256,19 @@
    the tools. The rehearsal state is still stated in the lobby notice. */
 .mf-text-200 .bb-rehearsal { display: none; }
 .mf-text-200 .bb-rehearsal, .mf-rtl.mf-text-200 .bb-rehearsal { left: auto; right: auto; align-self: center; }
+
+/* ---------- T035: 200 % text and right-to-left polish ---------- */
+/* Metric status icons scale with the 48 px text (a 26 px glyph beside 48 px text reads as a dot). */
+.mf-text-200 .mf-metric__icon { width: 44px; height: 44px; }
+/* A clear gap between a value and its name, on either side, so a unit never touches the next label. */
+.mf-text-200 .bb-metrics .mf-metric__value { margin: 0 var(--mf-sp-3) 0 var(--mf-sp-3); }
+.mf-text-200 .bb-metrics .mf-metric__word { margin: 0 var(--mf-sp-3) 0 0; }
+.mf-rtl.mf-text-200 .bb-metrics .mf-metric__word { margin: 0 0 0 var(--mf-sp-3); }
+.mf-text-200 .bb-budget__title { min-width: 0; flex-shrink: 0; margin-bottom: var(--mf-sp-2); }
+.mf-text-200 .bb-budget__bar { flex-basis: 40%; margin-bottom: var(--mf-sp-2); }
+.mf-text-200 .bb-budget__text { margin-left: 0; margin-right: 0; flex-basis: 100%; white-space: normal; }
+.mf-text-200 .bb-card__badge-text, .mf-text-200 .bb-delta { white-space: normal; }
+.mf-text-200 .bb-card__badge-icon, .mf-text-200 .bb-card__state { width: 40px; height: 40px; }
+/* 200 %: a shorter timeline title and a clear gap under the phase pills keep the tool chips off both. */
+.mf-text-200 .bb-panel__title--small { font-size: 48px; }
+.mf-text-200 .bb-top { margin-bottom: var(--mf-sp-5); }

@@ -34,7 +34,7 @@ namespace MissionForge.UI
     public partial class MfGanttChart : VisualElement
     {
         /// <summary>Row geometry in px (tokens.json dataviz.gantt_*, game_value).</summary>
-        private const float RowHeight = 32f, RowGap = 8f, BarRadius = 4f, AxisHeight = 40f;
+        private const float RowHeight = 30f, RowGap = 6f, BarRadius = 4f, AxisHeight = 34f;
         /// <summary>Base row-name font size (the label token at 100 % text); geometry scales with the resolved size.</summary>
         private const float BaseLabelPx = 24f;
         /// <summary>Text scale (1 at 100 % text, 2 at 200 %): rows, the deadline band and the axis grow with the labels.</summary>
@@ -61,6 +61,9 @@ namespace MissionForge.UI
         private const float DeadlineBand = 30f;
         /// <summary>Gap between the row-name column and the plot; the row names never take more than this share of the width.</summary>
         private const float GutterGap = 12f, MaxGutterShare = 0.45f;
+        /// <summary>Most ticks skipped between two axis labels, and the clear gap between neighbouring labels (px).</summary>
+        private const int MaxTickStride = 6;
+        private const float TickGap = 6f;
         private float _gutter = 200f;
         private bool _rtl;
 
@@ -343,21 +346,34 @@ namespace MissionForge.UI
                 taken.Add(_rtl ? new Vector2(nx - nw, nx) : new Vector2(nx, nx + nw));
             }
             double lastTick = System.Math.Floor((_axisDays + 0.01) / _tickDays) * _tickDays;
-            for (double d = 0; d <= _axisDays + 0.01; d += _tickDays)
+            // Thin the axis evenly (every 1st, 2nd, 3rd ... tick) until no two labels touch, instead of dropping arbitrary ones:
+            // at 200 % text the axis reads 0 / 60 / 120 / 180 rather than a random subset.
+            var ticks = new List<(string text, Vector2 span)>();
+            for (int stride = 1; stride <= MaxTickStride; stride++)
             {
-                if (nowLabelled && System.Math.Abs(d - _now) < _tickDays * 0.5) continue;
-                bool last = System.Math.Abs(d - lastTick) < 0.01;
-                string text = MfMotion.Number(d, 0) + (last && _axisUnit.Length > 0 ? "\u00A0" + _axisUnit : "");
+                ticks.Clear();
+                bool clash = false;
+                int index = 0;
+                for (double d = 0; d <= _axisDays + 0.01 && !clash; d += _tickDays, index++)
+                {
+                    if (nowLabelled && System.Math.Abs(d - _now) < _tickDays * 0.5) continue;
+                    bool last = System.Math.Abs(d - lastTick) < 0.01;
+                    if (index % stride != 0 && !last) continue;
+                    string text = MfMotion.Number(d, 0) + (last && _axisUnit.Length > 0 ? "\u00A0" + _axisUnit : "");
+                    float x = X(d), tw = TextWidth(_tickProbe, text);
+                    // The last label ends at its tick (RTL: starts at it) so it stays inside the chart; the others centre.
+                    Vector2 span = last ? (_rtl ? new Vector2(x, x + tw) : new Vector2(x - tw, x)) : new Vector2(x - tw * 0.5f, x + tw * 0.5f);
+                    foreach (Vector2 t in taken) if (span.x < t.y + TickGap && span.y > t.x - TickGap) { clash = true; break; }
+                    if (!clash) foreach ((string _, Vector2 placed) in ticks) if (span.x < placed.y + TickGap && span.y > placed.x - TickGap) { clash = true; break; }
+                    if (!clash) ticks.Add((text, span));
+                }
+                if (!clash || stride == MaxTickStride) break;
+            }
+            foreach ((string text, Vector2 span) in ticks)
+            {
                 var tick = new Label(text) { pickingMode = PickingMode.Ignore };
                 tick.AddToClassList("mf-gantt__tick");
                 tick.style.top = axisTop;
-                float x = X(d), tw = TextWidth(_tickProbe, text);
-                // The last label ends at its tick (RTL: starts at it) so it stays inside the chart; the others centre.
-                Vector2 span = last ? (_rtl ? new Vector2(x, x + tw) : new Vector2(x - tw, x)) : new Vector2(x - tw * 0.5f, x + tw * 0.5f);
-                bool clash = false;
-                foreach (Vector2 t in taken) if (span.x < t.y + 6f && span.y > t.x - 6f) { clash = true; break; }
-                if (clash) continue;
-                taken.Add(span);
                 tick.style.left = span.x;
                 _labels.Add(tick);
             }
