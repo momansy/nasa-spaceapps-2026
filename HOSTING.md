@@ -1,9 +1,14 @@
 # MissionForge: public hosting for the judges
 
 Goal: judges open one link, click **Host a mission** on a laptop and **join from a phone**, at no cost.
-Researched on 15 Nov 2026. Everything in this repository is ready; **one person with access to the
-repository owner's GitHub account has to click through Render once (about 5 minutes)**. Nothing here
-has been deployed yet, so the URLs below are expected, not verified.
+Researched on 15 Nov 2026. **Status (T046 check, 2026-11-15): deployed.** The service is live at
+`https://missionforge-spaceapps.onrender.com/play/`. On that date `/healthz` returned `{"ok":true,"commit":"4a15662...",...}` (HTTP 200),
+`/` redirected to `/play/`, and `/play/`, `/play/host/`, `/play/client/`, `/play/client/?mock=1`, `/play/judges.html` and `/play/credits.html` returned 200;
+the Unity `.wasm.unityweb` and `.js.unityweb` files came with `content-encoding: gzip` when the request sent `Accept-Encoding: gzip`.
+The section 3 WebSocket handshake (`hello` then `hello.ok` over `wss://.../ws`) also worked.
+**Not verified:** a full play test through the public URL (host a mission, phones join, votes; section 3, "Play test") was not run by that check; the hosted
+Unity host is the build committed in `docs/play/host/`, which predates the flight view (`submission/PROJECT_DESCRIPTION.md` section 8).
+Section 2 below is the record of the human steps that were needed.
 
 ## 1. What was chosen and why
 
@@ -37,7 +42,7 @@ spins down after **15 minutes without inbound traffic** (HTTP requests *and* Web
 wake-up takes **about 1 minute**, during which browsers see Render's loading page; free services can be
 restarted by Render at any time; public traffic arrives on `PORT` (default 10000), `wss://` only.
 
-## 2. Human steps (once, about 5 minutes)
+## 2. Human steps (done once; kept for a redeploy or a second copy)
 
 **Who:** the repository is **private** and owned by `momansy`, so Render can only read it once the Render
 GitHub App is installed on that account. That needs the **owner, `momansy`** (a collaborator with write
@@ -55,8 +60,8 @@ access cannot do it). No credit card, no API key.
 5. Wait until the service shows **Live** (first build about 3 to 5 minutes). Copy the URL at the top of
    the service page and post it to the team. That is all.
 
-**Expected URL:** `https://missionforge-spaceapps.onrender.com/play/` (Render appends a random suffix if
-the name is taken by then; nothing depends on the exact name).
+**URL:** `https://missionforge-spaceapps.onrender.com/play/` (Render would have appended a random suffix if
+the name had been taken; nothing depends on the exact name).
 
 After that, every merge to `main` that touches `server/`, `protocol/`, `docs/play/` or `render.yaml`
 redeploys automatically (`buildFilter` in `render.yaml`). **A redeploy restarts the server and drops every
