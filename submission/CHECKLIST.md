@@ -3,7 +3,13 @@
 Deadline: **15 Nov 2026, 23:59 in the team's event local time** (`docs/index.html` section 12, `RELEASE.md`).
 Check the live form and the official rules before relying on anything below.
 
-## 0. Read this first: three things found on 2026-11-15 that block a clean submission
+## 0. Status update (15 Nov 2026, 07:55 UTC)
+
+Items 1 and 2 below are resolved: the repository is **public** with an MIT licence, and the full game is hosted at
+<https://missionforge-spaceapps.onrender.com/play/> (Render, `HOSTING.md`), checked live: host loaded, room created, phone joined, briefing started.
+Item 3 is resolved: the demo videos are in `submission/video/`. **Use the Render URL as the hosted URL in the form.**
+
+## 0a. Original findings (kept for the record)
 
 1. **The GitHub repository is private** (`gh repo view momansy/nasa-spaceapps-2026` reported `PRIVATE`) and has **no
    licence file**. Judges cannot open a private link. Before submitting, the owner must either make the repository
@@ -70,13 +76,14 @@ The game has three parts that must run together (Unity big screen, phones, room 
 | B. Host the room server | Stand up `server/` behind TLS (`RELEASE.md` 3.2), rebuild the phone client with `MF_ROOM_SERVER_URL=wss://...` (`RELEASE.md` 2.2) and open the host with `?server=wss://...` | Not done and **untested on a public host**. Needs a server account; do not start this late on deadline day without a rehearsal |
 | C. Video plus repository | Link the video and the repository; describe the launcher in the description | Safest if time is short |
 
-Recommended: **A or C** for the deadline; B afterwards.
+Recommended: **B is done**: the Render URL <https://missionforge-spaceapps.onrender.com/play/> hosts the whole game. Put it in the form, and the video and repository links too.
 
 ## 4. By-hand list before pressing Submit
 
 - [ ] Team names and members entered on the form and (optionally) in `tools/demo/team.json`, credits page rebuilt
-- [ ] Repository public (or access arranged), licence added, secrets grep clean (`RELEASE.md` section 4)
-- [ ] Netlify redeployed from `main`; `curl -sI https://nasasc.netlify.app/play/` shows 200; `/play/judges.html` and `/play/credits.html` open
+- [x] Repository public (or access arranged), licence added, secrets grep clean (`RELEASE.md` section 4)
+- [x] Hosted game live: `curl -sI https://missionforge-spaceapps.onrender.com/play/` shows 200; `/play/judges.html` opens; host + phone join checked on 15 Nov 2026
+- [ ] Open the hosted URL a few minutes before judging so the free instance is awake
 - [ ] Demo video recorded (one real run, real phones), subtitles added, uploaded, link tested while logged out
 - [ ] Every number said or shown in the video matches `data/contracts.json` (C1: 150 kg, 550 km, 97.6 degrees, 90 M game-dollars, 180 days)
 - [ ] Debrief score in the video comes from a real session, not the test fixture (see `DEMO_VIDEO_SCRIPT.md`)

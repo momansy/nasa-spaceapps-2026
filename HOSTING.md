@@ -1,9 +1,9 @@
 # MissionForge: public hosting for the judges
 
 Goal: judges open one link, click **Host a mission** on a laptop and **join from a phone**, at no cost.
-Researched on 15 Nov 2026. Everything in this repository is ready; **one person with access to the
-repository owner's GitHub account has to click through Render once (about 5 minutes)**. Nothing here
-has been deployed yet, so the URLs below are expected, not verified.
+Researched on 15 Nov 2026. **Deployed on 15 Nov 2026 at about 07:50 UTC: <https://missionforge-spaceapps.onrender.com/play/>** (health check
+`/healthz` 200, Unity files served with `Content-Encoding: gzip`, host created a room and a phone joined over `wss://`).
+Render redeploys automatically when `main` changes under `server/`, `protocol/`, `docs/play/` or `render.yaml` (each redeploy ends open rooms).
 
 ## 1. What was chosen and why
 

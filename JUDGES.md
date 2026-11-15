@@ -6,7 +6,7 @@ MissionForge is a cooperative party game for 1 to 10 players who act as a space 
 
 ## Try it
 
-- **Hosted:** [https://nasasc.netlify.app/play/](https://nasasc.netlify.app/play/) (static pages only: entry, credits and judges). The game itself needs a room server, so use the one-command local run below for play. The `/play/` pages appear once the Netlify site is redeployed from `main`.
+- **Hosted, full game:** [https://missionforge-spaceapps.onrender.com/play/](https://missionforge-spaceapps.onrender.com/play/). Open it on a laptop, click **Host a mission**, then **New mission**; join from any phone (any network) by scanning the QR code or typing the 4-letter code. The free host sleeps after 15 minutes without visitors: the first visit can take about a minute to wake it. Checked live on 15 Nov 2026 (host loaded, room created, phone joined, briefing started).
 - **Locally, one command** (Node 20+, Windows or macOS): `npm --prefix tools/demo install`, then `npm --prefix tools/demo run demo`. It prints the big-screen URL, the phone URL and a QR code. Phones on the same Wi-Fi join with the code shown on the big screen; no app, account or chat.
 - **No network:** `/play/client/?mock=1` runs a scripted phone session without a server.
 
@@ -48,7 +48,7 @@ The 40 facts shown to players were checked against their cited sources (task T02
 
 ## Known limitations
 
-- The hosted URL and hosting are not set up; the Unity host needs a server that sends `Content-Encoding: gzip` for its `.unityweb` files (see `RELEASE.md`).
+- The hosted game runs on a free Render instance (`HOSTING.md`): about a minute to wake after 15 idle minutes, and Render may restart it at any time, which ends open rooms (rooms live in memory only).
 - The Unity host was loaded and connected in headless Chromium with software rendering; frame rate on a real laptop has not been measured by this task.
 - A full session is about 35 minutes with the shortest timers the host lobby offers (22 part votes of about 54 s each); this is an estimate from the timers, not a measured playtest with six people.
 - Costs, schedules, reliabilities and boost sizes are game values, not real figures; balance has been checked by a script, not by a large human playtest.
