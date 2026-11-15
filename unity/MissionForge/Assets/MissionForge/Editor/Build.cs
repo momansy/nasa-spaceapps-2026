@@ -11,8 +11,10 @@ namespace MissionForge
 {
     /// <summary>
     /// Build entry points. <c>MissionForge.Build.WebGL</c> builds the host to the repository's
-    /// docs/play/host/ folder, gzip with the decompression fallback so any static host can serve it
-    /// without special headers (files stay well under the 49 MB publish limit).
+    /// docs/play/host/ folder, Brotli with the decompression fallback so any static host can serve it
+    /// without special headers. Brotli since T055: with the flight world and Build Bay art the Gzip data
+    /// file reached 50.3 MiB, over the 49 MiB publish limit (mesh.py MAX_FILE_BYTES); Brotli is 41.9 MiB.
+    /// The hosted server sends no Content-Encoding for Brotli files, so the loader decodes them in JS.
     /// Batch mode: Unity -batchmode -quit -projectPath unity/MissionForge -buildTarget WebGL -executeMethod MissionForge.Build.WebGL
     /// </summary>
     public static class Build
@@ -30,8 +32,8 @@ namespace MissionForge
             string[] scenes = EditorBuildSettings.scenes.Where(s => s.enabled).Select(s => s.path).ToArray();
             if (scenes.Length == 0) throw new BuildFailedException("No scenes in Build Settings. Run MissionForge/Rebuild Scenes And Assets first.");
 
-            PlayerSettings.WebGL.compressionFormat = WebGLCompressionFormat.Gzip;
-            PlayerSettings.WebGL.decompressionFallback = true; // Any static host works: the loader inflates .gz itself when Content-Encoding is missing.
+            PlayerSettings.WebGL.compressionFormat = WebGLCompressionFormat.Brotli; // Gzip data exceeded the 49 MiB publish limit (T055).
+            PlayerSettings.WebGL.decompressionFallback = true; // Any static host works: the loader decompresses itself when Content-Encoding is missing.
             PlayerSettings.WebGL.template = "PROJECT:MissionForge";
             PlayerSettings.WebGL.dataCaching = true;
             PlayerSettings.SetManagedStrippingLevel(NamedBuildTarget.WebGL, ManagedStrippingLevel.Minimal);

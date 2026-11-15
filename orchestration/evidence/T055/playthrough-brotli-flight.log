@@ -1,0 +1,59 @@
+0000 renderer ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)
+0011 shot 001-0011-title.png
+0012 room MBBQ
+0012 shot 002-0012-room-open.png
+0013 phase.set LOBBY sub=NONE
+0017 shot 003-0016-phase-LOBBY-a.png
+0018 joined Ada
+0018 joined Yuri
+0019 joined Sally
+0023 shot 004-0023-lobby-3-crew.png
+0023 start briefing
+0023 phase.set BRIEFING sub=NONE
+0025 shot 005-0025-phase-LOBBY-b.png
+0027 shot 006-0027-phase-BRIEFING-a.png
+0036 shot 007-0035-phase-BRIEFING-b.png
+0043 shot 008-0043-periodic-BRIEFING-v0.png
+0063 shot 009-0063-periodic-BRIEFING-v0.png
+0067 phase.set CONTRACT_VOTE sub=NONE
+0068 vote.opened #1 CONTRACT-t027.2594ea86.contract.1
+0071 shot 010-0070-phase-CONTRACT_VOTE-a.png
+0079 shot 011-0079-phase-CONTRACT_VOTE-b.png
+0083 shot 012-0083-periodic-CONTRACT_VOTE-v1.png
+0098 phase.set BUILD sub=NONE
+0099 vote.opened #2 PART-m1.b1.launch_site
+0101 shot 013-0101-phase-BUILD-a.png
+0104 shot 014-0103-periodic-BUILD-v2.png
+0110 shot 015-0110-phase-BUILD-b.png
+0124 shot 016-0124-periodic-BUILD-v2.png
+0144 shot 017-0144-periodic-BUILD-v2.png
+0145 vote.opened #3 PART-m1.b2.instrument
+0149 shot 018-0149-build-scale-view.png
+0150 skip build: PageDown
+0151 phase.set FRR sub=NONE
+0154 shot 019-0154-phase-FRR-a.png
+0163 shot 020-0163-phase-FRR-b.png
+0164 shot 021-0164-periodic-FRR-v3.png
+0184 shot 022-0184-periodic-FRR-v3.png
+0205 shot 023-0204-periodic-FRR-v3.png
+0213 stall in FRR; PageDown
+0213 shot 024-0213-stall-FRR.png
+0213 phase.set COUNTDOWN sub=NONE
+0217 shot 025-0217-phase-COUNTDOWN-a.png
+0224 phase.set FLIGHT sub=FLYING
+0225 shot 026-0225-periodic-FLIGHT-v3.png
+0225 shot 027-0225-phase-COUNTDOWN-b.png
+0227 shot 028-0227-phase-FLIGHT-a.png
+0236 shot 029-0236-phase-FLIGHT-b.png
+0245 shot 030-0245-periodic-FLIGHT-v3.png
+0265 shot 031-0265-periodic-FLIGHT-v3.png
+0285 shot 032-0285-periodic-FLIGHT-v3.png
+0305 shot 033-0305-periodic-FLIGHT-v3.png
+0326 shot 034-0325-periodic-FLIGHT-v3.png
+0346 shot 035-0346-periodic-FLIGHT-v3.png
+0346 stall in FLIGHT; PageDown
+0346 shot 036-0346-stall-FLIGHT.png
+0347 phase.set DEBRIEF sub=SUMMARY
+0350 shot 037-0350-phase-DEBRIEF-a.png
+0359 shot 038-0359-phase-DEBRIEF-b.png
+0366 shot 039-0366-periodic-DEBRIEF-v3.png

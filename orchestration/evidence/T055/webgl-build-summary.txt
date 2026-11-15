@@ -1,0 +1,116 @@
+MissionForge WebGL build summary
+Result:        Succeeded
+Unity:         6000.6.9f1
+Target:        WebGL
+Output:        docs/play/host
+Started (UTC): 2026-11-15 11:01:44Z
+Duration:      247 s
+Total size:    55.82 MiB (58529680 bytes)
+Errors:        0
+Warnings:      0
+Compression:   Brotli
+Scenes (17):
+  Assets/MissionForge/Scenes/MF_Shell.unity
+  Assets/MissionForge/Scenes/MF_Title.unity
+  Assets/MissionForge/Scenes/MF_Lobby.unity
+  Assets/MissionForge/Scenes/MF_Briefing.unity
+  Assets/MissionForge/Scenes/MF_ContractVote.unity
+  Assets/MissionForge/Scenes/MF_BuildBay.unity
+  Assets/MissionForge/Scenes/MF_TestStand.unity
+  Assets/MissionForge/Scenes/MF_DesignReview.unity
+  Assets/MissionForge/Scenes/MF_FlightReadinessReview.unity
+  Assets/MissionForge/Scenes/MF_Countdown.unity
+  Assets/MissionForge/Scenes/MF_Flight.unity
+  Assets/MissionForge/Scenes/MF_MinigameOverlay.unity
+  Assets/MissionForge/Scenes/MF_OrbitMap.unity
+  Assets/MissionForge/Scenes/MF_Debrief.unity
+  Assets/MissionForge/Scenes/MF_Codex.unity
+  Assets/MissionForge/Scenes/MF_CampaignHub.unity
+  Assets/MissionForge/Scenes/MF_Settings.unity
+Output files:
+  Build/host.data.unityweb                           41.91 MiB
+  Build/host.framework.js.unityweb                    0.07 MiB
+  Build/host.loader.js                                0.11 MiB
+  Build/host.wasm.unityweb                            8.95 MiB
+  StreamingAssets/data/abort_modes.json               0.00 MiB
+  StreamingAssets/data/achievements.json              0.01 MiB
+  StreamingAssets/data/anomalies.json                 0.01 MiB
+  StreamingAssets/data/assist_levels.json             0.00 MiB
+  StreamingAssets/data/awards.json                    0.00 MiB
+  StreamingAssets/data/boosts.json                    0.01 MiB
+  StreamingAssets/data/contracts.json                 0.08 MiB
+  StreamingAssets/data/facts.json                     0.03 MiB
+  StreamingAssets/data/flight_phases.json             0.01 MiB
+  StreamingAssets/data/index.json                     0.00 MiB
+  StreamingAssets/data/minigames.json                 0.04 MiB
+  StreamingAssets/data/parts/aero_control.json        0.00 MiB
+  StreamingAssets/data/parts/attitude_control.json    0.00 MiB
+  StreamingAssets/data/parts/avionics.json            0.01 MiB
+  StreamingAssets/data/parts/booster_recovery.json    0.01 MiB
+  StreamingAssets/data/parts/capsule.json             0.00 MiB
+  StreamingAssets/data/parts/capsule_recovery.json    0.00 MiB
+  StreamingAssets/data/parts/communications.json      0.01 MiB
+  StreamingAssets/data/parts/engine_count.json        0.01 MiB
+  StreamingAssets/data/parts/escape_system.json       0.00 MiB
+  StreamingAssets/data/parts/fairing.json             0.00 MiB
+  StreamingAssets/data/parts/first_stage_engine.json    0.01 MiB
+  StreamingAssets/data/parts/heat_shield.json         0.01 MiB
+  StreamingAssets/data/parts/instrument.json          0.01 MiB
+  StreamingAssets/data/parts/launch_site.json         0.01 MiB
+  StreamingAssets/data/parts/life_support.json        0.00 MiB
+  StreamingAssets/data/parts/mars_lander.json         0.00 MiB
+  StreamingAssets/data/parts/mission_assurance.json    0.00 MiB
+  StreamingAssets/data/parts/navigation_sensor.json    0.00 MiB
+  StreamingAssets/data/parts/power_system.json        0.01 MiB
+  StreamingAssets/data/parts/rcs.json                 0.00 MiB
+  StreamingAssets/data/parts/satellite_power.json     0.00 MiB
+  StreamingAssets/data/parts/separation_system.json    0.00 MiB
+  StreamingAssets/data/parts/strap_on_booster.json    0.01 MiB
+  StreamingAssets/data/parts/structural_material.json    0.01 MiB
+  StreamingAssets/data/parts/tank_size.json           0.00 MiB
+  StreamingAssets/data/parts/upper_stage_engine.json    0.01 MiB
+  StreamingAssets/data/pilot_controls.json            0.01 MiB
+  StreamingAssets/data/pings.json                     0.00 MiB
+  StreamingAssets/data/roles.json                     0.01 MiB
+  StreamingAssets/data/scoring.json                   0.01 MiB
+  StreamingAssets/data/strings/ar.buildbay.json       0.01 MiB
+  StreamingAssets/data/strings/ar.content.json        0.07 MiB
+  StreamingAssets/data/strings/ar.host_end.json       0.03 MiB
+  StreamingAssets/data/strings/ar.json                0.01 MiB
+  StreamingAssets/data/strings/ar.parts_a.json        0.02 MiB
+  StreamingAssets/data/strings/ar.parts_b.json        0.02 MiB
+  StreamingAssets/data/strings/en.buildbay.json       0.01 MiB
+  StreamingAssets/data/strings/en.content.json        0.06 MiB
+  StreamingAssets/data/strings/en.host_end.json       0.03 MiB
+  StreamingAssets/data/strings/en.host_preflight.json    0.01 MiB
+  StreamingAssets/data/strings/en.json                0.01 MiB
+  StreamingAssets/data/strings/en.parts_a.json        0.02 MiB
+  StreamingAssets/data/strings/en.parts_b.json        0.02 MiB
+  StreamingAssets/data/strings/es.buildbay.json       0.01 MiB
+  StreamingAssets/data/strings/es.content.json        0.06 MiB
+  StreamingAssets/data/strings/es.host_end.json       0.03 MiB
+  StreamingAssets/data/strings/es.json                0.01 MiB
+  StreamingAssets/data/strings/es.parts_a.json        0.02 MiB
+  StreamingAssets/data/strings/es.parts_b.json        0.02 MiB
+  StreamingAssets/data/strings/fr.buildbay.json       0.01 MiB
+  StreamingAssets/data/strings/fr.content.json        0.06 MiB
+  StreamingAssets/data/strings/fr.host_end.json       0.03 MiB
+  StreamingAssets/data/strings/fr.json                0.01 MiB
+  StreamingAssets/data/strings/fr.parts_a.json        0.02 MiB
+  StreamingAssets/data/strings/fr.parts_b.json        0.02 MiB
+  StreamingAssets/data/strings/hi.buildbay.json       0.01 MiB
+  StreamingAssets/data/strings/hi.content.json        0.10 MiB
+  StreamingAssets/data/strings/hi.host_end.json       0.04 MiB
+  StreamingAssets/data/strings/hi.json                0.02 MiB
+  StreamingAssets/data/strings/hi.parts_a.json        0.02 MiB
+  StreamingAssets/data/strings/hi.parts_b.json        0.03 MiB
+  StreamingAssets/data/strings/pt.buildbay.json       0.01 MiB
+  StreamingAssets/data/strings/pt.content.json        0.06 MiB
+  StreamingAssets/data/strings/pt.host_end.json       0.03 MiB
+  StreamingAssets/data/strings/pt.json                0.01 MiB
+  StreamingAssets/data/strings/pt.parts_a.json        0.02 MiB
+  StreamingAssets/data/strings/pt.parts_b.json        0.02 MiB
+  StreamingAssets/data/tests.json                     0.01 MiB
+  StreamingAssets/data/validation_rules.json          0.00 MiB
+  StreamingAssets/media/briefing/c1-earth-watch-briefing.mp4    3.41 MiB
+  index.html                                          0.01 MiB

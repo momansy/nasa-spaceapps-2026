@@ -1,0 +1,39 @@
+0001 renderer ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)
+0011 shot 001-0011-title.png
+0012 room VPFD
+0013 shot 002-0012-room-open.png
+0013 phase.set LOBBY sub=NONE
+0017 shot 003-0017-phase-LOBBY-a.png
+0018 joined Ada
+0019 joined Yuri
+0019 joined Sally
+0023 shot 004-0023-lobby-3-crew.png
+0023 start briefing
+0024 phase.set BRIEFING sub=NONE
+0025 shot 005-0025-phase-LOBBY-b.png
+0027 shot 006-0027-phase-BRIEFING-a.png
+0036 shot 007-0036-phase-BRIEFING-b.png
+0043 shot 008-0043-periodic-BRIEFING-v0.png
+0064 shot 009-0063-periodic-BRIEFING-v0.png
+0067 phase.set CONTRACT_VOTE sub=NONE
+0068 vote.opened #1 CONTRACT-t027.8acfea80.contract.1
+0071 shot 010-0071-phase-CONTRACT_VOTE-a.png
+0079 shot 011-0079-phase-CONTRACT_VOTE-b.png
+0084 shot 012-0084-periodic-CONTRACT_VOTE-v1.png
+0099 phase.set BUILD sub=NONE
+0100 vote.opened #2 PART-m1.b1.launch_site
+0103 shot 013-0102-phase-BUILD-a.png
+0104 shot 014-0104-periodic-BUILD-v2.png
+0106 shot 015-0106-build-vote2.png
+0111 shot 016-0111-phase-BUILD-b.png
+0124 shot 017-0124-periodic-BUILD-v2.png
+0144 shot 018-0144-periodic-BUILD-v2.png
+0146 vote.opened #3 PART-m1.b2.instrument
+0151 shot 019-0151-build-scale-view.png
+0165 shot 020-0164-periodic-BUILD-v3.png
+0185 shot 021-0185-periodic-BUILD-v3.png
+0193 vote.opened #4 PART-m1.b3.satellite_po
+0205 shot 022-0205-periodic-BUILD-v4.png
+0225 shot 023-0225-periodic-BUILD-v4.png
+0239 vote.opened #5 PART-m1.b4.attitude_con
+0241 done phase=BUILD votes=5 hostSocketCloses=0
