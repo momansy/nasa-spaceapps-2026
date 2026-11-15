@@ -48,16 +48,17 @@ What the code claims are backed by: `dotnet test core/dotnet~` (568 tests), `npx
 
 ## 3. AI-generated images and video
 
-All of it is logged in `assets/media/CREDITS.md` and `assets/media/GENERATION_LOG.json`, with the job id and a file hash for each still.
+All of it is logged in `assets/media/CREDITS.md` and `assets/media/GENERATION_LOG.json`, with the job id and a file hash for each delivered file.
 
 | File | Tool and model | Date (UTC) | Note |
 |---|---|---|---|
 | `assets/media/style/frames/01-title.png`, `02-build-bay.png`, `03-ascent.png`, `04-orbit-operations.png`, `05-reentry.png`, `06-mission-control.png` | Higgsfield `generate_image`, model `gpt_image_2_6`, 2K | 2026-11-14 | Prompts in `assets/media/style/PROMPT_PACK.json`. The orbit frame is the design anchor for the satellite |
 | `assets/media/key-art/missionforge-16x9.png`, `missionforge-1x1.png` | same | 2026-11-14 | The square image has visible banding around the sun halo (noted in the log) |
 | `assets/media/cinematics/c1-earth-watch-briefing.mp4` (10 s, 1280x720, 24 fps) | Google Gemini video export supplied by the project owner; **exact Gemini model, original prompt and job id were not provided** | 2026-11-14 | Audio track removed with a lossless FFmpeg stream copy; video not re-encoded |
+| `assets/media/trailer-ai/01-rocket-liftoff.mp4`, `03-fairing-separation.mp4`, `04-satellite-glide.mp4`, `06-stage-separation.mp4` | Higgsfield Seedance 2.0 Mini and Genjutsu motion control, with documented local FFmpeg night-side grading and stage-separation editing | 2026-11-15 | Four silent 3–5 s, 16:9 cinematic mood shots for the marketing trailer; they are AI-generated inserts, not gameplay footage. Exact prompts, jobs, settings and hashes are in `assets/media/trailer-ai/README.md`, `CREDITS.md` and `GENERATION_LOG.json` |
 
-- The 10 Higgsfield credits were the whole paid generation budget: 8 approved stills, 1 rejected attempt
-  (job `d747694a-f33a-42ac-b4e7-721e3efca9ce`, file not kept) and 1 timed-out submission that was charged but not recoverable.
+- T018 used its 10-credit Higgsfield budget for 8 approved stills, 1 rejected attempt
+  (job `d747694a-f33a-42ac-b4e7-721e3efca9ce`, file not kept) and 1 timed-out submission that was charged but not recoverable. T056 later used a separate available 10-credit balance for three trailer-video jobs (4 + 4 + 2 credits) and one free Genjutsu generation for the satellite glide.
 - Each approved still was inspected for text, logos and watermarks; none was found. No real mission patch, NASA logo or
   corporate livery is imitated.
 - The providers' licence terms for generated media have **not been reviewed by the team**.
