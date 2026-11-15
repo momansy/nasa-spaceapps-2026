@@ -1,211 +1,192 @@
 # T034 rubric: Build Bay environment and camera beauty pass (M1 to M10, U7 camera part, U11)
 
-**Re-score after the builder's second pass.** This supersedes the first RUBRIC.md of 2026-11-15. Every row was scored again from scratch against the regenerated captures (JPEG q90 singles, PNG composites). The first review was used only to check whether each defect it listed is fixed.
+**Rework round 1 (issue #129).** This replaces the earlier RUBRIC.md. Every row was scored again from scratch against the rework captures. The earlier review was used only to check whether each defect it listed is fixed.
 
-- **Reviewer:** independent subagent. It did not build this scene and scored it from the images and code, not from the builder's claims.
-- **Date:** 2026-11-15, second pass.
-- **Bar:** `orchestration/VISUAL_TARGET.md` section 6. A score of 4 means shippable: it holds up side by side with `assets/media/style/frames/02-build-bay.png`, and an outsider would not pick out the difference in quality. Nothing ships below 4. Section 1 (reference look) and section 2.5 (lighting and render) were the checklists.
+- **Reviewer:** independent subagent. It did not build this scene. It scored from the images, pixels and code, not from the builder's claims.
+- **Date:** 2026-11-15, rework round 1.
+- **Bar:** `orchestration/VISUAL_TARGET.md` section 6. A 4 means shippable: it holds up side by side with `assets/media/style/frames/02-build-bay.png`, and an outsider would not pick out the difference in quality. Nothing ships below 4. Sections 1 (reference look) and 2.5 (lighting and render) were the checklists.
+- **Scope exceptions:**
+  - The vehicle models (paint, decals, engine bells, frost, vehicle surface detail) belong to T032/T033. M4 and M5 are scored for the record only. M2, M3 and M7 score the environment and assembly part; the vehicle part is noted.
+  - Every player build of this project runs **without post-processing**: URP strips the Panini shader and then skips all post passes (README, "Finding outside T034's paths"). That means no ACES, no bloom, no grade and no URP vignette in any capture. This is outside T034's paths. It is mentioned where it matters, but what is on screen is what is scored.
 - **Method:**
-  - Looked at every current capture in `after/` (15, including the new `stage3-late-*`) and `before/`, `complete-beauty-vs-frame02.png`, `buildbay-ui-vs-frame02.png`, the new `assembly-stages-ui.png` (votes 3, 6 and 8), `webgl-chrome-1920x1080.jpg`, and frame 02 at full size.
-  - Zoomed crops (Pillow, 1–4×) of the vehicle, the mount, the horizon and sea band, the crane hook and the descending part in the assembly frame, the vote-5 ghost on the mount, the steam vent, and the exploded-view nose.
-  - Pixel work on the new files:
-    - 5 × 5 median colours (sky corners and centre, left edge, horizon, ground, mount, vehicle sun and shade sides) against frame 02;
-    - magenta, clipped-white and near-black counts;
-    - the share of the top 200 rows with red ≤ 3 (JPEG-tolerant);
-    - vehicle top and bottom rows per capture.
-  - Files read:
-    - `README.md`;
-    - `webgl-fps-high.json`, `-high-full.json` and `-low-full.json`;
-    - `editmode-results.xml` (339 total, 339 passed, 0 failed);
-    - current constants in `Cameras/BayFraming.cs` (band 200–760 px) and `Stage/BayStage.Framing.cs` (`MinFramedHeightM` 12 m, compare band 300–525 px, scale band bottom 690 px).
-  - No video or frame sequence exists, so motion is still judged from code plus stills.
+  - Looked at all 17 `after/` captures, the `before/` and `round1/` sets, `complete-beauty-vs-frame02.png`, `buildbay-ui-vs-frame02.png`, `assembly-stages-ui.png`, every `pairs/*` file, both motion contact sheets, and `webgl-chrome-1920x1080.jpg` at full size.
+  - Extracted frames from both MP4s (normal motion at 4 fps, reduced motion at 2 fps) and made zoomed contact sheets of the landing.
+  - Pillow crops at 2–3× of the tower, the mount, the horizon, the ground, the steam, the hook and part in the assembly still, the arm-end box, and the exploded nose.
+  - Pixel work: 40 × 40 median colours at the corners, mid edges, top centre and ground against frame 02 (scaled to 1920 × 1080); the share of the top 200 rows with red ≤ 3; clipped-white (all channels ≥ 250), near-black (all ≤ 12) and magenta counts with clusters located; vehicle nose and base rows with a pixel ruler; a pixel diff of the vote-3 and vote-5 captures.
+  - Read: `README.md`, `render-stats.txt`, all four `webgl-fps-*.json`, `measure-webgl-fps.mjs`, `editmode-results.xml` (340 / 340 passed, run 01:06Z = 04:06 local, after the last script change at 04:04), `BayDressingAssets.cs` (hero materials), `build_hero_pad.py` (bevel 4.5 cm plus weighted normals), and the fairing diameters in `data/contracts.json`.
 
 | Item | Score (1-5) | One-line reason | Evidence file(s) |
 |---|---|---|---|
-| M1 Silhouette and proportion | 3 | The vehicle reads cleanly at about 51 % of the height. The hero structures are still primitive: the launch mount is a single stepped concrete block with a ramp (745–1440, 755–890 in the complete beauty shot), and the service tower is a bare open lattice with no platforms, cladding or piping. Vehicle part owner: T032/T033. | `after/complete-vehicle-beauty-1920x1080.jpg`, `after/beauty-no-ui-*`, `complete-beauty-vs-frame02.png` |
-| M2 Material response | 3 | **Fixed:** the mount is now light textured concrete (#495667 / #545561, against #001933 before). The vehicle's sun/shade split holds: fairing #F0C291 against #A4A8AF; frame 02 is #EFD4BF against #687888. **Still open:** tower steel is flat #151C2B with no specular; the scrub ground repeats in a visible grid; vehicle paint unchanged (owner T032/T033). | `after/complete-vehicle-beauty-*`, `after/stage2-mid-no-ui-*` |
-| M3 Surface detail | 2 | Unchanged. No railings, stairs, pipes or platform lamps on the tower or mount; the far hall is a plain fogged box (402–543, 597–718); the vehicle still has small black rectangles as "detail". Vehicle owner: T032/T033. | `after/complete-vehicle-beauty-*` |
-| M4 Markings | 3 | The apron paint (lane lines, yellow dashed ring) is sparse, generic, logo-free and free of z-fighting. The vehicle has only navy bands, with no teal strakes or stage markings. Vehicle decals owner: T032/T033. | `after/beauty-no-ui-*`, `after/complete-vehicle-beauty-*` |
-| M5 Engine fidelity | 2 | At the hero framing the bells are hidden by hold-down clamps (Build Bay full) or show as small dark cones (boosters, 930–1000, 720–750). Section 2.2 cannot be checked. The first-stage cluster in the WebGL frame (925–990, 690–750) is tiny. Owner: T032/T033. | `after/complete-vehicle-beauty-*`, `webgl-chrome-1920x1080.jpg` |
-| M6 Edges and normals | 3 | No shading artefacts. Every environment box is unbevelled: the mount block, the apron slab edge (450–1430, 865–950), the side block and the far buildings. | `after/complete-vehicle-beauty-*`, `after/stage1-early-no-ui-*` |
-| M7 Wear and frost | 2 | No frost on any tank. The steam vent is a faint grey puff at the lower arm end (895–925, 495–535 in `after/beauty-no-ui`), which reads as a smudge, not boil-off. Trench soot is never in frame. Frost owner: T032/T033. | `after/beauty-no-ui-*` |
-| M8 Lighting and render | 3 | **Better:** the mount shadow is lifted; the top-centre sky is now #0F3C73, close to frame 02's #134164; red ≤ 3 covers 39–51 % of the top 200 rows (65–72 % before). **Still failing:** the corners stay saturated blue (#00388F TL, #005EA6 TR, against frame 02 #082134) and there is no navy side vignette (left edge mid #BE9E85, while frame 02 is navy); the horizon is one hard straight line at y ≈ 675 across the width, above a tiled ocean stripe; ground glints are still blobs far from any lamp; the near ground is #0A1A31, with red just under the 12 floor. | `after/complete-vehicle-beauty-*`, `after/beauty-no-ui-*`, frame 02 |
-| M9 Technical | 3 | **Fixed:** WebGL median 59.9 fps on High (six live assemblies, p95 17.6 ms), on High with the bay full, and on Low; EditMode 339/339 green; no magenta or clipped whites in any capture; licences recorded; 1K textures. **Still open:** fps is from the build before the final framing and grade tweaks; it was measured only on an M4 at the 60 Hz vsync cap, not a mid-range laptop; triangle and draw-call counts against the 1.8 M / 600 budget are still not measured; `webgl-chrome-1920x1080.jpg` shows the old build (dark mount, smaller vehicle). `index.json` is to be reverted (coordinator). | `README.md` (WebGL section), `webgl-fps-*.json`, `editmode-results.xml`, `webgl-chrome-1920x1080.jpg` |
-| M10 Reference match | 2 | Improved: the concrete mount now sits in the palette and the sky centre is calmer. Side by side with frame 02, though, an outsider still sees the gap at once: a block pedestal and bare lattice tower stand in for frame 02's clad teal service tower and legged mount; there are no coastline, hills or clouds; the ocean is a tiled stripe; the corners are saturated. Brief step 4 (T017 hero tower, crane and hall) is still not done. | `complete-beauty-vs-frame02.png`, `pairs/complete-vehicle-beauty-before-after.png` |
-| U7 Motion (camera and assembly only) | 3 | **Fixed:** the band is now 200–760 px, so the base clears the timeline; `MinFramedHeightM` is 12 m, so votes 6 and 8 reach 48–50 %. **Still open:** there is no motion capture; the assembly still shows no sparks; the crane cable is drawn straight through the descending fairing; the hook is a flat salmon box (930–990, 635–680); the part blows out to near-white under the work light. The code is sound: unit-tested solve, dolly, orbit, punch-in, and reduced motion as cuts. | `after/assembly-crane-sparks-*`, `after/stage2-mid-ui-*`, `after/stage3-late-ui-*`, `BayStage.Framing.cs:18` |
-| U11 Reference match (Build Bay with UI) | 3 | At every stage from vote 6 on, the vehicle owns the free column at 48–54 % against a warm dusk, and the scale-view person label is restored. **Still open:** the compare candidate labels collide with the UI; the exploded nose is clipped by the phase pills; the scene under the panels stays generic. | `buildbay-ui-vs-frame02.png`, `assembly-stages-ui.png`, `after/compare-*`, `after/exploded-*` |
+| M1 Silhouette and proportion | 3 | **Much better:** a clad tower with platforms, a crown house and a legged teal table with stairs now gives frame 02's massing, and the vehicle holds 46–49 % of the height. **Still short:** the table is a closed concrete box under a teal portal (no open legs over a lit exhaust opening). The far hall is a plain box (402–543, 597–718), the apron is a flat hexagon slab and the ramp is a block. Every tower storey repeats the same module. Vehicle shape: T032/T033. | `after/complete-vehicle-beauty-*`, `after/beauty-no-ui-*`, `complete-beauty-vs-frame02.png` |
+| M2 Material response | 3 | Concrete is textured and the ground is drier. But the "metallic" tower steel (#C4CCCF, metallic 0.55) reads as flat mauve-grey with no sun rim on the lattice (620–850, 0–700 in `beauty-no-ui`). The gold cryo lines read as glowing neon strips, not foil. No wet reflection is visible in any lamp pool. Vehicle paint: T032/T033. | `after/beauty-no-ui-*`, `after/stage2-mid-no-ui-*`, `after/complete-vehicle-beauty-*` |
+| M3 Surface detail | 3 | **New:** railings, stair flights with landings, platform lamps, a pipe run on stand-offs, a glazed crown and hold-down posts, which is restrained and placed where real pads have them. **Still bare:** the arm-end boxes are plain near-black cubes beside the vehicle (#011631 at 828–885, 240–330 in `stage2-mid-no-ui`). The hall, apron and ramp have no detail. The mount face is a flat wall that fills the lower 35 % at votes 3–8. Vehicle detail: T032/T033. | `after/stage2-mid-no-ui-*`, `after/stage3-late-no-ui-*`, `after/complete-vehicle-beauty-*` |
+| M4 Markings | 3 (T032/T033 exception) | Apron paint is sparse, generic, logo-free and has no z-fighting. The vehicle still has only navy bands and no teal strakes. Scored for the record; vehicle decals are owned by T032/T033. | `after/beauty-no-ui-*` |
+| M5 Engine fidelity | 2 (T032/T033 exception) | Bells are hidden at the hero framing. The vote-8 upper-stage engine shows only as small legs (900–1010, 660–700). Scored for the record; owned by T032/T033. | `after/stage3-late-no-ui-*`, `after/complete-vehicle-beauty-*` |
+| M6 Edges and normals | 3 | No shading artefacts. The hero meshes have 4.5 cm bevels with weighted normals (`build_hero_pad.py:53`), which is under the 5–15 cm asked for big forms, and they do not visibly catch light at any capture distance. The T015 apron slab edge (450–1430, 865–950), the ramp, the hall, the arm-end boxes and the lamp bases are still hard unbevelled boxes. | `after/complete-vehicle-beauty-*`, `after/stage2-mid-no-ui-*` |
+| M7 Wear and frost | 3 | The steam is now a rising column (920–1000, 60–330 in `complete-vehicle-beauty`). It is faint, cool grey-white and not backlit, and the arm-end source still reads as a small grey smudge (900–925, 480–515 in `idle-ui`). The concrete has stains in its texture. There is no trench soot in frame. Frost: T032/T033. | `after/complete-vehicle-beauty-*`, `after/idle-ui-*` |
+| M8 Lighting and render | 3 | **Better:** navy falloff in the top corners and along the bottom; headlands on both sides; a haze band; the stray ground glints are gone. **Still failing:** the corners are saturated royal blue (#001441 against frame 02's #092135, with B/G of about 3.2 against 1.6). Red ≤ 3 now covers 55–70 % of the top 200 rows (39–51 % in round 1; 0 % in frame 02). The top centre is #005AB0 against #174669. The mid edges are grey-mauve (#3E3B40), not navy. The sea line is still hard and straight at y ≈ 675, the wave band still repeats (0–780, 705–735), and the glint path is a short strip (1480–1560, 705–720). No post-processing (outside T034). | `after/complete-vehicle-beauty-*`, `after/beauty-no-ui-*`, frame 02 |
+| M9 Technical | 3 | **Done:** WebGL rebuilt at 04:06, after the last code change at 04:04. 59.9 fps vsync and 110 uncapped during six assemblies on an M4. All-pass triangles are at most 1.10 M (under 1.8 M). EditMode 340/340. 0 magenta. **Open:** engine draw calls are 1,087–1,496 in the fuller states, over 600. The "main view" 448 is a self-defined count without the shadow and prepass draws. There is no mid-range laptop figure. `webgl-chrome-1920x1080.jpg` shows the FRR screen, not the Build Bay, so the "near-complete" fps runs probably ended outside the bay. | `README.md`, `render-stats.txt`, `webgl-fps-*.json`, `webgl-chrome-1920x1080.jpg`, `editmode-results.xml` |
+| M10 Reference match | 3 | Up from 2. Side by side it now reads as the same kind of place: a clad tower on the left, the vehicle in the centre, a dusk sun on the right, headlands and navy edges. An outsider still sees the gap at once. The sky is saturated and cloudless. There are two bare masts where frame 02 has its cranes. The bottom quarter is flat dark ground with no wet reflections. The hall is a box. The gold lines glow. | `complete-beauty-vs-frame02.png`, `pairs/complete-vehicle-beauty-round1-vs-rework.jpg` |
+| U7 Motion (camera and assembly only) | 3 | **Fixed:** a 13 s capture in normal and reduced motion (reduced motion fades the part in place and cuts the camera); the cable ends at a modelled hook block with a sheave; sparks fall in front of the part. **Open:** in the still, the part's lower half is still near-clipped (R = 255, G 238–253 at 945–970, 670–720). A landed 1.5 m small fairing stays about 8 % of the screen height for the rest of the clip (about 60 of 720 px), and the punch-in barely changes that. Votes 3 and 5 frame an empty table top (the satellite has no model and there is no ghost). | `motion/*.mp4`, `motion/*-contact.jpg`, `after/assembly-crane-sparks-*`, `after/vote5-short-stack-*` |
+| U11 Reference match (Build Bay with UI) | 3 | **Fixed:** the compare tags now sit at y 485–520, clear of the banner and the chips (B is 7 px under the Stability chip). The exploded nose (y ≈ 320) clears the phase pills and the banner. Votes 6–10 hold the vehicle in the free column at 46–49 %. **Open:** at votes 3 and 5 the free column is an empty mount and a concrete wall. "Payload" still overprints "Upper stage tanks" in the exploded view (1018–1230, 560–605). The scene under the panels shares the M8 and M10 gaps. | `buildbay-ui-vs-frame02.png`, `assembly-stages-ui.png`, `after/compare-*`, `after/exploded-*`, `after/stage1-early-ui-*` |
 
 ## Below 4
 
+Every item is below 4. Fixes are listed in order of effect.
+
 **M1 Silhouette and proportion (3)**
-- **Mount:** a stepped block plus a wedge ramp (745–1440, 755–890 in `after/complete-vehicle-beauty`).
-- **Tower:** an open square lattice (790–920, 0–755).
-- **Frame 02** has a legged mount with teal struts, stairs and a lit opening, and a clad teal tower with platforms and a pipe run.
-- **Fix:** brief step 4: hero mount and service tower with frame 02's massing.
+- Open the table: show the splayed legs over a dark exhaust opening lit by its lamps, as in frame 02 (2048-wide frame, 860–1220, 990–1090). Do not show a closed concrete face.
+- Replace the far hall box (402–543, 597–718) with T017's site silhouette, or add a roofline, doors and a lit window band.
+- Break the repeated tower storeys: vary the balcony side and the cladding per storey, and add one taller machine level.
 
 **M2 Material response (3)**
-- **Fixed:** the mount colour and texture.
-- **Open:**
-  - Tower steel is flat #151C2B with no sun rim.
-  - The scrub ground repeats in a regular grid (right half, 850–1080).
-- **Fix:**
-  - a metallic, low-roughness steel material so the sun rims the lattice;
-  - a macro variation or second UV scale on the ground.
+- Tower steel: lower the roughness and check that the sun-facing flanges catch a rim. Make the probe capture include the bright dusk side. In the current captures the lattice has no highlight at all.
+- Cryo lines: remove any emissive, or lower the foil smoothness, so they read as wrapped pipe and not light strips (the 480–580 band in `stage1-early-no-ui`).
+- Wet sheen: make the lamp-pool patches show visible reflections of the lamp heads (frame 02 has bright streaks under every lamp). None show now.
 
-**M3 Surface detail (2)**
-- Unchanged from the first review.
-- **Fix:** railings, stair runs, pipe runs and lamp fixtures on the tower and mount (trim-sheet approach); detail on the hall silhouette. The vehicle black rectangles belong to T032/T033.
+**M3 Surface detail (3)**
+- Model the arm-end umbilical plates (connector plate, hose loops, a hinge) in place of the near-black cubes. They sit next to the vehicle in every vehicle shot.
+- Add panel joints, a drain channel and anchor plates to the mount wall, which fills the lower third at votes 3–8.
+- Add a kerb, joints and trim to the apron slab and the ramp.
 
-**M4 Markings (3), owner T032/T033**
-- **Fix:** vehicle teal strakes and a stage-marking decal atlas.
+**M4 Markings (3), T032/T033 exception**
+- Vehicle teal strakes and stage markings (T032/T033).
 
-**M5 Engine fidelity (2), owner T032/T033**
-- **Fix:** T033 engines. On the camera side, a slightly lower eye or an open clamp ring so the engine bay reads.
+**M5 Engine fidelity (2), T032/T033 exception**
+- T033 engines. On the camera side, a lower eye at vote 8 or later would let the engine bay read.
 
 **M6 Edges and normals (3)**
-- **Fix:** 5–15 cm bevels with weighted normals on the environment meshes.
+- Raise the bevel on big hero forms (table deck, columns, plinth) to 8–15 cm so the edges catch the sun at bay distance.
+- Bevel the T015 leftovers that are still in frame: the apron slab, the ramp, the hall, the arm-end boxes and the lamp bases.
 
-**M7 Wear and frost (2)**
-- The steam is a faint grey puff (895–925, 495–535).
-- No frost (owner T032/T033).
-- **Fix:** warm-white, longer, rising and wind-bent steam on the sun side so it backlights. Frost belongs to T032/T033.
+**M7 Wear and frost (3)**
+- Steam: make it warmer (about #F2E6D8 on the sun side), denser near the vent and longer, so it backlights against the sun. Give the vent a visible fitting so the puff does not come out of a black box.
+- Add light soot and heat staining at the flame opening and the trench edge.
+- Frost: T032/T033.
 
 **M8 Lighting and render (3)**
-- **Fixed:**
-  - the mount shadow floor;
-  - the top-centre sky tone.
-- **Open:**
-  - **Saturated corners:** TL #00388F (red 0); red ≤ 3 still covers 39–51 % of the top 200 rows in the no-UI shots.
-  - **No navy edge vignette:** the left edge at mid height is #BE9E85. Frame 02 falls off to navy on both sides.
-  - **Hard horizon:** a straight line at y ≈ 675 across 0–1920, then a tiled wave stripe (≈ 700–730). No coastline or hills.
-  - **Ground glints:** random elliptical blobs away from the lamps (1580–1760, 850–930 and 1450–1520, 965–980).
-  - **Near ground:** #0A1A31, red marginally under the sRGB 12 floor.
-- **Fix:**
-  - a radial or side vignette of about 0.15–0.18 that pulls the edges to navy;
-  - lower the upper-sky saturation at the corners;
-  - bring a headland or coastline into view;
-  - a larger-scale ocean normal with a sun-glint path;
-  - cluster the wet sheen around the lamp pools;
-  - lift the ground floor slightly.
+- Corner and top sky: lift the red channel and lower the saturation. Aim for about #0A2236 in the corners and #17466A at the top centre. Right now 55–70 % of the top 200 rows have red ≤ 3.
+- Mid edges: let the framing card reach navy over the full height of both sides. It is #3E3B40 at (30, 540) now.
+- Horizon: break the straight sea line at y ≈ 675 between the headlands with a far shore, low cloud or a thin haze bank. Add some sky clouds lit from below.
+- Sea: remove the repeating wave band (0–780, 705–735). Make the glint path a long column under the sun (frame 02 has it from the sun down to the shore).
+- Report the post-processing strip to T031. With ACES and the grade back on, re-check the sky and the clipped sun.
 
 **M9 Technical (3)**
-- **Fixed:**
-  - WebGL fps evidence (59.9 median on High and Low, including during assemblies);
-  - EditMode results (339/339).
-- **Open:**
-  - The fps and `webgl-chrome-1920x1080.jpg` come from the build before the final framing, grade and mount changes (README says so; the capture shows the old dark mount).
-  - The measurement is vsync-capped on an Apple M4, so headroom on a mid-range laptop is unknown.
-  - Visible-triangle and draw-call counts are not measured.
-- **Fix:**
-  - rebuild WebGL from the final state and re-measure;
-  - record triangles and draw calls (Frame Debugger or `UnityStats` in a development build) against 1.8 M / 600;
-  - revert `index.json` as planned.
+- Bring the full-state draw calls under 600 on the engine counter. Static-batch or combine the hero pieces, railings and lamps, and drop shadow casting on small parts. Otherwise get the orchestrator to agree in writing that the budget means main-view draws.
+- Measure on a mid-range laptop, or a throttled GPU profile, and say which one.
+- Re-take the WebGL screenshot while the Build Bay is on screen. Make sure the "near-complete" runs stay in the bay for the whole window, or report how long they were on FRR.
+- Fix the `[mid] 02-beauty-no-ui triangles=0` reading in `render-stats.txt`.
 
-**M10 Reference match (2)**
-- **Fix:** in order of effect:
-  - hero tower and mount (M1, M3);
-  - edge vignette and corner sky (M8);
-  - coastline and ocean (M8).
+**M10 Reference match (3)**
+- In order of effect: sky colour and clouds (M8), wet reflections in the foreground (M2), an open legged table (M1), cranes or lit service buildings in place of the bare masts, and a hall with detail.
 
 **U7 Motion, camera and assembly (3)**
-- **Fixed:** the base now sits at 735–750 px, clear of the timeline at 798. Early stages reach the band:
-  - vote 6: 200–735 px, about 50 %;
-  - vote 8: 200–720 px, about 48 %.
-- **Open:**
-  - **No motion evidence:** no video or frame sequence of a dolly, the orbit, a punch-in, or an assembly in normal and reduced motion.
-  - **Assembly frame (`after/assembly-crane-sparks`):**
-    - no sparks are visible;
-    - the crane cable runs straight down through the descending fairing to its base (a dark vertical line, about x 955, 665–790), which is interpenetration;
-    - the hook is an untextured salmon box (930–990, 635–680);
-    - the lower half of the fairing is blown out to near-white by the work light (935–990, 700–790).
-  - **Vote 5:** only the satellite is on the stack, so the camera holds the 42 m empty-pad framing. The only vehicle element is a teal ghost about 45 px tall (940–975, 700–745, about 4 %).
-- **Fix:**
-  - capture 10–15 s of a part landing (normal and reduced motion);
-  - end the cable at the hook and give the hook a model or steel material;
-  - cap the work light intensity, or move it off-axis, so the part keeps its form;
-  - make sure the sparks fall in front of the part, or capture after descent ends;
-  - treat a satellite-only stack as a short stack (12 m minimum) instead of an empty pad.
+- Work light: cap it lower for the punched-in shot, or angle it more, so the part keeps its form under the sparks (945–970, 670–720 now reads near-white).
+- Small parts: when the stack is shorter than about 5 m, let the punch-in frame the part itself, not the 12 m table, so a landed small fairing is not 8 % of the screen.
+- Empty table at votes 3–5: show a payload stand-in (a ghost or a dispenser) on the table, or hold the wider pad framing until a part with a model exists.
 
 **U11 Reference match, Build Bay with UI (3)**
-- **Fixed:** the scale-view "Person 1.75 m" label is visible again (948–1125, 708–742 in `after/scale-reference`).
-- **Open:**
-  - **Compare (`after/compare`):** the candidates are now framed at 300–525 px, so their world-anchored labels sit at the top of that band and collide with the UI:
-    - "A · Kerolox Workhorse" is half hidden under the rehearsal banner (600–860, 295–325);
-    - "B · Hydrol…" is cut off by the Compare chip (1095–1420, 285–315).
-
-    In the before capture both labels sat in open scene.
-  - **Exploded (`after/exploded`):** the fairing nose tip is hidden behind the "A · Concept" phase pill (920–1000, 118–165). This is new: before, the exploded stack sat lower.
-  - The scene under the panels shares the M8 and M10 gaps.
-- **Fix:**
-  - place the compare labels below the candidates' noses inside the band, or clamp label positions to the free column clear of the banner and chips (about y 330–520);
-  - lower the exploded-view band top to about 185 px.
+- Separate the "Payload" and "Upper stage tanks" exploded tags (1018–1230, 560–605), for example with a minimum vertical gap between tags.
+- Apply the U7 fix for votes 3–5, so the free column is not an empty mount and a concrete wall.
+- The rest follows M8 and M10.
 
 ## Checks
 
 **Vehicle at 45–60 % of the screen height in the free column (512–1408 px), measured on the current captures**
 
-| Capture | Stage | Vehicle top–bottom (px of 1080) | Share | Result |
+| Capture | Stage | Vehicle nose–base (px of 1080) | Share | Result |
 |---|---|---|---|---|
-| `after/stage1-early-*` | vote 3, empty pad | no vehicle; tower and crane framed (42 m) | n/a | n/a |
-| `after/vote-in-progress-*` | vote 5, satellite only (ghost fairing shown) | ≈ 700–745 | ≈ 4 % | **Fail** (empty-pad framing) |
-| `after/stage2-mid-*` | vote 6, payload and fairing | ≈ 200–735 | ≈ 50 % | Pass (was 35 %) |
-| `after/stage3-late-*` | vote 8, fairing and upper-stage engine | ≈ 200–720 | ≈ 48 % | Pass (new) |
-| `after/idle-ui-*` | vote 10 | ≈ 200–745 | ≈ 50 % | Pass, base clear of the timeline |
-| `after/beauty-no-ui-*` | vote 9 | ≈ 200–750 | ≈ 51 % | Pass |
-| `after/complete-vehicle-beauty-*` | full stack with boosters | ≈ 200–750 | ≈ 51 % | Pass |
-| `after/reduced-motion-ui-*` | vote 10 | ≈ 200–745 | ≈ 50 % | Pass |
-| `webgl-chrome-1920x1080.jpg` | vote 11 (older build) | ≈ 380–760 | ≈ 35 % | Stale build, not scored |
+| `after/stage1-early-*` | vote 3 (mass 0.2 t, choices already made) | no vehicle; table framed at 12 m | 0 % | Fail. The frame is identical to vote 5 (mean diff 0.93 / 255). |
+| `after/vote5-short-stack-*` | vote 5, satellite only | no vehicle and no ghost; 12 m table | 0 % | Fail (empty table) |
+| `after/vote-in-progress-*` | vote 5, voting | ghost fairing about 590–690 | ≈ 9 % | Fail |
+| `after/stage2-mid-*` | vote 6, 5.4 m fairing | ≈ 200–694 | ≈ 46 % | Pass |
+| `after/stage3-late-*` | vote 8, fairing and engine | ≈ 200–697 | ≈ 46 % | Pass |
+| `after/beauty-no-ui-*` | vote 10 | ≈ 200–726 | ≈ 49 % | Pass |
+| `after/idle-ui-*`, `after/reduced-motion-ui-*` | vote 10 | ≈ 200–730 | ≈ 49 % | Pass |
+| `after/complete-vehicle-beauty-*` | full stack with boosters | ≈ 200–730 | ≈ 49 % | Pass |
+| `motion/landing-normal-motion.mp4` | vote 5, 1.5 m small fairing landed | about 60 of 720 px | ≈ 8 % | Fail |
 
 - Horizontal centring is good: the axis is at x ≈ 955–965 in every capture.
 
 **Black void**
-- None. No capture has any pixel below 12 on all channels.
-- The mount is no longer a dark slab (#445569 against #001933 before). The darkest large area is the near ground at #0A1A31.
+- None.
+- Near-black pixels: 0–19 per capture (frame 02 has 538).
+- The near ground is #111F32 at (960, 1040), above the sRGB 12 floor.
+- The darkest large surfaces are the arm-end boxes at #011631. They are small, but they read as holes next to the vehicle.
 
 **Magenta or missing shaders**
-- None: 0 magenta pixels in all 15 after captures.
+- None: 0 magenta pixels in all 17 `after/` captures.
+
+**Clipped whites**
+- 491–1,069 px per capture (frame 02 has 107).
+- Almost all are in the sun disk (1080–1200, 440–480) and the lamp heads.
+- In the assembly still, the part plus sparks clip at 945–970, 670–720.
+- None are on the vehicle shells in the beauty shots.
+- Without tonemapping (post-processing stripped), the sun disk clipping is expected.
 
 **Z-fighting, floating objects, seams**
-- No z-fighting seen in stills.
-- No floating objects.
-- **New clipping:** the crane cable passes through the descending fairing in `after/assembly-crane-sparks` (about x 955, 665–790).
-- **Seams unchanged:**
-  - the hard horizon at y ≈ 675;
-  - visible repeats in the ocean stripe and the scrub ground.
+- No z-fighting seen.
+- **Hall in the sea:** the far hall's base sits inside the sea band (about y 718), so it reads as standing in the water.
+- **Arm-end boxes:** they butt against the fairing edge (about x 885, 240–330 at vote 6). They are not visibly penetrating.
+- **Seams:**
+  - the hard sea line at y ≈ 675;
+  - the repeating wave band at 705–735;
+  - a regular dot grid on the scrub ground (1500–1900, 850–1000), which the macro variation softens but does not remove.
 
 **UI regressions against the before captures**
+- Fixed: the compare tags are clear of the rehearsal banner and the Compare and Stability chips.
+- Fixed: the exploded nose is clear of the phase pills.
+- Fixed: the scale-view person label is visible (948–1110, 708–742).
+- Still there (pre-existing): the "Payload" and "Upper stage tanks" tag overlap in the exploded view.
+- Not T034's: the compare table headers "Kerolox Workhorse" and "Hydrolox High-Efficiency" run together (773–1173, 575). This is the same in round 1 and comes from the T031 UI.
 
-The panel layout, text and data are unchanged, but:
-- **Compare:** the candidate labels collide with the rehearsal banner and the Compare chip (see U11). This is still a regression.
-- **Exploded:** the fairing nose is clipped under the phase pills. This is new.
-- **Exploded (pre-existing):** "Payload" and "Upper stage tanks" still overprint each other (1015–1235, 485–535).
-- **Scale:** the person label is restored. Fixed.
-
-**First-review defects: status**
+**Round-1 defects: status**
 - **Fixed:**
-  - the dark mount and its crushed shadow floor;
-  - framing at votes 6 and 8;
-  - the vehicle base touching the timeline;
-  - the scale person label;
-  - the missing WebGL fps evidence;
-  - the duplicate stage-3 capture (now vote 8).
-- **Partly fixed:** the sky saturation (centre fixed, corners not).
+  - the hero tower and mount geometry (now clad tower, platforms, stairs, legged table);
+  - the cable ends at the hook;
+  - the hook is a real model;
+  - sparks fall in front of the part;
+  - a motion capture exists in normal and reduced motion;
+  - the compare tags;
+  - the exploded nose;
+  - stray ground glints;
+  - WebGL rebuilt from the final state;
+  - triangle and draw-call counts recorded.
+- **Partly fixed:**
+  - the navy vignette (top corners and bottom yes; mid edges grey);
+  - the corner sky (darker but still saturated; the red-0 share went up);
+  - the hard horizon (headlands added; the sea line is still straight between them);
+  - the ocean (larger swell; the wave band still repeats; the glint is short);
+  - ground tiling (macro patches; the grid is still visible);
+  - wet sheen at the lamps (blobs gone; no visible reflection);
+  - the work-light blowout (fine in the clip; near-clipped in the still);
+  - the satellite-only short stack (framing changed, but the table is empty);
+  - the steam (longer and rising, but faint and cool);
+  - metallic tower steel (set in the material; not visible on screen);
+  - bevels (on hero meshes only, at 4.5 cm).
 - **Open:**
-  - the hero tower and mount geometry;
-  - the vignette;
-  - the hard horizon and tiled ocean;
-  - the ground glints and tiling;
-  - sparks and hook in the assembly;
-  - no motion capture;
-  - the compare labels;
-  - steam and frost;
-  - triangle and draw-call counts.
+  - the draw-call budget on the engine counter;
+  - a mid-range laptop measurement;
+  - the WebGL screenshot of the bay;
+  - the hall box;
+  - the arm-end boxes;
+  - the exploded tag overlap.
 
 **Report under "Not verified / failing"**
 - Below 4: every scored item (M1–M10, U7, U11).
-- Owned mainly by T032/T033: M2 (vehicle paint), M3 (vehicle part), M4 (vehicle decals), M5 and M7 (frost).
-- The items closest to 4 are M8, M9, U7 and U11:
-  - M8 needs the vignette, horizon and ocean work;
-  - M9 needs a re-measure on the final build plus triangle and draw-call counts;
-  - U7 needs a motion capture and the assembly fixes;
-  - U11 needs the label fixes.
+- Owned mainly by T032/T033: M4, M5, and the vehicle parts of M2, M3 and M7.
+- Closest to 4: U11 (one tag overlap plus the empty early stages), U7 (work-light cap and small-part framing) and M9 (draw calls and the bay screenshot).
+- M8 and M10 need the sky colour, clouds and wet foreground. These are also affected by the post-processing strip that T031 owns.
+
+## Builder corrections after this review (scores unchanged)
+
+- **WebGL near-complete runs:** confirmed. The two vote-18 runs ran past vote 22 into the Flight Readiness Review, so
+  `webgl-fps-high-full-uncapped.json` and `webgl-fps-low-full-uncapped.json` were deleted. They were re-run from vote 12
+  for 60 s, and both end in the Build Bay at vote 18 with the full-height vehicle: High 161.3 fps, Low 188.7 fps
+  uncapped (`webgl-fps-*-late-uncapped.json`). `webgl-chrome-1920x1080.jpg` is now that High run's last frame.
+- **Vote-3 label:** the README now says vote 3 already has two choices with no 3D part yet (short-stack framing), and
+  that the 42 m empty-pad framing, which applies only before the first choice, is not captured.
+- **Render stats:** the README now gives the maximum as 1,496 draws and 98 SetPass. It says the main-view count is
+  task-defined, not a Unity counter, and that the all-pass draw-call budget is **not met**. It also explains the
+  `triangles=0` rows (the counter was sampled on a screenshot frame).
+- **Wet sheen, steam and bevel:** the README now marks these as open, as measured here.

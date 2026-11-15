@@ -1,14 +1,17 @@
 // Measures the WebGL Build Bay frame rate in desktop Chrome at 1920x1080 (DPR 1).
-// Usage: node measure-webgl-fps.mjs <url> <seconds> <out.json>
+// Usage: node measure-webgl-fps.mjs <url> <seconds> <out.json> [uncapped]
+// T034 rework: "uncapped" launches Chrome with vsync and the frame-rate limit off, so the result shows the headroom
+// above the 60 Hz display cap (frame times are then GPU/CPU bound).
 // T031: same method as T015. Append &mfNoPost&mfNoGlass to the URL for the post and glass off run.
 import { chromium } from 'playwright-core';
 import fs from 'node:fs';
 
-const [url, seconds = '90', out = 'fps.json'] = process.argv.slice(2);
+const [url, seconds = '90', out = 'fps.json', mode = 'capped'] = process.argv.slice(2);
+const uncapped = mode === 'uncapped' ? ['--disable-gpu-vsync', '--disable-frame-rate-limit'] : [];
 const browser = await chromium.launch({
   executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
   headless: false,
-  args: ['--window-size=1920,1180', '--disable-background-timer-throttling', '--disable-renderer-backgrounding'],
+  args: ['--window-size=1920,1180', '--disable-background-timer-throttling', '--disable-renderer-backgrounding', ...uncapped],
 });
 const page = await browser.newPage({ viewport: { width: 1920, height: 1080 }, deviceScaleFactor: 1 });
 const events = [];
@@ -39,7 +42,7 @@ for (const e of events) { if (e.kind === 'start') open = e.t; else if (open) { w
 const inAssembly = dts.filter((d) => windows.some(([a, b]) => d.wall >= a && d.wall <= b)).map((d) => d.dt);
 const settled = dts.filter((d) => d.wall > frames[0].wall + 15000).map((d) => d.dt);
 const result = {
-  url, seconds: Number(seconds), frames: frames.length,
+  url, seconds: Number(seconds), mode, frames: frames.length,
   medianFpsAll: settled.length ? +(1000 / median(settled)).toFixed(1) : null,
   assemblyWindows: windows.length,
   assemblyFrames: inAssembly.length,

@@ -13,7 +13,13 @@ namespace MissionForge.Screens.BuildBay
     public sealed partial class BayStage
     {
         /// <summary>Work light colour temperature (K), peak intensity and range (m).</summary>
-        public const float WorkLightKelvin = 3400f, WorkLightIntensity = 60f, WorkLightRangeM = 16f;
+        /// <summary>
+        /// Rework: capped from 60 and moved off the camera axis (55° toward the sun side, 3 m up) so it rakes the part
+        /// and keeps its form instead of flattening the camera-facing side to white.
+        /// </summary>
+        public const float WorkLightKelvin = 3400f, WorkLightIntensity = 16f, WorkLightRangeM = 14f;
+        /// <summary>Work light bearing off the camera direction, degrees (+ = camera-right, the sun side).</summary>
+        public const float WorkLightOffAxisDeg = 55f;
         /// <summary>Tank keys the vents attach to (KitResolver step keys).</summary>
         private static readonly string[] VentTankKeys = { "tank1", "tank2" };
 
@@ -51,7 +57,8 @@ namespace MissionForge.Screens.BuildBay
             if (!on) return;
             Vector3 toCam = _screen != null && _screen.Vantage != null ? _screen.Vantage.transform.position - joint : Vector3.back;
             toCam.y = 0f;
-            _workLight.transform.position = joint + toCam.normalized * (radius + 2.5f) + Vector3.up * 1.5f;
+            Vector3 dir = Quaternion.Euler(0f, -WorkLightOffAxisDeg, 0f) * (toCam.sqrMagnitude > 1e-4f ? toCam.normalized : Vector3.back);
+            _workLight.transform.position = joint + dir * (radius + 3.5f) + Vector3.up * 3f;
             _workLight.intensity = WorkLightIntensity;
         }
 
@@ -59,8 +66,8 @@ namespace MissionForge.Screens.BuildBay
         private void FlickerWorkLight(float t)
         {
             if (_workLight == null || !_workLight.enabled) return;
-            float f = 0.75f + 0.25f * Mathf.PerlinNoise(t * 9f, 0.37f);
-            _workLight.intensity = WorkLightIntensity * (1.4f * f);
+            float f = 0.85f + 0.25f * Mathf.PerlinNoise(t * 9f, 0.37f);
+            _workLight.intensity = WorkLightIntensity * f;
         }
 
         // ------------------------------------------------------------------ steam
@@ -97,16 +104,18 @@ namespace MissionForge.Screens.BuildBay
             main.loop = true;
             main.prewarm = true;
             main.duration = 6f;
-            main.startLifetime = new ParticleSystem.MinMaxCurve(4f, 6.5f);
-            main.startSpeed = new ParticleSystem.MinMaxCurve(0.6f * s, 1.4f * s);
-            main.startSize = new ParticleSystem.MinMaxCurve(0.9f * s, 1.8f * s);
+            // Rework (M7): warm-white, denser and longer, rising and bent downwind; the vents sit on the sun side of
+            // the tank so the plume is seen against the low sun (backlit look; the particles are unlit).
+            main.startLifetime = new ParticleSystem.MinMaxCurve(5f, 8f);
+            main.startSpeed = new ParticleSystem.MinMaxCurve(0.8f * s, 1.6f * s);
+            main.startSize = new ParticleSystem.MinMaxCurve(1.1f * s, 2.2f * s);
             main.startRotation = new ParticleSystem.MinMaxCurve(0f, 2f * Mathf.PI);
-            main.startColor = new Color(0.92f, 0.94f, 0.97f, 0.16f);
-            main.maxParticles = 48;
+            main.startColor = new Color(1f, 0.94f, 0.85f, 0.34f);
+            main.maxParticles = 96;
             main.simulationSpace = ParticleSystemSimulationSpace.World;
-            main.gravityModifier = -0.02f;   // warm vapour rises a little before it cools and drifts
+            main.gravityModifier = -0.1f;   // boil-off vapour is buoyant at first, then drifts with the breeze
             var emission = ps.emission;
-            emission.rateOverTime = 7f;
+            emission.rateOverTime = 12f;
             var shape = ps.shape;
             shape.shapeType = ParticleSystemShapeType.Cone;
             shape.angle = 18f;
@@ -114,8 +123,8 @@ namespace MissionForge.Screens.BuildBay
             var force = ps.forceOverLifetime;
             force.enabled = true;
             force.space = ParticleSystemSimulationSpace.World;
-            force.x = new ParticleSystem.MinMaxCurve(0.35f);   // light onshore breeze toward +X
-            force.y = new ParticleSystem.MinMaxCurve(-0.05f);
+            force.x = new ParticleSystem.MinMaxCurve(0.45f);   // light onshore breeze toward +X bends the plume
+            force.y = new ParticleSystem.MinMaxCurve(0.12f);
             force.z = new ParticleSystem.MinMaxCurve(0f);
             var size = ps.sizeOverLifetime;
             size.enabled = true;
@@ -125,7 +134,7 @@ namespace MissionForge.Screens.BuildBay
             var g = new Gradient();
             g.SetKeys(
                 new[] { new GradientColorKey(Color.white, 0f), new GradientColorKey(Color.white, 1f) },
-                new[] { new GradientAlphaKey(0f, 0f), new GradientAlphaKey(1f, 0.15f), new GradientAlphaKey(0.6f, 0.6f), new GradientAlphaKey(0f, 1f) });
+                new[] { new GradientAlphaKey(0f, 0f), new GradientAlphaKey(1f, 0.12f), new GradientAlphaKey(0.7f, 0.55f), new GradientAlphaKey(0f, 1f) });
             colour.color = g;
             var rot = ps.rotationOverLifetime;
             rot.enabled = true;

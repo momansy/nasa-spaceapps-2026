@@ -150,6 +150,102 @@ namespace MissionForge.Screens.BuildBay.Editor
             return Finish(v, uv, t);
         }
 
+        /// <summary>
+        /// Headland: a low coastal ridge on an arc at <paramref name="distanceM"/> from the pad, spanning bearings
+        /// <paramref name="fromDeg"/>..<paramref name="toDeg"/> relative to <see cref="Forward"/> (positive = right). Its
+        /// crest follows smooth noise up to <paramref name="peakM"/> and tapers to the sea at both ends; the back slope
+        /// runs 300 m further out. Below the waterline it continues 6 m so no gap shows. game_value composition.
+        /// </summary>
+        public static Mesh Headland(float distanceM, float fromDeg, float toDeg, float peakM, int seed, int columns = 64)
+        {
+            var v = new List<Vector3>();
+            var uv = new List<Vector2>();
+            var t = new List<int>();
+            float baseBearing = Mathf.Atan2(Forward.x, Forward.z) * Mathf.Rad2Deg;
+            for (int i = 0; i <= columns; i++)
+            {
+                float f = i / (float)columns;
+                float bearing = (baseBearing + Mathf.Lerp(fromDeg, toDeg, f)) * Mathf.Deg2Rad;
+                var dir = new Vector3(Mathf.Sin(bearing), 0f, Mathf.Cos(bearing));
+                float taper = Mathf.SmoothStep(0f, 1f, Mathf.Clamp01(f * 4f)) * Mathf.SmoothStep(0f, 1f, Mathf.Clamp01((1f - f) * 2.5f));
+                float n = 0.65f * Mathf.PerlinNoise(f * 3.1f + seed, 0.37f) + 0.35f * Mathf.PerlinNoise(f * 9.7f + seed * 2f, 1.9f);
+                float crest = SeaY + peakM * taper * (0.35f + 0.9f * n);
+                float d = distanceM + 40f * Mathf.Sin(f * 5.3f + seed);
+                v.Add(dir * d + Vector3.up * (SeaY - 6f));
+                v.Add(dir * (d + 60f) + Vector3.up * crest);
+                v.Add(dir * (d + 360f) + Vector3.up * (SeaY + (crest - SeaY) * 0.5f));
+                uv.Add(new Vector2(f * 400f, 0f));
+                uv.Add(new Vector2(f * 400f, 60f));
+                uv.Add(new Vector2(f * 400f, 360f));
+                if (i == columns) continue;
+                int a = 3 * i;
+                t.AddRange(new[] { a, a + 1, a + 3, a + 3, a + 1, a + 4, a + 1, a + 2, a + 4, a + 4, a + 2, a + 5 });
+            }
+            return Finish(v, uv, t);
+        }
+
+        /// <summary>
+        /// Sun-glint path on the sea: a strip from <paramref name="nearM"/> to <paramref name="farM"/> along the ground
+        /// direction toward the sun, widening with distance, riding just above the (lifted) sea surface. UV v runs along
+        /// the path; vertex alpha fades in after the shore and out at the far end.
+        /// </summary>
+        public static Mesh GlintPath(Vector3 towardSun, float nearM, float farM, float nearHalfWidthM, float farHalfWidthM, int rows = 40)
+        {
+            Vector3 dir = new Vector3(towardSun.x, 0f, towardSun.z).normalized;
+            Vector3 side = Vector3.Cross(Vector3.up, dir);
+            var v = new List<Vector3>();
+            var uv = new List<Vector2>();
+            var col = new List<Color>();
+            var t = new List<int>();
+            for (int j = 0; j <= rows; j++)
+            {
+                float f = j / (float)rows;
+                float d = Mathf.Lerp(nearM, farM, f * f);
+                float hw = Mathf.Lerp(nearHalfWidthM, farHalfWidthM, f);
+                float rise = HorizonLiftM * Mathf.SmoothStep(0f, 1f, Mathf.InverseLerp(3000f, 5900f, d));
+                float a = Mathf.SmoothStep(0f, 1f, f * 6f) * Mathf.SmoothStep(0f, 1f, (1f - f) * 3f);
+                for (int s = -1; s <= 1; s += 2)
+                {
+                    v.Add(dir * d + side * (s * hw) + Vector3.up * (SeaY + rise + 0.15f));
+                    uv.Add(new Vector2(s < 0 ? 0f : 1f, d / 220f));
+                    col.Add(new Color(1f, 1f, 1f, a));
+                }
+                if (j == rows) continue;
+                int k = 2 * j;
+                t.AddRange(new[] { k, k + 2, k + 1, k + 1, k + 2, k + 3 });
+            }
+            Mesh m = Finish(v, uv, t);
+            m.SetColors(col);
+            return m;
+        }
+
+        /// <summary>
+        /// Vertical haze band on an arc of radius <paramref name="radiusM"/> centred on the pad, covering bearings
+        /// ±<paramref name="halfArcDeg"/> around <see cref="Forward"/>, from <paramref name="bottomY"/> to
+        /// <paramref name="topY"/>; UV v = 0 at the top, 1 at the bottom (Horizon_band.png). It softens the sea-sky line.
+        /// </summary>
+        public static Mesh HorizonArc(float radiusM, float halfArcDeg, float bottomY, float topY, int columns = 48)
+        {
+            var v = new List<Vector3>();
+            var uv = new List<Vector2>();
+            var t = new List<int>();
+            float baseBearing = Mathf.Atan2(Forward.x, Forward.z) * Mathf.Rad2Deg;
+            for (int i = 0; i <= columns; i++)
+            {
+                float f = i / (float)columns;
+                float b = (baseBearing + Mathf.Lerp(-halfArcDeg, halfArcDeg, f)) * Mathf.Deg2Rad;
+                var dir = new Vector3(Mathf.Sin(b), 0f, Mathf.Cos(b));
+                v.Add(dir * radiusM + Vector3.up * topY);
+                v.Add(dir * radiusM + Vector3.up * bottomY);
+                uv.Add(new Vector2(f, 0f));
+                uv.Add(new Vector2(f, 1f));
+                if (i == columns) continue;
+                int a = 2 * i;
+                t.AddRange(new[] { a, a + 2, a + 1, a + 1, a + 2, a + 3 });
+            }
+            return Finish(v, uv, t);
+        }
+
         /// <summary>Open cone along +Z from radius <paramref name="r0"/> to <paramref name="r1"/>; vertex alpha fades to 0.</summary>
         public static Mesh Cone(float length, float r0, float r1, float alpha0, int segments = 20)
         {

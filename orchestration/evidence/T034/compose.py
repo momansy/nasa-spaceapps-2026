@@ -1,6 +1,8 @@
-"""T034 evidence composites. Usage: python compose.py <evidence_dir> <before_dir> <after_dir> <frame02_png>
+"""T034 evidence composites. Usage: python compose.py <evidence_dir> <before_dir|-> <after_dir> <frame02_png>
 Copies the 1920x1080 captures into before/ and after/ (PNG) and writes side-by-side composites
-(left labelled, right labelled, each 936 x 526 on a 1920 x 1080 navy canvas, as in T031)."""
+(left labelled, right labelled, each 936 x 526 on a 1920 x 1080 navy canvas, as in T031).
+Rework: "-" as before_dir keeps the existing before/*.jpg (the T034 base, bb8faa3d); when round1/ exists (the
+first T034 submission, PR #128), round1-vs-rework pairs are written to pairs/ as well."""
 import shutil
 import sys
 from pathlib import Path
@@ -25,7 +27,18 @@ SHOTS = {  # evidence name: capture path relative to a capture dir
     "stage3-late-ui": "late/01-idle-bay-partial-vehicle.png",
     "stage3-late-no-ui": "late/02-beauty-no-ui.png",
     "reduced-motion-ui": "rm/01-idle-bay-partial-vehicle.png",
+    "vote5-short-stack-ui": "sat/01-idle-bay-partial-vehicle.png",
+    "vote5-short-stack-no-ui": "sat/02-beauty-no-ui.png",
 }
+
+
+def shot(folder, name):
+    """The capture of <name> in <folder>, PNG or JPEG."""
+    for ext in (".png", ".jpg"):
+        p = folder / f"{name}-1920x1080{ext}"
+        if p.exists():
+            return p
+    return None
 
 
 def font(size):
@@ -54,25 +67,30 @@ def main():
     ev, before, after, frame = (Path(a) for a in sys.argv[1:5])
     for sub, src in (("before", before), ("after", after)):
         (ev / sub).mkdir(parents=True, exist_ok=True)
+        if str(src) == "-":
+            continue
         for name, rel in SHOTS.items():
             if (src / rel).exists():
                 shutil.copyfile(src / rel, ev / sub / f"{name}-1920x1080.png")
     pairs = ev / "pairs"
     pairs.mkdir(exist_ok=True)
     for name in ("idle-ui", "beauty-no-ui", "complete-vehicle-beauty", "assembly-crane-sparks", "compare", "exploded", "scale-reference"):
-        side_by_side(ev / "before" / f"{name}-1920x1080.png", ev / "after" / f"{name}-1920x1080.png",
-                     pairs / f"{name}-before-after.png", "Before (main, T031 state)", "After (T034)")
-    side_by_side(ev / "after" / "complete-vehicle-beauty-1920x1080.png", frame, ev / "complete-beauty-vs-frame02.png",
-                 "MissionForge Build Bay, T034 (Unity capture)", "Reference frame 02")
-    side_by_side(ev / "after" / "idle-ui-1920x1080.png", frame, ev / "buildbay-ui-vs-frame02.png",
-                 "Build Bay with UI, T034 (Unity capture)", "Reference frame 02")
+        side_by_side(shot(ev / "before", name), shot(ev / "after", name),
+                     pairs / f"{name}-before-after.png", "Before (main, T031 state)", "After (T034 rework)")
+        if (ev / "round1").exists() and shot(ev / "round1", name):
+            side_by_side(shot(ev / "round1", name), shot(ev / "after", name),
+                         pairs / f"{name}-round1-vs-rework.png", "T034 round 1 (PR #128)", "T034 rework")
+    side_by_side(shot(ev / "after", "complete-vehicle-beauty"), frame, ev / "complete-beauty-vs-frame02.png",
+                 "MissionForge Build Bay, T034 rework (Unity capture)", "Reference frame 02")
+    side_by_side(shot(ev / "after", "idle-ui"), frame, ev / "buildbay-ui-vs-frame02.png",
+                 "Build Bay with UI, T034 rework (Unity capture)", "Reference frame 02")
     # Three assembly stages with the UI on, in one strip (each 624 x 351).
     strip = Image.new("RGB", (W, H), NAVY)
     d = ImageDraw.Draw(strip)
-    for i, (name, label) in enumerate((("stage1-early-ui", "Vote 3 of 22: pad before the stack"),
-                                       ("stage2-mid-ui", "Vote 6 of 22: payload on the pad"),
+    for i, (name, label) in enumerate((("vote5-short-stack-ui", "Vote 5 of 22: satellite chosen (short stack)"),
+                                       ("stage2-mid-ui", "Vote 6 of 22: fairing on the pad"),
                                        ("stage3-late-ui", "Vote 8 of 22: stack growing"))):
-        im = Image.open(ev / "after" / f"{name}-1920x1080.png").convert("RGB").resize((624, 351), Image.LANCZOS)
+        im = Image.open(shot(ev / "after", name)).convert("RGB").resize((624, 351), Image.LANCZOS)
         x = 12 + i * 636
         strip.paste(im, (x, 380))
         d.text((x, 330), label, fill=(232, 238, 240), font=font(24))

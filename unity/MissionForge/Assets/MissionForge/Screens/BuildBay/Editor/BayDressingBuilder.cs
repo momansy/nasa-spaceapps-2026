@@ -45,12 +45,18 @@ namespace MissionForge.Screens.BuildBay.Editor
 
             RetexturePad(pad);
             BuildLaunchMount(dressing, pad);
+            BuildHeroTower(pad);
             var highOnly = new List<GameObject>();
             BuildGround(dressing, highOnly);
             highOnly.Add(BuildSilhouettes(dressing));
+            highOnly.AddRange(BuildDistance(dressing));
+            BuildWetSheen(dressing, pad);
+            HideRigWetSheen(scene);
             highOnly.AddRange(BuildPracticals(dressing, pad));
             BuildCrew(dressing);
             dressing.gameObject.AddComponent<BayQualityGroup>().Configure(highOnly);
+            dressing.gameObject.AddComponent<BayFrameGrade>().Configure(BayDressingAssets.Load("LP_frame_grade"),
+                BayDressingMeshes.Save(BayDressingMeshes.Card(), "bay_card"));
             var volume = dressing.gameObject.AddComponent<Volume>();
             volume.isGlobal = true;
             volume.priority = 2.5f;   // above T031's Dusk override (2), below a future close-up volume (3)
@@ -115,26 +121,132 @@ namespace MissionForge.Screens.BuildBay.Editor
         }
 
         /// <summary>
-        /// Hero launch mount (T017 <c>world_pad_deck</c> on <c>world_flame_trench</c>) in place of T015's flat navy table:
-        /// the T017 <c>vehicle_base</c> (9.0 m above its origin) is put at the rig's VehicleMount (10.5 m above grade),
-        /// and the trench is turned to exhaust along +X like the T015 deck notch. T015's mount meshes are hidden, not
-        /// removed, because the VehicleMount transform lives on them.
+        /// Hero launch mount (build_hero_pad.py <c>hero_launch_mount</c>: legged table, stairs, plinth, lamps) on the
+        /// T017 <c>world_flame_trench</c>, in place of T015's flat table. The T015 mount meshes are hidden, not removed,
+        /// because the rig's VehicleMount transform (10.5 m above grade) lives on them; the hero table top is at 12 m
+        /// so the nozzles sit inside its 11.2 m opening exactly as before.
         /// </summary>
         private static void BuildLaunchMount(Transform dressing, LaunchPadRig pad)
         {
             Transform mount = pad.VehicleMount != null ? pad.VehicleMount.parent : null;
-            if (mount != null)
+            if (mount == null) throw new System.InvalidOperationException("LaunchPadRig has no VehicleMount");
+            RemoveHero(mount);
+            foreach (MeshRenderer r in mount.GetComponentsInChildren<MeshRenderer>(true))
             {
-                foreach (MeshRenderer r in mount.GetComponentsInChildren<MeshRenderer>(true))
-                {
-                    r.enabled = false;
-                    Record(r);
-                }
+                r.enabled = false;
+                Record(r);
             }
             var hero = Group(dressing, "LaunchMount");
-            float baseY = (pad.VehicleMount != null ? dressing.InverseTransformPoint(pad.VehicleMount.position).y : 10.5f) - 9.0f;
+            float baseY = dressing.InverseTransformPoint(pad.VehicleMount.position).y - 9.0f;   // T017 vehicle_base is 9.0 m up
             Model(hero, "world_flame_trench", new Vector3(0f, baseY, 0f), 90f, 1f, boxUv: true, castShadows: true);
-            Model(hero, "world_pad_deck", new Vector3(0f, baseY, 0f), 90f, 1f, boxUv: true, castShadows: true);
+            HeroPiece(mount, "hero_launch_mount");
+        }
+
+        // ------------------------------------------------------------------ hero service tower (build_hero_pad.py)
+
+        public const string HeroPrefix = "Hero_";
+        private const string HeroModelsDir = LaunchPadAssets.ModelsDir + "/Hero";
+
+        /// <summary>
+        /// Clads the rig's tower: every 8 m <c>Segment_NN</c> gets a hero storey (alternating the plain and the balcony
+        /// variant) as a child, so LaunchPadRig's segment visibility and crown height drive the hero tower unchanged.
+        /// The T015 lattice meshes stay as hidden renderers. The crown gets the machine house (the crane pivot is kept),
+        /// the tower foot a plant building, and the crane hook a hook block. No rig contract or attach point moves.
+        /// </summary>
+        private static void BuildHeroTower(LaunchPadRig pad)
+        {
+            var segments = pad.GetComponentsInChildren<Transform>(true).Where(t => t.name.StartsWith("Segment_"))
+                .OrderBy(t => t.name, System.StringComparer.Ordinal).ToList();
+            if (segments.Count == 0) throw new System.InvalidOperationException("LaunchPadRig has no tower segments");
+            for (int i = 0; i < segments.Count; i++)
+            {
+                RemoveHero(segments[i]);
+                HideOwn(segments[i], null);
+                HeroPiece(segments[i], i % 2 == 0 ? "hero_tower_segment_a" : "hero_tower_segment_b");
+            }
+            Transform tower = segments[0].parent;
+            RemoveHero(tower, recursive: false);
+            HeroPiece(tower, "hero_tower_base");
+
+            Transform crown = BayEnvironmentBuilder.FindDeep(pad.transform, "pad_gantry_crown");
+            if (crown != null)
+            {
+                RemoveHero(crown);
+                HideOwn(crown, "crane_pivot");
+                HeroPiece(crown, "hero_tower_crown");
+            }
+            if (pad.Hook != null)
+            {
+                RemoveHero(pad.Hook);
+                HideOwn(pad.Hook, null);
+                HeroPiece(pad.Hook, "hero_crane_hook");
+            }
+        }
+
+        /// <summary>Hides the renderers of a T015 piece, skipping hero children and the subtree under <paramref name="keep"/>.</summary>
+        private static void HideOwn(Transform piece, string keep)
+        {
+            foreach (MeshRenderer r in piece.GetComponentsInChildren<MeshRenderer>(true))
+            {
+                if (UnderNamed(r.transform, piece, keep)) continue;
+                r.enabled = false;
+                Record(r);
+            }
+        }
+
+        private static bool UnderNamed(Transform t, Transform stop, string keep)
+        {
+            for (Transform p = t; p != null && p != stop; p = p.parent)
+            {
+                if (p.name.StartsWith(HeroPrefix)) return true;
+                if (keep != null && p.name == keep) return true;
+            }
+            return false;
+        }
+
+        private static void RemoveHero(Transform parent, bool recursive = true)
+        {
+            var old = recursive
+                ? parent.GetComponentsInChildren<Transform>(true).Where(t => t.name.StartsWith(HeroPrefix)).ToList()
+                : parent.Cast<Transform>().Where(t => t.name.StartsWith(HeroPrefix)).ToList();
+            foreach (Transform t in old)
+                if (t != null) Object.DestroyImmediate(t.gameObject);
+        }
+
+        /// <summary>
+        /// Instantiates a hero model as a child at local zero and maps its slots to LP_hero_* (concrete to the ambientCG
+        /// set with box-projected metric UVs; lamp, grating and warning_red are already mapped by the importer).
+        /// </summary>
+        private static GameObject HeroPiece(Transform parent, string model)
+        {
+            var asset = AssetDatabase.LoadAssetAtPath<GameObject>(HeroModelsDir + "/" + model + ".fbx");
+            if (asset == null) throw new System.InvalidOperationException("Hero model missing: " + model + " (run build_hero_pad.py)");
+            var go = (GameObject)PrefabUtility.InstantiatePrefab(asset, parent);
+            go.name = HeroPrefix + model;
+            go.transform.localPosition = Vector3.zero;
+            go.transform.localRotation = Quaternion.identity;
+            go.transform.localScale = Vector3.one;
+            foreach (MeshRenderer r in go.GetComponentsInChildren<MeshRenderer>(true))
+            {
+                Material[] mats = r.sharedMaterials;
+                bool concrete = false;
+                for (int i = 0; i < mats.Length; i++)
+                {
+                    string n = mats[i] != null ? mats[i].name : "";
+                    if (n.StartsWith("hero_")) mats[i] = BayDressingAssets.Load("LP_" + n.Split(' ')[0]) ?? mats[i];
+                    else if (n.StartsWith("concrete") || n == "LP_concrete")
+                    {
+                        mats[i] = BayDressingAssets.Load("LP_Concrete034");
+                        concrete = true;
+                    }
+                }
+                r.sharedMaterials = mats;
+                r.shadowCastingMode = ShadowCastingMode.On;
+                var filter = r.GetComponent<MeshFilter>();
+                if (concrete && filter != null && filter.sharedMesh != null)
+                    filter.sharedMesh = BayDressingMeshes.Save(BayDressingMeshes.WithBoxUv(filter.sharedMesh), filter.sharedMesh.name + "_uv");
+            }
+            return go;
         }
 
         private static Mesh OriginalMesh(Renderer r)
@@ -203,6 +315,93 @@ namespace MissionForge.Screens.BuildBay.Editor
                 Model(site, "world_site_subtropical_dunes", p, BayStage.VantageAzimuthDeg + s * 0.03f, 1.3f);
             }
             return site.gameObject;
+        }
+
+        // ------------------------------------------------------------------ distance: headlands, haze band, sun glint (rework, M8)
+
+        /// <summary>
+        /// Dusk sun bearing right of the vantage axis, degrees: mirrors T031's LightingFoundation.Rigs
+        /// DuskSunRightOfViewDeg (the HDRI sun disc and the key light sit there). game_value.
+        /// </summary>
+        public const float SunRightOfViewDeg = 10f;
+
+        /// <summary>Ground direction from the pad toward the dusk sun disc.</summary>
+        private static Vector3 TowardSun() => Quaternion.Euler(0f, SunRightOfViewDeg, 0f) * BayDressingMeshes.Forward;
+
+        /// <summary>
+        /// Breaks the hard sea-sky line: two hazed headlands on the coast either side of the sun's path (frame 02's
+        /// hills), a haze band on a 1.7 km arc straddling the horizon, and a sun-glint strip on the sea toward the sun.
+        /// Returns the decorative pieces for the Low quality switch (the headlands stay: they are silhouette, not cost).
+        /// </summary>
+        private static IEnumerable<GameObject> BuildDistance(Transform dressing)
+        {
+            var distance = Group(dressing, "Distance");
+            Vector3 toSun = TowardSun();
+            Material land = BayDressingAssets.Load("LP_headland");
+            // Inside the vantage's horizontal view (about ±25° at 16:9), clear of the sun's glint path at +10°.
+            MeshObject(distance, "HeadlandLeft", BayDressingMeshes.Save(BayDressingMeshes.Headland(1000f, -30f, -6f, 62f, 3), "bay_headland_left"),
+                new[] { land }, castShadows: false);
+            MeshObject(distance, "HeadlandRight", BayDressingMeshes.Save(BayDressingMeshes.Headland(1150f, 17f, 34f, 48f, 9), "bay_headland_right"),
+                new[] { land }, castShadows: false);
+            var band = MeshObject(distance, "HorizonHaze", BayDressingMeshes.Save(BayDressingMeshes.HorizonArc(1700f, 80f, -12f, 150f), "bay_horizon_haze"),
+                new[] { BayDressingAssets.Load("LP_horizon_haze") }, castShadows: false);
+            var glint = MeshObject(distance, "SunGlint",
+                BayDressingMeshes.Save(BayDressingMeshes.GlintPath(toSun, BayDressingMeshes.ShoreM + 90f, 4200f, 14f, 170f), "bay_sun_glint"),
+                new[] { BayDressingAssets.Load("LP_glint") }, castShadows: false);
+            return new[] { band, glint };
+        }
+
+        // ------------------------------------------------------------------ wet sheen in the lamp pools (rework, M8)
+
+        /// <summary>Name of T031's procedural wet-ground sheet in MF_Rig_DuskPad (LightingFoundation.WetSheenName).</summary>
+        public const string RigWetSheenName = "Wet Sheen";
+
+        /// <summary>
+        /// Turns off T031's 80 m procedural wet sheet in this scene only (a prefab-instance override; MF_Rig_DuskPad is not
+        /// edited): its puddles glint at random far from any lamp (rubric M8), and the LP_wet patches below replace it.
+        /// </summary>
+        private static void HideRigWetSheen(Scene scene)
+        {
+            foreach (GameObject root in scene.GetRootGameObjects())
+            {
+                foreach (Transform t in root.GetComponentsInChildren<Transform>(true).Where(t => t.name == RigWetSheenName).ToList())
+                {
+                    t.gameObject.SetActive(false);
+                    Record(t.gameObject);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Wet patches (LP_wet) clustered under each floodlight and in front of the mount, instead of a uniformly glossy
+        /// ground: two or three overlapping soft quads per lamp, seeded so reruns are identical. game_value placement.
+        /// </summary>
+        private static void BuildWetSheen(Transform dressing, LaunchPadRig pad)
+        {
+            var wet = Group(dressing, "WetSheen");
+            Mesh quad = BayDressingMeshes.Save(BayDressingMeshes.GroundQuad(), "bay_ground_quad");
+            Material mat = BayDressingAssets.Load("LP_wet");
+            var rng = new System.Random(34);
+            float Rand(float a, float b) => a + (float)rng.NextDouble() * (b - a);
+            var pools = new List<Vector3>();
+            foreach (Light l in pad.GetComponentsInChildren<Light>(true).Where(l => l.name == "Flood"))
+            {
+                Vector3 p = dressing.InverseTransformPoint(l.transform.position);
+                Vector3 aim = dressing.InverseTransformDirection(l.transform.forward);
+                pools.Add(new Vector3(p.x + aim.x * 9f, LaunchPadRig.DeckTopM + 0.02f, p.z + aim.z * 9f));
+            }
+            pools.Add(new Vector3(0f, LaunchPadRig.DeckTopM + 0.02f, -17f));   // in front of the mount's lit door
+            pools.Add(new Vector3(-9f, LaunchPadRig.DeckTopM + 0.02f, -15f));
+            pools.Add(new Vector3(9f, LaunchPadRig.DeckTopM + 0.02f, -15f));
+            foreach (Vector3 c in pools)
+            {
+                int n = 2 + rng.Next(2);
+                for (int i = 0; i < n; i++)
+                {
+                    Vector3 at = c + new Vector3(Rand(-3f, 3f), 0.002f * i, Rand(-3f, 3f));
+                    Decal(wet, quad, mat, at, Rand(0f, 180f), new Vector2(Rand(9f, 15f), Rand(6f, 11f)));
+                }
+            }
         }
 
         private static readonly (string key, string material)[] WorldMaterialMap =
@@ -286,25 +485,8 @@ namespace MissionForge.Screens.BuildBay.Editor
                 Glow(cones, card, glowMat, head + Vector3.up * 0.2f, 3.4f);
             }
 
-            // Work-platform lamps on the tower: two per segment at the camera-facing corners (they follow the segments' visibility).
+            // The hero storeys carry their own platform lamps (build_hero_pad.py), so no lamp cards are added here.
             var glows = new List<GameObject> { cones.gameObject };
-            Material lamp = LaunchPadAssets.MaterialFor("lamp");
-            Mesh cube = Resources.GetBuiltinResource<Mesh>("Cube.fbx");
-            Vector3 toCam = -BayDressingMeshes.Forward;
-            foreach (Transform seg in pad.GetComponentsInChildren<Transform>(true).Where(t => t.name.StartsWith("Segment_")))
-            {
-                var corners = new[] { new Vector3(4.5f, 0f, 4.5f), new Vector3(-4.5f, 0f, 4.5f), new Vector3(4.5f, 0f, -4.5f), new Vector3(-4.5f, 0f, -4.5f) };
-                foreach (Vector3 c in corners.OrderByDescending(c => Vector3.Dot(seg.TransformDirection(c), toCam)).Take(1))
-                {
-                    Vector3 at = c * 1.06f + Vector3.up * 7.4f;
-                    var l = MeshObject(seg, "TowerLamp", cube, new[] { lamp }, false, at, Quaternion.identity);
-                    l.transform.localScale = new Vector3(0.6f, 0.22f, 0.6f);
-                    var gl = MeshObject(seg, "TowerLampGlow", card, new[] { glowMat }, false, at,
-                        Quaternion.Inverse(seg.rotation) * Quaternion.LookRotation(-toCam, Vector3.up));
-                    gl.transform.localScale = Vector3.one * 1.3f;
-                    glows.Add(gl);
-                }
-            }
             return glows;
         }
 
@@ -359,6 +541,7 @@ namespace MissionForge.Screens.BuildBay.Editor
             {
                 var so = new SerializedObject(stage);
                 so.FindProperty("steamMaterial").objectReferenceValue = BayDressingAssets.Load("LP_steam");
+                so.FindProperty("sparkMaterial").objectReferenceValue = BayDressingAssets.Load("LP_weld_spark");
                 so.ApplyModifiedPropertiesWithoutUndo();
             }
             RenderSettings.fogDensity = HazeDensity;

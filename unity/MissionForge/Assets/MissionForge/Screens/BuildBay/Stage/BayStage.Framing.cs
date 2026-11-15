@@ -25,7 +25,13 @@ namespace MissionForge.Screens.BuildBay
         /// <summary>Easing rate of the framed height and width (dolly), 1/s.</summary>
         public const float DollyRate = 2.0f;
         /// <summary>Compare view band: below the contract card (its rig tags stay clear of it) and above the stat table (≈ 540 px). game_value.</summary>
-        public const float CompareTopFrac = 300f / 1080f, CompareBottomFrac = 525f / 1080f;
+        /// Rework (U11): 330–530 px, with the candidate tags anchored low on each candidate (BuildBayScreen.Tools
+        /// CompareTagDepth) so they sit below the right-hand tool chips and above the stat table.
+        public const float CompareTopFrac = 330f / 1080f, CompareBottomFrac = 530f / 1080f;
+        /// <summary>Compare framing centre shift toward +X, as a fraction of the framed height (pulls the pair left of the chips). game_value.</summary>
+        public const float CompareCentreShift = 0.15f;
+        /// <summary>Exploded view band top, and the margin on the exploded length, so the nose clears the phase pills (≈ 165 px) and the rehearsal banner (≈ 310 px). game_value.</summary>
+        public const float ExplodedTopFrac = 330f / 1080f, ExplodedMargin = 1.08f;
         /// <summary>Scale view band bottom: high enough that the deck, the 1.75 m person and its label clear the timeline. game_value.</summary>
         public const float ScaleBottomFrac = 690f / 1080f;
 
@@ -67,6 +73,16 @@ namespace MissionForge.Screens.BuildBay
             OnAccessibilityForTools();
         }
 
+        /// <summary>
+        /// True once any slot has a choice. The payload (the first vote) has no kit model, so a satellite-only build
+        /// has an empty rig; it is still framed as a short stack (<see cref="MinFramedHeightM"/>) on the mount top,
+        /// where the next part's ghost and the crane hook appear, instead of the 42 m empty pad (rework, U7).
+        /// </summary>
+        private bool HasChoices()
+        {
+            return _screen != null && _screen.Session != null && _screen.Session.Build != null && _screen.Session.Build.Choices.Count > 0;
+        }
+
         private float RigRadius()
         {
             if (Rig == null) return 1.85f;
@@ -105,9 +121,9 @@ namespace MissionForge.Screens.BuildBay
                 // Frame the fully exploded stack straight away so the dolly and the explosion move together.
                 int groups = 0;
                 foreach (Transform g in GroupsBottomUp(Rig)) if (g.name != "Boosters") groups++;
-                length *= 1f + ExplodeGapFraction * Mathf.Max(0, groups - 1);
+                length *= (1f + ExplodeGapFraction * Mathf.Max(0, groups - 1)) * ExplodedMargin;
             }
-            if (length < 1f && _extraHeightM <= 0f) return EmptyPadFramedHeightM;
+            if (length < 1f && _extraHeightM <= 0f) return HasChoices() ? MinFramedHeightM : EmptyPadFramedHeightM;
             float h = length + _assemblyHeadroomM;
             if (_extraHeightM > 0f && vehicleMount != null)
             {
@@ -128,7 +144,12 @@ namespace MissionForge.Screens.BuildBay
         }
 
         /// <summary>Horizontal frame centre on +X from the vehicle axis, m.</summary>
-        private float TargetCentreXM() => ScaleViewOn ? Mathf.Max(0f, _extraWidthM * 0.25f - 4f) : 0f;
+        private float TargetCentreXM()
+        {
+            if (ScaleViewOn) return Mathf.Max(0f, _extraWidthM * 0.25f - 4f);
+            if (_compareA != null || _compareB != null) return CompareCentreShift * TargetHeightM();
+            return 0f;
+        }
 
         private bool ScaleViewOn => _scaleRefs.Count > 0;
 
@@ -150,6 +171,10 @@ namespace MissionForge.Screens.BuildBay
             {
                 // The compare stat table covers the lower middle of the screen: both candidates sit above it.
                 layout = new BayFrameLayout(CompareTopFrac, CompareBottomFrac, layout.HalfColumnFrac, layout.EyeFrac, layout.VerticalFovDeg, layout.Aspect);
+            }
+            else if (_exploded)
+            {
+                layout = new BayFrameLayout(ExplodedTopFrac, layout.BottomFrac, layout.HalfColumnFrac, layout.EyeFrac, layout.VerticalFovDeg, layout.Aspect);
             }
             else if (ScaleViewOn)
             {
