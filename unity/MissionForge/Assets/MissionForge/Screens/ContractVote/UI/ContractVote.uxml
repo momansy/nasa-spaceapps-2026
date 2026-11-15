@@ -1,0 +1,13 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:mf="MissionForge.UI">
+    <Style src="../../Preflight/UI/Preflight.uss" />
+    <!-- Contract Vote (screen 4, T027). Lifecycle tag, then the shared CHOICE vote panel (title, stage, timer, voters,
+         one card per offered contract with a tally bar). The award reveal replaces the panel on vote.result. Every
+         player-visible string is set from data/strings by ContractVoteScreen; text here is empty. -->
+    <ui:VisualElement name="screen" class="mf-screen pf-screen pf-contractvote">
+        <ui:VisualElement name="pf-shade" class="pf-shade pf-shade--deep" picking-mode="Ignore" />
+        <ui:VisualElement name="pf-kicker-host" class="pf-kicker-host" picking-mode="Ignore" />
+        <ui:ScrollView name="pf-vote-host" mode="Vertical" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" class="pf-vote-host pf-scroll" />
+        <ui:VisualElement name="pf-award" class="pf-award" />
+        <ui:VisualElement name="pf-rehearsal-host" class="pf-rehearsal-host" picking-mode="Ignore" />
+    </ui:VisualElement>
+</ui:UXML>

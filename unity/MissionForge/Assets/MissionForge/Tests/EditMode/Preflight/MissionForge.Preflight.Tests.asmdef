@@ -1,0 +1,32 @@
+{
+    "name": "MissionForge.Preflight.Tests",
+    "rootNamespace": "MissionForge.Screens.Preflight.Tests",
+    "references": [
+        "MissionForge.Core",
+        "MissionForge.App",
+        "MissionForge.UI",
+        "MissionForge.Net",
+        "MissionForge.Data",
+        "MissionForge.Data.Editor",
+        "MissionForge.Screens.BuildBay",
+        "MissionForge.Preflight",
+        "MissionForge.Screens.Review",
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll",
+        "Newtonsoft.Json.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "noEngineReferences": false
+}

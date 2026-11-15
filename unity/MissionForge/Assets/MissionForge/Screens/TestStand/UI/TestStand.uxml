@@ -1,0 +1,20 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:mf="MissionForge.UI">
+    <Style src="../../Preflight/UI/Preflight.uss" />
+    <!-- Test Stand (screen 6, T027). Left: lifecycle tag, the test's name and what it reveals, the styled test cell.
+         Right: the TEST vote, then the results card and (on a revealed flaw) the Test Failure vote. Every
+         player-visible string is set from data/strings by TestStandScreen; text here is empty. -->
+    <ui:VisualElement name="screen" class="mf-screen pf-screen pf-teststand">
+        <ui:VisualElement name="pf-shade" class="pf-shade pf-shade--deep" picking-mode="Ignore" />
+        <ui:VisualElement name="pf-test-row" class="pf-review-row">
+            <ui:VisualElement name="pf-test-left" class="pf-test-left">
+                <ui:VisualElement name="pf-head" class="pf-head" />
+                <mf:MfGlassPanel name="pf-cell" class="mf-glass pf-cell" />
+            </ui:VisualElement>
+            <ui:ScrollView name="pf-test-right" mode="Vertical" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" class="pf-review-right pf-scroll">
+                <mf:MfGlassPanel name="pf-test-results" class="mf-glass pf-findings pf-test-results" />
+                <ui:VisualElement name="pf-test-vote" class="pf-review-vote" />
+            </ui:ScrollView>
+        </ui:VisualElement>
+        <ui:VisualElement name="pf-rehearsal-host" class="pf-rehearsal-host" picking-mode="Ignore" />
+    </ui:VisualElement>
+</ui:UXML>
