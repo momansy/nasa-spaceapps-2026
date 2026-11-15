@@ -392,20 +392,31 @@
   background: var(--line-strong);
 }
 
-/* The inner card face. */
+/* The card face: a scrolling region (model, name, stats, strengths, deltas) above a pinned
+   drawbacks block that never scrolls out of view (design 14.3). The "More" pill appears while
+   rows are still hidden below the fold. */
+.pcard__viewport {
+  position: relative;
+  flex: 0 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  border-radius: calc(var(--radius-lg) - 2px) calc(var(--radius-lg) - 2px) 0 0;
+  background:
+    radial-gradient(100% 40% at 50% 0%, rgba(23, 104, 135, 0.35), transparent 70%),
+    linear-gradient(180deg, #10283c, #0b1e2f);
+  overflow: hidden;
+}
+
 .pcard__scroll {
   flex: 1 1 auto;
   min-height: 0;
   overflow-y: auto;
   overscroll-behavior: contain;
-  padding: 0 0 12px;
+  padding: 0 0 8px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  border-radius: calc(var(--radius-lg) - 2px);
-  background:
-    radial-gradient(100% 40% at 50% 0%, rgba(23, 104, 135, 0.35), transparent 70%),
-    linear-gradient(180deg, #10283c, #0a1b2b 50%, #081624);
+  gap: 8px;
   scrollbar-width: none;
 }
 
@@ -413,8 +424,64 @@
   display: none;
 }
 
-:root[data-contrast='high'] .pcard__scroll {
+.pcard__pin {
+  flex: 1 0 auto;
+  padding: 6px 14px 12px;
+  border-radius: 0 0 calc(var(--radius-lg) - 2px) calc(var(--radius-lg) - 2px);
+  background: linear-gradient(180deg, #0b1e2f, #081624);
+}
+
+.pcard__more {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 2;
+  height: 46px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 5px;
+  border: 0;
+  background: linear-gradient(180deg, transparent, rgba(11, 30, 47, 0.96) 70%);
+  color: var(--accent-strong);
+  font-size: var(--fs-meta);
+  font-weight: 700;
+  pointer-events: none;
+}
+
+.pcard__more > * {
+  pointer-events: none;
+}
+
+.pcard__more {
+  pointer-events: auto;
+}
+
+.pcard__more span {
+  order: 2;
+}
+
+.pcard__more svg {
+  order: 1;
+  margin-inline-end: 4px;
+  animation: more-bob 1.6s var(--ease) infinite;
+}
+
+@keyframes more-bob {
+  50% {
+    transform: translateY(2px);
+  }
+}
+
+:root[data-contrast='high'] .pcard__viewport,
+:root[data-contrast='high'] .pcard__pin {
   background: #000;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pcard__more svg {
+    animation: none;
+  }
 }
 
 .pcard--mine {
@@ -436,7 +503,7 @@
 }
 
 .pcard__media .viewer--card {
-  height: clamp(120px, 17vh, 160px);
+  height: clamp(96px, 13vh, 124px);
   border-radius: calc(var(--radius-lg) - 2px) calc(var(--radius-lg) - 2px) 0 0;
 }
 
@@ -765,10 +832,13 @@
 }
 
 .drawbacks {
-  position: sticky;
-  bottom: 0;
-  z-index: 1;
-  box-shadow: 0 -14px 20px rgba(8, 22, 36, 0.9);
+  padding: 8px 12px 10px;
+  max-height: 46vh;
+  overflow-y: auto;
+}
+
+.drawbacks .plist__title {
+  margin-bottom: 4px;
 }
 
 :root[data-contrast='high'] .plist--bad {
