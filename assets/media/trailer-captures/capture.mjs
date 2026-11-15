@@ -114,11 +114,12 @@ await phoneCrew(browserPhones, roomCode); await sleep(5000);
 mark('start-briefing'); await click(1063, 951); await sleep(8000);
 mark('to-contract'); await host.keyboard.press('PageDown'); await sleep(3000);  // briefing panels still show placeholders
 mark('to-build'); await host.keyboard.press('PageDown');                         // contract vote is a placeholder screen
-// Build Bay: 22 votes played by the phones (~30-45 s each). Half way, show the exploded view.
-await sleep(9 * 60_000); mark('exploded-on'); await host.keyboard.press('x'); await sleep(8000); await host.keyboard.press('x'); mark('exploded-off');
-await host.waitForFunction(() => false, null, { timeout: 8 * 60_000 }).catch(() => {});  // rest of Build, FRR, countdown
-mark('flight-or-later');
-await sleep(6 * 60_000);                                   // flight and debrief run on their own with the phones answering
+// Build Bay: 22 votes played by the phones (~40 s each, ~15 min). Once the boosters are on (vote 15+),
+// toggle the exploded view (X) for the 07 clip.
+await sleep(13 * 60_000); mark('exploded-on'); await host.keyboard.press('x'); await sleep(8000); await host.keyboard.press('x'); mark('exploded-off');
+await sleep(4 * 60_000); mark('build-done');
+// FRR, Countdown, Flight and Debrief in the WebGL build on main are still layout placeholders (dashes), so the
+// session ends here; re-run from 'title' to film the title screen without the room card.
 mark('end');
 rec.stdin.write('q');
 await sleep(3000);
