@@ -70,6 +70,8 @@ Built by the lock holder with File > Build Settings > WebGL, output folder `docs
 
 ## 3. Hosting
 
+**The chosen free deployment (Render, one origin for the site and the room server) and its human steps are in [`HOSTING.md`](HOSTING.md).** The notes below are the general background.
+
 ### 3.1 Static site (`docs/`)
 
 Any static host works for `docs/`. The catch is the Unity build:

@@ -138,7 +138,16 @@
   // straight to the phone client so players land on the join screen with the code filled in.
   (function () {
     var q = window.location.search;
-    if (q && q.length > 1) window.location.replace('client/' + q + window.location.hash);
+    if (q && q.length > 1) {
+      window.location.replace('client/' + q + window.location.hash);
+      return;
+    }
+    // The Unity host defaults to ws://localhost:8787. Point it at this site's own /ws instead: the hosted
+    // deployment (HOSTING.md) and the local demo launcher both accept the room server's WebSocket there.
+    if (window.location.protocol === 'https:' || window.location.protocol === 'http:') {
+      var ws = (window.location.protocol === 'https:' ? 'wss://' : 'ws://') + window.location.host + '/ws';
+      document.getElementById('host-link').href = 'host/?server=' + encodeURIComponent(ws);
+    }
   })();
 </script>
 </body>

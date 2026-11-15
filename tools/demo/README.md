@@ -58,6 +58,6 @@ Only `ws` and `qrcode-terminal`; both are installed from `package-lock.json` int
 - **"Health check: FAILED":** read the `[room-server]` lines above the banner; usually the port is busy (`--server-port`).
 - **Host does not load:** `docs/play/host/Build/host.loader.js` must exist (the Unity build); the page needs a modern Chromium-based browser.
 - **Hosted client build left in `docs/play/client/`:** rerun `node tools/demo/build-client.mjs` without `MF_ROOM_SERVER_URL`.
-- **Non-default `--server-port`:** the "Host a mission" button on `/play/` opens the host without `?server=`, which defaults to
-  `ws://localhost:8787`. Use the host URL printed in the banner instead.
+- **Non-default `--server-port`:** the "Host a mission" button on `/play/` opens the host with `?server=ws://<this page's host>/ws`,
+  which goes through the `/ws` proxy, so any `--server-port` works. The host URL printed in the banner connects to the room server directly.
 - **Terminal QR has no room code:** it opens the phone page; the player types the 4-letter code. The QR in the host lobby carries `?room=CODE`.
