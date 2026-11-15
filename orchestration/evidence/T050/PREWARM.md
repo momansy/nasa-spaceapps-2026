@@ -46,6 +46,25 @@ it may run in the GPU process, which a main-thread long task does not show.
 "Vote screen shown → first 3D frame" is ~12 s in all runs, because the first vote opens with the REVEAL and PREDICT
 stages before the cards appear (12,057 / 12,045 without, 11,699 / 11,745 with).
 
+## 10-phone harness, one run (T047/T050-confirm procedure)
+
+`tools/e2e`: `E2E_NO_THROTTLE=1 node run.mjs --players 10 --seed 2801 --segment full --phone-processes shared
+--measure-vote-performance` was run on this branch (server, client and `tools/e2e` built locally). It completed with
+`ok: true`, run `2026-11-15T10-54-26-208Z-stub-p10-s2801`. The raw run folder is not committed, as in T050-confirm.
+Phone 1 per part vote, computed the same way as `summarize-d102.mjs`:
+
+| Part vote | Max heartbeat gap ms | Long tasks > 50 ms | Screenshot ms | T050-confirm max gap (2 runs, before this PR) |
+|---|---:|---|---:|---|
+| 1 | **727** | 666, 72 | 1,245 | 18,457 / 17,644 |
+| 2 | 1,696 | 1,206 | 493 | 0 / 0 |
+| 3 | 410 | 409 | 1,799 | 2,283 / 2,375 |
+| 4 | 219 | 182 | 915 | 102 / 273 |
+| 5 | 0 | none | 486 | 0 / 0 |
+
+So the part 1 stall dropped from ~18 s to 0.7 s in this single run. Part 2 now shows one 1.2 s task. It is likely
+the first models of a category the prewarm did not cover (first parse and first draw). I have not checked that, and
+this is n = 1.
+
 ## Tests / build
 
 - 2 new unit tests in `client/src/viewer/threeScene.test.ts`. One checks that `warmUp` is idempotent (same promise),
@@ -55,8 +74,9 @@ stages before the cards appear (12,057 / 12,045 without, 11,699 / 11,745 with).
 
 ## Not verified
 
-- The T047 10-phone harness (`tools/e2e`, seed 2801, `--phone-processes shared`) was **not** re-run (time box before the
-  11:30 client freeze). The part-1 10-phone heartbeat gap after this change is therefore unmeasured.
+- The 10-phone harness was run **once** (above), not twice as in T050-confirm. Run-to-run variance is not known.
+- `docs/play/client/` is **not** rebuilt in this PR, by the orchestrator's instruction. One combined rebuild follows
+  after T061 merges.
 - In the 10-phone run 13 pages share one machine and software GL. The prewarm then runs during the role card / build
   screens instead of the vote. Whether it finishes before part 1 there depends on how long players stay on those
   screens. If it has not finished, the first viewer waits for the same in-flight work (shared cache promise) and does
