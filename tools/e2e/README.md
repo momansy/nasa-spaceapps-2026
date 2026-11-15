@@ -63,3 +63,9 @@ product defects remain visible in evidence and do not get hidden by the harness.
   `room.created` frame, joins a phone through the `?room=CODE` link and screenshots the host (`host-with-phone.png`).
 - `E2E_NO_THROTTLE=1` skips the CPU throttle on the 10th phone; a failing phone screenshot is now probed (is the page main thread alive?) and retried
   viewport-only, recorded as a `screenshot diagnostic` action in `phone-N-diagnostics.json`.
+
+## Hosted-mode additions (T048)
+
+- `node run.mjs --hosted http://localhost:10000 --players 6 --spectators 5`: run the C1 session against an already running `npm --prefix server run start:hosted` process. A recording proxy forwards pages to `<origin>/play/client/` and WebSocket frames to `<origin>/ws`, so frames are still recorded and schema-checked (latency is measured on loopback, before the real network).
+- `node hosted-judge-path.mjs [--origin …] [--phones 3]`: entry page → Host a mission → real Unity host → New mission → phones join from the `joinUrl` only.
+- `node hosted-restart.mjs [--origin …] [--down-seconds 10]`: kill and restart the hosted process in a lobby and record how host and phones recover (needs PowerShell on Windows to find the listener).

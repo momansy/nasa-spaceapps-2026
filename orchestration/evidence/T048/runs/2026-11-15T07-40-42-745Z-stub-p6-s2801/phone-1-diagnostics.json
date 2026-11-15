@@ -1,0 +1,86 @@
+{
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "pageErrors": [],
+  "fps": [
+    {
+      "label": "MG-07",
+      "avgFps": 49.542610448641156,
+      "onePercentLowFps": 29.940119760471216,
+      "frames": 1042
+    },
+    {
+      "label": "MG-08",
+      "avgFps": 31.7312901478214,
+      "onePercentLowFps": 14.99250374812332,
+      "frames": 697
+    },
+    {
+      "label": "MG-09",
+      "avgFps": 36.98775807951342,
+      "onePercentLowFps": 19.96007984032864,
+      "frames": 720
+    },
+    {
+      "label": "MG-10a",
+      "avgFps": 42.607868212590795,
+      "onePercentLowFps": 19.960079840317043,
+      "frames": 703
+    },
+    {
+      "label": "MG-13",
+      "avgFps": 33.42262078735717,
+      "onePercentLowFps": 11.990407673861748,
+      "frames": 972
+    },
+    {
+      "label": "MG-15",
+      "avgFps": 28.443283038305463,
+      "onePercentLowFps": 11.990407673861748,
+      "frames": 1132
+    },
+    {
+      "label": "MG-21",
+      "avgFps": 28.544916633031324,
+      "onePercentLowFps": 11.990407673857565,
+      "frames": 686
+    },
+    {
+      "label": "mission-end",
+      "avgFps": 31.25667577382754,
+      "onePercentLowFps": 11.990407673857565,
+      "frames": 834
+    },
+    {
+      "label": "end",
+      "avgFps": 31.274696710351336,
+      "onePercentLowFps": 11.990407673857565,
+      "frames": 835
+    }
+  ],
+  "actions": [
+    "voted in C1/C0/C2",
+    "screenshot diagnostic {\"shot\":\"part-vote-1\",\"firstError\":\"page.screenshot: Timeout 15000ms exceeded.\",\"evalOk\":true,\"evalMs\":12324,\"visibility\":\"visible\",\"retry\":\"ok (viewport only)\"}",
+    "socket dropped mid-vote; resumed within 1 s using held token",
+    "voted in inst_wide_field_optical_camera/inst_multispectral_imager/inst_thermal_infrared_camera",
+    "screenshot diagnostic {\"shot\":\"part-vote-3\",\"firstError\":\"page.screenshot: Timeout 15000ms exceeded.\",\"evalOk\":true,\"evalMs\":3221,\"visibility\":\"visible\",\"retry\":\"ok (viewport only)\"}",
+    "voted in eng_hydrolox_vacuum/eng_kerolox_vacuum/eng_methalox_vacuum",
+    "screenshot diagnostic {\"shot\":\"part-vote-4\",\"firstError\":\"page.screenshot: Timeout 15000ms exceeded.\",\"evalOk\":true,\"evalMs\":17334,\"visibility\":\"visible\",\"retry\":\"ok (viewport only)\"}",
+    "voted in eng_kerolox_workhorse/eng_methalox_full_flow/eng_hydrolox_high_efficiency",
+    "voted in tank_s/tank_m/tank_l",
+    "voted in TEST/SKIP",
+    "voted in PASS/REWORK",
+    "FRR round 1: NO_GO",
+    "FRR round 2: GO",
+    "MG-07 played (8 generic inputs), own result shown",
+    "console alert callout pressed",
+    "MG-08 played (31 generic inputs), own result shown",
+    "MG-09 played (44 generic inputs), own result shown",
+    "MG-10a played (12 generic inputs), own result shown",
+    "MG-13 played (27 generic inputs), own result shown",
+    "MG-15 played (26 generic inputs), own result shown",
+    "MG-21 played (26 generic inputs), own result shown"
+  ]
+}

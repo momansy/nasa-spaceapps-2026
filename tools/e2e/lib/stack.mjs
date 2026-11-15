@@ -33,13 +33,28 @@ function resolveFile(urlPath) {
   return fs.existsSync(candidate) && fs.statSync(candidate).isFile() ? candidate : path.join(clientDir, 'dist', 'index.html');
 }
 
-export async function launchStack({ recorder, runDir }) {
-  const roomPort = await freePort();
+// `hosted` (T048): an already running hosted process, e.g. { origin: 'http://localhost:10000' }. No room
+// server or static files are started: this recording proxy forwards pages to <origin>/play/client/ and
+// WebSocket frames to <origin>/ws, so the phones load the committed docs/play/client build that judges get.
+export async function launchStack({ recorder, runDir, hosted = null }) {
+  const roomPort = hosted ? 0 : await freePort();
   const stderr = fs.createWriteStream(path.join(runDir, 'server-stderr.log'));
   const stdout = fs.createWriteStream(path.join(runDir, 'server-stdout.log'));
   let connCounter = 0;
 
-  const staticServer = http.createServer((req, res) => {
+  const staticServer = http.createServer(async (req, res) => {
+    if (hosted) {
+      try {
+        const p = req.url ?? '/';
+        const target = hosted.origin + (p === '/host' || p.startsWith('/host/') ? '/play' + p : '/play/client' + (p === '/' ? '/' : p));
+        const upstream = await fetch(target, { headers: { 'accept-encoding': 'identity' } });
+        if (upstream.status >= 400) fs.appendFileSync(path.join(runDir, 'proxy-http-errors.log'), `${upstream.status} ${req.method} ${target}
+`);
+        const headers = Object.fromEntries([...upstream.headers].filter(([k]) => !['content-encoding', 'content-length', 'transfer-encoding', 'connection'].includes(k)));
+        res.writeHead(upstream.status, headers).end(Buffer.from(await upstream.arrayBuffer()));
+      } catch (error) { res.writeHead(502).end(error.message); }
+      return;
+    }
     try {
       const file = resolveFile(req.url ?? '/');
       if (!fs.existsSync(file) || !fs.statSync(file).isFile()) {
@@ -62,7 +77,7 @@ export async function launchStack({ recorder, runDir }) {
   await new Promise((resolve, reject) => staticServer.listen(0, '127.0.0.1', resolve).once('error', reject));
   const webPort = staticServer.address().port;
 
-  const room = spawn(process.execPath, ['dist/server/src/index.js'], {
+  const room = hosted ? null : spawn(process.execPath, ['dist/server/src/index.js'], {
     cwd: serverDir,
     env: {
       ...process.env,
@@ -72,9 +87,8 @@ export async function launchStack({ recorder, runDir }) {
     },
     stdio: ['ignore', 'pipe', 'pipe'],
   });
-  room.stdout.pipe(stdout);
-  room.stderr.pipe(stderr);
-  await new Promise((resolve, reject) => {
+  if (room) { room.stdout.pipe(stdout); room.stderr.pipe(stderr); }
+  if (room) await new Promise((resolve, reject) => {
     const timer = setTimeout(() => reject(new Error('room server did not start in 15 s')), 15000);
     const onData = (chunk) => {
       if (String(chunk).includes('listening')) {
@@ -98,7 +112,7 @@ export async function launchStack({ recorder, runDir }) {
   wss.on('connection', (client) => {
     const connId = `c${++connCounter}`;
     let role = 'unknown';
-    const upstream = new WebSocket(`ws://127.0.0.1:${roomPort}`);
+    const upstream = new WebSocket(hosted ? hosted.origin.replace(/^http/, 'ws') + '/ws' : `ws://127.0.0.1:${roomPort}`);
     const pending = [];
     client.on('message', (raw, binary) => {
       if (binary) return client.close(1003, 'text frames only');
@@ -131,8 +145,10 @@ export async function launchStack({ recorder, runDir }) {
       for (const client of wss.clients) client.terminate();
       wss.close();
       await new Promise((resolve) => staticServer.close(resolve));
-      room.kill();
-      await Promise.race([new Promise((resolve) => room.once('exit', resolve)), new Promise((resolve) => setTimeout(resolve, 3000))]);
+      if (room) {
+        room.kill();
+        await Promise.race([new Promise((resolve) => room.once('exit', resolve)), new Promise((resolve) => setTimeout(resolve, 3000))]);
+      }
       stdout.end();
       stderr.end();
     },

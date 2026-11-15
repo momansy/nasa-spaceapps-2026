@@ -1,0 +1,20 @@
+
+added 57 packages, and audited 58 packages in 9s
+
+14 packages are looking for funding
+  run `npm fund` for details
+
+6 vulnerabilities (3 moderate, 1 high, 2 critical)
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+
+> missionforge-server@0.1.0 build
+> tsc -p tsconfig.json && node tools/postbuild.mjs
+
+
+real	0m15.819s
+user	0m0.396s
+sys	0m0.425s
