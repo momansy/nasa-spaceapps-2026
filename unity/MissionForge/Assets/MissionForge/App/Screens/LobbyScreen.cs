@@ -60,6 +60,10 @@ namespace MissionForge.App.Screens
             MfButtons.WithIcon(_start, "rocket");
             _start.SetEnabled(false);
 
+            // Overflow at 200 % text: the two scroll regions show a designed "more below" fade instead of a cut through a row.
+            MfScrollFade.Attach(Screen.Q<ScrollView>("crew-scroll"));
+            MfScrollFade.Attach(Screen.Q<ScrollView>("lobby-side"));
+
             BuildSlots(Screen.Q<VisualElement>("crew-grid"));
             BuildSegment("seg-role-mode", ProtocolNames.Fields.RoleAssignMode,
                 (ProtocolNames.RoleAssignModes.Random, "Random"),
@@ -69,9 +73,15 @@ namespace MissionForge.App.Screens
                 (ProtocolNames.AssistLevels.Cadet, "Cadet"),
                 (ProtocolNames.AssistLevels.Engineer, "Engineer"),
                 (ProtocolNames.AssistLevels.FlightDirector, "Flight Director"));
-            // Contract range of voteTimerS is 10–60 s, default 20.
+            // Contract range of voteTimerS is 10–60 s, default 20. 10 s is the judging-day option (design 13.7).
             BuildSegment("seg-vote-timer", ProtocolNames.Fields.VoteTimerS,
-                ("20", "20 s"), ("30", "30 s"), ("45", "45 s"), ("60", "60 s"));
+                ("10", "10 s"), ("20", "20 s"), ("30", "30 s"), ("45", "45 s"), ("60", "60 s"));
+            // Contract range of inspectTimerS is 5–60 s, default 20 (the five presets are game_value choices inside it).
+            BuildSegment("seg-inspect-timer", ProtocolNames.Fields.InspectTimerS,
+                ("5", "5 s"), ("10", "10 s"), ("20", "20 s"), ("30", "30 s"), ("60", "60 s"));
+            // audienceVoteWeight is 0 or 1: with 1 the audience's combined vote counts as one player.
+            BuildSegment("seg-audience", ProtocolNames.Fields.AudienceVoteWeight,
+                ("0", "Off"), ("1", "One player"));
             BuildSegment("seg-tallies", ProtocolNames.Fields.TallyVisibility,
                 (ProtocolNames.TallyVisibilities.Open, "Open"),
                 (ProtocolNames.TallyVisibilities.Hidden, "Hidden"));
@@ -130,16 +140,43 @@ namespace MissionForge.App.Screens
         {
             SelectSegment(key, value); // Optimistic; the server's settings.state confirms or corrects it.
             if (_client == null) return;
+            SettingsPatchDto patch = BuildPatch(key, value);
+            if (patch == null) return;
+            _client.UpdateSettings(patch);
+        }
+
+        /// <summary>
+        /// Builds the settings.set patch for one lobby control, or null when the key or value is not a valid
+        /// setting (so nothing is sent). Ranges follow the protocol contract: voteTimerS 10–60 s, inspectTimerS 5–60 s,
+        /// audienceVoteWeight 0 or 1.
+        /// </summary>
+        public static SettingsPatchDto BuildPatch(string key, string value)
+        {
             var patch = new SettingsPatchDto();
             switch (key)
             {
-                case ProtocolNames.Fields.RoleAssignMode: patch.RoleAssignMode = value; break;
-                case ProtocolNames.Fields.AssistLevel: patch.AssistLevel = value; break;
-                case ProtocolNames.Fields.VoteTimerS: patch.VoteTimerS = int.Parse(value); break;
-                case ProtocolNames.Fields.TallyVisibility: patch.TallyVisibility = value; break;
-                default: return;
+                case ProtocolNames.Fields.RoleAssignMode: patch.RoleAssignMode = value; return patch;
+                case ProtocolNames.Fields.AssistLevel: patch.AssistLevel = value; return patch;
+                case ProtocolNames.Fields.TallyVisibility: patch.TallyVisibility = value; return patch;
+                case ProtocolNames.Fields.VoteTimerS:
+                    if (!TryParseInRange(value, 10, 60, out int voteS)) return null;
+                    patch.VoteTimerS = voteS;
+                    return patch;
+                case ProtocolNames.Fields.InspectTimerS:
+                    if (!TryParseInRange(value, 5, 60, out int inspectS)) return null;
+                    patch.InspectTimerS = inspectS;
+                    return patch;
+                case ProtocolNames.Fields.AudienceVoteWeight:
+                    if (!TryParseInRange(value, 0, 1, out int weight)) return null;
+                    patch.AudienceVoteWeight = weight;
+                    return patch;
+                default: return null;
             }
-            _client.UpdateSettings(patch);
+        }
+
+        private static bool TryParseInRange(string value, int min, int max, out int parsed)
+        {
+            return int.TryParse(value, out parsed) && parsed >= min && parsed <= max;
         }
 
         private void SelectSegment(string key, string value)
@@ -156,6 +193,8 @@ namespace MissionForge.App.Screens
             SelectSegment(ProtocolNames.Fields.RoleAssignMode, settings.RoleAssignMode);
             SelectSegment(ProtocolNames.Fields.AssistLevel, settings.AssistLevel);
             SelectSegment(ProtocolNames.Fields.VoteTimerS, settings.VoteTimerS.ToString());
+            SelectSegment(ProtocolNames.Fields.InspectTimerS, settings.InspectTimerS.ToString());
+            SelectSegment(ProtocolNames.Fields.AudienceVoteWeight, settings.AudienceVoteWeight.ToString());
             SelectSegment(ProtocolNames.Fields.TallyVisibility, settings.TallyVisibility);
         }
 

@@ -281,7 +281,8 @@ namespace MissionForge.UI
             g2.Set(0.4f, MfStatus.Marginal, "1.1", "TWR", 0.5f, "1.2");
             var g3 = new MfRadialGauge();
             g3.AddToClassList("mf-gauge--s");
-            g3.Set(0.2f, MfStatus.Fails, "4", "s", 0.25f, "5\u00A0s");
+            // A 10 s ring with 2 s left; the 5 s threshold sits at the top of the ring (0.5), clear of the TWR gauge beside it.
+            g3.Set(0.2f, MfStatus.Fails, "2", "s", 0.5f, "5\u00A0s");
             // Head room for the threshold labels (their ticks point up or up-left here; see ThresholdLabelOutset).
             foreach (MfRadialGauge g in new[] { g1, g2, g3 })
             {

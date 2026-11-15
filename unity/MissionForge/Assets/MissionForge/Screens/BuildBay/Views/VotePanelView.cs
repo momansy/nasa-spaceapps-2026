@@ -256,7 +256,8 @@ namespace MissionForge.Screens.BuildBay
                 deltas.Add(chip);
             }
             // Only when at least one delta is shown: an "If chosen" label with nothing after it reads as missing data.
-            if (deltas.childCount > 0)
+            // Once the round is decided the preview is moot (the winner is chosen, the others are not), so it is not shown.
+            if (deltas.childCount > 0 && _model.WinnerId == null)
             {
                 deltas.Insert(0, Text(_text.Get("ui.buildbay.vote.if_chosen"), "bb-card__line"));
                 card.Add(deltas);
