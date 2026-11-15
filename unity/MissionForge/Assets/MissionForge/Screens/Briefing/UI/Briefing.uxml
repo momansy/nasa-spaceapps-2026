@@ -1,0 +1,17 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:mf="MissionForge.UI">
+    <Style src="../../Preflight/UI/Preflight.uss" />
+    <!-- Mission Briefing (screen 3, T027): the C1 cinematic (or the Shell's Earth) fills the viewport; the briefing UI
+         sits in the shot's negative space (dark sky, top and right). Every player-visible string is set from
+         data/strings by BriefingScreen; text here is empty. -->
+    <ui:VisualElement name="screen" class="mf-screen pf-screen pf-briefing" picking-mode="Ignore">
+        <ui:VisualElement name="pf-video" class="pf-video" picking-mode="Ignore" />
+        <ui:VisualElement name="pf-shade" class="pf-shade" picking-mode="Ignore" />
+        <ui:VisualElement name="pf-brief-row" class="pf-brief-row" picking-mode="Ignore">
+            <ui:VisualElement name="pf-brief-left" class="pf-brief-left" picking-mode="Ignore" />
+            <mf:MfGlassPanel name="pf-brief-card" class="mf-glass pf-brief-card" />
+        </ui:VisualElement>
+        <ui:VisualElement name="pf-capcom" class="pf-capcom" picking-mode="Ignore" />
+        <ui:VisualElement name="pf-footer" class="pf-footer" />
+        <ui:VisualElement name="pf-rehearsal-host" class="pf-rehearsal-host" picking-mode="Ignore" />
+    </ui:VisualElement>
+</ui:UXML>
