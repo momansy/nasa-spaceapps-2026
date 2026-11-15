@@ -34,6 +34,8 @@ export interface Mg04Config {
   catchRequired: boolean;
   parts: number;
   errors: number;
+  /** Length of the host window (the host timer bar), s. Standard play ends earlier (see `playS`). */
+  durationS: number;
   playS: number;
   relaxedSnap: boolean;
   oneButton: boolean;
@@ -51,6 +53,7 @@ export function resolveConfig(params: MgMap, mode: MinigameMode, assist: AssistL
     catchRequired: boolParam(params, 'drawing_error_catch_required', true),
     parts,
     errors: clamp(intParam(params, 'errors', assist === 'FLIGHT_DIRECTOR' ? 2 : 1, 1, 4), 1, parts - 1),
+    durationS,
     playS: durationS * (mode === 'STANDARD' ? STANDARD_TIME_FRACTION : 1),
     relaxedSnap: mode === 'RELAXED',
     oneButton: mode === 'ONE_BUTTON',
@@ -141,6 +144,12 @@ export class Mg04Sim {
 
   get leftS(): number {
     return Math.max(0, (this.totalSteps - this.step) * DT_S);
+  }
+
+  /** Seconds left on the host timer bar (the whole window). The in-game time readout shows this one, so
+      it always agrees with the bar; Standard play itself ends at 75 % of the window. */
+  get windowLeftS(): number {
+    return Math.max(0, this.config.durationS - this.timeS);
   }
 
   get done(): boolean {

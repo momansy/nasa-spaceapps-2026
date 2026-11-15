@@ -3,7 +3,7 @@
 // block that never scrolls out of view, the hidden-risk badge, the host's "if chosen" deltas,
 // a fact, and tap-a-stat explanations. Every number shown comes from the bundled catalog (part
 // figures) or from the host (deltas, affordability); nothing is recomputed here.
-import { memo, useId, useState, type CSSProperties } from 'react';
+import { memo, useCallback, useEffect, useId, useRef, useState, type CSSProperties } from 'react';
 import type { RoleId, TagKind, VoteOption, VoteTagsPayload } from '@protocol';
 import { getFact, getPart, partsOfCategory, type Part } from '../../data/catalog';
 import { fmt, fmtMetricDelta, fmtMetricValue, fmtMoney, METRIC_SPECS } from '../../data/format';
@@ -142,6 +142,25 @@ export const PartCard = memo(function PartCard(props: PartCardProps) {
   const part = getPart(option.partId);
   const toggle = (id: string) => setOpenStat((cur) => (cur === id ? null : id));
 
+  // The face scrolls above the pinned drawbacks block. While more is hidden below the fold, a
+  // "More" pill says so (and scrolls on tap), so every stat row is reachable.
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [more, setMore] = useState(false);
+  const measure = useCallback(() => {
+    const el = scrollRef.current;
+    if (el) setMore(el.scrollHeight - el.scrollTop - el.clientHeight > 12);
+  }, []);
+  const scrollMore = () => scrollRef.current?.scrollBy({ top: Math.max(80, (scrollRef.current?.clientHeight ?? 200) * 0.7), behavior: 'smooth' });
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return undefined;
+    measure();
+    const ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(measure) : null;
+    ro?.observe(el);
+    Array.from(el.children).forEach((c) => ro?.observe(c));
+    return () => ro?.disconnect();
+  }, [measure, option.id, openStat]);
+
   if (!part) return null;
   const rows = statRows(part);
   const sched = scheduleLine(part);
@@ -162,7 +181,8 @@ export const PartCard = memo(function PartCard(props: PartCardProps) {
       data-testid={`card-${option.id}`}
       data-maturity={part.game?.maturity ?? undefined}
     >
-      <div className="pcard__scroll">
+      <div className={`pcard__viewport ${drawbacks.length > 0 ? '' : 'pcard__viewport--full'}`}>
+      <div className="pcard__scroll" ref={scrollRef} onScroll={measure}>
         <div className="pcard__media">
           <PartViewer partId={part.id} size="card" active={active && !vetoed} onExpand={onExpandViewer} />
           <div className="pcard__badges">
@@ -283,20 +303,6 @@ export const PartCard = memo(function PartCard(props: PartCardProps) {
           </section>
         )}
 
-        {drawbacks.length > 0 && (
-          <section className="plist plist--bad drawbacks" data-testid="drawbacks">
-            <h3 className="plist__title">
-              <Icon name={TONE_ICON.bad} size="1rem" />
-              {t('ui.card.drawbacks')}
-            </h3>
-            <ul>
-              {drawbacks.map((k) => (
-                <li key={k}>{t(k)}</li>
-              ))}
-            </ul>
-          </section>
-        )}
-
         <section className="ifchosen">
           <h3 className="plist__title">
             <Icon name="gauge" size="1rem" />
@@ -347,6 +353,30 @@ export const PartCard = memo(function PartCard(props: PartCardProps) {
           </aside>
         )}
       </div>
+      {more && (
+        <button type="button" className="pcard__more" onClick={scrollMore} aria-label={t('ui.card.more_stats')} data-testid="card-more">
+          <span className="pcard__pill">
+            <Icon name="chevronDown" size="1rem" strokeWidth={2.6} />
+            <span>{t('ui.card.more')}</span>
+          </span>
+        </button>
+      )}
+      </div>
+      {drawbacks.length > 0 && (
+        <div className="pcard__pin">
+          <section className="plist plist--bad drawbacks" data-testid="drawbacks">
+            <h3 className="plist__title">
+              <Icon name={TONE_ICON.bad} size="1rem" />
+              {t('ui.card.drawbacks')}
+            </h3>
+            <ul>
+              {drawbacks.map((k) => (
+                <li key={k}>{t(k)}</li>
+              ))}
+            </ul>
+          </section>
+        </div>
+      )}
 
       {vetoed && (
         <div className="pcard__stamp" role="status">

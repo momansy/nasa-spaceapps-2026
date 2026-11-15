@@ -1,7 +1,7 @@
 // MG-04 drawing: the blueprint (white line drawing on drafting blue, with an "up" reference)
 // above the part on an anti-static bench mat, then the controls. Parts are drawn without any
 // mirror symmetry; a wrong drawing is the mirror image. Theme tokens; DPR ≤ 2.
-import { Canvas2D, clamp, KeyedLayer, pathRoundRect, silverGradient, type Rect, type Status } from '../MG-02/kit';
+import { Canvas2D, clamp, KeyedLayer, pathRoundRect, silverGradient, withAlpha, type Rect, type Status } from '../MG-02/kit';
 import { GOOD_OUTCOMES, type Mg04Sim, type PartKind } from './model';
 
 export interface Mg04ViewOptions {
@@ -269,6 +269,8 @@ export class Mg04View {
   benchR!: Rect;
   buttons: Partial<Record<Mg04Button, Rect>> = {};
   private oneR: Rect | null = null;
+  /** Slot for the result strip between the bench and the controls: it never covers a panel (T038). */
+  private feedbackR: Rect | null = null;
   private hudLayer: KeyedLayer;
   private drawingLayer: KeyedLayer;
   private benchLayer: KeyedLayer;
@@ -314,6 +316,7 @@ export class Mg04View {
       this.buttons = { right: { x: pad, y: H - pad - bh, w: bw, h: bh }, match: { x: pad + bw + 8, y: H - pad - bh, w: bw, h: bh } };
       this.hud = [];
       this.oneR = null;
+      this.feedbackR = null;
       return;
     }
     let y = pad;
@@ -326,11 +329,13 @@ export class Mg04View {
     const b1 = Math.round(Math.max(52, 48 * s));
     const b2 = Math.round(Math.max(56, 52 * s));
     const ctlH = this.sim.config.oneButton ? b2 + 34 : b1 + 8 + b2;
-    const panelsH = H - pad - ctlH - 10 - y;
+    const fbH = Math.round(38 * s);
+    const panelsH = H - pad - ctlH - 12 - fbH - y;
     const ph = (panelsH - 10) / 2;
     this.drawingR = { x: pad, y, w: W - pad * 2, h: ph };
     this.benchR = { x: pad, y: y + ph + 10, w: W - pad * 2, h: ph };
-    const cy = y + panelsH + 10;
+    this.feedbackR = { x: pad + 4, y: y + panelsH + 6, w: W - pad * 2 - 8, h: fbH };
+    const cy = y + panelsH + 12 + fbH;
     const bw = (W - pad * 2 - gap) / 2;
     const L = (i: number) => (c.rtl ? pad + (1 - i) * (bw + gap) : pad + i * (bw + gap));
     if (this.sim.config.oneButton) {
@@ -376,15 +381,17 @@ export class Mg04View {
     const t = this.o.t;
     const n = sim.parts.length;
     const idx = Math.min(n, sim.current + 1);
-    const left = Math.ceil(sim.leftS);
+    // The same time as the host timer bar (whole window), not the shorter Standard play time (T038).
+    const left = Math.ceil(sim.windowLeftS);
+    const urgent = sim.leftS <= 4 && !sim.done;
     const wrong = sim.outcomes.filter((o) => !GOOD_OUTCOMES.includes(o)).length;
-    const key = `${idx}|${sim.correct}|${wrong}|${left}|${c.W}`;
+    const key = `${idx}|${sim.correct}|${wrong}|${left}|${urgent}|${c.W}`;
     const r0 = this.hud[0]!;
     this.hudLayer.blit({ x: 0, y: r0.y - 6, w: c.W, h: r0.h + 26 }, key, () => {
       c.readout(this.hud[0]!, t(K + 'hud.part'), `${idx}/${n}`, t(K + 'unit.parts'), c.pal.text);
       const s: Status = wrong > 0 ? 'bad' : 'good';
       c.readout(this.hud[1]!, t(K + 'hud.correct'), String(sim.correct), t(K + 'unit.parts'), wrong > 0 ? c.pal.bad : c.pal.good, sim.current > 0 ? s : undefined);
-      c.readout(this.hud[2]!, t(K + 'hud.left'), String(left), 's', left <= 4 && !sim.done ? c.pal.sun : c.pal.text);
+      c.readout(this.hud[2]!, t(K + 'hud.left'), String(left), 's', urgent ? c.pal.sun : c.pal.text);
     });
   }
 
@@ -613,20 +620,27 @@ export class Mg04View {
     });
   }
 
+  /** The result strip lives in its own slot under the bench. Idle, the slot shows a quiet track. */
   private drawFeedback() {
+    const slot = this.feedbackR;
+    if (!slot || this.o.compact) return;
     const sim = this.sim;
-    const last = sim.last;
-    if (!last || sim.done || sim.timeS - last.atS > FEEDBACK_S || this.o.compact) return;
     const c = this.c;
-    const ok = GOOD_OUTCOMES.includes(last.outcome);
-    const label = this.o.t(K + 'feedback.' + last.outcome);
-    const r = this.benchR;
-    const h = Math.round(42 * Math.min(c.u, 1.3));
-    const box = { x: r.x + 14, y: r.y + 8, w: r.w - 28, h };
-    const a = this.o.reducedMotion ? 1 : clamp((FEEDBACK_S - (sim.timeS - last.atS)) / 0.2, 0, 1);
+    const last = sim.last;
+    const showing = !!last && !sim.done && sim.timeS - last.atS <= FEEDBACK_S;
+    c.roundRect(slot, 12);
+    c.ctx.fillStyle = withAlpha(c.pal.ceramic, 0.04);
+    c.ctx.fill();
+    c.ctx.strokeStyle = withAlpha(c.pal.ceramic, 0.12);
+    c.ctx.lineWidth = 1;
+    c.ctx.stroke();
+    if (!showing) return;
+    const ok = GOOD_OUTCOMES.includes(last!.outcome);
+    const label = this.o.t(K + 'feedback.' + last!.outcome);
+    const a = this.o.reducedMotion ? 1 : clamp((FEEDBACK_S - (sim.timeS - last!.atS)) / 0.2, 0, 1);
     c.ctx.save();
     c.ctx.globalAlpha = a;
-    c.statusStrip(box, ok ? 'good' : 'bad', label);
+    c.statusStrip(slot, ok ? 'good' : 'bad', label);
     c.ctx.restore();
   }
 }

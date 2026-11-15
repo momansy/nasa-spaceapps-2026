@@ -44,6 +44,11 @@ lists every part with its status shape and outcome.
 - **Time:** Standard 75 % of `durationMs` (15 s of 20 s); Relaxed the full time ("the timer is
   longer"); One-button the full time (**Decision**: the offer cycle needs it). Play ends when the
   last part is decided.
+- **One time on screen (T038):** the "Time left" readout shows the same time as the host timer bar,
+  `max(0, durationMs − elapsed)` in whole seconds (`Mg04Sim.windowLeftS`), so the phone never shows
+  two clocks. Standard play still ends at 75 % of the window (the reserve above), so the scan can
+  end while the bar still shows about a quarter of the window; the readout turns Sunlight (the
+  warning colour) in the last 4 s of actual play (`leftS`). Scoring and play length are unchanged.
 
 ## Modes and difficulty (all `game_value`)
 

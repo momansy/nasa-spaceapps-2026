@@ -392,20 +392,31 @@
   background: var(--line-strong);
 }
 
-/* The inner card face. */
+/* The card face: a scrolling region (model, name, stats, strengths, deltas) above a pinned
+   drawbacks block that never scrolls out of view (design 14.3). The "More" pill appears while
+   rows are still hidden below the fold. */
+.pcard__viewport {
+  position: relative;
+  flex: 0 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  border-radius: calc(var(--radius-lg) - 2px) calc(var(--radius-lg) - 2px) 0 0;
+  background:
+    radial-gradient(100% 40% at 50% 0%, rgba(23, 104, 135, 0.35), transparent 70%),
+    linear-gradient(180deg, #10283c, #0b1e2f);
+  overflow: hidden;
+}
+
 .pcard__scroll {
   flex: 1 1 auto;
   min-height: 0;
   overflow-y: auto;
   overscroll-behavior: contain;
-  padding: 0 0 12px;
+  padding: 0 0 8px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  border-radius: calc(var(--radius-lg) - 2px);
-  background:
-    radial-gradient(100% 40% at 50% 0%, rgba(23, 104, 135, 0.35), transparent 70%),
-    linear-gradient(180deg, #10283c, #0a1b2b 50%, #081624);
+  gap: 8px;
   scrollbar-width: none;
 }
 
@@ -413,8 +424,67 @@
   display: none;
 }
 
-:root[data-contrast='high'] .pcard__scroll {
+.pcard__pin {
+  flex: 1 0 auto;
+  padding: 6px 14px 12px;
+  border-radius: 0 0 calc(var(--radius-lg) - 2px) calc(var(--radius-lg) - 2px);
+  background: linear-gradient(180deg, #0b1e2f, #081624);
+}
+
+/* The fade is a full-width veil that lets taps through; only the small pill is tappable, so the
+   last visible stat row stays tappable. */
+.pcard__more {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 2;
+  height: 46px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0 0 5px;
+  border: 0;
+  background: linear-gradient(180deg, transparent, rgba(11, 30, 47, 0.96) 70%);
+  color: var(--accent-strong);
+  font-size: var(--fs-meta);
+  font-weight: 700;
+  pointer-events: none;
+}
+
+.pcard__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 32px;
+  padding: 0 14px;
+  border-radius: var(--radius-pill);
+  pointer-events: auto;
+}
+
+.pcard__pill svg {
+  animation: more-bob 1.6s var(--ease) infinite;
+}
+
+.pcard__viewport--full {
+  flex: 1 1 auto;
+  border-radius: calc(var(--radius-lg) - 2px);
+}
+
+@keyframes more-bob {
+  50% {
+    transform: translateY(2px);
+  }
+}
+
+:root[data-contrast='high'] .pcard__viewport,
+:root[data-contrast='high'] .pcard__pin {
   background: #000;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pcard__pill svg {
+    animation: none;
+  }
 }
 
 .pcard--mine {
@@ -436,7 +506,7 @@
 }
 
 .pcard__media .viewer--card {
-  height: clamp(120px, 17vh, 160px);
+  height: clamp(84px, 11vh, 104px);
   border-radius: calc(var(--radius-lg) - 2px) calc(var(--radius-lg) - 2px) 0 0;
 }
 
@@ -571,12 +641,12 @@
 
 .stat__btn {
   width: 100%;
-  min-height: 44px;
+  min-height: 40px;
   display: grid;
   grid-template-columns: minmax(4.2rem, 26%) minmax(0, 1fr) minmax(3rem, 22%);
   align-items: center;
   gap: 10px;
-  padding: 6px 0;
+  padding: 3px 0;
   border-radius: 6px;
   font-size: var(--fs-label);
 }
@@ -765,10 +835,13 @@
 }
 
 .drawbacks {
-  position: sticky;
-  bottom: 0;
-  z-index: 1;
-  box-shadow: 0 -14px 20px rgba(8, 22, 36, 0.9);
+  padding: 8px 12px 10px;
+  max-height: 46vh;
+  overflow-y: auto;
+}
+
+.drawbacks .plist__title {
+  margin-bottom: 4px;
 }
 
 :root[data-contrast='high'] .plist--bad {
@@ -980,15 +1053,14 @@
   flex-direction: column;
 }
 
-/* Crew pings float over the top of the visible card (its 3D view), never over text. */
+/* Crew pings sit in their own lane between the hint strip and the card, in normal flow, so a
+   ping can never cover the 3D part model or any card text (T038). The lane is empty (zero
+   height) when nothing is showing and each item eases its height in and out. */
 .pingfeed {
-  position: absolute;
-  z-index: 3;
-  top: 52px;
-  inset-inline: calc(var(--gutter) + 12px) calc(var(--gutter) + 72px);
+  flex: none;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  padding: 0 calc(var(--gutter) + var(--safe-right)) 0 calc(var(--gutter) + var(--safe-left));
   pointer-events: none;
 }
 
@@ -1003,20 +1075,26 @@
   font-size: var(--fs-label);
   animation: ping-in 4.5s var(--ease) both;
   max-width: 100%;
+  align-self: flex-start;
+  overflow: hidden;
 }
 
 @keyframes ping-in {
   0% {
     opacity: 0;
-    transform: translateY(-8px);
+    max-height: 0;
+    margin-bottom: 0;
   }
-  8%,
-  80% {
+  6%,
+  88% {
     opacity: 1;
-    transform: none;
+    max-height: 96px;
+    margin-bottom: 6px;
   }
   100% {
     opacity: 0;
+    max-height: 0;
+    margin-bottom: 0;
   }
 }
 
@@ -1299,4 +1377,20 @@
 .votebody__hint .banner .body-sm {
   display: inline;
   margin-inline-start: 6px;
+}
+
+/* A name inside a sentence (T038): it moves to the next line as one unit if it does not fit (and
+   only wraps inside itself when wider than the line); hyphenated words never break at the hyphen. */
+.namenb__unit {
+  white-space: nowrap;
+}
+
+.namenb {
+  display: inline-block;
+  max-width: 100%;
+  white-space: normal;
+}
+
+.namenb__word {
+  white-space: nowrap;
 }

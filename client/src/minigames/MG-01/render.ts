@@ -43,6 +43,8 @@ export class Mg01View {
   uploadY = 0;
   cardW = 0;
   cardH = 0;
+  /** Downward drag that counts as 'the middle lane', px. Fixed by the original card size so the bigger card (T038) leaves the gesture unchanged. */
+  private dragDownPx = 36;
   private hudLayer: KeyedLayer;
   private laneLayer: KeyedLayer;
   private trackLayer: KeyedLayer;
@@ -95,8 +97,10 @@ export class Mg01View {
     this.track = { x: pad, y, w: W - pad * 2, h: laneY - 10 - y };
     this.uploadY = this.track.y + this.track.h - (compact ? 6 : 10);
     this.hintR = compact ? null : { x: pad, y: H - pad - hintH, w: W - pad * 2, h: hintH };
-    this.cardW = Math.min(this.track.w * (compact ? 0.56 : 0.7), compact ? 200 : 290);
-    this.cardH = compact ? Math.min(54, this.track.h * 0.42) : Math.round(clamp(78 * s, 72, 104));
+    this.cardW = Math.min(this.track.w * (compact ? 0.56 : 0.74), compact ? 200 : 300);
+    // T038: bigger cards so the long conveyor reads as a belt carrying cargo, not an empty lane.
+    this.cardH = compact ? Math.min(54, this.track.h * 0.42) : Math.round(clamp(100 * s, 92, 128));
+    this.dragDownPx = Math.max(36, (compact ? this.cardH : Math.round(clamp(78 * s, 72, 104))) * 0.5);
   }
 
   /** Lane under a point, or −1. */
@@ -113,7 +117,7 @@ export class Mg01View {
     const side = this.track.w / 7;
     if (dx < -side) return 0;
     if (dx > side) return 2;
-    if (dy > Math.max(36, this.cardH * 0.5)) return 1;
+    if (dy > this.dragDownPx) return 1;
     return -1;
   }
 
@@ -136,6 +140,7 @@ export class Mg01View {
     c.backdrop(0.85);
     if (!this.o.compact) this.drawHud();
     this.drawTrack();
+    this.drawBelt(st.timeMs);
     this.drawLanes(st.aim ?? -1);
     this.drawCards(st.drag ?? null);
     this.drawFeedback();
@@ -189,17 +194,26 @@ export class Mg01View {
       ctx.moveTo(cx + railW, r.y + 10);
       ctx.lineTo(cx + railW, this.uploadY - 6);
       ctx.stroke();
-      ctx.strokeStyle = withAlpha(c.pal.accent, 0.12);
-      ctx.lineWidth = 2;
-      for (let y = r.y + 26; y < this.uploadY - 20; y += 34) {
-        ctx.beginPath();
-        ctx.moveTo(cx - railW - 18, y);
-        ctx.lineTo(cx - railW - 10, y + 6);
-        ctx.lineTo(cx - railW - 18, y + 12);
-        ctx.moveTo(cx + railW + 18, y);
-        ctx.lineTo(cx + railW + 10, y + 6);
-        ctx.lineTo(cx + railW + 18, y + 12);
+      if (!this.o.compact) {
+        // Sunlight glow rising from the upload line: the destination end of the belt.
+        const gl = ctx.createLinearGradient(0, this.uploadY - r.h * 0.34, 0, this.uploadY);
+        gl.addColorStop(0, withAlpha(c.pal.sun, 0));
+        gl.addColorStop(1, withAlpha(c.pal.sun, 0.1));
+        c.roundRect(r, 18);
+        ctx.fillStyle = gl;
+        ctx.fill();
+        // Landing slot: where the front card comes to rest on the line.
+        const slot = { x: cx - this.cardW / 2, y: this.uploadY - this.cardH - 4, w: this.cardW, h: this.cardH };
+        c.roundRect(slot, 14);
+        ctx.fillStyle = withAlpha(c.pal.accent, 0.05);
+        ctx.fill();
+        ctx.save();
+        ctx.setLineDash([6, 6]);
+        ctx.strokeStyle = withAlpha(c.pal.accent, 0.3);
+        ctx.lineWidth = 1.5;
+        c.roundRect(slot, 14);
         ctx.stroke();
+        ctx.restore();
       }
       // Upload line: Sunlight dashes with a label chip and an uplink glyph.
       const uy = this.uploadY;
@@ -238,6 +252,36 @@ export class Mg01View {
         c.text(label, chip.x + px * 1.7, chip.y + chip.h / 2 + 1, w, px, 600, c.pal.sun, 'left');
       }
     });
+  }
+
+  /** Chevrons that scroll toward the upload line on both rails (still with reduced motion). */
+  private drawBelt(timeMs: number) {
+    const c = this.c;
+    const ctx = c.ctx;
+    const r = this.track;
+    const cx = r.x + r.w / 2;
+    const railW = this.cardW / 2 + 14;
+    const step = 34;
+    const off = this.o.reducedMotion || this.sim.done ? 0 : ((timeMs * 0.035) % step);
+    const x0 = cx - railW - 18;
+    const x1 = cx + railW + 18;
+    if (x0 < r.x + 6 || x1 > r.x + r.w - 6) return;
+    ctx.save();
+    c2clip(ctx, { x: r.x, y: r.y + 10, w: r.w, h: this.uploadY - 6 - (r.y + 10) });
+    ctx.strokeStyle = withAlpha(c.pal.accent, 0.14);
+    ctx.lineWidth = 2;
+    ctx.lineCap = 'round';
+    for (let y = r.y - step + off; y < this.uploadY; y += step) {
+      ctx.beginPath();
+      ctx.moveTo(x0, y);
+      ctx.lineTo(x0 + 8, y + 6);
+      ctx.lineTo(x0, y + 12);
+      ctx.moveTo(x1, y);
+      ctx.lineTo(x1 - 8, y + 6);
+      ctx.lineTo(x1, y + 12);
+      ctx.stroke();
+    }
+    ctx.restore();
   }
 
   private drawLanes(aim: number) {
@@ -420,25 +464,50 @@ export class Mg01View {
     const active = sim.active;
     const t = sim.timeS;
     const ctx = this.c.ctx;
-    // The next card slides in at the top of the conveyor during the second before it goes live.
+    // The next two cards wait as a small pile at the top of the belt (visible all the time, so the
+    // belt reads as busy); the first one fades up to full size over the last second before it goes live.
     if (!sim.config.oneButton) {
-      const next = sim.state.indexOf('waiting');
-      if (next >= 0) {
-        const dt = sim.deck[next]!.spawnS - t;
-        if (dt < 1) {
-          const top = this.cardPos(next);
-          ctx.save();
-          c2clip(ctx, this.track);
-          this.blitCard(next, top.x, top.y - 16 * dt, 0.88, 0.5 * (1 - dt), false);
-          ctx.restore();
-        }
+      const waiting: number[] = [];
+      for (let i = 0; i < sim.state.length && waiting.length < 2; i++) if (sim.state[i] === 'waiting') waiting.push(i);
+      // The front card is translucent glass: the pile fades out as the card slides over it.
+      const front = active >= 0 ? this.cardPos(active).y : null;
+      for (let k = waiting.length - 1; k >= 0; k--) {
+        const idx = waiting[k]!;
+        const dt = Math.max(0, sim.deck[idx]!.spawnS - t);
+        const top = this.cardPos(idx);
+        const lift = k === 0 ? Math.min(1, dt) : 1;
+        const sc = k === 0 ? 0.96 - 0.08 * lift : 0.82;
+        const dy = k === 0 ? 8 * lift : 18;
+        ctx.save();
+        c2clip(ctx, this.track);
+        const clear = front === null ? 1 : clamp((front - (top.y + dy)) / this.cardH, 0, 1);
+        this.blitCard(idx, top.x, top.y + dy, sc, (k === 0 ? 0.75 - 0.3 * lift : 0.3) * clear, false);
+        ctx.restore();
+      }
+    }
+    if (active >= 0 && !this.o.compact) {
+      // A faint streak above the front card shows it travelling down the belt.
+      const p = this.cardPos(active);
+      const top = this.track.y + 8;
+      const tr = { x: p.x - this.cardW * 0.28, y: top, w: this.cardW * 0.56, h: Math.max(0, p.y - this.cardH / 2 - top) };
+      if (tr.h > 6) {
+        const g = ctx.createLinearGradient(0, tr.y, 0, tr.y + tr.h);
+        g.addColorStop(0, withAlpha(this.c.pal.accent, 0));
+        g.addColorStop(1, withAlpha(this.c.pal.accent, 0.12));
+        ctx.save();
+        c2clip(ctx, this.track);
+        ctx.fillStyle = g;
+        ctx.fillRect(tr.x, tr.y, tr.w, tr.h);
+        ctx.restore();
       }
     }
     // Live cards behind the front one: smaller and dimmer, drawn first.
     for (let i = sim.deck.length - 1; i >= 0; i--) {
       if (sim.state[i] !== 'live' || i === active) continue;
       const p = this.cardPos(i);
-      this.blitCard(i, p.x, p.y, 0.88, 0.7, false);
+      // Glass cards are translucent: one waiting behind the front card fades in as it clears it.
+      const clear = active >= 0 ? clamp((this.cardPos(active).y - p.y) / this.cardH, 0, 1) : 1;
+      this.blitCard(i, p.x, p.y, 0.88, 0.7 * clear, false);
     }
     // Recently resolved card: flies into its lane (or slides over the line when missed).
     const last = sim.last;
@@ -452,7 +521,12 @@ export class Mg01View {
       const p = this.cardPos(active);
       const dx = drag?.dx ?? 0;
       const dy = Math.max(0, drag?.dy ?? 0);
-      this.blitCard(active, p.x + dx, Math.min(p.y + dy, this.uploadY + this.cardH * 0.3), 1, 1, true);
+      const ay = Math.min(p.y + dy, this.uploadY + this.cardH * 0.3);
+      // Opaque backing so cards waiting behind never show through the glass.
+      this.c.roundRect({ x: p.x + dx - this.cardW / 2, y: ay - this.cardH / 2, w: this.cardW, h: this.cardH }, 14);
+      ctx.fillStyle = this.c.pal.bg1;
+      ctx.fill();
+      this.blitCard(active, p.x + dx, ay, 1, 1, true);
     }
   }
 

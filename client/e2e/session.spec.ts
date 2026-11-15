@@ -4,11 +4,14 @@ import { expect, test, type Page } from '@playwright/test';
 import { mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { settle } from './lib/settle';
 
 const SHOTS = join(dirname(fileURLToPath(import.meta.url)), 'screenshots');
 mkdirSync(SHOTS, { recursive: true });
 
-async function shot(page: Page, name: string) {
+/** Waits for entrance animations to finish first (T038), unless `mid` asks for a mid-animation moment. */
+async function shot(page: Page, name: string, mid = false) {
+  if (!mid) await settle(page);
   await page.screenshot({ path: join(SHOTS, `${name}.png`) });
 }
 
@@ -109,7 +112,7 @@ test('full mock session on a phone', async ({ page }) => {
   await stage(page, 'INSPECT');
   await expect(page.getByTestId('veto-flash')).toBeVisible({ timeout: 15_000 });
   await page.waitForTimeout(250);
-  await shot(page, '18-veto-flash');
+  await shot(page, '18-veto-flash', true);
   await stage(page, 'VOTE');
   await goToCard(page, 0);
   await page.getByTestId('veto').click();

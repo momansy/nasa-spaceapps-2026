@@ -56,6 +56,8 @@ export interface Mg03Config {
   defectSize: number;
   /** Lens radius, film widths. */
   lensR: number;
+  /** Length of the host window (the host timer bar), s. Standard play ends earlier (see `playS`). */
+  durationS: number;
   playS: number;
   oneButton: boolean;
   /** One-button scanner speed, film widths per second. */
@@ -74,6 +76,7 @@ export function resolveConfig(params: MgMap, mode: MinigameMode, assist: AssistL
     hitR: hit,
     defectSize: relaxed ? 1.5 : 1,
     lensR: relaxed ? 0.14 : 0.115,
+    durationS,
     playS: durationS * (relaxed ? 1 : STANDARD_TIME_FRACTION),
     oneButton: mode === 'ONE_BUTTON',
     // The scanner covers the whole path (three seams and two hops) in 90 % of the play time.
@@ -192,6 +195,12 @@ export class Mg03Sim {
 
   get leftS(): number {
     return Math.max(0, (this.totalSteps - this.step) * DT_S);
+  }
+
+  /** Seconds left on the host timer bar (the whole window). The in-game time readout shows this one, so
+      it always agrees with the bar; Standard play itself ends at 75 % of the window. */
+  get windowLeftS(): number {
+    return Math.max(0, this.config.durationS - this.timeS);
   }
 
   get foundCount(): number {
