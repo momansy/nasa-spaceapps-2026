@@ -1,0 +1,333 @@
+{
+  "label": "nogl",
+  "dist": "C:\\Projects\\NASA GAME\\.claude\\worktrees\\agent-a9261d1c053547451\\client\\dist",
+  "webgl": "none",
+  "motion": "full",
+  "cpuThrottle": 4,
+  "actions": 24,
+  "elapsedMs": 62532,
+  "swipes": 15,
+  "expands": 3,
+  "stagesSeen": [
+    "INSPECT",
+    "VOTE",
+    "RESULT",
+    "screen-build",
+    "VOTE",
+    "RESULT",
+    "screen-build",
+    "REVEAL"
+  ],
+  "webglContextsCreatedWhileMeasuring": 0,
+  "webglContextsCreatedPageLifetime": 0,
+  "loseContextCalls": 0,
+  "longTasks": 40,
+  "longTaskTotalMs": 2729,
+  "longTaskMaxMs": 163,
+  "longTasksOver200ms": 0,
+  "longTaskP50Ms": 61,
+  "longTaskMsPerActionMean": 167,
+  "longestTaskAroundStageChanges": [
+    {
+      "stage": "VOTE",
+      "maxTaskMs": 142
+    },
+    {
+      "stage": "RESULT",
+      "maxTaskMs": 0
+    },
+    {
+      "stage": "screen-build",
+      "maxTaskMs": 0
+    },
+    {
+      "stage": "VOTE",
+      "maxTaskMs": 0
+    },
+    {
+      "stage": "RESULT",
+      "maxTaskMs": 0
+    },
+    {
+      "stage": "screen-build",
+      "maxTaskMs": 0
+    },
+    {
+      "stage": "REVEAL",
+      "maxTaskMs": 0
+    }
+  ],
+  "top10": [
+    163,
+    142,
+    100,
+    96,
+    85,
+    79,
+    78,
+    77,
+    76,
+    75
+  ],
+  "pageErrors": [],
+  "marks": [
+    {
+      "kind": "swipe",
+      "at": 25738
+    },
+    {
+      "kind": "swipe",
+      "at": 28309
+    },
+    {
+      "kind": "swipe",
+      "at": 30784
+    },
+    {
+      "kind": "swipe+expand",
+      "at": 33255
+    },
+    {
+      "kind": "swipe",
+      "at": 35755
+    },
+    {
+      "kind": "swipe",
+      "at": 38270
+    },
+    {
+      "kind": "swipe",
+      "at": 40746
+    },
+    {
+      "kind": "swipe+expand",
+      "at": 43356
+    },
+    {
+      "kind": "swipe",
+      "at": 45792
+    },
+    {
+      "kind": "swipe",
+      "at": 48249
+    },
+    {
+      "kind": "swipe",
+      "at": 50739
+    },
+    {
+      "kind": "swipe+expand",
+      "at": 53253
+    },
+    {
+      "kind": "swipe",
+      "at": 55744
+    },
+    {
+      "kind": "swipe",
+      "at": 58240
+    },
+    {
+      "kind": "swipe",
+      "at": 60755
+    },
+    {
+      "kind": "none",
+      "at": 63232
+    },
+    {
+      "kind": "none",
+      "at": 65750
+    },
+    {
+      "kind": "none",
+      "at": 68241
+    },
+    {
+      "kind": "none",
+      "at": 70734
+    },
+    {
+      "kind": "none",
+      "at": 73237
+    },
+    {
+      "kind": "none",
+      "at": 75747
+    },
+    {
+      "kind": "none",
+      "at": 78233
+    },
+    {
+      "kind": "none",
+      "at": 80733
+    },
+    {
+      "kind": "none",
+      "at": 83247
+    }
+  ],
+  "longTaskEntries": [
+    {
+      "start": 23475,
+      "ms": 52
+    },
+    {
+      "start": 23891,
+      "ms": 76
+    },
+    {
+      "start": 23992,
+      "ms": 100
+    },
+    {
+      "start": 26951,
+      "ms": 59
+    },
+    {
+      "start": 27133,
+      "ms": 77
+    },
+    {
+      "start": 27211,
+      "ms": 65
+    },
+    {
+      "start": 28005,
+      "ms": 51
+    },
+    {
+      "start": 29592,
+      "ms": 75
+    },
+    {
+      "start": 30579,
+      "ms": 55
+    },
+    {
+      "start": 30636,
+      "ms": 63
+    },
+    {
+      "start": 31228,
+      "ms": 56
+    },
+    {
+      "start": 31417,
+      "ms": 75
+    },
+    {
+      "start": 31842,
+      "ms": 50
+    },
+    {
+      "start": 32429,
+      "ms": 58
+    },
+    {
+      "start": 34157,
+      "ms": 96
+    },
+    {
+      "start": 34278,
+      "ms": 71
+    },
+    {
+      "start": 34453,
+      "ms": 73
+    },
+    {
+      "start": 34573,
+      "ms": 62
+    },
+    {
+      "start": 34664,
+      "ms": 60
+    },
+    {
+      "start": 34730,
+      "ms": 62
+    },
+    {
+      "start": 35861,
+      "ms": 52
+    },
+    {
+      "start": 36076,
+      "ms": 50
+    },
+    {
+      "start": 36126,
+      "ms": 58
+    },
+    {
+      "start": 36442,
+      "ms": 63
+    },
+    {
+      "start": 37001,
+      "ms": 85
+    },
+    {
+      "start": 40942,
+      "ms": 57
+    },
+    {
+      "start": 41046,
+      "ms": 78
+    },
+    {
+      "start": 42910,
+      "ms": 64
+    },
+    {
+      "start": 42976,
+      "ms": 142
+    },
+    {
+      "start": 43207,
+      "ms": 50
+    },
+    {
+      "start": 44712,
+      "ms": 61
+    },
+    {
+      "start": 44790,
+      "ms": 56
+    },
+    {
+      "start": 45425,
+      "ms": 163
+    },
+    {
+      "start": 45589,
+      "ms": 63
+    },
+    {
+      "start": 45718,
+      "ms": 50
+    },
+    {
+      "start": 46049,
+      "ms": 52
+    },
+    {
+      "start": 54037,
+      "ms": 55
+    },
+    {
+      "start": 57824,
+      "ms": 58
+    },
+    {
+      "start": 58328,
+      "ms": 57
+    },
+    {
+      "start": 58524,
+      "ms": 79
+    }
+  ]
+}

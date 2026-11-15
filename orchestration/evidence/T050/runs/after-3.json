@@ -1,0 +1,502 @@
+{
+  "label": "after",
+  "dist": "C:\\Projects\\NASA GAME\\.claude\\worktrees\\agent-a9261d1c053547451\\client\\dist",
+  "webgl": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+  "motion": "full",
+  "cpuThrottle": 4,
+  "actions": 24,
+  "elapsedMs": 62541,
+  "swipes": 15,
+  "expands": 3,
+  "stagesSeen": [
+    "INSPECT",
+    "VOTE",
+    "RESULT",
+    "screen-build",
+    "VOTE",
+    "RESULT",
+    "screen-build",
+    "REVEAL",
+    "INSPECT"
+  ],
+  "webglContextsCreatedWhileMeasuring": 0,
+  "webglContextsCreatedPageLifetime": 3,
+  "loseContextCalls": 0,
+  "longTasks": 81,
+  "longTaskTotalMs": 6203,
+  "longTaskMaxMs": 179,
+  "longTasksOver200ms": 0,
+  "longTaskP50Ms": 67,
+  "longTaskMsPerActionMean": 378,
+  "longestTaskAroundStageChanges": [
+    {
+      "stage": "VOTE",
+      "maxTaskMs": 152
+    },
+    {
+      "stage": "RESULT",
+      "maxTaskMs": 80
+    },
+    {
+      "stage": "screen-build",
+      "maxTaskMs": 59
+    },
+    {
+      "stage": "VOTE",
+      "maxTaskMs": 0
+    },
+    {
+      "stage": "RESULT",
+      "maxTaskMs": 0
+    },
+    {
+      "stage": "screen-build",
+      "maxTaskMs": 81
+    },
+    {
+      "stage": "REVEAL",
+      "maxTaskMs": 0
+    },
+    {
+      "stage": "INSPECT",
+      "maxTaskMs": 91
+    }
+  ],
+  "top10": [
+    179,
+    176,
+    155,
+    152,
+    139,
+    130,
+    126,
+    116,
+    113,
+    110
+  ],
+  "pageErrors": [],
+  "marks": [
+    {
+      "kind": "swipe",
+      "at": 27358
+    },
+    {
+      "kind": "swipe",
+      "at": 29896
+    },
+    {
+      "kind": "swipe",
+      "at": 32347
+    },
+    {
+      "kind": "swipe+expand",
+      "at": 34846
+    },
+    {
+      "kind": "swipe",
+      "at": 37739
+    },
+    {
+      "kind": "swipe",
+      "at": 39819
+    },
+    {
+      "kind": "swipe",
+      "at": 42354
+    },
+    {
+      "kind": "swipe+expand",
+      "at": 44839
+    },
+    {
+      "kind": "swipe",
+      "at": 47352
+    },
+    {
+      "kind": "swipe",
+      "at": 49904
+    },
+    {
+      "kind": "swipe",
+      "at": 52367
+    },
+    {
+      "kind": "swipe+expand",
+      "at": 54835
+    },
+    {
+      "kind": "swipe",
+      "at": 57383
+    },
+    {
+      "kind": "swipe",
+      "at": 59822
+    },
+    {
+      "kind": "swipe",
+      "at": 62319
+    },
+    {
+      "kind": "none",
+      "at": 64855
+    },
+    {
+      "kind": "none",
+      "at": 67360
+    },
+    {
+      "kind": "none",
+      "at": 69821
+    },
+    {
+      "kind": "none",
+      "at": 72341
+    },
+    {
+      "kind": "none",
+      "at": 74833
+    },
+    {
+      "kind": "none",
+      "at": 77328
+    },
+    {
+      "kind": "none",
+      "at": 79815
+    },
+    {
+      "kind": "none",
+      "at": 82315
+    },
+    {
+      "kind": "none",
+      "at": 84819
+    }
+  ],
+  "longTaskEntries": [
+    {
+      "start": 26975,
+      "ms": 50
+    },
+    {
+      "start": 27659,
+      "ms": 101
+    },
+    {
+      "start": 28043,
+      "ms": 58
+    },
+    {
+      "start": 29729,
+      "ms": 52
+    },
+    {
+      "start": 29976,
+      "ms": 68
+    },
+    {
+      "start": 30341,
+      "ms": 102
+    },
+    {
+      "start": 30684,
+      "ms": 94
+    },
+    {
+      "start": 32456,
+      "ms": 63
+    },
+    {
+      "start": 32738,
+      "ms": 85
+    },
+    {
+      "start": 34498,
+      "ms": 81
+    },
+    {
+      "start": 34669,
+      "ms": 70
+    },
+    {
+      "start": 34910,
+      "ms": 58
+    },
+    {
+      "start": 34973,
+      "ms": 77
+    },
+    {
+      "start": 35172,
+      "ms": 59
+    },
+    {
+      "start": 36340,
+      "ms": 77
+    },
+    {
+      "start": 36427,
+      "ms": 176
+    },
+    {
+      "start": 36640,
+      "ms": 110
+    },
+    {
+      "start": 36942,
+      "ms": 73
+    },
+    {
+      "start": 37227,
+      "ms": 73
+    },
+    {
+      "start": 37493,
+      "ms": 69
+    },
+    {
+      "start": 37586,
+      "ms": 139
+    },
+    {
+      "start": 37816,
+      "ms": 71
+    },
+    {
+      "start": 37961,
+      "ms": 59
+    },
+    {
+      "start": 38073,
+      "ms": 84
+    },
+    {
+      "start": 38158,
+      "ms": 68
+    },
+    {
+      "start": 38244,
+      "ms": 65
+    },
+    {
+      "start": 39919,
+      "ms": 78
+    },
+    {
+      "start": 39998,
+      "ms": 55
+    },
+    {
+      "start": 40309,
+      "ms": 59
+    },
+    {
+      "start": 42484,
+      "ms": 53
+    },
+    {
+      "start": 42975,
+      "ms": 130
+    },
+    {
+      "start": 43216,
+      "ms": 152
+    },
+    {
+      "start": 45292,
+      "ms": 97
+    },
+    {
+      "start": 45400,
+      "ms": 126
+    },
+    {
+      "start": 45589,
+      "ms": 109
+    },
+    {
+      "start": 45699,
+      "ms": 79
+    },
+    {
+      "start": 45946,
+      "ms": 77
+    },
+    {
+      "start": 46194,
+      "ms": 65
+    },
+    {
+      "start": 46310,
+      "ms": 52
+    },
+    {
+      "start": 46500,
+      "ms": 52
+    },
+    {
+      "start": 47637,
+      "ms": 57
+    },
+    {
+      "start": 47840,
+      "ms": 67
+    },
+    {
+      "start": 49598,
+      "ms": 64
+    },
+    {
+      "start": 49663,
+      "ms": 79
+    },
+    {
+      "start": 49750,
+      "ms": 84
+    },
+    {
+      "start": 49838,
+      "ms": 51
+    },
+    {
+      "start": 49980,
+      "ms": 51
+    },
+    {
+      "start": 50036,
+      "ms": 54
+    },
+    {
+      "start": 50228,
+      "ms": 91
+    },
+    {
+      "start": 50383,
+      "ms": 52
+    },
+    {
+      "start": 50441,
+      "ms": 50
+    },
+    {
+      "start": 50975,
+      "ms": 50
+    },
+    {
+      "start": 52003,
+      "ms": 50
+    },
+    {
+      "start": 52609,
+      "ms": 113
+    },
+    {
+      "start": 52826,
+      "ms": 53
+    },
+    {
+      "start": 54477,
+      "ms": 61
+    },
+    {
+      "start": 54971,
+      "ms": 55
+    },
+    {
+      "start": 55234,
+      "ms": 87
+    },
+    {
+      "start": 55823,
+      "ms": 155
+    },
+    {
+      "start": 56036,
+      "ms": 116
+    },
+    {
+      "start": 56161,
+      "ms": 62
+    },
+    {
+      "start": 56224,
+      "ms": 53
+    },
+    {
+      "start": 56317,
+      "ms": 71
+    },
+    {
+      "start": 56575,
+      "ms": 94
+    },
+    {
+      "start": 56843,
+      "ms": 66
+    },
+    {
+      "start": 56987,
+      "ms": 179
+    },
+    {
+      "start": 57617,
+      "ms": 56
+    },
+    {
+      "start": 57745,
+      "ms": 55
+    },
+    {
+      "start": 57910,
+      "ms": 84
+    },
+    {
+      "start": 58592,
+      "ms": 52
+    },
+    {
+      "start": 58975,
+      "ms": 53
+    },
+    {
+      "start": 59459,
+      "ms": 66
+    },
+    {
+      "start": 59988,
+      "ms": 65
+    },
+    {
+      "start": 62463,
+      "ms": 56
+    },
+    {
+      "start": 63020,
+      "ms": 80
+    },
+    {
+      "start": 65509,
+      "ms": 53
+    },
+    {
+      "start": 66066,
+      "ms": 59
+    },
+    {
+      "start": 80573,
+      "ms": 81
+    },
+    {
+      "start": 86059,
+      "ms": 91
+    },
+    {
+      "start": 86171,
+      "ms": 64
+    },
+    {
+      "start": 86506,
+      "ms": 57
+    }
+  ]
+}
