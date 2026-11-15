@@ -18,6 +18,16 @@ namespace MissionForge.Screens.BuildBay
         public const float DescentSeconds = 1.6f, WeldSeconds = 1.0f, RetractSeconds = 0.5f, FadeSeconds = 0.8f;
         /// <summary>Height above its slot from which the crane lowers a new part, m (game_value).</summary>
         public const float LiftHeightM = 22f;
+        /// <summary>
+        /// Depth of the hook block below the cable end, m (build_hero_pad.py hero_crane_hook: the hook's bowl bottoms out
+        /// about 2.6 m down). The cable ends at the hook; the hook's bowl rests on the part's lifting point. game_value.
+        /// </summary>
+        public const float HookDropM = 2.65f;
+        /// <summary>
+        /// Hero launch table top above the VehicleMount, m (build_hero_pad.py MOUNT_TOP 12 m − 10.5 m). The first part's
+        /// joint is inside the table's exhaust opening, so the sparks are lifted to the table top to be seen. game_value.
+        /// </summary>
+        public const float MountTableAboveMountM = 1.5f;
         public const float GhostFadeSeconds = 0.35f;
 
         [SerializeField] private Material ghostMaterial;
@@ -73,6 +83,7 @@ namespace MissionForge.Screens.BuildBay
             _mpb = new MaterialPropertyBlock();
             CreateSparks();
             CreateTechnicians();
+            CreateAtmosphere();
         }
 
         private void OnRigChangedForAssembly(BuildState previous, BuildState current)
@@ -88,19 +99,24 @@ namespace MissionForge.Screens.BuildBay
                     if (t != null) _rest[t] = t.localPosition;
                 }
             }
-            if (previous == null || Rig == null) return;
+            if (previous == null || Rig == null)
+            {
+                RefreshSteamVents();
+                return;
+            }
             string slot = null;
             foreach (KeyValuePair<string, string> c in current.Choices)
             {
                 if (previous.Choice(c.Key) != c.Value) { slot = c.Key; break; }
             }
-            if (slot == null) return;
+            if (slot == null) { RefreshSteamVents(); return; }
             IReadOnlyList<Transform> parts = Rig.PartsFor(slot);
-            if (parts.Count == 0) return;
+            if (parts.Count == 0) { RefreshSteamVents(); return; }
             if (_assembly != null) StopCoroutine(_assembly);
             bool hanging = false;
             foreach (KitStep step in Rig.Plan.Steps) if (step.Category == slot && step.Attach == KitAttach.HangFrom) hanging = true;
             _assembly = StartCoroutine(Assemble(parts, hanging));
+            RefreshSteamVents();   // clears the vents while the part is lowered; Assemble re-places them
         }
 
         private void TickAssembly()
@@ -228,6 +244,7 @@ namespace MissionForge.Screens.BuildBay
                 foreach (var kv in original) if (kv.Key != null) kv.Key.sharedMaterials = kv.Value;
                 SetFade(renderers, 1f);
                 _assembling = false;
+                RefreshSteamVents();
                 yield break;
             }
 
@@ -242,6 +259,8 @@ namespace MissionForge.Screens.BuildBay
                 side = toTower.normalized * (radius * 2f + 3f);
             }
             Vector3 start = hanging ? Vector3.down * 7f : top ? Vector3.up * LiftHeightM : side + Vector3.up * 4f;
+            _assemblyHeadroomM = top ? LiftHeightM * 0.7f : 0f;   // the camera eases out so the hook stays in frame
+            SetWorkLight(jointCentre, radius, true);
             float height = b.max.y - b.min.y;
             if (!hanging) pad.AimCrane(vehicleMount.position + side);
             PlaceTechnicians(jointCentre, radius);
@@ -260,23 +279,42 @@ namespace MissionForge.Screens.BuildBay
                 if (!hanging)
                 {
                     pad.AimCrane(vehicleMount.position + new Vector3(offset.x, 0f, offset.z));
-                    pad.SetHookHeight(b.min.y + height + offset.y + 0.4f);
+                    pad.SetHookHeight(b.min.y + height + offset.y + HookDropM);
                 }
                 yield return null;
             }
             for (int i = 0; i < parts.Count; i++) if (parts[i] != null) parts[i].position = finals[i];
+            _assemblyHeadroomM = 0f;
+            if (!_skipRequested) PunchIn();
             if (!_skipRequested && _sparks != null)
             {
-                _sparks.transform.position = jointCentre;
+                // On the camera-facing side of the joint, fountaining up and out toward the camera before gravity
+                // pulls them down, so the sparks read in front of the part (and above a mount's railing).
+                Vector3 toCam = _screen != null && _screen.Vantage != null ? _screen.Vantage.transform.position - jointCentre : Vector3.back;
+                toCam.y = 0f;
+                toCam = toCam.sqrMagnitude > 1e-4f ? toCam.normalized : Vector3.back;
+                Vector3 sparkAt = jointCentre;
+                if (vehicleMount != null) sparkAt.y = Mathf.Max(sparkAt.y, vehicleMount.position.y + MountTableAboveMountM);
+                _sparks.transform.SetPositionAndRotation(sparkAt + toCam * (radius + 0.25f) + Vector3.up * 0.3f,
+                    Quaternion.LookRotation((toCam + Vector3.up * 0.6f).normalized, Vector3.up));
                 var shape = _sparks.shape;
-                shape.radius = radius;
+                shape.radius = Mathf.Clamp(radius * 0.35f, 0.3f, 1.2f);
                 _sparks.Play();
+                _sparks.Emit(60);   // an initial burst as the weld strikes
             }
-            for (float t = 0; t < WeldSeconds && !_skipRequested; t += Time.unscaledDeltaTime) yield return null;
+            for (float t = 0; t < WeldSeconds && !_skipRequested; t += Time.unscaledDeltaTime)
+            {
+                FlickerWorkLight(t);
+                yield return null;
+            }
+#if MF_REHEARSAL
+            if (_sparks != null) Debug.Log("[MissionForge] Weld sparks alive " + _sparks.particleCount + " at " + _sparks.transform.position);
+#endif
+            SetWorkLight(jointCentre, radius, false);
             if (_sparks != null) _sparks.Stop(true, ParticleSystemStopBehavior.StopEmitting);
             if (!hanging)
             {
-                float from = b.max.y + 0.4f, to = pad.HookPoint != null ? pad.HookPoint.position.y - 4f : from;
+                float from = b.max.y + HookDropM, to = pad.HookPoint != null ? pad.HookPoint.position.y - 4f : from;
                 for (float t = 0; t < RetractSeconds && !_skipRequested; t += Time.unscaledDeltaTime)
                 {
                     pad.SetHookHeight(Mathf.Lerp(from, to, t / RetractSeconds));
@@ -286,6 +324,7 @@ namespace MissionForge.Screens.BuildBay
             }
             HideTechnicians();
             _assembling = false;
+            RefreshSteamVents();
 #if MF_REHEARSAL
             Debug.Log("[MissionForge] Assembly end " + Time.realtimeSinceStartup.ToString("0.00"));
 #endif
@@ -316,32 +355,47 @@ namespace MissionForge.Screens.BuildBay
         private void CreateSparks()
         {
             if (sparkMaterial == null) return;
+            _sparks = CreateWeldSparks(transform, sparkMaterial);
+        }
+
+        /// <summary>
+        /// Weld spark emitter (stopped and cleared; <c>Play</c> starts it): a cone of short-lived, stretched, additive
+        /// sparks along the emitter's +Z that fall under gravity. Simulated on unscaled time like the rest of the bay.
+        /// Public for the EditMode test. game_value art direction.
+        /// </summary>
+        public static ParticleSystem CreateWeldSparks(Transform parent, Material material)
+        {
             var go = new GameObject("WeldSparks");
-            go.transform.SetParent(transform, false);
-            _sparks = go.AddComponent<ParticleSystem>();
-            _sparks.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
-            var main = _sparks.main;
+            go.transform.SetParent(parent, false);
+            var sparks = go.AddComponent<ParticleSystem>();
+            sparks.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            var main = sparks.main;
+            main.playOnAwake = false;
             main.loop = true;
-            main.startLifetime = new ParticleSystem.MinMaxCurve(0.25f, 0.7f);
-            main.startSpeed = new ParticleSystem.MinMaxCurve(3f, 9f);
-            main.startSize = new ParticleSystem.MinMaxCurve(0.05f, 0.12f);
+            main.duration = 1f;
+            main.startLifetime = new ParticleSystem.MinMaxCurve(0.35f, 0.9f);
+            main.startSpeed = new ParticleSystem.MinMaxCurve(2.5f, 7.5f);
+            main.startSize = new ParticleSystem.MinMaxCurve(0.09f, 0.2f);
             main.startColor = new ParticleSystem.MinMaxGradient(new Color(1f, 0.85f, 0.45f), new Color(1f, 0.55f, 0.2f));
             main.gravityModifier = 1.2f;
+            main.useUnscaledTime = true;   // the bay animates on unscaled time; keep the sparks in step with it
             main.maxParticles = 400;
             main.simulationSpace = ParticleSystemSimulationSpace.World;
-            var emission = _sparks.emission;
+            var emission = sparks.emission;
+            emission.enabled = true;
             emission.rateOverTime = 260f;
-            var shape = _sparks.shape;
-            shape.shapeType = ParticleSystemShapeType.Circle;
-            shape.radius = 1.8f;
-            shape.rotation = new Vector3(-90f, 0f, 0f);
-            shape.radiusThickness = 0f;
+            var shape = sparks.shape;
+            shape.enabled = true;
+            shape.shapeType = ParticleSystemShapeType.Cone;   // sprays along the emitter's +Z (set toward the camera)
+            shape.angle = 55f;
+            shape.radius = 0.6f;
             var renderer = go.GetComponent<ParticleSystemRenderer>();
             renderer.renderMode = ParticleSystemRenderMode.Stretch;
             renderer.velocityScale = 0.06f;
             renderer.lengthScale = 2f;
-            renderer.sharedMaterial = sparkMaterial;
+            renderer.sharedMaterial = material;
             renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            return sparks;
         }
 
         /// <summary>Suit and skin tones for the stylised technicians (game_value palette; diverse by design 6.10).</summary>
@@ -422,6 +476,7 @@ namespace MissionForge.Screens.BuildBay
         private void OnAccessibilityForTools()
         {
             if (_a11y.ReducedMotion && _sparks != null) _sparks.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            RefreshSteamVents();
             OnAccessibilityChangedTools();
         }
 

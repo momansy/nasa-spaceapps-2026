@@ -212,8 +212,8 @@ namespace MissionForge.Screens.BuildBay
             {
                 VehicleRig a = stage.CompareA, b = stage.CompareB;
                 (string slot, string ia, string ib) = CompareCandidates();
-                AddTag("A · " + Session.PartName(ia), () => Top(a), true, "");
-                AddTag("B · " + Session.PartName(ib), () => Top(b), false, "");
+                AddTag("A · " + Session.PartName(ia), () => CompareAnchor(a), true, "");
+                AddTag("B · " + Session.PartName(ib), () => CompareAnchor(b), false, "");
             }
             if (_active.Contains(Tool.Exploded) && !_active.Contains(Tool.Compare))
             {
@@ -254,6 +254,19 @@ namespace MissionForge.Screens.BuildBay
         }
 
         private static Vector3? Top(VehicleRig rig) => VehicleAssembler.RendererBounds(rig.Root).max;
+
+        /// <summary>
+        /// Where a compare candidate's tag points: <see cref="CompareTagDepth"/> of the way down its side (T034 rework,
+        /// U11). The T034 framing puts the candidates in the 330–530 px band; a tag at their tops met the rehearsal
+        /// banner and the tool chips, so it now sits below the chips and above the stat table. Tag layout is unchanged.
+        /// </summary>
+        public const float CompareTagDepth = 0.86f;
+
+        private static Vector3? CompareAnchor(VehicleRig rig)
+        {
+            Bounds b = VehicleAssembler.RendererBounds(rig.Root);
+            return new Vector3(b.max.x, b.max.y - CompareTagDepth * b.size.y, b.max.z);
+        }
 
         private void AddPartTag(VehicleRig rig, string key, string textKey, bool left)
         {

@@ -67,3 +67,44 @@ the flags above.
 
 **MissionForge ▸ Build Bay ▸ Build macOS Evidence Player / Build WebGL** write to the git-ignored
 `unity/MissionForge/Builds/`. Evidence and measurements: `orchestration/evidence/T015/`.
+
+## Environment and camera (T034)
+
+- **Camera** (`Cameras/BayFraming.cs`, `Stage/BayStage.Framing.cs`): the Cinemachine `Vantage` is posed every frame by
+  `BayFraming.Solve` so the stack spans 200–760 px of 1080 (52 %) centred in the free column (512–1408 px). It eases
+  as the stack grows, sweeps ±7° over 70 s when idle, eases out while the crane lowers a top part and punches in to
+  84 % distance when a part lands. Compare (330–530 px, shifted left of the tool chips; the candidate tags point 86 %
+  of the way down each candidate so they sit below the chips and above the stat table), scale (200–690 px, centred
+  between the vehicle and the Saturn V outline) and exploded (330–760 px, the fully exploded stack plus 8 %, so the nose
+  clears the phase pills and the rehearsal banner) have their own bands. Empty pad (no choice yet): 42 m framed; any
+  choice (a satellite-only build has no kit model yet) or a short stack: at least 12 m. Reduced motion: no orbit or
+  punch-in, every reframe is a cut. Tests: `BayFramingTests`.
+- **Assembly feel** (`Stage/BayStage.Atmosphere.cs`, `BayStage.Assembly.cs`): the crane cable ends at the hero hook
+  block, whose bowl rests on the part (`HookDropM` 2.65 m); a 3400 K work light (16, capped) rakes the joint from 55°
+  off the camera axis during the weld; sparks fountain from the camera-facing side of the joint; each tank on the stack
+  gets a warm-white, buoyant, wind-bent boil-off plume on the sun side (game_value cue, not a simulated rate). Steam
+  and the work light are off in reduced motion; steam is off on Low quality.
+- **Framing card** (`Stage/BayFrameGrade.cs`): a camera-attached card (`Textures/Frame_grade.png`) pulls the side edges
+  and top corners to navy #071522 like frame 02; the URP vignette stays at VISUAL_TARGET's 0.18 cap.
+- **Quality toggle** (`Stage/BayQuality.cs`, `BayQualityGroup.cs`): `-mfBayQuality low` / `?mfBayQuality=low` / **Q**.
+  Low = 85 % render scale, 160 m shadows, no floodlight cones, glows, soot, steam or distant silhouettes.
+- **Haze** (`Stage/BayEnvironment.cs`): fog and ambient are re-applied when the active scene changes, so the bay keeps
+  its haze when the Shell becomes active after the bay (evidence and WebGL players).
+- **Dressing** (`Editor/BayDressing*.cs`, menu **MissionForge ▸ Build Bay ▸ Apply Environment Dressing (T034)**, batch
+  `BayDressingBuilder.Run`): rebuilds `Bay/Dressing` in `MF_BuildBay.unity` and overrides the `MF_LaunchPad` instance
+  (the prefab asset is untouched): CC0 ambientCG concrete on the deck (box-projected metric UVs), gravel verge, scrub
+  and sand terrain (170 m macro-variation detail map against tiling; dry scrub, wet sheen only in the lamp pools), sea
+  with a 140 m swell and a horizon lift into the haze, two hazed headlands, a horizon haze band and a sun-glint strip
+  toward the dusk sun (10° right of the view, T031), the **hero pad** (below), T017 `world_flame_trench`, T017 site
+  silhouettes, flood cones and glows, crew figures, apron paint and soot, the bay haze colour and a framing volume (`Art/Environment/LaunchPad/MF_Volume_BayFrame.asset`: vignette
+  0.18, saturation −8, priority 2.5 over T031's profiles). Re-run it after `BuildBaySceneBuilder` and T031's
+  `LightingFoundation.ApplyToScenes`. Textures: `Art/Environment/LaunchPad/Source/prepare_textures.py`; licences in
+  `unity/MissionForge/THIRD_PARTY.md`. Evidence and measurements: `orchestration/evidence/T034/`.
+- **Hero pad** (T034 rework; `Art/Environment/LaunchPad/Source/build_hero_pad.py` → `Models/Hero/`, headless Blender):
+  clad 8 m tower storeys (two variants: vehicle-side work platform; plus a camera-side balcony) with columns, braces,
+  cladding, foil-wrapped cryo lines, a pipe run, railings and lamps; a crown machine house; a plant building at the
+  tower foot; a legged teal launch table with stairs, plinth and lamps; and a hook block. 4.5 cm bevels with hardened,
+  area-weighted normals (imported as authored). The dressing builder adds them as `Hero_*` children of the rig's
+  `Segment_NN`, crown, tower, mount and hook and hides the T015 meshes, so `LaunchPadRig`'s segment stacking, crown
+  height, crane pivot, hook and `VehicleMount` contracts are unchanged. Materials `LP_hero_*` (metallic light steel and
+  teal paint that pick up the dusk sky); `LP_steel` (jib, masts) is now metallic too.
