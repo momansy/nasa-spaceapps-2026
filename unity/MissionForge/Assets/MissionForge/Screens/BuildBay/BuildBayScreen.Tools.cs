@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using MissionForge.Core.Build;
 using MissionForge.Vehicle;
 using UnityEngine;
@@ -212,8 +213,8 @@ namespace MissionForge.Screens.BuildBay
             {
                 VehicleRig a = stage.CompareA, b = stage.CompareB;
                 (string slot, string ia, string ib) = CompareCandidates();
-                AddTag("A · " + Session.PartName(ia), () => Top(a), true, "");
-                AddTag("B · " + Session.PartName(ib), () => Top(b), false, "");
+                AddTag("A · " + Session.PartName(ia), () => CompareAnchor(a), true, "");
+                AddTag("B · " + Session.PartName(ib), () => CompareAnchor(b), false, "");
             }
             if (_active.Contains(Tool.Exploded) && !_active.Contains(Tool.Compare))
             {
@@ -255,6 +256,19 @@ namespace MissionForge.Screens.BuildBay
 
         private static Vector3? Top(VehicleRig rig) => VehicleAssembler.RendererBounds(rig.Root).max;
 
+        /// <summary>
+        /// Where a compare candidate's tag points: <see cref="CompareTagDepth"/> of the way down its side (T034 rework,
+        /// U11). The T034 framing puts the candidates in the 330–530 px band; a tag at their tops met the rehearsal
+        /// banner and the tool chips, so it now sits below the chips and above the stat table. Tag layout is unchanged.
+        /// </summary>
+        public const float CompareTagDepth = 0.86f;
+
+        private static Vector3? CompareAnchor(VehicleRig rig)
+        {
+            Bounds b = VehicleAssembler.RendererBounds(rig.Root);
+            return new Vector3(b.max.x, b.max.y - CompareTagDepth * b.size.y, b.max.z);
+        }
+
         private void AddPartTag(VehicleRig rig, string key, string textKey, bool left)
         {
             Transform t = rig.PartByKey(key);
@@ -278,12 +292,19 @@ namespace MissionForge.Screens.BuildBay
             _tags.Add((tag, anchor, left ^ _a11y.RightToLeft));
         }
 
+        /// <summary>Smallest vertical gap between two tags on the same side, panel px (T034 rework 2, U11). game_value.</summary>
+        public const float TagGapPx = 4f;
+
+        private readonly List<(VisualElement tag, bool left, float top, float height)> _placed =
+            new List<(VisualElement, bool, float, float)>();
+
         private void PositionTags()
         {
             if (_tags.Count == 0 || _labels == null || _labels.panel == null) return;
             Camera cam = Camera.main;
             if (cam == null) return;
             Rect layer = _labels.worldBound;
+            _placed.Clear();
             foreach (var (tag, anchor, left) in _tags)
             {
                 Vector3? world = anchor();
@@ -298,8 +319,32 @@ namespace MissionForge.Screens.BuildBay
                 float height = tag.resolvedStyle.height > 1f ? tag.resolvedStyle.height : 30f;
                 tag.style.display = DisplayStyle.Flex;
                 tag.style.left = left ? panelPos.x - layer.x - width : panelPos.x - layer.x;
-                tag.style.top = panelPos.y - layer.y - height * 0.5f;
+                _placed.Add((tag, left, panelPos.y - layer.y - height * 0.5f, height));
             }
+            List<float> tops = SpreadTops(_placed.ConvertAll(p => (p.left, p.top, p.height)), TagGapPx);
+            for (int i = 0; i < _placed.Count; i++) _placed[i].tag.style.top = tops[i];
+        }
+
+        /// <summary>
+        /// Pushes tags on the same side apart so none overprints another (exploded view "Payload" over "Upper stage
+        /// tanks", rework 2): sorted by their wanted top, each tag starts at least its predecessor's height plus
+        /// <paramref name="gap"/> lower. Returns the tops in input order. Pure, unit-tested.
+        /// </summary>
+        public static List<float> SpreadTops(IReadOnlyList<(bool left, float top, float height)> tags, float gap)
+        {
+            var result = new List<float>(tags.Count);
+            for (int i = 0; i < tags.Count; i++) result.Add(tags[i].top);
+            foreach (bool side in new[] { true, false })
+            {
+                var order = Enumerable.Range(0, tags.Count).Where(i => tags[i].left == side).OrderBy(i => tags[i].top).ToList();
+                for (int k = 1; k < order.Count; k++)
+                {
+                    int prev = order[k - 1], cur = order[k];
+                    float minTop = result[prev] + tags[prev].height + gap;
+                    if (result[cur] < minTop) result[cur] = minTop;
+                }
+            }
+            return result;
         }
     }
 }

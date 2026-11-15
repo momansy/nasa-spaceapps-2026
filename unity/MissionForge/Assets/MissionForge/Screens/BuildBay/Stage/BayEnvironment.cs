@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.SceneManagement;
 
 namespace MissionForge.Screens.BuildBay
 {
@@ -31,9 +32,41 @@ namespace MissionForge.Screens.BuildBay
         private AmbientMode _ambientMode;
         private Color _ambientSky, _ambientEquator, _ambientGround, _ambientLight;
         private float _shadowDistance;
+        private bool _shadowSaved;
         private float _fade;
 
         private void OnEnable()
+        {
+            _shadowSaved = false;
+            _foreign.Clear();
+            SaveAndApply();
+            SceneManager.activeSceneChanged += OnActiveSceneChanged;
+        }
+
+        /// <summary>
+        /// RenderSettings belong to the active scene. When the Shell becomes active after the bay was loaded (the
+        /// evidence and WebGL players open on the bay, then AppRoot adds and activates the Shell), the bay's haze and
+        /// ambient are re-applied to the newly active scene (T034; previously the bay rendered without haze there).
+        /// </summary>
+        private void OnActiveSceneChanged(Scene previous, Scene next)
+        {
+            if (!_saved) return;
+            SaveAndApply();
+        }
+
+        /// <summary>Starts fading every directional light outside the bay that is not already being faded.</summary>
+        private void CollectForeignLights()
+        {
+            foreach (Light l in FindObjectsByType<Light>())
+            {
+                if (l.type != LightType.Directional || l.transform.IsChildOf(transform)) continue;
+                if (_foreign.Exists(f => f.light == l)) continue;
+                _foreign.Add((l, l.intensity));
+                _fade = 0f;
+            }
+        }
+
+        private void SaveAndApply()
         {
             _saved = true;
             _fog = RenderSettings.fog;
@@ -47,9 +80,11 @@ namespace MissionForge.Screens.BuildBay
             _ambientLight = RenderSettings.ambientLight;
             if (GraphicsSettings.currentRenderPipeline is UniversalRenderPipelineAsset urp)
             {
-                _shadowDistance = urp.shadowDistance;
+                if (!_shadowSaved) _shadowDistance = urp.shadowDistance;
+                _shadowSaved = true;
                 urp.shadowDistance = shadowDistanceM;
             }
+            CollectForeignLights();
 
             RenderSettings.fog = true;
             RenderSettings.fogMode = FogMode.ExponentialSquared;
@@ -59,14 +94,6 @@ namespace MissionForge.Screens.BuildBay
             RenderSettings.ambientSkyColor = ambientSky;
             RenderSettings.ambientEquatorColor = ambientEquator;
             RenderSettings.ambientGroundColor = ambientGround;
-
-            _foreign.Clear();
-            foreach (Light l in FindObjectsByType<Light>())
-            {
-                if (l.type != LightType.Directional || l.transform.IsChildOf(transform)) continue;
-                _foreign.Add((l, l.intensity));
-            }
-            _fade = 0f;
         }
 
         private void Update()
@@ -81,6 +108,7 @@ namespace MissionForge.Screens.BuildBay
 
         private void OnDisable()
         {
+            SceneManager.activeSceneChanged -= OnActiveSceneChanged;
             if (!_saved) return;
             _saved = false;
             RenderSettings.fog = _fog;
