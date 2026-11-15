@@ -8,18 +8,18 @@
 
 **Play it:** hosted at <https://missionforge-spaceapps.onrender.com/play/> (free instance: sleeps after 15 minutes idle, about 1 minute to wake; see [HOSTING.md](HOSTING.md)), or on one laptop with `npm --prefix tools/demo install` then `npm --prefix tools/demo run demo` ([RELEASE.md](RELEASE.md)). Judges: [JUDGES.md](JUDGES.md). Submission texts: [submission/](submission/) (start at [CHECKLIST.md](submission/CHECKLIST.md)).
 
-**What is built** (counted from `main` at `568ee98`):
+**What is built** (counted from `main` at `001652e`; the Core count is from `568ee98`):
 
 | Part | What exists |
 |---|---|
 | Content (`data/`) | 9 contracts (C0 to C8), 10 mission-control roles, 26 part categories with 102 parts, 10 tests, 12 anomalies, 11 boosts, 32 minigame definitions, 40 facts with source URLs, 12 achievements, strings in 6 languages (English, Arabic right-to-left, Spanish, French, Portuguese, Hindi) |
 | Core rules (`core/`, C#) | Dashboard, budget and schedule, reliability, flight model, scoring, session machine, campaign. 568 tests |
 | Room server (`server/`) | Rooms, roles, votes, timers, reconnect, spectators; serves the static site for hosting. 247 tests |
-| Phone client (`client/`) | Join, votes, consoles, pilot seats, 32 minigames, codex, debrief, accessibility settings. 911 of 916 tests pass (47 files); the 5 failures are translation-parity checks for new host strings, fix tracked as #206 |
-| Big-screen host (`unity/MissionForge/`) | Working (10 of 16 screens): Title, Lobby, Build Bay, Countdown, Flight, Orbit Map, Debrief, Campaign Hub, Codex, Settings. **Placeholder scenes only:** briefing, contract vote, test stand, design review, flight readiness review, minigame overlay |
-| Committed WebGL host (`docs/play/host/`) | Built before the Countdown, Flight, Orbit Map and end screens were merged, so it shows Title, Lobby and an earlier Build Bay only until the lock holder rebuilds it in Unity |
+| Phone client (`client/`) | Join, votes, consoles, pilot seats, 32 minigames, codex, debrief, accessibility settings. 922 of 927 tests pass (48 files); the 5 failures are translation-parity checks for the new pre-flight host strings, fix queued as task T057 |
+| Big-screen host (`unity/MissionForge/`) | 15 of 16 screens: Title, Lobby, Mission Briefing, Contract Vote, Build Bay, Test Stand, Design Review, Flight Readiness Review, Countdown, Flight, Orbit Map, Debrief, Campaign Hub, Codex, Settings. No separate minigame overlay screen (the flight view shows a minigame banner). The Build Bay does not yet open the Test Stand or Design Review by itself, always builds C1, and does not yet hand its build to the Flight Readiness Review, so a live room stops there |
+| Committed WebGL host (`docs/play/host/`) | Built before the pre-flight, flight and end screens were merged, so it has Title, Lobby and an earlier Build Bay only, and a live room stops at its placeholder briefing, until the lock holder rebuilds it in Unity |
 
-The 22 part votes, the GO/NO-GO poll, the minigames and the debrief run on the phones. Test commands: `dotnet test core/dotnet~` (needs .NET 8, see below), `npm test` in `server/`, `npx vitest run` in `client/`, `node tools/validate-data.mjs`. How the game plays: [GUIDE.md](GUIDE.md) (its host-screen table predates the T024 end screens; this table is current). What is not finished, and what is real physics versus game simplification, is in [submission/PROJECT_DESCRIPTION.md](submission/PROJECT_DESCRIPTION.md) sections 6 and 8.
+The 22 part votes, the GO/NO-GO poll, the minigames and the debrief run on the phones. Test commands: `dotnet test core/dotnet~` (needs .NET 8, see below), `npm test` in `server/`, `npx vitest run` in `client/`, `node tools/validate-data.mjs`. How the game plays: [GUIDE.md](GUIDE.md). What is not finished, and what is real physics versus game simplification, is in [submission/PROJECT_DESCRIPTION.md](submission/PROJECT_DESCRIPTION.md) sections 6 and 8.
 
 The rest of this file describes the **Agent Mesh** that the team uses to coordinate its coding agents.
 

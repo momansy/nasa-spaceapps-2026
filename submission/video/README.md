@@ -28,8 +28,9 @@ and `30s-01-2_5s.png` to `30s-04-27_5s.png` (the number in the name is the time 
   was available. They are existing captures in `orchestration/evidence/`. The Build Bay stills are a rehearsal build with simulated
   voters (the chrome says REHEARSAL and Reconnecting), and the video says "rehearsal build with simulated voters" on each.
   The lobby still ran against the stub room server with 5 test players. Slow push-ins (Ken Burns) were added in editing.
-- **Not shown as working:** the big-screen briefing, flight, orbit map and debrief screens (placeholders in the repository, see
-  `PROJECT_DESCRIPTION.md` section 8). Flight and debrief are shown on the phone only, and the 2-minute end card says
+- **Not shown as working:** the big-screen briefing, flight, orbit map and debrief screens. They are in the Unity source on main
+  (the briefing since T027, merged after these videos were made) but not in the hosted WebGL build, and no capture of them was used
+  (see `PROJECT_DESCRIPTION.md` section 8). Flight and debrief are shown on the phone only, and the 2-minute end card says
   "Big-screen briefing, flight and debrief views are in development."
 - Numbers in captions come from the data: C1 Earth Watch is 150 kg, 550 km Sun-synchronous orbit, 97.6 degrees, 90 M
   game-dollars, 180 days (`data/contracts.json`); 22 part votes; 10 roles; 32 minigames; 6 languages. Costs are called game-dollars.

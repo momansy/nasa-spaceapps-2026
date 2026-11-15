@@ -10,7 +10,7 @@ MissionForge is a cooperative party game about designing and flying a space miss
 
 You need **one big screen** (a laptop on a projector or TV is enough), **1 to 10 phones** with a browser, and a network that all of them can reach. Spectators can also join on their phones and watch.
 
-- **Hosted:** open <https://missionforge-spaceapps.onrender.com/play/> on the big screen, press the host card, and have everyone open the same address (or scan the QR code on the big screen) on their phones. The free hosting server sleeps after 15 minutes without visitors, so the first visit can take about a minute.
+- **Hosted:** open <https://missionforge-spaceapps.onrender.com/play/> on the big screen, press the host card, and have everyone open the same address (or scan the QR code on the big screen) on their phones. The free hosting server sleeps after 15 minutes without visitors, so the first visit can take about a minute. The hosted big screen is an earlier build: its title and lobby work, but a live room stops at its placeholder briefing (see **Built versus planned**).
 - **Local launcher:** run `npm --prefix tools/demo install` once, then `npm --prefix tools/demo run demo`. It starts the room server on your laptop and prints an address for the phones; phones must be on the same Wi-Fi or hotspot. See `RELEASE.md`.
 
 ![A white launch vehicle with two strap-on boosters on a launch pad beside a gantry tower, at sunset.](docs/play/guide/beauty.jpg)
@@ -42,12 +42,12 @@ The big screen shows the same eight steps along the top at all times: **Lobby, B
 | Phase | Big screen | Phones |
 |---|---|---|
 | Lobby | Room code, QR code, seats, settings, Start briefing. | Join form, then a lobby card with your seat and role. |
-| Briefing and contract | The contract card: goal, payload, orbit, budget, schedule and objectives. | Your console role card, with its private insight and ability. |
+| Briefing and contract | The briefing film and contract card (goal, payload, orbit, budget, schedule and objectives), then a vote between the offered contracts. | Your console role card, with its private insight and ability. |
 | Build (part votes) | The Build Bay: the next decision with its options, a readiness dashboard (delta-v, lift-off thrust-to-weight, total mass, cost, schedule, mission success, payload power, data budget) and the rocket being assembled. | The vote screen with a timer, a Vote button, a Veto button and your console's private hint; between votes, a build status with budget and schedule. |
 | Reviews and test minigames | Design review, test stand and flight readiness review screens (see **Built vs planned**). | A GO / NO-GO poll for the crew, and build minigames such as Unit Converter Sprint or Weld Inspector when they trigger. |
 | Countdown | Countdown screen. | GO / NO-GO checks and the launch-day minigames. |
 | Flight | Deterministic flight simulation with a 3D view, a heads-up display, telemetry, an orbit map and minigame banners. | Your console with telemetry, plus the minigames that trigger in each flight phase. |
-| Debrief | Results screen (a placeholder on the big screen today; see **Built vs planned**). | A debrief card with the outcome and messages. |
+| Debrief | Results screen: score count-up, grade, objectives, awards, facts, timeline and replay (see **Built vs planned**). | A debrief card with the outcome and messages. |
 
 The flight itself is split into the phases below; each can trigger console duties and minigames.
 
@@ -146,7 +146,7 @@ A contract is the mission the crew accepts: where to go, what to carry, how much
 | C7 | Red Landing | Mars surface | 1 t lander in aeroshell | 13.0 km/s | 600 M | 400 days | 20 |
 | C8 | Comeback Kid | LEO 300 km | 10 t, plus booster must land | 9.4 km/s | 150 M | 200 days | 19 |
 
-> **Note.** The nine contracts are all in the data. The regular big-screen Build Bay currently runs **C1 Earth Watch**; another contract can be chosen only with a development start option, so the guide does not promise an in-game contract selection screen.
+> **Note.** The nine contracts are all in the data. The big-screen Contract Vote offers a choice of contracts, but the Build Bay currently always builds **C1 Earth Watch** (another contract needs a development start option), and C1 is the only contract rehearsed end to end.
 
 ## 8. Minigames
 
@@ -214,16 +214,16 @@ The mission score adds six groups of points, then multiplies by the assist level
 
 **Facts and awards:** the debrief shows facts collected along the way (the game has 40, each with a source) and individual awards (8 kinds, always positive, and every player gets at least one). There are also 12 achievements and a campaign layer that records progress, unlocks and an anonymous leaderboard.
 
-> **Note.** The scoring, awards and campaign rules are implemented and unit-tested in the game core, but the current big-screen Debrief and Campaign Hub screens are placeholders and do not yet call them.
+> **Note.** The scoring, awards and campaign rules are implemented and unit-tested in the game core. The big-screen Debrief and Campaign Hub on the main branch are calculated by the core; they have been checked with rehearsal data, not yet at the end of a full room session, and they are not in the hosted build.
 
 ## 10. Accessibility and languages
 
 - **6 languages:** English, Arabic, Spanish, French, Hindi, Portuguese. Arabic is shown right to left. Anything missing in a language falls back to English.
 - **Text size:** 100, 125, 150, 175 or 200 percent on the phone.
-- **Display:** high contrast and reduced motion .
+- **Display:** high contrast and reduced motion.
 - **Minigames:** a Relaxed mode and a one-button mode for every minigame, hold or toggle controls, and haptics.
 - **Screen readers:** the phone uses headings, labels and live regions, and announces timers; there is a screen-reader preference in Settings.
-- The big screen respects high contrast, reduced motion and right-to-left room settings in the Build Bay; the big-screen Settings screen itself is still a static placeholder, so not every room-wide setting can be changed from the host.
+- The big screen respects high contrast, reduced motion and right-to-left room settings, and the main branch has a working big-screen Settings and Accessibility overlay (the hosted build has only an earlier version with placeholder text). At 200 percent text with right-to-left layout the Build Bay still drops or splits some text.
 
 ## 11. Science sources
 
@@ -234,7 +234,7 @@ MissionForge ships static content only. **No live NASA data feed or API is used.
 - **Engineering values** rounded from real hardware classes (parts are generic, each with a "real-world twin" line).
 - **The challenge resources** (systems-engineering overview, Concept Maturity Levels, Mission Design Lab, CubeSat 101 and others) as inspiration for the phases, the maturity labels, the roles and the payload choices.
 
-The game is not affiliated with or endorsed by NASA. See [credits and licences](credits.html).
+The game is not affiliated with or endorsed by NASA. See [credits and licences](docs/play/credits.html).
 
 ## 12. Built versus planned
 
@@ -242,16 +242,18 @@ This guide describes the game as it is on the main branch today. These parts are
 
 | Area | State today |
 |---|---|
-| Big-screen Briefing, Contract Vote, Test Stand, Design Review, Flight Readiness Review, Codex and Settings | Designed screens that you can move through with Continue and Back, but without live game behaviour yet (placeholders). |
-| Big-screen Debrief and Campaign Hub | Placeholders. The score, awards and campaign rules exist and are tested in the core but are not yet shown there. |
-| Contract selection | The regular host plays C1 Earth Watch. The other eight contracts are in the data. |
+| Hosted big screen | The hosted site runs an earlier WebGL build of the host: the title and lobby work; its briefing and contract vote are placeholder layouts that a live room does not get past, so its Build Bay is not reached. Everything else in this table that is on the big screen exists on the main branch only, until the WebGL host is rebuilt. |
+| Big-screen Briefing, Contract Vote, Test Stand, Design Review, Flight Readiness Review | Working screens on the main branch, with live votes and polls from the room server. Checked with rehearsal data and one run with the real room server and scripted phones, not yet in a full session. The Build Bay does not yet open the Test Stand or Design Review by itself, and it does not yet hand its build to the Flight Readiness Review, so a live room on the main branch stops at the FRR. |
+| Big-screen Debrief, Campaign Hub, Codex and Settings | Working screens on the main branch, calculated by the core. Checked with rehearsal data, not yet at the end of a full room session. |
+| Minigame overlay | No screen of its own; the flight view shows a minigame banner and slows time while the phones play. |
+| Contract selection | The Contract Vote offers a choice, but the Build Bay always builds C1 Earth Watch. The other eight contracts are in the data. |
 | Pilot and co-pilot | The phone screens and the protocol exist; the big-screen flight flies on autopilot and ignores them. |
 | Special abilities | Defined and tested in the rules; the host does not yet react to the ability button. |
 | Minigame boosts | All minigames work on the phone; the host sends tier, Team Sync, points and facts but no boosts, and some triggers are not wired. |
 | Predict step | In the rules, not sent by the current Build Bay. |
-| Settings on the host | Static placeholder; the phone has full settings. |
+| Translations of the new big-screen pre-flight text | English only for now (Arabic, Spanish, French, Portuguese and Hindi are queued); the phone and the rest of the host are in all six languages. |
 
-Working end to end: the lobby with QR and room code, the Build Bay with real part votes, vetoes and the readiness dashboard (C1), the countdown, the flight with its 3D view and telemetry, the orbit map, all phone screens, the 32 phone minigames and the six languages.
+Working end to end: the lobby with QR and room code, the Build Bay with real part votes, vetoes and the readiness dashboard (C1), all phone screens, the 32 phone minigames and the six languages. On the main branch the countdown, the flight with its 3D view and telemetry, and the orbit map also work, shown with rehearsal data (a live room does not reach them yet, see above).
 
 ## 13. Glossary
 
