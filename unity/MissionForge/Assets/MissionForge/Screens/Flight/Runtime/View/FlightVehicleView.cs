@@ -30,6 +30,7 @@ namespace MissionForge.Screens.Flight
         private readonly List<(EnginePlume plume, int stage)> _plumes = new List<(EnginePlume, int)>();
         private readonly List<Debris> _debris = new List<Debris>();
         private ParticleSystem _collar, _vent, _padCloud;
+        private Light _engineLight;
         private int _stageShown;
         private bool _fairingShown = true;
         private bool _liftOffSeen;
@@ -69,6 +70,7 @@ namespace MissionForge.Screens.Flight
             }
             CreatePlumes();
             CreateAtmosphereEffects();
+            CreateEngineLight();
             FlightTelemetry t = FlightSession.Feed?.Current;
             if (t != null)
             {
@@ -101,6 +103,25 @@ namespace MissionForge.Screens.Flight
             var plume = go.AddComponent<EnginePlume>();
             plume.Init(bell);
             _plumes.Add((plume, stage));
+        }
+
+        /// <summary>
+        /// Warm light from the engine bay, scaled by throttle (plume glow on the stage, game_value 3400 K-ish, range 60 m).
+        /// It also keeps one additional light on the vehicle at every altitude: once the pad's floodlights are out of
+        /// range, URP would switch the vehicle to its no-additional-lights URP/Lit variant, which player builds strip
+        /// (the vehicle then drew nothing above about 9 km; T016 evidence runs 6–7).
+        /// </summary>
+        private void CreateEngineLight()
+        {
+            var go = new GameObject("EngineGlow");
+            go.transform.SetParent(_pivot, false);
+            go.transform.localPosition = new Vector3(0f, -2f, 0f);
+            _engineLight = go.AddComponent<Light>();
+            _engineLight.type = LightType.Point;
+            _engineLight.color = new Color(1f, 0.62f, 0.32f);
+            _engineLight.range = 60f;
+            _engineLight.shadows = LightShadows.None;
+            _engineLight.intensity = 0.05f;
         }
 
         private void CreateAtmosphereEffects()
@@ -201,6 +222,8 @@ namespace MissionForge.Screens.Flight
             }
             UpdateAtmosphere(c);
             UpdateDebris(c);
+            // Never fully off (see CreateEngineLight); bright while the engines burn.
+            if (_engineLight != null) _engineLight.intensity = 0.05f + 6f * (float)c.throttle01;
         }
 
         private void UpdateAtmosphere(FlightTelemetry c)
