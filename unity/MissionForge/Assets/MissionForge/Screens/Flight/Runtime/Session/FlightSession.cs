@@ -70,6 +70,15 @@ namespace MissionForge.Screens.Flight
 
         internal static FlightSessionRunner Runner { get; private set; }
 
+        /// <summary>
+        /// T063: what the last flight left behind (kept after <see cref="End"/>, which runs before the debrief loads).
+        /// Null until a flight has started; replaced by the next flight.
+        /// </summary>
+        public static FlightSummary LastFlight { get; private set; }
+
+        private static bool s_flewVoted;
+        private static readonly List<(double metS, string phase)> s_phases = new List<(double, string)>();
+
         /// <summary>Starts the session once (no-op if it already runs). Returns false when game data is not ready.</summary>
         public static bool EnsureStarted(AppRoot app)
         {
@@ -78,6 +87,9 @@ namespace MissionForge.Screens.Flight
             try
             {
                 JsonByPath = app.Data.Data.JsonByPath;
+                LastFlight = null;
+                s_phases.Clear();
+                s_flewVoted = false;
                 Catalog = CatalogCache.Get(app.Data.Data);
                 IsRehearsal = Arg("-mfRehearsal") != null || app.Room == null || app.Room.Client == null
                     || string.IsNullOrEmpty(app.Room.Client.RoomCode);
@@ -94,7 +106,9 @@ namespace MissionForge.Screens.Flight
                 }
                 else
                 {
-                    Build = UsableBuild(HandedOffBuild, Catalog) ?? RehearsalBuild(Catalog);
+                    BuildState voted = UsableBuild(HandedOffBuild ?? MissionContext.Build, Catalog);
+                    s_flewVoted = voted != null;
+                    Build = voted ?? RehearsalBuild(Catalog);
                     var feed = new CoreFlightFeed(Build, Catalog, JsonByPath);
                     Use(feed, feed, "CoreFlightFeed");
                 }
@@ -137,6 +151,7 @@ namespace MissionForge.Screens.Flight
         /// <summary>Ends the session (leaving the flight phase). The next countdown starts a new flight.</summary>
         public static void End()
         {
+            LastFlight = Summarise();
             FlightMinigames.End();
             if (Runner != null) UnityEngine.Object.Destroy(Runner.gameObject);
             Runner = null;
@@ -152,9 +167,22 @@ namespace MissionForge.Screens.Flight
         {
             OrbitMapTrail.Add(t);
             foreach (FlightTelemetryEvent e in t.events)
+            {
                 if (e.kind == FlightEventKind.PhaseEntered && e.id == "F7") F7StartMetS = e.metS;
+                if (e.kind == FlightEventKind.PhaseEntered && !string.IsNullOrEmpty(e.id)) s_phases.Add((e.metS, e.id));
+            }
             foreach (FlightTelemetryEvent e in t.events) EventRaised?.Invoke(e, t);
             Stepped?.Invoke(t);
+        }
+
+        /// <summary>Snapshot of the current flight for the debrief; null when no flight ran.</summary>
+        private static FlightSummary Summarise()
+        {
+            if (Feed == null || Build == null) return null;
+            FlightTelemetry last = Feed.Current;
+            Core.Flight.Mission.FlightResult result = Feed is CoreFlightFeed core ? core.Result : null;
+            return new FlightSummary(Build, Catalog, result, IsRehearsal, FeedName, last != null ? Math.Max(0, last.metS) : 0,
+                new List<(double, string)>(s_phases)) { FlewVotedBuild = s_flewVoted };
         }
 
         /// <summary>The build is flyable when Core can turn it into a flight spec (fuelled, every stage chosen).</summary>
@@ -234,6 +262,38 @@ namespace MissionForge.Screens.Flight
             }
             return null;
         }
+    }
+
+    /// <summary>
+    /// T063: the end state of one flight, for the debrief. <see cref="Result"/> is Core's <c>FlightResult</c> (null when the
+    /// flight was left before Core finished it, for example by a PageDown skip); the debrief then shows no score.
+    /// </summary>
+    public sealed class FlightSummary
+    {
+        public FlightSummary(BuildState build, GameCatalog catalog, Core.Flight.Mission.FlightResult result, bool isRehearsal,
+            string feedName, double missionLengthS, IReadOnlyList<(double metS, string phase)> phases)
+        {
+            Build = build;
+            Catalog = catalog;
+            Result = result;
+            IsRehearsal = isRehearsal;
+            FeedName = feedName ?? "";
+            MissionLengthS = missionLengthS;
+            Phases = phases ?? Array.Empty<(double, string)>();
+        }
+
+        /// <summary>The build that flew (the voted build, or the rehearsal C1 build when the vote was not flyable).</summary>
+        public BuildState Build { get; }
+        public GameCatalog Catalog { get; }
+        public Core.Flight.Mission.FlightResult Result { get; }
+        public bool IsRehearsal { get; }
+        public string FeedName { get; }
+        /// <summary>Mission elapsed time when the flight ended, s (physical, simulation clock).</summary>
+        public double MissionLengthS { get; }
+        /// <summary>Flight phases entered, in order, with their MET in s.</summary>
+        public IReadOnlyList<(double metS, string phase)> Phases { get; }
+        /// <summary>True when the voted build flew (not the rehearsal stand-in).</summary>
+        public bool FlewVotedBuild { get; set; }
     }
 
     /// <summary>Steps the session feed: 120 Core steps per real second × playback rate; display interpolates.</summary>

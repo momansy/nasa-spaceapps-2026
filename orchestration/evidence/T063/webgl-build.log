@@ -1,0 +1,1358 @@
+Unity Editor version:    6000.6.9f1 (8c45277fb9c5)
+Branch:                  6000.6/staging
+Build type:              Release
+Batch mode:              YES
+macOS version:           Version 26.6.2 (Build 25G83)
+Darwin version:          25.6.0
+Architecture:            arm64
+Running under Rosetta:   NO
+Available memory:        24576 MB
+Date:                    2026-11-15T11:48:20Z
+VBCSCompilerPreWarmer: watching VBCSCompiler (PID 80815)
+VBCSCompilerPreWarmer: pre-warm launched (dotnet PID 80817)
+VBCSCompiler prewarm took 2.62 ms
+[Licensing::Module] Trying to connect to existing licensing client channel...
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-yousofdiaa" at "2026-11-15T11:48:20.536759Z"
+Launching external process: /Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Helpers/PackageManager/Server/UnityPackageManager
+
+COMMAND LINE ARGUMENTS:
+/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/MacOS/Unity
+-batchmode
+-quit
+-nographics
+-projectPath
+unity/MissionForge
+-buildTarget
+WebGL
+-executeMethod
+MissionForge.Build.WebGL
+-logFile
+orchestration/evidence/T063/webgl-build.log
+Successfully changed project path to: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge
+/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge
+[UnityMemory] Configuration Parameters - Can be set up in boot.config
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
+    "memorysetup-temp-allocator-size-audio-worker=65536"
+    "memorysetup-temp-allocator-size-cloud-worker=32768"
+    "memorysetup-temp-allocator-size-preload-manager=33554432"
+    "memorysetup-remapper-allocator-initial-capacity=32768"
+    "memorysetup-temp-allocator-size-gfx=262144"
+    "memorysetup-allocator-temp-initial-block-size-main=262144"
+    "memorysetup-allocator-temp-initial-block-size-worker=262144"
+    "memorysetup-temp-allocator-size-background-worker=32768"
+    "memorysetup-temp-allocator-size-job-worker=262144"
+    "memorysetup-bucket-allocator-granularity=16"
+    "memorysetup-bucket-allocator-bucket-count=8"
+    "memorysetup-bucket-allocator-block-size=33554432"
+    "memorysetup-bucket-allocator-block-count=8"
+    "memorysetup-main-allocator-block-size=16777216"
+    "memorysetup-thread-allocator-block-size=16777216"
+    "memorysetup-main-allocator-mimalloc-enabled=1"
+    "memorysetup-gfx-main-allocator-block-size=16777216"
+    "memorysetup-gfx-thread-allocator-block-size=16777216"
+    "memorysetup-cache-allocator-block-size=4194304"
+    "memorysetup-typetree-allocator-block-size=2097152"
+    "memorysetup-profiler-bucket-allocator-granularity=16"
+    "memorysetup-profiler-bucket-allocator-bucket-count=8"
+    "memorysetup-profiler-bucket-allocator-block-size=33554432"
+    "memorysetup-profiler-bucket-allocator-block-count=8"
+    "memorysetup-profiler-allocator-block-size=16777216"
+    "memorysetup-profiler-editor-allocator-block-size=1048576"
+    "memorysetup-temp-allocator-size-main=16777216"
+    "memorysetup-job-temp-allocator-block-size=2097152"
+    "memorysetup-job-temp-allocator-block-size-background=1048576"
+    "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
+Logging is directed to a specific file, skipping project log.
+Player connection [8349229440]  Target information:
+
+Player connection [8349229440]  * "[IP] 192.168.8.109 [Port] 55505 [Flags] 2 [Guid] 152007464 [EditorId] 152007464 [Version] 1048832 [Id] OSXEditor(0,Mac) [Debug] 1 [PackageName] OSXEditor [ProjectName] Editor" 
+
+Player connection [8349229440]  * "[IP] 192.168.2.1 [Port] 55505 [Flags] 2 [Guid] 152007464 [EditorId] 152007464 [Version] 1048832 [Id] OSXEditor(0,Mac) [Debug] 1 [PackageName] OSXEditor [ProjectName] Editor" 
+
+Player connection [8349229440] Host joined multi-casting on [225.0.0.222:54997]...
+Player connection [8349229440] Host joined alternative multi-casting on [225.0.0.222:34997]...
+Input System module state changed to: Initialized.
+[Physics::Module] Initialized fallback backend.
+[Physics::Module] Id: 0xdecafbad
+[Licensing::Client] Handshaking with LicensingClient:
+  Version:                 1.19.0+4cc3dda
+  Session Id:              32aeef39f8094c0da8ec94cbb4af8ab5
+  Correlation Id:          9bcd97f194c8d6c9ba39453213dcd5e7
+  External correlation Id: 3104873974309368602
+  Machine Id:              xpKyr8HtjWZHNd184qLVO+koXG8=
+[Licensing::Module] Successfully connected to LicensingClient on channel: "LicenseClient-yousofdiaa" (connect: 0.00s, validation: 0.00s, handshake: 0.08s)
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-yousofdiaa-notifications" at "2026-11-15T11:48:20.621833Z"
+[Licensing::Module] Error: Access token is unavailable; failed to update
+[Licensing::Client] Successfully resolved entitlement details
+[Licensing::Module] License group:
+  Id: 18968548154434-UnityPersXXXX
+  Product: Unity Personal
+  Type: Assigned
+  Expiration: Unlimited
+[Licensing::Client] Successfully updated license, isAsync: True, time: 0.00
+[Licensing::Client] Successfully resolved entitlement details
+[Licensing::Module] Licensing Background thread has ended after 0.09s
+[Package Manager] Connected to IPC stream "Upm-80814" after 0.1 seconds.
+[Licensing::Client] Successfully resolved entitlement details
+Library Redirect Path: Library/
+Initialising UDS system complete:
+  - System type: Client
+  - Resource namespace: bb24f7794c66fce8e7a6e3675653d312
+  - Shared memory size: 1073741824
+  - Command buffer id: 1052672
+  - Command buffer size: 8192
+  - Hashmap size: 4194304
+  - Service connected: false
+Launching Unity Data Store - /Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Helpers/Unity.DataStore 
+Unity Data Store artifact dir = Library/DataStore, working dir = /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForgeUnity Data Store running and initialised
+Targeting platform: WebGL
+[Physics::Module] Selected backend (deferred post-plugins).
+[Physics::Module] Name: PhysX
+[Physics::Module] Id: 0xf2b8ea05
+[Physics::Module] SDK Version: 4.1.2
+[Physics::Module] Integration Version: 1.0.0
+[Physics::Module] Threading Mode: Multi-Threaded
+Initialize engine version: 6000.6.9f1 (8c45277fb9c5)
+[EntityIdStore] init: VM path (explicit commit), pageSize=16384, blockCount=262144, entitiesPerBlock=1024, blocksPerSlotPage=0, slots reserved=4294967296 bytes
+[Subsystems] Discovering subsystems at path /Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Assets
+Forcing GfxDevice: Null
+GfxDevice: creating device client; kGfxThreadingModeNonThreaded
+NullGfxDevice:
+    Version:  NULL 1.0 [1.0]
+    Renderer: Null Device
+    Vendor:   Unity Technologies
+Initialize mono
+Mono path[0] = '/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/Managed'
+Mono path[1] = '/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/BCLExtensions/runtime/netstandard2.1'
+Mono path[2] = '/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityjit-macos'
+Mono config path = '/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56814
+CodeReloadManager initialized
+ImportWorker Server TCP listen port: 0
+AcceleratorClientConnectionCallback - disconnected - :0
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: /Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
+Register platform support module: /Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll
+Registered in 0.000365 seconds.
+Native extension for OSXStandalone target not found
+Native extension for WebGL target not found
+Package Manager log level set to [2]
+ScheduleIndexationOnStartup MainProcess:False IndexOnStartup:False
+Scripting: successfully reloaded assembly
+- Finished resetting the current domain, in  0.368 seconds
+Domain Reload Profiling: 632ms
+	BeginReloadAssembly (62ms)
+		CreateAndSetChildDomain (19ms)
+	RebuildCommonClasses (3ms)
+	RebuildNativeTypeToScriptingClass (10ms)
+	initialDomainReloadingComplete (28ms)
+	LoadAllAssembliesAndSetupDomain (161ms)
+		LoadAssemblies (43ms)
+		TypeCache.Refresh (117ms)
+			TypeCache.ScanAssembly (109ms)
+		AnalyzeDomain (0ms)
+	FinalizeReload (369ms)
+		SetupLoadedEditorAssemblies (0ms)
+			BeforeProcessingInitializeOnLoad (50ms)
+			ProcessInitializeOnLoadAttributes (44ms)
+			ProcessInitializeOnLoadMethodAttributes (178ms)
+[Licensing::Client] Successfully resolved entitlement details
+Application.AssetDatabase Initial Refresh Start
+[Package Manager] Restoring resolved packages state from cache
+[Licensing::Client] Successfully resolved entitlement details
+[Package Manager] Registered 60 packages:
+  Packages from [https://packages.unity.com]:
+    com.unity.inputsystem@1.20.1 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.inputsystem@2436e68c60c4)
+    com.unity.nuget.newtonsoft-json@3.2.1 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.nuget.newtonsoft-json@74deb55db2a0)
+    com.unity.pipeline@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.pipeline@178b93997022)
+    com.unity.nuget.mono-cecil@1.11.6 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.nuget.mono-cecil@ecb9724e46ff)
+    com.unity.splines@2.9.2 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.splines@c3dd4719f1ee)
+    com.unity.searcher@4.9.5 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.searcher@a463122f2c00)
+    com.unity.profiling.core@1.0.3 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.profiling.core@8a49f7027d06)
+    com.unity.settings-manager@2.1.1 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.settings-manager@0b8638c5ce86)
+  Built-in packages:
+    com.unity.cinemachine@6.6.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.cinemachine@39083c3c55f9)
+    com.unity.modules.accessibility@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.accessibility)
+    com.unity.modules.adaptiveperformance@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.adaptiveperformance)
+    com.unity.modules.ai@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.ai)
+    com.unity.modules.androidjni@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.androidjni)
+    com.unity.modules.animation@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.animation)
+    com.unity.modules.assetbundle@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.assetbundle)
+    com.unity.modules.audio@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.audio)
+    com.unity.modules.cloth@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.cloth)
+    com.unity.modules.director@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.director)
+    com.unity.modules.imageconversion@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.imageconversion)
+    com.unity.modules.imgui@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.imgui)
+    com.unity.modules.jsonserialize@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.jsonserialize)
+    com.unity.modules.particlesystem@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.particlesystem)
+    com.unity.modules.physics@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.physics)
+    com.unity.modules.physics2d@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.physics2d)
+    com.unity.modules.physicscore2d@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.physicscore2d)
+    com.unity.modules.screencapture@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.screencapture)
+    com.unity.modules.terrain@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.terrain)
+    com.unity.modules.terrainphysics@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.terrainphysics)
+    com.unity.modules.tetgen@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.tetgen)
+    com.unity.modules.tilemap@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.tilemap)
+    com.unity.modules.timelinefoundation@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.timelinefoundation)
+    com.unity.modules.ui@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.ui)
+    com.unity.modules.uielements@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.uielements)
+    com.unity.modules.umbra@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.umbra)
+    com.unity.modules.unityanalytics@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.unityanalytics)
+    com.unity.modules.unitywebrequest@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.unitywebrequest)
+    com.unity.modules.unitywebrequestassetbundle@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.unitywebrequestassetbundle)
+    com.unity.modules.unitywebrequestaudio@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.unitywebrequestaudio)
+    com.unity.modules.unitywebrequesttexture@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.unitywebrequesttexture)
+    com.unity.modules.unitywebrequestwww@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.unitywebrequestwww)
+    com.unity.modules.vectorgraphics@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.vectorgraphics)
+    com.unity.modules.vehicles@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.vehicles)
+    com.unity.modules.video@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.video)
+    com.unity.modules.wind@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.wind)
+    com.unity.modules.xr@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.xr)
+    com.unity.render-pipelines.universal@17.6.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.render-pipelines.universal@2a6014b851d8)
+    com.unity.test-framework@1.8.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.test-framework@01a8b42f9cf6)
+    com.unity.ugui@2.6.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.ugui@ff4f88904a57)
+    com.unity.ext.nunit@2.1.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.ext.nunit@0198eae3b53e)
+    com.unity.render-pipelines.core@17.6.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.render-pipelines.core@77e675a23c5f)
+    com.unity.shadergraph@17.6.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.shadergraph@807b608040c3)
+    com.unity.render-pipelines.universal-config@17.6.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.render-pipelines.universal-config@561422b74439)
+    com.unity.modules.subsystems@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.subsystems)
+    com.unity.modules.hierarchycore@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.modules.hierarchycore)
+    com.unity.graph-authoring@1.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.graph-authoring@cfd2588851ee)
+    com.unity.burst@2.0.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.burst@626e66ab421b)
+    com.unity.collections@6.6.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.collections@c70d71c1212e)
+    com.unity.mathematics@1.4.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.mathematics@8306a64d0cd6)
+    com.unity.test-framework.performance@6.6.0 (location: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.test-framework.performance@816c370aad5b)
+  Local packages:
+    com.missionforge.core@file:/Users/yousofdiaa/Desktop/nasa-amek/core (location: /Users/yousofdiaa/Desktop/nasa-amek/core)
+[Subsystems] No new subsystems found in resolved package list.
+[Package Manager] Done registering packages in 0.01 seconds
+Assembly reference Packages/com.unity.cinemachine/Editor/Samples/ExposeHDRPInternals/HDRP-Editor-ref.asmref has no target assembly definition
+Assembly reference Packages/com.unity.cinemachine/Editor/Samples/ExposeHDRPInternals/HDRP-Editor-ref.asmref has no target assembly definition
+Starting: /Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/BuildPipeline/bee_backend --ipc --defer-dag-verification --dagfile="Library/Bee/2000b0aE.dag" --continue-on-failure --profile="Library/Bee/backend1.traceevents" ScriptAssemblies
+WorkingDir: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge
+DisplayProgressbar: Compiling Scripts
+warn: Unity.ILPP.Runner.PostProcessingAssemblyLoadContext[0]
+      Assembly system.runtime.interopservices.windowsruntime has duplicate hint path. Ignoring "/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/NetStandard/Extensions/2.0.0/System.Runtime.InteropServices.WindowsRuntime.dll" in favor of "/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/UnityReferenceAssemblies/unity-4.8-api/Facades/System.Runtime.InteropServices.WindowsRuntime.dll"
+warn: Unity.ILPP.Runner.PostProcessingAssemblyLoadContext[0]
+      Assembly system.componentmodel.composition has duplicate hint path. Ignoring "/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/NetStandard/compat/2.1.0/shims/netfx/System.ComponentModel.Composition.dll" in favor of "/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/UnityReferenceAssemblies/unity-4.8-api/System.ComponentModel.Composition.dll"
+ExitCode: 0 Duration: 0s246ms
+[ 817/1112  0s] ILPP-Configuration Library/ilpp-configuration.nevergeneratedoutput
+*** Tundra build success (0.23 seconds), 1 items updated, 1112 evaluated
+AssetDatabase: script compilation time: 0.566515s
+Begin MonoManager ReloadAssembly
+Total cache size 268377739
+Total cache size after purge 268377739, took 00:00:00.0974570
+Symbol file LoadedFromMemory is not a mono symbol file
+Assembly reference Packages/com.unity.cinemachine/Editor/Samples/ExposeHDRPInternals/HDRP-Editor-ref.asmref has no target assembly definition
+'Packages/com.unity.cinemachine/Editor/Editors/CinemachineVirtualCameraBaseEditor.cs' contains partial class of Unity.Object, exactly 1 of the partial classes needs to be in a file with the same filename. This is to know the one that can be referenced from ie. GameObjects
+'Packages/com.unity.render-pipelines.core/Editor/Deprecated.cs' contains partial class of Unity.Object, exactly 1 of the partial classes needs to be in a file with the same filename. This is to know the one that can be referenced from ie. GameObjects
+'Packages/com.unity.render-pipelines.core/Editor/Deprecated.cs' contains partial class of Unity.Object, exactly 1 of the partial classes needs to be in a file with the same filename. This is to know the one that can be referenced from ie. GameObjects
+'Packages/com.unity.cinemachine/Editor/Obsolete/CinemachineVirtualCameraBaseEditor.cs' contains partial class of Unity.Object, exactly 1 of the partial classes needs to be in a file with the same filename. This is to know the one that can be referenced from ie. GameObjects
+Native extension for OSXStandalone target not found
+Native extension for WebGL target not found
+Start HTTP server: port:7801
+Pipeline: Descriptor written to /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Pipeline/.unity-pipeline-port
+ScheduleIndexationOnStartup MainProcess:True IndexOnStartup:True
+Scripting: successfully reloaded assembly
+- Finished resetting the current domain, in  0.446 seconds
+Domain Reload Profiling: 887ms
+	BeginReloadAssembly (136ms)
+		DisableScriptedObjects (38ms)
+		CreateAndSetChildDomain (33ms)
+	RebuildCommonClasses (4ms)
+	RebuildNativeTypeToScriptingClass (9ms)
+	initialDomainReloadingComplete (33ms)
+	LoadAllAssembliesAndSetupDomain (260ms)
+		LoadAssemblies (107ms)
+		TypeCache.Refresh (100ms)
+			TypeCache.ScanAssembly (91ms)
+		AnalyzeDomain (27ms)
+			BuildScriptInfoCaches (23ms)
+			ResolveRequiredComponents (3ms)
+	FinalizeReload (446ms)
+		SetupLoadedEditorAssemblies (0ms)
+			BeforeProcessingInitializeOnLoad (50ms)
+			ProcessInitializeOnLoadAttributes (119ms)
+			ProcessInitializeOnLoadMethodAttributes (24ms)
+		AwakeInstancesAfterBackupRestoration (9ms)
+Starting new worker id: 0 with log in /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Logs/AssetImportWorkerHW0.log
+
+Asset Pipeline Refresh (id=4e423c12b9ad543669c35198d56e2afb): Total: 1.921 seconds - Initiated by InitialRefreshV2(ForceSynchronousImport)
+	(Values over 0.05ms)
+	Summary:
+		Imports: total=0 (actual=0, local cache=0, cache server=0)
+		Asset DB Process Time: managed=0 ms, native=841 ms
+		Asset DB Callback time: managed=17 ms, native=7 ms
+		Scripting: domain reloads=1, domain reload time=461 ms, compile time=567 ms, other=26 ms
+		Project Asset Count: scripts=1216, non-scripts=2253
+		Asset File Changes: new=0, changed=0, moved=0, deleted=0
+		Scan Filter Count: 1
+	InvokePackagesCallback: 7.887ms
+	ApplyChangesToAssetFolders: 0.199ms
+	Scan: 236.844ms
+	Collect global state as custom dependencies: 10.475ms
+	CategorizeScriptCompilationAssets: 15.762ms
+	ProcessAssetsWithTransientArtifactChanges: 26.496ms
+	CategorizeAssets: 32.325ms
+	CompileScripts: 567.426ms
+	ImportOutOfDateAssets: 450.749ms (447.686ms without children)
+		UnloadImportedAssets: 1.349ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 0.352ms
+		ImportSchedulerStart: 1.328ms
+	PostProcessAllAssets: 17.353ms
+		MonoPostProcessAllAssets: 17.328ms
+			UniversalRenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 8.264ms
+			SyncVS.PostprocessSyncProject 0.930ms
+			WindowAssetPostprocessingWatcher.OnPostprocessAllAssets 0.801ms
+			SpeedTree9Postprocessor.OnPostprocessAllAssets 0.785ms
+			EditModeScopePostprocessor.OnPostprocessAllAssets 0.436ms
+			RenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 0.297ms
+			ShaderReflectionAssetPostProcessor.OnPostprocessAllAssets 0.290ms
+			CinemachineSettings.OnPostprocessAllAssets 0.135ms
+			ReferencedClipsPostProcessor.OnPostprocessAllAssets 0.123ms
+			InputActionAssetPostprocessor.OnPostprocessAllAssets 0.115ms
+			DomainReloadProcessor.OnPostprocessAllAssets 0.103ms
+			TerrainToolbarOverlayPostProcessor.OnPostprocessAllAssets 0.091ms
+			ProjectSettingsPostprocessor.OnPostprocessAllAssets 0.074ms
+			AssetDatabaseCallbacks.OnPostprocessAllAssets 0.062ms
+	UnloadStreamsBegin: 0.778ms
+	PersistCurrentRevisions: 0.071ms
+	GenerateScriptTypeHashes: 0.909ms
+	GenerateScriptTypeSerializationHashes: 1.591ms
+	Untracked: 552.820ms
+
+Application.AssetDatabase Initial Refresh End
+Shader Hidden/ChartRasterizerHardware is not supported: GPU does not support conservative rasterization
+Shader Hidden/ChartRasterizerHardware is not supported: GPU does not support conservative rasterization
+Scanning for USB devices : 0.024ms
+Initializing Unity extensions:
+[MODES] ModeService[none].Initialize
+[MODES] ModeService[none].LoadModes
+[MODES] Loading mode Default (0) for mode-current-id-MissionForge
+Unloading 77 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 4738 unused Assets / (5.0 MB). Loaded Objects now: 5692.
+Memory consumption went from 0.50 GB to 512.0 MB.
+Total: 7.001833 ms (FindLiveObjects: 0.315375 ms CreateObjectMapping: 0.085333 ms MarkObjects: 4.845250 ms  DeleteObjects: 1.691667 ms)
+
+Importing 'GUID: 5e6cbd92db86f4b18aec3ed561671858 - Path: Assets/Settings/Mobile_RPAsset.asset' with importer (NativeFormatImporter)
+Imported 'GUID: 5e6cbd92db86f4b18aec3ed561671858' -> (Import Result ID: '0ac1623863e81f78e2e7ea3b7188d8bb') in 0.003 seconds [static dependencies only]. Details - ImportResultOutputID=87c79727be4dab5ed51d3da607f590f1 DependenciesID=280ff2f3861e4b0f6023f56ffacf85f0 StaticDependenciesID=67fa71c1f1fd1ed340b3df889789264c 
+Asset Pipeline Refresh (id=63dd5bf0ef8324e369972e3cc24d0cc0): Total: 0.077 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+1 URP assets included in build
+- Mobile_RPAsset - Assets/Settings/Mobile_RPAsset.asset
+	 - Mobile_Renderer - Assets/Settings/Mobile_Renderer.asset - UnityEngine.Rendering.Universal.UniversalRendererData
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:23)
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+UnityEditor.Rendering.Universal.URPPreprocessBuild:LogIncludedAssets (System.Collections.Generic.List`1<UnityEngine.Rendering.Universal.UniversalRenderPipelineAsset>) (at ./Library/PackageCache/com.unity.render-pipelines.universal@2a6014b851d8/Editor/BuildProcessors/URPPreprocessBuild.cs:72)
+UnityEditor.Rendering.Universal.URPPreprocessBuild:OnPreprocessBuild (UnityEditor.Build.Reporting.BuildReport) (at ./Library/PackageCache/com.unity.render-pipelines.universal@2a6014b851d8/Editor/BuildProcessors/URPPreprocessBuild.cs:31)
+UnityEditor.Build.BuildPipelineInterfaces/<>c__DisplayClass17_0:<OnBuildPreProcess>b__1 (UnityEditor.Build.IPreprocessBuildWithReport) (at /Users/bokken/build/output/unity/unity/Editor/Mono/BuildPipeline/BuildPipelineInterfaces.cs:1132)
+UnityEditor.Build.BuildPipelineInterfaces:InvokeCallbackInterfacesPair<UnityEditor.Build.IPreprocessBuild, UnityEditor.Build.IPreprocessBuildWithReport> (System.Collections.Generic.List`1<UnityEditor.Build.IPreprocessBuild>,System.Action`1<UnityEditor.Build.IPreprocessBuild>,System.Collections.Generic.List`1<UnityEditor.Build.IPreprocessBuildWithReport>,System.Action`1<UnityEditor.Build.IPreprocessBuildWithReport>,bool) (at /Users/bokken/build/output/unity/unity/Editor/Mono/BuildPipeline/BuildPipelineInterfaces.cs:1091)
+UnityEditor.Build.BuildPipelineInterfaces:OnBuildPreProcess (UnityEditor.Build.Reporting.BuildReport) (at /Users/bokken/build/output/unity/unity/Editor/Mono/BuildPipeline/BuildPipelineInterfaces.cs:1123)
+UnityEditor.BuildPipeline:BuildPlayerInternal (string[],string,string,UnityEditor.BuildTargetGroup,UnityEditor.BuildTarget,int,UnityEditor.BuildOptions,string[],string[],bool)
+UnityEditor.BuildPipeline:BuildPlayer (UnityEditor.BuildPlayerOptions) (at /Users/bokken/build/output/unity/unity/Editor/Mono/BuildPipeline/BuildPipeline.bindings.cs:270)
+MissionForge.Build:WebGL () (at Assets/MissionForge/Editor/Build.cs:53)
+
+(Filename: ./Library/PackageCache/com.unity.render-pipelines.universal@2a6014b851d8/Editor/BuildProcessors/URPPreprocessBuild.cs Line: 72)
+
+Asset Pipeline Refresh (id=a48eebcc0d9fc430193af49e57759e7a): Total: 0.048 seconds - Initiated by RefreshV2(NoUpdateAssetOptions)
+Pipeline: this build does not include the Pipeline (Project Settings > Pipeline > Runtime), so its assemblies and settings are excluded from it.
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:23)
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+Unity.Pipeline.Editor.BuildProcessors.PipelineRuntimeBuildProcessor:Preprocess (UnityEditor.Build.NamedBuildTarget,System.Nullable`1<UnityEditor.BuildOptions>) (at ./Library/PackageCache/com.unity.pipeline@178b93997022/Editor/BuildProcessors/PipelineRuntimeBuildProcessor.cs:108)
+Unity.Pipeline.Editor.BuildProcessors.PipelineRuntimeBuildProcessor:OnPreprocessBuild (UnityEditor.Build.BuildCallbackContext) (at ./Library/PackageCache/com.unity.pipeline@178b93997022/Editor/BuildProcessors/PipelineRuntimeBuildProcessor.cs:69)
+UnityEditor.Build.BuildPipelineInterfaces:OnBuildPreProcessWithContext (UnityEditor.Build.BuildCallbackContext) (at /Users/bokken/build/output/unity/unity/Editor/Mono/BuildPipeline/BuildPipelineInterfaces.cs:1156)
+UnityEditor.BuildPipeline:BuildPlayerInternal (string[],string,string,UnityEditor.BuildTargetGroup,UnityEditor.BuildTarget,int,UnityEditor.BuildOptions,string[],string[],bool)
+UnityEditor.BuildPipeline:BuildPlayer (UnityEditor.BuildPlayerOptions) (at /Users/bokken/build/output/unity/unity/Editor/Mono/BuildPipeline/BuildPipeline.bindings.cs:270)
+MissionForge.Build:WebGL () (at Assets/MissionForge/Editor/Build.cs:53)
+
+(Filename: ./Library/PackageCache/com.unity.pipeline@178b93997022/Editor/BuildProcessors/PipelineRuntimeBuildProcessor.cs Line: 108)
+
+Importing 'GUID: 5e6cbd92db86f4b18aec3ed561671858 - Path: Assets/Settings/Mobile_RPAsset.asset' with importer (NativeFormatImporter)
+Imported 'GUID: 5e6cbd92db86f4b18aec3ed561671858' -> (Import Result ID: '0ac1623863e81f78e2e7ea3b7188d8bb') in 0.000 seconds [static dependencies only]. Details - ImportResultOutputID=87c79727be4dab5ed51d3da607f590f1 DependenciesID=280ff2f3861e4b0f6023f56ffacf85f0 StaticDependenciesID=67fa71c1f1fd1ed340b3df889789264c 
+Asset Pipeline Refresh (id=a1f6d1aff7bc14ce2ac64a61689414b8): Total: 0.007 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+AcceleratorClientConnectionCallback - disconnected - :0
+Importing 'GUID: 00000000000000004000000000000000 - Path: ProjectSettings/ProjectSettings.asset' with importer (LibraryAssetImporter)
+Imported 'GUID: 00000000000000004000000000000000' -> (Import Result ID: '4b6d615976d6433ee02d7d54336c8cf2') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=054c890a8f4b6dddbea933bc5e4b7df4 DependenciesID=9b1171280a3500edafe774651e4552f9 StaticDependenciesID=192429e9f1fa25b4fbdff6f1a9373a5a 
+Importing 'GUID: 00000000000000006100000000000000 - Path: ProjectSettings/GraphicsSettings.asset' with importer (LibraryAssetImporter)
+Imported 'GUID: 00000000000000006100000000000000' -> (Import Result ID: 'd0168ae0ece034c5bfd7aa510b220535') in 0.000 seconds [static dependencies only]. Details - ImportResultOutputID=a2dcdb8bc9503711bc0f2e2d72cfd36c DependenciesID=e02170005771c7cd522b3a5f995fc647 StaticDependenciesID=7083cd2ced3719f46aa10be2ea654acb 
+Importing 'GUID: 76fa10d35f6f14ee7ae971b3c5735572 - Path: Assets/MissionForge/UI/Fonts/MF_GlyphFallback_PlexSans.asset' with importer (NativeFormatImporter)
+Imported 'GUID: 76fa10d35f6f14ee7ae971b3c5735572' -> (Import Result ID: '8cff0ea189585e0d0653614dfac4ec43') in 0.000 seconds [static dependencies only]. Details - ImportResultOutputID=1c1f07d307e95134e721bfe6b78c929b DependenciesID=994e3a97f4e1811b40a71bffe320dd1c StaticDependenciesID=0bbf8d7c917c89692aebd86822a6962a 
+Importing 'GUID: 18dc0cd2c080841dea60987a38ce93fa - Path: Assets/Settings/UniversalRenderPipelineGlobalSettings.asset' with importer (NativeFormatImporter)
+Imported 'GUID: 18dc0cd2c080841dea60987a38ce93fa' -> (Import Result ID: '362be883bedbad1e6c86d7aa206f3620') in 0.000 seconds [static dependencies only]. Details - ImportResultOutputID=ac92a3253360087966dd104547753906 DependenciesID=3bfa128fb178ee1973cdf2b8c9a2e3cb StaticDependenciesID=0d0d5792d9621cb61cd08be0d41bf141 
+Launching external process: /Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Helpers/UnityShaderCompiler
+Asset Pipeline Refresh (id=845bd9a673f624c5aa3427bee83988b4): Total: 0.025 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Launched and connected shader compiler UnityShaderCompiler after 0.01 seconds
+Starting: /Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/BuildPipeline/bee_backend --ipc --defer-dag-verification --dagfile="Library/Bee/2000b0aESkipCompile.dag" --continue-on-failure --profile="Library/Bee/backend1.traceevents" ScriptAssembliesAndTypeDB
+WorkingDir: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge
+Worker ready: AssetImportWorkerHW0 0
+ExitCode: 0 Duration: 2s21ms
+[2/3        1s] BuildPlayerDataGenerator Library/BuildPlayerData/Editor/TypeDb-All.json
+Field 'Unity.Collections.LowLevel.Unsafe.AtomicSafetyHandle Unity.Collections.NativeBitArrayDispose::m_Safety' from '/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/ScriptAssemblies/Unity.Collections.dll', exception Failed to resolve Unity.Collections.LowLevel.Unsafe.AtomicSafetyHandle
+Field 'Unity.Collections.LowLevel.Unsafe.AtomicSafetyHandle Unity.Collections.NativeRingQueueDispose::m_Safety' from '/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/ScriptAssemblies/Unity.Collections.dll', exception Failed to resolve Unity.Collections.LowLevel.Unsafe.AtomicSafetyHandle
+Field 'Unity.Collections.LowLevel.Unsafe.AtomicSafetyHandle Unity.Collections.NativeTextDispose::m_Safety' from '/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/ScriptAssemblies/Unity.Collections.dll', exception Failed to resolve Unity.Collections.LowLevel.Unsafe.AtomicSafetyHandle
+*** Tundra build success (2.00 seconds), 1 items updated, 3 evaluated
+Asset Pipeline Refresh (id=bf0a00aa3597044c999e9ae34fd8c9fe): Total: 0.046 seconds - Initiated by RefreshV2(NoUpdateAssetOptions)
+[ScriptCompilation] Requested script compilation because: Recompiling scripts for player build.
+BuildPlayer: start building target 20
+Total cache size 268377739
+Total cache size after purge 268377739, took 00:00:00.0972898
+Starting: /Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/BuildPipeline/bee_backend --ipc --defer-dag-verification --dagfile="Library/Bee/2000b0aP.dag" --continue-on-failure --profile="Library/Bee/backend1.traceevents" ScriptAssembliesAndTypeDB
+WorkingDir: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge
+Starting: /Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/DotNetSdk/dotnet "/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/BuildPipeline/ScriptCompilationBuildProgram.exe" "Library/Bee/2000b0aP.dag.json" "Library/Bee/2000b0aP-inputdata.json" "Library/Bee/buildprogram0.traceevents"
+WorkingDir: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge
+ExitCode: 4 Duration: 0s194ms
+Rebuilding DAG because FileSignature timestamp changed: Library/Bee/2000b0aP-inputdata.json
+*** Tundra requires additional run (0.07 seconds), 0 items updated, 522 evaluated
+ExitCode: 0 Duration: 0s648ms
+Starting: /Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/BuildPipeline/bee_backend --ipc --defer-dag-verification --dagfile="Library/Bee/2000b0aP.dag" --continue-on-failure --dagfilejson="Library/Bee/2000b0aP.dag.json" --profile="Library/Bee/backend2.traceevents" ScriptAssembliesAndTypeDB
+WorkingDir: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge
+warn: Unity.ILPP.Runner.PostProcessingAssemblyLoadContext[0]
+      Assembly system.runtime.interopservices.windowsruntime has duplicate hint path. Ignoring "/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/NetStandard/Extensions/2.0.0/System.Runtime.InteropServices.WindowsRuntime.dll" in favor of "/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/UnityReferenceAssemblies/unity-4.8-api/Facades/System.Runtime.InteropServices.WindowsRuntime.dll"
+warn: Unity.ILPP.Runner.PostProcessingAssemblyLoadContext[0]
+      Assembly system.componentmodel.composition has duplicate hint path. Ignoring "/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/NetStandard/compat/2.1.0/shims/netfx/System.ComponentModel.Composition.dll" in favor of "/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/UnityReferenceAssemblies/unity-4.8-api/System.ComponentModel.Composition.dll"
+Assets/MissionForge/Screens/Flight/Runtime/Hud/FlightHudMessage.cs(21,24): warning UAC1001: Field 'apoapsisKm' type 'double?' is skipped by serialization (missing the [Serializable] attribute). Refer to the Serialization rules analyzer reference. (https://docs.unity3d.com/6000.6/Documentation/Manual/script-serialization-analyzer.html#uac1001)
+Assets/MissionForge/Screens/Flight/Runtime/Hud/FlightHudMessage.cs(22,24): warning UAC1001: Field 'periapsisKm' type 'double?' is skipped by serialization (missing the [Serializable] attribute). Refer to the Serialization rules analyzer reference. (https://docs.unity3d.com/6000.6/Documentation/Manual/script-serialization-analyzer.html#uac1001)
+Total cache size 268377739
+Total cache size after purge 268377739, took 00:00:00.0595597
+ExitCode: 0 Duration: 2s104ms
+Finished compiling graph: 765 nodes, 10138 flattened edges (7858 ToBuild, 114 ToUse), maximum node priority 560
+[483/764    0s] WriteText Library/Bee/artifacts/2000b0aP.dag/MissionForge.Screens.Debrief.rsp
+[484/764    0s] WriteText Library/Bee/artifacts/2000b0aP.dag/MissionForge.Screens.TestStand.rsp
+[605/764    0s] ILPP-Configuration Library/ilpp-configuration.nevergeneratedoutput
+[635/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.InputSystem.ForUI.dll
+[636/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/MissionForge.Core.dll
+[639/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.Splines.dll
+[640/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.RenderPipelines.Universal.Config.Runtime.dll
+[641/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/MissionForge.EndScreens.Investigation.dll
+[642/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.RenderPipelines.Core.ShaderLibrary.dll
+[643/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.InternalAPIEngineBridge.ObjectDispatcher.Runtime.dll
+[644/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.Mathematics.dll
+[645/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.RenderPipelines.Core.Runtime.dll
+[646/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.InternalAPIEngineBridge.RenderPipelines.Core.Runtime.Shared.dll
+[647/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.Burst.dll
+[648/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.TextMeshPro.dll
+[649/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/MissionForge.UI.dll
+[650/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/MissionForge.Data.dll
+[651/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.Collections.dll
+[654/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.Collections.Tests.CoreCLR.PrivateJobNested.dll
+[655/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.Pipeline.Attributes.dll
+[656/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/UnityEngine.UI.dll
+[657/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.InternalAPIEngineBridge.004.dll
+[658/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll
+[659/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.RenderPipelines.Core.Runtime.Shared.dll
+[660/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/MissionForge.Net.dll
+[661/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.RenderPipelines.Universal.Runtime.dll
+[662/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.RenderPipelines.Universal.Shaders.dll
+[663/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.Collections.Tests.CoreCLR.PublicJobPrivateGeneric.dll
+[664/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/MissionForge.Rendering.dll
+[665/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.RenderPipelines.GPUDriven.Runtime.dll
+[666/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.Collections.Tests.CoreCLR.InternalJobNestedPrivate.dll
+[667/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.Cinemachine.dll
+[668/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.RenderPipeline.Universal.ShaderLibrary.dll
+[669/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.RenderPipelines.Universal.2D.Runtime.dll
+[670/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/MissionForge.EndScreens.Sources.dll
+[671/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.Profiling.Core.dll
+[672/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/MissionForge.Net.pdb
+[673/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.RenderPipelines.Universal.Runtime.pdb
+[674/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/MissionForge.EndScreens.Investigation.pdb
+[676/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.InputSystem.ForUI.pdb
+[677/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.InternalAPIEngineBridge.RenderPipelines.Core.Runtime.Shared.pdb
+[678/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.RenderPipelines.Universal.Config.Runtime.pdb
+[679/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.Burst.pdb
+[680/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/MissionForge.Core.pdb
+[681/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/MissionForge.Data.pdb
+[682/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/MissionForge.Vehicle.dll
+[683/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.Collections.pdb
+[684/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.Pipeline.Attributes.pdb
+[685/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.Collections.Tests.CoreCLR.PublicJobPrivateGeneric.pdb
+[686/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/MissionForge.Vehicle.pdb
+[687/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.Cinemachine.pdb
+[688/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/MissionForge.Rendering.pdb
+[689/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.Collections.Tests.CoreCLR.InternalJobNestedPrivate.pdb
+[690/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.RenderPipeline.Universal.ShaderLibrary.pdb
+[691/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.RenderPipelines.Core.Runtime.Shared.pdb
+[692/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.Splines.pdb
+[693/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.RenderPipelines.GPUDriven.Runtime.pdb
+[694/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.RenderPipelines.Core.ShaderLibrary.pdb
+[695/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.InternalAPIEngineBridge.ObjectDispatcher.Runtime.pdb
+[696/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.RenderPipelines.Universal.2D.Runtime.pdb
+[697/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.pdb
+[698/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.Mathematics.pdb
+[699/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.InternalAPIEngineBridge.004.pdb
+[700/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/MissionForge.UI.pdb
+[702/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.RenderPipelines.Universal.Shaders.pdb
+[703/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.Profiling.Core.pdb
+[704/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.Collections.Tests.CoreCLR.PrivateJobNested.pdb
+[705/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.RenderPipelines.Core.Runtime.pdb
+[706/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/MissionForge.EndScreens.Sources.pdb
+[707/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.TextMeshPro.pdb
+[709/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.InputSystem.dll
+[710/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.InputSystem.pdb
+[711/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.Collections.Tests.CoreCLR.ProtectedJobNested.dll
+[712/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Unity.Collections.Tests.CoreCLR.ProtectedJobNested.pdb
+[713/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/UnityEngine.UI.pdb
+[714/764    0s] Csc Library/Bee/artifacts/2000b0aP.dag/MissionForge.App.dll (+2 others)
+[715/764    0s] ILPostProcess Library/Bee/artifacts/2000b0aP.dag/post-processed/MissionForge.App.dll (+pdb)
+Processing assembly Library/Bee/artifacts/2000b0aP.dag/MissionForge.App.dll, with 111 defines and 226 references
+processors: Unity.Jobs.CodeGen.JobsILPostProcessor, Unity.Pipeline.CodeGen.MethodReloadInPlaceILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+1 processor(s) skipped this assembly
+running Unity.Jobs.CodeGen.JobsILPostProcessor
+running Unity.Pipeline.CodeGen.MethodReloadInPlaceILPostProcessor
+[716/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/MissionForge.App.dll
+[717/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/MissionForge.App.pdb
+[718/764    0s] Csc Library/Bee/artifacts/2000b0aP.dag/MissionForge.Settings.dll (+2 others)
+[719/764    0s] Csc Library/Bee/artifacts/2000b0aP.dag/MissionForge.Screens.Codex.dll (+2 others)
+[720/764    0s] Csc Library/Bee/artifacts/2000b0aP.dag/MissionForge.Screens.BuildBay.dll (+2 others)
+[721/764    0s] Csc Library/Bee/artifacts/2000b0aP.dag/MissionForge.Screens.Campaign.dll (+2 others)
+[722/764    0s] ILPostProcess Library/Bee/artifacts/2000b0aP.dag/post-processed/MissionForge.Settings.dll (+pdb)
+Processing assembly Library/Bee/artifacts/2000b0aP.dag/MissionForge.Settings.dll, with 111 defines and 220 references
+processors: Unity.Jobs.CodeGen.JobsILPostProcessor, Unity.Pipeline.CodeGen.MethodReloadInPlaceILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+1 processor(s) skipped this assembly
+running Unity.Jobs.CodeGen.JobsILPostProcessor
+running Unity.Pipeline.CodeGen.MethodReloadInPlaceILPostProcessor
+[723/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/MissionForge.Settings.dll
+[724/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/MissionForge.Settings.pdb
+[725/764    0s] ILPostProcess Library/Bee/artifacts/2000b0aP.dag/post-processed/MissionForge.Screens.Campaign.dll (+pdb)
+Processing assembly Library/Bee/artifacts/2000b0aP.dag/MissionForge.Screens.Campaign.dll, with 111 defines and 224 references
+processors: Unity.Jobs.CodeGen.JobsILPostProcessor, Unity.Pipeline.CodeGen.MethodReloadInPlaceILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+1 processor(s) skipped this assembly
+running Unity.Jobs.CodeGen.JobsILPostProcessor
+running Unity.Pipeline.CodeGen.MethodReloadInPlaceILPostProcessor
+[726/764    0s] ILPostProcess Library/Bee/artifacts/2000b0aP.dag/post-processed/MissionForge.Screens.BuildBay.dll (+pdb)
+Processing assembly Library/Bee/artifacts/2000b0aP.dag/MissionForge.Screens.BuildBay.dll, with 111 defines and 228 references
+processors: Unity.Jobs.CodeGen.JobsILPostProcessor, Unity.Pipeline.CodeGen.MethodReloadInPlaceILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+1 processor(s) skipped this assembly
+running Unity.Jobs.CodeGen.JobsILPostProcessor
+running Unity.Pipeline.CodeGen.MethodReloadInPlaceILPostProcessor
+[727/764    0s] ILPostProcess Library/Bee/artifacts/2000b0aP.dag/post-processed/MissionForge.Screens.Codex.dll (+pdb)
+Processing assembly Library/Bee/artifacts/2000b0aP.dag/MissionForge.Screens.Codex.dll, with 111 defines and 224 references
+processors: Unity.Jobs.CodeGen.JobsILPostProcessor, Unity.Pipeline.CodeGen.MethodReloadInPlaceILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+1 processor(s) skipped this assembly
+running Unity.Jobs.CodeGen.JobsILPostProcessor
+running Unity.Pipeline.CodeGen.MethodReloadInPlaceILPostProcessor
+[728/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/MissionForge.Screens.Campaign.pdb
+[729/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/MissionForge.Screens.Campaign.dll
+[730/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/MissionForge.Screens.BuildBay.pdb
+[731/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/MissionForge.Screens.BuildBay.dll
+[732/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/MissionForge.Screens.Codex.dll
+[733/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/MissionForge.Screens.Codex.pdb
+[734/764    0s] Csc Library/Bee/artifacts/2000b0aP.dag/MissionForge.Preflight.dll (+2 others)
+[735/764    0s] Csc Library/Bee/artifacts/2000b0aP.dag/MissionForge.Screens.Flight.dll (+2 others)
+Assets/MissionForge/Screens/Flight/Runtime/Hud/FlightHudMessage.cs(21,24): warning UAC1001: Field 'apoapsisKm' type 'double?' is skipped by serialization (missing the [Serializable] attribute). Refer to the Serialization rules analyzer reference. (https://docs.unity3d.com/6000.6/Documentation/Manual/script-serialization-analyzer.html#uac1001)
+Assets/MissionForge/Screens/Flight/Runtime/Hud/FlightHudMessage.cs(22,24): warning UAC1001: Field 'periapsisKm' type 'double?' is skipped by serialization (missing the [Serializable] attribute). Refer to the Serialization rules analyzer reference. (https://docs.unity3d.com/6000.6/Documentation/Manual/script-serialization-analyzer.html#uac1001)
+[736/764    0s] ILPostProcess Library/Bee/artifacts/2000b0aP.dag/post-processed/MissionForge.Screens.Flight.dll (+pdb)
+Processing assembly Library/Bee/artifacts/2000b0aP.dag/MissionForge.Screens.Flight.dll, with 111 defines and 229 references
+processors: Unity.Jobs.CodeGen.JobsILPostProcessor, Unity.Pipeline.CodeGen.MethodReloadInPlaceILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+1 processor(s) skipped this assembly
+running Unity.Jobs.CodeGen.JobsILPostProcessor
+running Unity.Pipeline.CodeGen.MethodReloadInPlaceILPostProcessor
+[737/764    0s] ILPostProcess Library/Bee/artifacts/2000b0aP.dag/post-processed/MissionForge.Preflight.dll (+pdb)
+Processing assembly Library/Bee/artifacts/2000b0aP.dag/MissionForge.Preflight.dll, with 111 defines and 226 references
+processors: Unity.Jobs.CodeGen.JobsILPostProcessor, Unity.Pipeline.CodeGen.MethodReloadInPlaceILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+1 processor(s) skipped this assembly
+running Unity.Jobs.CodeGen.JobsILPostProcessor
+running Unity.Pipeline.CodeGen.MethodReloadInPlaceILPostProcessor
+[738/764    0s] Csc Library/Bee/artifacts/2000b0aP.dag/MissionForge.Screens.ContractVote.dll (+2 others)
+[739/764    0s] Csc Library/Bee/artifacts/2000b0aP.dag/MissionForge.Screens.Debrief.dll (+2 others)
+[740/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/MissionForge.Preflight.pdb
+[741/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/MissionForge.Preflight.dll
+[742/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/MissionForge.Screens.Flight.dll
+[743/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/MissionForge.Screens.Flight.pdb
+[744/764    0s] Csc Library/Bee/artifacts/2000b0aP.dag/MissionForge.Screens.Briefing.dll (+2 others)
+[745/764    0s] Csc Library/Bee/artifacts/2000b0aP.dag/MissionForge.Screens.TestStand.dll (+2 others)
+[746/764    0s] Csc Library/Bee/artifacts/2000b0aP.dag/MissionForge.Screens.Review.dll (+2 others)
+[747/764    0s] ILPostProcess Library/Bee/artifacts/2000b0aP.dag/post-processed/MissionForge.Screens.ContractVote.dll (+pdb)
+Processing assembly Library/Bee/artifacts/2000b0aP.dag/MissionForge.Screens.ContractVote.dll, with 111 defines and 227 references
+processors: Unity.Jobs.CodeGen.JobsILPostProcessor, Unity.Pipeline.CodeGen.MethodReloadInPlaceILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+1 processor(s) skipped this assembly
+running Unity.Jobs.CodeGen.JobsILPostProcessor
+running Unity.Pipeline.CodeGen.MethodReloadInPlaceILPostProcessor
+[748/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/MissionForge.Screens.ContractVote.pdb
+[749/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/MissionForge.Screens.ContractVote.dll
+[750/764    0s] ILPostProcess Library/Bee/artifacts/2000b0aP.dag/post-processed/MissionForge.Screens.Debrief.dll (+pdb)
+Processing assembly Library/Bee/artifacts/2000b0aP.dag/MissionForge.Screens.Debrief.dll, with 111 defines and 225 references
+processors: Unity.Jobs.CodeGen.JobsILPostProcessor, Unity.Pipeline.CodeGen.MethodReloadInPlaceILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+1 processor(s) skipped this assembly
+running Unity.Jobs.CodeGen.JobsILPostProcessor
+running Unity.Pipeline.CodeGen.MethodReloadInPlaceILPostProcessor
+[751/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/MissionForge.Screens.Debrief.dll
+[752/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/MissionForge.Screens.Debrief.pdb
+[753/764    0s] ILPostProcess Library/Bee/artifacts/2000b0aP.dag/post-processed/MissionForge.Screens.Review.dll (+pdb)
+Processing assembly Library/Bee/artifacts/2000b0aP.dag/MissionForge.Screens.Review.dll, with 111 defines and 227 references
+processors: Unity.Jobs.CodeGen.JobsILPostProcessor, Unity.Pipeline.CodeGen.MethodReloadInPlaceILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+1 processor(s) skipped this assembly
+running Unity.Jobs.CodeGen.JobsILPostProcessor
+running Unity.Pipeline.CodeGen.MethodReloadInPlaceILPostProcessor
+[754/764    0s] ILPostProcess Library/Bee/artifacts/2000b0aP.dag/post-processed/MissionForge.Screens.Briefing.dll (+pdb)
+Processing assembly Library/Bee/artifacts/2000b0aP.dag/MissionForge.Screens.Briefing.dll, with 111 defines and 227 references
+processors: Unity.Jobs.CodeGen.JobsILPostProcessor, Unity.Pipeline.CodeGen.MethodReloadInPlaceILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+1 processor(s) skipped this assembly
+running Unity.Jobs.CodeGen.JobsILPostProcessor
+running Unity.Pipeline.CodeGen.MethodReloadInPlaceILPostProcessor
+[755/764    0s] ILPostProcess Library/Bee/artifacts/2000b0aP.dag/post-processed/MissionForge.Screens.TestStand.dll (+pdb)
+Processing assembly Library/Bee/artifacts/2000b0aP.dag/MissionForge.Screens.TestStand.dll, with 111 defines and 227 references
+processors: Unity.Jobs.CodeGen.JobsILPostProcessor, Unity.Pipeline.CodeGen.MethodReloadInPlaceILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+1 processor(s) skipped this assembly
+running Unity.Jobs.CodeGen.JobsILPostProcessor
+running Unity.Pipeline.CodeGen.MethodReloadInPlaceILPostProcessor
+[756/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/MissionForge.Screens.Review.dll
+[757/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/MissionForge.Screens.Review.pdb
+[758/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/MissionForge.Screens.Briefing.pdb
+[759/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/MissionForge.Screens.Briefing.dll
+[760/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/MissionForge.Screens.TestStand.dll
+[761/764    0s] CopyFiles Library/Bee/PlayerScriptAssemblies/MissionForge.Screens.TestStand.pdb
+[763/764    0s] BuildPlayerDataGenerator Library/BuildPlayerData/Player/RuntimeInitializeOnLoads.json (+1 other)
+*** Tundra build success (1.99 seconds), 124 items updated, 764 evaluated
+Not rebuilding Data files -- no changes
+
+
+Mono dependencies included in the build
+Dependency assembly - Unity.InternalAPIEngineBridge.ObjectDispatcher.Runtime.dll
+Dependency assembly - System.IdentityModel.Selectors.dll
+Dependency assembly - System.ServiceModel.Activation.dll
+Dependency assembly - MissionForge.Screens.Codex.dll
+Dependency assembly - System.Net.AuthenticationManager.dll
+Dependency assembly - System.Net.Ping.dll
+Dependency assembly - System.Security.Cryptography.RandomNumberGenerator.dll
+Dependency assembly - System.Security.Cryptography.RSA.dll
+Dependency assembly - System.Reflection.Metadata.dll
+Dependency assembly - Unity.InternalAPIEngineBridge.004.dll
+Dependency assembly - System.Web.dll
+Dependency assembly - System.Net.NetworkInformation.dll
+Dependency assembly - Unity.RenderPipelines.Core.ShaderLibrary.dll
+Dependency assembly - System.Runtime.CompilerServices.Unsafe.dll
+Dependency assembly - System.Memory.dll
+Dependency assembly - Unity.RenderPipeline.Universal.ShaderLibrary.dll
+Dependency assembly - System.Web.DynamicData.dll
+Dependency assembly - System.Diagnostics.Debug.dll
+Dependency assembly - I18N.CJK.dll
+Dependency assembly - System.Reflection.Emit.ILGeneration.dll
+Dependency assembly - System.Security.Cryptography.Encryption.Aes.dll
+Dependency assembly - System.Globalization.dll
+Dependency assembly - System.Data.Common.dll
+Dependency assembly - System.Text.Encoding.CodePages.dll
+Dependency assembly - System.Core.dll
+Dependency assembly - System.Net.Requests.dll
+Dependency assembly - System.Threading.Tasks.dll
+Dependency assembly - System.Resources.Reader.dll
+Dependency assembly - Unity.RenderPipelines.GPUDriven.Runtime.dll
+Dependency assembly - System.Runtime.Handles.dll
+Dependency assembly - System.Xml.Serialization.dll
+Dependency assembly - Unity.Collections.Tests.CoreCLR.InternalJobNestedPrivate.dll
+Dependency assembly - System.IO.MemoryMappedFiles.dll
+Dependency assembly - System.Data.Services.dll
+Dependency assembly - Unity.Collections.Tests.CoreCLR.ProtectedJobNested.dll
+Dependency assembly - System.Threading.ThreadPool.dll
+Dependency assembly - MissionForge.Settings.dll
+Dependency assembly - Unity.Pipeline.Attributes.dll
+Dependency assembly - System.Collections.Immutable.dll
+Dependency assembly - System.Reflection.DispatchProxy.dll
+Dependency assembly - System.Diagnostics.TraceSource.dll
+Dependency assembly - System.Net.WebSockets.Client.dll
+Dependency assembly - System.Text.Encodings.Web.dll
+Dependency assembly - QrCodeGenerator.dll
+Dependency assembly - MissionForge.Data.dll
+Dependency assembly - System.Net.HttpListener.dll
+Dependency assembly - System.IO.Compression.FileSystem.dll
+Dependency assembly - System.ComponentModel.Composition.dll
+Dependency assembly - System.ComponentModel.EventBasedAsync.dll
+Dependency assembly - System.Xaml.dll
+Dependency assembly - System.ServiceModel.Duplex.dll
+Dependency assembly - System.Net.dll
+Dependency assembly - Unity.Collections.Tests.CoreCLR.PublicJobPrivateGeneric.dll
+Dependency assembly - Unity.Splines.dll
+Dependency assembly - System.IO.FileSystem.Watcher.dll
+Dependency assembly - System.Numerics.Vectors.dll
+Dependency assembly - System.IO.FileSystem.dll
+Dependency assembly - Microsoft.Win32.Registry.dll
+Dependency assembly - System.Runtime.Loader.dll
+Dependency assembly - System.Runtime.Serialization.Primitives.dll
+Dependency assembly - System.Diagnostics.DiagnosticSource.dll
+Dependency assembly - System.ServiceModel.Internals.dll
+Dependency assembly - MissionForge.EndScreens.Investigation.dll
+Dependency assembly - System.ComponentModel.TypeConverter.dll
+Dependency assembly - MissionForge.App.dll
+Dependency assembly - System.Data.Linq.dll
+Dependency assembly - System.Web.RegularExpressions.dll
+Dependency assembly - System.IO.dll
+Dependency assembly - System.Security.Cryptography.Encoding.dll
+Dependency assembly - System.Linq.Expressions.dll
+Dependency assembly - Microsoft.Win32.Registry.AccessControl.dll
+Dependency assembly - System.Runtime.CompilerServices.VisualC.dll
+Dependency assembly - Unity.Collections.Tests.CoreCLR.PrivateJobNested.dll
+Dependency assembly - System.ComponentModel.DataAnnotations.dll
+Dependency assembly - System.IdentityModel.dll
+Dependency assembly - System.Drawing.Primitives.dll
+Dependency assembly - System.Security.dll
+Dependency assembly - System.Design.dll
+Dependency assembly - I18N.West.dll
+Dependency assembly - System.Web.Extensions.Design.dll
+Dependency assembly - System.Collections.dll
+Dependency assembly - System.Net.NameResolution.dll
+Dependency assembly - System.Configuration.Install.dll
+Dependency assembly - System.Runtime.Serialization.Json.dll
+Dependency assembly - Unity.RenderPipelines.Core.Runtime.Shared.dll
+Dependency assembly - System.Diagnostics.StackTrace.dll
+Dependency assembly - Unity.InternalAPIEngineBridge.RenderPipelines.Core.Runtime.Shared.dll
+Dependency assembly - System.Collections.Specialized.dll
+Dependency assembly - Unity.RenderPipelines.Universal.Runtime.dll
+Dependency assembly - System.IO.Pipes.dll
+Dependency assembly - MissionForge.Screens.Briefing.dll
+Dependency assembly - System.Runtime.DurableInstancing.dll
+Dependency assembly - Unity.RenderPipelines.Universal.Shaders.dll
+Dependency assembly - System.Resources.ReaderWriter.dll
+Dependency assembly - Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll
+Dependency assembly - System.Security.Cryptography.Hashing.Algorithms.dll
+Dependency assembly - System.ObjectModel.dll
+Dependency assembly - System.Buffers.dll
+Dependency assembly - System.Threading.Timer.dll
+Dependency assembly - System.Security.Cryptography.Primitives.dll
+Dependency assembly - System.Security.SecureString.dll
+Dependency assembly - System.Reflection.Context.dll
+Dependency assembly - System.ServiceModel.Discovery.dll
+Dependency assembly - Microsoft.Extensions.DependencyInjection.Abstractions.dll
+Dependency assembly - System.Net.Mail.dll
+Dependency assembly - System.Security.Cryptography.Encryption.ECDsa.dll
+Dependency assembly - System.IO.FileSystem.DriveInfo.dll
+Dependency assembly - System.DirectoryServices.Protocols.dll
+Dependency assembly - mscorlib.dll
+Dependency assembly - Unity.Profiling.Core.dll
+Dependency assembly - Microsoft.CSharp.dll
+Dependency assembly - System.ValueTuple.dll
+Dependency assembly - MissionForge.Screens.Review.dll
+Dependency assembly - System.Globalization.Extensions.dll
+Dependency assembly - System.IO.FileSystem.AccessControl.dll
+Dependency assembly - System.Security.Cryptography.Cng.dll
+Dependency assembly - System.IO.IsolatedStorage.dll
+Dependency assembly - System.Xml.XPath.dll
+Dependency assembly - System.Security.Cryptography.DeriveBytes.dll
+Dependency assembly - System.IO.UnmanagedMemoryStream.dll
+Dependency assembly - System.Configuration.dll
+Dependency assembly - System.Console.dll
+Dependency assembly - System.Net.Http.WebRequest.dll
+Dependency assembly - System.ServiceModel.Routing.dll
+Dependency assembly - System.Security.Cryptography.OpenSsl.dll
+Dependency assembly - System.ServiceModel.dll
+Dependency assembly - System.dll
+Dependency assembly - MissionForge.Screens.ContractVote.dll
+Dependency assembly - MissionForge.EndScreens.Sources.dll
+Dependency assembly - MissionForge.Screens.Flight.dll
+Dependency assembly - System.Reflection.dll
+Dependency assembly - System.Web.Services.dll
+Dependency assembly - System.Dynamic.Runtime.dll
+Dependency assembly - System.Net.ServicePoint.dll
+Dependency assembly - MissionForge.UI.dll
+Dependency assembly - System.Text.Json.dll
+Dependency assembly - System.Net.Cache.dll
+Dependency assembly - System.Drawing.Design.dll
+Dependency assembly - MissionForge.Rendering.dll
+Dependency assembly - System.Diagnostics.Tools.dll
+Dependency assembly - System.Security.Cryptography.Algorithms.dll
+Dependency assembly - Mono.Data.Sqlite.dll
+Dependency assembly - System.DirectoryServices.dll
+Dependency assembly - System.Runtime.Serialization.Formatters.dll
+Dependency assembly - System.Xml.ReaderWriter.dll
+Dependency assembly - System.IO.Compression.dll
+Dependency assembly - System.Security.Claims.dll
+Dependency assembly - System.Threading.Tasks.Parallel.dll
+Dependency assembly - System.Xml.XPath.XDocument.dll
+Dependency assembly - Accessibility.dll
+Dependency assembly - UnityEngine.UI.dll
+Dependency assembly - System.ServiceProcess.dll
+Dependency assembly - System.Collections.Concurrent.dll
+Dependency assembly - Unity.Collections.dll
+Dependency assembly - System.Runtime.Serialization.dll
+Dependency assembly - System.Reflection.Emit.Lightweight.dll
+Dependency assembly - Microsoft.Win32.Primitives.dll
+Dependency assembly - System.ServiceProcess.ServiceController.dll
+Dependency assembly - MissionForge.Core.dll
+Dependency assembly - System.Diagnostics.Process.dll
+Dependency assembly - MissionForge.Preflight.dll
+Dependency assembly - System.Runtime.Numerics.dll
+Dependency assembly - System.Runtime.InteropServices.WindowsRuntime.dll
+Dependency assembly - System.Runtime.Serialization.Xml.dll
+Dependency assembly - System.Diagnostics.FileVersionInfo.dll
+Dependency assembly - System.Xml.dll
+Dependency assembly - System.AppContext.dll
+Dependency assembly - System.Data.SqlClient.dll
+Dependency assembly - System.Net.Sockets.dll
+Dependency assembly - System.Xml.XPath.XmlDocument.dll
+Dependency assembly - System.Net.Primitives.dll
+Dependency assembly - System.Security.AccessControl.dll
+Dependency assembly - System.Security.Cryptography.Hashing.dll
+Dependency assembly - System.ComponentModel.Annotations.dll
+Dependency assembly - System.IO.FileSystem.Primitives.dll
+Dependency assembly - System.Diagnostics.Tracing.dll
+Dependency assembly - System.ServiceModel.Http.dll
+Dependency assembly - System.Diagnostics.TextWriterTraceListener.dll
+Dependency assembly - System.Windows.dll
+Dependency assembly - System.Security.Cryptography.Encryption.ECDiffieHellman.dll
+Dependency assembly - Unity.TextMeshPro.dll
+Dependency assembly - System.ServiceModel.Primitives.dll
+Dependency assembly - System.Net.Utilities.dll
+Dependency assembly - System.Reflection.Extensions.dll
+Dependency assembly - System.Threading.Thread.dll
+Dependency assembly - MissionForge.Screens.Debrief.dll
+Dependency assembly - System.Text.RegularExpressions.dll
+Dependency assembly - MissionForge.Screens.Campaign.dll
+Dependency assembly - Unity.InputSystem.ForUI.dll
+Dependency assembly - System.Globalization.Calendars.dll
+Dependency assembly - System.Drawing.dll
+Dependency assembly - System.Runtime.InteropServices.dll
+Dependency assembly - System.Xml.XmlDocument.dll
+Dependency assembly - System.Json.dll
+Dependency assembly - System.Data.OracleClient.dll
+Dependency assembly - System.EnterpriseServices.dll
+Dependency assembly - Unity.Cinemachine.dll
+Dependency assembly - System.Data.DataSetExtensions.dll
+Dependency assembly - System.Threading.dll
+Dependency assembly - System.Threading.Overlapped.dll
+Dependency assembly - System.Data.Entity.dll
+Dependency assembly - System.Runtime.Caching.dll
+Dependency assembly - System.Xml.XmlSerializer.dll
+Dependency assembly - System.Linq.Parallel.dll
+Dependency assembly - System.ComponentModel.Primitives.dll
+Dependency assembly - System.Security.Cryptography.Csp.dll
+Dependency assembly - System.ServiceModel.NetTcp.dll
+Dependency assembly - System.Security.Cryptography.X509Certificates.dll
+Dependency assembly - MissionForge.Vehicle.dll
+Dependency assembly - System.Xml.Xsl.Primitives.dll
+Dependency assembly - Unity.Burst.dll
+Dependency assembly - System.Security.Cryptography.Pkcs.dll
+Dependency assembly - System.Web.ApplicationServices.dll
+Dependency assembly - MissionForge.Screens.BuildBay.dll
+Dependency assembly - System.Text.Encoding.dll
+Dependency assembly - Unity.RenderPipelines.Universal.2D.Runtime.dll
+Dependency assembly - System.Linq.dll
+Dependency assembly - System.Collections.NonGeneric.dll
+Dependency assembly - System.Net.Http.dll
+Dependency assembly - System.Security.Cryptography.Encryption.dll
+Dependency assembly - System.Net.WebHeaderCollection.dll
+Dependency assembly - Unity.RenderPipelines.Universal.Config.Runtime.dll
+Dependency assembly - System.Threading.AccessControl.dll
+Dependency assembly - MissionForge.Net.dll
+Dependency assembly - netstandard.dll
+Dependency assembly - System.Security.Principal.dll
+Dependency assembly - System.Xml.Linq.dll
+Dependency assembly - System.ComponentModel.dll
+Dependency assembly - System.IO.Compression.ZipFile.dll
+Dependency assembly - System.Security.Principal.Windows.dll
+Dependency assembly - System.Runtime.InteropServices.RuntimeInformation.dll
+Dependency assembly - System.Text.Encoding.Extensions.dll
+Dependency assembly - System.Messaging.dll
+Dependency assembly - System.Web.Extensions.dll
+Dependency assembly - System.Numerics.dll
+Dependency assembly - System.Net.WebSockets.dll
+Dependency assembly - Unity.Collections.LowLevel.ILSupport.dll
+Dependency assembly - System.Diagnostics.TraceEvent.dll
+Dependency assembly - System.Net.Security.dll
+Dependency assembly - System.Reflection.Emit.dll
+Dependency assembly - System.Windows.Forms.dll
+Dependency assembly - System.Reflection.TypeExtensions.dll
+Dependency assembly - System.Runtime.Extensions.dll
+Dependency assembly - System.ServiceModel.Web.dll
+Dependency assembly - System.Data.dll
+Dependency assembly - System.Windows.Forms.DataVisualization.dll
+Dependency assembly - Unity.RenderPipelines.Core.Runtime.dll
+Dependency assembly - Unity.Mathematics.dll
+Dependency assembly - System.IO.Hashing.dll
+Dependency assembly - I18N.MidEast.dll
+Dependency assembly - Mono.Data.Tds.dll
+Dependency assembly - System.Resources.ResourceManager.dll
+Dependency assembly - System.Security.Cryptography.ProtectedData.dll
+Dependency assembly - System.Threading.Tasks.Extensions.dll
+Dependency assembly - System.Runtime.Serialization.Formatters.Soap.dll
+Dependency assembly - Newtonsoft.Json.dll
+Dependency assembly - System.Data.Services.Client.dll
+Dependency assembly - System.Linq.Queryable.dll
+Dependency assembly - MissionForge.Screens.TestStand.dll
+Dependency assembly - Microsoft.Extensions.Logging.Abstractions.dll
+Dependency assembly - System.Management.dll
+Dependency assembly - System.Resources.Writer.dll
+Dependency assembly - System.Reflection.Primitives.dll
+Dependency assembly - I18N.Rare.dll
+Dependency assembly - I18N.dll
+Dependency assembly - Mono.Security.dll
+Dependency assembly - Microsoft.Bcl.AsyncInterfaces.dll
+Dependency assembly - I18N.Other.dll
+Dependency assembly - System.ServiceModel.Security.dll
+Dependency assembly - System.Transactions.dll
+Dependency assembly - System.Xml.XDocument.dll
+Dependency assembly - Unity.InputSystem.dll
+Dependency assembly - System.Runtime.dll
+Dependency assembly - System.Runtime.Remoting.dll
+Dependency assembly - System.Diagnostics.Contracts.dll
+
+Rebuilding DAG because directory contents changed: Assets/StreamingAssets
+*** Tundra requires additional run (0.04 seconds), 0 items updated, 0 evaluated
+Starting: /Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/BuildPipeline/bee_backend --ipc --dagfile="Library/Bee/Player78610db4.dag" --profile="Library/Bee/backend1.traceevents" Player
+WorkingDir: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge
+Starting: /Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/DotNetSdk/dotnet "/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/WebGLPlayerBuildProgram.exe" "/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Bee:/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/BuildPipeline" "Library/Bee/Player78610db4.dag.json" "Library/Bee/Player78610db4-inputdata.json" "Library/Bee/buildprogram0.traceevents"
+WorkingDir: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge
+ExitCode: 4 Duration: 0s108ms
+DisplayProgressbar: Incremental Player Build
+ExitCode: 0 Duration: 0s448ms
+Starting: /Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/BuildPipeline/bee_backend --ipc --dagfile="Library/Bee/Player78610db4.dag" --dagfilejson="Library/Bee/Player78610db4.dag.json" --profile="Library/Bee/backend2.traceevents" Player
+WorkingDir: /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge
+Finished compiling graph: 856 nodes, 2281 flattened edges (2269 ToBuild, 6 ToUse), maximum node priority 2147483647
+[ 20/665    0s] CopyFiles /Users/yousofdiaa/Desktop/nasa-amek/docs/play/host/StreamingAssets/media/briefing/c1-earth-watch-briefing.mp4
+[ 32/665    0s] CopyFiles /Users/yousofdiaa/Desktop/nasa-amek/docs/play/host/StreamingAssets/data/strings/pt.host_preflight.json
+[ 36/665    0s] CopyFiles /Users/yousofdiaa/Desktop/nasa-amek/docs/play/host/StreamingAssets/data/strings/fr.host_preflight.json
+[ 41/665    0s] CopyFiles /Users/yousofdiaa/Desktop/nasa-amek/docs/play/host/StreamingAssets/data/strings/hi.host_preflight.json
+[ 58/665    0s] CopyFiles /Users/yousofdiaa/Desktop/nasa-amek/docs/play/host/StreamingAssets/data/strings/es.host_preflight.json
+[ 67/665    0s] CopyFiles /Users/yousofdiaa/Desktop/nasa-amek/docs/play/host/StreamingAssets/data/strings/ar.host_preflight.json
+[ 91/665    0s] CopyFiles /Users/yousofdiaa/Desktop/nasa-amek/docs/play/host/StreamingAssets/data/index.json
+[           0s] ComputeLeafInputSignature Lib_WebGL_wasm Library/Bee/artifacts/WebGL/il2cpp/release_WebGL_wasm/il2cpp.a [success f398e1ccf2be92c73823d75df2ad6b53]
+[ 93/665    0s] AddBootConfigGUID Library/Bee/artifacts/WebGL/boot.config
+[ 94/665    2s] UnityLinker /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/artifacts/unitylinker_ber2.traceevents
+/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/il2cpp/build/deploy/UnityLinker --out=Library/Bee/artifacts/WebGL/ManagedStripped --include-link-xml=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/artifacts/UnityLinkerInputs/TypesInScenes.xml --include-link-xml=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/artifacts/UnityLinkerInputs/SerializedTypes.xml --include-link-xml=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/InputSystem/WebGLLink.xml --include-directory=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies --include-directory=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/BCLExtensions/runtime/netstandard2.1 --include-directory=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux --include-directory=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades --include-directory=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed --include-directory=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.collections@c70d71c1212e/Unity.Collections.LowLevel.ILSupport --include-directory=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.nuget.newtonsoft-json@74deb55db2a0/Runtime/AOT --include-directory=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Assets/MissionForge/ThirdParty/QrCodeGenerator --profiler-report --profiler-output-file=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/artifacts/unitylinker_ber2.traceevents --dotnetprofile=unityaot-linux --dotnetruntime=Il2Cpp --architecture=EmscriptenJavaScript --platform=WebGL --use-editor-options --enable-engine-module-stripping --engine-modules-asset-file=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/modules.asset --editor-data-file=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/artifacts/UnityLinkerInputs/EditorToUnityLinkerData.json --include-unity-root-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/MissionForge.App.dll --include-unity-root-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/MissionForge.Data.dll --include-unity-root-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/MissionForge.EndScreens.Investigation.dll --include-unity-root-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/MissionForge.EndScreens.Sources.dll --include-unity-root-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/MissionForge.Net.dll --include-unity-root-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/MissionForge.Preflight.dll --include-unity-root-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/MissionForge.Rendering.dll --include-unity-root-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/MissionForge.Screens.Briefing.dll --include-unity-root-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/MissionForge.Screens.BuildBay.dll --include-unity-root-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/MissionForge.Screens.Campaign.dll --include-unity-root-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/MissionForge.Screens.Codex.dll --include-unity-root-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/MissionForge.Screens.ContractVote.dll --include-unity-root-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/MissionForge.Screens.Debrief.dll --include-unity-root-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/MissionForge.Screens.Flight.dll --include-unity-root-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/MissionForge.Screens.Review.dll --include-unity-root-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/MissionForge.Screens.TestStand.dll --include-unity-root-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/MissionForge.Settings.dll --include-unity-root-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/MissionForge.UI.dll --include-unity-root-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/MissionForge.Vehicle.dll --include-unity-root-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/Unity.Cinemachine.dll --include-unity-root-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/Unity.InputSystem.dll --include-unity-root-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/Unity.RenderPipelines.Core.Runtime.dll --include-unity-root-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/Unity.RenderPipelines.Universal.Runtime.dll --include-unity-root-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/UnityEngine.UI.dll --print-command-line --enable-analytics --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/BCLExtensions/runtime/netstandard2.1/Microsoft.Bcl.AsyncInterfaces.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/BCLExtensions/runtime/netstandard2.1/Microsoft.Extensions.DependencyInjection.Abstractions.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/BCLExtensions/runtime/netstandard2.1/Microsoft.Extensions.Logging.Abstractions.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/BCLExtensions/runtime/netstandard2.1/System.Collections.Immutable.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/BCLExtensions/runtime/netstandard2.1/System.Diagnostics.DiagnosticSource.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/BCLExtensions/runtime/netstandard2.1/System.IO.Hashing.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/BCLExtensions/runtime/netstandard2.1/System.Reflection.Metadata.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/BCLExtensions/runtime/netstandard2.1/System.Runtime.CompilerServices.Unsafe.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/BCLExtensions/runtime/netstandard2.1/System.Text.Encodings.Web.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/BCLExtensions/runtime/netstandard2.1/System.Text.Json.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Accessibility.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/I18N.CJK.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/I18N.MidEast.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/I18N.Other.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/I18N.Rare.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/I18N.West.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/I18N.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Microsoft.CSharp.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Mono.Data.Sqlite.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Mono.Data.Tds.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Mono.Security.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.ComponentModel.Composition.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.ComponentModel.DataAnnotations.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.Configuration.Install.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.Configuration.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.Core.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.Data.DataSetExtensions.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.Data.Entity.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.Data.Linq.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.Data.OracleClient.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.Data.Services.Client.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.Data.Services.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.Data.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.Design.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.DirectoryServices.Protocols.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.DirectoryServices.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.Drawing.Design.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.Drawing.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.EnterpriseServices.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.IO.Compression.FileSystem.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.IO.Compression.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.IdentityModel.Selectors.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.IdentityModel.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.Json.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.Management.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.Messaging.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.Net.Http.WebRequest.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.Net.Http.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.Net.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.Numerics.Vectors.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.Numerics.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.Reflection.Context.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.Runtime.Caching.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.Runtime.DurableInstancing.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.Runtime.Remoting.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.Runtime.Serialization.Formatters.Soap.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.Runtime.Serialization.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.Security.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.ServiceModel.Activation.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.ServiceModel.Discovery.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.ServiceModel.Internals.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.ServiceModel.Routing.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.ServiceModel.Web.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.ServiceModel.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.ServiceProcess.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.Transactions.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.Web.ApplicationServices.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.Web.DynamicData.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.Web.Extensions.Design.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.Web.Extensions.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.Web.RegularExpressions.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.Web.Services.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.Web.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.Windows.Forms.DataVisualization.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.Windows.Forms.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.Windows.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.Xaml.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.Xml.Linq.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.Xml.Serialization.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.Xml.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/System.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/mscorlib.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/Microsoft.Win32.Primitives.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/Microsoft.Win32.Registry.AccessControl.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/Microsoft.Win32.Registry.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.AppContext.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Buffers.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Collections.Concurrent.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Collections.NonGeneric.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Collections.Specialized.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Collections.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.ComponentModel.Annotations.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.ComponentModel.EventBasedAsync.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.ComponentModel.Primitives.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.ComponentModel.TypeConverter.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.ComponentModel.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Console.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Data.Common.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Data.SqlClient.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Diagnostics.Contracts.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Diagnostics.Debug.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Diagnostics.FileVersionInfo.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Diagnostics.Process.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Diagnostics.StackTrace.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Diagnostics.TextWriterTraceListener.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Diagnostics.Tools.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Diagnostics.TraceEvent.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Diagnostics.TraceSource.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Diagnostics.Tracing.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Drawing.Primitives.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Dynamic.Runtime.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Globalization.Calendars.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Globalization.Extensions.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Globalization.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.IO.Compression.ZipFile.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.IO.FileSystem.AccessControl.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.IO.FileSystem.DriveInfo.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.IO.FileSystem.Primitives.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.IO.FileSystem.Watcher.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.IO.FileSystem.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.IO.IsolatedStorage.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.IO.MemoryMappedFiles.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.IO.Pipes.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.IO.UnmanagedMemoryStream.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.IO.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Linq.Expressions.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Linq.Parallel.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Linq.Queryable.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Linq.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Memory.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Net.AuthenticationManager.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Net.Cache.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Net.HttpListener.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Net.Mail.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Net.NameResolution.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Net.NetworkInformation.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Net.Ping.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Net.Primitives.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Net.Requests.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Net.Security.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Net.ServicePoint.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Net.Sockets.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Net.Utilities.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Net.WebHeaderCollection.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Net.WebSockets.Client.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Net.WebSockets.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.ObjectModel.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Reflection.DispatchProxy.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Reflection.Emit.ILGeneration.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Reflection.Emit.Lightweight.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Reflection.Emit.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Reflection.Extensions.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Reflection.Primitives.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Reflection.TypeExtensions.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Reflection.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Resources.Reader.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Resources.ReaderWriter.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Resources.ResourceManager.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Resources.Writer.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Runtime.CompilerServices.VisualC.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Runtime.Extensions.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Runtime.Handles.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Runtime.InteropServices.RuntimeInformation.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Runtime.InteropServices.WindowsRuntime.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Runtime.InteropServices.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Runtime.Loader.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Runtime.Numerics.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Runtime.Serialization.Formatters.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Runtime.Serialization.Json.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Runtime.Serialization.Primitives.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Runtime.Serialization.Xml.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Runtime.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Security.AccessControl.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Security.Claims.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Security.Cryptography.Algorithms.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Security.Cryptography.Cng.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Security.Cryptography.Csp.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Security.Cryptography.DeriveBytes.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Security.Cryptography.Encoding.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Security.Cryptography.Encryption.Aes.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Security.Cryptography.Encryption.ECDiffieHellman.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Security.Cryptography.Encryption.ECDsa.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Security.Cryptography.Encryption.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Security.Cryptography.Hashing.Algorithms.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Security.Cryptography.Hashing.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Security.Cryptography.OpenSsl.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Security.Cryptography.Pkcs.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Security.Cryptography.Primitives.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Security.Cryptography.ProtectedData.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Security.Cryptography.RSA.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Security.Cryptography.RandomNumberGenerator.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Security.Cryptography.X509Certificates.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Security.Principal.Windows.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Security.Principal.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Security.SecureString.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.ServiceModel.Duplex.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.ServiceModel.Http.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.ServiceModel.NetTcp.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.ServiceModel.Primitives.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.ServiceModel.Security.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.ServiceProcess.ServiceController.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Text.Encoding.CodePages.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Text.Encoding.Extensions.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Text.Encoding.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Text.RegularExpressions.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Threading.AccessControl.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Threading.Overlapped.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Threading.Tasks.Extensions.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Threading.Tasks.Parallel.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Threading.Tasks.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Threading.Thread.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Threading.ThreadPool.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Threading.Timer.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Threading.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.ValueTuple.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Xml.ReaderWriter.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Xml.XDocument.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Xml.XPath.XDocument.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Xml.XPath.XmlDocument.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Xml.XPath.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Xml.XmlDocument.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Xml.XmlSerializer.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/System.Xml.Xsl.Primitives.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityaot-linux/Facades/netstandard.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/Unity.Scripting.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.AIModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.AccessibilityModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.AdaptivePerformanceModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.AndroidJNIModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.AnimationModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.AssetBundleModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.AudioModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.BurstModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.ClothModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.ContentLoadModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.CoreModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.CrashReportingModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.DSPGraphModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.DirectorModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.GIModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.GameCenterModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.GraphicsStateCollectionSerializerModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.GridModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.HierarchyCoreModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.HierarchyModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.HotReloadModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.IMGUIModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.IdentifiersModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.ImageConversionModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.InputForUIModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.InputLegacyModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.InputModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.JSONSerializeModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.LocalizationModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.ManagedKernelModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.MarshallingModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.MathematicsModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.MultiplayerModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.ParticleSystemModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.PerformanceReportingModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.Physics2DModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.PhysicsBackendPhysXModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.PhysicsCore2DModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.PhysicsModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.PropertiesModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.RenderAs2DModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.ScreenCaptureModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.ScriptingModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.ShaderVariantAnalyticsModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.SpriteMaskModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.SpriteShapeModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.StreamingModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.SubstanceModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.SubsystemsModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.TLSModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.TerrainModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.TerrainPhysicsModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.TetgenModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.TextCoreFontEngineModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.TextCoreTextEngineModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.TextRenderingModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.TilemapModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.TimelineFoundationModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.U2DRuntimeModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.UIElementsModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.UIModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.UmbraModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.UnityAnalyticsCommonModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.UnityAnalyticsModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.UnityConnectModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.UnityConsentModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.UnityCurlModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.UnityWebRequestAssetBundleModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.UnityWebRequestAudioModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.UnityWebRequestModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.UnityWebRequestTextureModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.UnityWebRequestWWWModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.VFXModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.VectorGraphicsModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.VehiclesModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.VideoModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.WebGLModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.WindModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.XRModule.dll --allowed-assembly=/Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/Variations/il2cpp/Managed/UnityEngine.dll --allowed-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/MissionForge.App.dll --allowed-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/MissionForge.Core.dll --allowed-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/MissionForge.Data.dll --allowed-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/MissionForge.EndScreens.Investigation.dll --allowed-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/MissionForge.EndScreens.Sources.dll --allowed-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/MissionForge.Net.dll --allowed-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/MissionForge.Preflight.dll --allowed-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/MissionForge.Rendering.dll --allowed-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/MissionForge.Screens.Briefing.dll --allowed-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/MissionForge.Screens.BuildBay.dll --allowed-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/MissionForge.Screens.Campaign.dll --allowed-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/MissionForge.Screens.Codex.dll --allowed-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/MissionForge.Screens.ContractVote.dll --allowed-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/MissionForge.Screens.Debrief.dll --allowed-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/MissionForge.Screens.Flight.dll --allowed-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/MissionForge.Screens.Review.dll --allowed-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/MissionForge.Screens.TestStand.dll --allowed-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/MissionForge.Settings.dll --allowed-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/MissionForge.UI.dll --allowed-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/MissionForge.Vehicle.dll --allowed-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/Unity.Burst.dll --allowed-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/Unity.Cinemachine.dll --allowed-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/Unity.Collections.dll --allowed-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/Unity.Collections.Tests.CoreCLR.InternalJobNestedPrivate.dll --allowed-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/Unity.Collections.Tests.CoreCLR.PrivateJobNested.dll --allowed-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/Unity.Collections.Tests.CoreCLR.ProtectedJobNested.dll --allowed-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/Unity.Collections.Tests.CoreCLR.PublicJobPrivateGeneric.dll --allowed-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/Unity.InputSystem.dll --allowed-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/Unity.InputSystem.ForUI.dll --allowed-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/Unity.InternalAPIEngineBridge.004.dll --allowed-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/Unity.InternalAPIEngineBridge.ObjectDispatcher.Runtime.dll --allowed-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/Unity.InternalAPIEngineBridge.RenderPipelines.Core.Runtime.Shared.dll --allowed-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/Unity.Mathematics.dll --allowed-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/Unity.Pipeline.Attributes.dll --allowed-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/Unity.Profiling.Core.dll --allowed-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/Unity.RenderPipeline.Universal.ShaderLibrary.dll --allowed-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/Unity.RenderPipelines.Core.Runtime.dll --allowed-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/Unity.RenderPipelines.Core.Runtime.Shared.dll --allowed-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/Unity.RenderPipelines.Core.ShaderLibrary.dll --allowed-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/Unity.RenderPipelines.GPUDriven.Runtime.dll --allowed-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll --allowed-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/Unity.RenderPipelines.Universal.2D.Runtime.dll --allowed-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/Unity.RenderPipelines.Universal.Config.Runtime.dll --allowed-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/Unity.RenderPipelines.Universal.Runtime.dll --allowed-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/Unity.RenderPipelines.Universal.Shaders.dll --allowed-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/Unity.Splines.dll --allowed-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/Unity.TextMeshPro.dll --allowed-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/PlayerScriptAssemblies/UnityEngine.UI.dll --allowed-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.collections@c70d71c1212e/Unity.Collections.LowLevel.ILSupport/Unity.Collections.LowLevel.ILSupport.dll --allowed-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/PackageCache/com.unity.nuget.newtonsoft-json@74deb55db2a0/Runtime/AOT/Newtonsoft.Json.dll --allowed-assembly=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Assets/MissionForge/ThirdParty/QrCodeGenerator/QrCodeGenerator.dll
+[ 97/665    0s] CopyFiles Temp/EditorBuildOutput/UnityLinkerToEditorData.json
+[ 98/665    0s] ICallRegistrationGenerator /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/artifacts/WebGL/il2cppOutput/UnityICallRegistration.cpp
+[100/665    5s] IL2CPP_CodeGen /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/artifacts/il2cpp_conv_plb5.traceevents
+/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/il2cpp/build/deploy/il2cpp --convert-to-cpp --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/MissionForge.App.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/MissionForge.Core.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/MissionForge.Data.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/MissionForge.EndScreens.Investigation.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/MissionForge.EndScreens.Sources.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/MissionForge.Net.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/MissionForge.Preflight.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/MissionForge.Rendering.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/MissionForge.Screens.Briefing.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/MissionForge.Screens.BuildBay.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/MissionForge.Screens.Campaign.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/MissionForge.Screens.Codex.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/MissionForge.Screens.ContractVote.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/MissionForge.Screens.Debrief.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/MissionForge.Screens.Flight.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/MissionForge.Screens.Review.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/MissionForge.Screens.TestStand.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/MissionForge.Settings.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/MissionForge.UI.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/MissionForge.Vehicle.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/Mono.Security.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/mscorlib.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/Newtonsoft.Json.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/QrCodeGenerator.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/System.Configuration.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/System.Core.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/System.Data.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/System.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/System.Drawing.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/System.Numerics.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/System.Runtime.CompilerServices.Unsafe.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/System.Runtime.Serialization.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/System.Xml.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/System.Xml.Linq.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/Unity.Cinemachine.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/Unity.Collections.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/Unity.Collections.LowLevel.ILSupport.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/Unity.InputSystem.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/Unity.InputSystem.ForUI.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/Unity.RenderPipeline.Universal.ShaderLibrary.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/Unity.RenderPipelines.Core.Runtime.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/Unity.RenderPipelines.Core.Runtime.Shared.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/Unity.RenderPipelines.GPUDriven.Runtime.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/Unity.RenderPipelines.Universal.2D.Runtime.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/Unity.RenderPipelines.Universal.Runtime.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/Unity.Scripting.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/Unity.Splines.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/UnityEngine.AdaptivePerformanceModule.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/UnityEngine.AnimationModule.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/UnityEngine.AudioModule.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/UnityEngine.BurstModule.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/UnityEngine.ContentLoadModule.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/UnityEngine.CoreModule.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/UnityEngine.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/UnityEngine.GridModule.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/UnityEngine.HierarchyCoreModule.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/UnityEngine.IMGUIModule.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/UnityEngine.InputForUIModule.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/UnityEngine.InputLegacyModule.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/UnityEngine.InputModule.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/UnityEngine.JSONSerializeModule.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/UnityEngine.MathematicsModule.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/UnityEngine.ParticleSystemModule.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/UnityEngine.Physics2DModule.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/UnityEngine.PhysicsCore2DModule.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/UnityEngine.PhysicsModule.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/UnityEngine.PropertiesModule.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/UnityEngine.RenderAs2DModule.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/UnityEngine.ScreenCaptureModule.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/UnityEngine.ScriptingModule.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/UnityEngine.SpriteMaskModule.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/UnityEngine.SpriteShapeModule.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/UnityEngine.SubsystemsModule.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/UnityEngine.TextCoreFontEngineModule.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/UnityEngine.TextCoreTextEngineModule.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/UnityEngine.TextRenderingModule.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/UnityEngine.TilemapModule.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/UnityEngine.U2DRuntimeModule.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/UnityEngine.UI.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/UnityEngine.UIE/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Burst/Client/bcl/bcl.dll exited after 1502 ms.
+stdout:
+Starting 1 library requests
+Completed library /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/BurstCache/Wasm-Wasm/d54ab348334d1f0012793772e3a87a59.wasm with result FoundInCacheModuleHashMatch,FoundInCacheModuleHashMatch,FoundInCacheModuleHashMatch
+Total end-to-end time      :      1374ms
+Peak physical memory usage :     0.000 B
+Peak virtual memory usage  :     0.000 B
+Peak paged memory usage    :     0.000 B
+Done
+stderr:
+
+lementsModule.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/UnityEngine.UIModule.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/UnityEngine.UnityAnalyticsCommonModule.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/UnityEngine.UnityWebRequestModule.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/UnityEngine.VFXModule.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/UnityEngine.VideoModule.dll --assembly=Library/Bee/artifacts/WebGL/ManagedStripped/UnityEngine.XRModule.dll --generatedcppdir=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/artifacts/WebGL/il2cppOutput/cpp --symbols-folder=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/artifacts/WebGL/il2cppOutput/cpp/Symbols --enable-analytics --emit-method-map --dotnetprofile=unityaot-linux --usymtool-path=/Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Helpers/usymtool --profiler-report --profiler-output-file=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/artifacts/il2cpp_conv_plb5.traceevents --print-command-line --static-lib-il2-cpp --data-folder=/Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/artifacts/WebGL/il2cppOutput/data
+[123/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/wy6a3gf8eyuv.o
+[131/665    1s] GenerateNativePluginsForAssemblies Library/Bee/artifacts/WebGL/AsyncPluginsFromLinker
+[136/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/hyjv8ouy6fgv.o
+[139/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/idrcdu0kqf9v.o
+[140/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/akm9s3tv3ggv.o
+[145/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/akmyh8xk3djv.o
+[148/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/qvn5oxw6kmyh.o
+[149/665    0s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/dk1b7b04pa2b.o
+[154/665    2s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/oq4jd5f7m6rv.o
+[155/665    2s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/468qhxiy6m0v.o
+[156/665    2s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/svm0xqbifldh.o
+[157/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/lupnmbmnnp8h.o
+[158/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/p4ia2yjn0p7b.o
+[166/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/jlbtx9gjuhqb.o
+[168/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/il35vuqrefi7.o
+[173/665    2s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/614ltnt4ydmh.o
+[179/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/hrybxzn4ppc7.o
+[180/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/o4aybfp6kqw7.o
+[181/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/quwvhmduddtu.o
+[182/665    2s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/ad1e6irqmnf7.o
+[183/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/nszxww3g5iya.o
+[187/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/uzha7xh1q2ja.o
+[195/665    0s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/x6jrxycfv5hn.o
+[197/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/pyo0xkw5q88a.o
+[200/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/xz5w0bt116an.o
+[202/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/x5zhglcubr6n.o
+[205/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/cik0hb8pk3lt.o
+[212/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/brf5ucv6z6un.o
+[213/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/w79dtsora78t.o
+[217/665    2s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/pxxqq9ctjz3n.o
+[221/665    0s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/jsw1x3r2a5wz.o
+[224/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/eryu6cdudb4z.o
+[228/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/oombae9s8qel.o
+[239/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/jswc9yndb8tz.o
+[242/665    2s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/bkuwuiknjjoz.o
+[243/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/v2jxpz9vbqel.o
+[248/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/wworoucj0fkl.o
+[251/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/3dv6pdznp6zi.o
+[252/665    0s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/w2cw8fu2qlmr.o
+[258/665    0s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/5ev7nex0jkdr.o
+[261/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/itfo3zkn2bui.o
+[262/665    2s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/zydtdpkbpzhz.o
+[264/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/47z0o81aew5i.o
+[265/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/vyyn11ogzvmr.o
+[266/665    0s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/v1snioqj4g9x.o
+[271/665    0s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/zpatx2w7dp4x.o
+[272/665    2s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/kehhtyy8rnti.o
+[276/665    0s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/h8ujp79c9dly.o
+[282/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/gjevck75lnvr.o
+[290/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/9m8l8a56szux.o
+[292/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/hi3icgsh1jlx.o
+[293/665    2s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/2cw9gnpj2umr.o
+[302/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/bwlm3qfkqi4y.o
+[303/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/m2936q2lrrpx.o
+[305/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/ntq737mtcs3x.o
+[306/665    0s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/ianuaaen05mk.o
+[308/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/nwqhrz87gofs.o
+[313/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/0emz617pk1wy.o
+[318/665    8s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/jkomyvndvqu7.o
+[321/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/ivx7hmnchu4s.o
+[322/665    0s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/lb9a89nspb9q.o
+[326/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/gp84gyunv4ts.o
+[327/665    2s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/lm1xdef7vpay.o
+[328/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/wquhkgp1qylk.o
+[330/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/ikcwoj7e75ck.o
+[331/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/73cyse3slkqk.o
+[332/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/hmmhqvn15iiq.o
+[333/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/ai4pehr6oy5k.o
+[334/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/28ho3ec6q68k.o
+[341/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/306tb44oh3tq.o
+[347/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/o0jehckf9kfq.o
+[348/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/9jemro33ne8q.o
+[359/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/hmms1qjc6lfq.o
+[360/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/bqo6yw74s0m0.o
+[367/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/yiwhcq1ih9g0.o
+[368/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/pw6rutprctv0.o
+[370/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/d6k2wcmyipm0.o
+[371/665    0s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/2zmhxmso4vl4.o
+[376/665    0s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/l6ei6cag2dse.o
+[379/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/x48789sh4h10.o
+[380/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/dbqod0pfi9o0.o
+[382/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/wa4dafqufsv0.o
+[383/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/qwe4kdk8rs64.o
+[386/665    2s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/rh898w7111x0.o
+[387/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/2dnjoy8v93re.o
+[391/665    2s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/4hu2a0yvgbs4.o
+[399/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/vzpx8c8s64re.o
+[401/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/vzpmxhci61ue.o
+[406/665    0s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/6in8bt874g36.o
+[410/665    0s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/2ish06jyxmpm.o
+[411/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/heaziqt5hm6e.o
+[416/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/w6itam932u66.o
+[421/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/l0wttt5cvv66.o
+[422/665    2s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/ampz2ecm1sxe.o
+[423/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/48qawjlnl5a6.o
+[426/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/48qzkopcl2d6.o
+[427/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/ajvzlsajw7a8.o
+[434/665    2s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/bllvqy7oqpwm.o
+[435/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/wxf1v5vv7op8.o
+[437/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/bj3mn70acajc.o
+[441/665    2s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/9ewspaf04zlm.o
+[444/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/opdlhps5f0j8.o
+[447/665    0s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/hpgsidlfb71w.o
+[449/665    2s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/v3a7wat8izj8.o
+[450/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/xxnoxkmnnrxc.o
+[451/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/jr521n403yoc.o
+[452/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/3a1vxv19jigc.o
+[465/665    2s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/2gntbquae038.o
+[469/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/vawq8zz2zpnw.o
+[470/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/owythj3ownqw.o
+[472/665    3s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/hxsl1dbmz6a8.o
+[473/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/abj62rkc871w.o
+[475/665    0s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/pk9di8da10o2.o
+[479/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/8px86fxhyhiw.o
+[482/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/9gec4whpjiww.o
+[483/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/ijlmh8n2zw7w.o
+[489/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/owy4sezzwqnw.o
+[493/665    0s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/1r20c7bq0t4o.o
+[495/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/otyu5mdlsub2.o
+[500/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/pn3o4hg8gkh2.o
+[501/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/ao7ih1ebgb8o.o
+[502/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/9x7x75dyl8do.o
+[511/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/p3rb6iwltjzo.o
+[514/665    0s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/i0dthyynuqkj.o
+[515/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/bcis0my5ugio.o
+[517/665    0s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/x3vpa7b3e633.o
+[519/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/399w1fe8cc8o.o
+[522/665    0s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/5vcu7o1yja6j.o
+[523/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/3jpgurm5ynyj.o
+[524/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/ck28k2e4yiz3.o
+[531/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/acaga33ofh7j.o
+[533/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/w5rue6l2voyj.o
+[535/665    2s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/hq71po4rig7j.o
+[538/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/poun0x39nqpp.o
+[542/665    2s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/hlviuf0zyca3.o
+[543/665    2s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/25aq5xipl4i3.o
+[548/665    2s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/ozs490021ba3.o
+[552/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/gqzeo9d02dzf.o
+[559/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/uwh0j6vmm67f.o
+[562/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/pouybtzkotmp.o
+[563/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/v71qrdyzu40p.o
+[567/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/3f465t1pmt6p.o
+[570/665    3s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/zp4qykqcteup.o
+[571/665    0s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/xuj6u0zpxhb1.o
+[577/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/t50wmpbf15tf.o
+[580/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/fzibrstshdlf.o
+[581/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/9b2s8ndxzezf.o
+[585/665    0s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/xqapdrzyg5wd.o
+[587/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/pmcfx6wv9acf.o
+[589/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/bhl38kylxr81.o
+[590/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/ang99pvy8121.o
+[591/665    0s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/w9c4236h8iqd.o
+[592/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/bbrt46a4naa1.o
+[593/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/ov7ul3fnphi9.o
+[599/665    2s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/gn5e7mcxxsc9.o
+[600/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/hnd2812odvkd.o
+[606/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/pvfini6e5jqd.o
+[610/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/hndrx66ddsnd.o
+[611/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/ba0jxvrrg14d.o
+[621/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/o1aoon3rgukd.o
+[622/665    2s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/9fn2wlycc9q9.o
+[624/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/3gvgd5k2t2bd.o
+[628/665    0s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/49fal6yw8w5g.o
+[630/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/24jgymzcevdg.o
+[633/665    0s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/tiaky5kl9hlu.o
+[635/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/9ci0re9ckwg5.o
+[638/665    0s] CopyFiles /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/artifacts/WebGL/il2cppOutput/build/Data/Resources/System.Data.dll-resources.dat
+[639/665    0s] CopyFiles /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/artifacts/WebGL/il2cppOutput/build/Data/Resources/System.Drawing.dll-resources.dat
+[640/665    0s] CopyFiles /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/artifacts/WebGL/il2cppOutput/build/Data/Resources/Newtonsoft.Json.dll-resources.dat
+[641/665    0s] CopyFiles /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/artifacts/WebGL/il2cppOutput/build/Data/Resources/mscorlib.dll-resources.dat
+[642/665    0s] CopyFiles /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/artifacts/WebGL/il2cppOutput/build/Data/Metadata/global-metadata.dat
+[643/665    0s] Assemble WebGL Data Library/Bee/artifacts/WebGL/webgl.data
+[644/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/7hdsm0gjuf1g.o
+[646/665    0s] CopyFiles Temp/EditorBuildOutput/MethodMap.tsv
+[647/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/u2baokj4vn6g.o
+[648/665    2s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/iu68l6zaaow5.o
+[649/665    0s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/h9jvmklz5gtu.o
+[650/665    2s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/w0oj67lmtd85.o
+[651/665    1s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/4fcu78rh2veu.o
+[652/665    2s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/w792hxsga4bu.o
+[653/665    2s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/spsqtco053eg.o
+[BUSY      10s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/gal24qwlj9vd.o
+[BUSY      12s] Brotli /Users/yousofdiaa/Desktop/nasa-amek/docs/play/host/Build/host.data.unityweb
+[BUSY      21s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/gal24qwlj9vd.o
+[BUSY      23s] Brotli /Users/yousofdiaa/Desktop/nasa-amek/docs/play/host/Build/host.data.unityweb
+[654/665   29s] C_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/gal24qwlj9vd.o
+[655/665    0s] Lib_WebGL_wasm Library/Bee/artifacts/WebGL/GameAssembly/release_WebGL_wasm/GameAssembly.a
+[656/665    0s] CopyFiles /Users/yousofdiaa/Desktop/nasa-amek/unity/MissionForge/Library/Bee/artifacts/WebGL/il2cppOutput/build/GameAssembly.a
+[BUSY      32s] Brotli /Users/yousofdiaa/Desktop/nasa-amek/docs/play/host/Build/host.data.unityweb
+[BUSY      11s] Link_WebGL_wasm Library/Bee/artifacts/WebGL/build/debug_WebGL_wasm/build.js (+wasm)
+[BUSY      43s] Brotli /Users/yousofdiaa/Desktop/nasa-amek/docs/play/host/Build/host.data.unityweb
+[BUSY      22s] Link_WebGL_wasm Library/Bee/artifacts/WebGL/build/debug_WebGL_wasm/build.js (+wasm)
+[BUSY      54s] Brotli /Users/yousofdiaa/Desktop/nasa-amek/docs/play/host/Build/host.data.unityweb
+[BUSY      33s] Link_WebGL_wasm Library/Bee/artifacts/WebGL/build/debug_WebGL_wasm/build.js (+wasm)
+[BUSY      65s] Brotli /Users/yousofdiaa/Desktop/nasa-amek/docs/play/host/Build/host.data.unityweb
+[BUSY      44s] Link_WebGL_wasm Library/Bee/artifacts/WebGL/build/debug_WebGL_wasm/build.js (+wasm)
+[657/665   46s] Link_WebGL_wasm Library/Bee/artifacts/WebGL/build/debug_WebGL_wasm/build.js (+wasm)
+warning: /Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/BuildTools/lib/lib_webgpu.js:7: #warning "Firefox browser before version 149 has issues with WebGPU (e.g. https://bugzil.la/2023423 )"
+warning: /Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/BuildTools/lib/lib_webgpu.js:11: #warning "Firefox browser before version 152 has issues with WebGPU .mapAsync() function: https://bugzil.la/2023418"
+warning: /Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/BuildTools/lib/lib_webgpu.js:7: #warning "Firefox browser before version 149 has issues with WebGPU (e.g. https://bugzil.la/2023423 )"
+warning: /Applications/Unity/Hub/Editor/6000.6.9f1/PlaybackEngines/WebGLSupport/BuildTools/lib/lib_webgpu.js:11: #warning "Firefox browser before version 152 has issues with WebGPU .mapAsync() function: https://bugzil.la/2023418"
+warning: JS library symbol '$stackTrace' is deprecated. Please open a bug if you have a continuing need for this symbol [-Wdeprecated]
+emcc: warning: warnings in JS library compilation [-Wjs-compiler]
+[658/665    0s] Merging JavaScript Code Library/Bee/artifacts/WebGL/build/debug_WebGL_wasm/build.framework.js
+[659/665    0s] PreprocessJS Library/Bee/artifacts/WebGLhost.loader.js
+[660/665    0s] Brotli /Users/yousofdiaa/Desktop/nasa-amek/docs/play/host/Build/host.framework.js.unityweb
+[BUSY       6s] Brotli /Users/yousofdiaa/Desktop/nasa-amek/docs/play/host/Build/host.wasm.unityweb
+[BUSY      84s] Brotli /Users/yousofdiaa/Desktop/nasa-amek/docs/play/host/Build/host.data.unityweb
+[BUSY      17s] Brotli /Users/yousofdiaa/Desktop/nasa-amek/docs/play/host/Build/host.wasm.unityweb
+[BUSY      95s] Brotli /Users/yousofdiaa/Desktop/nasa-amek/docs/play/host/Build/host.data.unityweb
+[BUSY      28s] Brotli /Users/yousofdiaa/Desktop/nasa-amek/docs/play/host/Build/host.wasm.unityweb
+[BUSY     106s] Brotli /Users/yousofdiaa/Desktop/nasa-amek/docs/play/host/Build/host.data.unityweb
+[BUSY      39s] Brotli /Users/yousofdiaa/Desktop/nasa-amek/docs/play/host/Build/host.wasm.unityweb
+[BUSY     117s] Brotli /Users/yousofdiaa/Desktop/nasa-amek/docs/play/host/Build/host.data.unityweb
+[BUSY      50s] Brotli /Users/yousofdiaa/Desktop/nasa-amek/docs/play/host/Build/host.wasm.unityweb
+[BUSY     128s] Brotli /Users/yousofdiaa/Desktop/nasa-amek/docs/play/host/Build/host.data.unityweb
+[BUSY      61s] Brotli /Users/yousofdiaa/Desktop/nasa-amek/docs/play/host/Build/host.wasm.unityweb
+[BUSY     139s] Brotli /Users/yousofdiaa/Desktop/nasa-amek/docs/play/host/Build/host.data.unityweb
+[BUSY      72s] Brotli /Users/yousofdiaa/Desktop/nasa-amek/docs/play/host/Build/host.wasm.unityweb
+[BUSY     150s] Brotli /Users/yousofdiaa/Desktop/nasa-amek/docs/play/host/Build/host.data.unityweb
+[661/665   151s] Brotli /Users/yousofdiaa/Desktop/nasa-amek/docs/play/host/Build/host.data.unityweb
+[BUSY      84s] Brotli /Users/yousofdiaa/Desktop/nasa-amek/docs/play/host/Build/host.wasm.unityweb
+[BUSY      94s] Brotli /Users/yousofdiaa/Desktop/nasa-amek/docs/play/host/Build/host.wasm.unityweb
+[662/665   96s] Brotli /Users/yousofdiaa/Desktop/nasa-amek/docs/play/host/Build/host.wasm.unityweb
+[664/665    0s] CopyFiles /Users/yousofdiaa/Desktop/nasa-amek/docs/play/host/Build/host.loader.js
+*** Tundra build success (206.62 seconds - 0:03:26), 203 items updated, 665 evaluated
+ExitCode: 0 Duration: 3m:26s
+[websockify wrapper] Start node and websockify.js
+
+-------------------------------------------------------------------------------
+Build Report
+Information on used Assets is not available, since player data was not rebuilt.
+Do a clean build to view the Asset build report information.
+-------------------------------------------------------------------------------
+[Licensing::Client] Successfully resolved entitlement details
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 38 unused Assets / (0.6 MB). Loaded Objects now: 5715.
+Memory consumption went from 0.51 GB to 0.51 GB.
+Total: 7.970417 ms (FindLiveObjects: 0.393208 ms CreateObjectMapping: 0.145834 ms MarkObjects: 6.932708 ms  DeleteObjects: 0.427542 ms)
+
+Build Finished, Result: Success.
+Unloading 0 Unused Serialized files (Serialized files now loaded: 0)
+Loaded scene 'Temp/__Backupscenes/0.backup'
+	Deserialize:            0.461 ms
+	Integration:            5.134 ms
+	Integration of assets:  0.001 ms
+	Thread Wait Time:       0.004 ms
+	Total Operation Time:   5.601 ms
+Unloading 0 unused Assets / (0 B). Loaded Objects now: 5714.
+Memory consumption went from 0.51 GB to 0.51 GB.
+Total: 6.079000 ms (FindLiveObjects: 0.233042 ms CreateObjectMapping: 0.048208 ms MarkObjects: 5.731667 ms  DeleteObjects: 0.006041 ms)
+
+[websockify wrapper] Proxying from :35020 to localhost:34999
+Total cache size 268377739
+Total cache size after purge 268377739, took 00:00:00.1095137
+##utp:{"success":true,"type":"PlayerBuildInfo","version":2,"phase":"Immediate","time":1794743517166,"processId":80814,"steps":[{"description":"Call PrepareForBuild callbacks","duration":1},{"description":"Call internal build started callbacks","duration":0},{"description":"Preprocess Player","duration":259},{"description":"Save scenes before build","duration":0},{"description":"Prepare For Build","duration":0},{"description":"ProducePlayerScriptAssemblies","duration":5150},{"description":"Verify Build setup","duration":161},{"description":"Prepare assets for target platform","duration":0},{"description":"Prepare splash screen","duration":0},{"description":"Run script only build","duration":13},{"description":"Build scripts DLLs","duration":83},{"description":"Postprocess built player","duration":207547},{"description":"Call Post-Process callbacks","duration":78}],"duration":213292}
+Launching external process: /Applications/Unity/Hub/Editor/6000.6.9f1/Unity.app/Contents/Resources/Scripting/il2cpp/build/deploy/Analytics
+[MissionForge] WebGL build Succeeded
+MissionForge WebGL build summary
+Result:        Succeeded
+Unity:         6000.6.9f1
+Target:        WebGL
+Output:        docs/play/host
+Started (UTC): 2026-11-15 11:48:23Z
+Duration:      213 s
+Total size:    55.92 MiB (58638127 bytes)
+Errors:        0
+Warnings:      2
+Compression:   Brotli
+Scenes (17):
+  Assets/MissionForge/Scenes/MF_Shell.unity
+  Assets/MissionForge/Scenes/MF_Title.unity
+  Assets/MissionForge/Scenes/MF_Lobby.unity
+  Assets/MissionForge/Scenes/MF_Briefing.unity
+  Assets/MissionForge/Scenes/MF_ContractVote.unity
+  Assets/MissionForge/Scenes/MF_BuildBay.unity
+  Assets/MissionForge/Scenes/MF_TestStand.unity
+  Assets/MissionForge/Scenes/MF_DesignReview.unity
+  Assets/MissionForge/Scenes/MF_FlightReadinessReview.unity
+  Assets/MissionForge/Scenes/MF_Countdown.unity
+  Assets/MissionForge/Scenes/MF_Flight.unity
+  Assets/MissionForge/Scenes/MF_MinigameOverlay.unity
+  Assets/MissionForge/Scenes/MF_OrbitMap.unity
+  Assets/MissionForge/Scenes/MF_Debrief.unity
+  Assets/MissionForge/Scenes/MF_Codex.unity
+  Assets/MissionForge/Scenes/MF_CampaignHub.unity
+  Assets/MissionForge/Scenes/MF_Settings.unity
+Output files:
+  Build/host.data.unityweb                           41.91 MiB
+  Build/host.framework.js.unityweb                    0.07 MiB
+  Build/host.loader.js                                0.11 MiB
+  Build/host.wasm.unityweb                            8.98 MiB
+  StreamingAssets/data/abort_modes.json               0.00 MiB
+  StreamingAssets/data/achievements.json              0.01 MiB
+  StreamingAssets/data/anomalies.json                 0.01 MiB
+  StreamingAssets/data/assist_levels.json             0.00 MiB
+  StreamingAssets/data/awards.json                    0.00 MiB
+  StreamingAssets/data/boosts.json                    0.01 MiB
+  StreamingAssets/data/contracts.json                 0.08 MiB
+  StreamingAssets/data/facts.json                     0.03 MiB
+  StreamingAssets/data/flight_phases.json             0.01 MiB
+  StreamingAssets/data/index.json                     0.00 MiB
+  StreamingAssets/data/minigames.json                 0.04 MiB
+  StreamingAssets/data/parts/aero_control.json        0.00 MiB
+  StreamingAssets/data/parts/attitude_control.json    0.00 MiB
+  StreamingAssets/data/parts/avionics.json            0.01 MiB
+  StreamingAssets/data/parts/booster_recovery.json    0.01 MiB
+  StreamingAssets/data/parts/capsule.json             0.00 MiB
+  StreamingAssets/data/parts/capsule_recovery.json    0.00 MiB
+  StreamingAssets/data/parts/communications.json      0.01 MiB
+  StreamingAssets/data/parts/engine_count.json        0.01 MiB
+  StreamingAssets/data/parts/escape_system.json       0.00 MiB
+  StreamingAssets/data/parts/fairing.json             0.00 MiB
+  StreamingAssets/data/parts/first_stage_engine.json    0.01 MiB
+  StreamingAssets/data/parts/heat_shield.json         0.01 MiB
+  StreamingAssets/data/parts/instrument.json          0.01 MiB
+  StreamingAssets/data/parts/launch_site.json         0.01 MiB
+  StreamingAssets/data/parts/life_support.json        0.00 MiB
+  StreamingAssets/data/parts/mars_lander.json         0.00 MiB
+  StreamingAssets/data/parts/mission_assurance.json    0.00 MiB
+  StreamingAssets/data/parts/navigation_sensor.json    0.00 MiB
+  StreamingAssets/data/parts/power_system.json        0.01 MiB
+  StreamingAssets/data/parts/rcs.json                 0.00 MiB
+  StreamingAssets/data/parts/satellite_power.json     0.00 MiB
+  StreamingAssets/data/parts/separation_system.json    0.00 MiB
+  StreamingAssets/data/parts/strap_on_booster.json    0.01 MiB
+  StreamingAssets/data/parts/structural_material.json    0.01 MiB
+  StreamingAssets/data/parts/tank_size.json           0.00 MiB
+  StreamingAssets/data/parts/upper_stage_engine.json    0.01 MiB
+  StreamingAssets/data/pilot_controls.json            0.01 MiB
+  StreamingAssets/data/pings.json                     0.00 MiB
+  StreamingAssets/data/roles.json                     0.01 MiB
+  StreamingAssets/data/scoring.json                   0.01 MiB
+  StreamingAssets/data/strings/ar.buildbay.json       0.01 MiB
+  StreamingAssets/data/strings/ar.content.json        0.07 MiB
+  StreamingAssets/data/strings/ar.host_end.json       0.03 MiB
+  StreamingAssets/data/strings/ar.host_preflight.json    0.02 MiB
+  StreamingAssets/data/strings/ar.json                0.01 MiB
+  StreamingAssets/data/strings/ar.parts_a.json        0.02 MiB
+  StreamingAssets/data/strings/ar.parts_b.json        0.02 MiB
+  StreamingAssets/data/strings/en.buildbay.json       0.01 MiB
+  StreamingAssets/data/strings/en.content.json        0.06 MiB
+  StreamingAssets/data/strings/en.host_end.json       0.03 MiB
+  StreamingAssets/data/strings/en.host_preflight.json    0.01 MiB
+  StreamingAssets/data/strings/en.json                0.01 MiB
+  StreamingAssets/data/strings/en.parts_a.json        0.02 MiB
+  StreamingAssets/data/strings/en.parts_b.json        0.02 MiB
+  StreamingAssets/data/strings/es.buildbay.json       0.01 MiB
+  StreamingAssets/data/strings/es.content.json        0.06 MiB
+  StreamingAssets/data/strings/es.host_end.json       0.03 MiB
+  StreamingAssets/data/strings/es.host_preflight.json    0.01 MiB
+  StreamingAssets/data/strings/es.json                0.01 MiB
+  StreamingAssets/data/strings/es.parts_a.json        0.02 MiB
+  StreamingAssets/data/strings/es.parts_b.json        0.02 MiB
+  StreamingAssets/data/strings/fr.buildbay.json       0.01 MiB
+  StreamingAssets/data/strings/fr.content.json        0.06 MiB
+  StreamingAssets/data/strings/fr.host_end.json       0.03 MiB
+  StreamingAssets/data/strings/fr.host_preflight.json    0.01 MiB
+  StreamingAssets/data/strings/fr.json                0.01 MiB
+  StreamingAssets/data/strings/fr.parts_a.json        0.02 MiB
+  StreamingAssets/data/strings/fr.parts_b.json        0.02 MiB
+  StreamingAssets/data/strings/hi.buildbay.json       0.01 MiB
+  StreamingAssets/data/strings/hi.content.json        0.10 MiB
+  StreamingAssets/data/strings/hi.host_end.json       0.04 MiB
+  StreamingAssets/data/strings/hi.host_preflight.json    0.02 MiB
+  StreamingAssets/data/strings/hi.json                0.02 MiB
+  StreamingAssets/data/strings/hi.parts_a.json        0.02 MiB
+  StreamingAssets/data/strings/hi.parts_b.json        0.03 MiB
+  StreamingAssets/data/strings/pt.buildbay.json       0.01 MiB
+  StreamingAssets/data/strings/pt.content.json        0.06 MiB
+  StreamingAssets/data/strings/pt.host_end.json       0.03 MiB
+  StreamingAssets/data/strings/pt.host_preflight.json    0.01 MiB
+  StreamingAssets/data/strings/pt.json                0.01 MiB
+  StreamingAssets/data/strings/pt.parts_a.json        0.02 MiB
+  StreamingAssets/data/strings/pt.parts_b.json        0.02 MiB
+  StreamingAssets/data/tests.json                     0.01 MiB
+  StreamingAssets/data/validation_rules.json          0.00 MiB
+  StreamingAssets/media/briefing/c1-earth-watch-briefing.mp4    3.41 MiB
+  index.html                                          0.01 MiB
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:23)
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+MissionForge.Build:WebGL () (at Assets/MissionForge/Editor/Build.cs:58)
+
+(Filename: Assets/MissionForge/Editor/Build.cs Line: 58)
+
+Thread 0x179f93000 may have been prematurely finalized
+Batchmode quit successfully invoked - shutting down!
+Curl error 42: Callback aborted
+Pipeline Server stopped
+[websockify wrapper] Kill
+[websockify wrapper] Process killed
+AcceleratorClientConnectionCallback - disconnected - :0
+Importing 'GUID: 00000000000000004000000000000000 - Path: ProjectSettings/ProjectSettings.asset' with importer (LibraryAssetImporter)
+Imported 'GUID: 00000000000000004000000000000000' -> (Import Result ID: '79b7702bc327bb2ed6b605b237f9be8a') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=054c890a8f4b6dddbea933bc5e4b7df4 DependenciesID=5e9a1a7c097acd470b214554ed9ec5ac StaticDependenciesID=5f20c47da1b81763dc352d3b78420f4a 
+Asset Pipeline Refresh (id=c243930b90fef4670a3447e8588398f2): Total: 0.028 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Thread 0x17a01f000 may have been prematurely finalized
+Input System module state changed to: ShutdownInProgress.
+Input Polling Thread exited.
+Input System module state changed to: Shutdown.
+Thread 0x17029f000 may have been prematurely finalized
+Thread 0x170213000 may have been prematurely finalized
+[Physics::Module] Cleanup current backend.
+[Physics::Module] Id: 0xf2b8ea05
+[Licensing::IpcConnector] LicenseClient-yousofdiaa-notifications channel disconnected successfully.
+[Licensing::IpcConnector] LicenseClient-yousofdiaa channel disconnected successfully.
+Shut down UDS service system complete
+debugger-agent: Unable to listen on 42
+Lingering sessions upon destruction of worker manager
+Unity Data Store service was successfully shut down
+UDS shutting down local client system
+AcceleratorClientConnectionCallback - disconnected - :0
+Cleanup mono
+CodeReloadManager destroyed
+[websockify wrapper] Kill
+Exiting batchmode successfully now!
+[ExitDontLaunchBugReporter] Exiting without the bug reporter. Application will exit with return code 0
+[Package Manager] Server process was shutdown

@@ -33,6 +33,10 @@ namespace MissionForge.Screens.BuildBay
         private int _roundNumber;
         private Coroutine _loop;
         private string _ghostOption;
+        /// <summary>True once the pre-flight hook opened a Test Stand or Design Review; the bay scene is about to unload.</summary>
+        private bool _interludeStarted;
+        /// <summary>Build Bay entries this run (the bay reloads after each interlude); keeps round ids unique for the server.</summary>
+        private static int s_entries;
 
         public VoteRoundModel Round => _round;
         public IBayVoteChannel Channel => _channel;
@@ -58,6 +62,8 @@ namespace MissionForge.Screens.BuildBay
             UnityEngine.UIElements.Label detail = Screen.Q<UnityEngine.UIElements.Label>("rehearsal-detail");
             if (detail != null) detail.text = _text.Get("ui.buildbay.rehearsal.detail");
             _votePanel.ShowIdle(Session.NextVote == null);
+            s_entries++;
+            _interludeStarted = false;
             if (_channel != null && !Flag("-mfNoDirector")) _loop = StartCoroutine(RunRounds());
         }
 
@@ -102,6 +108,8 @@ namespace MissionForge.Screens.BuildBay
         private IEnumerator RunRounds()
         {
             yield return new WaitForSecondsRealtime(1.5f);
+            // Back from an interlude: run anything still due (for example the CDR after a test) before the next vote.
+            if (TryStartInterlude(null)) yield break;
             string lastSlot = null;
             int sameSlot = 0;
             while (true)
@@ -118,12 +126,14 @@ namespace MissionForge.Screens.BuildBay
                     yield break;
                 }
                 yield return RunRound(slot);
+                if (_interludeStarted) yield break; // the Test Stand or Design Review takes over; the bay resumes afterwards
                 if (Session.NextVote == slot) yield return new WaitForSecondsRealtime(2f);
             }
             _votePanel.ShowIdle(true);
             SetLeadingPreview(null);
             if (HoldAfterLastVote || Flag("-mfBayShots")) yield break;
             yield return new WaitForSecondsRealtime(HandOverDelaySeconds);
+            MissionContext.Build = Session.Build; // the FRR reviews this build (Preflight README, Build Bay hook)
             if (App != null && App.Flow != null && App.Flow.Phase == GamePhase.Build) App.Flow.GoToPhase(GamePhase.Frr);
         }
 
@@ -131,7 +141,7 @@ namespace MissionForge.Screens.BuildBay
         {
             _roundNumber++;
             _roundSlot = slot;
-            _roundId = "m" + (App != null ? App.MissionSeq : 0) + ".b" + _roundNumber + "." + slot.Substring(0, Math.Min(12, slot.Length));
+            _roundId = "m" + (App != null ? App.MissionSeq : 0) + ".b" + s_entries + "." + _roundNumber + "." + slot.Substring(0, Math.Min(12, slot.Length));
             IReadOnlyList<VoteOption> options = VoteOptions.For(Session.Build, Session.Catalog, slot);
             _offered.Clear();
             foreach (VoteOption o in options) _offered[o.Part.Id] = o;
@@ -173,7 +183,11 @@ namespace MissionForge.Screens.BuildBay
             OptionPreview applied = _offered.TryGetValue(winnerId, out VoteOption won) ? won.Preview : null;
             try
             {
-                Session.Commit(slot, winnerId); // Core: records the part, counts the vote, Emergency Funding if needed
+                if (Session.Build.ReopenedCategory == slot)
+                    Session.SetBuild(DesignReview.CompleteRework(Session.Build, Session.Catalog, winnerId)); // review Rework re-vote
+                else
+                    Session.Commit(slot, winnerId); // Core: records the part, counts the vote, Emergency Funding if needed
+                if (MissionContext.ReworkCategory == slot) MissionContext.ReworkCategory = null;
             }
             catch (InvalidOperationException e)
             {
@@ -185,6 +199,28 @@ namespace MissionForge.Screens.BuildBay
             _channel.Send("build.state", VoteMessages.BuildState(Session.Build, Session.Catalog, Session.Metrics));
             PartCommitted?.Invoke(slot, winnerId);
             if (stage != null) yield return stage.WaitForAssembly();
+            MissionContext.Build = Session.Build;
+            if (TryStartInterlude(slot)) _interludeStarted = true;
+        }
+
+        /// <summary>
+        /// Pre-flight hook (T063): asks <see cref="MissionContext.StartInterlude"/> whether a Test Stand offer or a Design
+        /// Review is due after <paramref name="committedSlot"/> (null: re-check). Live rooms only, or with <c>-mfInterludes</c>,
+        /// so the Build Bay's own rehearsal and evidence runs keep their uninterrupted vote sequence.
+        /// </summary>
+        private bool TryStartInterlude(string committedSlot)
+        {
+            if (MissionContext.StartInterlude == null || _channel == null || HoldAfterLastVote) return false;
+            if (_channel.IsRehearsal && !Flag("-mfInterludes")) return false;
+            try
+            {
+                return MissionContext.StartInterlude(Session.Build, Session.Catalog, committedSlot);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError("[MissionForge] Build Bay: the pre-flight interlude failed (" + e.Message + "); voting continues.");
+                return false;
+            }
         }
 
         private void OnServerMessage(string type, JObject data)

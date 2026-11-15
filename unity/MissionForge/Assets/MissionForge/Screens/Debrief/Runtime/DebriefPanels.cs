@@ -64,8 +64,9 @@ namespace MissionForge.Screens.Debrief
 
         private void BindRehearsal(DebriefView view, EndText text, IReadOnlyList<string> fixtureIds, Action<string> pickFixture)
         {
+            // T063: fixture data always carries the REHEARSAL label (release builds too); the picker stays a dev tool.
             bool show = view.IsRehearsal && (Application.isEditor || Debug.isDebugBuild);
-            _root.Q("rehearsal-tag")?.EnableInClassList("mf-end-rehearsal--hidden", !show);
+            _root.Q("rehearsal-tag")?.EnableInClassList("mf-end-rehearsal--hidden", !view.IsRehearsal);
             SetText("rehearsal-text", text["ui.host.debrief.rehearsal"]);
 
             VisualElement picker = _root.Q("fixture-picker");

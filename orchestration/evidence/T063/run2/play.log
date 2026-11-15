@@ -1,0 +1,122 @@
+0001 renderer ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)
+0011 shot 001-0011-title.png
+0012 room EUBY
+0012 shot 002-0012-room-open.png
+0013 phase.set LOBBY sub=NONE
+0016 shot 003-0016-phase-LOBBY-a.png
+0018 joined Ada
+0018 joined Yuri
+0018 joined Sally
+0022 shot 004-0022-lobby-3-crew.png
+0022 start briefing
+0023 phase.set BRIEFING sub=NONE
+0025 shot 005-0025-phase-LOBBY-b.png
+0027 shot 006-0026-phase-BRIEFING-a.png
+0035 shot 007-0035-phase-BRIEFING-b.png
+0043 shot 008-0042-periodic-BRIEFING-v0.png
+0063 shot 009-0063-periodic-BRIEFING-v0.png
+0067 phase.set CONTRACT_VOTE sub=NONE
+0067 vote.opened #1 CONTRACT-t027.99e81585.contract.1
+0070 shot 010-0070-phase-CONTRACT_VOTE-a.png
+0079 shot 011-0079-phase-CONTRACT_VOTE-b.png
+0083 shot 012-0083-periodic-CONTRACT_VOTE-v1.png
+0098 phase.set BUILD sub=NONE
+0099 vote.opened #2 PART-m1.b1.1.launch_site
+0101 shot 013-0101-phase-BUILD-a.png
+0103 shot 014-0103-periodic-BUILD-v2.png
+0105 shot 015-0105-build-vote2.png
+0110 shot 016-0110-phase-BUILD-b.png
+0123 shot 017-0123-periodic-BUILD-v2.png
+0144 shot 018-0143-periodic-BUILD-v2.png
+0145 vote.opened #3 PART-m1.b1.2.instrument
+0148 shot 019-0148-build-scale-view.png
+0164 shot 020-0164-periodic-BUILD-v3.png
+0184 shot 021-0184-periodic-BUILD-v3.png
+0189 phase.set BUILD sub=TEST
+0192 shot 022-0192-sub-BUILD-TEST-a.png
+0196 vote.opened #4 PART-m1.b2.1.satellite_po
+0201 shot 023-0201-sub-BUILD-TEST-b.png
+0204 shot 024-0204-periodic-BUILD-v4.png
+0224 shot 025-0224-periodic-BUILD-v4.png
+0245 shot 026-0244-periodic-BUILD-v4.png
+0246 vote.opened #5 PART-m1.b3.1.attitude_con
+0253 shot 027-0253-build-vote5.png
+0265 shot 028-0265-periodic-BUILD-v5.png
+0285 shot 029-0285-periodic-BUILD-v5.png
+0292 vote.opened #6 PART-m1.b3.2.fairing
+0305 shot 030-0305-periodic-BUILD-v6.png
+0325 shot 031-0325-periodic-BUILD-v6.png
+0338 vote.opened #7 PART-m1.b3.3.upper_stage_
+0346 shot 032-0345-periodic-BUILD-v7.png
+0366 shot 033-0366-periodic-BUILD-v7.png
+0384 vote.opened #8 TEST-t027.99e81585.test.8
+0386 shot 034-0386-periodic-BUILD-v8.png
+0392 vote.opened #9 PART-m1.b4.1.upper_stage_
+0406 shot 035-0406-periodic-BUILD-v9.png
+0426 shot 036-0426-periodic-BUILD-v9.png
+0438 vote.opened #10 PART-m1.b4.2.upper_stage_
+0444 shot 037-0444-build-vote10.png
+0446 shot 038-0446-periodic-BUILD-v10.png
+0467 shot 039-0466-periodic-BUILD-v10.png
+0485 vote.opened #11 TEST-t027.99e81585.test.9
+0487 shot 040-0487-periodic-BUILD-v11.png
+0502 vote.opened #12 PART-m1.b5.1.separation_s
+0507 shot 041-0507-periodic-BUILD-v12.png
+0527 shot 042-0527-periodic-BUILD-v12.png
+0547 shot 043-0547-periodic-BUILD-v12.png
+0548 vote.opened #13 PART-m1.b5.2.first_stage_
+0568 shot 044-0567-periodic-BUILD-v13.png
+0588 shot 045-0588-periodic-BUILD-v13.png
+0594 vote.opened #14 TEST-t027.99e81585.test.10
+0602 vote.opened #15 PART-m1.b6.1.first_stage_
+0608 shot 046-0608-periodic-BUILD-v15.png
+0610 shot 047-0610-build-vote15.png
+0628 shot 048-0628-periodic-BUILD-v15.png
+0648 vote.opened #16 PART-m1.b6.2.first_stage_
+0648 shot 049-0648-periodic-BUILD-v16.png
+0668 shot 050-0668-periodic-BUILD-v16.png
+0689 shot 051-0688-periodic-BUILD-v16.png
+0695 vote.opened #17 TEST-t027.99e81585.test.11
+0709 shot 052-0709-periodic-BUILD-v17.png
+0712 vote.opened #18 PART-m1.b7.1.structural_m
+0729 shot 053-0729-periodic-BUILD-v18.png
+0749 shot 054-0749-periodic-BUILD-v18.png
+0758 vote.opened #19 PART-m1.b7.2.strap_on_boo
+0769 shot 055-0769-periodic-BUILD-v19.png
+0790 shot 056-0789-periodic-BUILD-v19.png
+0804 vote.opened #20 PART-m1.b7.3.booster_reco
+0810 shot 057-0810-periodic-BUILD-v20.png
+0812 shot 058-0812-build-vote20.png
+0830 shot 059-0830-periodic-BUILD-v20.png
+0850 shot 060-0850-periodic-BUILD-v20.png
+0854 vote.opened #21 PART-m1.b8.1.avionics
+0870 shot 061-0870-periodic-BUILD-v21.png
+0890 shot 062-0890-periodic-BUILD-v21.png
+0905 vote.opened #22 PART-m1.b9.1.navigation_s
+0911 shot 063-0910-periodic-BUILD-v22.png
+0931 shot 064-0931-periodic-BUILD-v22.png
+0948 phase.set BUILD sub=REVIEW
+0951 shot 065-0951-periodic-BUILD-v22.png
+0952 shot 066-0952-sub-BUILD-REVIEW-a.png
+0953 vote.opened #23 REVIEW-t027.99e81585.review.18
+0960 shot 067-0960-sub-BUILD-REVIEW-b.png
+0968 vote.opened #24 PART-m1.b10.1.aero_control
+0971 shot 068-0971-periodic-BUILD-v24.png
+0991 shot 069-0991-periodic-BUILD-v24.png
+1012 shot 070-1011-periodic-BUILD-v24.png
+1014 vote.opened #25 PART-m1.b10.2.rcs
+1022 shot 071-1022-build-vote25.png
+1032 shot 072-1032-periodic-BUILD-v25.png
+1052 shot 073-1052-periodic-BUILD-v25.png
+1060 vote.opened #26 PART-m1.b10.3.power_system
+1072 shot 074-1072-periodic-BUILD-v26.png
+1092 shot 075-1092-periodic-BUILD-v26.png
+1106 vote.opened #27 PART-m1.b10.4.communicatio
+1113 shot 076-1112-periodic-BUILD-v27.png
+1133 shot 077-1133-periodic-BUILD-v27.png
+1152 vote.opened #28 PART-m1.b10.5.mission_assu
+1153 shot 078-1153-periodic-BUILD-v28.png
+1173 shot 079-1173-periodic-BUILD-v28.png
+1193 shot 080-1193-periodic-BUILD-v28.png
+1196 phase.set BUILD sub=TEST
+1199 shot 081-1199-sub-BUILD-TEST-a.png
