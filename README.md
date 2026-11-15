@@ -1,6 +1,6 @@
 # Space Apps Agent Mesh — Dynamic Team Edition (v2)
 
-**Judges:** see [JUDGES.md](JUDGES.md) for a one-page overview of MissionForge, and [RELEASE.md](RELEASE.md) to run the demo.
+**Judges:** see [JUDGES.md](JUDGES.md) for a one-page overview of MissionForge, and [RELEASE.md](RELEASE.md) to run the demo. **How to play:** [GUIDE.md](GUIDE.md) explains the whole game.
 
 **Prerequisites for the game tests:** Node 20 or newer for the server, client and demo tools, and the **.NET 8 SDK/runtime** for the Core tests (`dotnet test core/dotnet~`; a machine with only .NET 9 or 10 cannot start the test host). Details: [core/README.md](core/README.md#how-to-run-the-tests).
 

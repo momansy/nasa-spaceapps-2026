@@ -2,6 +2,8 @@
 
 **Team Winton**, NASA Space Apps Challenge 2026.
 
+**How to play:** the full explanation of the game is in `GUIDE.md` and on the [How MissionForge works](https://missionforge-spaceapps.onrender.com/play/guide.html) page.
+
 MissionForge is a cooperative party game for 1 to 10 players who act as a space agency: they vote on every part of a rocket and spacecraft under a money and schedule budget, then fly the mission live. One big screen shows the mission; every phone is a mission-control console and a minigame controller. Mass, power, budget, instruments, orbit and communications each decide whether the mission works, and real spaceflight facts sit inside the mechanics.
 
 ## Try it
