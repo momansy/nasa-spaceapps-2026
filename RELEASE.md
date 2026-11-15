@@ -2,10 +2,12 @@
 
 For the team. Part 1 is how to rebuild and publish; part 2 is the minute-by-minute runbook for the
 judging-day demo. **Status on 2026-11-15:** the free Render deployment described in [`HOSTING.md`](HOSTING.md) is live at
-`https://missionforge-spaceapps.onrender.com/play/` (health check and all pages returned HTTP 200, Unity files carry `Content-Encoding: gzip`).
+`https://missionforge-spaceapps.onrender.com/play/` (health check and all pages returned HTTP 200, Unity files carry `Content-Encoding: gzip`; that was the earlier Gzip build, and after the T055 redeploy the Brotli files go out without an encoding header, `orchestration/evidence/T055/README.md` 2).
 A complete session through that public URL (laptop host plus phones) has **not been verified by the documentation task**: rehearse it once.
-Once T055 is merged and Render has redeployed, the big-screen host it serves is the WebGL build rebuilt from `main` by T055; T055 ran a room on a local copy of the hosted service
-(lobby, briefing, contract vote, 22 Build Bay votes, countdown, flight, debrief; see `orchestration/evidence/T055/`), not on the public URL.
+T055 is merged (#255); once Render has redeployed, the big-screen host it serves is the WebGL build rebuilt from `main` by T055. T055 ran a room on a local copy of the hosted service
+(lobby, briefing, contract vote, 22 Build Bay votes, countdown, flight; see `orchestration/evidence/T055/`), not on the public URL. **Operator workarounds in a live room:** press
+**PageDown** at the Flight Readiness Review (its panel is empty), press **PageDown** again when the flight has ended (the host stays on the Flight screen), and say that the
+big-screen debrief shows **sample data** (8,172 pts, grade A, sample crew names), not the session's result. The new pre-flight text is English only on the big screen.
 The older Netlify site (`nasasc.netlify.app/play/`) returned HTTP 404 and is not used. The Netlify and general-host notes in section 3 are background only.
 
 Deadline reminder: the NASA Space Apps submission closes **15 Nov 2026, 23:59 local**. The local demo
@@ -46,7 +48,7 @@ and the builds itself (about 2 minutes, needs internet once for `npm ci`).
 
 | Part | Source | Published to | Who builds it |
 |---|---|---|---|
-| Unity host (big screen) | `unity/MissionForge/` | `docs/play/host/` (Gzip `.unityweb`) | The Unity settings-lock holder, in Unity 6000.6.9f1 (WebGL). Not rebuilt by these tools. **Rebuilt from `main` by T055 on 2026-11-15** (Gzip; the documented entry point is `-executeMethod MissionForge.Build.WebGL` in `Assets/MissionForge/Editor/Build.cs`), so it contains the pre-flight screens (T027), Countdown, Flight and Orbit Map (T016), the end screens (T024), the T034 environment pass, the T035 lobby controls and full fonts for ≈, ₂, ×, ±, °. The build it replaced dated from 06:32 (+03:00) and had only Title, Lobby and an earlier Build Bay. Rebuild again after any later host change. |
+| Unity host (big screen) | `unity/MissionForge/` | `docs/play/host/` (Brotli `.unityweb` since T055) | The Unity settings-lock holder, in Unity 6000.6.9f1 (WebGL). Not rebuilt by these tools. **Rebuilt from `main` by T055 on 2026-11-15** (Brotli, see `orchestration/evidence/T055/README.md` 2; the Gzip notes elsewhere in this file describe the earlier build; the documented entry point is `-executeMethod MissionForge.Build.WebGL` in `Assets/MissionForge/Editor/Build.cs`), so it contains the pre-flight screens (T027), Countdown, Flight and Orbit Map (T016), the end screens (T024), the T034 environment pass, the T035 lobby controls and full fonts for ≈, ₂, ×, ±, °. The build it replaced dated from 06:32 (+03:00) and had only Title, Lobby and an earlier Build Bay. Rebuild again after any later host change. |
 | Phone client | `client/` | `docs/play/client/` | `node tools/demo/build-client.mjs` |
 | Entry page | written by hand | `docs/play/index.html` | not generated |
 | Credits, judges page | generated | `docs/play/credits.html`, `docs/play/judges.html` | `node tools/demo/build-credits.mjs` |
@@ -77,7 +79,7 @@ Fill in the **Team** block before publishing: copy `tools/demo/team.example.json
 ### 2.4 Unity host
 
 Built by the lock holder with File > Build Settings > WebGL, output folder `docs/play/host/`
-(see `orchestration/evidence/T008/webgl-build-summary.txt`). The current build is **Gzip**-compressed.
+(see `orchestration/evidence/T008/webgl-build-summary.txt`). The committed build (T055) is **Brotli**-compressed; the Gzip notes below describe the earlier T040 build. Since T055, send the `.unityweb` files with no `Content-Encoding` header (or `br`): a host that sends `Content-Encoding: gzip` for them breaks the host. A long-running local server must be restarted after pulling the Brotli build (its gzip check is cached per file, T055 operational note).
 
 ## 3. Hosting
 
@@ -87,6 +89,7 @@ Built by the lock holder with File > Build Settings > WebGL, output folder `docs
 
 Any static host works for `docs/`. The catch is the Unity build:
 
+> **Since T055 the `.unityweb` files are Brotli: send no `Content-Encoding` header (or `br`); the gzip advice in this note and in 6.1 applies to the earlier Gzip build only.**
 > **Gzip `.unityweb` files must be sent with `Content-Encoding: gzip`.** GitHub Pages cannot set
 > response headers, so with the current build the host will fail to load there ("Unable to parse
 > Build/host.framework.js.unityweb"). Two ways out:
@@ -127,8 +130,8 @@ From `server/README.md`:
 - [ ] `node tools/demo/build-credits.mjs` run after the last dependency, media or fact change; Team block filled.
 - [ ] No secrets in the diff (`git grep -n -i "api_key\|secret\|token=" -- . ':!*.lock'` finds only documentation text).
 - [ ] No `Library/`, `node_modules/`, `dist/`, `bin/` or `obj/` committed (they are git-ignored; `git status` is clean of them).
-- [ ] No file over 50 MB (T055's first rebuild reported `host.data.unityweb` at 50.3 MiB, about 52.7 MB, and the wasm file at 12.3 MiB; the earlier build was 31.6 and 12.1 MiB. A data file over 50 MB breaks this rule and draws a GitHub warning (the hard limit is 100 MB): check the size T055 committed).
-- [ ] Hosting headers verified with `curl -sI` (section 3.1). Done for the Render site on 2026-11-15: `curl -s -D - -o /dev/null -H "Accept-Encoding: gzip" https://missionforge-spaceapps.onrender.com/play/host/Build/host.wasm.unityweb` showed `content-encoding: gzip` and `content-type: application/wasm` (a bare `curl -sI` request did not show the gzip header; ask with `Accept-Encoding: gzip`).
+- [ ] No file over 50 MB. T055's first (Gzip) rebuild made `host.data.unityweb` 50.31 MiB and was not committed; the committed Brotli build has `host.data.unityweb` at 41.91 MiB (43,950,134 B) and `host.wasm.unityweb` at 8.95 MiB (`orchestration/evidence/T055/README.md` 2). The earlier build was 31.6 and 12.1 MiB.
+- [ ] Hosting headers verified with `curl -sI` (section 3.1). Done for the Render site on 2026-11-15: `curl -s -D - -o /dev/null -H "Accept-Encoding: gzip" https://missionforge-spaceapps.onrender.com/play/host/Build/host.wasm.unityweb` showed `content-encoding: gzip` and `content-type: application/wasm` (a bare `curl -sI` request did not show the gzip header; ask with `Accept-Encoding: gzip`). That check was on the earlier Gzip build; after the T055 redeploy expect no `content-encoding` header on the Brotli `.unityweb` files.
 - [ ] Rehearsed the runbook below once end to end, including one fallback.
 
 ## 5. Judging-day runbook (C1 Earth Watch Quick Mission)
@@ -195,8 +198,8 @@ pick; the minute column below is the plan at the default timers.
 | 0-2 | **Audience QR moment** | Presenter | Show the lobby QR. The audience scans (it opens the phone page with the room code filled in) and joins as spectators; the 4-6 players (team or judges) join as players. | Phones are the controls: no app, no account. |
 | 2-4 | **Briefing** | Presenter | C1 briefing: 550 km Sun-synchronous orbit, 150 kg observation satellite, 90 M budget, 180 days. | **Orbit** (altitude and inclination from the contract), **budget**. |
 | 4-21 | **Build: 22 part votes** (early: payload bay, satellite power, attitude control; late: communications) | Players vote; audience watches the "Audience says" bar | Each round shows part cards with mass, power, cost and risk deltas. Run one deliberate trade-off aloud: a cheaper engine that misses the thrust-to-weight rule against a dearer one that flies. | **Mass** (delta-v and thrust-to-weight on the dashboard), **budget** (cost deltas, Emergency Funding), **instruments** (data multiplier) and **power** (payload power balance must stay positive) in the payload votes, **communication** (downlink GB) at the comms vote, **meaningful decisions** (stats plus drawbacks, Predict before vote). |
-| 21-22 | **Flight Readiness Review** | Everyone | GO/NO-GO poll: each console calls GO or NO-GO. In T055's first local run the big-screen FRR panel was empty because the Build Bay did not hand over its build (the "Build Bay hook" was added to T055's scope afterwards; check T055's evidence). If the panel is empty, run the poll from the phones and talk over it. | Systems-engineering review gates (Systems Engineering Handbook, design 20.2). |
-| 22-29 | **Flight** | Pilot plus consoles | Countdown to orbit insertion, then orbital operations. Everyone plays the minigames in 5.4. The rebuilt WebGL host (T055) has the Countdown, Flight and Orbit Map screens (T016) and the big-screen Debrief (T024); T055's local run of the hosted service showed the countdown, the flight with live telemetry and the debrief with the real score. On the earlier build the big screen has no flight view and the phones carry the flight. | **Orbit** (apogee/perigee), **power** (eclipse, solar wings), **instruments** (science capture). |
+| 21-22 | **Flight Readiness Review** | Everyone | GO/NO-GO poll: each console calls GO or NO-GO. **In a live room the big-screen FRR panel is empty**, because the Build Bay does not hand over its build (the "Build Bay hook" was not added in T055). Run the poll from the phones and talk over it, then the host operator presses **PageDown** to move the big screen on to the countdown. | Systems-engineering review gates (Systems Engineering Handbook, design 20.2). |
+| 22-29 | **Flight** | Pilot plus consoles | Countdown to orbit insertion, then orbital operations. Everyone plays the minigames in 5.4. The rebuilt WebGL host (T055) has the Countdown, Flight and Orbit Map screens (T016) and the big-screen Debrief (T024); T055's local run of the hosted service showed the countdown and the flight with live telemetry. **When the flight simulation ends, the big screen stays on the Flight screen**: the host operator presses **PageDown** to advance to the debrief. The big-screen debrief then shows **sample (fixture) data** (8,172 pts, grade A, sample crew names), not the session's result: say so to the room. On the earlier build the big screen has no flight view and the phones carry the flight. | **Orbit** (apogee/perigee), **power** (eclipse, solar wings), **instruments** (science capture). |
 | 29-32 | **Debrief** | Presenter | Score, grade, timeline, facts collected, awards. Then open the **assumptions register** (`GAME_DESIGN.md` 19) and the Codex. | **Education**: which numbers are physical, which are real-world approximate, which are game values. |
 
 ### 5.4 Minigames everyone plays
@@ -227,7 +230,7 @@ parachute phase, so the parachute minigame (MG-23) never appears. The demo uses:
 
 ### 6.1 Netlify headers for the Unity Gzip files (`netlify.toml`)
 
-**Done** (checked 2026-11-15, T044): these three blocks are already in the repository's `netlify.toml`. The text below is kept for reference and for the `docs/_headers` variant, which is not in the repository. The blocks are:
+**Earlier Gzip build only.** Since T055 the `.unityweb` files are Brotli; these gzip headers would break the host (send no `Content-Encoding`, or `br`). The Netlify site is not used. **Done** (checked 2026-11-15, T044): these three blocks are already in the repository's `netlify.toml`. The text below is kept for reference and for the `docs/_headers` variant, which is not in the repository. The blocks are:
 
 ```toml
 [[headers]]

@@ -10,7 +10,7 @@ MissionForge is a cooperative party game about designing and flying a space miss
 
 You need **one big screen** (a laptop on a projector or TV is enough), **1 to 10 phones** with a browser, and a network that all of them can reach. Spectators can also join on their phones and watch.
 
-- **Hosted:** open <https://missionforge-spaceapps.onrender.com/play/> on the big screen, press the host card, and have everyone open the same address (or scan the QR code on the big screen) on their phones. The free hosting server sleeps after 15 minutes without visitors, so the first visit can take about a minute. The hosted big screen was rebuilt from the main branch on 2026-11-15 (task T055); a live room has reached the debrief on a local copy of the hosted service, not yet on the public site (see **Built versus planned** for what is still unfinished).
+- **Hosted:** open <https://missionforge-spaceapps.onrender.com/play/> on the big screen, press the host card, and have everyone open the same address (or scan the QR code on the big screen) on their phones. The free hosting server sleeps after 15 minutes without visitors, so the first visit can take about a minute. The hosted big screen was rebuilt from the main branch on 2026-11-15 (task T055); a live room has been played through the flight on a local copy of the hosted service, not yet on the public site. In a live room the host operator presses **PageDown** to skip the empty Flight Readiness Review panel and again after the flight ends to reach the debrief, and the big-screen debrief shows sample data, not your session's result (see **Built versus planned**).
 - **Local launcher:** run `npm --prefix tools/demo install` once, then `npm --prefix tools/demo run demo`. It starts the room server on your laptop and prints an address for the phones; phones must be on the same Wi-Fi or hotspot. See `RELEASE.md`.
 
 ![A white launch vehicle with two strap-on boosters on a launch pad beside a gantry tower, at sunset.](docs/play/guide/beauty.jpg)
@@ -214,7 +214,7 @@ The mission score adds six groups of points, then multiplies by the assist level
 
 **Facts and awards:** the debrief shows facts collected along the way (the game has 40, each with a source) and individual awards (8 kinds, always positive, and every player gets at least one). There are also 12 achievements and a campaign layer that records progress, unlocks and an anonymous leaderboard.
 
-> **Note.** The scoring, awards and campaign rules are implemented and unit-tested in the game core. The big-screen Debrief and Campaign Hub on the main branch are calculated by the core; the Debrief has been reached at the end of a live room session on a local copy of the hosted service (task T055); the Campaign Hub has been checked with rehearsal data only.
+> **Note.** The scoring, awards and campaign rules are implemented and unit-tested in the game core. The big-screen Debrief and Campaign Hub on the main branch are calculated by the core; in a live room session the big-screen Debrief does not yet show the session's result: it shows sample data (8,172 pts, grade A, sample crew names; task T055); the Campaign Hub has been checked with rehearsal data only.
 
 ## 10. Accessibility and languages
 
@@ -242,18 +242,18 @@ This guide describes the game as it is on the main branch today. These parts are
 
 | Area | State today |
 |---|---|
-| Hosted big screen | Rebuilt from the main branch on 2026-11-15 (task T055), with full fonts so ≈, ₂, ×, ± and ° render. A live room was played from the lobby through the briefing, contract vote, all 22 part votes, countdown and flight to the debrief with three phones, on a local copy of the hosted service; it has not yet been played through on the public site. |
-| Big-screen Briefing, Contract Vote, Test Stand, Design Review, Flight Readiness Review | Working screens with live votes and polls from the room server. The briefing and contract vote showed real data in the live run above. The Build Bay does not yet open the Test Stand or Design Review by itself. In the first live run the Flight Readiness Review showed an empty panel, because the Build Bay did not yet hand it the build; a fix was added to the rebuild task afterwards. |
-| Big-screen Debrief, Campaign Hub, Codex and Settings | Working screens, calculated by the core. The Debrief showed the real score at the end of the live run above; the Campaign Hub, Codex and Settings were checked with rehearsal data. |
+| Hosted big screen | Rebuilt from the main branch on 2026-11-15 (task T055), with full fonts so ≈, ₂, ×, ± and ° render. A live room was played from the lobby through the briefing, contract vote, all 22 part votes, countdown and flight with three phones, on a local copy of the hosted service; it has not yet been played through on the public site. Three limitations in a live room: the Flight Readiness Review panel is empty (press **PageDown** to skip it); when the flight ends the big screen stays on the Flight screen (press **PageDown** to advance to the debrief); the big-screen debrief shows sample data, not the session's result. |
+| Big-screen Briefing, Contract Vote, Test Stand, Design Review, Flight Readiness Review | Working screens with live votes and polls from the room server. The briefing and contract vote showed real data in the live run above. The Build Bay does not yet open the Test Stand or Design Review by itself. In a live room the Flight Readiness Review shows an empty panel, because the Build Bay does not hand it the build (not fixed in the hosted build); the host operator skips it with **PageDown** while the GO/NO-GO poll runs on the phones. |
+| Big-screen Debrief, Campaign Hub, Codex and Settings | Working screens, calculated by the core. In a live room the big-screen Debrief shows sample (fixture) data, 8,172 pts, grade A and sample crew names, not the session's result, and the host reaches it only after the operator presses **PageDown** at the end of the flight. The Campaign Hub, Codex and Settings were checked with rehearsal data. |
 | Minigame overlay | No screen of its own; the flight view shows a minigame banner and slows time while the phones play. |
 | Contract selection | The Contract Vote offers a choice, but the Build Bay always builds C1 Earth Watch. The other eight contracts are in the data. |
 | Pilot and co-pilot | The phone screens and the protocol exist; the big-screen flight flies on autopilot and ignores them. |
 | Special abilities | Defined and tested in the rules; the host does not yet react to the ability button. |
 | Minigame boosts | All minigames work on the phone; the host sends tier, Team Sync, points and facts but no boosts, and some triggers are not wired. |
 | Predict step | In the rules, not sent by the current Build Bay. |
-| Translations of the new big-screen pre-flight text | Arabic, Spanish, French, Portuguese and Hindi were added on the main branch on 2026-11-15 (task T057); they have not been checked on the big screen yet. The phone and the rest of the host are in all six languages. |
+| Translations of the new big-screen pre-flight text | Arabic, Spanish, French, Portuguese and Hindi were added on the main branch on 2026-11-15 (task T057), but the hosted big screen contains only the English pre-flight text, so it shows these screens in English in every language. The phone and the rest of the host are in all six languages. |
 
-Working end to end: the lobby with QR and room code, the briefing and contract vote, the Build Bay with real part votes, vetoes and the readiness dashboard (C1), the countdown, the flight with its 3D view and telemetry, the debrief with the real score, all phone screens, the 32 phone minigames and the six languages. The big-screen part of this was shown in one live run on a local copy of the hosted service (see above), not yet in a measured playtest.
+Working end to end: the lobby with QR and room code, the briefing and contract vote, the Build Bay with real part votes, vetoes and the readiness dashboard (C1), the countdown, the flight with its 3D view and telemetry, all phone screens, the 32 phone minigames and the six languages. The big-screen part of this was shown in one live run on a local copy of the hosted service (see above), not yet in a measured playtest.
 
 ## 13. Glossary
 

@@ -22,20 +22,42 @@ issue #215, latest relevant ones at 10:31, 10:35 and 10:54 UTC:
 | # | Claim as written | Where |
 |---|---|---|
 | D1 | The committed/hosted WebGL host is rebuilt from `main` (T055) and contains all 15 host screens (T027, T016, T024, T034 pass, T035 lobby) | J (Try it, Big screen), R (status, 2.1, 5.2, 6.3), RM (WebGL row), G (1, 12), PD (status, 2, 5, 8), both html pages |
-| D2 | A live room on a **local copy of the hosted service** with 3 phones went lobby → briefing → contract vote → 22 Build Bay votes → countdown → flight (real HUD data) → debrief (real score), no host disconnects | J, R (status, 5.3 flight row), RM, G (scoring note, 12), PD (2, 4, 8) |
+| D2 | **Corrected in T062b.** A live room on a **local copy of the hosted service** with 3 phones went lobby → briefing → contract vote → 22 Build Bay votes → (FRR skipped with PageDown) → countdown → flight (real HUD data), no host disconnects. When the flight ends the host stays on Flight and the operator advances with PageDown; the big-screen debrief shows **sample (fixture) data** (8,172 pts, grade A, sample crew), not the session's result. No "real score" claim remains | J, R (status, 5.3 FRR and flight rows), RM, G (1, scoring note, 12), PD (2, 4, 8, 9) |
 | D3 | Briefing and contract vote show real contract data on the rebuilt host | J, G 12, PD 8 |
 | D4 | ≈, ₂, ×, ±, ° render (full fonts) | J, RM, R 2.1, G 12, PD 8 |
-| D5 | In T055's **first** live run the FRR panel was empty; the Build Bay hook was added to T055 afterwards; whether the merged build has it is in T055's evidence (no claim that the FRR works) | J, R 5.3 FRR row, RM, G 12, PD 2/4/8 |
+| D5 | **Corrected in T062b.** The Build Bay hook was **not** added in T055: in a live room the FRR shows an empty panel and the operator skips it with PageDown (GO/NO-GO poll on the phones). Also: the hosted build contains only `en.host_preflight.json`, so the pre-flight text is English on the big screen in every language | J, R (status, 5.3 FRR row), RM, G (1, 12), PD 2/4/8/9 |
 | D6 | The rebuilt host's lobby is `main`'s lobby (vote 10–60 s, inspect 5–60 s, audience switch), because it was built from `main` (derived from the build source, not reported as clicked by T055) | R 5.2/5.3/6.3, J (session flow, session length), PD 4/8 |
 | D7 | EditMode 467 of 467 with the new fonts | PD 8 |
-| D8 | First build sizes (50.3 MiB data file, over the 50 MB single-file rule) | R 4 checklist |
+| D8 | **Corrected in T062b:** committed Brotli build, `host.data.unityweb` 41.91 MiB (the 50.3 MiB file was the uncommitted Gzip build) | R 4 checklist |
 | D9 | Not claimed: a run on the public Render URL, the frame rate of the rebuilt host, Test Stand / Design Review / Campaign Hub / Codex / Settings / Orbit Map seen in the live run, pre-flight translations on the big screen | stated as not verified in J, G, PD, R |
 
 If T055's final report differs (for example the hook landed and the FRR shows the build, or the final run was not repeated after the hook), update
 D2 and D5 in: `JUDGES.md` (Big screen bullet), `README.md` (host row), `GUIDE.md` 12 (pre-flight row), `RELEASE.md` 5.3 (FRR row),
 `submission/PROJECT_DESCRIPTION.md` 4 and 8, then rerun the two generators below.
 
-## Every edit
+## T062b correction (issue #257, 2026-11-15 about 11:45 to 12:00 UTC)
+
+Branch `agentmesh/ahmed-saeed-amek/issue-257`: merged `origin/agentmesh/ahmed-saeed-amek/issue-248` (T062, PR #249) and then `origin/main`
+(at `0e5f4b0`, T055 merged as #255; already contained, no conflicts). Source: `orchestration/evidence/T055/README.md` sections 2 to 5 and its
+follow-ups 3 to 5, plus the T062b brief. D8 corrected as well: the committed build is Brotli, `host.data.unityweb` 41.91 MiB (the 50.31 MiB file was
+the uncommitted Gzip build).
+
+| File | T062b change |
+|---|---|
+| `JUDGES.md` | Try it, hosted bullet: three limitations with the workaround (PageDown at FRR; PageDown after the flight ends; big-screen debrief is sample data 8,172 pts / grade A / sample crew) and English-only pre-flight text; run described as lobby through flight. Session flow: FRR and debrief caveat. Known limitations: hosting bullet (lobby through flight, FRR by PageDown); big-screen bullet replaces the "hook added afterwards" text with the four numbered limitations and workarounds |
+| `README.md` | Big-screen host row: FRR empty in a live room (no "fix added"). WebGL row: run lobby through flight; the four limitations with workarounds |
+| `GUIDE.md` | 1 hosted bullet: PageDown at FRR and after the flight, sample debrief. 9 scoring note: big-screen Debrief shows sample data in a live room. 12: hosted row lists the three limitations; pre-flight row (FRR empty, PageDown); end-screen row (sample data, reached by PageDown); translation row (hosted build is English only); "Working end to end" no longer lists "the debrief with the real score" |
+| `submission/PROJECT_DESCRIPTION.md` | Status line (T055 merged as #255, checked against its final evidence). 2: build-check bullet (FRR empty, PageDown), flight bullet (stays on Flight, PageDown), debrief bullet (sample data, not the session's result; removed "read the live mission record when a flight ends"). 4 step 4 and hosted paragraph. 8: big-screen bullet (hook **not** added; three limitations), WebGL bullet (Brotli 41.91 MiB; Plex Sans fallback for Oxanium; limitations), pre-flight translations bullet (English only in the hosted build). 9 item 1 lists the three fixes and shipping T057's text |
+| `RELEASE.md` | Status paragraph: T055 merged, run lobby through flight, operator workarounds. 2.1 host row: Brotli (Gzip notes describe the earlier build). 4 file-size line: committed sizes 41.91 / 8.95 MiB. 5.3 FRR row: empty in a live room, PageDown. 5.3 Flight row: stays on Flight, PageDown, debrief sample data. After the review: status line, 2 build note, 3.1 note, 4 header check and 6.1 now say the committed build is Brotli and that the gzip headers apply to the earlier build only (T055 follow-up 1; HOSTING.md and `staticSite.ts` are not owned and were not changed) |
+| `docs/play/judges.html`, `docs/play/guide.html` | Regenerated as in T062 (`node tools/demo/build-credits.mjs`, then `git checkout -- docs/play/credits.html`; `python orchestration/evidence/T062/build_guide_html.py`). Diff: 3 and 4 changed lines, matching the Markdown edits |
+
+Verification: `python orchestration/evidence/T062/check_links.py` (0 broken relative links, no conflict markers); `git diff --check` clean; grep of
+the 5 Markdown files and 2 pages for "real score", "hook", "first run", "to the debrief"; the new text found in both HTML pages; an independent
+subagent review against T055's evidence found no contradiction of the four limitations and no unsupported claim, and flagged stale Gzip text in
+RELEASE.md (fixed). Not claimed: any fix by T063. Not re-verified in Unity or on the public URL; all hosted-build facts come from T055's evidence.
+Not shown in a browser this time (T062's screenshots predate T062b).
+
+## Every edit (T062)
 
 Abbreviations: J `JUDGES.md`, R `RELEASE.md`, RM `README.md`, G `GUIDE.md`, PD `submission/PROJECT_DESCRIPTION.md`.
 
